@@ -10,7 +10,7 @@ export const useCatalog = (query: Object) => {
       pending.value = true
     }
 
-    return useAsyncData(name, () => useProductStore().index(query)).then(({data, error}) => {
+    return await useLazyAsyncData(name, () => useProductStore().index(query)).then(({data, error}) => {
 
       if(error?.value){
         throw error.value

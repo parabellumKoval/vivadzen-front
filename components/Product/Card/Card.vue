@@ -1,8 +1,8 @@
 <script setup>
-import {useComparison} from '~/composables/product/useComparison.ts'
-import {useFavorite} from '~/composables/product/useFavorite.ts'
-import {useCart} from '~/composables/product/useCart.ts'
-import {useCard} from '~/composables/product/useCard.ts'
+// import {useComparison} from '~/composables/product/useComparison.ts'
+// import {useFavorite} from '~/composables/product/useFavorite.ts'
+// import {useCart} from '~/composables/product/useCart.ts'
+// import {useCard} from '~/composables/product/useCard.ts'
 
 const props = defineProps({
   item: {
@@ -100,7 +100,7 @@ const toReviewsHandler = () => {
           height="260"
           sizes = "mobile:100vw tablet:230px desktop:300px"
           format = "avif"
-          quality = "50"
+          quality = "25"
           fit="outside"
           placeholder="/images/noimage.png"
           class="image"

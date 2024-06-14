@@ -32,11 +32,11 @@ const brands = ref([])
 
 // Filters
 const filtersMeta = ref(null)
-const filtersMetaInit = ref(null)
+// const filtersMetaInit = ref(null)
 
 // Products
-const products = ref([])
-const meta = ref(null)
+// const products = ref([])
+// const meta = ref(null)
 
 // Query
 const queryObject = ref({
@@ -89,6 +89,12 @@ const query = computed(() => {
 
 // WATCH
 watch(() => meta.value, (v) => {
+  console.log('meta', v)
+
+  if(!v) {
+    return
+  }
+
   if(v?.current_page === 1){
     useRouter().replace({query: {selections: route.query.selections}})
   }else {
@@ -138,14 +144,42 @@ const updateQueryHandler = async (v = null) => {
 }
 
 // HOOKS
-({
-  products: products.value,
-  meta: meta.value,
-  filters: filtersMetaInit.value
-  } = await getProducts(props.initQuery, (props.slug || 'catalog'))
-            .then((r) => {
-              return r
-            }));
+// ({
+//   products: products.value,
+//   meta: meta.value,
+//   filters: filtersMetaInit.value
+//   } = await getProducts(props.initQuery, (props.slug || 'catalog')));
+
+import {useProductStore} from '~/store/product'
+
+const {products: products, meta: meta, filters: filtersMetaInit} = 
+await useLazyAsyncData('catalog', () => useProductStore().index(props.initQuery))
+.then(({data, error}) => {
+      return {
+        products: data?.value?.products,
+        meta: data?.value?.meta,
+        filters: data?.value?.filters
+      }
+    });
+  
+  // await getProducts(props.initQuery, (props.slug || 'catalog'))
+  //           .then((r) => {
+  //             console.log('then', r)
+              
+  //             if(r.products) {
+  //               products.value = r.products
+  //             }
+
+  //             if(r.meta) {
+  //               meta.value = r.meta
+  //             }
+
+  //             if(r.filters) {
+  //               filtersMetaInit.value = r.filters
+  //             }
+
+  //             return r
+  //           });
 
 </script>
 

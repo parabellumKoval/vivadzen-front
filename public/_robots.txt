@@ -1,11 +1,2 @@
 User-agent: *
-Disallow: /account
-Allow: /
-Allow: *.jpg
-Allow: *.jpeg
-Allow: *.gif
-Allow: *.png
-Allow: *.js
-Allow: *.css
-
-Sitemap: https://abu.com.ua/sitemap.xml
+Disallow: /

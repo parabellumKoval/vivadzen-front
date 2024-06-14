@@ -53,7 +53,7 @@ const selectHandler = (index) => {
   selectedIndex.value = index
 }
 
-const hoverEventHandler = () => {
+const hoverEventHandler = (index) => {
   if(useDevice().isDesktop) {
     selectHandler(index)
   }
@@ -92,7 +92,7 @@ if(useDevice().isDesktop) {
               quality = "60"
               loading = "lazy"
               fit="outside"
-              placeholder="./images/noimage.png"
+              placeholder="/images/noimage.png"
               class="category-image"
             >
             </nuxt-img>
