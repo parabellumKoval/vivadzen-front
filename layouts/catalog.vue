@@ -203,15 +203,23 @@ watch(() => modelValue.value, (v) => {
       ></filter-list> 
 
       <!-- Products list -->
-      <div :class="{pending: pending}" class="content-grid">
-        <transition-group name="fade-in">
-          <product-card
-            v-for="(product, index) in products"
-            :key="product.id + index"
-            :item="product"
-            class="content-grid-item"
-          ></product-card>
-        </transition-group>
+      <div class="content-grid">
+          <template v-if="pending">
+            <product-card-skeleton
+              v-for="i in 20"
+              :key="i"
+            ></product-card-skeleton>
+          </template>
+          <template v-else>
+            <transition-group name="fade-in">
+              <product-card
+                v-for="(product, index) in products"
+                :key="product.id + index"
+                :item="product"
+                class="content-grid-item"
+              ></product-card>
+            </transition-group>
+          </template>
       </div>
     </div>
 

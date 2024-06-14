@@ -48,7 +48,7 @@ const queryObject = ref({
   page: 1
 })
 
-const pending = ref(false)
+const pending = ref(true)
 
 // COMPUTED
 const query = computed(() => {
@@ -85,23 +85,6 @@ const query = computed(() => {
   }
 
   return query
-})
-
-// WATCH
-watch(() => meta.value, (v) => {
-  console.log('meta', v)
-
-  if(!v) {
-    return
-  }
-
-  if(v?.current_page === 1){
-    useRouter().replace({query: {selections: route.query.selections}})
-  }else {
-    useRouter().replace({query: {page: v.current_page, selections: route.query.selections} })
-  }
-}, {
-  deep: true
 })
 
 
@@ -153,13 +136,16 @@ const updateQueryHandler = async (v = null) => {
 import {useProductStore} from '~/store/product'
 
 const {products: products, meta: meta, filters: filtersMetaInit} = 
-await useLazyAsyncData('catalog', () => useProductStore().index(props.initQuery))
-.then(({data, error}) => {
+await useLazyAsyncData(() => useProductStore().index(props.initQuery))
+    .then(({data, error}) => {
       return {
         products: data?.value?.products,
         meta: data?.value?.meta,
         filters: data?.value?.filters
       }
+    })
+    .finally(() => {
+      pending.value = false
     });
   
   // await getProducts(props.initQuery, (props.slug || 'catalog'))
@@ -181,6 +167,24 @@ await useLazyAsyncData('catalog', () => useProductStore().index(props.initQuery)
   //             return r
   //           });
 
+
+
+// WATCH
+watch(() => meta.value, (v) => {
+  console.log('meta', v)
+
+  if(!v) {
+    return
+  }
+
+  if(v?.current_page === 1){
+    useRouter().replace({query: {selections: route.query.selections}})
+  }else {
+    useRouter().replace({query: {page: v.current_page, selections: route.query.selections} })
+  }
+}, {
+  deep: true
+})
 </script>
 
 <template>
