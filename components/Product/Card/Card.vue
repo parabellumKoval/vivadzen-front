@@ -99,11 +99,10 @@ const toReviewsHandler = () => {
           width="290"
           height="260"
           sizes = "mobile:100vw tablet:230px desktop:300px"
-          format = "webp"
-          quality = "60"
-          loading = "lazy"
+          format = "avif"
+          quality = "50"
           fit="outside"
-          placeholder="./images/noimage.png"
+          placeholder="/images/noimage.png"
           class="image"
         />
       </transition>
