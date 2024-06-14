@@ -32,11 +32,11 @@ const brands = ref([])
 
 // Filters
 const filtersMeta = ref(null)
-// const filtersMetaInit = ref(null)
+const filtersMetaInit = ref(null)
 
 // Products
-// const products = ref([])
-// const meta = ref(null)
+const products = ref([])
+const meta = ref(null)
 
 // Query
 const queryObject = ref({
@@ -135,7 +135,7 @@ const updateQueryHandler = async (v = null) => {
 
 import {useProductStore} from '~/store/product'
 
-const {products: products, meta: meta, filters: filtersMetaInit} = 
+({products: products.value, meta: meta.value, filters: filtersMetaInit.value} = 
 await useLazyAsyncData(() => useProductStore().index(props.initQuery))
     .then(({data, error}) => {
       return {
@@ -146,7 +146,8 @@ await useLazyAsyncData(() => useProductStore().index(props.initQuery))
     })
     .finally(() => {
       pending.value = false
-    });
+    })
+);
   
   // await getProducts(props.initQuery, (props.slug || 'catalog'))
   //           .then((r) => {
