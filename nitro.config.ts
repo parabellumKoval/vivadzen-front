@@ -27,7 +27,7 @@ export default defineNitroConfig({
     '/contacts': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
     '/faq': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
     '/payment': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-    '/quarantees': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+    '/guarantees': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
     '/terms': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
     '/policy': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
     '/returns': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
