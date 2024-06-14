@@ -1,6 +1,6 @@
 <script setup>
-import {useFilterItem} from '~/composables/product/useFilterItem.ts'
-import {useSort} from '~/composables/product/useSort.ts'
+// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
+// import {useSort} from '~/composables/product/useSort.ts'
 
 const {t} = useI18n()
 

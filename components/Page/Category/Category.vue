@@ -1,7 +1,7 @@
 <script setup>
-import {useFetchReview} from '~/composables/review/useFetchReview.ts'
-import {useFilter} from '~/composables/product/useFilter.ts'
-import {useFilterItem} from '~/composables/product/useFilterItem.ts'
+// import {useFetchReview} from '~/composables/review/useFetchReview.ts'
+// import {useFilter} from '~/composables/product/useFilter.ts'
+// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
 
 const props = defineProps({
   category: {

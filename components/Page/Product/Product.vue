@@ -1,6 +1,6 @@
 <script setup>
+// import {useSchema} from '~/composables/product/useSchema.ts'
 import {useAuthStore} from '~/store/auth';
-import {useSchema} from '~/composables/product/useSchema.ts'
 import {useReviewStore} from '~/store/review'
 
 const props = defineProps({

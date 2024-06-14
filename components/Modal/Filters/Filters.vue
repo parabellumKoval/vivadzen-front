@@ -1,6 +1,6 @@
 <script setup>
-import {useFilterItem} from '~/composables/product/useFilterItem.ts'
-import {useCatalog} from '~/composables/product/useCatalog.ts'
+// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
+// import {useCatalog} from '~/composables/product/useCatalog.ts'
 
 const {t} = useI18n()
 const {modelValue} = useFilterItem()

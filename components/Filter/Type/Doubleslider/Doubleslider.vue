@@ -1,5 +1,5 @@
 <script setup>
-import {useFilterItem} from '~/composables/product/useFilterItem.ts'
+// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
 
 const props = defineProps({
   filter: {

@@ -1,6 +1,6 @@
 <script setup>
 import {useAuthStore} from '~/store/auth';
-import {useFetchReview} from '~/composables/review/useFetchReview.ts'
+// import {useFetchReview} from '~/composables/review/useFetchReview.ts'
 
 const {t} = useI18n()
 
