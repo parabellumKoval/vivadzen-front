@@ -24,6 +24,12 @@ export default defineNuxtConfig({
       instagramToken: process.env.INSTAGRAM_TOKEN
     }
   },
+  imports: {
+    dirs: [
+      'composables',
+      'composables/**'
+    ]
+  },
   // hooks: {
   //   async 'pages:extend' (pages) {
   //     const routes = await fetchCategories()
