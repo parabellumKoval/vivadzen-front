@@ -1,5 +1,5 @@
 <script setup>
-import {useFetchReview} from '~/composables/review/useFetchReview.ts'
+// import {useFetchReview} from '~/composables/review/useFetchReview.ts'
 
 definePageMeta({
   tab: 0
