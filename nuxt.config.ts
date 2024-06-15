@@ -272,7 +272,7 @@ export default defineNuxtConfig({
       autoSubfolderIndex: true,
       concurrency: 1,
       interval: 50,
-      failOnError: true,
+      failOnError: false,
       crawlLinks: true,
       // ignore: [],
       // routes: [],
