@@ -18,12 +18,25 @@ const getReviewQuery = () => {
   }
 }
 
-await useFetchReview().getReviews(getReviewQuery(), true).then(({reviews: r, meta: m}) => {
-  reviews.value = r
-  reviewsMeta.value = m
+const {data: productReviews} = await useLazyAsyncData('product-reviews-page', () => useReviewStore().getAll(getReviewQuery()))
+
+watch(productReviews, (v) => {
+  if(v) {
+    reviews.value = v.reviews
+    reviewsMeta.value = v.meta
+  }
 
   emit('set:amount', {type: 'products', value: reviewsMeta.value.total})
+}, {
+  immediate: true
 })
+
+// await useFetchReview().getReviews(getReviewQuery(), true).then(({reviews: r, meta: m}) => {
+//   reviews.value = r
+//   reviewsMeta.value = m
+
+//   emit('set:amount', {type: 'products', value: reviewsMeta.value.total})
+// })
 
 useFetchReview().getReviewsAmount('shop').then((v) => {
   emit('set:amount', {type: 'shop', value: v})

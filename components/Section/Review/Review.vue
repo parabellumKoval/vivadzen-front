@@ -1,6 +1,6 @@
 <script setup>
 import {useAuthStore} from '~/store/auth';
-// import {useFetchReview} from '~/composables/review/useFetchReview.ts'
+import {useReviewStore} from '~/store/review'
 
 const {t} = useI18n()
 
@@ -89,14 +89,22 @@ const reviewHandler = () => {
 }
 
 // FETCH
-await useFetchReview().getReviews(getProductReviewQuery(), true, 'product-reviews').then(({reviews: r, meta: m}) => {
-  reviews.value = r
+const {data: reviewsData} = await useLazyAsyncData(() => useReviewStore().getAll(getProductReviewQuery()))
+const {data: feedbackData} = await useLazyAsyncData(() => useReviewStore().getAll(getShopReviewQuery()))
+
+watch(reviewsData, (v) => {
+  if(v?.reviews)
+    reviews.value = v.reviews
+}, {
+  immediate: true
 })
 
-await useFetchReview().getReviews(getShopReviewQuery(), true, 'shop-reviews').then(({reviews: r, meta: m}) => {
-  feedback.value = r
+watch(feedbackData, (v) => {
+  if(v?.reviews)
+    feedback.value = v.reviews
+}, {
+  immediate: true
 })
-
 </script>
 
 <style src="./review.scss" lang="scss" scoped></style>

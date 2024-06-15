@@ -181,34 +181,6 @@ export default defineNuxtConfig({
     renderJsonPayloads: false,
   },
 
-  // routeRules: {
-  //   '/shop/**': { isr: false},
-  //   //'/**': { isr: 60 * 30},
-  //   '/**': { isr: false},
-  //   // pages
-  //   '/o-nas': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/certification': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/contacts': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/delivery': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/guarantees': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/payment': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/policy': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/science': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/terms': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   // api
-  //   '/api/**': { swr: false, prerender: false },
-  //   // assets
-  //   '/assets/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/_nuxt/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/**/*.js': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/**/*.css': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/**/*.json': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/**/*.html': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/**/*.xml': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  //   '/**/*.svg': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-  // },
-
   sitemap: {
     enabled: true,
     exclude: [
@@ -246,11 +218,65 @@ export default defineNuxtConfig({
       }
     ]
   },
-  // nitro: {
-  //   compressPublicAssets: { 
-  //     gzip: true, 
-  //     brotli: true 
-  //   },
-  //   minify: true,
-  // },
+
+  nitro: {
+    routeRules: {
+      '': { isr: 60 * 30},
+      '/**': { isr: 60 * 30},
+      '/catalog': { isr: 60 * 30},
+      '/brands': { isr: 60 * 30},
+      '/brands/**': { isr: 60 * 30},
+      '/reviews/**': { isr: 60 * 30},
+      '/blog': { isr: 60 * 30},
+      '/blog/**': { isr: 60 * 30},
+      '/checkout': { ssr: false, static: false, swr: false },
+      '/checkout/**': { ssr: false, static: false, swr: false },
+      '/account/**': { ssr: false, static: false, swr: false },
+      // pages
+      '/about': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/delivery': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/contacts': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/faq': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/payment': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/guarantees': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/terms': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/policy': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/returns': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      // api
+      // '/api/**': { swr: false, prerender: false },
+      // assets
+      '/assets/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/_nuxt/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/**/*.js': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/**/*.css': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/**/*.json': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/**/*.html': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/**/*.xml': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/**/*.svg': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+    },
+    compressPublicAssets: { 
+      gzip: true, 
+      brotli: true 
+    },
+    // publicAssets: [
+    //   {
+    //     baseURL: "images",
+    //     dir: "public/images",
+    //     maxAge: 60 * 60 * 24 * 7, // 7 days
+    //   },
+    // ],
+    minify: true,
+    prerender: {
+      autoSubfolderIndex: true,
+      concurrency: 1,
+      interval: 50,
+      failOnError: true,
+      crawlLinks: true,
+      // ignore: [],
+      // routes: [],
+      retries: 2,
+      retryDelay: 500
+    }
+  },
 })

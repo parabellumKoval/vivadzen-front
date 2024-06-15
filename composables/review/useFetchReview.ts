@@ -28,18 +28,10 @@ const getReviewsAmount = async (type: string) => {
   })
 }
 
-const getReviews = async (query: object, refresh: boolean, uid: string = 'reviews') => {
+const getReviews = async (query: object, uid: string = 'reviews') => {
   isLoading.value = true
 
-  return useLazyAsyncData(uid, () => useReviewStore().getAll(query, refresh)).then(({data, error}) => {
-    
-    if(data.value) {
-      return data.value
-    }else {
-      return {reviews: null, meta: null}
-    }
-     
-  }).finally(() => {
+  return await useAsyncData(uid, () => useReviewStore().getAll(query)).finally(() => {
     isLoading.value = false
   })
 }

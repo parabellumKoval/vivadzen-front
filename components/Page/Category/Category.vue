@@ -115,7 +115,7 @@ watch(filtersData, (v) => {
     
     <template #footer>
 
-      <catalog-reviews :slug="slug" :category="category" class="review-wrapper"></catalog-reviews>
+      <lazy-catalog-reviews :slug="slug" :category="category" class="review-wrapper"></lazy-catalog-reviews>
 
       <div v-if="category.content" class="seo-text rich-text" v-html="category.content"></div>
 
