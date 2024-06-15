@@ -23,7 +23,7 @@ const slug = computed(() => {
 //   }
 // })
 
-const {pending, data: pageData} = await useLazyAsyncData('page_or_category', () => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
+const {pending, data: pageData} = await useAsyncData('page_or_category', () => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
 
 watch(pageData, (v) => {
   if(v) {
