@@ -34,13 +34,13 @@ onServerPrefetch(() => {
 
 <template>
   <DelayHydration>
-    <section-banner></section-banner>
+    <lazy-section-banner></lazy-section-banner>
 
-    <section-slider-products :title="t('top')" :query="topQuery" link="/catalog?selections=top_sales&selections=in_stock"></section-slider-products>
+    <lazy-section-slider-products :title="t('top')" :query="topQuery" link="/catalog?selections=top_sales&selections=in_stock"></lazy-section-slider-products>
 
-    <section-slider-products :title="t('sale')" :query="saleQuery" link="/catalog?selections=with_sales&selections=in_stock"></section-slider-products>
+    <lazy-section-slider-products :title="t('sale')" :query="saleQuery" link="/catalog?selections=with_sales&selections=in_stock"></lazy-section-slider-products>
 
-    <section-category></section-category>
+    <lazy-section-category></lazy-section-category>
     
     <div class="container">
       <lazy-section-review></lazy-section-review>
