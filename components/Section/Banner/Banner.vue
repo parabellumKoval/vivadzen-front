@@ -12,7 +12,7 @@
         sizes = "mobile:320px tablet:768px desktop:1440px"
         format = "avif"
         fit="inside"
-        quality = "50"
+        quality = "60"
         class = "image"
       />
     </div>

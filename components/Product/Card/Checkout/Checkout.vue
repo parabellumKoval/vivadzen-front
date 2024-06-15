@@ -13,8 +13,6 @@ const props = defineProps({
 
 const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
 
-console.log('product', props.item)
-
 const deleteHandler = () => {
   useCartStore().remove(props.item.id)
   useNoty().setNoty({
@@ -35,12 +33,12 @@ const deleteHandler = () => {
       :class = "photoSize"
       width="85"
       height="110"
-      sizes = "mobile:50px tablet:165px desktop:165px"
-      format = "webp"
+      sizes = "mobile:85px tablet:85px desktop:85px"
+      format = "avif"
       quality = "60"
       loading = "lazy"
       fit="outside"
-      placeholder="./images/noimage.png"
+      placeholder="/images/noimage.png"
       class="image"
     >
     </nuxt-img> 

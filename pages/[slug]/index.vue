@@ -40,8 +40,10 @@ watch(pageData, (v) => {
 <!-- <i18n src='' lang='yaml'></i18n> -->
 
 <template>
-  <template v-if="productOrCategoryData">
-    <PageProduct v-if="productOrCategoryData.price !== undefined" :product="productOrCategoryData"></PageProduct>
-    <PageCategory v-else :category="productOrCategoryData"></PageCategory>
-  </template>
+  <DelayHydration>
+    <template v-if="productOrCategoryData">
+      <PageProduct v-if="productOrCategoryData.price !== undefined" :product="productOrCategoryData"></PageProduct>
+      <PageCategory v-else :category="productOrCategoryData"></PageCategory>
+    </template>
+  </DelayHydration>
 </template>

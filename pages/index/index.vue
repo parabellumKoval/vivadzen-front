@@ -33,7 +33,7 @@ onServerPrefetch(() => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <div>
+  <DelayHydration>
     <section-banner></section-banner>
 
     <section-slider-products :title="t('top')" :query="topQuery" link="/catalog?selections=top_sales&selections=in_stock"></section-slider-products>
@@ -52,5 +52,5 @@ onServerPrefetch(() => {
     </div>
     
     <lazy-section-insta></lazy-section-insta>
-  </div>
+  </DelayHydration>
 </template>

@@ -98,6 +98,13 @@ export default defineNuxtConfig({
   //   }
   // ],
   [
+    'nuxt-delay-hydration',
+    {
+      mode: 'manual',
+      debug: process.env.NODE_ENV === 'development'
+    }
+  ],
+  [
     '@nuxtjs/device',
     {
       refreshOnResize: true

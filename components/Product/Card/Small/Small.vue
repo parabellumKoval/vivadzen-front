@@ -28,11 +28,11 @@ const deleteHandler = () => {}
       width="100"
       height="100"
       sizes = "mobile:100px tablet:100px desktop:100px"
-      format = "webp"
-      quality = "60"
+      format = "avif"
+      quality = "45"
       loading = "lazy"
       fit="outside"
-      placeholder="./images/noimage.png"
+      placeholder="/images/noimage.png"
       class="image"
     >
     </nuxt-img>

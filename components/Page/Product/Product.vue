@@ -226,7 +226,7 @@ watch(() => route.hash, (v) => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <div>
+  <DelayHydration>
     <div class="container">
       <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
@@ -252,13 +252,13 @@ watch(() => route.hash, (v) => {
         </div>
 
         <div class="right">
-          <product-comparison :product-id="product.id"></product-comparison>
-          <product-favorite :product-id="product.id"></product-favorite>
+          <lazy-product-comparison :product-id="product.id"></lazy-product-comparison>
+          <lazy-product-favorite :product-id="product.id"></lazy-product-favorite>
         </div>
       </div>
     </div>
 
-    <simple-tabs v-model="tab" :values="tabs" value="name" class="tab-wrapper"></simple-tabs>
+    <lazy-simple-tabs v-model="tab" :values="tabs" value="name" class="tab-wrapper"></lazy-simple-tabs>
 
     <div class="container">
       <div class="content">
@@ -268,7 +268,7 @@ watch(() => route.hash, (v) => {
             <!-- Common -->
             <template v-if="tab === 0">
               <div class="content-common">
-                <product-gallery :items="product.images" class="gallery-wrapper"></product-gallery>
+                <lazy-product-gallery :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
                 <div v-if="$device.isDesktop" class="content-html rich-text" v-html="product.content"></div>
               </div>
             </template>
@@ -277,26 +277,26 @@ watch(() => route.hash, (v) => {
             <template v-else-if="tab === 1">
               <div class="params-wrapper">
                 <div class="tab-title">{{  t('attrs') }}</div>
-                <simple-list-params :items="product.attrs"></simple-list-params>
+                <lazy-simple-list-params :items="product.attrs"></lazy-simple-list-params>
               </div>
             </template>
 
             <!-- Reviews -->
             <template v-else-if="tab === 2">
-              <product-reviews
+              <lazy-product-reviews
                 :reviews="reviews"
                 :meta="reviewsMeta"
                 :product="productMicro"
                 @update:current="loadReviewsHandler"
                 id="reviews"
-              ></product-reviews>
+              ></lazy-product-reviews>
             </template>
 
             <!-- Delivery -->
             <template v-else-if="tab === 3">
               <div class="">
                 <div class="tab-title">{{ t('title.delivery') }}</div>
-                <product-delivery-info></product-delivery-info>
+                <lazy-product-delivery-info></lazy-product-delivery-info>
               </div>
             </template>
 
@@ -304,7 +304,7 @@ watch(() => route.hash, (v) => {
             <template v-else-if="tab === 4">
               <div class="">
                 <div class="tab-title">{{ t('title.payment') }}</div>
-                <product-payment-info></product-payment-info>
+                <lazy-product-payment-info></lazy-product-payment-info>
               </div>
             </template>
 
@@ -312,29 +312,29 @@ watch(() => route.hash, (v) => {
             <template v-else-if="tab === 5">
               <div class="">
                 <div class="tab-title">{{ t('title.guarantees') }}</div>
-                <product-guarantees-info></product-guarantees-info>
+                <lazy-product-guarantees-info></lazy-product-guarantees-info>
               </div>
             </template>
           </transition>
         </div>
 
         <div class="content-sale">
-          <product-sale-block
+          <lazy-product-sale-block
             v-if="$device.isDesktop || tab === 0"
             :product="product"
             :class="{mini: tab !== 0}"
             class="content-sale-block"
-          ></product-sale-block>
+          ></lazy-product-sale-block>
 
           <transition name="fade-in">
             <template v-if="tab === 0">
               <div class="content-grid">
-                <product-delivery-box></product-delivery-box>
+                <lazy-product-delivery-box></lazy-product-delivery-box>
 
-                <product-payment-box></product-payment-box>
+                <lazy-product-payment-box></lazy-product-payment-box>
 
                 <div v-if="product.attrs && product.attrs.length" class="params-mini">
-                  <simple-list-params :items="product.attrs" class="params-wrapper"></simple-list-params>
+                  <lazy-simple-list-params :items="product.attrs" class="params-wrapper"></lazy-simple-list-params>
                   <button @click="paramsHandler" class="text-link params-mini-btn">
                     <span>{{ t('all_attrs') }}</span>
                     <IconCSS name="iconoir:arrow-right" class="icon"></IconCSS>
@@ -351,6 +351,6 @@ watch(() => route.hash, (v) => {
     </div>
   
     <!-- Sale block mobile   -->
-    <product-sale-fixed v-if="$device.isMobile" :product="product"></product-sale-fixed>
-  </div>
+    <lazy-product-sale-fixed v-if="$device.isMobile" :product="product"></lazy-product-sale-fixed>
+  </DelayHydration>
 </template>

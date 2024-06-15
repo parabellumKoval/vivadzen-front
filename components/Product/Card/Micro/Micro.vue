@@ -23,12 +23,12 @@ const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
       :class = "photoSize"
       width="85"
       height="110"
-      sizes = "mobile:100vw tablet:85px desktop:85px"
-      format = "webp"
-      quality = "60"
+      sizes = "mobile:85px tablet:85px desktop:85px"
+      format = "avif"
+      quality = "45"
       loading = "lazy"
       fit="outside"
-      placeholder="./images/noimage.png"
+      placeholder="/images/noimage.png"
       class="image"
     >
     </nuxt-img> 

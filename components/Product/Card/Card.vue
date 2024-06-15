@@ -98,7 +98,7 @@ const toReviewsHandler = () => {
           @mouseleave="() => isHover = false"
           width="290"
           height="260"
-          sizes = "mobile:100vw tablet:230px desktop:300px"
+          sizes = "mobile:200px tablet:230px desktop:300px"
           format = "avif"
           quality = "25"
           fit="outside"
