@@ -55,7 +55,7 @@ const faq = computed(() =>{
 })
 
 // METHODS
-const getChipProducts = async () => {
+const getChipProducts = () => {
   const query = {
     category_id: props.category.id,
     price: [5, 100000000],
@@ -66,7 +66,7 @@ const getChipProducts = async () => {
     with_filters: 0
   }
 
-  await getProducts(query, 'chip_products', false)
+  getProducts(query, 'chip_products', false)
   .then((data) => {
     chipProducts.value = data.products
   })
@@ -74,7 +74,7 @@ const getChipProducts = async () => {
 }
 
 
-const getPopularProducts = async () => {
+const getPopularProducts = () => {
   const query = {
     category_id: props.category.id,
     order_by: 'sales',
@@ -84,7 +84,7 @@ const getPopularProducts = async () => {
     with_filters: 0
   }
 
-  await getProducts(query, 'popular_products', false)
+  getProducts(query, 'popular_products', false)
   .then((data) => {
     popularProducts.value = data.products
   })
@@ -93,8 +93,8 @@ const getPopularProducts = async () => {
 // HANDLERS
 // WATCHERS
 
-await getChipProducts()
-await getPopularProducts()
+getChipProducts()
+getPopularProducts()
 </script>
 
 <!-- <style src='' lang='scss' scoped></style> -->

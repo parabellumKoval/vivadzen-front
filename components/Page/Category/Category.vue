@@ -19,10 +19,6 @@ const {setFilters} = useFilterItem()
 // Attributes
 const attributes = ref([])
 
-// Reviews
-const reviews = ref([])
-const reviewsMeta = ref({})
-
 const breadcrumbs = ref([])
 
 // COMPUTED
@@ -88,22 +84,18 @@ onServerPrefetch(() => {
 
 setCrumbs()
 
-attributes.value = await getFilters(getQuery()).then(({data}) => {
-  return data.value || []
-});
+const {data: filtersData} = await getFilters(getQuery())
 
-await useFetchReview().getReviews({
-  per_page: 6,
-  category_slug: slug.value,
-  resource: 'large'
-}, true).then(({reviews: r, meta: m}) => {
-  reviews.value = r
-  reviewsMeta.value = m
+watch(filtersData, (v) => {
+  if(v) {
+    attributes.value = v
+  }
+}, {
+  immediate: true
 })
 </script>
 
 <style src="./category.scss" lang="scss" scoped></style>
-<i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
   <NuxtLayout
@@ -118,24 +110,16 @@ await useFetchReview().getReviews({
     </template>
 
     <template #header>
-      <catalog-categories v-if="categories?.length" :categories="categories"></catalog-categories>
+      <lazy-catalog-categories v-if="categories?.length" :categories="categories"></lazy-catalog-categories>
     </template>
     
-    <template #footer> 
-      <div v-if="reviewsMeta?.total" class="review">
-        <div class="title-secondary review-title">{{ t('review') }} {{ category.name }}</div>
-        <div class="review-header">
-          <simple-stars :amount="reviewsMeta?.rating_avg || 0"></simple-stars>
-          <div class="review-count">
-            {{ t('messages.rates_reviews', {rates: (reviewsMeta?.rating_count || 0),reviews: (reviewsMeta?.total || 0)}) }}
-          </div>
-        </div>
-        <review-product v-for="review in reviews" :key="review.id" :item="review" type="mini" class="review-item"></review-product>
-      </div>
+    <template #footer>
+
+      <catalog-reviews :slug="slug" :category="category" class="review-wrapper"></catalog-reviews>
 
       <div v-if="category.content" class="seo-text rich-text" v-html="category.content"></div>
 
-      <section-faq-catalog :category="category" class="faq-section"></section-faq-catalog>
+      <lazy-section-faq-catalog :category="category" class="faq-section"></lazy-section-faq-catalog>
     </template>
   </NuxtLayout>
 </template>

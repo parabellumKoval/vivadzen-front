@@ -11,32 +11,11 @@ export const useReviewStore = defineStore('reviewStore', {
   state: () => ({
     reviewableId: null as Number | null,
     reviewableType: null as String | null,
-    popupIsShow: false,
-    allState: {
-      data: [] as Review[],
-      meta: null
-    },
   }),
   
-  getters: {
-    isShow: (state) => state.popupIsShow,
-    all: (state) => state.allState.data,
-    meta: (state) => state.allState.meta,
-  },
+  getters: {},
 
   actions: {
-    openModal() {
-      this.popupIsShow = true
-    },
-    
-    closeModal() {
-      this.popupIsShow = false
-    },
-    
-    toggleModal() {
-      this.popupIsShow = !this.popupIsShow
-    },
-
     setReviewable(id: Number, type: String) {
       this.reviewableId = id
       this.reviewableType = type
@@ -47,20 +26,12 @@ export const useReviewStore = defineStore('reviewStore', {
       this.reviewableType = null
     },
 
-    async getAll(query: string, refresh: boolean = true) {
+    async getAll(query: string) {
       const runtimeConfig = useRuntimeConfig()
       const params = query? '?' + new URLSearchParams(query).toString(): '';
       const url = `${runtimeConfig.public.apiBase}/review${params}`
 
       return await useApiFetch(url).then(({data: {data, meta}}) => {
-        // if(refresh){
-        //   this.allState.data = data
-        // }else {
-        //   this.allState.data = this.allState.data.concat(data)
-        // }
-        
-        // this.allState.meta = meta
-
         return {
           reviews: data,
           meta
@@ -79,17 +50,6 @@ export const useReviewStore = defineStore('reviewStore', {
       }
 
       return await useApiFetch(url, fullData, 'POST').then((response) => {
-        if(response.data) {
-
-          // if(data.parent_id) {
-          //   const parent_comment = context.allState.data.find((item) => item.id === data.parent_id)
-          //   parent_comment.children.unshift(response.data as Review)
-          // }else {
-          //   context.allState.data.unshift(response.data as Review)
-          // }
-
-        }
-
         return {data: response.data, error: response.error}
       })
     },

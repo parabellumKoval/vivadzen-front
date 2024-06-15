@@ -2,6 +2,7 @@
 // import {useFilter} from '~/composables/product/useFilter.ts'
 // import {useFilterItem} from '~/composables/product/useFilterItem.ts'
 // import {useCatalog} from '~/composables/product/useCatalog.ts'
+import {useProductStore} from '~/store/product'
 
 const props = defineProps({
   slug: {
@@ -127,27 +128,9 @@ const updateQueryHandler = async (v = null) => {
 }
 
 // HOOKS
-// ({
-//   products: products.value,
-//   meta: meta.value,
-//   filters: filtersMetaInit.value
-//   } = await getProducts(props.initQuery, (props.slug || 'catalog')));
-
-import {useProductStore} from '~/store/product'
-
-
-const {pending, data: tempData} = useLazyAsyncData(() => useProductStore().index(props.initQuery));
-
-watch(pending, (p) => {
-  console.log('p', p)
-}, {
-  immediate: true
-})
+const {pending, data: tempData} = await useLazyAsyncData(() => useProductStore().index(props.initQuery));
 
 watch(tempData, (data) => {
-
-  console.log('tempData', data)
-
   if(data?.products) {
     products.value = data.products
   }
@@ -163,51 +146,9 @@ watch(tempData, (data) => {
   immediate: true
 })
 
-// useLazyAsyncData(() => useProductStore().index(props.initQuery))
-//     .then(({data, error}) => {
-//       console.log('then', data, error)
-      
-//       if(data.products) {
-//         products.value = data.products
-//       }
-
-//       if(data.meta) {
-//         meta.value = data.meta
-//       }
-
-//       if(data.filters) {
-//         filtersMetaInit.value = data.filters
-//       }
-//     })
-//     .finally(() => {
-//       pending.value = false
-//     })
-  
-  // await getProducts(props.initQuery, (props.slug || 'catalog'))
-  //           .then((r) => {
-  //             console.log('then', r)
-              
-  //             if(r.products) {
-  //               products.value = r.products
-  //             }
-
-  //             if(r.meta) {
-  //               meta.value = r.meta
-  //             }
-
-  //             if(r.filters) {
-  //               filtersMetaInit.value = r.filters
-  //             }
-
-  //             return r
-  //           });
-
-
 
 // WATCH
 watch(() => meta.value, (v) => {
-  console.log('meta', v)
-
   if(!v) {
     return
   }

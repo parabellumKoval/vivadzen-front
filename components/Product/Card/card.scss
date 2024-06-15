@@ -41,10 +41,10 @@
     align-items: center;
     justify-content: center;
     border-radius: $radius;
-    padding: 4px 10px;
-    height: 28px;
+    padding: 0 6px;
+    height: 20px;
     background: $color-4;
-    font-size: 12px;
+    font-size: 10px;
     text-transform: uppercase;
     z-index: 10;
 
@@ -52,7 +52,9 @@
       position: absolute;
       top: 5px;
       left: 5px;
-      padding: 5px 20px;
+      height: 26px;
+      padding: 0 12px;
+      font-size: 12px;
     }
 
     &.red {

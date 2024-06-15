@@ -5,7 +5,7 @@ export const useFilter = () => {
   const {t} = useI18n({useScope: 'global'})
 
   const getFilters = async (query: Object, useAttributes: Boolean = true) => {
-    return useAsyncData('filters', async () => {
+    return await useLazyAsyncData('filters', async () => {
       return await Promise.all([
         getBrands(query).then((data) => {
           return data || []

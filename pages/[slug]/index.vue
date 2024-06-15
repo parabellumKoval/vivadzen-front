@@ -10,17 +10,29 @@ const slug = computed(() => {
 // HANDLERS
 // WATCHERS
 //
-await useAsyncData('page_or_category', () => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
-.then(({data, error}) => {
-  if(data.value) {
-    productOrCategoryData.value = data.value
+// await useLazyAsyncData('page_or_category', () => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
+// .then(({data, error}) => {
+//   if(data.value) {
+//     productOrCategoryData.value = data.value
+//   }else {
+//     throw createError({ statusCode: 404, message: 'Page Not Found' })
+//   }
+
+//   if(error.value) {
+//     throw createError({ statusCode: 404, message: 'Page Not Found' })
+//   }
+// })
+
+const {pending, data: pageData} = await useLazyAsyncData('page_or_category', () => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
+
+watch(pageData, (v) => {
+  if(v) {
+    productOrCategoryData.value = v
   }else {
     throw createError({ statusCode: 404, message: 'Page Not Found' })
   }
-
-  if(error.value) {
-    throw createError({ statusCode: 404, message: 'Page Not Found' })
-  }
+}, {
+  immediate: true
 })
 </script>
 
