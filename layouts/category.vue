@@ -48,7 +48,7 @@ const queryObject = ref({
   page: 1
 })
 
-const pending = ref(true)
+// const pending = ref(true)
 
 // COMPUTED
 const query = computed(() => {
@@ -135,19 +135,53 @@ const updateQueryHandler = async (v = null) => {
 
 import {useProductStore} from '~/store/product'
 
-({products: products.value, meta: meta.value, filters: filtersMetaInit.value} = 
-await useLazyAsyncData(() => useProductStore().index(props.initQuery))
-    .then(({data, error}) => {
-      return {
-        products: data?.value?.products,
-        meta: data?.value?.meta,
-        filters: data?.value?.filters
-      }
-    })
-    .finally(() => {
-      pending.value = false
-    })
-);
+
+const {pending, data: tempData} = useLazyAsyncData(() => useProductStore().index(props.initQuery));
+
+watch(pending, (p) => {
+  console.log('p', p)
+}, {
+  immediate: true
+})
+
+watch(tempData, (data) => {
+
+  console.log('tempData', data)
+
+  if(data?.products) {
+    products.value = data.products
+  }
+
+  if(data?.meta) {
+    meta.value = data.meta
+  }
+
+  if(data?.filters) {
+    filtersMetaInit.value = data.filters
+  }
+}, {
+  immediate: true
+})
+
+// useLazyAsyncData(() => useProductStore().index(props.initQuery))
+//     .then(({data, error}) => {
+//       console.log('then', data, error)
+      
+//       if(data.products) {
+//         products.value = data.products
+//       }
+
+//       if(data.meta) {
+//         meta.value = data.meta
+//       }
+
+//       if(data.filters) {
+//         filtersMetaInit.value = data.filters
+//       }
+//     })
+//     .finally(() => {
+//       pending.value = false
+//     })
   
   // await getProducts(props.initQuery, (props.slug || 'catalog'))
   //           .then((r) => {

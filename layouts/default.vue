@@ -88,9 +88,9 @@ useSchemaOrg([
       </Head>
       <Body>
         
-        <the-supheader></the-supheader>
+        <!-- <the-supheader></the-supheader> -->
 
-        <the-header></the-header>
+        <lazy-the-header></lazy-the-header>
         
         <main class="main" :style="{background: background}">
           <slot />
@@ -100,13 +100,12 @@ useSchemaOrg([
       
         <lazy-the-footer></lazy-the-footer>
 
-        <comparison-btn v-if="!$device.isMobile" class="comp-btn"></comparison-btn>
+        <lazy-comparison-btn v-if="!$device.isMobile" class="comp-btn"></lazy-comparison-btn>
 
         <modal-transition :is-show="useModal().show" mode="out-in">
           <component :is="useModal().active.component"></component>
         </modal-transition>
         
-
         <simple-clicker></simple-clicker>
       </Body>
     </Html>

@@ -1,4 +1,5 @@
 import {useCartStore} from '~/store/cart'
+import { ModalCart } from '#components'
 
 export const useCart = (productData: Product) => {
 
@@ -9,11 +10,16 @@ export const useCart = (productData: Product) => {
       ...productData,
       amount: 1
     }
-    
+
     useCartStore().add(data).then(() => {
-      useNoty().setNoty({
-        content: t('noty.product_to_cart', {product: productData.name})
-      }, 2000)
+    
+      useModal().open(ModalCart, null, null, {width: {
+        min: 968, max: 968
+      }})
+
+      // useNoty().setNoty({
+      //   content: t('noty.product_to_cart', {product: productData.name})
+      // }, 2000)
     })
   }
 

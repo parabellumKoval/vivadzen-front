@@ -128,7 +128,8 @@ export const useCartStore = defineStore('cartStore', {
     },
 
     toProductType(data: Product) {
-      const {id, name, slug, price, oldPrice, amount, image} = data
+      const {id, name, slug, price, oldPrice, amount, images} = data
+      const image  = images?.length? images[0]: null
       return {id, name, slug, price, oldPrice, amount, image} as Product
     },
 

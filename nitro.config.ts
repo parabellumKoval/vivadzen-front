@@ -20,6 +20,8 @@ export default defineNitroConfig({
     '/reviews/**': { isr: 60 * 30},
     '/blog': { isr: 60 * 30},
     '/blog/**': { isr: 60 * 30},
+    '/checkout': { ssr: false, static: false, swr: false },
+    '/checkout/**': { ssr: false, static: false, swr: false },
     '/account/**': { ssr: false, static: false, swr: false },
     // pages
     '/about': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },

@@ -13,6 +13,8 @@ const props = defineProps({
 
 const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
 
+console.log('product', props.item)
+
 const deleteHandler = () => {
   useCartStore().remove(props.item.id)
   useNoty().setNoty({

@@ -41,8 +41,8 @@ export default defineNuxtConfig({
   //   }
   // },
   app: {
-    pageTransition: { name: 'page-tr', mode: 'out-in' },
-    layoutTransition: { name: 'layout-tr', mode: 'out-in' },
+    // pageTransition: { name: 'page-tr', mode: 'out-in' },
+    // layoutTransition: { name: 'layout-tr', mode: 'out-in' },
     head: {
       script: [
         // {

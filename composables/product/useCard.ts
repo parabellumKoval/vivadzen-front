@@ -46,6 +46,13 @@ export const useCard = (product: Product) => {
     return product.inStock > 0? 'in-stock': 'not-in-stock'
   })
 
+  const salePercent = computed(() => {
+    if(!product.oldPrice)
+      return null
+
+    return  Math.ceil(100 - (product.price * 100 / product.oldPrice))
+  })
+
   const label = computed(() => {
     if(!product.oldPrice || product.oldPrice <= product.price)
       return null
@@ -64,7 +71,7 @@ export const useCard = (product: Product) => {
     }else if(product.oldPrice > product.price) {
       return {
         class: 'red',
-        text: t('label.product.sale')
+        text: t('label.product.sale') + ' -' + salePercent.value + '%'
       }
     }else {
       return null

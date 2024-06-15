@@ -35,8 +35,6 @@ onServerPrefetch(() => {
 <template>
   <div>
     <section-banner></section-banner>
-    
-    <section-slider-top-products></section-slider-top-products>
 
     <section-slider-products :title="t('top')" :query="topQuery" link="/catalog?selections=top_sales&selections=in_stock"></section-slider-products>
 
@@ -45,14 +43,14 @@ onServerPrefetch(() => {
     <section-category></section-category>
     
     <div class="container">
-      <section-review></section-review>
-      <section-adv></section-adv>
+      <lazy-section-review></lazy-section-review>
+      <lazy-section-adv></lazy-section-adv>
     </div>
     
     <div class="container">
-      <section-article></section-article>
+      <lazy-section-article></lazy-section-article>
     </div>
     
-    <section-insta></section-insta>
+    <lazy-section-insta></lazy-section-insta>
   </div>
 </template>
