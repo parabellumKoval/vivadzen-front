@@ -221,7 +221,7 @@ export default defineNuxtConfig({
 
   nitro: {
     routeRules: {
-      '': {swr: true},
+      // '': {swr: true},
       // '/**': { isr: 60 * 30},
       // '/**': {ssr: false, static: false, swr: false},
       // '/catalog': {swr: true},
