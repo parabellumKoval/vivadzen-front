@@ -41,11 +41,13 @@ export const useMenu = () => {
         id: 1,
         link: '/about',
         title: t('title.about')
-      },{
-        id: 2,
-        link: '/news',
-        title: t('title.news')
-      },{
+      },
+      // {
+      //   id: 2,
+      //   link: '/news',
+      //   title: t('title.news')
+      // },
+      {
         id: 3,
         link: '/reviews/products',
         title: t('title.reviews')
@@ -57,11 +59,13 @@ export const useMenu = () => {
         id: 5,
         link: '/blog',
         title: t('title.blog')
-      },{
-        id: 6,
-        link: '/sales',
-        title: t('title.sales')
-      },{
+      },
+      // {
+      //   id: 6,
+      //   link: '/sales',
+      //   title: t('title.sales')
+      // },
+      {
         id: 7,
         link: '/contacts',
         title: t('title.contacts')
