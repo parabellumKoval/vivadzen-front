@@ -221,12 +221,12 @@ export default defineNuxtConfig({
 
   nitro: {
     routeRules: {
-      '': { isr: 60 * 30},
+      '': {swr: true},
       // '/**': { isr: 60 * 30},
-      '/**': { ssr: false, static: false, swr: false },
-      '/catalog': { isr: 60 * 30},
-      '/vitaminy_i_mineraly': { isr: 60 * 30},
-      '/komplekt-termobelya-dlya-zhenshchin-cuten-rough-radical-povsednevnoe-svetlo-seryy-5717': { isr: 60 * 30},
+      '/**': {ssr: false, static: false, swr: false},
+      '/catalog': {swr: true},
+      '/vitaminy_i_mineraly': {swr: true},
+      '/komplekt-termobelya-dlya-zhenshchin-cuten-rough-radical-povsednevnoe-svetlo-seryy-5717': { swr: true},
       // '/brands': { isr: 60 * 30},
       // '/brands/**': { isr: 60 * 30},
       // '/reviews/**': { isr: 60 * 30},
