@@ -7,7 +7,8 @@ export default defineI18nConfig(() => {
           style: 'currency', 
           currency: 'UAH',
           currencyDisplay: 'narrowSymbol',
-          useGrouping: true
+          useGrouping: true,
+          minimumFractionDigits: 0
         },
         cur: {
           style: 'decimal',
@@ -30,7 +31,8 @@ export default defineI18nConfig(() => {
           style: 'currency', 
           currency: 'UAH',
           currencyDisplay: 'narrowSymbol',
-          useGrouping: true
+          useGrouping: true,
+          minimumFractionDigits: 0
         },
         cur: {
           style: 'decimal',
@@ -52,6 +54,20 @@ export default defineI18nConfig(() => {
 
     datetimeFormats: {
       uk: {
+        short: {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        },
+        long: {
+          year: '2-digit',
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric'
+        }
+      },
+      ru: {
         short: {
           year: 'numeric',
           month: 'short',

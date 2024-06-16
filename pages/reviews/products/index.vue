@@ -1,5 +1,6 @@
 <script setup>
 // import {useFetchReview} from '~/composables/review/useFetchReview.ts'
+import {useReviewStore} from '~/store/review'
 
 const reviews = ref([])
 const reviewsMeta = ref({})
@@ -31,23 +32,26 @@ watch(productReviews, (v) => {
   immediate: true
 })
 
-// await useFetchReview().getReviews(getReviewQuery(), true).then(({reviews: r, meta: m}) => {
-//   reviews.value = r
-//   reviewsMeta.value = m
-
-//   emit('set:amount', {type: 'products', value: reviewsMeta.value.total})
-// })
-
 useFetchReview().getReviewsAmount('shop').then((v) => {
   emit('set:amount', {type: 'shop', value: v})
 })
 
-const updatePageHandler = (page) => {
-  useFetchReview().loadReviewsHandler(getReviewQuery(), page).then(({reviews: r, meta: m}) => {
-    reviews.value = r
-    reviewsMeta.value = m
+const updatePageHandler = async (page) => {
+  const query = {
+    ...getReviewQuery(),
+    page: page
+  }
+
+  await useReviewStore().getAll(query).then((r) => {
+
+    if(r) {
+      reviews.value = r.reviews
+      reviewsMeta.value = r.meta
+    }
+    
     emit('scroll:top')
   })
+
 }
 
 </script>

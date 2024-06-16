@@ -1,19 +1,60 @@
 @import './assets/scss/vars';
 @import './assets/scss/mixins';
 
-.articles-wrapper {
-  display: grid;
-  grid-template-columns: minmax(min-content, 1fr);
-  grid-gap: 15px;
-  width: 100%;
+.articles {
 
-  @include _tablet {
-    grid-template-columns: repeat(2, minmax(min-content, 1fr));
-  }
+  &-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 80%);
+    grid-gap: 15px;
+    margin: 0 -15px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    scroll-padding-left: 15px;
+    scroll-padding-right: 15px;
   
-  @include _desktop {
-    grid-template-columns: repeat(4, minmax(min-content, 1fr));
-    grid-gap: 20px;
+    @include _tablet {
+      grid-template-columns: repeat(2, minmax(min-content, 1fr));
+      width: 100%;
+      margin: 0;
+      overflow-x: initial;
+      scroll-behavior: initial;
+      scroll-snap-type: initial;
+    }
+    
+    @include _desktop {
+      grid-template-columns: repeat(4, minmax(min-content, 1fr));
+      grid-gap: 20px;
+    }
+
+  }
+
+  &-item {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+
+    &:first-child {
+      margin-left: 15px;
+    }
+
+    &:last-child {
+      margin-right: 15px;
+    }
+
+
+    @include _tablet {
+      scroll-snap-align: initial;
+      scroll-snap-stop: initial;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
 

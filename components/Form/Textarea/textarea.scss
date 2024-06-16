@@ -17,7 +17,7 @@
 
   &.error {
     .main-textarea {
-      border: 2px solid rgba($color-red, 0.4);
+      border: 2px solid rgba($color-red, 0.85);
     }
   }
 }
@@ -25,13 +25,14 @@
 
 .main-textarea {
   width: 100%;
-  padding: 14px 15px !important;
+  padding: 13px 15px !important;
   border: 2px solid $color-5;
   background: $color-8;
+  min-height: 50px;
   resize: none;
   line-height: 135%;
   border-radius: $radiusBtn;
-  outline-color: rgba($color-primary, 0.2);
+  outline-color: rgba($color-green, 0.85);
 
   &::placeholder {
     color: $color-4;

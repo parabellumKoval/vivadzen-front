@@ -10,7 +10,7 @@ const breadcrumbs = [
     item: '/'
   },{
     name: t('title.reviews'),
-    item: '/reviews'
+    item: '/reviews/shop'
   }
 ]
 
@@ -27,10 +27,10 @@ const tabs = computed(() => {
   return [
     {
       id: 1,
-      name: t('review_shop') + ` <span class="budge green">${amounts.value.shop}</span>`
+      name: t('review_shop') + ` <span class="budge green">${amounts.value.shop || 0}</span>`
     },{
       id: 2,
-      name: t('review_product') + ` <span class="budge green">${amounts.value.products}</span>`
+      name: t('review_product') + ` <span class="budge green">${amounts.value.products || 0}</span>`
     }
   ]
 })

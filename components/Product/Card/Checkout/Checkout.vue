@@ -44,20 +44,19 @@ const deleteHandler = () => {
     </nuxt-img> 
   </NuxtLink>
   <div class="body">
-    <span class="code label">{{ item.code }}</span>
+    <span v-if="item.code" class="code label">{{ item.code }}</span>
     <NuxtLink
       :to="localePath('/' + item.slug)"
       :aria-label="item.name"
       clickable
       class="name"
     >{{ item.name }}</NuxtLink>
-    <button @click="deleteHandler" class="remove-btn">
-      <IconCSS name="iconoir:trash" class="remove-btn-icon"></IconCSS>
-      <span class="remove-btn-text">{{ t('button.delete') }}</span>
-    </button>
   </div>
   <div class="footer">
     <form-amount v-model="item.amount"></form-amount>
+    <div>
+      <button @click="deleteHandler" class="remove-btn">{{ t('button.delete') }}</button>
+    </div>
     <product-price :price="item.price" :old-price="item.oldPrice"></product-price>
   </div>
 </div>
