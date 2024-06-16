@@ -221,7 +221,7 @@ export default defineNuxtConfig({
 
   nitro: {
     routeRules: {
-      // '': {swr: true},
+      '': {swr: true},
       // '/**': { isr: 60 * 30},
       // '/**': {ssr: false, static: false, swr: false},
       // '/catalog': {swr: true},
@@ -230,8 +230,8 @@ export default defineNuxtConfig({
       // '/brands': { isr: 60 * 30},
       // '/brands/**': { isr: 60 * 30},
       // '/reviews/**': { isr: 60 * 30},
-      // '/blog': { isr: 60 * 30},
-      // '/blog/**': { isr: 60 * 30},
+      '/blog': { isr: 60 * 30},
+      '/blog/**': { isr: 60 * 30},
       // '/checkout': { ssr: false, static: false, swr: false },
       // '/checkout/**': { ssr: false, static: false, swr: false },
       // '/account/**': { ssr: false, static: false, swr: false },
@@ -257,6 +257,7 @@ export default defineNuxtConfig({
       '/**/*.html': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/**/*.xml': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/**/*.svg': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/iconoir/*.svg': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
     },
     compressPublicAssets: { 
       gzip: true, 
@@ -267,6 +268,11 @@ export default defineNuxtConfig({
     //     baseURL: "images",
     //     dir: "public/images",
     //     maxAge: 60 * 60 * 24 * 7, // 7 days
+    //   },
+    //   {
+    //     baseURL: "iconoir",
+    //     dir: "public/video",
+    //     maxAge: 60 * 60 * 24 * 365,
     //   },
     // ],
     minify: true,
