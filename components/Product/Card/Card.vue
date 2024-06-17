@@ -1,13 +1,12 @@
 <script setup>
-// import {useComparison} from '~/composables/product/useComparison.ts'
-// import {useFavorite} from '~/composables/product/useFavorite.ts'
-// import {useCart} from '~/composables/product/useCart.ts'
-// import {useCard} from '~/composables/product/useCard.ts'
-
 const props = defineProps({
   item: {
     type: Object,
     required: true
+  },
+  index: {
+    type: Number,
+    default: null
   }
 })
 
@@ -22,6 +21,14 @@ const {photos, stock, label} = useCard(props.item)
 const {toCartHandler} = useCart(props.item)
 
 // COMPUTEDS
+const loading = computed(() => {
+  if(props.index === null || props.index !== 0)
+    return 'lazy'
+  else {
+    return null
+  }
+})
+
 const activePhoto = computed(() => {
   if(!isHover.value || photos.value.length === 1) {
     return photos.value[0]
@@ -98,9 +105,10 @@ const toReviewsHandler = () => {
           @mouseleave="() => isHover = false"
           width="290"
           height="260"
-          sizes = "mobile:200px tablet:230px desktop:300px"
+          sizes = "mobile:180px tablet:230px desktop:300px"
           format = "avif"
           quality = "25"
+          :loading = "loading"
           fit="outside"
           placeholder="/images/noimage.png"
           class="image"

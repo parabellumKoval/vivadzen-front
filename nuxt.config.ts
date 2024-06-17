@@ -100,7 +100,8 @@ export default defineNuxtConfig({
   [
     'nuxt-delay-hydration',
     {
-      mode: 'manual',
+      // mode: 'manual',
+      mode: 'init',
       debug: process.env.NODE_ENV === 'development'
     }
   ],
@@ -109,7 +110,8 @@ export default defineNuxtConfig({
     {
       refreshOnResize: true
     }
-  ], // '@nuxtjs/fontaine',
+  ], 
+  '@nuxtjs/fontaine',
   [
     '@nuxtjs/google-fonts',
     {

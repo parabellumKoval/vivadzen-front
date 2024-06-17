@@ -331,6 +331,7 @@ defineExpose({
             :[itemDataName]="item"
             :progress="getProgress(index)"
             :is-active="index === activeIndex"
+            :index="index"
           >
           </component>
         </li>

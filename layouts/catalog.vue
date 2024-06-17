@@ -216,6 +216,7 @@ watch(() => modelValue.value, (v) => {
                 v-for="(product, index) in products"
                 :key="product.id + index"
                 :item="product"
+                :index="index"
                 class="content-grid-item"
               ></product-card>
             </transition-group>
