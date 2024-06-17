@@ -29,6 +29,8 @@ const loading = computed(() => {
   }
 })
 
+const img = useImage()
+
 const activePhoto = computed(() => {
   if(!isHover.value || photos.value.length === 1) {
     return photos.value[0]

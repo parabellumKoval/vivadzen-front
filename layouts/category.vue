@@ -128,7 +128,7 @@ const updateQueryHandler = async (v = null) => {
 }
 
 // HOOKS
-const {pending, data: tempData} = await useLazyAsyncData(() => useProductStore().index(props.initQuery));
+const {pending, data: tempData} = await useAsyncData(() => useProductStore().index(props.initQuery));
 
 watch(tempData, (data) => {
   if(data?.products) {

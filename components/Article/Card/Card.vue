@@ -3,6 +3,10 @@
 const props = defineProps({
   item: {
     type: Object
+  },
+  index: {
+    type: Number,
+    default: null
   }
 })
 
@@ -12,6 +16,14 @@ const photo = computed(() => {
   if(props.item.image) {
     return '/server/' + props.item.image
   } else {
+    return null
+  }
+})
+
+const loading = computed(() => {
+  if(props.index === null || props.index !== 0)
+    return 'lazy'
+  else {
     return null
   }
 })
@@ -31,8 +43,8 @@ const photo = computed(() => {
       height = "260"
       sizes = "mobile:70vw tablet:230px desktop:300px"
       format = "avif"
-      quality = "40"
-      loading = "lazy"
+      quality = "30"
+      :loading = "loading"
       fit = "outside"
       placeholder = "/images/noimage.png"
       class = "article-image"

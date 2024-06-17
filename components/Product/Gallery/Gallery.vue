@@ -162,7 +162,7 @@ const mouseOverHandler = (e) => {
           :class="item.size"
           width="85"
           height="85"
-          sizes = "mobile:200px tablet:85px desktop:85px"
+          sizes = "mobile:50vw tablet:85px desktop:85px"
           format = "avif"
           quality = "35"
           placeholder="/images/noimage.png"

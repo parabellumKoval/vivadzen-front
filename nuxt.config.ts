@@ -69,115 +69,118 @@ export default defineNuxtConfig({
   ],
 
   modules: [
-  'nuxt-anchorscroll', 
-  [
-    '@nuxtjs/supabase',
-    {
-      redirectOptions: {
-        login: '/',
-        include: ['/account(/*)?']
+    'nuxt-anchorscroll', 
+    [
+      '@nuxtjs/supabase',
+      {
+        redirectOptions: {
+          login: '/',
+          include: ['/account(/*)?']
+        }
       }
-    }
-  ], [
-    '@nuxtjs/prismic',
-    {
-      endpoint: 'https://all-be-ukraine.cdn.prismic.io/api/v2',
-      preview: false,
-      toolbar: false
-    }
-  ], [
-    'nuxt-icon',
-    {
-      class: 'icon'
-    }
-  ], // [
-  //   '@nuxtjs/partytown',
-  //   {
-  //     debug: process.env.NODE_ENV === 'development',
-  //     forward: ['dataLayer.push']
-  //   }
-  // ],
-  [
-    'nuxt-delay-hydration',
-    {
-      // mode: 'manual',
-      mode: 'init',
-      debug: process.env.NODE_ENV === 'development'
-    }
-  ],
-  [
-    '@nuxtjs/device',
-    {
-      refreshOnResize: true
-    }
-  ], 
-  '@nuxtjs/fontaine',
-  [
-    '@nuxtjs/google-fonts',
-    {
-      families: {
-        Rubik: {
-          wght: [300, 400, 500, 700]
+    ], [
+      'nuxt-icon',
+      {
+        class: 'icon'
+      }
+    ], // [
+    //   '@nuxtjs/partytown',
+    //   {
+    //     debug: process.env.NODE_ENV === 'development',
+    //     forward: ['dataLayer.push']
+    //   }
+    // ],
+    [
+      'nuxt-delay-hydration',
+      {
+        // mode: 'manual',
+        mode: 'init',
+        debug: process.env.NODE_ENV === 'development'
+      }
+    ],
+    [
+      '@nuxtjs/device',
+      {
+        refreshOnResize: true
+      }
+    ], 
+    '@nuxtjs/fontaine',
+    [
+      '@nuxtjs/google-fonts',
+      {
+        families: {
+          Rubik: {
+            wght: [300, 400, 500, 700]
+          },
         },
-      },
-      display: 'swap',
-      preload: true
-    }
-  ], [
-    '@nuxt/image',
-    {
-      provider: process.env.IMAGE_PROVIDER || "ipx",
-      
-      screens: {
-        mobile: 767,
-        tablet: 1023,
-        desktop: 1919,
-      },
+        display: 'swap',
+        preload: true
+      }
+    ], [
+      '@nuxt/image',
+      {
+        provider: process.env.IMAGE_PROVIDER || "ipx",
+        
+        screens: {
+          mobile: 767,
+          tablet: 1023,
+          desktop: 1919,
+        },
 
-      domains: [
-        process.env.DOMAIN,
-        '*.googleusercontent.com',
-        'lh3.googleusercontent.com',
-        'images.prismic.io',
-        '*.cdninstagram.com'
-      ],
-      
-      alias: {
-        server: process.env.SERVER_URL
-      },
-      
-      dir: process.env.IMAGE_DIR || "public",
-      
-      vercel: {
-        dirname: 'public'
-      },
-
-      ipx: {
         domains: [
           process.env.DOMAIN,
           '*.googleusercontent.com',
           'lh3.googleusercontent.com',
           'images.prismic.io',
           '*.cdninstagram.com',
-          '*.fbsbx.com'
-        ]
+          '*.cloudinary.com'
+        ],
+        
+        alias: {
+          server: process.env.SERVER_URL
+        },
+        
+        dir: process.env.IMAGE_DIR || "public",
+        
+        vercel: {
+          dirname: 'public'
+        },
+
+        ipx: {
+          domains: [
+            process.env.DOMAIN,
+            '*.googleusercontent.com',
+            'lh3.googleusercontent.com',
+            'images.prismic.io',
+            '*.cdninstagram.com',
+            '*.fbsbx.com'
+          ]
+        },
+
+        cloudinary: {
+          baseURL: 'https://res.cloudinary.com/daf8lt05a/image/upload/'
+        }
       }
-    }
-  ], [
-    '@pinia/nuxt',
-    {
-      autoImports: [
-        'defineStore',
-      ],
-    },
-  ], '@pinia-plugin-persistedstate/nuxt', '@nuxtjs/i18n', // '@vueuse/nuxt',
-  [
-    '@nuxt/content', 
-    {
-      defaultLocale: 'ru',
-      locales: ['uk','ru']
-    }
-  ], "@nuxtjs/seo"],
+    ], [
+      '@pinia/nuxt',
+      {
+        autoImports: [
+          'defineStore',
+        ],
+      },
+    ], 
+    '@pinia-plugin-persistedstate/nuxt', 
+    '@nuxtjs/i18n', 
+    // '@vueuse/nuxt',
+    [
+      '@nuxt/content', 
+      {
+        defaultLocale: 'ru',
+        locales: ['uk','ru']
+      }
+    ],
+    "@nuxtjs/seo"
+  ],
 
   experimental: {
     renderJsonPayloads: false,
@@ -223,12 +226,12 @@ export default defineNuxtConfig({
 
   nitro: {
     routeRules: {
-      // '': {swr: true},
+      '/': {swr: true},
       '/**': {isr: 60 * 30},
       // '/**': {ssr: false, static: false, swr: false},
       // '/catalog': {swr: true},
-      // '/vitaminy_i_mineraly': {isr: 60 * 30},
-      // '/komplekt-termobelya-dlya-zhenshchin-cuten-rough-radical-povsednevnoe-svetlo-seryy-5717': {isr: 60 * 30},
+      '/vitaminy_i_mineraly': {isr: 60 * 30},
+      '/komplekt-termobelya-dlya-zhenshchin-cuten-rough-radical-povsednevnoe-svetlo-seryy-5717': {isr: 60 * 30},
       // '/brands': { isr: 60 * 30},
       // '/brands/**': { isr: 60 * 30},
       '/reviews/**': {isr: 60 * 30},
@@ -248,7 +251,7 @@ export default defineNuxtConfig({
       '/policy': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/returns': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // api
-      // '/api/**': { swr: false, prerender: false },
+      '/api/**': {swr: true},
       // assets
       '/assets/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
@@ -278,7 +281,7 @@ export default defineNuxtConfig({
     // ],
     minify: true,
     prerender: {
-      autoSubfolderIndex: false,
+      autoSubfolderIndex: true,
       concurrency: 1,
       interval: 50,
       failOnError: false,

@@ -9,10 +9,10 @@
         src="/images/banner.jpg"
         width="1440"
         height="350"
-        sizes = "mobile:320px tablet:768px desktop:1440px"
+        sizes = "mobile:100vw"
         format = "avif"
         fit="inside"
-        quality = "60"
+        quality = "50"
         class = "image"
       />
     </div>
