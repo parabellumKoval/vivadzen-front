@@ -4,6 +4,7 @@
 .available {
   display: inline-block;
   text-align: center;
+  white-space: nowrap;
   color: $color-green;
 
   .icon {
@@ -12,7 +13,6 @@
   }
 
   .in_stock {
-    // color: #2CAE21;
     color: $color-green;
 
     & + .running_out {

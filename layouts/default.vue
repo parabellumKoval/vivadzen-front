@@ -106,7 +106,7 @@ useSchemaOrg([
           <component :is="useModal().active.component"></component>
         </modal-transition>
         
-        <simple-clicker></simple-clicker>
+        <lazy-simple-clicker></lazy-simple-clicker>
       </Body>
     </Html>
   </div>

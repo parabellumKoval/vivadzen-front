@@ -73,31 +73,34 @@ const tabs = computed(() => {
   const list = [
     {
       id: 1,
-      name: t('label.desc')
+      name: t('label.all')
     },{
       id: 2,
-      name: t('label.props')
+      name: t('label.desc')
     },{
       id: 3,
-      name: t('title.reviews') + ' ' + (reviewsMeta.value.total? `<span class="budge green">${reviewsMeta.value.total}</span>`: '')
+      name: t('label.props')
     },{
       id: 4,
-      name: t('title.delivery')
+      name: t('title.reviews') + ' ' + (reviewsMeta.value.total? `<span class="budge green">${reviewsMeta.value.total}</span>`: '')
     },{
       id: 5,
-      name: t('title.payment')
+      name: t('title.delivery')
     },{
       id: 6,
+      name: t('title.payment')
+    },{
+      id: 7,
       name: t('title.guarantees')
     }
   ]
 
   if(!props.product.attrs.length) {
-    list[1].disabled = true
+    list[2].disabled = true
   }
 
   if(!reviews.value.length) {
-    list[2].disabled = true
+    list[3].disabled = true
   }
 
   return list
@@ -132,6 +135,11 @@ const loadReviewsHandler = async (page) => {
   await getReviews(query, false).then(() => {
     scrollToContent()
   })
+}
+
+const changeTabHandler = (index) => {
+  tab.value = index
+  scrollToContent()
 }
 
 // METHODS
@@ -269,12 +277,19 @@ watch(() => route.hash, (v) => {
             <template v-if="tab === 0">
               <div class="content-common">
                 <lazy-product-gallery :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
+                <!-- <lazy-product-feature></lazy-product-feature> -->
+                <!-- <lazy-product-guarantee></lazy-product-guarantee> -->
                 <div v-if="$device.isDesktop" class="content-html rich-text" v-html="product.content"></div>
               </div>
             </template>
 
-            <!-- Properties -->
+            <!-- Content -->
             <template v-else-if="tab === 1">
+              <div class="rich-text" v-html="product.content"></div>
+            </template>
+
+            <!-- Properties -->
+            <template v-else-if="tab === 2">
               <div class="params-wrapper">
                 <div class="tab-title">{{  t('attrs') }}</div>
                 <lazy-simple-list-params :items="product.attrs"></lazy-simple-list-params>
@@ -282,7 +297,7 @@ watch(() => route.hash, (v) => {
             </template>
 
             <!-- Reviews -->
-            <template v-else-if="tab === 2">
+            <template v-else-if="tab === 3">
               <lazy-product-reviews
                 :reviews="reviews"
                 :meta="reviewsMeta"
@@ -293,7 +308,7 @@ watch(() => route.hash, (v) => {
             </template>
 
             <!-- Delivery -->
-            <template v-else-if="tab === 3">
+            <template v-else-if="tab === 4">
               <div class="">
                 <div class="tab-title">{{ t('title.delivery') }}</div>
                 <lazy-product-delivery-info></lazy-product-delivery-info>
@@ -301,7 +316,7 @@ watch(() => route.hash, (v) => {
             </template>
 
             <!-- Payment -->
-            <template v-else-if="tab === 4">
+            <template v-else-if="tab === 5">
               <div class="">
                 <div class="tab-title">{{ t('title.payment') }}</div>
                 <lazy-product-payment-info></lazy-product-payment-info>
@@ -309,7 +324,7 @@ watch(() => route.hash, (v) => {
             </template>
 
             <!-- Guarantees -->
-            <template v-else-if="tab === 5">
+            <template v-else-if="tab === 6">
               <div class="">
                 <div class="tab-title">{{ t('title.guarantees') }}</div>
                 <lazy-product-guarantees-info></lazy-product-guarantees-info>
@@ -319,32 +334,46 @@ watch(() => route.hash, (v) => {
         </div>
 
         <div class="content-sale">
+          <lazy-product-guarantee v-if="$device.isMobile && tab === 0" class="content-guarantee"></lazy-product-guarantee>
+
           <lazy-product-sale-block
             v-if="$device.isDesktop || tab === 0"
             :product="product"
             :class="{mini: tab !== 0}"
-            class="content-sale-block"
+            class="content-buy"
           ></lazy-product-sale-block>
 
           <transition name="fade-in">
-            <template v-if="tab === 0">
-              <div class="content-grid">
-                <lazy-product-delivery-box></lazy-product-delivery-box>
-
-                <lazy-product-payment-box></lazy-product-payment-box>
-
-                <div v-if="product.attrs && product.attrs.length" class="params-mini">
-                  <lazy-simple-list-params :items="product.attrs" class="params-wrapper"></lazy-simple-list-params>
-                  <button @click="paramsHandler" class="text-link params-mini-btn">
-                    <span>{{ t('all_attrs') }}</span>
-                    <IconCSS name="iconoir:arrow-right" class="icon"></IconCSS>
-                  </button>
-                </div>
-
-                <div v-if="$device.isMobile" class="content-html rich-text" v-html="product.content"></div>
-              </div>
-            </template>
+            <lazy-product-feature v-if="tab === 0" class="content-feature"></lazy-product-feature>
           </transition>
+
+          <transition name="fade-in">
+            <lazy-product-delivery-box v-if="tab === 0" class="content-delivery"></lazy-product-delivery-box>
+          </transition>
+
+          <transition name="fade-in">
+            <lazy-product-payment-box v-if="tab === 0" class="content-payment"></lazy-product-payment-box>
+          </transition>
+          
+          <transition name="fade-in">
+            <lazy-product-params-box
+              v-if="tab === 0 && product.attrs && product.attrs.length"
+              :items="product.attrs"
+              class="content-params"
+            ></lazy-product-params-box>
+          </transition>
+          
+          <transition name="fade-in">
+            <lazy-product-content-box
+              v-if="tab === 0 && $device.isMobile"
+              :content="product.content"
+              @more="changeTabHandler(1)"
+              class="content-html"
+            ></lazy-product-content-box>
+          </transition>
+
+            <!-- <div v-if="tab === 0" class="content-grid">
+            </div> -->
         </div>
 
       </div>

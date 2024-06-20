@@ -80,7 +80,7 @@ onServerPrefetch(() => {
       <div class="title-common">{{ t('title.blog') }}</div>
 
       <div v-if="articles" class="articles-wrapper">
-        <article-card v-for="article in articles" :key="article.id" :item="article"></article-card>
+        <article-card v-for="(article, index) in articles" :key="article.id" :index="index" :item="article"></article-card>
       </div>
 
       <div v-if="articlesMeta && articlesMeta.current_page !== articlesMeta.last_page" @click="loadmoreHandler" class="load-more-wrapper">

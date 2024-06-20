@@ -53,6 +53,7 @@ label:
   grn: грн.
   sec: сек
   price: Цена
+  all: Общее
   desc: Описание
   props: Характеристики
   guide: Гид по покупке
@@ -127,6 +128,7 @@ button:
   back: Назад
   reply: Ответить
   buy: Купить
+  to_cart: В корзину
   leave_review: Оставить отзыв
   1_click_buy: Купить в один клик 
   filters: Фильтры

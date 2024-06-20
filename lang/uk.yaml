@@ -53,6 +53,7 @@ label:
   grn: грн.
   sec: сік
   price: Ціна
+  all: Общее
   desc: Опис
   props: Характеристики
   guide: Гід з купівлі
@@ -127,6 +128,7 @@ button:
   back: Назад
   reply: Відповісти
   buy: Купити
+  to_cart: До кошику
   leave_review: Залишити відгук
   1_click_buy: Придбати в один клік
   filters: Фільтри

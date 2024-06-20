@@ -152,7 +152,7 @@ watch(() => modelValue.value, (v) => {
     <transition name="fade-in">
       <div v-if="modelValue?.length" class="selected">
         <div class="container">
-          <filter-selected :filters="filters"></filter-selected>
+          <lazy-filter-selected :filters="filters"></lazy-filter-selected>
         </div>
       </div>
     </transition>
@@ -193,14 +193,14 @@ watch(() => modelValue.value, (v) => {
 
     <div :class="{'no-filters': noFilters}" class="content">
       <!-- All filters -->
-      <filter-list
+      <lazy-filter-list
         v-if="$device.isDesktop && filters && !noFilters"
         :filters="filters"
         :meta="filtersMeta"
         :meta-init="filtersMetaInit"
         :class="{pending: pending}"
         class="filters"
-      ></filter-list> 
+      ></lazy-filter-list> 
 
       <!-- Products list -->
       <div class="content-grid">
@@ -212,13 +212,13 @@ watch(() => modelValue.value, (v) => {
           </template>
           <template v-else>
             <transition-group name="fade-in">
-              <product-card
+              <lazy-product-card
                 v-for="(product, index) in products"
                 :key="product.id + index"
                 :item="product"
                 :index="index"
                 class="content-grid-item"
-              ></product-card>
+              ></lazy-product-card>
             </transition-group>
           </template>
       </div>
@@ -229,13 +229,13 @@ watch(() => modelValue.value, (v) => {
         <div></div>
         <div>
           <!-- Pagination -->
-          <simple-pagination
+          <lazy-simple-pagination
             v-if="meta.total >= meta.per_page"
             :total="meta.last_page"
             :current="meta.current_page"
             @update:current="updatePageHandler"
             class="pagination"
-          ></simple-pagination>
+          ></lazy-simple-pagination>
 
           <!-- SLOT FOOTER HERE -->
           <slot name="footer" />
@@ -244,11 +244,11 @@ watch(() => modelValue.value, (v) => {
       </div>
     </div>
 
-    <filter-mobile-buttons
+    <lazy-filter-mobile-buttons
       v-if="$device.isMobile && filters && !noFilters"
       :data="filtersData"
       :update-order-callback="updateOrderCallback"
-    ></filter-mobile-buttons>
+    ></lazy-filter-mobile-buttons>
 
   </div>
 </template>

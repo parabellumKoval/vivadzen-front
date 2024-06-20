@@ -18,6 +18,11 @@ export default {
     max: {
       type: Number,
       default: 999999
+    },
+
+    size: {
+      type: String,
+      default: 'medium' // small, medium, large
     }
   },
 
@@ -51,15 +56,15 @@ export default {
 <style src="./amount.scss" lang="postcss" scoped />
 
 <template>
-  <div class="amount">
+  <div :class="size" class="amount">
     <button @click="minusHandler" clickable type="button" class="btn">
-      <IconCSS name="fluent:subtract-20-regular" size="20px" class="icon"></IconCSS>
+      <IconCSS name="fluent:subtract-20-regular" class="icon"></IconCSS>
     </button>
     
     <input :value="modelValue" @change="updateHandler" :max="max" :min="min" type="text" class="calc-input">
 
     <button @click="plusHandler" clickable type="button" class="btn">
-      <IconCSS name="fluent:add-20-regular" size="20px" class="icon"></IconCSS>
+      <IconCSS name="fluent:add-20-regular" class="icon"></IconCSS>
     </button>
   </div>
 </template>

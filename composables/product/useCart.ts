@@ -5,10 +5,10 @@ export const useCart = (productData: Product) => {
 
   const {t} = useI18n({useScope: 'global'})
 
-  const toCartHandler = () => {
+  const toCartHandler = (count: Integer = 1) => {
     const data = {
       ...productData,
-      amount: 1
+      amount: count
     }
 
     useCartStore().add(data).then(() => {

@@ -56,5 +56,8 @@ const methods = computed(() => {
         <span class="free-delivery-desc">{{ t('order') }} <span class="bold">{{ t('grn') }}</span></span>
       </span>
     </div>
+    <button class="button secondary darker more-btn">
+      {{ t('more') }}
+    </button>
   </div>
 </template>

@@ -12,6 +12,7 @@ const types = computed(() => {
 
 <style src="./../../box.scss" lang="scss" scoped></style>
 <style src="./box.scss" lang="scss" scoped></style>
+<i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
   <div class="product-box">
@@ -36,5 +37,8 @@ const types = computed(() => {
     <div class="type">
       <div v-for="item in types" :key="item.id" class="type-item">{{ item.title }}</div>
     </div>
+    <button class="button secondary darker more-btn">
+      {{ t('more') }}
+    </button>
   </div>
 </template>

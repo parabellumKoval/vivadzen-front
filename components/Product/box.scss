@@ -2,14 +2,17 @@
 @import './assets/scss/mixins';
 
 .product-box {
-  width: 100%;
-  margin: 0;
-  padding: 30px 20px;
-  border: 1px solid $color-5;
-  border-radius: $radius;
+  width: 100vw;
+  margin: 0 -15px;
+  padding: 30px 15px;
+  border-top: 1px solid $color-5;
 
   @include _desktop {
+    width: 100%;
+    margin: 0;
     padding: 30px;
+    border: 1px solid $color-5;
+    border-radius: $radius;
   }
 
   &-label {
@@ -18,6 +21,14 @@
 
     @include _desktop {
       margin-bottom: 20px;
+    }
+  }
+
+  .more-btn {
+    margin-top: 30px;
+
+    @include _desktop {
+      display: none;
     }
   }
 }

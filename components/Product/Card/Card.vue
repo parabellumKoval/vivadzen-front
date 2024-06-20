@@ -119,7 +119,7 @@ const toReviewsHandler = () => {
     </NuxtLink>
     
     <div :class="{between: item.rating}" class="reviews">
-      <simple-stars v-if="item?.rating" :amount="item.rating" class="rating"></simple-stars>
+      <lazy-simple-stars v-if="item?.rating" :amount="item.rating" class="rating"></lazy-simple-stars>
       
       <button v-if="reviewsCount" @click="toReviewsHandler" class="reviews-btn">
         {{ t('label.reviews', {reviews: reviewsCount}, reviewsCount) }}
@@ -142,14 +142,14 @@ const toReviewsHandler = () => {
 
     <hr class="line">
 
-    <product-available :in-stock="item.inStock" class="amount"></product-available>
+    <lazy-product-available :in-stock="item.inStock" class="amount"></lazy-product-available>
 
     <div class="sale">
       <button @click="toCartHandler" type="button" class="button primary small buy-btn">
         <span class="buy-btn-name">{{ t('button.buy') }}</span>
         <IconCSS name="iconoir:shopping-bag" class="buy-btn-icon"></IconCSS>
       </button>
-      <product-price :price="item.price" :old-price="item.oldPrice"></product-price>
+      <lazy-product-price :price="item.price" :old-price="item.oldPrice"></lazy-product-price>
     </div>
 
   </div>

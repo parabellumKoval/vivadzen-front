@@ -146,7 +146,7 @@ const mouseOverHandler = (e) => {
 
 <template>
   <div class="gallery" :class="'length-' + (images?.length || 1)">
-    <div class="thumbnail">
+    <div v-if="images?.length > 1" class="thumbnail">
       <button
         v-for="(item, index) in images"
         :key="index"
@@ -172,7 +172,7 @@ const mouseOverHandler = (e) => {
         </nuxt-img> 
       </button>
     </div>
-    <div ref="mainImageWrapperRef" class="main">
+    <div ref="mainImageWrapperRef" :class="{full: images?.length <= 1}" class="main">
       <div v-if="isZoom && images?.length" :style="cursorStyle" class="cursor"></div>
       
       <nuxt-img
@@ -192,24 +192,24 @@ const mouseOverHandler = (e) => {
         @mouseleave="() => isZoom = false"
       />
     </div>
-      <transition name="fade-in">
-        <div
-          v-if="isZoom && images?.length"
-          :style="zoomWrapperStyle"
-          class="zoom"
-        >
-          <nuxt-img
-            v-if="image.src"
-            :src = "getImage(image.src)"
-            sizes = "mobile:0px tablet:0px desktop:1200px"
-            format = "avif"
-            quality = "100"
-            loading = "lazy"
-            fit="outside"
-            class="image"
-            :style="zoomStyle"
-          />
-        </div>
-      </transition>
+    <transition name="fade-in">
+      <div
+        v-if="isZoom && images?.length"
+        :style="zoomWrapperStyle"
+        class="zoom"
+      >
+        <nuxt-img
+          v-if="image.src"
+          :src = "getImage(image.src)"
+          sizes = "mobile:0px tablet:0px desktop:1200px"
+          format = "avif"
+          quality = "100"
+          loading = "lazy"
+          fit="outside"
+          class="image"
+          :style="zoomStyle"
+        />
+      </div>
+    </transition>
   </div>
 </template>

@@ -149,11 +149,52 @@
   display: grid;
   align-items: stretch;
   grid-template-columns: 100%;
-  grid-gap: 30px;
   margin: 30px 0 80px 0;
 
   @include _desktop {
     grid-template-columns: repeat(2, 1fr);
+    margin: 30px 0 80px 0;
+    grid-gap: 30px;
+  }
+
+
+  &-sale {
+    display: grid;
+    grid-auto-columns: 100%;
+    grid-auto-rows: min-content;
+    order: 2;
+
+    @include _desktop {
+      order: 1;
+      grid-gap: 30px;
+    }
+  }
+
+  &-buy {
+    height: min-content;
+    width: 100%;
+    margin-left: auto;
+    transition: width $speed;
+    order: 4;
+    padding: 20px 0;
+
+    @include _desktop {
+      order: 1;
+    }
+
+    &.mini {
+      position: sticky;
+      top: 160px;
+      width: 92%;
+    }
+  }
+
+  &-feature {
+    order: 3;
+
+    @include _desktop {
+      order: 2;
+    }
   }
 
   &-main {
@@ -169,39 +210,35 @@
     }
   }
 
-  &-sale {
-    display: grid;
-    grid-auto-columns: 100%;
-    grid-auto-rows: min-content;
-    grid-gap: 30px;
+  &-params {
+    order: 1;
 
-    &-block {
-      height: min-content;
-      width: 100%;
-      margin-left: auto;
-      transition: width $speed;
-
-      &.mini {
-        position: sticky;
-        top: 160px;
-        width: 92%;
-      }
+    @include _desktop {
+      order: 3;
     }
   }
 
-  &-grid {
-    display: grid;
-    grid-gap: 30px;
-    grid-auto-columns: 100%;
+  &-guarantee {
+    order: 2;
+
+    @include _desktop {
+      order: 2;
+    }
   }
 
-  &-html {}
-}
+  &-html {
+    order: 5;
+  }
+  
+  &-delivery {
+    order: 6;
 
-.params {
-  &-mini {
-    &-btn {
-      margin-top: 20px;
+    :deep(.product-box) {
+      border-bottom: 0;
     }
+  }
+
+  &-payment {
+    order: 7;
   }
 }

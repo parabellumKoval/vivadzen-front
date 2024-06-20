@@ -9,6 +9,22 @@
   border-radius: $radius;
   background: $color-8;
   border: 2px solid $color-6;
+
+  &.large {
+    @include _desktop {
+      height: 50px;
+      max-width: 180px;
+
+      .btn {
+        height: 46px;
+        width: 46px;
+  
+        .icon {
+          font-size: 30px;
+        }
+      }
+    }
+  }
 }
 
 .calc-input {
@@ -33,6 +49,7 @@
   transition: background $speed;
 
   .icon {
+    font-size: 20px;
     transition: transform $speed;
   }
 
