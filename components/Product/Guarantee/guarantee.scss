@@ -6,14 +6,15 @@
   align-items: center;
   justify-content: center;
   width: 100vw;
-  padding: 20px 15px;
+  height: 40px;
+  padding: 0 15px;
   margin: 0 -15px;
   background: scale-color($color-green, $lightness: 94%);
   border-top: 1px solid $color-6;
-  border-bottom: 1px solid $color-6;
 
   @include _desktop {
     width: 100%;
+    height: initial;
     background: 0;
     padding: 0;
     margin: 0;
@@ -39,11 +40,6 @@
 
   &-text {
     margin: -3px 0 0 0;
-    font-size: 12px;
     border-bottom: 1px dashed;
-
-    @include _desktop {
-      font-size: 16px;
-    }
   }
 }

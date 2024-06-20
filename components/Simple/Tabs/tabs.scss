@@ -44,10 +44,14 @@
   white-space: nowrap;
   cursor: pointer;
   line-height: 120%;
-  font-size: 16px;
+  font-size: 14px;
   color: $color-2;
   border-bottom: 2px solid transparent;
   transition: color $speed, border $speed;
+
+  @include _desktop {
+    font-size: 16px;
+  }
 
   &:hover {
     color: $color-primary;

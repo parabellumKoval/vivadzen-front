@@ -29,11 +29,10 @@
     display: grid;
     grid-template-columns: 30px 1fr;
     grid-gap: 5px;
-    align-items: center;
+    align-items: flex-start;
 
     @include _desktop {
       grid-gap: 10px;
-      align-items: flex-start;
     }
 
     &.green {
@@ -50,7 +49,7 @@
   }
 
   &-icon {
-    font-size: 20px;
+    font-size: 24px;
 
     @include _desktop {
       font-size: 30px;
@@ -60,12 +59,11 @@
   &-text {
     display: inline-block;
     line-height: 120%;
-    font-size: 12px;
     max-width: 130px;
+    padding: 4px 0 0 0;
 
     @include _desktop {
-      padding: 5px 0;
-      font-size: 16px;
+      padding: 5px 0 0 0;
     }
   }
 }

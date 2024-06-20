@@ -276,9 +276,8 @@ watch(() => route.hash, (v) => {
             <!-- Common -->
             <template v-if="tab === 0">
               <div class="content-common">
-                <lazy-product-gallery :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
-                <!-- <lazy-product-feature></lazy-product-feature> -->
-                <!-- <lazy-product-guarantee></lazy-product-guarantee> -->
+                <lazy-product-gallery-mobile v-if="$device.isMobile" :items="product.images" class="gallery-wrapper"></lazy-product-gallery-mobile>
+                <lazy-product-gallery v-else :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
                 <div v-if="$device.isDesktop" class="content-html rich-text" v-html="product.content"></div>
               </div>
             </template>
