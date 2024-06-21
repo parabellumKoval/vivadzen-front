@@ -24,8 +24,26 @@
     }
   }
 
+  .box {
+    &-btn {
+      margin-top: 20px;
+    }
+  }
+
   .more-btn {
     margin-top: 20px;
+
+    @include _desktop {
+      display: none;
+    }
+  }
+
+  .mobile-title {
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 24px;
+    line-height: 120%;
+    text-transform: uppercase;
 
     @include _desktop {
       display: none;

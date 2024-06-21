@@ -2,8 +2,9 @@
 @import './assets/scss/mixins';
 
 .available {
+  position: relative;
   display: inline-block;
-  text-align: center;
+  text-align: right;
   white-space: nowrap;
   color: $color-green;
 
@@ -16,24 +17,27 @@
     color: $color-green;
 
     & + .running_out {
-      color: $color-3;
+      color: $color-red;
     }
   }
 
   .running_out {
+    position: absolute;
+    right: 0;
     color: $color-red;
+    font-size: 12px;
   }
 
   .not_available {
     color: $color-2;
   }
 
-  &-item {
-    & + .available-item {
-      &:before {
-        content: '/';
-        padding: 0 5px;
-      }
-    }
-  }
+  // &-item {
+  //   & + .available-item {
+  //     &:before {
+  //       content: '/';
+  //       padding: 0 5px;
+  //     }
+  //   }
+  // }
 }

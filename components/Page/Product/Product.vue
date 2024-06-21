@@ -18,6 +18,7 @@ const reviews = ref([])
 const reviewsMeta = ref({})
 const isReviewsLoading = ref(false)
 const tab = ref(0)
+const reviewsComponentRef = ref(null)
 
 
 const {setSchema} = useSchema()
@@ -37,18 +38,6 @@ const slug = computed(() => {
   return route.params.slug
 })
 
-const productMicro = computed(() => {
-  return {
-    id: props.product.id,
-    code: props.product.code,
-    name: props.product.name,
-    slug: props.product.slug,
-    image: props.product.images?.length? props.product.images[0]: null,
-    price: props.product.price,
-    oldPrice: props.product.oldPrice,
-    inStock: props.product.inStock,
-  }
-})
 
 const ratingCount = computed(() => {
   return props.product.reviews_rating_detailes?.rating_count || 0
@@ -70,20 +59,34 @@ const reviewQuery = computed(() => {
 })
 
 const tabs = computed(() => {
-  const list = [
+  let list = [
     {
       id: 1,
       name: t('label.all')
     },{
       id: 2,
       name: t('label.desc')
-    },{
+    }
+  ]
+
+  if(props.product?.attrs?.length) {
+    list.push({
       id: 3,
       name: t('label.props')
-    },{
+    })
+  }
+
+
+  if(reviews?.value?.length) {
+    list.push({
       id: 4,
       name: t('title.reviews') + ' ' + (reviewsMeta.value.total? `<span class="budge green">${reviewsMeta.value.total}</span>`: '')
-    },{
+    })
+  }
+  
+  list = [
+    ...list,
+    {
       id: 5,
       name: t('title.delivery')
     },{
@@ -95,13 +98,13 @@ const tabs = computed(() => {
     }
   ]
 
-  if(!props.product.attrs.length) {
-    list[2].disabled = true
-  }
+  // if(!props.product.attrs.length) {
+  //   list[2].disabled = true
+  // }
 
-  if(!reviews.value.length) {
-    list[3].disabled = true
-  }
+  // if(!reviews.value.length) {
+  //   list[3].disabled = true
+  // }
 
   return list
 })
@@ -113,16 +116,7 @@ const paramsHandler = () => {
 }
 
 const reviewHandler = () => {
-  if(useAuthStore().auth) {
-    useModal().open(resolveComponent('ModalReviewCreate'), productMicro.value, null, {width: {min: 420, max: 420}})
-  }else {
-    useNoty().setNoty({
-      content: t('noty.review.need_login'),
-      type: 'warning'
-    }, 7000)
-    
-    useModal().open(resolveComponent('ModalAuthSocial'), null, null, {width: {min: 420, max: 420}})
-  }
+  reviewsComponentRef.value.reviewHandler()
 }
 
 const loadReviewsHandler = async (page) => {
@@ -216,17 +210,13 @@ onServerPrefetch(() => {
 
 setCrumbs()
 
-watch(() => route.hash, (v) => {
-  if(v === '#reviews') {
-    if(reviews?.value?.length){
-      tab.value = 2
-    }else {
-      reviewHandler() 
-    }   
-  }
-}, {
-  immediate: true
-})
+// watch(() => route.hash, (v) => {
+//   if(v === '#reviews') {
+//     reviewHandler()   
+//   }
+// }, {
+//   immediate: true
+// })
 </script>
 
 <style src="./product.scss" lang="scss" scoped></style>
@@ -234,151 +224,173 @@ watch(() => route.hash, (v) => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <DelayHydration>
-    <div class="container">
-      <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
+  <div class="container">
+    <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
-      <div class="header">
-        <span class="name title-common">{{ product.name }}</span>
-        
-        <span v-if="product.code" class="code">
-          <span class="label">{{ t('label.product_code') }}:</span>
-          <span class="value">{{ product.code }}</span>
-        </span>
+    <div class="header">
+      <span class="name title-common">{{ product.name }}</span>
+      
+      <span v-if="product.code" class="code">
+        <span class="label">{{ t('label.product_code') }}:</span>
+        <span class="value">{{ product.code }}</span>
+      </span>
 
-        <div class="header-reviews">
-          <simple-stars :amount="product.rating|| 0" desktop="large" mobile="large"></simple-stars>
-          <div v-if="product.rating" class="rating-label">
-            {{ t('messages.rates_reviews', {rates: ratingCount, reviews: reviewsCount }) }}
-          </div>
-          <simple-button-text
-            :text="t('button.leave_review')"
-            :callback="reviewHandler"
-            :class="{disable: product.rating > 0}"
-            class="header-reviews-btn"
-          ></simple-button-text>
+      <div class="header-reviews">
+        <simple-stars :amount="product.rating|| 0" desktop="large" mobile="large"></simple-stars>
+        <div v-if="product.rating" class="rating-label">
+          {{ t('messages.rates_reviews', {rates: ratingCount, reviews: reviewsCount }) }}
         </div>
+        <simple-button-text
+          :text="t('button.leave_review')"
+          :callback="reviewHandler"
+          :class="{disable: product.rating > 0}"
+          class="header-reviews-btn"
+        ></simple-button-text>
+      </div>
 
-        <div class="right">
-          <lazy-product-comparison :product-id="product.id"></lazy-product-comparison>
-          <lazy-product-favorite :product-id="product.id"></lazy-product-favorite>
-        </div>
+      <div class="right">
+        <lazy-product-comparison :product-id="product.id"></lazy-product-comparison>
+        <lazy-product-favorite :product-id="product.id"></lazy-product-favorite>
       </div>
     </div>
+  </div>
 
-    <lazy-simple-tabs v-model="tab" :values="tabs" value="name" class="tab-wrapper"></lazy-simple-tabs>
+  <lazy-simple-tabs v-model="tab" :values="tabs" value="name" class="tab-wrapper"></lazy-simple-tabs>
 
-    <div class="container">
-      <div class="content">
+  <div class="container">
+    <div class="content">
+      
+      <div class="content-main" ref="content">
+        <transition name="fade-in">
+          <!-- Common -->
+          <template v-if="tab === 0">
+            <div class="content-common">
+              <lazy-product-gallery-mobile v-if="$device.isMobile" :items="product.images" class="gallery-wrapper"></lazy-product-gallery-mobile>
+              <lazy-product-gallery v-else :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
+              <div v-if="$device.isDesktop" class="content-html rich-text" v-html="product.content"></div>
+            </div>
+          </template>
+
+          <!-- Content -->
+          <template v-else-if="tab === 1">
+            <div class="rich-text" v-html="product.content"></div>
+          </template>
+
+          <!-- Properties -->
+          <template v-else-if="tab === 2">
+            <div class="params-wrapper">
+              <div class="tab-title">{{  t('attrs') }}</div>
+              <lazy-simple-list-params :items="product.attrs"></lazy-simple-list-params>
+            </div>
+          </template>
+
+          <!-- Reviews -->
+          <template v-else-if="tab === 3">
+            <lazy-product-reviews
+              :reviews="reviews"
+              :meta="reviewsMeta"
+              :product="product"
+              @update:current="loadReviewsHandler"
+              id="reviews"
+            ></lazy-product-reviews>
+          </template>
+
+          <!-- Delivery -->
+          <template v-else-if="tab === 4">
+            <div class="">
+              <div class="tab-title">{{ t('title.delivery') }}</div>
+              <lazy-product-delivery-info></lazy-product-delivery-info>
+            </div>
+          </template>
+
+          <!-- Payment -->
+          <template v-else-if="tab === 5">
+            <div class="">
+              <div class="tab-title">{{ t('title.payment') }}</div>
+              <lazy-product-payment-info></lazy-product-payment-info>
+            </div>
+          </template>
+
+          <!-- Guarantees -->
+          <template v-else-if="tab === 6">
+            <div class="">
+              <div class="tab-title">{{ t('title.guarantees') }}</div>
+              <lazy-product-guarantees-info></lazy-product-guarantees-info>
+            </div>
+          </template>
+        </transition>
+      </div>
+
+      <div class="content-sale">
+        <lazy-product-guarantee
+          v-if="$device.isMobile && tab === 0"
+          class="content-guarantee"
+          @more="changeTabHandler(6)"
+        ></lazy-product-guarantee>
+
+        <lazy-product-sale-block
+          v-if="$device.isDesktop || tab === 0"
+          :product="product"
+          :class="{mini: tab !== 0}"
+          class="content-buy"
+        ></lazy-product-sale-block>
+
+        <transition name="fade-in">
+          <lazy-product-feature v-if="tab === 0" class="content-feature"></lazy-product-feature>
+        </transition>
+
+        <transition name="fade-in">
+          <lazy-product-delivery-box
+            v-if="tab === 0"
+            class="content-delivery"
+            @more="changeTabHandler(4)"
+          ></lazy-product-delivery-box>
+        </transition>
+
+        <transition name="fade-in">
+          <lazy-product-payment-box
+            v-if="tab === 0"
+            @more="changeTabHandler(5)"
+            class="content-payment"
+          ></lazy-product-payment-box>
+        </transition>
         
-        <div class="content-main" ref="content">
-          <transition name="fade-in">
-            <!-- Common -->
-            <template v-if="tab === 0">
-              <div class="content-common">
-                <lazy-product-gallery-mobile v-if="$device.isMobile" :items="product.images" class="gallery-wrapper"></lazy-product-gallery-mobile>
-                <lazy-product-gallery v-else :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
-                <div v-if="$device.isDesktop" class="content-html rich-text" v-html="product.content"></div>
-              </div>
-            </template>
+        <transition name="fade-in">
+          <lazy-product-params-box
+            v-if="tab === 0 && product.attrs && product.attrs.length"
+            :items="product.attrs"
+            class="content-params"
+          ></lazy-product-params-box>
+        </transition>
+        
+        <transition name="fade-in">
+          <lazy-product-content-box
+            v-if="tab === 0 && $device.isMobile"
+            :content="product.content"
+            @more="changeTabHandler(1)"
+            class="content-html"
+          ></lazy-product-content-box>
+        </transition>
 
-            <!-- Content -->
-            <template v-else-if="tab === 1">
-              <div class="rich-text" v-html="product.content"></div>
-            </template>
-
-            <!-- Properties -->
-            <template v-else-if="tab === 2">
-              <div class="params-wrapper">
-                <div class="tab-title">{{  t('attrs') }}</div>
-                <lazy-simple-list-params :items="product.attrs"></lazy-simple-list-params>
-              </div>
-            </template>
-
-            <!-- Reviews -->
-            <template v-else-if="tab === 3">
-              <lazy-product-reviews
-                :reviews="reviews"
-                :meta="reviewsMeta"
-                :product="productMicro"
-                @update:current="loadReviewsHandler"
-                id="reviews"
-              ></lazy-product-reviews>
-            </template>
-
-            <!-- Delivery -->
-            <template v-else-if="tab === 4">
-              <div class="">
-                <div class="tab-title">{{ t('title.delivery') }}</div>
-                <lazy-product-delivery-info></lazy-product-delivery-info>
-              </div>
-            </template>
-
-            <!-- Payment -->
-            <template v-else-if="tab === 5">
-              <div class="">
-                <div class="tab-title">{{ t('title.payment') }}</div>
-                <lazy-product-payment-info></lazy-product-payment-info>
-              </div>
-            </template>
-
-            <!-- Guarantees -->
-            <template v-else-if="tab === 6">
-              <div class="">
-                <div class="tab-title">{{ t('title.guarantees') }}</div>
-                <lazy-product-guarantees-info></lazy-product-guarantees-info>
-              </div>
-            </template>
-          </transition>
-        </div>
-
-        <div class="content-sale">
-          <lazy-product-guarantee v-if="$device.isMobile && tab === 0" class="content-guarantee"></lazy-product-guarantee>
-
-          <lazy-product-sale-block
-            v-if="$device.isDesktop || tab === 0"
+        <transition name="fade-in">
+          <product-reviews-box
+            v-if="tab === 0"
+            :reviews="reviews"
+            :meta="reviewsMeta"
             :product="product"
-            :class="{mini: tab !== 0}"
-            class="content-buy"
-          ></lazy-product-sale-block>
-
-          <transition name="fade-in">
-            <lazy-product-feature v-if="tab === 0" class="content-feature"></lazy-product-feature>
-          </transition>
-
-          <transition name="fade-in">
-            <lazy-product-delivery-box v-if="tab === 0" class="content-delivery"></lazy-product-delivery-box>
-          </transition>
-
-          <transition name="fade-in">
-            <lazy-product-payment-box v-if="tab === 0" class="content-payment"></lazy-product-payment-box>
-          </transition>
-          
-          <transition name="fade-in">
-            <lazy-product-params-box
-              v-if="tab === 0 && product.attrs && product.attrs.length"
-              :items="product.attrs"
-              class="content-params"
-            ></lazy-product-params-box>
-          </transition>
-          
-          <transition name="fade-in">
-            <lazy-product-content-box
-              v-if="tab === 0 && $device.isMobile"
-              :content="product.content"
-              @more="changeTabHandler(1)"
-              class="content-html"
-            ></lazy-product-content-box>
-          </transition>
-
-            <!-- <div v-if="tab === 0" class="content-grid">
-            </div> -->
-        </div>
-
+            :amount="2"
+            @loadReviews="loadReviewsHandler"
+            @more="changeTabHandler(3)"
+            class="content-reviews"
+            ref="reviewsComponentRef"
+            id="reviews"
+          ></product-reviews-box>
+        </transition>
       </div>
+
     </div>
-  
-    <!-- Sale block mobile   -->
-    <lazy-product-sale-fixed v-if="$device.isMobile" :product="product"></lazy-product-sale-fixed>
-  </DelayHydration>
+  </div>
+
+  <!-- Sale block mobile   -->
+  <lazy-product-sale-fixed v-if="$device.isMobile" :product="product"></lazy-product-sale-fixed>
 </template>

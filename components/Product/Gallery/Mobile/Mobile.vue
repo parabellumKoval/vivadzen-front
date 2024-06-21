@@ -40,23 +40,9 @@ const setImageRef = (r) => {
 // HANDLERS
 const scrollToHandler = (index) => {
   const itemElement = imagesRef.value[index]
-  console.log('scrooll to ', index, itemElement, imagesRef.value[index].value, itemElement.offsetLeft)
-
   mainRef.value.scrollLeft = itemElement.offsetLeft - 15
-  // scrollToImage(anchor)
 }
 
-
-const scrollToImage = () => {
-  // var headerOffset = 180;
-  // var elementPosition = content.value.getBoundingClientRect().top;
-  // var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-  window.scrollTo({
-    top: offsetPosition,
-    behavior: "smooth"
-  })
-}
 </script>
 
 <style src="./mobile.scss" lang="scss" scoped></style>
@@ -89,7 +75,7 @@ const scrollToImage = () => {
         </nuxt-img> 
       </button>
     </div>
-    <div ref="mainRef" class="main">
+    <div ref="mainRef" :class="{full: images?.length <= 1}" class="main">
       <div v-for="(image, index) in images" :key="index" :ref="setImageRef">
         <nuxt-img
           :src = "getImage(image.src)"

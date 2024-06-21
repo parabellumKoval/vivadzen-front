@@ -1,5 +1,5 @@
 <script setup>
-const {t} = useI18n({useScope: 'global'})
+const {t} = useI18n()
 
 const payments = computed(() => {
   return usePaymentVendor().all
@@ -8,6 +8,8 @@ const payments = computed(() => {
 const types = computed(() => {
   return usePaymentVendor().types
 })
+
+const emit = defineEmits(['more'])
 </script>
 
 <style src="./../../box.scss" lang="scss" scoped></style>
@@ -16,6 +18,7 @@ const types = computed(() => {
 
 <template>
   <div class="product-box">
+    <div class="mobile-title">{{ t('title.payment') }}</div>
     <div class="product-box-label">{{ t('messages.accept_payment') }}:</div>
     <div class="payment">
       <div v-for="payment in payments" :key="payment.id" class="payment-item">
@@ -37,7 +40,7 @@ const types = computed(() => {
     <div class="type">
       <div v-for="item in types" :key="item.id" class="type-item">{{ item.title }}</div>
     </div>
-    <button class="button secondary darker more-btn">
+    <button @click="emit('more')" class="button secondary darker more-btn">
       {{ t('more') }}
     </button>
   </div>

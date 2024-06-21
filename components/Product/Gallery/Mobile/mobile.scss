@@ -71,12 +71,16 @@
   scroll-behavior: smooth;
 
   &-image {
-    // width: 100%;
-    // min-width: min-content;
     height: 320px;
     width: auto;
     max-width: 80vw;
     object-fit: contain;
     border-radius: $radius;
+  }
+
+  &.full {
+    .main-image {
+      max-width: calc(100vw - 30px);
+    }
   }
 }

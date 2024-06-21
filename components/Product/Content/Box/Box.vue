@@ -15,6 +15,8 @@ const emit = defineEmits(['more'])
 
 <template>
   <div class="product-box">
+    <div class="mobile-title">{{ t('label.desc') }}</div>
+
     <div class="content rich-text" v-html="content"></div>
 
     <button @click="emit('more')" class="button secondary darker more-btn">

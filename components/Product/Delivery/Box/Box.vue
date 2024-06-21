@@ -21,6 +21,8 @@ const methods = computed(() => {
     }
   ]
 })
+
+const emit = defineEmits(['more'])
 </script>
 
 <style src="./../../box.scss" lang="scss" scoped></style>
@@ -29,6 +31,7 @@ const methods = computed(() => {
 
 <template>
   <div class="product-box">
+    <div class="mobile-title">{{ t('title.delivery') }}</div>
     <div class="product-box-label">{{ t('delivery') }}:</div>
     <div class="method">
       <div v-for="method in methods" :key="method.id" class="method-item">
@@ -56,7 +59,7 @@ const methods = computed(() => {
         <span class="free-delivery-desc">{{ t('order') }} <span class="bold">{{ t('grn') }}</span></span>
       </span>
     </div>
-    <button class="button secondary darker more-btn">
+    <button @click="emit('more')" class="button secondary darker more-btn">
       {{ t('more') }}
     </button>
   </div>

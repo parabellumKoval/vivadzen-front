@@ -5,6 +5,8 @@ const props = defineProps({})
 // METHODS
 // HANDLERS
 // WATCHERS
+
+const emit = defineEmits(['more'])
 </script>
 
 <style src='./guarantee.scss' lang='scss' scoped></style>
@@ -12,7 +14,7 @@ const props = defineProps({})
 
 <template>
   <div class="guarantee">
-    <button class="guarantee-btn">
+    <button @click="emit('more')" class="guarantee-btn">
       <IconCSS name="iconoir:settings-profiles" class="guarantee-icon"></IconCSS>
       <span class="guarantee-text">{{ t('guarantee') }}</span>
     </button>

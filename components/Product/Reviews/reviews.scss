@@ -1,19 +1,55 @@
 @import './assets/scss/vars';
 @import './assets/scss/mixins';
 
+.rating {
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  grid-gap: 10px;
+  width: 100vw;
+  padding: 20px 15px 30px 15px;
+  margin: 0 -15px;
+  border-bottom: 1px solid $color-5;
+
+  @include _desktop {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  &-amount {
+    font-size: 36px;
+    line-height: 100%;
+  }
+
+  &-desc {
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 5px;
+  }
+
+  &-label {
+    color: $color-4;
+    white-space: nowrap;
+  }
+}
+
 .review {
   
   &-form {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 15px;
-    margin-bottom: 30px;
-    padding: 0 0 30px 0;
-    border-bottom: 1px solid $color-5;
+    grid-gap: 20px;
+    width: 100vw;
+    padding: 0 15px;
+    margin: 0 -15px;
 
     @include _desktop {
       grid-template-columns: 1fr min-content;
-      padding: 30px 0;
+      padding: 0;
+      width: 100%;
+      margin: 0 0 30px 0;
+      border: 0;
     }
 
     &-title {
@@ -28,6 +64,7 @@
     display: grid;
     grid-gap: 30px;
     width: 100%;
+    margin: 30px 0 0 0;
   }
 
   &-card {
@@ -37,6 +74,16 @@
 
     &:last-child {
       border-bottom: 0;
+      padding-bottom: 0;
     }
+  }
+}
+
+.no-reviews {
+  margin-top: 30px;
+  color: $color-3;
+
+  @include _desktop {
+    margin-top: 0;
   }
 }

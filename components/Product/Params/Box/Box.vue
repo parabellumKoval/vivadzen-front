@@ -10,7 +10,6 @@ const props = defineProps({
 </script>
 
 <style src="./../../box.scss" lang="scss" scoped></style>
-<style src="./box.scss" lang="scss" scoped></style>
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>

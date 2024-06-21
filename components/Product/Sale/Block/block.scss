@@ -50,7 +50,7 @@
     grid-gap: 20px;
 
     @include _desktop {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: min-content 1fr min-content;
       grid-gap: 45px;
     }
   }
