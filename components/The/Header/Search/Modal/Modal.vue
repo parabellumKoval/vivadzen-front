@@ -62,7 +62,6 @@ const setInput = (search) => {
 
 // WATCH
 watch(() => props.searchInput, (v) => {
-  console.log('watch', v)
   clearTimeout(timeout.value)
 
   timeout.value = setTimeout(() => {

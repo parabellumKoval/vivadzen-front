@@ -19,6 +19,20 @@ const background = computed(() => {
   return route?.meta?.bg || '#fff'
 })
 
+const isSearchMobile = computed(() => {
+  const matchedSlug = [
+    'slug',
+    'index',
+    'catalog',
+    'brands',
+    'comparison'
+  ].find((item) => {
+    return route.name.startsWith(item)
+  })
+
+  return matchedSlug && useDevice().isMobile? true: false
+})
+
 // AUTH
 const { auth } = useSupabaseClient()
 
@@ -92,7 +106,7 @@ useSchemaOrg([
 
         <lazy-the-header></lazy-the-header>
         
-        <the-header-search-sticky></the-header-search-sticky>
+        <the-header-search-sticky v-if="isSearchMobile"></the-header-search-sticky>
 
         <main class="main" :style="{background: background}">
           <slot />

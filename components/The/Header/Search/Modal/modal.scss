@@ -5,7 +5,7 @@
 .brand {
   &-item {
     display: grid;
-    grid-template-columns: 30px 1fr;
+    grid-template-columns: 40px 1fr;
     align-items: center;
     grid-gap: 10px;
     padding: 0 0 10px 0;
@@ -146,8 +146,8 @@
 
 .item {
   &-image {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
     border-radius: $radius;
     border: 1px solid $color-6;
@@ -157,7 +157,7 @@
 .product {
   &-card {
     display: grid;
-    grid-template-columns: 30px 1fr;
+    grid-template-columns: 40px 1fr;
     align-items: center;
     grid-gap: 10px;
     padding: 0 0 10px 0;
