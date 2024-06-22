@@ -45,6 +45,7 @@ const goToSearchPage = async () => {
       <lazy-the-header-search-modal
         v-if="isActive"
         :search-input="searchInput"
+        class="search-modal"
       ></lazy-the-header-search-modal>
     </transition>
   </div>

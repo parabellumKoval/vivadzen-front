@@ -1,0 +1,75 @@
+@import './assets/scss/vars';
+@import './assets/scss/mixins';
+
+
+.search {
+  &-wrapper {
+    position: sticky;
+    width: 100vw;
+    min-height: 60px;
+    top: 60px;
+    left: 0;
+    z-index: 99;
+    padding: 10px;
+    border-bottom: 1px solid $color-5;
+    background: $color-8;
+    transition: top .3s;
+
+    &.hide {
+      top: 0;
+    }
+
+    &.focus {
+
+      &:before {
+        content: '';
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba($color-0, 50%);
+      }
+    }
+  }
+
+  &-input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    z-index: 3;
+    color: $color-3;
+  }
+
+  &-input {
+    position: relative;
+    border: 1px solid $color-5;
+    background: $color-6;
+    height: 40px;
+    width: 100%;
+    padding: 0 15px 0 45px;
+    border-radius: $radius;
+    z-index: 2;
+
+    &::placeholder {
+      color: $color-3;
+    }
+  }
+
+  &-inner {
+    position: relative;
+
+    &:before {
+      position: absolute;
+      content: '';
+      top: -10px;
+      left: -10px;
+      height: calc(100% + 20px);
+      width: calc(100% + 20px);
+      background: $color-8;
+      z-index: 1;
+    }
+  }
+}

@@ -73,8 +73,35 @@ export const useMenu = () => {
     ]
   })
 
+  const common = computed(() => {
+    return [
+      {
+        id: 1,
+        link: '/delivery',
+        title: t('title.delivery')
+      },{
+        id: 2,
+        link: '/payment',
+        title: t('title.payment')
+      },{
+        id: 3,
+        link: '/guarantees',
+        title: t('title.guarantees')
+      },{
+        id: 4,
+        link: '/returns',
+        title: t('title.returns')
+      },{
+        id: 5,
+        link: '/contacts',
+        title: t('title.contacts')
+      }
+    ]
+  })
+
   return {
     customer,
-    info
+    info,
+    common
   }
 }

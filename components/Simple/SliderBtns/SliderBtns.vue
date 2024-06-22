@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-  title: {
+    title: {
       type: String,
       default: 'View all'
     },
@@ -12,7 +12,8 @@ const props = defineProps({
 
     items: {
       type: Number,
-      required: true
+      required: true,
+      default: 0
     },
 
     activeIndex: {
@@ -55,7 +56,7 @@ const nextHandler = () => {
 <style src="./slider-btns.scss" lang="sass" scoped />
 
 <template>
-  <div>
+  <div v-if="items">
     <div v-if="moreBtn" class="dots-wrapper">
       <div class="dots">
         <template v-for="(item, key) in items" :key="key">

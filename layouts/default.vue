@@ -92,6 +92,8 @@ useSchemaOrg([
 
         <lazy-the-header></lazy-the-header>
         
+        <the-header-search-sticky></the-header-search-sticky>
+
         <main class="main" :style="{background: background}">
           <slot />
         </main>

@@ -61,7 +61,8 @@ const setInput = (search) => {
 }
 
 // WATCH
-watch(props.searchInput, (v) => {
+watch(() => props.searchInput, (v) => {
+  console.log('watch', v)
   clearTimeout(timeout.value)
 
   timeout.value = setTimeout(() => {
@@ -76,7 +77,7 @@ watch(props.searchInput, (v) => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <div v-if="isActive" class="livesearch-wrapper">
+  <div class="livesearch-wrapper">
     <div class="livesearch">
 
       <transition name="fade-in">
