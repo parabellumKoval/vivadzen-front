@@ -15,6 +15,10 @@
     background: $color-8;
     transition: top .3s;
 
+    @include _desktop {
+      display: none;
+    }
+
     &.hide {
       top: 0;
     }

@@ -69,6 +69,7 @@ watch(() => props.searchInput, (v) => {
   }, 1000)
 }, {
   deep: true,
+  immediate: true
 })
 </script>
 
