@@ -12,6 +12,11 @@
   }
 }
 
+.title-mobile {
+  @include _tablet {
+    display: none;
+  }
+}
 .review {
   &-card {
     padding-bottom: 30px;
