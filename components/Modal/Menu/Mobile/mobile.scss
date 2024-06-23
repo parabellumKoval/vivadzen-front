@@ -40,6 +40,8 @@
     font-weight: 500;
     color: $color-8;
     text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &-delimiter {

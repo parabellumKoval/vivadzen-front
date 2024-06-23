@@ -130,6 +130,17 @@ const openMenuHandler = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
 // WATCHERS
+
+
+// Set mobile Search
+onBeforeMount(() => {
+  useTransport().setData({mobileSearch: false})
+})
+
+onBeforeUnmount(() => {
+  //
+  useTransport().setData({mobileSearch: true})
+})
 </script>
 
 <style src='./account/account.scss' lang='scss' scoped></style>

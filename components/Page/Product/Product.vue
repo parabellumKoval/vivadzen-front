@@ -75,18 +75,13 @@ const tabs = computed(() => {
       name: t('label.props')
     })
   }
-
-
-  if(reviews?.value?.length) {
-    list.push({
-      id: 4,
-      name: t('title.reviews') + ' ' + (reviewsMeta.value.total? `<span class="budge green">${reviewsMeta.value.total}</span>`: '')
-    })
-  }
   
   list = [
     ...list,
     {
+      id: 4,
+      name: t('title.reviews') + ' ' + (reviewsMeta.value.total? `<span class="budge green">${reviewsMeta.value.total}</span>`: '')
+    },{
       id: 5,
       name: t('title.delivery')
     },{

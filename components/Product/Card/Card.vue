@@ -145,7 +145,7 @@ const toReviewsHandler = () => {
     <lazy-product-available :in-stock="item.inStock" class="amount"></lazy-product-available>
 
     <div class="sale">
-      <button @click="toCartHandler" type="button" class="button primary small buy-btn">
+      <button @click="() => toCartHandler(1)" type="button" class="button primary small buy-btn">
         <span class="buy-btn-name">{{ t('button.buy') }}</span>
         <IconCSS name="iconoir:shopping-bag" class="buy-btn-icon"></IconCSS>
       </button>

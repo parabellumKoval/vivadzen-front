@@ -96,6 +96,12 @@ const clearError = (key) => {
   }
 }
 
+const clearNameError = () => {
+  if(errors.value && errors.value['owner'] && errors.value['owner']['name']) {
+    errors.value['owner']['name'] = null
+  }
+}
+
 const setActiveTab = () => {
   if(!product.value) {
     tab.value = 1
@@ -160,6 +166,16 @@ setActiveTab()
             <form-amount v-model="review.rating" :min="1" :max="5"></form-amount>
             <simple-stars :amount="review.rating" :size="20" mobile="medium"></simple-stars>
           </div>
+        </div>
+
+        <div v-if="!useAuthStore().name">
+          <div class="form-label">{{ t('form.name') }}</div>
+          <form-text
+            v-model="review.owner.name"
+            :error = "errors?.owner.name"
+            @input = "clearNameError"
+            :placeholder="t('form.enter.name')"
+          ></form-text>
         </div>
 
         <div>
