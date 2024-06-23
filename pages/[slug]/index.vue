@@ -1,6 +1,8 @@
 <script setup>
 const route = useRoute()
-const productOrCategoryData = ref(null)
+
+const product = ref(null)
+const category = ref(null)
 
 // COMPUTEDS
 const slug = computed(() => {
@@ -9,41 +11,30 @@ const slug = computed(() => {
 // METHODS
 // HANDLERS
 // WATCHERS
-//
-// await useLazyAsyncData('page_or_category', () => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
-// .then(({data, error}) => {
-//   if(data.value) {
-//     productOrCategoryData.value = data.value
-//   }else {
-//     throw createError({ statusCode: 404, message: 'Page Not Found' })
-//   }
+await useAsyncData(() => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
+.then(({data, error}) => {
+  if(data?.value) {
 
-//   if(error.value) {
-//     throw createError({ statusCode: 404, message: 'Page Not Found' })
-//   }
-// })
-
-const {pending, data: pageData} = await useAsyncData('page_or_category', () => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
-
-watch(pageData, (v) => {
-  if(v) {
-    productOrCategoryData.value = v
+    if(data.value.price === undefined){
+      product.value = null
+      category.value = data.value
+    }else {
+      category.value = null
+      product.value = data.value
+    }
   }else {
     throw createError({ statusCode: 404, message: 'Page Not Found' })
   }
-}, {
-  immediate: true
 })
+
 </script>
 
 <!-- <style src='' lang='scss' scoped></style> -->
 <!-- <i18n src='' lang='yaml'></i18n> -->
 
 <template>
-  <DelayHydration>
-    <template v-if="productOrCategoryData">
-      <PageProduct v-if="productOrCategoryData.price !== undefined" :product="productOrCategoryData"></PageProduct>
-      <PageCategory v-else :category="productOrCategoryData"></PageCategory>
-    </template>
-  </DelayHydration>
+  <div>
+    <lazy-page-product v-if="product" :product="product"></lazy-page-product>
+    <lazy-page-category v-else-if="category" :category="category"></lazy-page-category>
+  </div>
 </template>

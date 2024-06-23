@@ -164,7 +164,7 @@
 }
 
 .search {
-  // display: none;
+  display: none;
   @include _desktop {
     display: grid;
     order: 5;

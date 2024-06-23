@@ -20,17 +20,10 @@ const background = computed(() => {
 })
 
 const isSearchMobile = computed(() => {
-  const matchedSlug = [
-    'slug',
-    'index',
-    'catalog',
-    'brands',
-    'comparison'
-  ].find((item) => {
-    return route.name.startsWith(item)
-  })
+  const mobileSearch = useTransport().getData('mobileSearch')
+  const isSearch = mobileSearch !== false
 
-  return matchedSlug && useDevice().isMobile? true: false
+  return useDevice().isMobile && isSearch? true: false
 })
 
 // AUTH

@@ -210,13 +210,15 @@ onServerPrefetch(() => {
 
 setCrumbs()
 
-// watch(() => route.hash, (v) => {
-//   if(v === '#reviews') {
-//     reviewHandler()   
-//   }
-// }, {
-//   immediate: true
-// })
+// Set mobile Search
+onBeforeMount(() => {
+  useTransport().setData({mobileSearch: false})
+})
+
+onBeforeUnmount(() => {
+  //
+  useTransport().setData({mobileSearch: true})
+})
 </script>
 
 <style src="./product.scss" lang="scss" scoped></style>
