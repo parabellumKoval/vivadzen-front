@@ -200,11 +200,22 @@
 }
 
 .amount {
-  text-align: center;
+  text-align: center !important;
   font-size: 12px;
 
   @include _tablet {
     font-size: 16px;
+  }
+
+  :deep(.running_out) {
+    position: relative !important;
+    right: 0;
+    color: $color-red;
+    font-size: 14px !important;
+
+    @include _desktop {
+      font-size: 16px !important;
+    }
   }
 }
 

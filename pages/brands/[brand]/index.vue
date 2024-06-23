@@ -5,6 +5,7 @@
 // import {useFilter} from '~/composables/product/useFilter'
 // import {useCatalog} from '~/composables/product/useCatalog'
 import {useBrandStore} from '~/store/brand'
+import {useProductStore} from '~/store/product'
 
 const {t} = useI18n()
 const props = defineProps({})
@@ -36,7 +37,7 @@ const queryObject = ref({
 // Brand
 const brand = ref(null)
 
-const pending = ref(false)
+// const pending = ref(false)
 const isLoading = ref(true)
 
 const breadcrumbs = ref([])
@@ -163,11 +164,11 @@ await useAsyncData('brand_attributes-'+slug.value, async () => getAttributes(get
   }
 });
 
-({
-  products: products.value,
-  meta: meta.value,
-  filters: filtersMetaInit.value
-} = await getProducts(getQuery(), 'brand-products-' + slug.value).finally(() => {}));
+// ({
+//   products: products.value,
+//   meta: meta.value,
+//   filters: filtersMetaInit.value
+// } = await getProducts(getQuery(), 'brand-products-' + slug.value).finally(() => {}));
 
 await useAsyncData(`brand-${slug.value}`, () => useBrandStore().show(slug.value)).then(({data}) => {
   if(data.value) {
@@ -176,6 +177,24 @@ await useAsyncData(`brand-${slug.value}`, () => useBrandStore().show(slug.value)
   }
 });
 
+const {pending, data: tempData} = await useAsyncData(() => useProductStore().index(getQuery()));
+
+
+watch(tempData, (data) => {
+  if(data?.products) {
+    products.value = data.products
+  }
+
+  if(data?.meta) {
+    meta.value = data.meta
+  }
+
+  if(data?.filters) {
+    filtersMetaInit.value = data.filters
+  }
+}, {
+  immediate: true
+})
 
 onServerPrefetch(() => {
   // setSchema(props.product, reviews.value)

@@ -112,7 +112,7 @@ watch(feedbackData, (v) => {
 
 <template>
   <section class="main-section">
-    <div class="section-title">{{ t('title.reviews') }}</div>
+    <div class="section-title">{{ useDevice().isMobile? t('products_reviews'): t('title.reviews') }}</div>
     <div class="wrapper">
       
       <div class="review">
@@ -125,6 +125,9 @@ watch(feedbackData, (v) => {
       </div>
 
       <div class="feedback">
+
+        <div class="section-title title-mobile">{{ t('shop_reviews') }}</div>
+
         <simple-snap-slider
           :values="feedback"
           :component="component"
