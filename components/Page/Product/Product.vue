@@ -122,14 +122,8 @@ const loadReviewsHandler = async (page) => {
 }
 
 const changeTabHandler = (id) => {
-  const index = tabs.value.findIndex((item) => {
-    return item.id === id
-  })
-
-  if(index !== undefined && index !== -1) {
-    tab.value = index
-    scrollToContent()
-  }
+  tab.value = id
+  scrollToContent()
 }
 
 // METHODS
