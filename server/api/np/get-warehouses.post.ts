@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
+  const body = event.node.req.body || await readBody(event)
   
   let properties = {}
 

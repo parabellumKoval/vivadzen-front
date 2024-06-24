@@ -251,7 +251,7 @@ export default defineNuxtConfig({
       '/policy': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/returns': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // api
-      '/api/**': {swr: true},
+      // '/api/**': {swr: true},
       // assets
       '/assets/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
