@@ -235,6 +235,11 @@
       background: #3C3C3C;
       text-align: center;
       color: $color-8;
+      height: 40px;
+
+      @include _desktop {
+        height: 50px;
+      }
     }
   }
 

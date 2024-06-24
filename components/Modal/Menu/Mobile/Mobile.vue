@@ -73,7 +73,10 @@ const selectMainHandler = (index) => {
               class = "avatar-image"
             />
           </button>
-          <button @click="goToAccount" class="header-btn">{{ user.email }}</button>
+          <button @click="goToAccount" class="header-btn">
+            <span class="header-btn-name">{{ user.email }}</span>
+            <span class="header-btn-label">{{ t('dashboard') }}</span>
+          </button>
         </template>
         <template v-else>
           <div @click="loginHandler" class="avatar-faker">

@@ -18,12 +18,17 @@
 }
 
 .selected-wrapper {
+  position: sticky;
+  top: -20px;
+  left: 0;
   width: calc(100vw - 5px);
   margin: 0 -15px 10px -15px;
   padding: 20px 15px;
   overflow: hidden;
+  z-index: 4;
   border-top: 1px solid $color-6;
-  border-bottom: 1px solid $color-6;
+  border-bottom: 3px solid $color-6;
+  background: $color-8;
 }
 
 .buttons {

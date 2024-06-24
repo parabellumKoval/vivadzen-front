@@ -234,7 +234,8 @@ error:
     "Signup requires a valid password": Для реєстрації потрібний дійсний пароль
     "To signup, please provide your email": Для реєстрації, будь ласка, введіть свій email
     "Unable to validate email address: invalid format": "Неможливо підтвердити адресу електронної пошти: неправильний формат"
-    "Anonymous sign-ins are disabled": Анонімна реєстрація неможлива
+    "Anonymous sign-ins are disabled": Анонімна реєстрація неможлива,
+    "Email rate limit exceeded": Перевищено ліміт smtp-сервера
 
 noty:
   add: Доданий

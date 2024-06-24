@@ -42,6 +42,19 @@
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
+
+    &-name {
+
+    }
+
+    &-label {
+      display: block;
+      margin-top: 5px;
+      color: $color-4;
+      font-weight: 400;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
   }
 
   &-delimiter {

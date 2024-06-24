@@ -16,11 +16,18 @@ const saveHandler = () => {
   isLoading.value = true
 
   useAuthStore().update({email: email.value}, '/account/email-change').then(({data, error}) => {
+
     if(data && data.user)
-      useNoty().setNoty(t('noty.email_change_send', {email: email.value}))
+      useNoty().setNoty({
+        content: t('noty.auth.email.confirmation.sent', {email: email.value}),
+        type: 'success'
+      })
     
     if(error)
-      useNoty().setNoty(t(`errors.${error.message}`))
+      useNoty().setNoty({
+        content: t(`errors.${error.message}`),
+        type: 'error'
+      })
 
   }).finally(() => {
     isLoading.value = false
