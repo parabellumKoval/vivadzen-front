@@ -8,7 +8,7 @@ const props = defineProps({
     type: Array
   },
 
-  key: {
+  valueKey: {
     type: String,
     default: null
   },
@@ -26,10 +26,18 @@ const emit = defineEmits([
 const activeIndex = ref(0)
 
 const selectHandler = (index) => {
-  if(props.key)
-    emit('update:modelValue', props.values[index][props.key])
+  if(props.valueKey)
+    emit('update:modelValue', props.values[index][props.valueKey])
   else
     emit('update:modelValue', index) 
+}
+
+const isTabActive = (tab, index) => {
+  if(props.valueKey) {
+    return tab[props.valueKey] === activeIndex.value
+  }else {
+    return index == activeIndex.value
+  }
 }
 
 watch(() => props.modelValue, (v) => {
@@ -48,7 +56,7 @@ watch(() => props.modelValue, (v) => {
         v-for="(tab, index) in values"
         :key="index"
         @click="selectHandler(index)"
-        :class="[{active: index == activeIndex}, {disabled: tab.disabled}]"
+        :class="[{active: isTabActive(tab, index)}, {disabled: tab.disabled}]"
         class="item"
         clickable
         scrollable

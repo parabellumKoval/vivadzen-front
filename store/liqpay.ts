@@ -9,13 +9,13 @@ export const useLiqpayStore = defineStore('liqpayStore', {
 
   actions: {
     async getFormData(data: Object) {
-      console.log('getFormData', data)
+      // console.log('getFormData', data)
       const url = `${useRuntimeConfig().public.apiBase}/liqpay/form`
 
       return await useApiFetch(url, {...data}, 'POST')
         .then(({data, error}) => {
           if(data) {
-            console.log('r', data)
+            // console.log('r', data)
             return data
           }
 

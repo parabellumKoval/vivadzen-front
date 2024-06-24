@@ -17,7 +17,7 @@ const breadcrumbs = ref(null)
 const reviews = ref([])
 const reviewsMeta = ref({})
 const isReviewsLoading = ref(false)
-const tab = ref(0)
+const tab = ref(1)
 const reviewsComponentRef = ref(null)
 
 
@@ -105,11 +105,6 @@ const tabs = computed(() => {
 })
 
 // HANDLERS
-const paramsHandler = () => {
-  tab.value = 1
-  scrollToContent()
-}
-
 const reviewHandler = () => {
   reviewsComponentRef.value.reviewHandler()
 }
@@ -126,9 +121,15 @@ const loadReviewsHandler = async (page) => {
   })
 }
 
-const changeTabHandler = (index) => {
-  tab.value = index
-  scrollToContent()
+const changeTabHandler = (id) => {
+  const index = tabs.value.findIndex((item) => {
+    return item.id === id
+  })
+
+  if(index !== undefined && index !== -1) {
+    tab.value = index
+    scrollToContent()
+  }
 }
 
 // METHODS
@@ -252,7 +253,7 @@ onBeforeUnmount(() => {
     </div>
   </div>
 
-  <lazy-simple-tabs v-model="tab" :values="tabs" value="name" class="tab-wrapper"></lazy-simple-tabs>
+  <lazy-simple-tabs v-model="tab" :values="tabs" value="name" value-key="id" class="tab-wrapper"></lazy-simple-tabs>
 
   <div class="container">
     <div class="content">
@@ -260,7 +261,7 @@ onBeforeUnmount(() => {
       <div class="content-main" ref="content">
         <transition name="fade-in">
           <!-- Common -->
-          <template v-if="tab === 0">
+          <template v-if="tab === 1">
             <div class="content-common">
               <lazy-product-gallery-mobile v-if="$device.isMobile" :items="product.images" class="gallery-wrapper"></lazy-product-gallery-mobile>
               <lazy-product-gallery v-else :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
@@ -269,12 +270,12 @@ onBeforeUnmount(() => {
           </template>
 
           <!-- Content -->
-          <template v-else-if="tab === 1">
+          <template v-else-if="tab === 2">
             <div class="rich-text" v-html="product.content"></div>
           </template>
 
           <!-- Properties -->
-          <template v-else-if="tab === 2">
+          <template v-else-if="tab === 3">
             <div class="params-wrapper">
               <div class="tab-title">{{  t('attrs') }}</div>
               <lazy-simple-list-params :items="product.attrs"></lazy-simple-list-params>
@@ -282,7 +283,7 @@ onBeforeUnmount(() => {
           </template>
 
           <!-- Reviews -->
-          <template v-else-if="tab === 3">
+          <template v-else-if="tab === 4">
             <lazy-product-reviews
               :reviews="reviews"
               :meta="reviewsMeta"
@@ -293,7 +294,7 @@ onBeforeUnmount(() => {
           </template>
 
           <!-- Delivery -->
-          <template v-else-if="tab === 4">
+          <template v-else-if="tab === 5">
             <div class="">
               <div class="tab-title">{{ t('title.delivery') }}</div>
               <lazy-product-delivery-info></lazy-product-delivery-info>
@@ -301,7 +302,7 @@ onBeforeUnmount(() => {
           </template>
 
           <!-- Payment -->
-          <template v-else-if="tab === 5">
+          <template v-else-if="tab === 6">
             <div class="">
               <div class="tab-title">{{ t('title.payment') }}</div>
               <lazy-product-payment-info></lazy-product-payment-info>
@@ -309,7 +310,7 @@ onBeforeUnmount(() => {
           </template>
 
           <!-- Guarantees -->
-          <template v-else-if="tab === 6">
+          <template v-else-if="tab === 7">
             <div class="">
               <div class="tab-title">{{ t('title.guarantees') }}</div>
               <lazy-product-guarantees-info></lazy-product-guarantees-info>
@@ -320,41 +321,41 @@ onBeforeUnmount(() => {
 
       <div class="content-sale">
         <lazy-product-guarantee
-          v-if="$device.isMobile && tab === 0"
+          v-if="$device.isMobile && tab === 1"
           class="content-guarantee"
-          @more="changeTabHandler(6)"
+          @more="changeTabHandler(7)"
         ></lazy-product-guarantee>
 
         <lazy-product-sale-block
-          v-if="$device.isDesktop || tab === 0"
+          v-if="$device.isDesktop || tab === 1"
           :product="product"
-          :class="{mini: tab !== 0}"
+          :class="{mini: tab !== 1}"
           class="content-buy"
         ></lazy-product-sale-block>
 
         <transition name="fade-in">
-          <lazy-product-feature v-if="tab === 0" class="content-feature"></lazy-product-feature>
+          <lazy-product-feature v-if="tab === 1" class="content-feature"></lazy-product-feature>
         </transition>
 
         <transition name="fade-in">
           <lazy-product-delivery-box
-            v-if="tab === 0"
+            v-if="tab === 1"
             class="content-delivery"
-            @more="changeTabHandler(4)"
+            @more="changeTabHandler(5)"
           ></lazy-product-delivery-box>
         </transition>
 
         <transition name="fade-in">
           <lazy-product-payment-box
-            v-if="tab === 0"
-            @more="changeTabHandler(5)"
+            v-if="tab === 1"
+            @more="changeTabHandler(6)"
             class="content-payment"
           ></lazy-product-payment-box>
         </transition>
         
         <transition name="fade-in">
           <lazy-product-params-box
-            v-if="tab === 0 && product.attrs && product.attrs.length"
+            v-if="tab === 1 && product.attrs && product.attrs.length"
             :items="product.attrs"
             class="content-params"
           ></lazy-product-params-box>
@@ -362,22 +363,22 @@ onBeforeUnmount(() => {
         
         <transition name="fade-in">
           <lazy-product-content-box
-            v-if="tab === 0 && $device.isMobile"
+            v-if="tab === 1 && $device.isMobile"
             :content="product.content"
-            @more="changeTabHandler(1)"
+            @more="changeTabHandler(2)"
             class="content-html"
           ></lazy-product-content-box>
         </transition>
 
         <transition name="fade-in">
           <product-reviews-box
-            v-if="tab === 0"
+            v-if="tab === 1"
             :reviews="reviews"
             :meta="reviewsMeta"
             :product="product"
             :amount="2"
             @loadReviews="loadReviewsHandler"
-            @more="changeTabHandler(3)"
+            @more="changeTabHandler(4)"
             class="content-reviews"
             ref="reviewsComponentRef"
             id="reviews"

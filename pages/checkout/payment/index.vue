@@ -14,13 +14,13 @@ const {t} = useI18n()
 const breadcrumbs = [
   {
     name: t('title.home'),
-    item: useToLocalePath()('/')
+    item: '/'
   },{
     name: t('title.checkout'),
-    item: useToLocalePath()('/checkout')
+    item: '/checkout'
   },{
     name: t('title.checkout_payment'),
-    item: useToLocalePath()('/checkout/payment')
+    item: '/checkout/payment'
   }
 ]
 
