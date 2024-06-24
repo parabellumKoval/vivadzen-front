@@ -107,8 +107,7 @@ const scrollToErrorHandler = () => {
 }
 
 // WATCH
-watch(() => order.value.delivery.city, (v) => {
-  console.log('update city', v)
+watch(() => order.value.delivery.settlement, (v) => {
   order.value.delivery.warehouse = null
   order.value.delivery.street = null
 })

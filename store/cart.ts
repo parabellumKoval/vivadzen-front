@@ -16,8 +16,7 @@ export const useCartStore = defineStore('cartStore', {
         room: null,
         zip: null,
         warehouse: null,
-        warehouseRef: null,
-        comment: null
+        warehouseRef: null
       },
       payment: {
         method: 'online'
@@ -230,8 +229,6 @@ export const useCartStore = defineStore('cartStore', {
 
     async validate(orderable: Object) {
       const url = `${useRuntimeConfig().public.apiBase}/order/validate`
-
-      delete this.orderState.delivery.comment
 
       const dataPost = {
         ...orderable,
