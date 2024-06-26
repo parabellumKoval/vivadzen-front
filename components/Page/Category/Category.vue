@@ -27,15 +27,23 @@ const slug = computed(() => {
 })
 
 const setCrumbs = () => {
-  breadcrumbs.value = [
-    {
-      name: t('title.home'),
-      item: '/'
-    },{
-      name: props.category?.name,
-      item: `/${props.category?.slug}`
-    }
-  ]
+  let cat = props.category
+
+  // categories tree
+  while(cat) {
+    breadcrumbs.value.unshift({
+      name: cat?.name,
+      item: `/${cat?.slug}`     
+    })
+
+    cat = cat.parent
+  }
+
+  breadcrumbs.value.unshift({
+    name: t('title.home'),
+    item: '/'
+  })
+    
 }
 
 const categories = computed(() => {

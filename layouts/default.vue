@@ -12,9 +12,6 @@ const head = useLocaleHead({
   addSeoAttributes: true
 })
 
-// const title = "Djini";
-console.log('head', head)
-
 // COMPUTEDS
 const background = computed(() => {
   return route?.meta?.bg || '#fff'

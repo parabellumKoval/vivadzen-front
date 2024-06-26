@@ -9,7 +9,7 @@
   }
 
   .list {
-    display: flex;
+    display: block;
     font-size: 14px;
     line-height: 14px;
     min-height: 14px;
@@ -36,10 +36,17 @@
   }
 
   .item {
+    display: inline;
     margin-right: 20px;
     position: relative;
     transition: color 0.4s;
     white-space: nowrap;
+    hyphens: auto;
+    line-height: 145%;
+
+    @include _desktop {
+      white-space: wrap;
+    }
 
     &:hover {
       color: #ACDA53;
@@ -49,7 +56,8 @@
       content: " > ";
       position: absolute;
       right: -12px;
-      top: 0px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     &:last-child {

@@ -13,7 +13,7 @@ const props = defineProps({
 const {t} = useI18n()
 const route = useRoute()
 
-const breadcrumbs = ref(null)
+const breadcrumbs = ref([])
 const reviews = ref([])
 const reviewsMeta = ref({})
 const isReviewsLoading = ref(false)
@@ -151,18 +151,31 @@ const setSeo = () => {
 }
 
 const setCrumbs = () => {
-  breadcrumbs.value = [
-    {
-      name: t('title.home'),
-      item: '/'
-    },{
-      name: category?.value?.name,
-      item: `/${category?.value?.slug}`
-    },{
+  let cat = category.value
+
+  // categories tree
+  while(cat) {
+
+    breadcrumbs.value.unshift({
+      name: cat?.name,
+      item: `/${cat?.slug}`     
+    })
+
+    cat = cat.parent
+  }
+
+  // home
+  breadcrumbs.value.unshift({
+    name: t('title.home'),
+    item: '/'
+  })
+
+  // product
+  breadcrumbs.value.push({
       name: props.product.name,
-      item: props.product.slug
-    }
-  ]
+      item: props.product.slug    
+  })
+
 }
 
 const getReviews = async (query, refresh) => {
