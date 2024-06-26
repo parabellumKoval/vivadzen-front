@@ -12,7 +12,8 @@ const head = useLocaleHead({
   addSeoAttributes: true
 })
 
-const title = "Djini";
+// const title = "Djini";
+console.log('head', head)
 
 // COMPUTEDS
 const background = computed(() => {
@@ -81,42 +82,27 @@ useSchemaOrg([
 
 
 <template>
-  <div>
-    <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
-      <Head>
-        <Title>{{ title }}</Title>
-        <template v-for="link in head.link" :key="link.id">
-          <Link :id="link.id" :rel="link.rel" :href="link.href" :hreflang="link.hreflang" />
-        </template>
-        <template v-for="meta in head.meta" :key="meta.id">
-          <Meta :id="meta.id" :property="meta.property" :content="meta.content" />
-        </template>
-        <Meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-      </Head>
-      <Body>
-        
-        <!-- <the-supheader></the-supheader> -->
+  <div> 
+    <!-- <the-supheader></the-supheader> -->
 
-        <lazy-the-header></lazy-the-header>
-        
-        <the-header-search-sticky v-if="isSearchMobile"></the-header-search-sticky>
+    <lazy-the-header></lazy-the-header>
+    
+    <the-header-search-sticky v-if="isSearchMobile"></the-header-search-sticky>
 
-        <main class="main" :style="{background: background}">
-          <slot />
-        </main>
+    <main class="main" :style="{background: background}">
+      <slot />
+    </main>
 
-        <lazy-modal-noty></lazy-modal-noty>
-      
-        <lazy-the-footer></lazy-the-footer>
+    <lazy-modal-noty></lazy-modal-noty>
+  
+    <lazy-the-footer></lazy-the-footer>
 
-        <lazy-comparison-btn v-if="!$device.isMobile" class="comp-btn"></lazy-comparison-btn>
+    <lazy-comparison-btn v-if="!$device.isMobile" class="comp-btn"></lazy-comparison-btn>
 
-        <modal-transition :is-show="useModal().show" mode="out-in">
-          <component :is="useModal().active.component"></component>
-        </modal-transition>
-        
-        <lazy-simple-clicker></lazy-simple-clicker>
-      </Body>
-    </Html>
+    <modal-transition :is-show="useModal().show" mode="out-in">
+      <component :is="useModal().active.component"></component>
+    </modal-transition>
+    
+    <lazy-simple-clicker></lazy-simple-clicker>
   </div>
 </template>

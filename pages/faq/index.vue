@@ -22,9 +22,7 @@ const items = computed(() => {
 // HANDLERS
 // WATCHERS
 //
-onServerPrefetch(() => {
-  useSeo().setPageSeo(t('title.qa'))
-})
+useSeo().setPageSeo(t('title.qa'))
 </script>
 
 <style src='~/assets/scss/page.scss' lang='scss' scoped></style>

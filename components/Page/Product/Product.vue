@@ -195,9 +195,9 @@ await useAsyncData('product_reviews', () => useReviewStore().getAll(reviewQuery.
 // WATCHERS
 onServerPrefetch(() => {
   setSchema(props.product, reviews.value)
-  setSeo()
 })
 
+setSeo()
 setCrumbs()
 
 // Set mobile Search

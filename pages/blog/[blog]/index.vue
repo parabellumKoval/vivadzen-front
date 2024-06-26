@@ -107,9 +107,7 @@ await useAsyncData('get-article', () => useArticleStore().show(slug.value)).then
 })
 
 //
-onServerPrefetch(() => {
-  setSeo()
-})
+setSeo()
 </script>
 
 <style src='./article.scss' lang='scss' scoped></style>

@@ -134,12 +134,10 @@ const openMenuHandler = () => {
 
 // Set mobile Search
 onBeforeMount(() => {
-  console.log('mount')
   useTransport().setData({mobileSearch: false})
 })
 
 onBeforeUnmount(() => {
-  console.log('unmount')
   //
   useTransport().setData({mobileSearch: true})
 })

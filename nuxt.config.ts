@@ -3,12 +3,6 @@ import dynamicRoutes from './helpers/dynamicRoutes'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  // alias: {
-  //   "~": "/<srcDir>",
-  //   "@": "/<srcDir>",
-  //   "~~": "/<rootDir>",
-  //   "~/assets": "/<srcDir>/assets",
-  // },
   srcDir: process.env.SRC_DIR || '',
   rootDir: process.env.ROOT_DIR || '',
   devtools: { enabled: false },
@@ -44,6 +38,12 @@ export default defineNuxtConfig({
     // pageTransition: { name: 'page-tr', mode: 'out-in' },
     // layoutTransition: { name: 'layout-tr', mode: 'out-in' },
     head: {
+      templateParams: {
+        siteName: 'Djini.com.ua',
+        separator: '-'
+        // other common separators: '·', '—', '•'
+      },
+
       script: [
         // {
         //   type: 'text/partytown',
@@ -186,6 +186,17 @@ export default defineNuxtConfig({
     renderJsonPayloads: false,
   },
 
+  site: {
+    indexable: false,
+    url: 'https://djini.com.ua',
+    name: 'Djini',
+    description: 'Джини ☝️ интернет-магазин здорового питания.',
+  },
+
+  // seo: {
+  //   fallbackTitle: false
+  // },
+
   sitemap: {
     enabled: true,
     exclude: [
@@ -198,9 +209,11 @@ export default defineNuxtConfig({
     },
     urls: dynamicRoutes
   }, 
+  
   schemaOrg: {
     enabled: true,
   },
+
   i18n: {
     baseUrl: 'https://djini.com.ua',
     defaultLocale: 'uk',

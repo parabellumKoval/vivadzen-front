@@ -64,9 +64,7 @@ await useAsyncData('get-articles', () => useArticleStore().index({per_page: 12})
 
 
 //
-onServerPrefetch(() => {
-  setSeo()
-})
+setSeo()
 </script>
 
 <style src='./blog.scss' lang='scss' scoped></style>

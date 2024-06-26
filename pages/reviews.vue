@@ -82,9 +82,7 @@ const scrollToContent = () => {
 
 
 //
-onServerPrefetch(() => {
-  useSeo().setPageSeo(t('review_shop'))
-})
+useSeo().setPageSeo(t('review_shop'))
 
 // HOOK
 </script>

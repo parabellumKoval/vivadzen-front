@@ -24,10 +24,7 @@ const setSeo = () => {
   })
 }
 
-//
-onServerPrefetch(() => {
-  setSeo()
-})
+setSeo()
 </script>
 
 <i18n src="./lang.yaml" lang="yaml"></i18n>

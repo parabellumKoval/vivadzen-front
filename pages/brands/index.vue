@@ -166,9 +166,7 @@ await useAsyncData('brands', () => useBrandStore().index({alpha_grouped: 1})).th
 })
 
 //
-onServerPrefetch(() => {
-  setSeo()
-})
+setSeo()
 </script>
 
 <style src='./brands.scss' lang='scss' scoped></style>

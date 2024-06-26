@@ -17,9 +17,7 @@ const breadcrumbs = [
 // HANDLERS
 // WATCHERS
 //
-onServerPrefetch(() => {
-  useSeo().setPageSeo(t('title.about'))
-})
+useSeo().setPageSeo(t('title.about'))
 </script>
 
 <style src='~/assets/scss/page.scss' lang='scss' scoped></style>

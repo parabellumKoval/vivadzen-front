@@ -196,10 +196,11 @@ watch(tempData, (data) => {
   immediate: true
 })
 
-onServerPrefetch(() => {
-  // setSchema(props.product, reviews.value)
-  setSeo()
-})
+setSeo()
+
+// onServerPrefetch(() => {
+//   setSchema(props.product, reviews.value)
+// })
 </script>
 
 <style src='./brand.scss' lang='scss' scoped></style>

@@ -77,10 +77,10 @@ const setSeo = () => {
 }
 
 // HOOKS
-onServerPrefetch(() => {
-  // setSchema(props.product, reviews.value)
-  setSeo()
-})
+// onServerPrefetch(() => {
+//   setSchema(props.product, reviews.value)
+// })
+setSeo()
 
 setCrumbs()
 
