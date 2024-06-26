@@ -23,10 +23,14 @@ const getPhotoSrc = (image) => {
 
 // HANDLERS
 const catalogHandler = () => {
-  useModal().open(resolveComponent('ModalCatalog'), null, null, {width: {
-    min: 'calc(100vw - 90px)',
-    max: 'calc(100vw - 90px)'
-  }})
+  if(useDevice().isMobile) {
+    useModal().open(resolveComponent('ModalMenuMobile'))
+  }else {
+    useModal().open(resolveComponent('ModalCatalog'), null, null, {width: {
+      min: 'calc(100vw - 90px)',
+      max: 'calc(100vw - 90px)'
+    }})
+  }
 }
 
 //

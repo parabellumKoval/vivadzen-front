@@ -13,8 +13,6 @@ const props = defineProps({
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-const isHover = ref(false)
-
 const {isComparison, toComparisonHandler} = useComparison(props.item.id)
 const {isFavorite, toFavoriteHandler} = useFavorite(props.item.id)
 const {photos, stock, label} = useCard(props.item)
@@ -30,14 +28,6 @@ const loading = computed(() => {
 })
 
 const img = useImage()
-
-const activePhoto = computed(() => {
-  if(!isHover.value || photos.value.length === 1) {
-    return photos.value[0]
-  }else {
-    return photos.value[1]
-  }
-})
 
 const reviewsCount = computed(() => {
   return props.item?.reviews_rating_detailes?.reviews_count || 0
@@ -97,25 +87,22 @@ const toReviewsHandler = () => {
       clickable
       class="image-wrapper"
     >
-      <transition name="opacity">
-        <nuxt-img
-          :key = "isHover"
-          :src = "activePhoto.src"
-          :alt = "activePhoto.alt"
-          :title = "activePhoto.title"
-          @mouseover="() => isHover = true"
-          @mouseleave="() => isHover = false"
-          width="290"
-          height="260"
-          sizes = "mobile:180px tablet:230px desktop:300px"
-          format = "avif"
-          quality = "25"
-          :loading = "loading"
-          fit="outside"
-          placeholder="/images/noimage.png"
-          class="image"
-        />
-      </transition>
+      <nuxt-img
+        v-for="(photo, index) in photos"
+        :key = "index"
+        :src = "photo.src"
+        :alt = "photo.alt"
+        :title = "photo.title"
+        width="290"
+        height="260"
+        sizes = "mobile:180px tablet:230px desktop:300px"
+        format = "avif"
+        quality = "25"
+        :loading = "index > 0? 'lazy': loading"
+        fit="outside"
+        placeholder="/images/noimage.png"
+        class="image"
+      ></nuxt-img>
     </NuxtLink>
     
     <div :class="{between: item.rating}" class="reviews">
