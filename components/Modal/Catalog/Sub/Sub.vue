@@ -33,15 +33,6 @@ const sub = computed(() => {
 })
 
 //
-const getPhotoSrc = (image) => {
-  if(image?.src) {
-    return '/server/images/categories/' + image.src
-  } else {
-    return '/images/noimage.png'
-  }
-}
-
-//
 const backHandler = () => {
   useModal().open(resolveComponent('ModalMenuMobile'), null, null)
 }
@@ -59,7 +50,7 @@ const backHandler = () => {
         </button>
         <nuxt-img
           v-if="selectedCategory.image.src"
-          :src = "getPhotoSrc(selectedCategory.image)"
+          :src = "useImg().category(selectedCategory.image)"
           width="40"
           height="40"
           sizes = "mobile:60px tablet:60px desktop:60px"
@@ -67,7 +58,7 @@ const backHandler = () => {
           quality = "60"
           loading = "lazy"
           fit="outside"
-          placeholder="/images/noimage.png"
+          :placeholder="useImg().noImage"
           class="category-image"
         >
         </nuxt-img>

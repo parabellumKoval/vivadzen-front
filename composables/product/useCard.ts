@@ -10,14 +10,14 @@ export const useCard = (product: Product) => {
         return {
           alt: item.alt || product.name,
           title: item.title || product.name,
-          src: '/server/images/products/' + item.src
+          src: useImg().folderSrc(item.src, 'products')
         }
       })
     }else {
       return [{
         alt: product.name,
         title: product.name,
-        src: './images/noimage.png'
+        src: useImg().noImage
       }]
     }
   })
@@ -35,11 +35,7 @@ export const useCard = (product: Product) => {
   })
 
   const photo = computed(() => {
-    if(product.image?.src) {
-      return '/server/images/products/' + product.image.src
-    } else {
-      return '/images/noimage.png'
-    }
+    return useImg().product(product.image)
   })
 
   const stock = computed(() => {

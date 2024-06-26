@@ -24,13 +24,6 @@ const images = computed(() => {
 })
 
 // METHODS
-const getImage = (src) => {
-  if(src)
-    return '/server/images/products/' + src
-  else
-    return null
-}
-
 const setImageRef = (r) => {
   if (r) {
     imagesRef.value.push(r)
@@ -59,7 +52,7 @@ const scrollToHandler = (index) => {
       >
         <nuxt-img
           v-if="item.src"
-          :src = "getImage(item.src)"
+          :src = "useImg().product(item)"
           :alt = "item.alt"
           :title = "item.title"
           :class="item.size"
@@ -68,7 +61,7 @@ const scrollToHandler = (index) => {
           sizes = "mobile:50vw tablet:85px desktop:85px"
           format = "avif"
           quality = "35"
-          placeholder="/images/noimage.png"
+          :placeholder="useImg().noImage"
           fit="outside"
           class="thumbnail-image"
         >
@@ -78,7 +71,7 @@ const scrollToHandler = (index) => {
     <div ref="mainRef" :class="{full: images?.length <= 1}" class="main">
       <div v-for="(image, index) in images" :key="index" :ref="setImageRef">
         <nuxt-img
-          :src = "getImage(image.src)"
+          :src = "useImg().product(image)"
           :alt = "image.alt"
           :title = "image.title"
           :class="image.size"
@@ -87,7 +80,7 @@ const scrollToHandler = (index) => {
           quality = "60"
           fit="outside"
           class="main-image"
-          placeholder="/images/noimage.png"
+          :placeholder="useImg().noImage"
         />
       </div>
     </div>

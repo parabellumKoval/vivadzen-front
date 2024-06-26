@@ -7,13 +7,6 @@ const props = defineProps({
 })
 // COMPUTEDS
 // METHODS
-const getPhotoSrc = (image) => {
-  if(image?.src) {
-    return '/server/images/categories/' + image.src
-  } else {
-    return '/images/noimage.png'
-  }
-}
 // HANDLERS
 // WATCHERS
 </script>
@@ -25,7 +18,7 @@ const getPhotoSrc = (image) => {
   <div class="category-wrapper">
     <NuxtLink v-for="category in categories" :key="category.id" :to="localePath('/' + category.slug)" class="category">
       <nuxt-img
-        :src = "getPhotoSrc(category.image)"
+        :src = "useImg().category(category.image)"
         :alt = "category.image.alt || category.name"
         :title = "category.image.title || category.name"
         width="100"
@@ -35,7 +28,7 @@ const getPhotoSrc = (image) => {
         quality = "60"
         loading = "lazy"
         fit="outside"
-        placeholder="/images/noimage.png"
+        :placeholder="useImg().noImage"
         class="category-image"
       >
       </nuxt-img>

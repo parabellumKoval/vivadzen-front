@@ -130,13 +130,6 @@ const filterValues = (values) => {
   return filteredValues
 }
 
-const getPhoto = (item) => {
-  if(item?.image?.src)
-    return '/server/images/brands/' + item.image.src
-  else
-    return null
-}
-
 const setSeo = () => {
   useHead({
     title: t('seo_title'),
@@ -212,15 +205,15 @@ setSeo()
         <div class="popular">
           <NuxtLink v-for="item in populars" :key="item.id" :to="localePath('/brands/' + item.slug)" class="popular-item">
             <nuxt-img
-              v-if="getPhoto(item)"
-              :src = "getPhoto(item)"
+              :src = "useImg().brand(item.image)"
               width="254"
               height="150"
               sizes = "mobile:300px tablet:300px desktop:300px"
-              format = "webp"
+              format = "avif"
               quality = "60"
               loading = "lazy"
               fit="outside"
+              :placeholder="useImg().noImage"
               class="popular-image"
             />
           </NuxtLink>

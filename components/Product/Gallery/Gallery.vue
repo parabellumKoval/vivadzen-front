@@ -121,13 +121,6 @@ const images = computed(() => {
 })
 
 // METHODS
-const getImage = (src) => {
-  if(src)
-    return '/server/images/products/' + src
-  else
-    return null
-}
-
 // HANDLERS
 const selectHandler = (index) => {
   activeIndex.value = index
@@ -156,7 +149,7 @@ const mouseOverHandler = (e) => {
       >
         <nuxt-img
           v-if="item.src"
-          :src = "getImage(item.src)"
+          :src = "useImg().product(item)"
           :alt = "item.alt"
           :title = "item.title"
           :class="item.size"
@@ -177,7 +170,7 @@ const mouseOverHandler = (e) => {
       
       <nuxt-img
         v-if="image.src"
-        :src = "getImage(image.src)"
+        :src = "useImg().product(image)"
         :alt = "image.alt"
         :title = "image.title"
         :class="image.size"
@@ -186,7 +179,7 @@ const mouseOverHandler = (e) => {
         quality = "60"
         fit="outside"
         class="main-image"
-        placeholder="/images/noimage.png"
+        :placeholder="useImg().noImage"
         @mousemove.passive="mouseOverHandler"
         @mouseenter="() => isZoom = true"
         @mouseleave="() => isZoom = false"
@@ -200,7 +193,7 @@ const mouseOverHandler = (e) => {
       >
         <nuxt-img
           v-if="image.src"
-          :src = "getImage(image.src)"
+          :src = "useImg().product(image)"
           sizes = "mobile:0px tablet:0px desktop:1200px"
           format = "avif"
           quality = "100"

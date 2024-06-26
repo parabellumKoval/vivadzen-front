@@ -12,14 +12,6 @@ const props = defineProps({
 
 const {t} = useI18n()
 
-const photo = computed(() => {
-  if(props.item.image) {
-    return '/server/' + props.item.image
-  } else {
-    return null
-  }
-})
-
 const loading = computed(() => {
   if(props.index === null || props.index !== 0)
     return 'lazy'
@@ -34,8 +26,7 @@ const loading = computed(() => {
 <template>
   <NuxtLink :to="localePath('/blog/' + item.slug)" class="article-card">
     <nuxt-img
-      v-if="photo"
-      :src = "photo"
+      :src = "useImg().blog(item.image)"
       :alt = "item.image.alt || item.name"
       :title = "item.image.title || item.name"
       :class = "item.image.size"
@@ -46,7 +37,7 @@ const loading = computed(() => {
       quality = "30"
       :loading = "loading"
       fit = "outside"
-      placeholder = "/images/noimage.png"
+      :placeholder="useImg().noImage"
       class = "article-image"
     />
 

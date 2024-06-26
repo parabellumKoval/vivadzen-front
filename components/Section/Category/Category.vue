@@ -13,13 +13,6 @@ const query = ref({
 })
 
 //
-const getPhotoSrc = (image) => {
-  if(image?.src) {
-    return '/server/images/categories/' + image.src
-  } else {
-    return null
-  }
-}
 
 // HANDLERS
 const catalogHandler = () => {
@@ -59,18 +52,18 @@ await useAsyncData('main-categories-is_hit', () => useCategoryStore().index(quer
       >
         <nuxt-img
           v-if="category.image.src"
-          :src = "getPhotoSrc(category.image)"
+          :src = "useImg().category(category.image)"
           :alt = "category.image.alt || category.name"
           :title = "category.image.title || category.name"
           :class="category.image.size"
           width="360"
           height="200"
           sizes = "mobile:100vw tablet:360px desktop:360px"
-          format = "webp"
+          format = "avif"
           quality = "60"
           loading = "lazy"
           fit="outside"
-          placeholder="./images/noimage.png"
+          :placeholder="useImg().noImage"
           class="category-image"
         >
         </nuxt-img>

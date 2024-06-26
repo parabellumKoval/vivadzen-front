@@ -15,13 +15,6 @@ const categories = computed(() => {
 })
 
 // METHODS
-const getPhotoSrc = (image) => {
-  if(image?.src) {
-    return '/server/images/categories/' + image.src
-  } else {
-    return '/images/noimage.png'
-  }
-}
 // HANDLERS
 
 const selectHandler = (index) => {
@@ -55,7 +48,7 @@ const hoverEventHandler = (index) => {
       >
         <nuxt-img
           v-if="category.image.src"
-          :src = "getPhotoSrc(category.image)"
+          :src = "useImg().category(category.image)"
           width="40"
           height="40"
           sizes = "mobile:60px tablet:60px desktop:60px"
@@ -63,7 +56,7 @@ const hoverEventHandler = (index) => {
           quality = "60"
           loading = "lazy"
           fit="outside"
-          placeholder="/images/noimage.png"
+          :placeholder="useImg().noImage"
           class="category-image"
         >
         </nuxt-img>

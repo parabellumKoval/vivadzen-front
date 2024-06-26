@@ -13,13 +13,6 @@ const {
 } = useFilterItem(props.filter.id)
 
 // METHODS
-const getImageSrc = (item) => {
-  if(item?.image?.src)
-    return '/server/images/brands/' + item.image.src
-  else
-    return './images/noimage.png'
-}
-
 const checkHandler = (valueId) => {
   updateCheckboxValue(valueId)
 }
@@ -45,7 +38,7 @@ const checkHandler = (valueId) => {
           </div>
           <span class="brand-content">
             <nuxt-img
-              :src='getImageSrc(value)'
+              :src='useImg().brand(value.image)'
               width='40'
               height='40'
               sizes='mobile:40px tablet:40px desktop:40px'
@@ -53,7 +46,7 @@ const checkHandler = (valueId) => {
               quality='60'
               loading='lazy'
               fit='outside'
-              placeholder="./images/noimage.png"
+              :placeholder="useImg().noImage"
               class='brand-image'
             />
             <span class="brand-name">{{ value.name }}</span>

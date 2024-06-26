@@ -19,13 +19,6 @@ const image = computed(() => {
   return props.item?.images[0] || null
 })
 
-const imageSrc = computed(() => {
-  if(image.value?.src)
-    return '/server/images/brands/' + image.value.src
-  else
-    return null
-})
-
 const isOverlay = computed(() => {
 
   if(contentRef.value && titleRef.value && imageRef.value && innerRef.value) {
@@ -59,7 +52,7 @@ const toggleHandler = () => {
   <div class="brand-wrapper">
     <div class="brand-image-wrapper" ref="imageRef">
       <nuxt-img
-        :src='imageSrc'
+        :src='useImg().brand(image)'
         :alt='image?.alt || item.name'
         :title='image?.title || item.name'
         width='100'
@@ -69,7 +62,7 @@ const toggleHandler = () => {
         quality='60'
         loading='lazy'
         fit='outside'
-        placeholder="/images/noimage.png"
+        :placeholder="useImg().noImage"
         class='brand-image'
       />
     </div>

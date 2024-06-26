@@ -100,7 +100,7 @@ const toReviewsHandler = () => {
         quality = "25"
         :loading = "index > 0? 'lazy': loading"
         fit="outside"
-        placeholder="/images/noimage.png"
+        :placeholder="useImg().noImage"
         class="image"
       ></nuxt-img>
     </NuxtLink>

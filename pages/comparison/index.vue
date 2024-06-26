@@ -195,14 +195,6 @@ const getAttributeValue = (attr) => {
   }
 }
 
-const getImageSrc = (src) => {
-  if(src) {
-    return '/server/images/products/' + src
-  } else {
-    return './images/noimage.png'
-  }
-}
-
 const getProducts = (ids) => {
   useProductStore().getMultiple(ids).then((v) => {
     if(v) {
@@ -267,7 +259,7 @@ watch(() => useComparisonStore().ids, (v) => {
               <template v-if="cell.type === 'image'">
                 <nuxt-img
                   v-if='cell.value'
-                  :src='getImageSrc(cell.value)'
+                  :src='useImg().product(cell.value)'
                   alt=''
                   title=''
                   width='250'
@@ -277,7 +269,7 @@ watch(() => useComparisonStore().ids, (v) => {
                   quality='60'
                   loading='lazy'
                   fit='outside'
-                  placeholder="./images/noimage.png"
+                  :placeholder="useImg().noImage"
                   class='product-image' 
                 />
               </template>

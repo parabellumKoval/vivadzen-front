@@ -15,7 +15,9 @@ export default defineNuxtConfig({
       frontendUrl: process.env.SITE_URL,
       novaposhtaKey: process.env.NOVAPOSHTA_KEY,
       apiBase: process.env.SERVER_URL + '/api',
-      instagramToken: process.env.INSTAGRAM_TOKEN
+      instagramToken: process.env.INSTAGRAM_TOKEN,
+      imagesDir: '/server/uploads/images',
+      noimage: '/images/noimage.png'
     }
   },
   imports: {

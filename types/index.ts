@@ -9,6 +9,12 @@ declare global {
     isShow: Boolean,
     data?: Object | Object[] | null
   }
+  
+  type Image = {
+    src: string,
+    alt: string,
+    title: string
+  }
 
   type Auth = {
     email: string | null,
