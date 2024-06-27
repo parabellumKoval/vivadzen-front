@@ -51,18 +51,15 @@ const scrollToHandler = (index) => {
         class="thumbnail-btn"
       >
         <nuxt-img
-          v-if="item.src"
           :src = "useImg().product(item)"
           :alt = "item.alt"
           :title = "item.title"
-          :class="item.size"
-          width="85"
-          height="85"
-          sizes = "mobile:50vw tablet:85px desktop:85px"
+          sizes = "200px"
           format = "avif"
-          quality = "35"
-          :placeholder="useImg().noImage"
+          quality = "40"
           fit="outside"
+          :placeholder="useImg().noImage"
+          loading="lazy"
           class="thumbnail-image"
         >
         </nuxt-img> 
@@ -74,13 +71,14 @@ const scrollToHandler = (index) => {
           :src = "useImg().product(image)"
           :alt = "image.alt"
           :title = "image.title"
-          :class="image.size"
-          sizes = "mobile:100vw tablet:600px desktop:600px"
+          sizes = "200px"
           format = "avif"
-          quality = "60"
+          quality = "40"
           fit="outside"
-          class="main-image"
           :placeholder="useImg().noImage"
+          :loading="index === 0? null: 'lazy'"
+          class="main-image"
+          preload
         />
       </div>
     </div>
