@@ -83,11 +83,11 @@ const subHandler = () => {
       <div class="djini">
         <nuxt-img
           src = "/images/djini.png"
+          :provider = "useImg().provider"
           width="55"
           height="51"
-          sizes = "mobile:100vw tablet:75px desktop:75px"
-          format = "webp"
-          quality = "60"
+          sizes = "mobile:50px tablet:120px desktop:120px"
+          format = "avif"
           loading = "lazy"
           fit="outside"
           class="djini-logo"
@@ -173,11 +173,11 @@ const subHandler = () => {
             <div v-for="payment in payments" :key="payment.id" class="payment-item">
               <nuxt-img
                 :src = "payment.logo"
+                :provider = "useImg().provider"
                 width="50"
                 height="50"
-                sizes = "mobile:100vw tablet:75px desktop:75px"
-                format = "webp"
-                quality = "60"
+                sizes = "mobile:50px tablet:75px desktop:75px"
+                format = "avif"
                 loading = "lazy"
                 fit="outside"
                 class="payment-logo"
@@ -192,11 +192,11 @@ const subHandler = () => {
             <div v-for="delivery in deliveries" :key="delivery.id" class="delivery-item">
               <nuxt-img
                 :src = "delivery.logo"
+                :provider = "useImg().provider"
                 width="50"
                 height="50"
-                sizes = "mobile:100vw tablet:75px desktop:75px"
-                format = "webp"
-                quality = "60"
+                sizes = "mobile:50px tablet:75px desktop:75px"
+                format = "avif"
                 loading = "lazy"
                 fit="outside"
                 class="delivery-logo"

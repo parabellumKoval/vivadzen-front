@@ -19,6 +19,7 @@ const { t } = useI18n()
         height = "51"
         sizes = "mobile:50px tablet:120px desktop:120px"
         fit = "inside"
+        format = "avif"
         class = "logo-img"
       />
     </NuxtLink>

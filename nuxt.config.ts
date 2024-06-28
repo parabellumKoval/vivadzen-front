@@ -124,8 +124,6 @@ export default defineNuxtConfig({
       {
         provider: process.env.IMAGE_PROVIDER || "ipx",
         
-        format: 'avif',
-        
         quality: 50,
 
         screens: {

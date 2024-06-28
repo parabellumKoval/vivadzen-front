@@ -51,11 +51,11 @@ const advantages = computed(() => {
 
     <nuxt-img
       src = "/images/apple.png"
+      :provider = "useImg().provider"
       width="155"
       height="155"
       sizes = "mobile:100vw tablet:200px desktop:200px"
-      format = "webp"
-      quality = "80"
+      format = "avif"
       loading = "lazy"
       fit="outside"
       class="image-adv image-apple"
@@ -63,11 +63,11 @@ const advantages = computed(() => {
 
     <nuxt-img
       src = "/images/pineapple.png"
+      :provider = "useImg().provider"
       width="319"
       height="204"
       sizes = "mobile:100vw tablet:340px desktop:340px"
-      format = "webp"
-      quality = "80"
+      format = "avif"
       loading = "lazy"
       fit="outside"
       class="image-adv image-pineapple"
@@ -75,23 +75,23 @@ const advantages = computed(() => {
 
     <nuxt-img
       src = "/images/banana.png"
+      :provider = "useImg().provider"
       width="381"
       height="342"
       sizes = "mobile:100vw tablet:400px desktop:400px"
-      format = "webp"
-      quality = "80"
+      format = "avif"
       loading = "lazy"
       fit="outside"
       class="image-adv image-banana"
     />
 
     <nuxt-img
+      :provider = "useImg().provider"
       src = "/images/carrot.png"
       width="262"
       height="222"
       sizes = "mobile:100vw tablet:300px desktop:300px"
-      format = "webp"
-      quality = "80"
+      format = "avif"
       loading = "lazy"
       fit="outside"
       class="image-adv image-carrot"

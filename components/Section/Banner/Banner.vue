@@ -12,6 +12,7 @@
         height = "350"
         sizes = "mobile:100vw"
         fit = "inside"
+        format = "avif"
         class = "image"
       />
     </div>
