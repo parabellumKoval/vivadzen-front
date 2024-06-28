@@ -7,6 +7,7 @@
     <div class="item">
       <nuxt-img
         src="/images/banner.jpg"
+        provider="vercel"
         width="1440"
         height="350"
         sizes = "mobile:100vw"

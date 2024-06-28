@@ -14,6 +14,7 @@ const { t } = useI18n()
     <NuxtLink :to="localePath('/')" class="logo" clickable>
       <nuxt-img
         src="/images/djini.png"
+        provider="vercel"
         width="55"
         height="51"
         sizes = "mobile:50px tablet:120px desktop:120px"
