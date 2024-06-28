@@ -93,6 +93,7 @@ const toReviewsHandler = () => {
         :src = "photo.src"
         :alt = "photo.alt"
         :title = "photo.title"
+        provider="ipx"
         width="290"
         height="260"
         sizes = "mobile:180px tablet:230px desktop:300px"

@@ -262,9 +262,11 @@
   }
 
   &-btn {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
     border-radius: $radius;
     height: 34px;
     width: 34px;
