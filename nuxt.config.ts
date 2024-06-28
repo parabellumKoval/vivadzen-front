@@ -17,7 +17,8 @@ export default defineNuxtConfig({
       apiBase: process.env.SERVER_URL + '/api',
       instagramToken: process.env.INSTAGRAM_TOKEN,
       imagesDir: '/server/uploads/images',
-      noimage: '/images/noimage.png'
+      noimage: '/images/noimage.png',
+      staticImageProvider: process.env.STATIC_IMAGE_PROVIDER || 'ipx'
     }
   },
   imports: {
@@ -123,6 +124,10 @@ export default defineNuxtConfig({
       {
         provider: process.env.IMAGE_PROVIDER || "ipx",
         
+        format: 'avif',
+        
+        quality: 50,
+
         screens: {
           mobile: 767,
           tablet: 1023,
@@ -157,10 +162,6 @@ export default defineNuxtConfig({
             '*.cdninstagram.com',
             '*.fbsbx.com'
           ]
-        },
-
-        cloudinary: {
-          baseURL: 'https://res.cloudinary.com/daf8lt05a/image/upload/'
         }
       }
     ], [

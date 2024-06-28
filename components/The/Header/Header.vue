@@ -13,14 +13,12 @@ const { t } = useI18n()
     <!-- LOGO -->
     <NuxtLink :to="localePath('/')" class="logo" clickable>
       <nuxt-img
-        src="/images/djini.png"
-        provider="vercel"
-        width="55"
-        height="51"
+        src = "/images/djini.png"
+        :provider = "useImg().provider"
+        width = "55"
+        height = "51"
         sizes = "mobile:50px tablet:120px desktop:120px"
-        format = "avif"
-        fit="inside"
-        quality = "100"
+        fit = "inside"
         class = "logo-img"
       />
     </NuxtLink>

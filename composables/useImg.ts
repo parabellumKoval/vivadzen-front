@@ -1,8 +1,12 @@
 export const useImg = () => {
   
-  const noImage = computed(() => {
-    return useRuntimeConfig().public.noimage
-  })
+  // const noImage = computed(() => {
+  //   return useRuntimeConfig().public.noimage
+  // })
+
+  const noImage = useRuntimeConfig().public.noimage
+  const provider = useRuntimeConfig().public.staticImageProvider
+
 
   const folderSrc = (src: string, folder: string) => {
     return useRuntimeConfig().public.imagesDir + '/' + folder + '/' + src
@@ -33,7 +37,8 @@ export const useImg = () => {
   }
 
   return {
-    noImage: noImage.value,
+    noImage: noImage,
+    provider: provider,
     folderSrc,
     category,
     product,
