@@ -248,7 +248,7 @@ export default defineNuxtConfig({
       // '/**': {isr: 60 * 30},
       // '/**': {ssr: false, static: false, swr: false},
       // '/catalog': {swr: true},
-      '/vitaminy_i_mineraly': {swr: true},
+      '/vitaminy_i_mineraly': {isr: 60 * 30},
       '/komplekt-termobelya-dlya-zhenshchin-cuten-rough-radical-povsednevnoe-svetlo-seryy-5717': {swr: true},
       // '/brands': { isr: 60 * 30},
       // '/brands/**': { isr: 60 * 30},
