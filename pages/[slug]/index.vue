@@ -11,16 +11,18 @@ const slug = computed(() => {
 // METHODS
 // HANDLERS
 // WATCHERS
-await useAsyncData(() => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
+// await useAsyncData(() => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
+await useAsyncData(() => useServerApiFetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
 .then(({data, error}) => {
-  if(data?.value) {
 
-    if(data.value.price === undefined){
+  if(data?.value?.data) {
+
+    if(data.value.data.price === undefined){
       product.value = null
-      category.value = data.value
+      category.value = data.value.data
     }else {
       category.value = null
-      product.value = data.value
+      product.value = data.value.data
     }
   }else {
     throw createError({ statusCode: 404, message: 'Page Not Found' })

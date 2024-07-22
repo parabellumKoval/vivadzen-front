@@ -151,6 +151,10 @@ export default defineNuxtConfig({
           dirname: 'public'
         },
 
+        bunny: {
+          baseURL: "https://djini.b-cdn.net",
+        },
+
         ipx: {
           domains: [
             process.env.DOMAIN,

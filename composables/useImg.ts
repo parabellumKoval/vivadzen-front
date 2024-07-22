@@ -9,7 +9,7 @@ export const useImg = () => {
 
 
   const folderSrc = (src: string, folder: string) => {
-    return useRuntimeConfig().public.imagesDir + '/' + folder + '/' + src
+    return '/' + folder + '/' + src
   }
 
   const srcOrPlaceholder = (image: Image | string, folder: string) => {

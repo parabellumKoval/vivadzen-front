@@ -219,7 +219,7 @@ onBeforeMount(() => {
 })
 
 onBeforeUnmount(() => {
-  //
+  ////
   useTransport().setData({mobileSearch: true})
 })
 </script>
