@@ -26,14 +26,6 @@ const slug = computed(() => {
   return route.params.blog
 })
 
-const image = computed(() => {
-  if(article.value.image) {
-    return '/server/' + article.value.image
-  } else {
-    return null
-  }
-})
-
 // METHODS
 const setCrumbs = () => {
   breadcrumbs.value = [
@@ -144,8 +136,9 @@ setSeo()
           <div class="article-header">
             
             <nuxt-img
-              v-if="image"
-              :src = "image"
+              :src = "useImg().blog(article.image)"
+              :alt = "article.image.alt || article.name"
+              :title = "article.image.title || article.name"
               width="800"
               height="400"
               sizes = "mobile:100vw tablet:100vw desktop:800px"

@@ -24,6 +24,7 @@ const emit = defineEmits(['more'])
       <div v-for="payment in payments" :key="payment.id" class="payment-item">
         <nuxt-img
           v-if="payment.logo"
+          :provider = "useImg().provider"
           :src = "payment.logo"
           width="60"
           height="40"

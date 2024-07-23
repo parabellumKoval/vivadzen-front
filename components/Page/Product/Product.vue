@@ -47,6 +47,21 @@ const reviewsCount = computed(() => {
   return props.product.reviews_rating_detailes?.reviews_count || 0
 })
 
+const allAttrs = computed(() => {
+  let attrs = [...props.product.attrs]
+
+  if(props.product.brand) {
+    attrs.unshift({
+      id: 0,
+      name: 'Бренд',
+      slug: props.product.brand.slug,
+      type: 'string',
+      value: props.product.brand.name
+    })
+  }
+
+  return attrs
+})
 
 const reviewQuery = computed(() => {
   const type = String.raw`Backpack\Store\app\Models\Product`;
@@ -285,7 +300,7 @@ onBeforeUnmount(() => {
           <template v-else-if="tab === 3">
             <div class="params-wrapper">
               <div class="tab-title">{{  t('attrs') }}</div>
-              <lazy-simple-list-params :items="product.attrs"></lazy-simple-list-params>
+              <lazy-simple-list-params :items="allAttrs"></lazy-simple-list-params>
             </div>
           </template>
 
@@ -341,7 +356,7 @@ onBeforeUnmount(() => {
         ></lazy-product-sale-block>
 
         <transition name="fade-in">
-          <lazy-product-feature v-if="tab === 1" class="content-feature"></lazy-product-feature>
+          <lazy-product-feature v-if="tab === 1 && product.specs" :specs="product.specs" class="content-feature"></lazy-product-feature>
         </transition>
 
         <transition name="fade-in">
@@ -363,7 +378,7 @@ onBeforeUnmount(() => {
         <transition name="fade-in">
           <lazy-product-params-box
             v-if="tab === 1 && product.attrs && product.attrs.length"
-            :items="product.attrs"
+            :items="allAttrs"
             class="content-params"
           ></lazy-product-params-box>
         </transition>

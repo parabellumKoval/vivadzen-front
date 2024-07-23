@@ -22,7 +22,7 @@ const getValue = (value) => {
   <div class="params">
     <ul class="list">
       <li v-for="(item, index) in items" :key="index" class="list-item">
-        <span class="list-label">{{ item.name }}</span>
+        <span class="list-label">{{ item.name }}{{ item.si? ', ' + item.si: '' }}</span>
         <span class="list-line"></span>
         <span class="list-value">{{ getValue(item.value) }}</span>
       </li>

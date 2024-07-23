@@ -38,6 +38,7 @@ const emit = defineEmits(['more'])
         <nuxt-img
           v-if="method.image"
           :src = "method.image"
+          :provider = "useImg().provider"
           width="20"
           height="20"
           sizes = "mobile:30px tablet:30px desktop:30px"
