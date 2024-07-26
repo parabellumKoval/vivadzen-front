@@ -13,7 +13,12 @@ const blurHandler = () => {
 }
 
 const closeHandler = () => {
+  console.log('close')
   isActive.value = false
+}
+
+const goToSearch = () => {
+  console.log('goToSearchPage')
 }
 
 const goToSearchPage = async () => {
@@ -45,6 +50,7 @@ const goToSearchPage = async () => {
       <lazy-the-header-search-modal
         v-if="isActive"
         :search-input="searchInput"
+        @close="closeHandler"
         class="search-modal"
       ></lazy-the-header-search-modal>
     </transition>

@@ -1,6 +1,5 @@
 <script setup>
 // import {useFilterItem} from "~/composables/product/useFilterItem"
-
 const {modelValue, updateModelValue} = useFilterItem()
 
 const props = defineProps({
@@ -87,6 +86,7 @@ const deleteHandler = (filter) => {
 const removeAllHandler = () => {
   updateModelValue([])
 }
+
 </script>
 
 <style src="./selected.scss" lang="scss" scoped></style>

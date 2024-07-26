@@ -9,9 +9,6 @@ const props = defineProps({
 // METHODS
 
 // HANDLERS
-const closeModalHandler = () => {
-  useModal().close()
-}
 </script>
 
 <style src="./sub.scss" lang="scss" scoped />
@@ -23,7 +20,6 @@ const closeModalHandler = () => {
         <NuxtLink
           :to="localePath('/' + category.slug)"
           :aria-label="category.name"
-          @click="closeModalHandler"
           clickable
           class="sub-item link"
         >

@@ -39,10 +39,10 @@ const productCard = resolveComponent('ProductCard')
 <style src="./products.scss" lang="scss" scoped></style>
 
 <template>
-  <section class="main-section">
+  <section v-if="products && products.length" class="main-section">
     <div class="section-title">{{ title }}</div>
 
-    <div v-if="products && products.length">
+    <div>
       <section-snap-slider
         :items="products"
         :component="productCard"

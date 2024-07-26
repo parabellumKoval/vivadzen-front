@@ -32,6 +32,7 @@ const showAuthHandler = () => {
     <button v-if="auth && user" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
       <nuxt-img
         :src="useAuthStore().avatar"
+        :provider = "useImg().provider"
         width="30"
         height="30"
         sizes = "mobile:30px tablet:30px desktop:30px"

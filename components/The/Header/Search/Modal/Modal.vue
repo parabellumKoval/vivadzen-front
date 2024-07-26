@@ -9,6 +9,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['close'])
+
 const categories = ref([])
 const products = ref([])
 const brands = ref([])
@@ -22,14 +24,6 @@ const history = computed(() => {
 })
 
 // METHODS
-const getPhoto = (item, segment) => {
-  if(item.image?.src) {
-    return '/server/images/' + segment + '/' + item.image.src
-  }else {
-    return '/images/noimage.png'
-  }
-}
-
 const search = async (search) => {
   timeout.value = null
 
@@ -58,6 +52,10 @@ const search = async (search) => {
 
 const setInput = (search) => {
   props.searchInput = search
+}
+
+const closeHandler = () => {
+  emit('close')
 }
 
 // WATCH
@@ -121,7 +119,7 @@ watch(() => props.searchInput, (v) => {
           <li v-for="item in brands" :key="item.id" class="livesearch-item">
             <NuxtLink :to="localePath('/brands/' + item.slug)" class="livesearch-link brand-item">
               <nuxt-img
-                :src = "getPhoto(item, 'brands')"
+                :src = "useImg().brand(item.image)"
                 width="50"
                 height="60"
                 sizes = "mobile:50px tablet:50px desktop:50px"
@@ -145,7 +143,7 @@ watch(() => props.searchInput, (v) => {
           <li v-for="item in products" :key="item.id" class="livesearch-item">
             <NuxtLink :to="localePath('/' + item.slug)" class="livesearch-link product-card">
               <nuxt-img
-                :src = "getPhoto(item, 'products')"
+                :src = "useImg().product(item.image)"
                 width="50"
                 height="60"
                 sizes = "mobile:50px tablet:50px desktop:50px"
@@ -183,10 +181,14 @@ watch(() => props.searchInput, (v) => {
 
 
       <div v-if="products?.length" class="livesearch-box">
-        <button @click="goToSearchPage" class="all-results-btn">
-          <span class="text">{{ t('all') }}</span>
-          <IconCSS name="iconoir:arrow-right" class="icon"></IconCSS>
-        </button>
+        <span @click="closeHandler">
+          <NuxtLink :to="localePath('/search?q=' + searchInput)" class="all-results-btn">
+            <span class="text">{{ t('all') }}</span>
+            <IconCSS name="iconoir:arrow-right" class="icon"></IconCSS>
+          </NuxtLink>
+        </span>
+        <!-- <button @click="goToSearchPage" class="all-results-btn">
+        </button> -->
       </div>
 
 
@@ -194,10 +196,11 @@ watch(() => props.searchInput, (v) => {
         v-if="categories?.length || products?.length || brands?.length"
         class="powered-by"
       >
-        <span>Powered by </span>
+        <span>Powered by</span>
 
         <nuxt-img
-          src = "/images/algolia.png"
+          :provider="useImg().provider"
+          src="/images/algolia.png"
           width="30"
           height="30"
           sizes = "mobile:50px tablet:50px desktop:50px"

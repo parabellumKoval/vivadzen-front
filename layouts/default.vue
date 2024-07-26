@@ -63,6 +63,12 @@ watch(locale, (v) => {
   refreshCategories()
 })
 
+watch(() => route.fullPath, (v) => {
+  useModal().close()
+}, {
+  immediate: true
+})
+
 // HOOKS
 const {refresh: refreshCategories} = useAsyncData('all-categories', async () =>  await useCategoryStore().index())
 

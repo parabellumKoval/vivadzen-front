@@ -15,11 +15,6 @@ const menu = computed(() => {
 
 // METHODS
 // HANDLERS
-
-const closeHandler = () => {
-  useModal().close()
-}
-
 const backHandler = () => {
   useModal().open(resolveComponent('ModalMenuMobile'), null, null)
 }
@@ -48,7 +43,7 @@ const backHandler = () => {
           <div class="menu-label">{{ t('label.common_info') }}</div>
           <ul class="menu-ul">
             <li v-for="item in menu.info" :key="item.id">
-              <NuxtLink :to="localePath(item.link)" @click="closeHandler" class="menu-link">{{ item.title }}</NuxtLink>
+              <NuxtLink :to="localePath(item.link)" class="menu-link">{{ item.title }}</NuxtLink>
             </li>
           </ul>
         </div>
@@ -57,7 +52,7 @@ const backHandler = () => {
           <div class="menu-label">{{ t('label.guide') }}</div>
           <ul class="menu-ul">
             <li v-for="item in menu.customer" :key="item.id">
-              <NuxtLink :to="localePath(item.link)" @click="closeHandler" class="menu-link">{{ item.title }}</NuxtLink>
+              <NuxtLink :to="localePath(item.link)" class="menu-link">{{ item.title }}</NuxtLink>
             </li>
           </ul>
         </div>

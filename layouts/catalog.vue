@@ -57,13 +57,14 @@ const props = defineProps({
   }
 })
 
-const {modelValue} = useFilterItem()
+const {modelValue, updateModelValue} = useFilterItem()
 
 const {options: sortingOptions} = useSort()
 const sortSelectedIndex = ref(1)
 const sort = ref({order_by: 'created_at', order_dir: 'desc'})
 
 const router = useRouter()
+const route = useRoute()
 
 // COMPUTED
 const filtersData = computed(() => {
@@ -105,6 +106,12 @@ const updatePageHandler = (v) => {
   }
 }
 
+const updatePageMoreHandler = (v) => {
+  if(props.updatePageCallback) {
+    props.updatePageCallback(v, true)
+  }
+}
+
 const updateSelected = (v) => {
   let values = []
   
@@ -133,6 +140,12 @@ watch(() => modelValue.value, (v) => {
   updateSelected(v)
 }, {
   deep: true
+})
+
+watch(() => route.fullPath, (v) => {
+  updateModelValue([])
+}, {
+  immediate: true
 })
 </script>
 
@@ -214,7 +227,7 @@ watch(() => modelValue.value, (v) => {
             <transition-group name="fade-in">
               <lazy-product-card
                 v-for="(product, index) in products"
-                :key="product.id + index"
+                :key="product.id"
                 :item="product"
                 :index="index"
                 class="content-grid-item"
@@ -229,13 +242,21 @@ watch(() => modelValue.value, (v) => {
         <div></div>
         <div>
           <!-- Pagination -->
-          <lazy-simple-pagination
-            v-if="meta.total >= meta.per_page"
-            :total="meta.last_page"
-            :current="meta.current_page"
-            @update:current="updatePageHandler"
-            class="pagination"
-          ></lazy-simple-pagination>
+          <div class="pagination">
+            <lazy-simple-pagination
+              v-if="meta.total >= meta.per_page"
+              :total="meta.last_page"
+              :current="meta.current_page"
+              @update:current="updatePageHandler"
+            ></lazy-simple-pagination>
+
+            <lazy-simple-pagination-more
+              v-if="meta.total >= meta.per_page && meta.last_page !== meta.current_page"
+              :total="meta.last_page"
+              :current="meta.current_page"
+              @update:current="updatePageMoreHandler"
+            ></lazy-simple-pagination-more>
+          </div>
 
           <!-- SLOT FOOTER HERE -->
           <slot name="footer" />

@@ -12,8 +12,14 @@
   }
 }
 
-@mixin _large-desktop {
+@mixin _ld {
   @media (min-width: 1441px) {
+    @content;
+  }
+}
+
+@mixin _xld {
+  @media (min-width: 1920px) {
     @content;
   }
 }

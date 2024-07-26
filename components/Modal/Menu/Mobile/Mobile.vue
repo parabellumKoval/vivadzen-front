@@ -28,12 +28,7 @@ const phones = computed(() => {
 // METHODS
 // HANDLERS
 const goToAccount = () => {
-  closeHandler()
   navigateTo(localePath('/account/settings'))
-}
-
-const closeHandler = () => {
-  useModal().close()
 }
 
 const loginHandler = () => {
