@@ -27,6 +27,7 @@ const name = computed(() => {
   <div class="profile">
     <nuxt-img
       :src = "photo"
+      :provider = "useImg().provider"
       width="70"
       height="70"
       sizes = "mobile:100vw tablet:70px desktop:70px"
@@ -35,6 +36,7 @@ const name = computed(() => {
       loading = "lazy"
       fit="outside"
       class="profile-image"
+      :placeholder="useImg().noImage"
     >
     </nuxt-img>
     <div class="profile-data">

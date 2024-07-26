@@ -29,7 +29,6 @@ const emit = defineEmits(['more'])
           width="60"
           height="40"
           sizes = "mobile:80px tablet:80px desktop:80px"
-          format = "webp"
           quality = "60"
           loading = "lazy"
           fit="outside"
