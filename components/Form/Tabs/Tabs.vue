@@ -31,10 +31,10 @@ const selectHandler = (v) => {
       <template v-if="item.image">
         <nuxt-img
           :src = "item.image"
+          :provider = "useImg().provider"
           width="100"
           height="20"
           sizes = "mobile:100px tablet:100px desktop:100px"
-          format = "webp"
           quality = "60"
           loading = "lazy"
           fit="outside"
