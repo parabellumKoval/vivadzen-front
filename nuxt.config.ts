@@ -192,7 +192,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    indexable: false,
+    indexable: true,
     url: 'https://djini.com.ua',
     name: 'Djini',
     description: 'Джини ☝️ интернет-магазин здорового питания.',
