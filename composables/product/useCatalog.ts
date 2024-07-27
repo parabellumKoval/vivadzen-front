@@ -5,12 +5,12 @@ export const useCatalog = (query: Object) => {
   const catalogMeta = useState('catalogMeta', () => {return {}})
   const pending = useState('pendingState', () => {return false})
 
-  const getProducts = (query: Object, name = 'catalog', state = true) => {
+  const getProducts = async (query: Object, name = 'catalog', state = true) => {
     if(state) {
       pending.value = true
     }
 
-    return useLazyAsyncData(name, () => useProductStore().index(query)).then(({data, error}) => {
+    return await useLazyAsyncData(name, () => useProductStore().index(query)).then(({data, error}) => {
 
       if(error?.value){
         throw error.value
