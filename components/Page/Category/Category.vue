@@ -92,20 +92,20 @@ setSeo()
 
 setCrumbs()
 
-// const {data: filtersData} = await getFilters(getQuery())
-getFilters(getQuery()).then(({data}) => {
-  if(data.value) {
-    attributes.value = data.value
-  }
-})
-
-// watch(filtersData, (v) => {
-//   if(v) {
-//     attributes.value = v
+const {data: filtersData} = await getFilters(getQuery())
+// getFilters(getQuery()).then(({data}) => {
+//   if(data.value) {
+//     attributes.value = data.value
 //   }
-// }, {
-//   immediate: true
 // })
+
+watch(filtersData, (v) => {
+  if(v) {
+    attributes.value = v
+  }
+}, {
+  immediate: true
+})
 </script>
 
 <style src="./category.scss" lang="scss" scoped></style>

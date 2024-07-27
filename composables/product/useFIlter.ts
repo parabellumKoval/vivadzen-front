@@ -4,8 +4,8 @@ import {useBrandStore} from '~/store/brand'
 export const useFilter = () => {
   const {t} = useI18n({useScope: 'global'})
 
-  const getFilters = (query: Object, useAttributes: Boolean = true) => {
-    return useLazyAsyncData('filters', async () => {
+  const getFilters = async (query: Object, useAttributes: Boolean = true) => {
+    return await useLazyAsyncData('filters', async () => {
       return await Promise.all([
         getBrands(query).then((data) => {
           return data || []
@@ -25,14 +25,14 @@ export const useFilter = () => {
     })
   }
 
-  const getBrands = (query: Object) => {
-    return useBrandStore().filter(query).then((data) => {
+  const getBrands = async (query: Object) => {
+    return await useBrandStore().filter(query).then((data) => {
       return data
     })
   }
 
-  const getAttributes = (query: Object) => {
-    return useAttributeStore().index(query).then((data) => {
+  const getAttributes = async (query: Object) => {
+    return await useAttributeStore().index(query).then((data) => {
       return data
     })
   }
