@@ -141,12 +141,6 @@ watch(() => modelValue.value, (v) => {
 }, {
   deep: true
 })
-
-watch(() => route.fullPath, (v) => {
-  updateModelValue([])
-}, {
-  immediate: true
-})
 </script>
 
 <style src="~/assets/scss/layout-catalog.scss" lang="scss" scoped></style>

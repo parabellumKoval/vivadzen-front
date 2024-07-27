@@ -92,15 +92,21 @@ setSeo()
 
 setCrumbs()
 
-const {data: filtersData} = await getFilters(getQuery())
-
-watch(filtersData, (v) => {
-  if(v) {
-    attributes.value = v
-  }
-}, {
-  immediate: true
+// const {data: filtersData} = await getFilters(getQuery())
+getFilters(getQuery()).then(({data}) => {
+  console.log('get f', data.value)
+  // if(data.value && !attributes.value.length) {
+    attributes.value = data.value
+  // }
 })
+
+// watch(filtersData, (v) => {
+//   if(v) {
+//     attributes.value = v
+//   }
+// }, {
+//   immediate: true
+// })
 </script>
 
 <style src="./category.scss" lang="scss" scoped></style>
@@ -122,10 +128,9 @@ watch(filtersData, (v) => {
     </template>
     
     <template #footer>
-
       <lazy-catalog-reviews :slug="slug" :category="category" class="review-wrapper"></lazy-catalog-reviews>
 
-      <div v-if="category.content" class="seo-text rich-text" v-html="category.content"></div>
+      <lazy-catalog-text v-if="category.content" :content="category.content" class="seo-text"></lazy-catalog-text>
 
       <lazy-section-faq-catalog :category="category" class="faq-section"></lazy-section-faq-catalog>
     </template>

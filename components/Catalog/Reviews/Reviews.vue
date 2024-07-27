@@ -16,7 +16,7 @@ const {t} = useI18n()
 const reviews = ref([])
 const reviewsMeta = ref({})
 
-const {pending, data: reviewsData} = await useLazyAsyncData(() => useReviewStore().getAll({
+const {pending, data: reviewsData} = useLazyAsyncData(() => useReviewStore().getAll({
   per_page: 6,
   category_slug: props.slug,
   resource: 'large'

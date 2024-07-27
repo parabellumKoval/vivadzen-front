@@ -164,6 +164,11 @@ watch(tempData, (data) => {
 
 
 // WATCH
+
+watch(() => props.slug, () => {
+  updateModelValue([])
+})
+
 watch(() => meta.value, (v) => {
   if(!v) {
     return
