@@ -94,10 +94,9 @@ setCrumbs()
 
 // const {data: filtersData} = await getFilters(getQuery())
 getFilters(getQuery()).then(({data}) => {
-  console.log('get f', data.value)
-  // if(data.value && !attributes.value.length) {
+  if(data.value) {
     attributes.value = data.value
-  // }
+  }
 })
 
 // watch(filtersData, (v) => {
