@@ -93,7 +93,9 @@ const getMetaInit = (id) => {
 const setOpened = () => {
   if(!filtersComputed.value?.length) {
     return
-  } 
+  }
+  
+  opened.value = []
   
   for(var i = 0; i < filtersComputed.value.length; i++){
     if(filtersComputed.value[i].isOpen) {
@@ -102,7 +104,13 @@ const setOpened = () => {
   }
 }
 
-setOpened()
+// WATCHERS
+watch(() => props.filters, () => {
+  setOpened()
+}, {
+  immediate: true,
+  deep: true
+})
 
 const filterDoubleslider = resolveComponent('filter-type-doubleslider')
 const filterCheckbox = resolveComponent('filter-type-checkbox')

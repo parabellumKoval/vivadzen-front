@@ -48,18 +48,18 @@ const toggleHandler = () => {
 <template>
   <div class="personal-wrapper">
     <nuxt-img
+      :provider="useImg().provider"
       :src = "photo"
       :alt = "item?.author?.name"
       :title = "item?.author?.name"
       width = "130"
       height = "130"
       sizes = "mobile:100vw tablet:130px desktop:130px"
-      format = "avif"
-      quality = "60"
+      quality = "70"
       loading = "lazy"
       fit = "outside"
       class = "image"
-      placeholder = "/images/account.png"
+      :placeholder="useImg().noImage"
     />
 
     <review-social v-if="link" :source="link" :name="item?.author?.name" class="nm"></review-social>

@@ -96,7 +96,7 @@ watch(() => props.metaInit, (v) => {
 
     <div class="slider-inner">
 
-      <div class="slider" >
+      <!-- <div class="slider" >
         <UiSlider
           v-model="value"
           :min="limits[0]"
@@ -107,7 +107,7 @@ watch(() => props.metaInit, (v) => {
           @set="setHandler"
           clickable 
         />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

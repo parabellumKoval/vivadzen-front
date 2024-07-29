@@ -30,17 +30,19 @@ const showAuthHandler = () => {
 <template>
   <div>
     <button v-if="auth && user" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
-      <nuxt-img
-        :src="useAuthStore().avatar"
-        :provider = "useImg().provider"
-        width="30"
-        height="30"
-        sizes = "mobile:30px tablet:30px desktop:30px"
-        format = "avif"
-        fit = "cover"
-        quality = "100"
-        class = "avatar-image"
-      />
+      <ClientOnly>
+        <nuxt-img
+          :src="useAuthStore().avatar"
+          :provider = "useImg().provider"
+          width="30"
+          height="30"
+          sizes = "mobile:30px tablet:30px desktop:30px"
+          fit = "cover"
+          quality = "80"
+          class = "avatar-image"
+          :placeholder="useImg().noImage"
+        />
+      </ClientOnly>
       <span class="hint">{{ t('profile') }}</span>
     </button>
 

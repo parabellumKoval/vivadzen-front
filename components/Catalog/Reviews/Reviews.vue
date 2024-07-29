@@ -16,15 +16,22 @@ const {t} = useI18n()
 const reviews = ref([])
 const reviewsMeta = ref({})
 
-const {pending, data: reviewsData} = useLazyAsyncData(() => useReviewStore().getAll({
+const {data: reviewsData} = await useReviewStore().indexLazy({
   per_page: 6,
   category_slug: props.slug,
   resource: 'large'
-}))
+})
+
+// const {pending, data: reviewsData} = useLazyAsyncData(() => useReviewStore().getAll({
+//   per_page: 6,
+//   category_slug: props.slug,
+//   resource: 'large'
+// }))
 
 watch(reviewsData, (v) => {
-  if(v?.reviews) {
-    reviews.value = v.reviews
+
+  if(v?.data) {
+    reviews.value = v.data
   }
   
   if(v?.meta) {

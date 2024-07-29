@@ -47,7 +47,6 @@ const hoverEventHandler = (index) => {
         clickable
       >
         <nuxt-img
-          v-if="category.image.src"
           :src = "useImg().category(category.image)"
           width="40"
           height="40"

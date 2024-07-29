@@ -62,24 +62,39 @@ export const useProductStore = defineStore('productStore', {
       })
     },
 
+    indexLazy(query: Object, options: Object) {
+      const url = useRuntimeConfig().public.apiBase + '/product'
+      const allOptions = {
+        lazy: true,
+        ...options
+      }
+
+      return useApiFetch(url, query, 'GET', allOptions)
+    },
+
+    async index(query: Object) {
+      const url = useRuntimeConfig().public.apiBase + '/product'
+      return await useApiFetch(url, query, 'GET', {lazy: false})
+    },
+
     async getAll(query: Object) {
       const url = useRuntimeConfig().public.apiBase + '/product'
-      return await useApiFetch(url, query)
+      return await useApiFetch(url, query, 'GET', {lazy: true})
     },
 
-    async index(query: Object, refresh: boolean = true) {
-      return await this.getAll(query).then(({ data }) => {
+    // async index(query: Object) {
+    //   return await this.getAll(query).then(({ data }) => {
 
-        if(!data)
-          return
+    //     if(!data)
+    //       return
 
-        return {
-          products: data.products.data || null,
-          filters: data.filters || null,
-          meta: data.products.meta || null
-        }
-      })
-    },
+    //     return {
+    //       products: data.products.data || null,
+    //       filters: data.filters || null,
+    //       meta: data.products.meta || null
+    //     }
+    //   })
+    // },
 
     async getMultiple(ids: Number[]) {
       const runtimeConfig = useRuntimeConfig()

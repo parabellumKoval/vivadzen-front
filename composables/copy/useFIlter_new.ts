@@ -1,40 +1,58 @@
 import {useAttributeStore} from '~/store/attribute'
 import {useBrandStore} from '~/store/brand'
 
-export const useFilterOLD = () => {
+export const useFilterNEW = () => {
   const {t} = useI18n({useScope: 'global'})
+
+  // const attrs = ref(null)
+  // const brands = ref(null)
+
+  // const fils = computed(() => {
+  //   return {
+  //     attrs: attrs.value,
+  //     brands: brands.value,
+  //   }
+  // })
+
+  // const getFilters = async (query: Object) => {
+  //   ({data: brands.value} = await getBrands(query));
+  //   ({data: attrs.value} = await getAttributes(query));
+  // }
+  // const getFilters = async (query: Object, useAttributes: Boolean = true) => {
+  //   return Promise.all([
+  //     await getBrands(query),
+  //     await getAttributes(query)
+  //   ]).then(([brands, attributes]) => {
+  //     // console.log(brands.data.value.data, attributes.data.value)
+  //     if(useAttributes) {
+  //       return prepareFilters(attributes?.data?.value, brands.data?.value?.data)
+  //     }else {
+  //       return prepareFilters([], brands.data?.value?.data)
+  //     }
+  //   })
+  // }
 
   const getFilters = async (query: Object, useAttributes: Boolean = true) => {
     return await useLazyAsyncData('filters', async () => {
       return await Promise.all([
-        getBrands(query).then((data) => {
-          return data || []
-        }),
-        getAttributes(query).then((data) => {
-          return data || []
-        })
+        getBrands(query),
+        getAttributes(query)
       ]).then(([brands, attributes]) => {
         if(useAttributes) {
-          return prepareFilters(attributes, brands)
+          return prepareFilters(attributes?.data?.value, brands.data?.value?.data)
         }else {
-          return prepareFilters([], brands)
+          return prepareFilters([], brands.data?.value?.data)
         }
       })
-    }).then((data) => {
-      return data
     })
   }
 
   const getBrands = async (query: Object) => {
-    return await useBrandStore().filter(query).then((data) => {
-      return data
-    })
+    return await useBrandStore().filterLazy(query)
   }
 
   const getAttributes = async (query: Object) => {
-    return await useAttributeStore().index(query).then((data) => {
-      return data
-    })
+    return await useAttributeStore().indexLazy(query)
   }
 
   const prepareFilters = (attributes: Object[], brands: Object[]) => {

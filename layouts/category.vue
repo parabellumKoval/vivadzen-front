@@ -121,8 +121,6 @@ const updateQueryHandler = async (loadmore = false) => {
   if(loadmore)
   {
     await getProducts(query.value).then((response) => {
-      console.log('response', response.products, response.meta, response.filters);
-      
       products.value = products.value.concat(response.products)
       meta.value = response.meta
     }).finally(() => {
@@ -139,20 +137,21 @@ const updateQueryHandler = async (loadmore = false) => {
     } = await getProducts(query.value).finally(() => {
       pending.value = false
     }))
-
   }
 }
 
 // HOOKS
-const {pending, data: tempData} = await useAsyncData(() => useProductStore().index(props.initQuery));
+// const {pending, data: tempData} = await useAsyncData(() => useProductStore().index(props.initQuery));
+const {pending, data: tempData} = await useProductStore().index(props.initQuery)
 
 watch(tempData, (data) => {
-  if(data?.products) {
-    products.value = data.products
+
+  if(data?.products?.data) {
+    products.value = data.products.data
   }
 
-  if(data?.meta) {
-    meta.value = data.meta
+  if(data?.products?.meta) {
+    meta.value = data.products.meta
   }
 
   if(data?.filters) {
@@ -164,9 +163,11 @@ watch(tempData, (data) => {
 
 
 // WATCH
-
-watch(() => props.slug, () => {
+watch(() => props.slug, (v) => {
   updateModelValue([])
+}, {
+  immediate: true,
+  deep: true
 })
 
 watch(() => meta.value, (v) => {

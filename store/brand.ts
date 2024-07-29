@@ -4,6 +4,11 @@ export const useBrandStore = defineStore('brandStore', {
   getters: {},
 
   actions: {
+    filterLazy(params: Object) {
+      const url = useRuntimeConfig().public.apiBase + '/product/brands'
+      return useApiFetch(url, params, 'GET', {lazy: true})
+    },
+
     async filter(params: Object) {
       const url = useRuntimeConfig().public.apiBase + '/product/brands'
 

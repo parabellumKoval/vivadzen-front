@@ -12,6 +12,9 @@ const props = defineProps({
   link: {
     type: String,
     default: ''
+  },
+  fetchOptions: {
+    type: Object
   }
 })
 
@@ -27,10 +30,22 @@ const options = ref({
   }
 })
 
-await useAsyncData('products-main-' + props.title, () => useProductStore().index(props.query)).then(({data}) => {
-  if(data?.value?.products) {
-    products.value = data.value.products
+// await useAsyncData('products-main-' + props.title, () => useProductStore().index(props.query))
+// .then(({data}) => {
+//   console.log('data', data)
+//   if(data?.value?.products) {
+//     products.value = data.value.products
+//   }
+// })
+const {data: tempData} = await useProductStore().indexLazy(props.query, props.fetchOptions)
+
+watch(tempData, (v) => {
+  if(v?.products?.data) {
+    products.value = v.products.data
   }
+}, {
+  immediate: true,
+  deep: true
 })
 
 const productCard = resolveComponent('ProductCard')

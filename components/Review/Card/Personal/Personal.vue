@@ -29,18 +29,18 @@ const link = computed(() => {
     </div>
     <div class="author">
       <nuxt-img
+        :provider="useImg().provider"
         :src = "photo"
         :alt = "item.author.name"
         :title = "item.author.name"
         width = "50"
         height = "50"
         sizes = "mobile:60px tablet:60px desktop:60px"
-        format = "avif"
         quality = "60"
         loading = "lazy"
         fit = "outside"
         class = "author-image"
-        placeholder = "/images/noimage.png"
+        :placeholder="useImg().noImage"
       />
       <div>
         <div class="author-name">{{ item.author.name }}</div>

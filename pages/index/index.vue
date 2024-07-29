@@ -3,12 +3,14 @@ const {t} = useI18n()
 
 const topQuery = ref({
   per_page: 10,
-  selections: ['top_sales', 'in_stock']
+  selections: ['top_sales', 'in_stock'],
+  with_filters: 0
 })
 
 const saleQuery = ref({
   per_page: 10,
-  selections: ['with_sales', 'in_stock']
+  selections: ['with_sales', 'in_stock'],
+  with_filters: 0
 })
 
 //
@@ -33,9 +35,19 @@ setSeo()
   <DelayHydration>
     <lazy-section-banner></lazy-section-banner>
 
-    <lazy-section-slider-products :title="t('top')" :query="topQuery" link="/catalog?selections=top_sales&selections=in_stock"></lazy-section-slider-products>
+    <lazy-section-slider-products
+      :title="t('top')"
+      :query="topQuery"
+      :fetchOptions="{key:'top'}"
+      link="/catalog?selections=top_sales&selections=in_stock"
+    ></lazy-section-slider-products>
 
-    <lazy-section-slider-products :title="t('sale')" :query="saleQuery" link="/catalog?selections=with_sales&selections=in_stock"></lazy-section-slider-products>
+    <lazy-section-slider-products
+      :title="t('sale')"
+      :query="saleQuery"
+      :fetchOptions="{key:'sale'}"
+      link="/catalog?selections=with_sales&selections=in_stock"
+    ></lazy-section-slider-products>
 
     <lazy-section-category></lazy-section-category>
     

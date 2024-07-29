@@ -378,7 +378,7 @@ onBeforeUnmount(() => {
         <transition name="fade-in">
           <lazy-product-params-box
             v-if="tab === 1 && product.attrs && product.attrs.length"
-            :items="allAttrs"
+            :items="allAttrs.slice(1,4)"
             class="content-params"
           ></lazy-product-params-box>
         </transition>

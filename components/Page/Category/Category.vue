@@ -93,19 +93,16 @@ setSeo()
 setCrumbs()
 
 const {data: filtersData} = await getFilters(getQuery())
-// getFilters(getQuery()).then(({data}) => {
-//   if(data.value) {
-//     attributes.value = data.value
-//   }
-// })
 
 watch(filtersData, (v) => {
+  // console.log('filtersData', v)
   if(v) {
     attributes.value = v
   }
 }, {
   immediate: true
 })
+
 </script>
 
 <style src="./category.scss" lang="scss" scoped></style>

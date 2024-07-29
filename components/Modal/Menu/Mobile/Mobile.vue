@@ -57,16 +57,19 @@ const selectMainHandler = (index) => {
         
         <template v-if="auth && user" >
           <button @click="goToAccount" class="avatar" type="button" clickable>
-            <nuxt-img
-              :src="useAuthStore().avatar"
-              width="50"
-              height="50"
-              sizes = "mobile:30px tablet:30px desktop:30px"
-              format = "avif"
-              fit = "cover"
-              quality = "100"
-              class = "avatar-image"
-            />
+            <ClientOnly>
+              <nuxt-img
+                :provider="useImg().provider"
+                :src="useAuthStore().avatar"
+                width="50"
+                height="50"
+                sizes = "mobile:30px tablet:30px desktop:30px"
+                fit = "cover"
+                quality = "100"
+                :placeholder="useImg().noImage"
+                class = "avatar-image"
+              />
+            </ClientOnly>
           </button>
           <button @click="goToAccount" class="header-btn">
             <span class="header-btn-name">{{ user.email }}</span>
@@ -120,11 +123,11 @@ const selectMainHandler = (index) => {
           <div v-for="(phone, index) in phones" :key="index" class="phone-item">
             <nuxt-img
               :src = "phone.logo"
+              :provider="useImg().provider"
               width="24"
               height="24"
               sizes = "mobile:24px"
-              format = "avif"
-              quality = "30"
+              quality = "70"
               loading = "lazy"
               fit="outside"
               class="phone-logo"

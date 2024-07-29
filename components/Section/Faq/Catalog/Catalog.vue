@@ -1,4 +1,5 @@
 <script setup>
+import {useProductStore} from '~/store/product'
 import {useCatalog} from '~/composables/product/useCatalog.ts'
 const {t} = useI18n()
 
@@ -55,7 +56,7 @@ const faq = computed(() =>{
 })
 
 // METHODS
-const getChipProducts = () => {
+const getChipProducts = async() => {
   const query = {
     category_id: props.category.id,
     price: [5, 100000000],
@@ -66,15 +67,11 @@ const getChipProducts = () => {
     with_filters: 0
   }
 
-  getProducts(query, 'chip_products', false)
-  .then((data) => {
-    chipProducts.value = data.products
-  })
-
+  return await useProductStore().indexLazy(query);
 }
 
 
-const getPopularProducts = () => {
+const getPopularProducts = async () => {
   const query = {
     category_id: props.category.id,
     order_by: 'sales',
@@ -84,20 +81,32 @@ const getPopularProducts = () => {
     with_filters: 0
   }
 
-  getProducts(query, 'popular_products', false)
-  .then((data) => {
-    popularProducts.value = data.products
-  })
 
+  return await useProductStore().indexLazy(query);
 }
 // HANDLERS
 // WATCHERS
 
-getChipProducts()
-getPopularProducts()
+const {data: chipTemp} = await getChipProducts()
+const {data: popularTemp} = await getPopularProducts()
+
+watch(chipTemp, (v) => {
+  if(v?.products) {
+    chipProducts.value = v.products.data
+  }
+}, {
+  immediate: true
+})
+
+watch(popularTemp, (v) => {
+  if(v?.products) {
+    popularProducts.value = v.products.data
+  }
+}, {
+  immediate: true
+})
 </script>
 
-<!-- <style src='' lang='scss' scoped></style> -->
 <i18n src='./lang.yaml' lang='yaml'></i18n>
 
 <template>

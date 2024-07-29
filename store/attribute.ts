@@ -18,6 +18,11 @@ export const useAttributeStore = defineStore('attributeStore', {
 
   actions: {
 
+    indexLazy(query: Object) {
+      const url = useRuntimeConfig().public.apiBase + '/attribute'
+      return useApiFetch(url, query, 'GET', {lazy: true})
+    },
+
     async getAll(query: Object) {
       const url = useRuntimeConfig().public.apiBase + '/attribute'
       return await useServerApiFetch(url, query)

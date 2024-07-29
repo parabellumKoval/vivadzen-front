@@ -26,15 +26,23 @@ export const useReviewStore = defineStore('reviewStore', {
       this.reviewableType = null
     },
 
+    async indexLazy(query: string) {
+      const runtimeConfig = useRuntimeConfig()
+      const params = query? '?' + new URLSearchParams(query).toString(): '';
+      const url = `${runtimeConfig.public.apiBase}/review${params}`
+
+      return useApiFetch(url, null, 'GET', {lazy: true})
+    },
+
     async getAll(query: string) {
       const runtimeConfig = useRuntimeConfig()
       const params = query? '?' + new URLSearchParams(query).toString(): '';
       const url = `${runtimeConfig.public.apiBase}/review${params}`
 
-      return await useApiFetch(url).then(({data: {data, meta}}) => {
+      return await useApiFetch(url).then(({data}) => {
         return {
-          reviews: data,
-          meta
+          reviews: data?.value?.data || [],
+          meta: data?.value?.meta || null
         }
       })
     },
@@ -60,7 +68,6 @@ export const useReviewStore = defineStore('reviewStore', {
 
       return await useApiFetch(url, data, 'POST').then(({data, error}) => {
 
-        console.log(data, error)
         if(data) {
           const likes = data.likes
           const dislikes = data.dislikes
