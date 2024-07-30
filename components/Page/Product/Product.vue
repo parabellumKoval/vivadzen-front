@@ -38,7 +38,7 @@ const category = computed(() => {
 const simularQuery = computed(() => {
   return {
     per_page: 10,
-    category_id: category.value.id,
+    category_id: category?.value?.id,
     selections: [ 'in_stock'],
     with_filters: 0    
   }

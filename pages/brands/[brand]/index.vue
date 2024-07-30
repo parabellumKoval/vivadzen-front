@@ -177,16 +177,16 @@ await useAsyncData(`brand-${slug.value}`, () => useBrandStore().show(slug.value)
   }
 });
 
-const {pending, data: tempData} = await useAsyncData(() => useProductStore().index(getQuery()));
+const {pending, data: tempData} = await useProductStore().index(getQuery());
 
 
 watch(tempData, (data) => {
-  if(data?.products) {
-    products.value = data.products
+  if(data?.products?.data) {
+    products.value = data.products.data
   }
 
-  if(data?.meta) {
-    meta.value = data.meta
+  if(data?.products?.meta) {
+    meta.value = data.products.meta
   }
 
   if(data?.filters) {

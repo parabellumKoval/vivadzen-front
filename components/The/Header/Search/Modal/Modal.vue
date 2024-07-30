@@ -9,7 +9,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'setInput'])
 
 const categories = ref([])
 const products = ref([])
@@ -51,7 +51,7 @@ const search = async (search) => {
 }
 
 const setInput = (search) => {
-  props.searchInput = search
+  emit('setInput', search)
 }
 
 const closeHandler = () => {
