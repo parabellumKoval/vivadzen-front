@@ -7,9 +7,9 @@ const focusHandler = () => {
 }
 
 const blurHandler = () => {
-  if(!useDevice().isMobile) {
-    isActive.value = false
-  }
+  // if(!useDevice().isMobile) {
+  //   isActive.value = false
+  // }
 }
 
 const closeHandler = () => {
@@ -50,7 +50,8 @@ const goToSearchPage = async () => {
       <lazy-the-header-search-modal
         v-if="isActive"
         :search-input="searchInput"
-        @set-input="setInput"
+        @close="closeHandler"
+        @setInput="setInput"
         class="search-modal"
       ></lazy-the-header-search-modal>
     </transition>

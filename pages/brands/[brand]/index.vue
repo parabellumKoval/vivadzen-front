@@ -138,21 +138,33 @@ const updateOrderHandler = (v) => {
   updateQueryHandler()
 }
 
-const updatePageHandler = (v) => {
+const updatePageHandler = (v, loadmore) => {
   queryObject.value.page = v;
-  updateQueryHandler()
+  updateQueryHandler(loadmore)
 }
 
-const updateQueryHandler = async (v = null) => {
+const updateQueryHandler = async (loadmore = false) => {
   pending.value = true;
 
-  ({
-    products: products.value,
-    meta: meta.value,
-    filters: filtersMeta.value
-  } = await getProducts(query.value).finally(() => {
-    pending.value = false
-  }))
+  if(loadmore)
+  {
+    await getProducts(query.value).then((response) => {
+      products.value = products.value.concat(response.products)
+      meta.value = response.meta
+    }).finally(() => {
+      pending.value = false
+    })
+  }
+  else 
+  {
+    ({
+      products: products.value,
+      meta: meta.value,
+      filters: filtersMeta.value
+    } = await getProducts(query.value).finally(() => {
+      pending.value = false
+    }))
+  }
 }
 
 // WATCHERS

@@ -75,7 +75,7 @@ watch(() => props.searchInput, (v) => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <div class="livesearch-wrapper">
+  <div @click="close" class="livesearch-wrapper">
     <div class="livesearch">
 
       <transition name="fade-in">
