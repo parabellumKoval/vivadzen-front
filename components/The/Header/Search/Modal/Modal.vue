@@ -75,7 +75,7 @@ watch(() => props.searchInput, (v) => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <div @click="close" class="livesearch-wrapper">
+  <div class="livesearch-wrapper">
     <div class="livesearch">
 
       <transition name="fade-in">
@@ -212,5 +212,6 @@ watch(() => props.searchInput, (v) => {
         />
       </span>
     </div>
+    <div class="livesearch-bg" @click="closeHandler"></div>
   </div>
 </template>

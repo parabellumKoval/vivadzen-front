@@ -1,4 +1,6 @@
 <script setup>
+const route = useRoute()
+
 const searchInput = ref(null)
 const isActive = ref(false)
 
@@ -17,7 +19,6 @@ const closeHandler = () => {
 }
 
 const setInput = (search) => {
-  console.log('setInput', search)
   searchInput.value = search
 }
 
@@ -31,6 +32,12 @@ const goToSearchPage = async () => {
     }
   })
 }
+
+watch(() => route.fullPath, (v) => {
+  closeHandler()
+}, {
+  immediate: true
+})
 </script>
 
 <style src="./search.scss" lang="scss" scoped />
