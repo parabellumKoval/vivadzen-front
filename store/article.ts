@@ -4,6 +4,11 @@ export const useArticleStore = defineStore('articleStore', {
   getters: {},
 
   actions: {
+    async indexLazy(params: Object) {
+      const url = useRuntimeConfig().public.apiBase + '/articles'
+      return await useApiFetch(url, params, 'GET', {lazy: true})
+    },
+
     async index(params: Object) {
       const url = useRuntimeConfig().public.apiBase + '/articles'
 

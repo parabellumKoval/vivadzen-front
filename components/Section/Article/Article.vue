@@ -4,10 +4,15 @@ import {useArticleStore} from '~/store/article'
 const {t} = useI18n()
 const articles = ref([])
 
-await useLazyAsyncData('get-4-articles', () => useArticleStore().index({per_page: 4})).then(({data, error}) => {
-  if(data.value) {
-    articles.value = data.value.data
+const {data: dataArticles} = await useArticleStore().indexLazy({per_page: 4})
+
+watch(dataArticles, (v) => {
+  if(v?.data) {
+    articles.value = v.data
   }
+}, {
+  immediate: true,
+  deep: true
 })
 </script>
 

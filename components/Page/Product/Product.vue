@@ -25,12 +25,22 @@ const {setSchema} = useSchema()
 // Content HTML ref
 const content = ref(null)
 
+
 // COMPUTEDS
 const category = computed(() => {
   if(props.product?.categories && props.product.categories[0]){
     return props.product.categories[0]
   }else {
     return null
+  }
+})
+
+const simularQuery = computed(() => {
+  return {
+    per_page: 10,
+    category_id: category.value.id,
+    selections: [ 'in_stock'],
+    with_filters: 0    
   }
 })
 
@@ -409,6 +419,16 @@ onBeforeUnmount(() => {
       </div>
 
     </div>
+  </div>
+
+  
+  <div class="content-box">
+    <lazy-section-slider-products
+      :title="t('simular')"
+      :query="simularQuery"
+      :fetchOptions="{key:'sale'}"
+    ></lazy-section-slider-products>
+
   </div>
 
   <!-- Sale block mobile   -->
