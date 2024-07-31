@@ -116,7 +116,7 @@ watch(filtersData, (v) => {
     :initQuery="getQuery()"
   >
     <template #title>
-      {{ category.name }}
+      {{ category.seo.h1 || category.name }}
     </template>
 
     <template #header>

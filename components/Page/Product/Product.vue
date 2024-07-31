@@ -258,7 +258,7 @@ onBeforeUnmount(() => {
     <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
     <div class="header">
-      <span class="name title-common">{{ product.name }}</span>
+      <h1 class="name title-common">{{ product.name }}</h1>
       
       <span v-if="product.code" class="code">
         <span class="label">{{ t('label.product_code') }}:</span>

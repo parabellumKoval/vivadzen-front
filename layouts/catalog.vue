@@ -150,10 +150,10 @@ watch(() => modelValue.value, (v) => {
     <div class="container">
       <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
-      <div id="title" class="title-common">
+      <h1 id="title" class="title-common">
         <!-- SLOT TITLE HERE -->
         <slot name="title" />
-      </div>
+      </h1>
     </div>
 
     <transition name="fade-in">

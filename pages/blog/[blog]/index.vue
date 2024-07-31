@@ -110,7 +110,7 @@ setSeo()
     <div v-if="article" class="container">
       <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
-      <div class="title-common">{{ article.title }}</div>
+      <h1 class="title-common">{{ article.title }}</h1>
 
       <div class="article-wrapper">
         <div class="article-content">
