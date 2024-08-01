@@ -201,7 +201,7 @@ watch(() => modelValue.value, (v) => {
     <div :class="{'no-filters': noFilters}" class="content">
       <!-- All filters -->
       <lazy-filter-list
-        v-if="$device.isDesktop && filters && !noFilters"
+        v-if="$device.isDesktop && filters && !noFilters && meta?.total"
         :filters="filters"
         :meta="filtersMeta"
         :meta-init="filtersMetaInit"

@@ -19,8 +19,8 @@ const props = defineProps({
     <NuxtLink v-for="category in categories" :key="category.id" :to="localePath('/' + category.slug)" class="category">
       <nuxt-img
         :src = "useImg().category(category.image)"
-        :alt = "category.image.alt || category.name"
-        :title = "category.image.title || category.name"
+        :alt = "category.image?.alt || category.name"
+        :title = "category.image?.title || category.name"
         width="100"
         height="100"
         sizes = "mobile:100px"

@@ -90,9 +90,9 @@ const toReviewsHandler = () => {
       <nuxt-img
         v-for="(photo, index) in photos"
         :key = "index"
-        :src = "photo.src"
-        :alt = "photo.alt"
-        :title = "photo.title"
+        :src = "photo?.src"
+        :alt = "photo?.alt"
+        :title = "photo?.title"
         width="290"
         height="260"
         sizes = "mobile:180px tablet:230px desktop:300px"

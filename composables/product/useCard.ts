@@ -8,8 +8,8 @@ export const useCard = (product: Product) => {
         return item.src
       }).map((item) => {
         return {
-          alt: item.alt || product.name,
-          title: item.title || product.name,
+          alt: item?.alt || product.name,
+          title: item?.title || product.name,
           src: useImg().folderSrc(item.src, 'products')
         }
       })
