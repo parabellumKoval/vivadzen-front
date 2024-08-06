@@ -72,13 +72,13 @@ watch(() => route.fullPath, (v) => {
 // HOOKS
 const {refresh: refreshCategories} = useAsyncData('all-categories', async () =>  await useCategoryStore().index())
 
-useSchemaOrg([
-  defineWebSite({
-    url: 'https://djini.com.ua',
-    name: 'djini.com.ua',
-  }),
-  defineWebPage(),
-])
+// useSchemaOrg([
+//   defineWebSite({
+//     url: 'https://djini.com.ua',
+//     name: 'djini.com.ua',
+//   }),
+//   defineWebPage(),
+// ])
 </script>
 
 <style src="~/assets/scss/layout-default.scss" lang="scss" scoped />

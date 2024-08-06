@@ -175,7 +175,34 @@ export default defineNuxtConfig({
       },
     ], 
     '@pinia-plugin-persistedstate/nuxt', 
-    '@nuxtjs/i18n', 
+    '@nuxtjs/i18n',
+    // [
+    //   '@nuxtjs/i18n',
+    //   {
+    //     baseUrl: 'https://djini.com.ua',
+    //     defaultLocale: 'uk',
+    //     lazy: true,
+    //     langDir: './lang',
+    //     locales: [
+    //       {
+    //         iso: 'uk-UA',
+    //         code: 'uk',
+    //         file: 'uk.yaml',
+    //         name: 'Українська',
+    //         shortName: 'Укр',
+    //         isCatchallLocale: true
+    //       },
+    //       {
+    //         iso: 'ru-RU',
+    //         code: 'ru',
+    //         file: 'ru.yaml',
+    //         name: 'Русский',
+    //         shortName: 'Рус',
+    //         isCatchallLocale: true
+    //       }
+    //     ]
+    //   }
+    // ],
     // '@vueuse/nuxt',
     [
       '@nuxt/content', 
@@ -231,6 +258,7 @@ export default defineNuxtConfig({
         file: 'uk.yaml',
         name: 'Українська',
         shortName: 'Укр',
+        isCatchallLocale: true
       },
       {
         iso: 'ru-RU',
@@ -238,8 +266,12 @@ export default defineNuxtConfig({
         file: 'ru.yaml',
         name: 'Русский',
         shortName: 'Рус',
+        isCatchallLocale: true
       }
-    ]
+    ],
+    // precompile: {
+    //   strictMessage: false
+    // }
   },
 
   nitro: {
