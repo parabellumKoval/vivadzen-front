@@ -6,9 +6,12 @@ export default defineNuxtConfig({
   srcDir: process.env.SRC_DIR || '',
   rootDir: process.env.ROOT_DIR || '',
   devtools: { enabled: false },
+
   // Debug
   debug: false,
+
   appConfig: {},
+
   runtimeConfig: {
     public: {
       siteUrl: process.env.SITE_URL || 'https://djini.com.ua',
@@ -21,6 +24,7 @@ export default defineNuxtConfig({
       staticImageProvider: process.env.STATIC_IMAGE_PROVIDER
     }
   },
+
   imports: {
     dirs: [
       'composables',
@@ -37,32 +41,18 @@ export default defineNuxtConfig({
   //     })
   //   }
   // },
+
   app: {
-    // pageTransition: { name: 'page-tr', mode: 'out-in' },
-    // layoutTransition: { name: 'layout-tr', mode: 'out-in' },
     head: {
       templateParams: {
         siteName: 'Djini.com.ua',
         separator: '-'
-        // other common separators: '·', '—', '•'
       },
 
       script: [
-        // {
-        //   type: 'text/partytown',
-        //   innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        //   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        //   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        //   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        //   })(window,document,'script','dataLayer','${process.env.GTM}');`
-        // }
       ],
 
       noscript: [
-        // {
-        //   tagPosition: 'bodyOpen',
-        //   innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${process.env.GTM}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`
-        // }
       ]
     },
   },
@@ -175,35 +165,34 @@ export default defineNuxtConfig({
       },
     ], 
     '@pinia-plugin-persistedstate/nuxt', 
-    '@nuxtjs/i18n',
-    // [
-    //   '@nuxtjs/i18n',
-    //   {
-    //     baseUrl: 'https://djini.com.ua',
-    //     defaultLocale: 'uk',
-    //     lazy: true,
-    //     langDir: './lang',
-    //     locales: [
-    //       {
-    //         iso: 'uk-UA',
-    //         code: 'uk',
-    //         file: 'uk.yaml',
-    //         name: 'Українська',
-    //         shortName: 'Укр',
-    //         isCatchallLocale: true
-    //       },
-    //       {
-    //         iso: 'ru-RU',
-    //         code: 'ru',
-    //         file: 'ru.yaml',
-    //         name: 'Русский',
-    //         shortName: 'Рус',
-    //         isCatchallLocale: true
-    //       }
-    //     ]
-    //   }
-    // ],
-    // '@vueuse/nuxt',
+    // '@nuxtjs/i18n',
+    [
+      '@nuxtjs/i18n',
+      {
+        baseUrl: 'https://djini.com.ua',
+        defaultLocale: 'uk',
+        lazy: true,
+        langDir: './lang',
+        locales: [
+          {
+            iso: 'uk-UA',
+            code: 'uk',
+            file: 'uk.yaml',
+            name: 'Українська',
+            shortName: 'Укр',
+            isCatchallLocale: true
+          },
+          {
+            iso: 'ru-RU',
+            code: 'ru',
+            file: 'ru.yaml',
+            name: 'Русский',
+            shortName: 'Рус',
+            isCatchallLocale: true
+          }
+        ]
+      }
+    ],
     [
       '@nuxt/content', 
       {
@@ -225,9 +214,9 @@ export default defineNuxtConfig({
     description: 'Джини ☝️ интернет-магазин здорового питания.',
   },
 
-  // seo: {
-  //   fallbackTitle: false
-  // },
+  seo: {
+    fallbackTitle: false
+  },
 
   sitemap: {
     enabled: true,
@@ -240,51 +229,50 @@ export default defineNuxtConfig({
       lastmod: new Date().toISOString(),
     },
     urls: dynamicRoutes
-  }, 
-  
+  },
+
   schemaOrg: {
     enabled: true,
   },
 
-  i18n: {
-    baseUrl: 'https://djini.com.ua',
-    defaultLocale: 'uk',
-    lazy: true,
-    langDir: './lang',
-    locales: [
-      {
-        iso: 'uk-UA',
-        code: 'uk',
-        file: 'uk.yaml',
-        name: 'Українська',
-        shortName: 'Укр',
-        isCatchallLocale: true
-      },
-      {
-        iso: 'ru-RU',
-        code: 'ru',
-        file: 'ru.yaml',
-        name: 'Русский',
-        shortName: 'Рус',
-        isCatchallLocale: true
-      }
-    ],
-    // precompile: {
-    //   strictMessage: false
-    // }
+  // i18n: {
+  //   baseUrl: 'https://djini.com.ua',
+  //   defaultLocale: 'uk',
+  //   lazy: true,
+  //   langDir: './lang',
+  //   locales: [
+  //     {
+  //       iso: 'uk-UA',
+  //       code: 'uk',
+  //       file: 'uk.yaml',
+  //       name: 'Українська',
+  //       shortName: 'Укр',
+  //       isCatchallLocale: true
+  //     },
+  //     {
+  //       iso: 'ru-RU',
+  //       code: 'ru',
+  //       file: 'ru.yaml',
+  //       name: 'Русский',
+  //       shortName: 'Рус',
+  //       isCatchallLocale: true
+  //     }
+  //   ],
+  //   // precompile: {
+  //   //   strictMessage: false
+  //   // }
+  // },
+
+  webpack: {
+    optimization: {
+      minimize: true,
+    }
   },
+  
 
   nitro: {
     routeRules: {
       '/': {swr: true},
-      // '/**': {swr: false},
-      // '/**': {isr: 60 * 30},
-      // '/**': {ssr: false, static: false, swr: false},
-      // '/catalog': {swr: true},
-      // '/vitaminy_i_mineraly': {isr: 60 * 30},
-      // '/komplekt-termobelya-dlya-zhenshchin-cuten-rough-radical-povsednevnoe-svetlo-seryy-5717': {swr: true},
-      // '/brands': { isr: 60 * 30},
-      // '/brands/**': { isr: 60 * 30},
       '/reviews/**': {isr: 60 * 30},
       '/blog': {isr: 60 * 30},
       '/blog/**': {isr: 60 * 30},
@@ -318,18 +306,6 @@ export default defineNuxtConfig({
       gzip: true, 
       brotli: true 
     },
-    // publicAssets: [
-    //   {
-    //     baseURL: "images",
-    //     dir: "public/images",
-    //     maxAge: 60 * 60 * 24 * 7, // 7 days
-    //   },
-    //   {
-    //     baseURL: "iconoir",
-    //     dir: "public/video",
-    //     maxAge: 60 * 60 * 24 * 365,
-    //   },
-    // ],
     minify: true,
     prerender: {
       autoSubfolderIndex: true,
@@ -339,8 +315,10 @@ export default defineNuxtConfig({
       crawlLinks: false,
       // ignore: [],
       // routes: [],
-      retries: 2,
+      // retries: 2,
       retryDelay: 500
     }
   },
+
+  compatibilityDate: '2024-08-06',
 })

@@ -72,13 +72,13 @@ watch(() => route.fullPath, (v) => {
 // HOOKS
 const {refresh: refreshCategories} = useAsyncData('all-categories', async () =>  await useCategoryStore().index())
 
-// useSchemaOrg([
-//   defineWebSite({
-//     url: 'https://djini.com.ua',
-//     name: 'djini.com.ua',
-//   }),
-//   defineWebPage(),
-// ])
+useSchemaOrg([
+  defineWebSite({
+    url: 'https://djini.com.ua',
+    name: 'djini.com.ua',
+  }),
+  defineWebPage(),
+])
 </script>
 
 <style src="~/assets/scss/layout-default.scss" lang="scss" scoped />
@@ -86,26 +86,41 @@ const {refresh: refreshCategories} = useAsyncData('all-categories', async () => 
 
 <template>
   <div> 
-    <!-- <the-supheader></the-supheader> -->
-
-    <lazy-the-header></lazy-the-header>
+    <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
+      <Head>
+        <Title>{{ title }}</Title>
+        <template v-for="link in head.link" :key="link.id">
+          <Link :id="link.id" :rel="link.rel" :href="link.href" :hreflang="link.hreflang" />
+        </template>
+        <template v-for="meta in head.meta" :key="meta.id">
+          <Meta :id="meta.id" :property="meta.property" :content="meta.content" />
+        </template>
+      </Head>
+      <Body>
+        <!-- <slot /> -->
     
-    <the-header-search-sticky v-if="isSearchMobile"></the-header-search-sticky>
+        <!-- <the-supheader></the-supheader> -->
 
-    <main class="main" :style="{background: background}">
-      <slot />
-    </main>
+        <lazy-the-header></lazy-the-header>
+        
+        <the-header-search-sticky v-if="isSearchMobile"></the-header-search-sticky>
 
-    <lazy-modal-noty></lazy-modal-noty>
-  
-    <lazy-the-footer></lazy-the-footer>
+        <main class="main" :style="{background: background}">
+          <slot />
+        </main>
 
-    <lazy-comparison-btn v-if="!$device.isMobile" class="comp-btn"></lazy-comparison-btn>
+        <lazy-modal-noty></lazy-modal-noty>
+      
+        <lazy-the-footer></lazy-the-footer>
 
-    <modal-transition :is-show="useModal().show" mode="out-in">
-      <component :is="useModal().active.component"></component>
-    </modal-transition>
-    
-    <lazy-simple-clicker></lazy-simple-clicker>
+        <lazy-comparison-btn v-if="!$device.isMobile" class="comp-btn"></lazy-comparison-btn>
+
+        <modal-transition :is-show="useModal().show" mode="out-in">
+          <component :is="useModal().active.component"></component>
+        </modal-transition>
+        
+        <lazy-simple-clicker></lazy-simple-clicker>
+      </Body>
+    </Html>
   </div>
 </template>
