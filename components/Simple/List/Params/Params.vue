@@ -24,7 +24,8 @@ const getValue = (value) => {
       <li v-for="(item, index) in items" :key="index" class="list-item">
         <span class="list-label">{{ item.name }}{{ item.si? ', ' + item.si: '' }}</span>
         <span class="list-line"></span>
-        <span class="list-value">{{ getValue(item.value) }}</span>
+        <NuxtLink v-if="item.link" :to="localePath(item.link)" class="list-value list-value-link">{{ getValue(item.value) }}</NuxtLink>
+        <span v-else class="list-value">{{ getValue(item.value) }}</span>
       </li>
     </ul>
   </div>

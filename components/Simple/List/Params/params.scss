@@ -40,5 +40,14 @@
     @include _desktop {
       max-width: 60%;
     }
+
+    &-link {
+      text-decoration: underline;
+      color: $color-primary;
+
+      &:hover {
+        color: lighten($color-green, 10%);
+      }
+    }
   }
 }

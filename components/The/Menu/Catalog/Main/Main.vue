@@ -1,6 +1,7 @@
 <script setup>
 import { useCategoryStore } from '~/store/category'
 const {t} = useI18n()
+const localePath = useLocalePath()
 
 const emit = defineEmits([
   'changeSelected'
@@ -15,16 +16,23 @@ const categories = computed(() => {
 })
 
 // METHODS
-// HANDLERS
-
-const selectHandler = (index) => {
+const select = (index) => {
   selectedIndex.value = index
   emit('changeSelected', index)
 }
 
+// HANDLERS
+const clickHandler = (index, slug) => {
+  if(useDevice().isDesktop){
+    navigateTo(localePath('/' + slug))
+  }else {
+    select(index)
+  }
+}
+
 const hoverEventHandler = (index) => {
   if(useDevice().isDesktop) {
-    selectHandler(index)
+    select(index)
   }
 }
 // WATCHERS
@@ -39,7 +47,7 @@ const hoverEventHandler = (index) => {
       <button
         v-for="(category, index) in categories"
         :key="category.id"
-        @click="selectHandler(index)"
+        @click="clickHandler(index, category.slug)"
         @mouseenter="hoverEventHandler(index)"
         :aria-label="category.name"
         :class="{active: selectedIndex === index}"

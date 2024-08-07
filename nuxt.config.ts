@@ -220,15 +220,27 @@ export default defineNuxtConfig({
 
   sitemap: {
     enabled: true,
+    cacheMaxAgeSeconds: 3600,
+
     exclude: [
-        '/account/**'
+      '/account/**',
+      '/confirm',
+      '/reviews',
+      '/auth/**'
     ],
+
     defaults: {
       changefreq: 'daily',
       priority: 1,
       lastmod: new Date().toISOString(),
     },
-    urls: dynamicRoutes
+
+    sources: [
+      process.env.API_SERVER_URL + '/sitemap/categories',
+      process.env.API_SERVER_URL + '/sitemap/products',
+      process.env.API_SERVER_URL + '/sitemap/brands',
+      process.env.API_SERVER_URL + '/sitemap/articles'
+    ]
   },
 
   schemaOrg: {

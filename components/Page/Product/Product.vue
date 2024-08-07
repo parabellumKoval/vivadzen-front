@@ -64,7 +64,7 @@ const allAttrs = computed(() => {
     attrs.unshift({
       id: 0,
       name: 'Бренд',
-      slug: props.product.brand.slug,
+      link: '/brands/' + props.product.brand.slug,
       type: 'string',
       value: props.product.brand.name
     })
@@ -388,7 +388,7 @@ onBeforeUnmount(() => {
         <transition name="fade-in">
           <lazy-product-params-box
             v-if="tab === 1 && product.attrs && product.attrs.length"
-            :items="allAttrs.slice(1,4)"
+            :items="allAttrs.slice(0,3)"
             class="content-params"
           ></lazy-product-params-box>
         </transition>
