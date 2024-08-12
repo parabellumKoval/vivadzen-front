@@ -28,7 +28,7 @@ const catalogHandler = () => {
 
 //
 await useAsyncData('main-categories-is_hit', () => useCategoryStore().index(query.value, false)).then(({data}) => {
-  if(data?.value.data) {
+  if(data?.value?.data) {
     categories.value = data.value.data
   }
 })
