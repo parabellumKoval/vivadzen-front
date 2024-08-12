@@ -1,12 +1,15 @@
 <script setup>
-import {useReviewStore} from '~/store/review'
+// import {useReviewStore} from '~/store/review'
 
 const props = defineProps({
   slug: {
     type: String
   },
-  category: {
-    type: Object
+  categoryName: {
+    type: String
+  },
+  reviews: {
+    type: Array
   }
 })
 
@@ -16,11 +19,19 @@ const {t} = useI18n()
 const reviews = ref([])
 const reviewsMeta = ref({})
 
-const {data: reviewsData} = await useReviewStore().indexLazy({
-  per_page: 6,
-  category_slug: props.slug,
-  resource: 'large'
-})
+// METHODS
+const setInitData = () => {
+  if(props.reviews) {
+    reviews.value = props.reviews.data
+    reviewsMeta.value = props.reviews.meta
+  }
+}
+
+// const {data: reviewsData} = await useReviewStore().indexLazy({
+//   per_page: 6,
+//   category_slug: props.slug,
+//   resource: 'large'
+// })
 
 // const {pending, data: reviewsData} = useLazyAsyncData(() => useReviewStore().getAll({
 //   per_page: 6,
@@ -28,18 +39,20 @@ const {data: reviewsData} = await useReviewStore().indexLazy({
 //   resource: 'large'
 // }))
 
-watch(reviewsData, (v) => {
+// watch(reviewsData, (v) => {
 
-  if(v?.data) {
-    reviews.value = v.data
-  }
+//   if(v?.data) {
+//     reviews.value = v.data
+//   }
   
-  if(v?.meta) {
-    reviewsMeta.value = v.meta
-  }
-}, {
-  immediate: true
-})
+//   if(v?.meta) {
+//     reviewsMeta.value = v.meta
+//   }
+// }, {
+//   immediate: true
+// })
+
+setInitData()
 </script>
 
 <style src="./reviews.scss" lang="scss" scoped></style>
@@ -47,7 +60,7 @@ watch(reviewsData, (v) => {
 
 <template>
   <div v-if="reviewsMeta?.total" class="review">
-    <div class="title-secondary review-title">{{ t('review') }} {{ category.name }}</div>
+    <div class="title-secondary review-title">{{ t('review') }} {{ categoryName }}</div>
     <div class="review-header">
       <simple-stars :amount="reviewsMeta?.rating_avg || 0"></simple-stars>
       <div class="review-count">

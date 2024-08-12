@@ -39,6 +39,7 @@
 
     @include _desktop {
       max-width: 60%;
+      flex-shrink: 0;
     }
 
     &-link {

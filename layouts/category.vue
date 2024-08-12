@@ -9,6 +9,10 @@ const props = defineProps({
     type: String,
     default: null
   },
+  categoryData: {
+    type: Object,
+    default: null
+  },
   attributes: {
     type: Array,
     default: []
@@ -24,9 +28,11 @@ const props = defineProps({
 const {t} = useI18n()
 const route = useRoute()
 
-const {prepareAttrs} = useFilter()
+const {prepareAttrs, prepareFilters} = useFilter()
 const {getProducts} = useCatalog()
 const {updateModelValue} = useFilterItem()
+
+const blockProductsUpdate = ref(true)
 
 // Brands
 const brands = ref([])
@@ -39,6 +45,9 @@ const filtersMetaInit = ref(null)
 const products = ref([])
 const meta = ref(null)
 
+// Attributes
+const attributesData = ref(null)
+
 // Query
 const queryObject = ref({
   order: null,
@@ -49,7 +58,7 @@ const queryObject = ref({
   page: 1
 })
 
-// const pending = ref(true)
+const pending = ref(false)
 
 // COMPUTED
 const query = computed(() => {
@@ -102,7 +111,9 @@ const updateFiltersHandler = async (v) => {
     } = prepareAttrs(v)
   );
 
-  await updateQueryHandler()
+  if(!blockProductsUpdate.value) {
+    await updateQueryHandler()
+  }
 }
 
 const updateOrderHandler = (v) => {
@@ -140,34 +151,65 @@ const updateQueryHandler = async (loadmore = false) => {
   }
 }
 
+// METHODS
+const tempData = ref(null)
+
+const setInitData = async () => {
+  if(props.categoryData) {
+    products.value = props.categoryData.products.data
+    meta.value = props.categoryData.products.meta
+    filtersMetaInit.value = props.categoryData.filters
+    // brands.value = props.categoryData.brands
+    attributesData.value = prepareFilters(props.categoryData.attributes, props.categoryData.brands)
+  }else {
+    ({data: tempData.value} = await useProductStore().index(props.initQuery));
+    attributesData.value = props.attributes
+  }
+}
+
 // HOOKS
 // const {pending, data: tempData} = await useAsyncData(() => useProductStore().index(props.initQuery));
-const {pending, data: tempData} = await useProductStore().index(props.initQuery)
+// const {pending, data: tempData} = await useProductStore().index(props.initQuery)
 
 watch(tempData, (data) => {
-
-  if(data?.products?.data) {
-    products.value = data.products.data
+  if(!data) {
+    return
   }
 
-  if(data?.products?.meta) {
-    meta.value = data.products.meta
+  if(data?.value?.products?.data) {
+    products.value = data.value.products.data
   }
 
-  if(data?.filters) {
-    filtersMetaInit.value = data.filters
+  if(data?.value?.products?.meta) {
+    meta.value = data.value.products.meta
+  }
+
+  if(data?.value?.filters) {
+    filtersMetaInit.value = data.value.filters
   }
 }, {
   immediate: true
 })
 
 
+await setInitData()
+
+
 // WATCH
-watch(() => props.slug, (v) => {
+// watch(() => props.slug, (v) => {
+//   updateModelValue([])
+// }, {
+//   immediate: true,
+//   deep: true
+// })
+
+onMounted(() => {
+  blockProductsUpdate.value = false
+})
+
+onBeforeUnmount(() => {
   updateModelValue([])
-}, {
-  immediate: true,
-  deep: true
+  blockProductsUpdate.value = true
 })
 
 watch(() => meta.value, (v) => {
@@ -190,7 +232,7 @@ watch(() => meta.value, (v) => {
     name="catalog"
     :breadcrumbs="breadcrumbs"
     :brands="brands"
-    :filters="attributes"
+    :filters="attributesData"
     :filters-meta="filtersMeta"
     :filters-meta-init="filtersMetaInit"
     :products="products"

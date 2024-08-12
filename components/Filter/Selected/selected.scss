@@ -9,9 +9,8 @@
     grid-gap: 10px;
 
     @include _desktop {
-      // grid-template-columns: min-content 1fr;
-      grid-template-columns: 1fr 4fr;
-      grid-gap: 0;
+      grid-template-columns: min-content 1fr;
+      grid-gap: 20px;
       margin: 0;
       overflow: hidden;
     }

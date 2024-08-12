@@ -1,15 +1,15 @@
 <script setup>
 import {useProductStore} from '~/store/product'
-import {useCatalog} from '~/composables/product/useCatalog.ts'
+// import {useCatalog} from '~/composables/product/useCatalog.ts'
 const {t} = useI18n()
 
 const props = defineProps({
-  category: {
+  categoryData: {
     type: Object
   }
 })
 
-const {getProducts} = useCatalog()
+// const {getProducts} = useCatalog()
 const chipProducts = ref([])
 const popularProducts = ref([])
 
@@ -20,9 +20,9 @@ const faq = computed(() =>{
   if(popularProducts.value?.length) {
     list.push({
       id: 1,
-      q: t('popular_q', {category: props.category?.name?.toLowerCase()}),
+      q: t('popular_q', {category: props.categoryData.category?.name?.toLowerCase()}),
       a: [
-        t('popular_a', {category: props.category?.name?.toLowerCase()}) + ':',
+        t('popular_a', {category: props.categoryData.category?.name?.toLowerCase()}) + ':',
         popularProducts.value
       ]
     })
@@ -30,9 +30,9 @@ const faq = computed(() =>{
 
   list.push({
       id: 2,
-      q: t('delivery_q', {category: props.category?.name?.toLowerCase()}),
+      q: t('delivery_q', {category: props.categoryData.category?.name?.toLowerCase()}),
       a: [
-        t('delivery_a', {category: props.category?.name?.toLowerCase()}) + ':',
+        t('delivery_a', {category: props.categoryData.category?.name?.toLowerCase()}) + ':',
         [
           t('delivery_cond1'),
           t('delivery_cond2'),
@@ -44,9 +44,9 @@ const faq = computed(() =>{
   if(chipProducts.value?.length) {
     list.push({
       id: 3,
-      q: t('chip_q', {category: props.category?.name?.toLowerCase()}),
+      q: t('chip_q', {category: props.categoryData.category?.name?.toLowerCase()}),
       a: [
-        t('chip_a', {category: props.category?.name?.toLowerCase()}) + ':',
+        t('chip_a', {category: props.categoryData.category?.name?.toLowerCase()}) + ':',
         chipProducts.value
       ]
     })
@@ -56,55 +56,60 @@ const faq = computed(() =>{
 })
 
 // METHODS
-const getChipProducts = async() => {
-  const query = {
-    category_id: props.category.id,
-    price: [5, 100000000],
-    order_by: 'price',
-    order_dir: 'ASC',
-    selections: ['in_stock'],
-    per_page: 5,
-    with_filters: 0
-  }
-
-  return await useProductStore().indexLazy(query);
+const setInitData = () => {
+  chipProducts.value = props.categoryData?.chip_products?.data
+  popularProducts.value =  props.categoryData?.popular_products?.data
 }
+// const getChipProducts = async() => {
+//   const query = {
+//     category_id: props.category.id,
+//     price: [5, 100000000],
+//     order_by: 'price',
+//     order_dir: 'ASC',
+//     selections: ['in_stock'],
+//     per_page: 5,
+//     with_filters: 0
+//   }
+
+//   return await useProductStore().indexLazy(query);
+// }
 
 
-const getPopularProducts = async () => {
-  const query = {
-    category_id: props.category.id,
-    order_by: 'sales',
-    order_dir: 'DESC',
-    selections: ['in_stock'],
-    per_page: 5,
-    with_filters: 0
-  }
+// const getPopularProducts = async () => {
+//   const query = {
+//     category_id: props.category.id,
+//     order_by: 'sales',
+//     order_dir: 'DESC',
+//     selections: ['in_stock'],
+//     per_page: 5,
+//     with_filters: 0
+//   }
 
 
-  return await useProductStore().indexLazy(query);
-}
+//   return await useProductStore().indexLazy(query);
+// }
 // HANDLERS
 // WATCHERS
 
-const {data: chipTemp} = await getChipProducts()
-const {data: popularTemp} = await getPopularProducts()
+// const {data: chipTemp} = await getChipProducts()
+// const {data: popularTemp} = await getPopularProducts()
 
-watch(chipTemp, (v) => {
-  if(v?.products) {
-    chipProducts.value = v.products.data
-  }
-}, {
-  immediate: true
-})
+// watch(chipTemp, (v) => {
+//   if(v?.products) {
+//     chipProducts.value = v.products.data
+//   }
+// }, {
+//   immediate: true
+// })
 
-watch(popularTemp, (v) => {
-  if(v?.products) {
-    popularProducts.value = v.products.data
-  }
-}, {
-  immediate: true
-})
+// watch(popularTemp, (v) => {
+//   if(v?.products) {
+//     popularProducts.value = v.products.data
+//   }
+// }, {
+//   immediate: true
+// })
+setInitData()
 </script>
 
 <i18n src='./lang.yaml' lang='yaml'></i18n>

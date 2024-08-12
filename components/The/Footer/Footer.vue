@@ -97,8 +97,8 @@ const subHandler = () => {
 
       <div class="phone">
         <div class="footer-label">{{ t('label.contact_phones') }}</div>
-        <a :href="useContacts().phone" class="phone-item">{{ useContacts().phone }}</a>
-        <a :href="useContacts().phone2" class="phone-item">{{ useContacts().phone2 }}</a>
+        <a :href="'tel:' + useContacts().phone" class="phone-item">{{ useContacts().phone }}</a>
+        <a :href="'tel:' + useContacts().phone2" class="phone-item">{{ useContacts().phone2 }}</a>
       </div>
 
       <div class="social">

@@ -20,6 +20,7 @@ const isReviewsLoading = ref(false)
 const tab = ref(1)
 const reviewsComponentRef = ref(null)
 
+console.log('product', props.product)
 
 const {setSchema} = useSchema()
 // Content HTML ref
@@ -55,6 +56,13 @@ const ratingCount = computed(() => {
 
 const reviewsCount = computed(() => {
   return props.product.reviews_rating_detailes?.reviews_count || 0
+})
+
+const isSpecsIsset = computed(() => {
+  if(!props.product.specs)
+    return false
+
+  return Object.values(props.product.specs).indexOf('1') !== -1
 })
 
 const allAttrs = computed(() => {
@@ -290,6 +298,7 @@ onBeforeUnmount(() => {
   <div class="container">
     <div class="content">
       
+      <!-- LEFT SIDE -->
       <div class="content-main" ref="content">
         <transition name="fade-in">
           <!-- Common -->
@@ -351,12 +360,21 @@ onBeforeUnmount(() => {
         </transition>
       </div>
 
+      <!-- RIGHT SIDE -->
       <div class="content-sale">
         <lazy-product-guarantee
           v-if="$device.isMobile && tab === 1"
           class="content-guarantee"
           @more="changeTabHandler(7)"
         ></lazy-product-guarantee>
+
+        <lazy-product-modifications
+          v-if="($device.isDesktop || tab === 1) && product?.modifications?.length"
+          :product="product"
+          :class="{mini: tab !== 1}"
+          class="content-modifications"
+        >
+        </lazy-product-modifications>
 
         <lazy-product-sale-block
           v-if="$device.isDesktop || tab === 1"
@@ -366,7 +384,7 @@ onBeforeUnmount(() => {
         ></lazy-product-sale-block>
 
         <transition name="fade-in">
-          <lazy-product-feature v-if="tab === 1 && product.specs" :specs="product.specs" class="content-feature"></lazy-product-feature>
+          <lazy-product-feature v-if="tab === 1 && isSpecsIsset" :specs="product.specs" class="content-feature"></lazy-product-feature>
         </transition>
 
         <transition name="fade-in">

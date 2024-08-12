@@ -4,7 +4,7 @@
 // import {useFilterItem} from '~/composables/product/useFilterItem.ts'
 
 const props = defineProps({
-  category: {
+  categoryData: {
     type: Object,
     required: true
   }
@@ -27,7 +27,7 @@ const slug = computed(() => {
 })
 
 const setCrumbs = () => {
-  let cat = props.category
+  let cat = props.categoryData.category
 
   // categories tree
   while(cat) {
@@ -47,7 +47,7 @@ const setCrumbs = () => {
 }
 
 const categories = computed(() => {
-  return props.category.children
+  return props.categoryData.category.children
 })
 
 // METHODS
@@ -74,11 +74,11 @@ const getQuery = () => {
 
 const setSeo = () => {
   useHead({
-    title: props.category.seo.meta_title,
+    title: props.categoryData.category.seo.meta_title,
     meta: [
       {
         name: 'description',
-        content: props.category.seo.meta_description
+        content: props.categoryData.category.seo.meta_description
       },
     ],
   })
@@ -92,16 +92,15 @@ setSeo()
 
 setCrumbs()
 
-const {data: filtersData} = await getFilters(getQuery())
+// const {data: filtersData} = await getFilters(getQuery())
 
-watch(filtersData, (v) => {
-  // console.log('filtersData', v)
-  if(v) {
-    attributes.value = v
-  }
-}, {
-  immediate: true
-})
+// watch(filtersData, (v) => {
+//   if(v) {
+//     attributes.value = v
+//   }
+// }, {
+//   immediate: true
+// })
 
 </script>
 
@@ -112,11 +111,11 @@ watch(filtersData, (v) => {
     name="category"
     :slug="slug"
     :breadcrumbs="breadcrumbs"
-    :attributes="attributes"
+    :category-data="categoryData"
     :initQuery="getQuery()"
   >
     <template #title>
-      {{ category.seo.h1 || category.name }}
+      {{ categoryData.category.seo.h1 || categoryData.category.name }}
     </template>
 
     <template #header>
@@ -124,11 +123,15 @@ watch(filtersData, (v) => {
     </template>
     
     <template #footer>
-      <lazy-catalog-reviews :slug="slug" :category="category" class="review-wrapper"></lazy-catalog-reviews>
+      <lazy-catalog-reviews :slug="slug" :category-name="categoryData.category?.name" :reviews="categoryData?.reviews" class="review-wrapper"></lazy-catalog-reviews>
 
-      <lazy-catalog-text v-if="category.content" :content="category.content" class="seo-text"></lazy-catalog-text>
+      <lazy-catalog-text
+        v-if="categoryData.category.content"
+        :content="categoryData.category.content"
+        class="seo-text"
+      ></lazy-catalog-text>
 
-      <lazy-section-faq-catalog :category="category" class="faq-section"></lazy-section-faq-catalog>
+      <lazy-section-faq-catalog :category-data="categoryData" class="faq-section"></lazy-section-faq-catalog>
     </template>
   </NuxtLayout>
 </template>

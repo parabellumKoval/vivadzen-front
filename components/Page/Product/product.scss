@@ -167,6 +167,26 @@
     }
   }
 
+
+  &-modifications {
+    width: 100%;
+    margin-left: auto;
+    padding: 30px 0 15px 0;
+    order: 3;
+    transition: width $speed;
+
+    @include _desktop {
+      padding: 0;
+      order: 0;
+    }
+
+    &.mini {
+      position: sticky;
+      top: 160px;
+      width: 92%;
+    }
+  }
+
   &-sale {
     display: grid;
     grid-auto-columns: 100%;
@@ -193,7 +213,7 @@
 
     &.mini {
       position: sticky;
-      top: 160px;
+      top: 260px;
       width: 92%;
     }
   }
@@ -212,6 +232,7 @@
   &-common {
     display: grid;
     grid-auto-flow: row;
+    grid-auto-columns: 100%;
     grid-gap: 25px;
 
     @include _desktop {

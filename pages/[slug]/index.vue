@@ -8,15 +8,20 @@ const category = ref(null)
 const slug = computed(() => {
   return route.params.slug
 })
+
+const query = computed(() => {
+  return route.query
+})
+
 // METHODS
 // HANDLERS
 // WATCHERS
 // await useAsyncData(() => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
-await useAsyncData(() => useServerApiFetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
+await useAsyncData(() => useServerApiFetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value, query.value))
 .then(({data, error}) => {
 
   if(data?.value?.data) {
-
+    // console.log('data.value.data', data.value.data)
     if(data.value.data.price === undefined){
       product.value = null
       category.value = data.value.data
@@ -37,6 +42,6 @@ await useAsyncData(() => useServerApiFetch(`${useRuntimeConfig().public.apiBase}
 <template>
   <div>
     <lazy-page-product v-if="product" :product="product"></lazy-page-product>
-    <lazy-page-category v-else-if="category" :category="category"></lazy-page-category>
+    <lazy-page-category v-else-if="category" :categoryData="category"></lazy-page-category>
   </div>
 </template>
