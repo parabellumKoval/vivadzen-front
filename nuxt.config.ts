@@ -142,7 +142,7 @@ export default defineNuxtConfig({
         },
 
         bunny: {
-          baseURL: "https://djini.b-cdn.net",
+          baseURL: "https://djini-v2.b-cdn.net",
         },
 
         ipx: {
@@ -332,5 +332,5 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2024-08-06',
+  compatibilityDate: '2024-08-13',
 })
