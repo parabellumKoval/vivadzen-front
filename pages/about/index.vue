@@ -46,7 +46,6 @@ useSeo().setPageSeo(t('title.about'))
 
           <h2>{{ text.title4 }}</h2>
           <p>{{ text.desc4 }}</p>
-          <p>{{ text.desc42 }}</p>
 
           <h3>{{ text.finish }}</h3>
 
