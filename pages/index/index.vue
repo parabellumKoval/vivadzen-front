@@ -60,6 +60,6 @@ setSeo()
       <lazy-section-article></lazy-section-article>
     </div>
     
-    <lazy-section-insta></lazy-section-insta>
+    <!-- <lazy-section-insta></lazy-section-insta> -->
   </DelayHydration>
 </template>

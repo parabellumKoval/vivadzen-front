@@ -39,7 +39,7 @@ await useAsyncData('main-categories-is_hit', () => useCategoryStore().index(quer
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <section class="main-section">
+  <section v-if="categories?.length" class="main-section">
     <div class="section-title">{{ t('categories') }}</div>
     <div class="category-wrapper">
       <NuxtLink
