@@ -89,7 +89,7 @@ const setSeo = () => {
 //   setSchema(props.product, reviews.value)
 // })
 setSeo()
-
+ 
 setCrumbs()
 
 // const {data: filtersData} = await getFilters(getQuery())
