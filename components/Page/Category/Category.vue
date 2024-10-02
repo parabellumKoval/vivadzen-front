@@ -74,11 +74,11 @@ const getQuery = () => {
 
 const setSeo = () => {
   useHead({
-    title: props.categoryData.category.seo.meta_title,
+    title: props.categoryData.category?.seo?.meta_title,
     meta: [
       {
         name: 'description',
-        content: props.categoryData.category.seo.meta_description
+        content: props.categoryData.category?.seo?.meta_description
       },
     ],
   })
@@ -115,7 +115,7 @@ setCrumbs()
     :initQuery="getQuery()"
   >
     <template #title>
-      {{ categoryData.category.seo.h1 || categoryData.category.name }}
+      {{ categoryData.category.seo?.h1 || categoryData.category.name }}
     </template>
 
     <template #header>
