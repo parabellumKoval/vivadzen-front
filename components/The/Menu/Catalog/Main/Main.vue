@@ -46,7 +46,7 @@ const hoverEventHandler = (index) => {
     <div class="category-inner">
       <button
         v-for="(category, index) in categories"
-        :key="category.id"
+        :key="category?.id"
         @click="clickHandler(index, category.slug)"
         @mouseenter="hoverEventHandler(index)"
         :aria-label="category.name"

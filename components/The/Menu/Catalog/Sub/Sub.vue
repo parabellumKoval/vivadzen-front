@@ -16,7 +16,7 @@ const props = defineProps({
 <template>
   <div :class="{'mobile-active': items && items.length}" class="sub-wrapper">
     <div class="sub-inner">
-      <template v-for="category in items" :key="category.id">
+      <template v-for="category in items" :key="category?.id">
         <NuxtLink
           :to="localePath('/' + category.slug)"
           :aria-label="category.name"
@@ -26,7 +26,7 @@ const props = defineProps({
           <div class="sub-name">{{ category.name }}</div>
         </NuxtLink>
         <ul v-if="category.children?.length" class="last">
-          <li v-for="child in category.children" :key="child.id" class="last-item">
+          <li v-for="child in category.children" :key="child?.id" class="last-item">
             <NuxtLink :to="localePath('/' + child.slug)" class="last-link link">
               {{ child.name }}
             </NuxtLink>
