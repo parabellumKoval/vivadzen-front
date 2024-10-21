@@ -76,6 +76,16 @@
     // margin-bottom: 20px;
   }
 
+  &.lists-margin {
+    ul, ol {
+      padding-left: 20px;
+
+      @include _desktop {
+        padding-left: 30px;
+      }
+    }
+  }
+
   h2,
   h3,
   h4,
@@ -100,16 +110,24 @@
       line-height: 145%;
     }
   }
-   
-  h2{
+  
+  h1 {
+    margin: 40px 0 20px 0;
+    font-size: 30px;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 115%;
+  }
+
+  h2 {
     margin: 40px 0 20px 0;
     font-size: 24px;
     font-weight: 400;
     text-transform: uppercase;
 
-    &:first-of-type {
-      margin-top: 0;
-    }
+    // &:first-of-type {
+    //   margin-top: 0;
+    // }
   }
 
   h3 {

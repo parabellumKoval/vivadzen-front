@@ -61,5 +61,9 @@ setSeo()
     </div>
     
     <!-- <lazy-section-insta></lazy-section-insta> -->
+
+    <div class="container">
+      <section-seo></section-seo>
+    </div>
   </DelayHydration>
 </template>
