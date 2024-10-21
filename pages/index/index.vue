@@ -15,7 +15,7 @@ const saleQuery = ref({
 
 //
 const setSeo = () => {
-  useLocaleHead({
+  useHead({
     title: t('seo_title'),
     meta: [
       {

@@ -2,7 +2,7 @@ export const useSeo = () => {
   const {t} = useI18n({useScope: 'global'})
 
   const setPageSeo = (title: String) => {
-    useLocaleHead({
+    useHead({
       title: t('seo.page.title', {title: title}),
       meta: [
         {
