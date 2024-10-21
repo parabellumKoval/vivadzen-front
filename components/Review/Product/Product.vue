@@ -8,6 +8,7 @@ const props = defineProps({
     default: 'mini'
   }
 })
+
 </script>
 
 <style src="./product.scss" lang="scss" scoped></style>

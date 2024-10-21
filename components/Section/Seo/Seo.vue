@@ -1,8 +1,6 @@
 <script setup>
 const {t, locale} = useI18n()
 const text = await queryContent('main').locale(locale.value).findOne()
-// const text = await queryContent('main').locale(locale.value).find()
-console.log('text', text)
 </script>
 
 <style src="./seo.scss" lang="scss" scoped></style>
@@ -12,7 +10,6 @@ console.log('text', text)
 
 <template>
   <section class="main-section">
-    <!-- <ContentRenderer :value="text" /> -->
     <div class="rich-text lists-margin" v-html="text.content"></div>
   </section>
 </template>
