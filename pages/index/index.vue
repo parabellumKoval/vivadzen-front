@@ -40,7 +40,7 @@ setSeo()
       :title="t('top')"
       :query="topQuery"
       :fetchOptions="{key:'top'}"
-      link="/catalog?selections=top_sales&selections=in_stock"
+      link="/catalog?selections=in_stock&order_by=sales"
     ></lazy-section-slider-products>
 
     <lazy-section-slider-products
