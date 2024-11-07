@@ -3,6 +3,9 @@ const {t} = useI18n()
 const props = defineProps({
   content: {
     required: false
+  },
+  no_medicine: {
+    default: 1
   }
 })
 
@@ -16,6 +19,8 @@ const emit = defineEmits(['more'])
 <template>
   <div class="product-box">
     <div class="mobile-title">{{ t('label.desc') }}</div>
+
+    <product-no-medicine v-if="$device.isMobile && no_medicine" class="no-medicine-box" />
 
     <div class="content rich-text" v-html="content"></div>
 

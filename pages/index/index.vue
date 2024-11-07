@@ -3,7 +3,8 @@ const {t} = useI18n()
 
 const topQuery = ref({
   per_page: 10,
-  selections: ['top_sales', 'in_stock'],
+  selections: ['in_stock'],
+  order_by: 'sales',
   with_filters: 0
 })
 
