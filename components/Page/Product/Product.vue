@@ -304,7 +304,7 @@ onBeforeUnmount(() => {
           <!-- Common -->
           <template v-if="tab === 1">
             <div class="content-common">
-              <product-no-medicine v-if="$device.isDesktop && product.no_medicine" class="no-medicine" />
+              <product-no-medicine v-if="$device.isDesktop && product.no_medicine === 1" class="no-medicine" />
               <lazy-product-gallery-mobile v-if="$device.isMobile" :items="product.images" class="gallery-wrapper"></lazy-product-gallery-mobile>
               <lazy-product-gallery v-else :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
               <div v-if="$device.isDesktop" class="content-html rich-text" v-html="product.content"></div>
@@ -315,7 +315,7 @@ onBeforeUnmount(() => {
           <template v-else-if="tab === 2">
             <div class="full-content">
               <div class="rich-text" v-html="product.content"></div>
-              <product-no-medicine v-if="product.no_medicine" class="no-medicine" />
+              <product-no-medicine v-if="product.no_medicine === 1" class="no-medicine" />
             </div>
           </template>
 

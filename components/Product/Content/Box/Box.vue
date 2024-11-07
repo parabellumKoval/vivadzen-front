@@ -20,7 +20,7 @@ const emit = defineEmits(['more'])
   <div class="product-box">
     <div class="mobile-title">{{ t('label.desc') }}</div>
 
-    <product-no-medicine v-if="$device.isMobile && no_medicine" class="no-medicine-box" />
+    <product-no-medicine v-if="$device.isMobile && no_medicine === 1" class="no-medicine-box" />
 
     <div class="content rich-text" v-html="content"></div>
 
