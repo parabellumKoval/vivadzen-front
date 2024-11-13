@@ -1,5 +1,6 @@
 <script setup>
 import {useOrderStore} from '~/store/order';
+import {useCartStore} from '~/store/cart'
 
 definePageMeta({
   bg: '#eee'
@@ -7,25 +8,36 @@ definePageMeta({
 
 const {t} = useI18n() 
 
-const breadcrumbs = [
-  {
-    name: t('title.home'),
-    item: useToLocalePath()('/')
-  },{
-    name: t('title.checkout'),
-    item: useToLocalePath()('/checkout')
-  },{
-    name: t('title.checkout_complete'),
-    item: useToLocalePath()('/checkout/complete')
-  }
-]
-
 const order = ref(null)
 
 const code = computed(() => {
   return useRoute().params.code
 })
 
+const title = computed(() => {
+  // console.log('order.status', order.value?.status)
+  if(order.value?.status === 'failed') {
+    return t('title.checkout_complete_failed')
+  }else {
+    return t('title.checkout_complete')
+  }
+})
+
+
+const breadcrumbs =  computed(() => {
+  return [
+    {
+      name: t('title.home'),
+      item: useToLocalePath()('/')
+    },{
+      name: t('title.checkout'),
+      item: useToLocalePath()('/checkout')
+    },{
+      name: title,
+      item: useToLocalePath()('/checkout/complete')
+    }
+  ]
+})
 
 const user = computed(() => {
   return order.value?.user || null
@@ -47,6 +59,9 @@ useAsyncData('show-order', async() => await useOrderStore().getOrder(code.value)
   .then(({data, error}) => {
     order.value = data.value
   })
+
+
+useCartStore().$reset()
 </script>
 
 <style src="./complete.scss" lang="scss" scoped />
@@ -58,7 +73,7 @@ useAsyncData('show-order', async() => await useOrderStore().getOrder(code.value)
 
       <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
-      <div class="title-common">{{ t('title.checkout_complete') }}</div>
+      <div class="title-common">{{ title }}</div>
 
       <div v-if="order" class="wrapper">
         <div class="content">

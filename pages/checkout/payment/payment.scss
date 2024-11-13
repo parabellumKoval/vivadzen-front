@@ -116,7 +116,7 @@
     line-height: 145%;
 
     @include _tablet {
-      height: 70px;
+      height: 40px;
       margin-bottom: 20px;
     }
   }
@@ -126,14 +126,15 @@
   max-width: 300px;
   width: 84%;
   margin: auto 0;
-  background: #303030;
+  // background: $color-green;
   transition: background $speed, transform $speed;
+  color: #fff;
 
-  &.loading {
-    &:before {
-      background: lighten(#303030, 10%);
-    }
-  }
+  // &.loading {
+  //   &:before {
+  //     background: lighten(#303030, 10%);
+  //   }
+  // }
 
   .logo {
     max-width: initial;
@@ -143,9 +144,9 @@
     object-fit: contain;
   }
 
-  &:hover {
-    background: lighten(#303030, 7%);
-  }
+  // &:hover {
+  //   background: lighten(#303030, 7%);
+  // }
 }
 
 .line {

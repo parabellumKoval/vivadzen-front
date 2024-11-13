@@ -36,12 +36,12 @@ setSeo()
   <DelayHydration>
     <lazy-section-banner></lazy-section-banner>
 
-    <lazy-section-slider-products
+    <section-slider-products
       :title="t('top')"
       :query="topQuery"
       :fetchOptions="{key:'top'}"
       link="/catalog?selections=in_stock&order_by=sales"
-    ></lazy-section-slider-products>
+    ></section-slider-products>
 
     <lazy-section-slider-products
       :title="t('sale')"

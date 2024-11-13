@@ -21,6 +21,12 @@ export const useCartStore = defineStore('cartStore', {
       payment: {
         method: 'online'
       },
+      // user: {
+      //   phone: '+380981245151',
+      //   email: 'test@gmail.com',
+      //   firstname: 'Test',
+      //   lastname: 'Ntcnth',
+      // },
       user: {
         phone: null,
         email: null,
@@ -102,6 +108,7 @@ export const useCartStore = defineStore('cartStore', {
 
     add(data: Product) {
       const product: Product = this.toProductType(data)
+      
       const issetProduct = this.data.find((item) => item.id === product.id)
 
       if(!issetProduct)
@@ -274,7 +281,7 @@ export const useCartStore = defineStore('cartStore', {
           
           if(data) {
             this.flashOrder = data
-            this.$reset()
+            // this.$reset()
             return data
           }
 

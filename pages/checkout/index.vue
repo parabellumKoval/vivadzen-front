@@ -291,7 +291,7 @@ setUserData()
             <form-tabs
               v-model="order.payment.method"
               :items="[
-                {key: 'online', title: t('pay.online'), image: '/images/logo/liqpay.png'}, 
+                {key: 'online', title: t('pay.online'), image: '/images/logo/GpayApplepay.png'}, 
                 {key: 'cash', title: t('pay.cash'), image: '/images/logo/np.png'}
               ]"
               class="form-tabs"

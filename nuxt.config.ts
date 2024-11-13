@@ -21,7 +21,8 @@ export default defineNuxtConfig({
       instagramToken: process.env.INSTAGRAM_TOKEN,
       imagesDir: '/server/uploads/images',
       noimage: '/images/noimage.png',
-      staticImageProvider: process.env.STATIC_IMAGE_PROVIDER
+      staticImageProvider: process.env.STATIC_IMAGE_PROVIDER,
+      appVersion: '1.0.0'
     }
   },
 

@@ -4,6 +4,7 @@ import {Vue3Lottie} from 'vue3-lottie'
 import {useAuthStore} from '~/store/auth'
 import {useCartStore} from '~/store/cart'
 import {useLiqpayStore} from '~/store/liqpay'
+import {useMonoStore} from '~/store/mono'
 
 definePageMeta({
   bg: '#eee'
@@ -31,12 +32,17 @@ const isLoading = ref(false)
 //   script: [ {src: 'https://static.liqpay.ua/elements/customElements.js', type: 'text/javascript'} ]
 // })
 
+// const order = ref({
+//   action: "pay",
+//   amount: 0,
+//   currency: "UAH",
+//   description: null,
+//   order: null
+// })
+
 const order = ref({
-  action: "pay",
-  amount: 0,
-  currency: "UAH",
-  description: null,
-  order: null
+  code: null,
+  description: null
 })
 
 const form = ref({
@@ -72,20 +78,41 @@ const getLiqpayForm = async() => {
     })
 }
 
+const getMonoUrl = async() => {
+  isLoading.value = true
+  await useMonoStore().createPayment(order.value)
+    .then((res) => {
+      // console.log('mono createPayment', res.value)
+      
+      if(res.value?.status === 200) {
+        window.location.replace(res.value.url)
+      }
+    })
+    .finally(() => {
+      isLoading.value = false
+    })
+
+}
+
 
 // HANDLERS
 const submitHandler = (v) => {
   isLoading.value = true
-  useCartStore().createOrder(orderable.value).then((res) => {
-    if(res) {
-      order.value.order = res.code
-      order.value.amount = res.price
+  useCartStore().createOrder(orderable.value).then(async (response) => {
+    const res = response.value
+
+    if(res.code) {
+
+      order.value.code = res.code
       order.value.description = `Оплата заказа №${res.code} / Сумма: ${res.price} / Дата: ${res.created_at}`
 
-      getLiqpayForm()
+      // console.log('res', res, order.value)
+      // getLiqpayForm()
+      
+      await getMonoUrl()
     }
   }).catch((err) => {
-    useNoty().setNoty(t('noty.order_fail'))
+    useNoty().setNoty({content: t('noty.order.fail'), type: 'error'})
   }).finally(() => {
     isLoading.value = false
   })
@@ -148,15 +175,16 @@ const submitHandler = (v) => {
             </div>
 
             <div class="payment full-width ">
-              <div class="payment-title">{{ t('pay_liqpay') }}:</div>
+              <div class="payment-title">{{ t('go_and_pay') }}:</div>
               <button
                 @click="submitHandler"
                 :class="{loading: isLoading}"
-                class="button button-liqpay"
+                class="button button-liqpay primary"
                 type="submit"
               >
-                <nuxt-img
-                  src = "/images/logo/liqpay-white.png"
+              {{ t('btn_pay') }}
+                <!-- <nuxt-img
+                  src = "/images/logo/GpayApplepay.png"
                   alt = "Pay with liqpay"
                   title = "Pay with liqpay"
                   width = "75"
@@ -167,7 +195,7 @@ const submitHandler = (v) => {
                   quality = "100"
                   loading = "lazy"
                   class = "logo"
-                />
+                /> -->
               </button>
             </div>
 
@@ -175,7 +203,7 @@ const submitHandler = (v) => {
             <div class="footer full-width">{{ t('redirect') }}</div>
           </div>
 
-          <checkout-contacts  class="section contacts-box"></checkout-contacts>
+          <checkout-contacts class="section contacts-box"></checkout-contacts>
         </div>
       </div>
 
