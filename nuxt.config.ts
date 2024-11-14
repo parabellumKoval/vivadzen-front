@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       imagesDir: '/server/uploads/images',
       noimage: '/images/noimage.png',
       staticImageProvider: process.env.STATIC_IMAGE_PROVIDER,
-      appVersion: '1.0.0'
+      appVersion: '1.0.1'
     }
   },
 
