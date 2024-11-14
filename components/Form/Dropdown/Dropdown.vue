@@ -85,9 +85,6 @@ const updateSearchValueHandler = (value) => {
 }
 
 const selectHandler = (index) => {
-
-  console.log('selectHandler', index)
-
   if(props.listValue && props.listKey) {
     emit('update:modelValue', props.values[index][props.listKey])
   }else {
@@ -116,6 +113,7 @@ const toggleHandler = () => {
 // onClickOutside(listRef, closeHandler, {ignore: [ignoreElRef]})
 
 watch(() => props.modelValue, (val) => {
+  // console.log('props.modelValue', val)
   selectedValue.value = val
 })
 </script>
@@ -144,7 +142,7 @@ watch(() => props.modelValue, (val) => {
     </form-text>
 
     <transition name="move-y">
-      <div v-if="isActive" class="list-wrapper" scrollable ref="listRef">
+      <div v-if="isActive && searchValue?.length > 0" class="list-wrapper" scrollable ref="listRef">
         <ul v-if="values && values.length" class="list">
           <li
             v-for="(item, index) in values"

@@ -14,11 +14,11 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['selected', 'update:modelValue', 'update:ref'])
-
 const {t} = useI18n()
 
 const {getStreets, streets, isLoadingStreets, settlement, street, setStreet} = useNp()
+const emit = defineEmits(['selected', 'update:modelValue', 'update:ref'])
+
 const search = ref('')
 
 
@@ -33,7 +33,6 @@ const isDisabled = computed(() => {
 
 // METHODS
 const updateStreet = (value) => {
-
   setStreet(value)
 
   let newValue = {
@@ -59,8 +58,6 @@ const updateModelValueHandler = (ref) => {
     return
   }
 
-
-
   updateStreet(searched)
 }
 
@@ -72,12 +69,12 @@ watch(() => search.value, (val) => {
 
 // clear street if settlement was updated
 watch(() => settlement.value, (v) => {
-
   if(!v.settlementRef) {
     return
   }
 
   updateStreet({street: null, streetRef: null})
+
 }, {
   deep: true,
   immediate: true
