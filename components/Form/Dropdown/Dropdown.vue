@@ -85,13 +85,21 @@ const updateSearchValueHandler = (value) => {
 }
 
 const selectHandler = (index) => {
-  if(props.listValue && props.listKey)
+
+  console.log('selectHandler', index)
+
+  if(props.listValue && props.listKey) {
     emit('update:modelValue', props.values[index][props.listKey])
-  else
+  }else {
     emit('update:modelValue', props.values[index])
+  }
 
   closeHandler()
 } 
+
+const blurHandler = () => {
+  setTimeout(() => {closeHandler()}, 100)
+}
 
 const openHandler = () => {
   isActive.value = true
@@ -120,18 +128,18 @@ watch(() => props.modelValue, (val) => {
       :model-value="searchOrModalValue"
       @update:modelValue="updateSearchValueHandler"
       @focused="openHandler"
-      @blured="closeHandler"
+      @blured="blurHandler"
       :placeholder="placeholder"
       :required="required"
       :error="error"
       :is-disabled="isDisabled"
       ref="ignoreElRef"
     >
-      <template v-slot:icon-right>
+      <!-- <template v-slot:icon-right>
         <button :class="{active: isActive}" @click="toggleHandler" class="chevron">
           <IconCSS name="fluent:chevron-down-48-filled" size="20px" class="icon"></IconCSS>
         </button>
-      </template>
+      </template> -->
 
     </form-text>
 
@@ -141,11 +149,9 @@ watch(() => props.modelValue, (val) => {
           <li
             v-for="(item, index) in values"
             :key="index"
-            @click="selectHandler(index)"
             class="item"
-            clickable
           >
-            <span>{{ getItemValue(index) }}</span>
+            <button @click="selectHandler(index)" clickable class="item-btn">{{ getItemValue(index) }}</button>
           </li>
         </ul>
         <div v-else class="no-results">

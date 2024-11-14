@@ -26,7 +26,7 @@
 .main-textarea {
   width: 100%;
   padding: 13px 15px !important;
-  border: 2px solid $color-5;
+  border: 1px solid $color-4;
   background: $color-8;
   min-height: 50px;
   resize: none;
@@ -35,6 +35,6 @@
   outline-color: rgba($color-green, 0.85);
 
   &::placeholder {
-    color: $color-4;
+    color: $color-3;
   }
 }
