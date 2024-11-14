@@ -3,7 +3,7 @@ export default defineNuxtRouteMiddleware(() => {
     return;
   }
 
-  console.log('client middleware')
+  console.log('client m')
 
   const appVersion = useCookie(
     'appVersion'
