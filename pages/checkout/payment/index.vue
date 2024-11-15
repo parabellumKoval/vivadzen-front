@@ -82,8 +82,6 @@ const getMonoUrl = async() => {
   isLoading.value = true
   await useMonoStore().createPayment(order.value)
     .then((res) => {
-      // console.log('mono createPayment', res.value)
-      
       if(res.value?.status === 200) {
         window.location.replace(res.value.url)
       }
@@ -99,14 +97,11 @@ const getMonoUrl = async() => {
 const submitHandler = (v) => {
   isLoading.value = true
   useCartStore().createOrder(orderable.value).then(async (response) => {
-    const res = response.value
+    if(response.code) {
 
-    if(res.code) {
+      order.value.code = response.code
+      order.value.description = `Оплата заказа №${response.code} / Сумма: ${response.price} / Дата: ${response.created_at}`
 
-      order.value.code = res.code
-      order.value.description = `Оплата заказа №${res.code} / Сумма: ${res.price} / Дата: ${res.created_at}`
-
-      // console.log('res', res, order.value)
       // getLiqpayForm()
       
       await getMonoUrl()

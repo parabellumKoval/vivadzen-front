@@ -58,9 +58,10 @@ const goCompleteHandler = () => {
     orderable.orderable_type = 'supabase'
   }
 
-  useCartStore().createOrder(orderable).then((r) => {
-    if(r && r.code) {
-      navigateTo(localePath('/checkout/complete/' + r.code))
+  useCartStore().createOrder(orderable).then((response) => {
+    if(response?.code) {
+      useCartStore().$reset()
+      navigateTo(localePath('/checkout/complete/' + response.code))
     }
   }).catch((e) => {
     useNoty().setNoty({
@@ -86,8 +87,10 @@ const goPayHandler = () => {
   }
 
 
-  useCartStore().validate(orderable).then((r) => {
-    navigateTo(localePath('/checkout/payment'))
+  useCartStore().validate(orderable).then((response) => {
+    if(response) {
+      navigateTo(localePath('/checkout/payment'))
+    }
   }).catch((e) => {
     useNoty().setNoty({
       title: t('error.error'),

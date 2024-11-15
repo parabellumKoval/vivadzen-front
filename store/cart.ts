@@ -246,12 +246,13 @@ export const useCartStore = defineStore('cartStore', {
       
       return await useApiFetch(url, dataPost, 'POST')
         .then(({data, error}) => {
-          if(data) {
-            return data
+
+          if(data.value) {
+            return true
           }
 
-          if(error) {
-            this.errorsState = error?.options
+          if(error.value) {
+            this.errorsState = error.value.data?.options || {}
             throw error
           }
 
@@ -278,15 +279,14 @@ export const useCartStore = defineStore('cartStore', {
       
       return await useApiFetch(url, dataPost, 'POST')
         .then(({data, error}) => {
-          
-          if(data) {
-            this.flashOrder = data
-            // this.$reset()
-            return data
+
+          if(data.value) {
+            this.flashOrder = data.value
+            return data.value
           }
 
-          if(error) {
-            this.errorsState = error?.options
+          if(error.value) {
+            this.errorsState = error.value.data?.options || {}
             throw error
           }
 
