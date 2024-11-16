@@ -23,7 +23,7 @@ export const useSort = () => {
       },{
         by: 'in_stock',
         dir: 'desc',
-        caption: t('label.sorting.in_stock_asc_desc')
+        caption: t('label.sorting.in_stock_desc')
       },{
         by: 'in_stock',
         dir: 'asc',
