@@ -95,8 +95,8 @@ label:
     news_desc: По-зменшенню по-новині
     price_asc: За зростанням ціни
     price_desc: Зменшення ціни
-    in_stock_asc_desc: Спершу в наявності
-    in_stock_asc_asc: Спершу немає в наявності
+    in_stock_desc: Спершу в наявності
+    in_stock_asc: Спершу немає в наявності
 
 
 
