@@ -95,6 +95,8 @@ label:
     news_desc: По-убыванию по-новизне
     price_asc: По-возрастанию цены
     price_desc: По-убыванию цены
+    in_stock_asc_desc: Сперва в наличии
+    in_stock_asc_desc: Сперва нет в наличии
 
 
 

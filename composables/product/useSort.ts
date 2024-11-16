@@ -20,6 +20,14 @@ export const useSort = () => {
         by: 'price',
         dir: 'desc',
         caption: t('label.sorting.price_desc')
+      },{
+        by: 'in_stock',
+        dir: 'desc',
+        caption: t('label.sorting.in_stock_asc_desc')
+      },{
+        by: 'in_stock',
+        dir: 'asc',
+        caption: t('label.sorting.in_stock_asc')
       }
     ]
   })
