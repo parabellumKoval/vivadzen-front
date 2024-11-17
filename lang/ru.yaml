@@ -28,6 +28,7 @@ title:
   checkout_complete_failed: Ошибка при оформлении заказа
   policy: Политика конфиденциальности
   terms: Пользовательское соглашение
+  remove_userdata: Удаления пользовательских данных
   account: 
     account: Аккаунт
     orders: История заказов

@@ -28,6 +28,7 @@ title:
   checkout_complete_failed: Помилка при оформленні замовлення
   policy: Політика конфіденційності
   terms: Угода користувача
+  remove_userdata: Видалення даних користувача
   account:
     account: Акаунт
     orders: Історія замовлень
