@@ -46,6 +46,10 @@ const setCrumbs = () => {
     
 }
 
+const category_slug = computed(() => {
+  return props.categoryData.category.slug
+})
+
 const categories = computed(() => {
   return props.categoryData.category.children
 })
@@ -108,7 +112,7 @@ setCrumbs()
 <template>
   <NuxtLayout
     name="category"
-    :slug="slug"
+    :slug="category_slug"
     :breadcrumbs="breadcrumbs"
     :category-data="categoryData"
     :initQuery="getQuery()"
@@ -122,7 +126,7 @@ setCrumbs()
     </template>
     
     <template #footer>
-      <lazy-catalog-reviews :slug="slug" :category-name="categoryData.category?.name" :reviews="categoryData?.reviews" class="review-wrapper"></lazy-catalog-reviews>
+      <lazy-catalog-reviews :slug="category_slug" :category-name="categoryData.category?.name" :reviews="categoryData?.reviews" class="review-wrapper"></lazy-catalog-reviews>
 
       <lazy-catalog-text
         v-if="categoryData.category.content"

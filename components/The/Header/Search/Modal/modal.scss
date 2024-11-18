@@ -77,6 +77,7 @@
   background: $color-8;
   font-size: 14px;
   z-index: 2;
+  border-radius: $radius;
 
   @include _desktop {
     padding: 30px 30px 45px 30px;

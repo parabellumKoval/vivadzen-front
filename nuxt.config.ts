@@ -240,6 +240,7 @@ export default defineNuxtConfig({
 
     sources: [
       process.env.API_SERVER_URL + '/sitemap/categories',
+      process.env.API_SERVER_URL + '/sitemap/regions',
       process.env.API_SERVER_URL + '/sitemap/products',
       process.env.API_SERVER_URL + '/sitemap/brands',
       process.env.API_SERVER_URL + '/sitemap/articles'
