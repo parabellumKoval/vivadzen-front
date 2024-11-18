@@ -62,6 +62,27 @@ const user = computed(() => {
   return useAuthStore().user
 })
 
+const userFirstName = computed(() => {
+  if(user.value?.firstname) {
+    return user.value.firstname;
+  }else if(user.value?.fullname) {
+    return user.value.fullname.split(' ')[0]
+  }else {
+    return null;
+  }
+})
+
+const userLastName = computed(() => {
+  if(user.value?.lastname) {
+    return user.value.lastname;
+  }else if(user.value?.fullname) {
+    let nameArray = user.value.fullname.split(' ')
+    return nameArray[1]? nameArray[1]: null
+  }else {
+    return null;
+  }
+})
+
 const auth = computed(() => {
   return useAuthStore().auth
 })
@@ -78,8 +99,8 @@ const scrollHandler = (item) => {
 }
 
 const setUserData = () => {
-  order.value.user.firstname = !order.value.user.firstname? (user.value?.firstname || null): order.value.user.firstname
-  order.value.user.lastname = !order.value.user.lastname? (user.value?.lastname || null): order.value.user.lastname
+  order.value.user.firstname = !order.value.user.firstname? userFirstName.value: order.value.user.firstname
+  order.value.user.lastname = !order.value.user.lastname? userLastName.value: order.value.user.lastname
   order.value.user.phone = !order.value.user.phone? (user.value?.phone || null): order.value.user.phone
   order.value.user.email = !order.value.user.email? (user.value?.email || null): order.value.user.email
 }
