@@ -92,11 +92,12 @@ label:
     price: Супер ціна
     top: Топ продажів
   sorting:
-    news_asc: По-зростанню по-новизні
-    news_desc: По-зменшенню по-новині
+    default: За точністю збігу
+    news_asc: Спочатку найновіші
+    news_desc: Спочатку старі
     price_asc: За зростанням ціни
     price_desc: Зменшення ціни
-    in_stock_desc: Спершу в наявності
+    in_stock_desc: Спочатку в наявності
     in_stock_asc: Спершу немає в наявності
 
 

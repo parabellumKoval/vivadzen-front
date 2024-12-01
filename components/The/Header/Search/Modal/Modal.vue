@@ -2,21 +2,28 @@
 import {useSearchStore} from '~/store/search'
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 
-const props = defineProps({
-  searchInput: {
-    type: String
-  }
-})
+// const props = defineProps({
+//   searchInput: {
+//     type: String
+//   }
+// })
 
 const emit = defineEmits(['close', 'setInput'])
 
 const categories = ref([])
 const products = ref([])
 const brands = ref([])
+const searchInput = ref('')
 
 const timeout = ref(null)
 const isLoading = ref(false)
+
+const isOpen = ref(false)
+
+// REF html
+const simpleSearchRef = ref(null)
 
 // COMPUTEDS
 const history = computed(() => {
@@ -55,15 +62,36 @@ const setInput = (search) => {
 }
 
 const closeHandler = () => {
-  emit('close')
+  setTimeout(() => {
+    searchInput.value = ''
+    isOpen.value = false
+    simpleSearchRef.value.blurHandler()
+    emit('close')
+  }, 50)
+}
+const focusHandler  = () => {
+  isOpen.value = true
 }
 
+const goSearchPageHandler = (val) => {
+  let query = val? val: searchInput.value
+  navigateTo(localePath('/search?q=' + query))
+}
+
+// const blurHandler  = () => {
+//   isOpen.value = false
+// }
+
 // WATCH
-watch(() => props.searchInput, (v) => {
+watch(() => searchInput.value, (v) => {
+  if(!v?.length) {
+    return
+  }
+
   clearTimeout(timeout.value)
 
   timeout.value = setTimeout(() => {
-    search(v)
+      search(v)
   }, 1000)
 }, {
   deep: true,
@@ -76,7 +104,19 @@ watch(() => props.searchInput, (v) => {
 
 <template>
   <div class="livesearch-wrapper">
-    <div class="livesearch">
+
+    <simple-search
+      v-model="searchInput"
+      :btn-label="t('all')"
+      @input:focus="focusHandler"
+      @input:blur="blurHandler"
+      @btn:click="goSearchPageHandler"
+      @close="closeHandler"
+      class="simple-search"
+      ref="simpleSearchRef"
+    ></simple-search>
+
+    <div v-if="isOpen" class="livesearch">
 
       <transition name="fade-in">
         <div
@@ -102,93 +142,54 @@ watch(() => props.searchInput, (v) => {
         </div>
       </transition>
 
-      <div v-if="categories?.length" class="livesearch-box">
-        <div class="livesearch-label">{{ t('title.categories') }}</div>
-        <ul class="livesearch-list">
-          <li v-for="item in categories" :key="item.id" class="livesearch-item">
-            <NuxtLink :to="localePath('/' + item.slug)" class="livesearch-link">
-              <span class="value">{{ item.name }}</span>
-            </NuxtLink>
+      <div v-if="products?.length" class="livesearch-box">
+        <div class="livesearch-label">{{ t('title.products') }}</div>
+        <ul class="livesearch-grid">
+          <li v-for="item in products" :key="item.id" class="livesearch-grid-item">
+            <product-card-live-search :item="item" @click="closeHandler"></product-card-live-search>
           </li>
         </ul>
+
+        <div @click="closeHandler" class="all-results-btn">
+          <NuxtLink :to="localePath('/search?q=' + searchInput)" class="all-results-btn-link">
+            <span class="text">{{ t('all') }}</span>
+            <IconCSS name="iconoir:arrow-right" class="icon"></IconCSS>
+          </NuxtLink>
+        </div>
       </div>
 
       <div v-if="brands?.length" class="livesearch-box">
         <div class="livesearch-label">{{ t('title.brands') }}</div>
-        <ul class="livesearch-list">
-          <li v-for="item in brands" :key="item.id" class="livesearch-item">
-            <NuxtLink :to="localePath('/brands/' + item.slug)" class="livesearch-link brand-item">
-              <nuxt-img
-                :src = "useImg().brand(item.image)"
-                width="50"
-                height="60"
-                sizes = "mobile:50px tablet:50px desktop:50px"
-                format = "webp"
-                quality = "60"
-                loading = "lazy"
-                fit="outside"
-                class="item-image"
-                placeholder="/images/noimage.png"
-              >
-              </nuxt-img>
-              <span class="value">{{ item.name }}</span>
-            </NuxtLink>
+        <ul class="livesearch-brands">
+          <li v-for="item in brands" :key="item.id" class="livesearch-brands-item">
+            <brand-card-live-search :item="item" @click="closeHandler"></brand-card-live-search>
           </li>
         </ul>
       </div>
 
-      <div v-if="products?.length" class="livesearch-box">
-        <div class="livesearch-label">{{ t('title.products') }}</div>
-        <ul class="livesearch-list">
-          <li v-for="item in products" :key="item.id" class="livesearch-item">
-            <NuxtLink :to="localePath('/' + item.slug)" class="livesearch-link product-card">
-              <nuxt-img
-                :src = "useImg().product(item.image)"
-                width="50"
-                height="60"
-                sizes = "mobile:50px tablet:50px desktop:50px"
-                format = "webp"
-                quality = "60"
-                loading = "lazy"
-                fit="outside"
-                class="item-image"
-                placeholder="/images/noimage.png"
-              >
-              </nuxt-img>
-              <div class="product-content">
-                <div class="product-name">{{ item.name }}</div>
-                
-                <div class="product-price">
-                  <simple-price v-if="item.oldPrice" :value="item.oldPrice" class="old-price"></simple-price>
-                  <simple-price v-if="item.price" :value="item.price" class="base-price"></simple-price>
-                </div>
-              </div>
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
+      <div v-if="history?.length || categories?.length" class="livesearch-box livesearch-columns">
+        
+        <div v-if="categories?.length">
+          <div class="livesearch-label">{{ t('title.categories') }}</div>
+          <ul class="livesearch-list">
+            <li v-for="item in categories" :key="item.id" class="livesearch-item">
+              <NuxtLink :to="localePath('/' + item.slug)" @click="closeHandler" class="livesearch-link">
+                <span class="value">{{ item.name }}</span>
+              </NuxtLink>
+            </li>
+          </ul>
+        </div>
 
-      <div v-if="history?.length" class="livesearch-box">
-        <div class="livesearch-label">{{ t('search_history') }}</div>
-        <ul class="livesearch-inline">
-          <li v-for="item in history" :key="item" class="livesearch-item">
-            <button @click="setInput(item)" class="livesearch-link">
-              <span class="value">{{ item }}</span>
-            </button>
-          </li>
-        </ul>
-      </div>
-
-
-      <div v-if="products?.length" class="livesearch-box">
-        <span @click="closeHandler">
-          <NuxtLink :to="localePath('/search?q=' + searchInput)" class="all-results-btn">
-            <span class="text">{{ t('all') }}</span>
-            <IconCSS name="iconoir:arrow-right" class="icon"></IconCSS>
-          </NuxtLink>
-        </span>
-        <!-- <button @click="goToSearchPage" class="all-results-btn">
-        </button> -->
+        <div v-if="history?.length">
+          <div class="livesearch-label">{{ t('search_history') }}</div>
+          <ul class="livesearch-inline">
+            <li v-for="item in history" :key="item" class="livesearch-item">
+              <button @click="goSearchPageHandler(item)" class="livesearch-link">
+                <span class="value">{{ item }}</span>
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
 
 
@@ -196,7 +197,7 @@ watch(() => props.searchInput, (v) => {
         v-if="categories?.length || products?.length || brands?.length"
         class="powered-by"
       >
-        <span>Powered by</span>
+        <span class="powered-by-text">Powered by</span>
 
         <nuxt-img
           :provider="useImg().provider"
@@ -212,6 +213,6 @@ watch(() => props.searchInput, (v) => {
         />
       </span>
     </div>
-    <div class="livesearch-bg" @click="closeHandler"></div>
+    <div v-if="isOpen" class="livesearch-bg" @click="closeHandler"></div>
   </div>
 </template>

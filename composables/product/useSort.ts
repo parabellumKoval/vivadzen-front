@@ -6,12 +6,12 @@ export const useSort = () => {
     return [
       {
         by: 'created_at',
-        dir: 'asc',
-        caption: t('label.sorting.news_asc')
-      },{
-        by: 'created_at',
         dir: 'desc',
         caption: t('label.sorting.news_desc')
+      },{
+        by: 'created_at',
+        dir: 'asc',
+        caption: t('label.sorting.news_asc')
       },{
         by: 'price',
         dir: 'asc',

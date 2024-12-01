@@ -20,7 +20,7 @@ const isReviewsLoading = ref(false)
 const tab = ref(1)
 const reviewsComponentRef = ref(null)
 
-console.log('product', props.product)
+// console.log('product', props.product)
 
 const {setSchema} = useSchema()
 // Content HTML ref

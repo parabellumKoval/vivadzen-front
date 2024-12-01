@@ -1,10 +1,11 @@
 <script setup>
+const {t} = useI18n()
 const route = useRoute()
 
 const searchInput = ref(null)
 const isActive = ref(false)
 
-const focusHandler = () => {
+const openSearchHandler = () => {
   isActive.value = true
 }
 
@@ -44,14 +45,23 @@ watch(() => route.fullPath, (v) => {
 
 <template>
   <div :class="{active: isActive && $device.isMobile}" class="search-wrapper">
-    <simple-search
+    <!-- <simple-search
       v-model="searchInput"
       @input:focus="focusHandler"
       @input:blur="blurHandler"
       @close="closeHandler"
       @btn:click="goToSearchPage"
       class="simple-search"
-    ></simple-search>
+    ></simple-search> -->
+
+    <div class="simple-search">
+      <IconCSS v-if="!$device.isMobile" name="iconoir:search" size="20px" class="simple-search-icon"></IconCSS>
+      <input
+        @click="openSearchHandler"
+        :placeholder="t('title.search')"
+        class="simple-search-input"
+      />
+    </div>
 
     <transition name="fade-in">
       <lazy-the-header-search-modal

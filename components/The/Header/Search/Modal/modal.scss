@@ -2,19 +2,6 @@
 @import './assets/scss/mixins';
 
 
-.brand {
-  &-item {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    align-items: center;
-    grid-gap: 10px;
-    padding: 0 0 10px 0;
-  }
-
-  &-image {
-
-  }
-} 
 
 .typing {
   display: grid;
@@ -67,20 +54,41 @@
   line-height: 135%;
 }
 
+// .simple-search {
+//   position: fixed;
+//   top: 65px;
+//   width: calc(100vw - 20px);
+// }
+
+.mobile-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  z-index: 100;
+}
+
 .livesearch {
   position: absolute;
   top: 60px;
   left: 0;
   width: 100%;
-  min-height: 100px;
+  // min-height: 100px;
+  max-height: calc(100vh - 130px);
+  overflow-y: auto;
   padding: 15px;
   background: $color-8;
-  font-size: 14px;
+  font-size: 16px;
   z-index: 2;
   border-radius: $radius;
 
+  @include _scrollbar;
+
   @include _desktop {
-    padding: 30px 30px 45px 30px;
+    padding: 30px;
+    max-height: calc(100vh - 100px);
   }
 
   &-bg {
@@ -94,34 +102,51 @@
   }
 
   .powered-by {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    margin: 30px 0 0 0;
     display: flex;
     align-items: center;
+    justify-content: end;
     color: $color-4;
     font-size: 14px;
+
+    @include _desktop {
+      margin: 0;
+    }
 
     .algolia {
       display: inline-block;
     }
+
+    &-text {
+      background: #fff;
+    }
+
   }
 
   &-box {
-    padding: 10px 0;
+    margin: 30px 0 0 0;
+    padding: 0 0 0 0;
+    // border-bottom: 1px solid $color-6;
+
+    @include _desktop {
+      margin: 45px 0 0 0;
+    }
 
     &:first-of-type {
-      padding: 0 0 10px 0;
+      margin: 0;
     }
 
     &:last-of-type{
-      padding: 10px 0 0 0;
+      border-bottom: 0;
     }
   }
 
   &-label {
-    font-size: 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
     color: $color-3;
   }
 
@@ -138,7 +163,7 @@
 
     & > .livesearch-item {
       flex-shrink: 0;
-      margin: 10px 15px 0 0;
+      margin: 0 15px 10px 0;
     }
   }
 
@@ -151,6 +176,40 @@
       color: $color-green;
     }
 
+  }
+
+  &-columns {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: 1fr;
+
+    @include _desktop {
+      grid-gap: 40px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &-grid {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+
+    @include _desktop {
+      grid-gap: 20px;
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  &-brands {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr;
+
+    @include _desktop {
+      grid-gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+
+    }
   }
 }
 
@@ -165,77 +224,24 @@
   }
 }
 
-.product {
-  &-card {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    align-items: center;
-    grid-gap: 10px;
-    padding: 0 0 10px 0;
+.all-results-btn {
+  margin-top: 15px;
 
-    &:last-child {
-      padding: 0;
-    }
-
-    &:hover {
-      .product-name {
-        color: $color-green;
-      }
-    }
-  }
-
-  &-content {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  &-name {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    line-height: 132%;
-    color: $color-1;
-    transition: color $speed;
-  }
-
-  &-price {
+  &-link {
     display: grid;
     grid-template-columns: repeat(2, min-content);
-    grid-auto-rows: min-content;
+    align-items: center;
     grid-gap: 10px;
-    font-weight: 500;
-
-    .base-price {
-      color: $color-0;
-      font-size: 12px;
+    color: $color-green;
+  
+    &:hover {
+      color: scale-color($color-green, $lightness: 30%);
     }
-
-    .old-price {
-      font-size: 10px;
-      color: $color-3;
-      text-decoration: line-through;
-
-      + .base-price {
-        color: $color-red;
-      }
+  
+    .text {
+      padding: 5px 0;
+      border-bottom: 1px dashed;
+      white-space: nowrap;
     }
-  }
-}
-
-.all-results-btn {
-  display: grid;
-  grid-template-columns: repeat(2, min-content);
-  align-items: center;
-  grid-gap: 10px;
-  color: $color-green;
-
-  &:hover {
-    color: scale-color($color-green, $lightness: 30%);
-  }
-
-  .text {
-    padding: 5px 0;
-    border-bottom: 1px dashed;
-    white-space: nowrap;
   }
 }

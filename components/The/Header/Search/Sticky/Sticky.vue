@@ -50,6 +50,9 @@ onMounted(() => {
 <template>
   <div :class="[{hide: !isActive}, {focus: isFocus}]" class="search-wrapper">
     <div class="search-inner" clickable>
+      <lazy-the-header-search-modal></lazy-the-header-search-modal>
+    </div>
+    <!-- <div class="search-inner" clickable>
       <IconCSS name="iconoir:search" size="20px" class="search-input-icon"></IconCSS>
       <input
         v-model="search"
@@ -62,9 +65,9 @@ onMounted(() => {
 
     <transition name="opacity">
       <lazy-the-header-search-modal
-        v-if="isFocus"
+        v-if="true"
         :search-input="search"
       ></lazy-the-header-search-modal>
-    </transition>
+    </transition> -->
   </div>
 </template>

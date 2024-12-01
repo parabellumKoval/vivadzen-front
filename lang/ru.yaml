@@ -92,12 +92,13 @@ label:
     price: Супер цена
     top: Топ продаж
   sorting:
-    news_asc: По-возрастанию по-новизне
-    news_desc: По-убыванию по-новизне
-    price_asc: По-возрастанию цены
-    price_desc: По-убыванию цены
-    in_stock_desc: Сперва в наличии
-    in_stock_asc: Сперва нет в наличии
+    default: По точности совпадения
+    news_asc: Сначала самые новые
+    news_desc: Сначала старые
+    price_asc: Сначала дешевые
+    price_desc: Сначала дорогие
+    in_stock_desc: Сначала в наличии
+    in_stock_asc: Сначала нет в наличии
 
 
 

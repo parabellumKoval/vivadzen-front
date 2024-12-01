@@ -6,8 +6,9 @@ const route = useRoute()
 
 const searchInput = ref(null)
 
-// Attributes
-const attributes = ref([])
+const query = ref({
+  page: 1
+})
 
 // Filters
 const filters = ref(null)
@@ -33,6 +34,25 @@ const search = computed(() => {
   return route.query.q
 })
 
+
+const sortingsOptions = computed(() => {
+  return [
+    {
+      by: 'default',
+      dir: 'default',
+      caption: t('label.sorting.default')
+    }, {
+      by: 'price',
+      dir: 'asc',
+      caption: t('label.sorting.price_asc')
+    }, {
+      by: 'price',
+      dir: 'desc',
+      caption: t('label.sorting.price_desc')
+    }
+  ];
+})
+
 // METHODS
 const setCrumbs = (title) => {
   breadcrumbs.value = [
@@ -46,48 +66,11 @@ const setCrumbs = (title) => {
   ]
 }
 
-const getQuery = () => {
-  return {
-    per_page: 20,
-    page: 1
-  }
-}
-
-
-const setAttributes = () => {
-  // attributes.value = []
-  if(categories.value) {
-    attributes.value.push(
-      {
-        id: 'categories',
-        name: 'Категории',
-        type: 'tree',
-        noMeta: true,
-        isOpen: true,
-        values: [...categories.value]
-      }
-    )
-  }
-
-  if(brands.value) {
-    attributes.value.push(
-      {
-        id: 'brands',
-        name: 'Бренды',
-        type: 'list',
-        noMeta: true,
-        isOpen: true,
-        values: [...brands.value]
-      }
-    )
-
-  }
-}
-
-const fetchSearch = async (search) => {
+const fetchSearch = async (search, query = {}, loadmore = false) => {
 
   const params = {
-    search: search
+    search: search,
+    ...query
   }
 
   if(!params.search?.length) {
@@ -97,9 +80,13 @@ const fetchSearch = async (search) => {
   isLoading.value = true
 
   await useAsyncData('search', () => useSearchStore().index(params)).then(({data, error}) => {
+    if(data?.value?.products?.data) {
+      if(loadmore) {
+        products.value = products.value.concat(data.value.products.data)
+      }else {
+        products.value = data.value.products.data
+      }
 
-    if(data?.value?.products) {
-      products.value = data.value.products.data || null
       meta.value = data.value.products.meta || null
     }
 
@@ -117,6 +104,21 @@ const searchHandler = () => {
   })
 }
 
+const updateOrderHandler = (v) => {
+  query.value = {
+    ...query.value,
+    ...v
+  }
+
+  fetchSearch(searchInput.value, query.value)
+}
+
+const updatePageHandler = (v, loadmore = false) => {
+  query.value.page = v
+
+  fetchSearch(searchInput.value, query.value, loadmore)
+}
+
 // WATCH
 watch(search, (v) => {
   searchInput.value = v
@@ -127,10 +129,21 @@ watch(search, (v) => {
     setCrumbs(t('title.search'))
   }
 }, {
-  immediate: false
+  immediate: true
 })
 
 await fetchSearch(search.value)
+
+
+// Set mobile Search
+onBeforeMount(() => {
+  useTransport().setData({mobileSearch: false})
+})
+
+onBeforeUnmount(() => {
+  ////
+  useTransport().setData({mobileSearch: true})
+})
 </script>
 
 <style src="./search.scss" lang="scss" scoped></style>
@@ -142,6 +155,9 @@ await fetchSearch(search.value)
   :breadcrumbs="breadcrumbs"
   :products="products"
   :meta="meta"
+  :updateOrderCallback = "updateOrderHandler"
+  :updatePageCallback = "updatePageHandler"
+  :sortings="sortingsOptions"
   no-filters
 >
   <template #title>
@@ -159,6 +175,7 @@ await fetchSearch(search.value)
         v-model="searchInput"
         @keyup.enter="searchHandler"
         @btn:click="searchHandler"
+        :is-close-btn="false"
         class="simple-search"
       ></simple-search>
     </div>

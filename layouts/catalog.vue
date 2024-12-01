@@ -54,19 +54,30 @@ const props = defineProps({
   },
   updatePageCallback: {
     default: null
+  },
+  sortings: {
+    default: null
   }
 })
 
 const {modelValue, updateModelValue} = useFilterItem()
 
-const {options: sortingOptions} = useSort()
-const sortSelectedIndex = ref(1)
+const {options: useSortOptions} = useSort()
+const sortSelectedIndex = ref(0)
 const sort = ref({order_by: 'created_at', order_dir: 'desc'})
 
 const router = useRouter()
 const route = useRoute()
 
 // COMPUTED
+const sortingOptions = computed(() => {
+  if(props.sortings) {
+    return props.sortings
+  }else {
+    return useSortOptions.value
+  }
+})
+
 const filtersData = computed(() => {
   return {
     'filters': props.filters,
@@ -168,8 +179,8 @@ watch(() => modelValue.value, (v) => {
     <slot name="header"></slot>
 
     <div class="container">
-      <div class="header">
-        <div v-if="meta?.total" class="header-title">
+      <div :class="{'no-filters': noFilters}" class="header">
+        <div v-if="meta?.total && !noFilters" class="header-title">
           {{ t('label.filters') }}
         </div>
 
@@ -232,7 +243,7 @@ watch(() => modelValue.value, (v) => {
     </div>
 
     <div v-if="meta" class="container">
-      <div class="content">
+      <div :class="{'no-filters': noFilters}" class="content">
         <div></div>
         <div>
           <!-- Pagination -->
