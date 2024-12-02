@@ -29,7 +29,7 @@
     object-fit: contain;
     grid-row-start: 1;
     grid-row-end: 3;
-    background: #eee;
+    // background: #eee;
 
     @include _desktop {
       height: 100%;
