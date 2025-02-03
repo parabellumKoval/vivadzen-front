@@ -1,0 +1,44 @@
+@import './assets/scss/vars';
+@import './assets/scss/mixins';
+
+.catalog {
+  position: relative;
+  height: initial;
+  width: calc(100% + 40px);
+  overflow-y: scroll;
+  margin: -20px;
+}
+
+
+.sub {
+  &-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 40px) 1fr;
+    align-items: center;
+    padding: 10px 50px 10px 0;
+    margin: 0 0 20px 0;
+    width: calc(100% + 5px);
+    background: $color-7;
+
+    @include _desktop {
+      display: none;
+    }
+  }
+
+  &-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+  }
+
+  &-title {
+    text-transform: uppercase;
+    margin-left: 15px;
+    font-size: 12px;
+  }
+}

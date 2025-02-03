@@ -1,0 +1,46 @@
+@import './assets/scss/vars';
+@import './assets/scss/mixins';
+
+.guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 40px;
+  padding: 0 15px;
+  margin: 0 -15px;
+  background: scale-color($color-green, $lightness: 94%);
+  border-top: 1px solid $color-6;
+
+  @include _desktop {
+    width: 100%;
+    height: initial;
+    background: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  &-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  &-icon {
+    margin-right: 5px;
+    font-size: 20px;
+    color: #FFBA35;
+
+    @include _desktop {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+  }
+
+  &-text {
+    margin: -3px 0 0 0;
+    border-bottom: 1px dashed;
+  }
+}

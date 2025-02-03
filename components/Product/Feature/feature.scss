@@ -1,0 +1,69 @@
+@import './assets/scss/vars';
+@import './assets/scss/mixins';
+
+.feature {
+  &-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    padding: 20px 15px;
+    width: 100vw;
+    margin: 0 -15px;
+    border-top: 1px solid $color-6;
+    border-bottom: 1px solid $color-6;
+
+
+    @include _desktop {
+      grid-template-columns: repeat(3, 33.3%);
+      grid-row-gap: 20px;
+      grid-column-gap: 30px;
+      width: 100%;
+      margin: 0;
+      padding: 30px;
+      border: 1px solid $color-6;
+      border-radius: $radius;
+    }
+  }
+
+  &-item {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    grid-gap: 5px;
+    align-items: flex-start;
+
+    @include _desktop {
+      grid-gap: 10px;
+    }
+
+    &.green {
+      .feature-icon {
+        color: $color-green;
+      }
+    }
+
+    &.red {
+      .feature-icon {
+        color: $color-red;
+      }
+    }
+  }
+
+  &-icon {
+    font-size: 24px;
+
+    @include _desktop {
+      font-size: 30px;
+    }
+  }
+
+  &-text {
+    display: inline-block;
+    line-height: 120%;
+    max-width: 130px;
+    padding: 4px 0 0 0;
+
+    @include _desktop {
+      padding: 5px 0 0 0;
+    }
+  }
+}

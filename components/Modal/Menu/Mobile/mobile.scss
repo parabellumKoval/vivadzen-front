@@ -1,0 +1,225 @@
+@import './assets/scss/vars';
+@import './assets/scss/mixins';
+
+.comp-btn {
+  margin-top: -15px;
+
+  :deep(.comparison-btn) {
+    font-size: 14px;
+  }
+
+  :deep(.icon) {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+}
+
+.m-wrapper {
+  :deep(.close-btn-inner) {
+    color: $color-8;
+    background: $color-11;
+  }
+}
+
+
+
+.header {
+  display: grid;
+  grid-template-columns: 50px 1fr min-content;
+  grid-gap: 15px;
+  align-items: center;
+  margin: -20px -20px 0 -20px;
+  width: calc(100vw - 25px);
+  height: 90px;
+  padding: 20px 60px 20px 15px;
+  background: $color-11;
+
+  &-btn {
+    font-weight: 500;
+    color: $color-8;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &-name {
+
+    }
+
+    &-label {
+      display: block;
+      margin-top: 5px;
+      color: $color-4;
+      font-weight: 400;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
+
+  &-delimiter {
+    height: 20px;
+    width: 2px;
+    background: $color-8;
+  }
+}
+
+.line {
+  width: calc(100vw - 25px);
+  height: 1px;
+  margin: 0 -20px;
+  background: $color-6;
+}
+
+.mm {
+
+  &-content {
+    display: grid;
+    grid-gap: 30px;
+    padding: 30px 0;
+
+    @include _desktop {
+      padding: 0;
+      width: calc(100% + 30px);
+      margin: -15px;
+    }
+
+    &-catalog {
+      display: block;
+      position: relative;
+      // background: scale-color($color-green, $lightness: 85%);
+      background: $color-green;
+      color: $color-8;
+      border: 2px solid $color-green;
+
+      @include _desktop {
+        display: none;
+      }
+
+      :deep(.icon) {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+.menu {
+  &-ul {
+    display: grid;
+    grid-gap: 15px;
+  }
+
+  &-link {
+    transition: color $speed;
+
+    &-sales,
+    &-more {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+
+      .icon {
+        margin-left: 5px;
+        font-size: 16px;
+      }
+    }
+
+    &-sales {
+      color: $color-red;
+    }
+  }
+}
+
+.avatar {
+  &-image {
+    width: 50px;
+    height: 50px;
+    border-radius: $radius;
+  }
+
+  &-faker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: $radius;
+    background: $color-1;
+    color: $color-8;
+  }
+}
+
+
+.social {
+  &-items {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 40px;
+    grid-gap: 10px;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    border-radius: $radius;
+  }
+
+  &-icon {
+    font-size: 20px;
+    color: $color-8;
+  }
+}
+
+.phone {
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 20px;
+
+  &-item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    grid-gap: 15px;
+    align-items: center;
+  }
+
+  &-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  &-value {
+    font-weight: 500;
+  }
+}
+
+.langs {
+  height: min-content;
+  width: min-content;
+
+  &-label {
+    display: none;
+  }
+
+  &-switcher {
+    display: grid;
+    grid-auto-flow: row;
+    // grid-template-columns: repeat(2, min-content);
+    background-color: $color-1;
+    border-radius: $radius;
+
+    :deep(.languages-btn-link) {
+      height: 25px;
+    }
+
+    :deep(.router-link-active) {
+      background-color: $color-2;
+    }
+  }
+}

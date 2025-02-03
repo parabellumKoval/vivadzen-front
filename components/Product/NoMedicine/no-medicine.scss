@@ -1,0 +1,15 @@
+@import './assets/scss/vars';
+@import './assets/scss/mixins';
+
+.no-medicine {
+  padding: 15px;
+  border-radius: $radius;
+  border: 1px solid $color-green;
+  line-height: 160%;
+  background-color: rgba($color-green, 0.05);
+
+  @include _desktop {
+    padding: 30px;
+    line-height: 180%;
+  }
+}

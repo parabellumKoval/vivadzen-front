@@ -1,0 +1,18 @@
+@import './assets/scss/vars';
+@import './assets/scss/mixins';
+
+
+.brand {
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  grid-gap: 5px;
+  align-items: center;
+
+  &-label {
+    color: $color-3;
+  }
+
+  &-value {
+    white-space: nowrap;
+  }
+}
