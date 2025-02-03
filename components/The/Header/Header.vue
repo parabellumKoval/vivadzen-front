@@ -7,6 +7,7 @@ const { t } = useI18n()
 <template>
   <header class="header">
     <div class="header-container full-container">
+      
       <!-- MENU -->
       <the-header-menu class="menu"></the-header-menu>
 
