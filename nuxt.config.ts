@@ -62,55 +62,50 @@ export default defineNuxtConfig({
     '@/assets/scss/main.scss'
   ],
 
-  modules: [
-    'nuxt-anchorscroll', 
-    [
-      '@nuxtjs/supabase',
-      {
-        redirectOptions: {
-          login: '/',
-          include: ['/account(/*)?']
-        }
+  modules: ['nuxt-anchorscroll', [
+    '@nuxtjs/supabase',
+    {
+      redirectOptions: {
+        login: '/',
+        include: ['/account(/*)?']
       }
-    ], [
+    }
+  ], // [
+  [
       'nuxt-icon',
       {
         class: 'icon'
       }
-    ], // [
-    //   '@nuxtjs/partytown',
-    //   {
-    //     debug: process.env.NODE_ENV === 'development',
-    //     forward: ['dataLayer.push']
-    //   }
-    // ],
-    [
-      'nuxt-delay-hydration',
-      {
-        // mode: 'manual',
-        mode: 'init',
-        debug: process.env.NODE_ENV === 'development'
-      }
-    ],
-    [
-      '@nuxtjs/device',
-      {
-        refreshOnResize: true
-      }
-    ], 
-    '@nuxtjs/fontaine',
-    [
-      '@nuxtjs/google-fonts',
-      {
-        families: {
-          Rubik: {
-            wght: [300, 400, 500, 700]
-          },
+    ], //   '@nuxtjs/partytown',
+  //   {
+  //     debug: process.env.NODE_ENV === 'development',
+  //     forward: ['dataLayer.push']
+  //   }
+  // ],
+  [
+    'nuxt-delay-hydration',
+    {
+      // mode: 'manual',
+      mode: 'init',
+      debug: process.env.NODE_ENV === 'development'
+    }
+  ], [
+    '@nuxtjs/device',
+    {
+      refreshOnResize: true
+    }
+  ], '@nuxtjs/fontaine', [
+    '@nuxtjs/google-fonts',
+    {
+      families: {
+        Rubik: {
+          wght: [300, 400, 500, 700]
         },
-        display: 'swap',
-        preload: true
-      }
-    ], [
+      },
+      display: 'swap',
+      preload: true
+    }
+  ], [
       '@nuxt/image',
       {
         provider: process.env.IMAGE_PROVIDER || "ipx",
@@ -164,47 +159,42 @@ export default defineNuxtConfig({
           'defineStore',
         ],
       },
-    ], 
-    '@pinia-plugin-persistedstate/nuxt', 
-    // '@nuxtjs/i18n',
-    [
-      '@nuxtjs/i18n',
-      {
-        baseUrl: 'https://djini.com.ua',
-        defaultLocale: 'uk',
-        lazy: true,
-        langDir: './lang',
-        locales: [
-          {
-            iso: 'uk-UA',
-            code: 'uk',
-            file: 'uk.yaml',
-            name: 'Українська',
-            shortName: 'Укр',
-            isCatchallLocale: true
-          },
-          {
-            iso: 'ru-RU',
-            code: 'ru',
-            file: 'ru.yaml',
-            name: 'Русский',
-            shortName: 'Рус',
-            isCatchallLocale: true
-          }
-        ]
-      }
-    ],
-    '@nuxt/content',
-    // [
-    //   '@nuxt/content', 
-    //   {
-    //     defaultLocale: 'ru',
-    //     locales: ['uk','ru'],
-    //     navigation: false
-    //   }
-    // ],
-    "@nuxtjs/seo"
-  ],
+    ], '@pinia-plugin-persistedstate/nuxt', // '@nuxtjs/i18n',
+  [
+    '@nuxtjs/i18n',
+    {
+      baseUrl: 'https://djini.com.ua',
+      defaultLocale: 'uk',
+      lazy: true,
+      langDir: './lang',
+      locales: [
+        {
+          iso: 'uk-UA',
+          code: 'uk',
+          file: 'uk.yaml',
+          name: 'Українська',
+          shortName: 'Укр',
+          isCatchallLocale: true
+        },
+        {
+          iso: 'ru-RU',
+          code: 'ru',
+          file: 'ru.yaml',
+          name: 'Русский',
+          shortName: 'Рус',
+          isCatchallLocale: true
+        }
+      ]
+    }
+  ], '@nuxt/content', // [
+  //   '@nuxt/content', 
+  //   {
+  //     defaultLocale: 'ru',
+  //     locales: ['uk','ru'],
+  //     navigation: false
+  //   }
+  // ],
+  "@nuxtjs/seo", '@pinia/nuxt'],
 
   experimental: {
     renderJsonPayloads: false,
