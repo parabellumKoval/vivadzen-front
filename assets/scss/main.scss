@@ -15,14 +15,14 @@
   -o-appearance: none;
   appearance: none;
 
-  pointer-events: none;
-  touch-action: pan-left, pan-right, pan-up, pan-down, pan-x, pan-y;
+  // pointer-events: none;
+  // touch-action: pan-left, pan-right, pan-up, pan-down, pan-x, pan-y;
 
 
-  @include _desktop {
-    pointer-events: all;
-    touch-action: auto;
-  }
+  // @include _desktop {
+  //   pointer-events: all;
+  //   touch-action: auto;
+  // }
 }
 
 input,
