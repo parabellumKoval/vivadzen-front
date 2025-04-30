@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       imagesDir: '/server/uploads/images',
       noimage: '/images/noimage.png',
       staticImageProvider: process.env.STATIC_IMAGE_PROVIDER,
-      appVersion: '1.0.5'
+      appVersion: '1.0.6'
     }
   },
 
@@ -32,16 +32,6 @@ export default defineNuxtConfig({
       'composables/**'
     ]
   },
-  // hooks: {
-  //   async 'pages:extend' (pages) {
-  //     const routes = await fetchCategories()
-
-  //     // add a route
-  //     routes.forEach((page) => {
-  //       pages.push(page)
-  //     })
-  //   }
-  // },
 
   app: {
     head: {
