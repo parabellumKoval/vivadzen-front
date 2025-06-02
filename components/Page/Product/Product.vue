@@ -411,6 +411,7 @@ onBeforeUnmount(() => {
           <lazy-product-params-box
             v-if="tab === 1 && product.attrs && product.attrs.length"
             :items="allAttrs.slice(0,3)"
+            @more="changeTabHandler(3)"
             class="content-params"
           ></lazy-product-params-box>
         </transition>

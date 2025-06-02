@@ -158,6 +158,7 @@
     height: 50vw;
     margin: 0 -5px;
     border-radius: $radius;
+    background: $color-8;
 
     @include _tablet {
       width: calc(100% + 30px);

@@ -43,12 +43,12 @@ setSeo()
       link="/catalog?selections=in_stock&order_by=sales"
     ></section-slider-products>
 
-    <lazy-section-slider-products
+    <section-slider-products
       :title="t('sale')"
       :query="saleQuery"
       :fetchOptions="{key:'sale'}"
       link="/catalog?selections=with_sales&selections=in_stock"
-    ></lazy-section-slider-products>
+    ></section-slider-products>
 
     <lazy-section-category></lazy-section-category>
     

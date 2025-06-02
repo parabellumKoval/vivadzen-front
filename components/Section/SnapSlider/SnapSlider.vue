@@ -27,9 +27,9 @@ const props = defineProps({
 const simpleSnapSliderRef = ref(null)
 
 const pagination = ref({
-  isActive: false,
+  isActive: true,
   activeIndex: 0,
-  total: 0,
+  total: 2,
   progress: 0
 })
 

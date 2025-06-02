@@ -15,7 +15,7 @@
     scroll-padding-right: 15px;
   
     @include _tablet {
-      grid-template-columns: repeat(2, minmax(min-content, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       width: 100%;
       margin: 0;
       overflow-x: initial;
@@ -24,10 +24,17 @@
     }
     
     @include _desktop {
-      grid-template-columns: repeat(4, minmax(min-content, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       grid-gap: 20px;
     }
 
+    @include _ld {
+      grid-template-columns: repeat(5, minmax(min-content, 1fr));
+    }
+
+    @include _xld {
+      grid-template-columns: repeat(6, minmax(min-content, 1fr));
+    }
   }
 
   &-item {
@@ -54,7 +61,29 @@
       &:last-child {
         margin-right: 0;
       }
+      
+      &:nth-child(n + 5) {
+        display: none;
+      }
     }
+
+    @include _ld {
+      &:nth-child(n + 5) {
+        display: block;
+      }
+
+      &:nth-child(n + 6) {
+        display: none;
+      }
+    }
+
+
+    @include _xld {
+      &:nth-child(n + 6) {
+        display: block;
+      }
+    }
+
   }
 }
 

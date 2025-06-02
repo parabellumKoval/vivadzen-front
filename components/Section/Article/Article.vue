@@ -4,7 +4,7 @@ import {useArticleStore} from '~/store/article'
 const {t} = useI18n()
 const articles = ref([])
 
-const {data: dataArticles} = await useArticleStore().indexLazy({per_page: 4})
+const {data: dataArticles} = await useArticleStore().indexLazy({per_page: 6})
 
 watch(dataArticles, (v) => {
   if(v?.data) {

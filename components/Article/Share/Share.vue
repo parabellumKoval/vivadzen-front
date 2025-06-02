@@ -12,6 +12,7 @@ const url = computed(() => {
 })
 
 const facebookLink = computed(() => {
+  console.log('url.value', url.value)
   return `https://www.facebook.com/sharer/sharer.php?u=${url.value}`
 })
 

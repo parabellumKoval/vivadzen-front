@@ -20,7 +20,7 @@ const faq = computed(() =>{
   if(popularProducts.value?.length) {
     list.push({
       id: 1,
-      q: t('popular_q', {category: props.categoryData.category?.name?.toLowerCase()}),
+      q: t('popular_q', {category: props.categoryData.category?.name?.toLowerCase(), year: new Date().getFullYear()}),
       a: [
         t('popular_a', {category: props.categoryData.category?.name?.toLowerCase()}) + ':',
         popularProducts.value

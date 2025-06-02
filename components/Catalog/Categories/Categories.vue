@@ -28,7 +28,7 @@ const props = defineProps({
         quality = "60"
         loading = "lazy"
         fit="outside"
-        :placeholder="useImg().noImage"
+        :placeholder="useImg().noImageGray"
         class="category-image"
       >
       </nuxt-img>

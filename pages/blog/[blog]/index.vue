@@ -141,7 +141,7 @@ setSeo()
               :title = "article.image.title || article.name"
               width="800"
               height="400"
-              sizes = "mobile:100vw tablet:100vw desktop:800px"
+              sizes = "mobile:100vw tablet:100vw desktop:800px xl:1400px"
               format = "webp"
               quality = "60"
               loading = "lazy"

@@ -5,6 +5,7 @@ export const useImg = () => {
   // })
 
   const noImage = useRuntimeConfig().public.noimage
+  const noImageGray = useRuntimeConfig().public.noimagegray
   const provider = useRuntimeConfig().public.staticImageProvider
 
 
@@ -38,6 +39,7 @@ export const useImg = () => {
 
   return {
     noImage: noImage,
+    noImageGray: noImageGray,
     provider: provider,
     folderSrc,
     category,

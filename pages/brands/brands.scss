@@ -31,12 +31,12 @@
 
   &-list {
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 30px;
     grid-row-gap: 15px;
 
     @include _desktop {
-      grid-template-columns: repeat(6, 20%);
+      grid-template-columns: repeat(6, 1fr);
     }
   }
 

@@ -70,7 +70,7 @@ setCrumbs()
     </template>
 
     <template #header>
-      <catalog-categories :categories="categories"></catalog-categories>
+      <lazy-catalog-categories :categories="categories"  class="full-container"></lazy-catalog-categories>
     </template>
   </NuxtLayout>
 </template>

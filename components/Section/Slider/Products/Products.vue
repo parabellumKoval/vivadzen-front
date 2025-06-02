@@ -37,7 +37,7 @@ const options = ref({
 //     products.value = data.value.products
 //   }
 // })
-const {data: tempData} = await useProductStore().indexLazy(props.query, props.fetchOptions)
+const {data: tempData} = await useProductStore().index(props.query, props.fetchOptions)
 
 watch(tempData, (v) => {
   if(v?.products?.data) {

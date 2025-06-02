@@ -7,6 +7,11 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['more'])
+
+const paramsHandler = () => {
+  emit('more')
+}
 </script>
 
 <style src="./../../box.scss" lang="scss" scoped></style>

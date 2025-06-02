@@ -83,11 +83,11 @@ const query = computed(() => {
 // METHODS
 const setSeo = () => {
   useHead({
-    title: brand.value.seo.meta_title || t('seo_title_template', {brand: brand.value.name}),
+    title: brand.value?.seo?.meta_title || t('seo_title_template', {brand: brand.value?.name}),
     meta: [
       {
         name: 'description',
-        content: brand.value.seo.meta_description || t('seo_desc_template', {brand: brand.value.name})
+        content: brand.value?.seo?.meta_description || t('seo_desc_template', {brand: brand.value?.name})
       },
     ],
   })
@@ -222,6 +222,7 @@ setSeo()
   <NuxtLayout
     name="catalog"
     :breadcrumbs="breadcrumbs"
+    :noFilters="true"
     :filters="attributes"
     :filters-meta="filtersMeta"
     :filters-meta-init="filtersMetaInit"
@@ -233,16 +234,16 @@ setSeo()
     :updatePageCallback = "updatePageHandler"
   >
     <template #title>
-      <template v-if="brand.seo.h1">
-        {{ brand.seo.h1 }}
+      <template v-if="brand?.seo?.h1">
+        {{ brand?.seo?.h1 }}
       </template>
       <template v-else>
-        {{ t('company_prod') }} {{ brand.name }}
+        {{ t('company_prod') }} {{ brand?.name }}
       </template>
     </template>
 
     <template #header>
-      <div v-if="brand.content || brand.image" class="container">
+      <div v-if="brand?.content || brand?.image" class="container">
         <div class="brand-content">
           <div></div>
           <catalog-brand :item="brand"></catalog-brand>
