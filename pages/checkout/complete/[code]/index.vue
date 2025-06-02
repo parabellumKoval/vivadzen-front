@@ -61,6 +61,8 @@ useAsyncData('show-order', async() => await useOrderStore().getOrder(code.value)
   })
 
 
+useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: order.value.price, code: order.value.code})
+
 useCartStore().$reset()
 </script>
 

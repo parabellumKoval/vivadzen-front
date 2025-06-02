@@ -10,6 +10,8 @@ export const useCart = (productData: Product) => {
       ...productData,
       amount: count
     }
+    
+    useGoogleEvent().setEvent('AddToCart', productData)
 
     useCartStore().add(data).then(() => {
     

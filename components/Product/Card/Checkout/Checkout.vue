@@ -18,6 +18,9 @@ const deleteHandler = () => {
   useNoty().setNoty({
     content: t('noty.product_delete_cart', {product: props.item.name})
   }, 1000)
+
+
+  useGoogleEvent().setEvent('RemoveFromCart', props.item)
 }
 </script>
 

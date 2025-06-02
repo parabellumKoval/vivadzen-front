@@ -42,6 +42,12 @@ declare global {
     telegram: string | null
   };
 
+  type Brand = {
+    id: number,
+    name: string,
+    slug: string
+  };
+
   type Feedback = {
     name: string,
     phone: string,

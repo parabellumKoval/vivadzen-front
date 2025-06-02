@@ -154,6 +154,9 @@ watch(() => user.value, (v) => {
 // Reset errors
 useCartStore().clearErrors()
 setUserData()
+
+
+useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: total.value})
 </script>
 
 <style src="./checkout.scss" lang="scss" scoped></style>
