@@ -227,6 +227,36 @@ const getReviews = async (query, refresh) => {
   })
 }
 
+const setGoogleEvent = () => {
+  if (process.client && window.dataLayer) {
+    let data = {
+        currency: "UAH",
+        value: props.product?.price,
+        items: [
+          {
+            item_id: props.product?.code,
+            item_name: props.product?.name,
+            item_brand: props.product?.brand?.name || '',
+            price: props.product?.price,
+            quantity: 1
+          }
+        ]
+    }
+
+    if(props.product?.categories) {
+      props.product.categories.forEach((cat, index) => {
+        data.items[0]['item_category' + (index + 1)] = cat.name
+      })
+    }
+
+    window.dataLayer.push({ ecommerce: null });
+    window.dataLayer.push({
+      event: "view_item",
+      ecommerce: data
+    });
+  }
+}
+
 // FETCH
 await useAsyncData('product_reviews', () => useReviewStore().getAll(reviewQuery.value, true)).then(({data, error}) => {
   if(data?.value?.reviews) {
@@ -245,6 +275,7 @@ onServerPrefetch(() => {
 
 setSeo()
 setCrumbs()
+setGoogleEvent()
 
 // Set mobile Search
 onBeforeMount(() => {

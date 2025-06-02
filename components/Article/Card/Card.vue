@@ -34,7 +34,7 @@ const loading = computed(() => {
       height = "260"
       sizes = "mobile:70vw tablet:230px desktop:300px"
       format = "avif"
-      quality = "30"
+      quality = "60"
       :loading = "loading"
       fit = "outside"
       :placeholder="useImg().noImage"
