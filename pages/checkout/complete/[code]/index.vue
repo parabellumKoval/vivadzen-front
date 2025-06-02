@@ -58,10 +58,8 @@ const products = computed(() => {
 useAsyncData('show-order', async() => await useOrderStore().getOrder(code.value))
   .then(({data, error}) => {
     order.value = data.value
+    useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: order.value.price, code: order.value.code})
   })
-
-
-useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: order.value.price, code: order.value.code})
 
 useCartStore().$reset()
 </script>
