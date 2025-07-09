@@ -28,6 +28,7 @@ const breadcrumbs = [
 
 const errorHtml = ref(null)
 const authType = ref('new')
+const rules = ref(null)
 
 // COMPUTEDS
 const products = computed(() => {
@@ -87,10 +88,54 @@ const auth = computed(() => {
   return useAuthStore().auth
 })
 
-// METHODS
-const clearError = (key) => {
+/**
+ * computed-свойство, которое определяет:
+ * — если в rules.user.children.firstname.required === true → true
+ * — иначе, если есть requiredIf: { field, values } → см. order[field] и values.includes(...)
+ * — иначе → false
+ */
+// const isUserFirstNameRequired = computed(() => {
+//   console.log('rules', rules.value)
+//   return isFieldRequired('user.children.firstname')
+// })
 
+
+// METHODS
+const isFieldRequired = (rulePath) => {
+  // 5.1) Достаём объект правила
+  const ruleObj = getRuleByPath(rulePath)
+  if (!ruleObj) {
+    return false
+  }
+
+  // 5.2) Если явно required: true
+  if (ruleObj.required) {
+    return true
+  }
+
+  // 5.3) Если есть условие requiredIf
+  if (ruleObj.requiredIf) {
+    const { field, values } = ruleObj.requiredIf
+    const otherValue = getFieldValue(field)
+    return values.includes(otherValue)
+  }
+
+  // 5.4) В остальных случаях — не обязательное
+  return false
 }
+
+const getRuleByPath = (rulePath) => {
+  return rulePath
+    .split('.')
+    .reduce((acc, segment) => (acc && acc[segment] !== undefined ? acc[segment] : null), rules.value)
+}
+
+const getFieldValue = (path) => {
+  return path
+    .split('.')
+    .reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : null), order.value)
+}
+
 
 const scrollHandler = (item) => {
   nextTick(() => {
@@ -133,8 +178,39 @@ watch(() => order.value.delivery.settlement, (v) => {
   order.value.delivery.street = null
 })
 
+// Change delivery method
 watch(() => order.value.delivery.method, (v) => {
+  let shipping = ''
+
+  if(v === 'pickup') {
+    shipping = 'Pickup'
+  }else if(v === 'address') {
+    shipping = 'Novaposhta to address'
+  }else if(v === 'warehouse') {
+    shipping = 'Novaposhta to warehouse'
+  }
+
+  useGoogleEvent().setEvent('АddShippingInfo', {products: products.value, total: total.value, shipping: shipping })
+
   errors.value.delivery = {}
+}, {
+  immediate: true
+})
+
+// Change payment method
+watch(() => order.value.payment.method, (v) => {
+  let payment = ''
+
+  if(v === 'online') {
+    payment = 'Monobank online'
+  }else if(v === 'cash') {
+    payment = 'Novaposhta cash'
+  }
+  useGoogleEvent().setEvent('АddPaymentInfo', {products: products.value, total: total.value, payment: payment })
+  
+  errors.value.delivery = {}
+}, {
+  immediate: true
 })
 
 watch(() => authType.value, (v) => {
@@ -155,6 +231,10 @@ watch(() => user.value, (v) => {
 useCartStore().clearErrors()
 setUserData()
 
+useAsyncData('get-rules', async() => await useCartStore().rules())
+  .then(({data, error}) => {
+    rules.value = data.value
+  })
 
 useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: total.value})
 </script>
@@ -207,6 +287,7 @@ useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: tot
                 :error="errors?.user?.firstname"
                 @input="() => errors?.user?.firstname && (errors.user.firstname = null)"
                 :placeholder="t('form.firstname')"
+                :required="isFieldRequired('user.children.firstname')"
               ></form-text>
               <form-text
                 v-if="!auth"
@@ -214,18 +295,21 @@ useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: tot
                 :error="errors?.user?.lastname"
                 @input="() => errors?.user?.lastname && (errors.user.lastname = null)"
                 :placeholder="t('form.lastname')"
+                :required="isFieldRequired('user.children.lastname')"
               ></form-text>
-              <form-text
+              <form-phone
                 v-model="order.user.phone"
                 :error="errors?.user?.phone"
                 @input="() => errors?.user?.phone && (errors.user.phone = null)"
                 :placeholder="t('form.phone')"
-              ></form-text>
+                :required="isFieldRequired('user.children.phone')"
+              ></form-phone>
               <form-text
                 v-model="order.user.email"
                 :error="errors?.user?.email"
                 @input="() => errors?.user?.email && (errors.user.email = null)"
                 :placeholder="t('form.email')"
+                :required="isFieldRequired('user.children.email')"
               ></form-text>
             </div>
 
@@ -250,12 +334,14 @@ useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: tot
                   v-model="order.delivery"
                   :error="errors?.delivery?.settlement"
                   @input="() => errors?.delivery?.settlement && (errors.delivery.settlement = null)"
+                  :required="isFieldRequired('delivery.children.settlement')"
                 ></form-novaposhta-settlement>
 
                 <form-novaposhta-warehouse
                   v-model="order.delivery"
                   :error="errors?.delivery?.warehouse"
                   @input="() => errors?.delivery?.warehouse && (errors.delivery.warehouse = null)"
+                  :required="isFieldRequired('delivery.children.warehouse')"
                 ></form-novaposhta-warehouse>
               </div>
               <!-- Address delivery -->
@@ -264,29 +350,34 @@ useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: tot
                   v-model="order.delivery"
                   :error="errors?.delivery?.settlement"
                   @input="() => errors?.delivery?.settlement && (errors.delivery.settlement = null)"
+                  :required="isFieldRequired('delivery.children.settlement')"
                 ></form-novaposhta-settlement>
                 <form-novaposhta-street
                   v-model="order.delivery"
                   :error="errors?.delivery?.street"
                   @input="() => errors?.delivery?.street && (errors.delivery.street = null)"
+                  :required="isFieldRequired('delivery.children.street')"
                 ></form-novaposhta-street>
                 <form-text
                   v-model="order.delivery.house"
                   :error="errors?.delivery?.house"
                   @input="() => errors?.delivery?.house && (errors.delivery.house = null)"
                   :placeholder="t('form.delivery.house')"
+                  :required="isFieldRequired('delivery.children.house')"
                 ></form-text>
                 <form-text
                   v-model="order.delivery.room"
                   :error="errors?.delivery?.room"
                   @input="() => errors?.delivery?.room && (errors.delivery.room = null)"
                   :placeholder="t('form.delivery.room')"
+                  :required="isFieldRequired('delivery.children.room')"
                 ></form-text>
                 <form-text
                   v-model="order.delivery.zip"
                   :error="errors?.delivery?.zip"
                   @input="() => errors?.delivery?.zip && (errors.delivery.zip = null)"
                   :placeholder="t('form.delivery.zip')"
+                  :required="isFieldRequired('delivery.children.zip')"
                 ></form-text>
               </div>
               <!-- Pickup delivery -->

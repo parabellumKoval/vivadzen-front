@@ -38,6 +38,7 @@ setSeo()
 
     <section-slider-products
       :title="t('top')"
+      list-id="top-products"
       :query="topQuery"
       :fetchOptions="{key:'top'}"
       link="/catalog?selections=in_stock&order_by=sales"
@@ -45,12 +46,13 @@ setSeo()
 
     <section-slider-products
       :title="t('sale')"
+      list-id="promotional-products"
       :query="saleQuery"
       :fetchOptions="{key:'sale'}"
       link="/catalog?selections=with_sales&selections=in_stock"
     ></section-slider-products>
 
-    <lazy-section-category></lazy-section-category>
+    <!-- <lazy-section-category></lazy-section-category> -->
     
     <div class="container">
       <lazy-section-review></lazy-section-review>

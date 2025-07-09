@@ -1,11 +1,7 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .radio {
   display: flex;
   align-items: flex-start;
   cursor: pointer;
-
   &-custom {
     position: relative;
     display: flex;
@@ -19,30 +15,24 @@
     background: $color-bg;
     margin-right: 15px;
     transition: border-color $speed, background $speed;
-  
     .icon {
       opacity: 0;
       color: $color-0;
       transition: opacity $speed;
     }
-
     &:hover {
       background: $color-green;
     }
   }
 }
-
-
 .input-radio {
   position: absolute;
   left: 0px;
   top: 0px;
   opacity: 0;
-
   &:checked {
     & + .radio-custom {
       border: 1px solid $color-0;
-
       .icon {
         opacity: 1;
       }

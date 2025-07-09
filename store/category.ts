@@ -48,6 +48,14 @@ export const useCategoryStore = defineStore('categoryStore', {
           return data.data
         }
       })
+    },
+
+
+    async showCached(slug: string) {
+      const url = `${useRuntimeConfig().public.apiBase}/category_cached/${slug}`
+
+      return await useServerApiFetch(url)
     }
+
   },
 })

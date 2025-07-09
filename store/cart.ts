@@ -34,7 +34,8 @@ export const useCartStore = defineStore('cartStore', {
         lastname: null,
       },
       comment: null,
-      promocode: null
+      promocode: null,
+      provider: 'data'
     },
     
     data: [] as Product[],
@@ -233,6 +234,23 @@ export const useCartStore = defineStore('cartStore', {
       }
     },
 
+
+    async rules() {
+      const url = `${useRuntimeConfig().public.apiBase}/order/rules`
+      
+      return await useApiFetch(url)
+        .then(({data, error}) => {
+
+          if(data.value) {
+            return data.value
+          }
+
+          if(error.value) {
+            throw error
+          }
+
+        })
+    },
 
     async validate(orderable: Object) {
       const url = `${useRuntimeConfig().public.apiBase}/order/validate`

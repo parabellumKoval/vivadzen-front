@@ -1,16 +1,11 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .wrapper {
   position: relative;
   left: -50%;
   transform: translateX(50%);
-
-  @include _desktop {
+  @include desktop {
     transform: initial;
     left: initial;
   }
-
   &.full {
     .modal-inner {
       width: 100vw;
@@ -20,18 +15,15 @@
       padding: 20px 15px;
       border-radius: 0;
     }
-
     .modal-slot {
       max-height: 100%;
       height: calc(100% - 55px);
     }
-
     .close-btn {
       right: 0;
     }
   }
 }
-
 .modal{
   &-inner {
     width: 100%;
@@ -41,35 +33,28 @@
     padding: 20px 20px;
     background-color: $color-bg;
     border-radius: $radius $radius 0 0;
-
-    @include _desktop {
+    @include desktop {
       padding: 50px 50px;
       border-radius: $radius;
     }
-
-    @include _scrollbar
+    @include scrollbar;
   }
-
   &-slot {
     display: flex;
     max-height: calc(100vh - 170px);
-
-    @include _desktop {
+    @include desktop {
     }
   }
 }
-
 .close-btn {
   position: absolute;
   width: 40px;
   top: 10px;
   right: 10px;
   z-index: 5;
-
-  @include _desktop {
+  @include desktop {
     display: none;
   }
-
   &-inner {
     display: flex;
     align-items: center;
@@ -81,20 +66,17 @@
     background: $color-7;
   }
 }
-
 .title {
   margin: 0 0 30px 0;
   font-size: 20px;
   line-height: 120%;
   font-weight: 400;
   text-transform: uppercase;
-  
-  @include _desktop {
+  @include desktop {
     margin: 0 0 20px 0;
     font-size: 24px;
   }
 }
-
 .description {
   margin: 0 0 20px 0;
   font-size: 16px;

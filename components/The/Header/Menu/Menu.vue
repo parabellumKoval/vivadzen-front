@@ -1,9 +1,11 @@
 <script setup>
 const openHandler = (event) => {
   if(useDevice().isMobile) {
-    useModal().open(resolveComponent('ModalMenuMobile'))
+    const component = defineAsyncComponent(() => import('~/components/Modal/Menu/Mobile/Mobile.vue'))
+    useModal().open(component)
   }else {
-    useModal().open(resolveComponent('ModalMenuInfo'), null, event.target.closest('[modalable]'), {width: {
+    const component = defineAsyncComponent(() => import('~/components/Modal/Menu/Info/Info.vue'))
+    useModal().open(component, null, event.target.closest('[modalable]'), {width: {
       min: 420, max: 420
     }})
   }

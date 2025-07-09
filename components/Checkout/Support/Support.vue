@@ -3,6 +3,7 @@
 // import {Vue3Lottie} from 'vue3-lottie'
 
 const {t} = useI18n()
+const localePath = useLocalePath()
 
 const ctaElement = ref(null)
 const lottieElement = ref(null)

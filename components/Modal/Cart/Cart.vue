@@ -2,6 +2,7 @@
 import {useCartStore} from '~/store/cart'
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 
 const products = computed(() => {

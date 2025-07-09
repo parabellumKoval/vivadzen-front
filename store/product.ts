@@ -72,6 +72,25 @@ export const useProductStore = defineStore('productStore', {
       return useApiFetch(url, query, 'GET', allOptions)
     },
 
+    async catalogFilters(query: Object) {
+      const url = useRuntimeConfig().public.apiBase + '/product/catalog'
+      return await useApiFetch(url, query, 'GET', {lazy: false}).then(({data}) => {
+        return data.value
+      })
+    },
+
+    async prices(query: Object) {
+      const url = useRuntimeConfig().public.apiBase + '/product/prices'
+      return await useApiFetch(url, query, 'GET', {lazy: false}).then(({data}) => {
+        return data.value
+      })
+    },
+
+    async catalog(query: Object) {
+      const url = useRuntimeConfig().public.apiBase + '/product/catalog'
+      return await useApiFetch(url, query, 'GET', {lazy: false})
+    },
+
     async index(query: Object) {
       const url = useRuntimeConfig().public.apiBase + '/product'
       return await useApiFetch(url, query, 'GET', {lazy: false})
@@ -132,14 +151,7 @@ export const useProductStore = defineStore('productStore', {
     async show(slug: string) {
       const url = `${useRuntimeConfig().public.apiBase}/product/${slug}`;
 
-      return await useServerApiFetch(url).then(({data, error}) => {
-        if(data) {
-          return data
-        }
-        
-        if(error)
-          throw new Error(error)
-      })
+      return await useApiFetch(url, null, 'GET', {lazy: false})
     },
 
   },

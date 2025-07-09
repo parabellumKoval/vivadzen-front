@@ -1,83 +1,68 @@
-// MOBILE FIRST
+@use './vars' as *;
+@use 'sass:color';
 
-@mixin _tablet {
+// MOBILE FIRST
+@mixin tablet {
   @media (min-width: 768px) {
     @content;
   }
 }
-
-@mixin _desktop {
+@mixin desktop {
   @media (min-width: 1024px) {
     @content;
   }
 }
-
-@mixin _ld {
+@mixin ld {
   @media (min-width: 1441px) {
     @content;
   }
 }
-
-@mixin _xld {
+@mixin xld {
   @media (min-width: 1920px) {
     @content;
   }
 }
-
 //
-
-@mixin _scrollbar {
+@mixin scrollbar {
   &::-webkit-scrollbar {
     width: 5px;
   }
-
   &::-webkit-scrollbar-track {
     background: rgba(0,0,0,0);
     border-radius: 3px;
   }
-
   &::-webkit-scrollbar-thumb {
-    background: scale-color($color-primary, $lightness: 60%);
-
+    background: color.scale($color-primary, $lightness: 60%);
     &:hover {
       background: $color-primary;
     }
   }
 }
-
-
-@mixin _scrollbar-x {
+@mixin scrollbar-x {
   &::-webkit-scrollbar {
     height: 7px;
   }
-
   &::-webkit-scrollbar-track {
     background: rgba(0,0,0,0);
     border-radius: 3px;
   }
-
   &::-webkit-scrollbar-thumb {
-    background: scale-color($color-primary, $lightness: 60%);
-
+    background: color.scale($color-primary, $lightness: 60%);
     &:hover {
       background: $color-primary;
     }
   }
 }
-
-@mixin _scrollbar-secondary {
+@mixin scrollbar-secondary {
   &::-webkit-scrollbar {
     width: 5px;
   }
-
   &::-webkit-scrollbar-track {
     background: rgba(0,0,0,0);
     border-radius: 3px;
   }
-
   &::-webkit-scrollbar-thumb {
     background: $color-6;
-
     &:hover {
       background: $color-4;
     }

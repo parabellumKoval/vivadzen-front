@@ -1,30 +1,23 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .wrapper {
   display: grid;
   grid-template-columns: 80px 1fr;
   grid-gap: 15px;
   width: 100%;
-
-  @include _desktop {
+  @include desktop {
     grid-template-columns: 165px 1fr;
     grid-gap: 30px;
   }
 }
-
 .image {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: $radius;
-
   &-wrapper {
     width: 80px;
     height: 80px;
     flex-shrink: 0;
-
-    @include _desktop {
+    @include desktop {
       width: 165px;
       height: 136px;
       grid-row-start: 1;
@@ -32,7 +25,6 @@
     }
   }
 }
-
 .remove{
   &-btn {
     display: inline-block;
@@ -40,7 +32,6 @@
     color: $color-red;
     font-size: 14px;
     border-bottom: 1px dashed $color-red;
-
     &:hover {
       opacity: 0.8;
     }
@@ -54,15 +45,12 @@
   align-content: center;
   grid-gap: 5px;
   width: 100%;
-
-  @include _desktop {
+  @include desktop {
     grid-template-rows: min-content min-content;
   }
-
   .code {
     margin-bottom: 0;
   }
-
   .name {
     display: -webkit-box;
     overflow: hidden;
@@ -72,9 +60,7 @@
     padding-right: 0;
     font-size: 12px;
     line-height: 140%;
-
-
-    @include _desktop {
+    @include desktop {
       height: 44px;
       padding-right: 120px;
       font-size: 16px;
@@ -82,8 +68,6 @@
     }
   }
 }
-
-
 .footer {
   display: grid;
   grid-template-columns: min-content 1fr min-content;
@@ -92,44 +76,35 @@
   grid-gap: 20px;
   grid-column-start: 1;
   grid-column-end: 3;
-
-  @include _desktop {
+  @include desktop {
     grid-column-start: initial;
     grid-column-end: initial;
     grid-column-start: 2;
     grid-row-start: 2;
   }
-
   .price {
     display: grid;
     grid-template-columns: min-content;
     justify-items: flex-end;
     grid-gap: 0;
-
-    @include _desktop {
+    @include desktop {
     }
-
     &-old {
       font-size: 10px;
       color: $color-4;
       text-decoration: line-through;
-
-      @include _desktop {
+      @include desktop {
         font-size: 14px;
       }
-
       &+.price-base {
         color: $color-red;
       }
     }
-
     &-base {
       font-size: 14px;
-
-      @include _desktop {
+      @include desktop {
         font-size: 20px;
       }
     }
   }
-  
 }

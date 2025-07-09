@@ -7,6 +7,10 @@ const props = defineProps({
   product: {
     type: Object,
     requered: true
+  },
+  pending: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -74,7 +78,7 @@ const allAttrs = computed(() => {
       name: 'Бренд',
       link: '/brands/' + props.product.brand.slug,
       type: 'string',
-      value: props.product.brand.name
+      value: props.product?.brand?.name
     })
   }
 
@@ -173,11 +177,11 @@ const scrollToContent = () => {
 
 const setSeo = () => {
   useHead({
-    title: props.product.seo.meta_title || t('seo_title_template', {product: props.product.name}),
+    title: props.product?.seo?.meta_title || t('seo_title_template', {product: props.product?.name}),
     meta: [
       {
         name: 'description',
-        content: props.product.seo.meta_description || t('seo_desc_template', {product: props.product.name})
+        content: props.product?.seo?.meta_description || t('seo_desc_template', {product: props.product?.name})
       },
     ],
   })
@@ -205,8 +209,8 @@ const setCrumbs = () => {
 
   // product
   breadcrumbs.value.push({
-      name: props.product.name,
-      item: props.product.slug    
+      name: props.product?.name,
+      item: props.product?.slug    
   })
 
 }
@@ -264,6 +268,8 @@ onBeforeUnmount(() => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
+  <!-- <div  style="opacity: 0.3; position:relative; left: 50%; transform: translateX(-50%);"> -->
+  <div v-if="product && !pending">
   <div class="container">
     <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
@@ -450,6 +456,7 @@ onBeforeUnmount(() => {
   <div class="content-box">
     <lazy-section-slider-products
       :title="t('simular')"
+      list-id="simular-products"
       :query="simularQuery"
       :fetchOptions="{key:'sale'}"
     ></lazy-section-slider-products>
@@ -458,4 +465,5 @@ onBeforeUnmount(() => {
 
   <!-- Sale block mobile   -->
   <lazy-product-sale-fixed v-if="$device.isMobile" :product="product"></lazy-product-sale-fixed>
+  </div>
 </template>

@@ -1,26 +1,19 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .price {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   line-height: 105%;
-
-  @include _desktop {
+  @include desktop {
     align-items: flex-end;
   }
-
   &.left {
-    @include _desktop {
+    @include desktop {
       align-items: flex-start;
     }
   }
-
   .pr {
     font-size: 1.3em;
   }
-
   .old-pr {
     :deep(.value) {
       font-weight: 100;
@@ -28,7 +21,6 @@
       text-decoration: line-through;
       color: $color-2;
     }
-
     & + .pr {
       color: $color-red;
     }

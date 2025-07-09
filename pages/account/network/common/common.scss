@@ -1,5 +1,4 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
+@use "sass:color";
 
 .header {
   display: grid;
@@ -8,56 +7,46 @@
   background: $color-8;
   padding: 15px;
   border-radius: $radius $radius 0 0;
-
-  @include _desktop {
+  @include desktop {
     padding: 0;
     grid-template-columns: repeat(2, min-content) 1fr;
     grid-gap: 70px;
   }
-
   &-item {
     .label {
       font-size: 10px;
       text-transform: uppercase;
       white-space: nowrap;
-
-      @include _desktop {
+      @include desktop {
         margin: 0 0 10px 0;
       }
     }
-
     .value {
       display: flex;
       align-items: center;
       height: 40px;
-
-      @include _desktop {
+      @include desktop {
         height: 50px;
       }
-
       &-price,
       &-code {
         font-size: 18px;
         line-height: 130%;
-
-        @include _desktop {
+        @include desktop {
           font-size: 24px;
         }
       }
     }
-
     &-link {
       grid-column-start: 1;
       grid-column-end: 3;
-
-      @include _desktop {
+      @include desktop {
         grid-column-start: initial;
         grid-column-end: initial;
       }
     }
   }
 }
-
 .conds {
   margin: 0 0 20px 0;
   padding: 0 0 0 25px;
@@ -65,28 +54,23 @@
   background: $color-8;
   padding: 15px 15px 15px 30px;
   border-radius: 0 0 $radius $radius;
-
-  @include _desktop {
+  @include desktop {
     padding: 0 0 0 15px;
     margin: 35px 0;
   }
-
   &-item {
     margin: 0 0 10px 0;
     line-height: 145%;
   }
 }
-
 .percent {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
-
-  @include _desktop {
+  @include desktop {
     grid-template-columns: repeat(2, min-content);
     grid-gap: 25px;
   }
-
   &-item {
     display: grid;
     grid-template-columns: 60px 180px;
@@ -97,26 +81,22 @@
     border-radius: $radius;
     background: $color-8;
   }
-
   &-value {
     display: flex;
     align-items: center;
     height: 74px;
     font-size: 44px;
     font-weight: 700;
-    // color: scale-color($color-violet, $lightness: 40%);
+    // color: color.scale($color-violet, $lightness: 40%);
     color: $color-violet;
-
     .symbol {
       font-size: 20px;
       font-weight: 200;
     }
   }
-
   &-text {
     font-weight: 600;
     line-height: 145%;
-
     .select {
       color: $color-violet;
     }

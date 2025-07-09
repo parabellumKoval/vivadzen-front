@@ -1,5 +1,6 @@
 <script setup>
 import {useArticleStore} from '~/store/article'
+const localePath = useLocalePath()
 
 const {t} = useI18n()
 const articles = ref([])

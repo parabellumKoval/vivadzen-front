@@ -17,7 +17,8 @@ const showAuthHandler = () => {
   if(auth.value && user.value) {
     navigateTo(useLocalePath()('/account/settings'))
   } else {
-    useModal().open(resolveComponent('ModalAuthSocial'), null, null, {width: {
+    const component = defineAsyncComponent(() => import('~/components/Modal/Auth/Social/Social.vue'))
+    useModal().open(component, null, null, {width: {
       min: 420, max: 420
     }})
   }

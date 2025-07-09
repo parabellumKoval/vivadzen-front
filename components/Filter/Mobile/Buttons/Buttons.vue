@@ -9,26 +9,36 @@ const props = defineProps({
     type: Object,
     default: {}
   },
+  sortings: {
+    type: Array,
+    default: null
+  },
   updateOrderCallback: {
     default: null
   },
 })
 
-const {modelValue} = useFilterItem()
+const {activeFilters} = useFilter()
 
-const {options: sortingOptions} = useSort()
 const sortSelectedIndex = ref(1)
 const sort = ref({order_by: 'created_at', order_dir: 'desc'})
 
 // COMPUTEDS
 const activeFiltersLength = computed(() => {
-  return modelValue.value?.length || null
+  return activeFilters.value?.length || null
+})
+
+const sortingOptions = computed(() => {
+  if(props.sortings) {
+    return props.sortings
+  }
 })
 
 // METHODS
 // HANDLERS
 const openFiltersHandler = () => {
-  useModal().open(resolveComponent('ModalFilters'), props.data, null)
+  const component = defineAsyncComponent(() => import('~/components/Modal/Filters/Filters.vue'))
+  useModal().open(component, props.data, null)
 }
 
 // WATCH

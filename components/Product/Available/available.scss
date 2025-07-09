@@ -1,37 +1,28 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .available {
   position: relative;
   display: inline-block;
   text-align: right;
   white-space: nowrap;
   color: $color-green;
-
   .icon {
     margin: -2px 0 0px 0;
     font-size: 1.3em;
   }
-
   .in_stock {
     color: $color-green;
-
     & + .running_out {
       color: $color-red;
     }
   }
-
   .running_out {
     position: absolute;
     right: 0;
     color: $color-red;
     font-size: 12px;
   }
-
   .not_available {
     color: $color-2;
   }
-
   // &-item {
   //   & + .available-item {
   //     &:before {

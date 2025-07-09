@@ -3,7 +3,8 @@
 const { t } = useI18n()
 
 const openMenuHandler = () => {
-  useModal().open(resolveComponent('ModalCatalog'), null, null, {width: {
+  const component = defineAsyncComponent(() => import('~/components/Modal/Catalog/Catalog.vue'))
+  useModal().open(component, null, null, {width: {
     min: 'calc(100vw - 90px)',
     max: 'calc(100vw - 90px)'
   }})

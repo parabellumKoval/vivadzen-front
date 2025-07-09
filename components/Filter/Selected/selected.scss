@@ -1,5 +1,4 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
+@use "sass:color";
 
 .filter {
   &-wrapper {
@@ -7,15 +6,13 @@
     grid-template-columns: 1fr;
     align-items: center;
     grid-gap: 10px;
-
-    @include _desktop {
+    @include desktop {
       grid-template-columns: min-content 1fr;
       grid-gap: 20px;
       margin: 0;
       overflow: hidden;
     }
   }
-
   &-list {
     display: grid;
     grid-auto-flow: column;
@@ -25,8 +22,7 @@
     padding: 0 15px;
     width: 100vw;
     margin: 0 -15px;
-
-    @include _desktop {
+    @include desktop {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -34,16 +30,13 @@
       margin: 0;
       padding: 0;
       width: 100%;
-
-      @include _scrollbar;
+      @include scrollbar;
     }
   }
-
   &-label {
     color: $color-3;
     white-space: nowrap;
   }
-
   &-remove-all-btn {
     width: min-content;
     height: 34px;
@@ -52,16 +45,13 @@
     border: 1px solid $color-1;
     flex-shrink: 0;
   }
-
   &-remove-btn {
     font-size: 24px;
     transition: color $speed;
-
     &:hover {
       color: $color-red;
     }
   }
-
   &-item {
     display: grid;
     grid-template-columns: min-content 24px;
@@ -69,11 +59,10 @@
     grid-gap: 5px;
     height: 34px;
     padding: 0 5px 0 10px;
-    background: scale-color($color-blue, $lightness: 85%);
+    background: color.scale($color-blue, $lightness: 85%);
     border: 1px solid $color-8;
     border-radius: $radius;
     white-space: nowrap;
-
     &:last-child {
       margin-right: 0;
     }

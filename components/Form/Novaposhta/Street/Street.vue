@@ -11,6 +11,10 @@ const props = defineProps({
   error: {
     type: [Object, Array, String, Boolean],
     default: false
+  },
+  required: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -99,7 +103,7 @@ watch(() => settlement.value, (v) => {
       :is-disabled="isDisabled"
       list-value="street"
       list-key="streetRef"
-      required
+      :required="required"
     >
     </form-dropdown>
 

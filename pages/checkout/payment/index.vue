@@ -11,6 +11,7 @@ definePageMeta({
 });
 
 const {t} = useI18n()
+const localePath = useLocalePath()
 
 const breadcrumbs = [
   {

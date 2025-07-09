@@ -1,6 +1,7 @@
 <script setup>
 import {useAuthStore} from '~/store/auth';
 import {useReviewStore} from '~/store/review'
+const localePath = useLocalePath()
 
 const {t} = useI18n()
 

@@ -8,10 +8,6 @@ const props = defineProps({
     typy: Array,
     required: false
   },
-  metaInit: {
-    typy: Array,
-    required: false
-  },
   modelValue: {
     type: Array,
     default: []
@@ -49,10 +45,15 @@ const filtersComputed = computed(() => {
   return filters
 })
 
+
 // HANDLERS
 const searchHandler = (index, event) => {
   search.value.value = event
   search.value.index = index
+}
+
+const getSi = (f) => {
+  return f.si && f.si !== 'null'? `, ${f.si}`: ''
 }
 
 // METHODS
@@ -83,12 +84,12 @@ const getMeta = (id) => {
   return props.meta[id] || null
 }
 
-const getMetaInit = (id) => {
-  if(!props.metaInit)
-    return null
+// const getMetaInit = (id) => {
+//   if(!props.metaInit)
+//     return null
 
-  return props.metaInit[id] || null
-}
+//   return props.metaInit[id] || null
+// }
 
 const setOpened = () => {
   if(!filtersComputed.value?.length) {
@@ -112,6 +113,7 @@ watch(() => props.filters, () => {
   deep: true
 })
 
+
 const filterDoubleslider = resolveComponent('filter-type-doubleslider')
 const filterCheckbox = resolveComponent('filter-type-checkbox')
 const filterList = resolveComponent('filter-type-list')
@@ -125,13 +127,13 @@ const filterBrand = resolveComponent('filter-type-brand')
   <div class="filter-wrapper">
     <template v-for="(filter, index) in filtersComputed" >
       <div
-        v-if="filter.noMeta || getMetaInit(filter.id)"
+        v-if="filter.noMeta || getMeta(filter.id)"
         :key="filter.id"
         :class="{active: opened.includes(index)}"
         class="filter-item"
       >
         <button @click="toggleFilter(index)" class="filter-header">
-          <div class="filter-name">{{ filter.name }}{{ filter.si? `, ${filter.si}`: '' }}</div>
+          <div class="filter-name">{{ filter.name + getSi(filter) }}</div>
           <IconCSS name="iconoir:nav-arrow-down" class="filter-header-icon"></IconCSS>
         </button>
 
@@ -157,13 +159,11 @@ const filterBrand = resolveComponent('filter-type-brand')
             :is="filterDoubleslider"
             :filter="filter"
             :meta="getMeta(filter.id)"
-            :meta-init="getMetaInit(filter.id)"
           ></component>
           <component v-else-if="filter.type === 'checkbox' || filter.type === 'radio'"
             :is="filterCheckbox"
             :filter="filter"
             :meta="getMeta(filter.id)"
-            :meta-init="getMetaInit(filter.id)"
           ></component>
           <component v-else-if="filter.type === 'list'"
             :is="filterList"
@@ -176,6 +176,7 @@ const filterBrand = resolveComponent('filter-type-brand')
           <component v-else-if="filter.type === 'brand'"
             :is="filterBrand"
             :filter="filter"
+            :meta="getMeta(filter.id)"
           ></component>
         </div>
       </div>

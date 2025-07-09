@@ -1,12 +1,6 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
-
-
 .catalog-btn {
   display: none;
-  
-  @include _tablet {
+  @include tablet {
     display: grid;
     align-items: center;
     justify-content: center;
@@ -16,7 +10,6 @@
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
-  
     .text {
       white-space: nowrap;
     }

@@ -6,6 +6,10 @@ const props = defineProps({
     type: String,
     default: "Products"
   },
+  listId: {
+    type: String,
+    default: ''
+  },
   query: {
     type: Object
   },
@@ -20,7 +24,6 @@ const props = defineProps({
 
 const {t} = useI18n()
 
-const products = ref([])
 const options = ref({
   card: {
     width: {
@@ -30,37 +33,43 @@ const options = ref({
   }
 })
 
-// await useAsyncData('products-main-' + props.title, () => useProductStore().index(props.query))
-// .then(({data}) => {
-//   console.log('data', data)
-//   if(data?.value?.products) {
-//     products.value = data.value.products
-//   }
-// })
-const {data: tempData} = await useProductStore().index(props.query, props.fetchOptions)
-
-watch(tempData, (v) => {
-  if(v?.products?.data) {
-    products.value = v.products.data
+const isServer = process.server
+const { data: products, pending} = await useAsyncData(
+  'products-main-' + props.title,
+  async () => {
+    const response = await useProductStore().catalog(props.query)
+    return response.data.value.products.data
+  },{
+    lazy: !isServer,
+    server: true,
   }
-}, {
-  immediate: true,
-  deep: true
-})
+)
 
 const productCard = resolveComponent('ProductCard')
+const productCardSkeleton = resolveComponent('ProductCardSkeleton')
+
+const skeletonItems = Array.from({ length: 12 }, (_, i) => ({ id: 'skeleton-' + i }))
+
+watch(products, (newProducts) => {
+  if (newProducts && newProducts.length > 0) {
+    useGoogleEvent().setEvent('ViewItemList', {name: props.title, id: props.listId, products: newProducts})
+  }
+}, { immediate: true })
+
+// Provide list Data
+provide('list', {id: props.listId, name: props.title}); 
 </script>
 
 <style src="./products.scss" lang="scss" scoped></style>
 
 <template>
-  <section v-if="products && products.length" class="main-section">
+  <section class="main-section">
     <div class="section-title">{{ title }}</div>
 
     <div>
       <section-snap-slider
-        :items="products"
-        :component="productCard"
+        :items="pending ? skeletonItems : products"
+        :component="pending ? productCardSkeleton : productCard"
         :gutter="0"
         :options="options"
         :title="$t('button.view_all')"

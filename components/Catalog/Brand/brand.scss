@@ -1,19 +1,27 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .brand {
   &-wrapper {
+    overflow: hidden;
     display: grid;
     grid-template-columns: 1fr;
+    max-height: 320px;
     grid-gap: 30px;
     border: 1px solid $color-6;
     padding: 20px;
     border-radius: $radius;
 
-    @include _desktop {
+    @include desktop {
       grid-template-columns: 260px 1fr;
       padding: 25px;
+      max-height: 200px;
     }
+
+    &.active {
+      max-height: initial;
+    }
+  }
+
+  &-content {
+    position: relative;
   }
 
   &-name {
@@ -21,21 +29,8 @@
   }
 
   &-desc {
-    max-height: 0;
     overflow: hidden;
     line-height: 145%;
-
-    @include _desktop {
-      max-height: 50px;
-    }
-
-    &.active {
-      max-height: 100%;
-    }
-
-    &.full {
-      max-height: 100%;
-    }
   }
 
   &-image {
@@ -43,18 +38,33 @@
     height: 150px;
     object-fit: contain;
     border-radius: $radius;
-
-    @include _desktop {
+    @include desktop {
       width: 260px;
       height: 150px;
     }
-
     &-wrapper {
       height: fit-content;
     }
   }
 }
-
 .more-btn {
+  position: absolute;
+  top: 60px;
+  height: 40px;
+  width: 100%;
+  padding-bottom: 30px;
   margin: 20px 0 0 0;
+  display: flex;
+  background: $color-8;
+
+  @include desktop {
+    top: 94px;
+    padding-bottom: 0;
+    height: 30px;
+  }
+
+  &.active {
+    position: relative;
+    top: 0;  
+  }
 }

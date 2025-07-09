@@ -1,5 +1,6 @@
 import dynamicRoutes from './helpers/dynamicRoutes'
-// import fetchCategories from './helpers/fetchCategories'
+import fetchCategories from './helpers/fetchCategories'
+import path from 'path'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -8,12 +9,15 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   // Debug
-  debug: false,
+  debug: process.env.NODE_ENV === 'development'? true: false,
 
   appConfig: {},
 
   runtimeConfig: {
     public: {
+      supabaseUrl: process.env.SUPABASE_URL,
+      supabaseKey: process.env.SUPABASE_KEY,
+
       siteUrl: process.env.SITE_URL || 'https://djini.com.ua',
       frontendUrl: process.env.SITE_URL,
       novaposhtaKey: process.env.NOVAPOSHTA_KEY,
@@ -23,14 +27,23 @@ export default defineNuxtConfig({
       noimage: '/images/noimage.png',
       noimagegray: '/images/noimagegray.png',
       staticImageProvider: process.env.STATIC_IMAGE_PROVIDER,
-      appVersion: '1.0.6'
+      appVersion: '1.0.6',
+      i18n: {
+        locales: ['uk', 'ru']
+      }
     }
   },
 
   imports: {
+    // autoImport: false,
     dirs: [
       'composables',
-      'composables/**'
+      'composables/product',
+      'composables/review',
+      'composables/form',
+      'composables/fakers',
+      'composables/mockups'
+      // 'composables/**'
     ]
   },
 
@@ -56,21 +69,21 @@ export default defineNuxtConfig({
         //   async: true
         // },
 
-        {
-          type: 'text/javascript',
-          innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${process.env.GTM}');`
-        },
+//         {
+//           type: 'text/javascript',
+//           innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+// new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+// j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+// 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+// })(window,document,'script','dataLayer','${process.env.GTM}');`
+//         },
       ],
 
       noscript: [
-        {
-          tagPosition: 'bodyOpen',
-          innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${process.env.GTM}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`
-        }
+        // {
+        //   tagPosition: 'bodyOpen',
+        //   innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${process.env.GTM}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`
+        // }
       ]
     },
   },
@@ -79,26 +92,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     '@/assets/scss/main.scss'
   ],
 
-  modules: ['nuxt-anchorscroll', [
-    '@nuxtjs/supabase',
-    {
-      redirectOptions: {
-        login: '/',
-        include: ['/account(/*)?']
+  vite: {
+    resolve: {
+      alias: {
+        'lang': path.resolve(__dirname, './lang')
+      }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+            @use "@/assets/scss/vars" as *;
+            @use "@/assets/scss/mixins" as *;
+          `
+        }
       }
     }
-  ],[
+  },
+
+  modules: ['nuxt-anchorscroll', // [
+  //   '@nuxtjs/supabase',
+  //   {
+  //     redirectOptions: {
+  //       login: '/',
+  //       include: ['/account(/*)?']
+  //     }
+  //   }
+  // ],
+  'nuxt-gtag',
+  [
       'nuxt-icon',
       {
         class: 'icon'
       }
-  ],[
+  ], [
     '@nuxtjs/partytown',
     {
       debug: process.env.NODE_ENV === 'development',
       forward: ['dataLayer.push']
     }
-  ],[
+  ], [
     'nuxt-delay-hydration',
     {
       // mode: 'manual',
@@ -176,42 +209,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           'defineStore',
         ],
       },
-    ], '@pinia-plugin-persistedstate/nuxt', // '@nuxtjs/i18n',
-  [
-    '@nuxtjs/i18n',
-    {
-      baseUrl: 'https://djini.com.ua',
-      defaultLocale: 'uk',
-      lazy: true,
-      langDir: './lang',
-      locales: [
-        {
-          iso: 'uk-UA',
-          code: 'uk',
-          file: 'uk.yaml',
-          name: 'Українська',
-          shortName: 'Укр',
-          isCatchallLocale: true
-        },
-        {
-          iso: 'ru-RU',
-          code: 'ru',
-          file: 'ru.yaml',
-          name: 'Русский',
-          shortName: 'Рус',
-          isCatchallLocale: true
-        }
-      ]
-    }
-  ], '@nuxt/content', // [
-  //   '@nuxt/content', 
-  //   {
-  //     defaultLocale: 'ru',
-  //     locales: ['uk','ru'],
-  //     navigation: false
-  //   }
-  // ],
-  "@nuxtjs/seo", '@pinia/nuxt'],
+    ], '@nuxtjs/i18n', '@nuxt/content', "@nuxtjs/seo", 'nuxt-gtag'],
 
   experimental: {
     renderJsonPayloads: false,
@@ -226,6 +224,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   seo: {
     fallbackTitle: false
+  },
+  
+  gtag: {
+    id: process.env.GTM
+  },
+  
+  i18n: {
+    baseUrl: 'https://djini.com.ua',
+    defaultLocale: 'uk',
+    lazy: true,
+    strategy: 'prefix_except_default',
+    langDir: '../lang',
+    vueI18n: '../i18n.config.ts',
+    locales: [
+      {
+        iso: 'uk-UA',
+        code: 'uk',
+        file: 'uk.yaml',
+        name: 'Українська',
+        shortName: 'Укр',
+        isCatchallLocale: true
+      },
+      {
+        iso: 'ru-RU',
+        code: 'ru',
+        file: 'ru.yaml',
+        name: 'Русский',
+        shortName: 'Рус',
+        isCatchallLocale: true
+      }
+    ],
+    experimental: {
+      autoImportTranslationFunctions: true
+    }
+  },
+
+  robots: {
+    autoI18n: false,
+    disableNuxtContentIntegration: true,
+    disallow: ['/_ipx', '/.well-known']
   },
 
   sitemap: {

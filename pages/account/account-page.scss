@@ -1,10 +1,6 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .title-secondary {
   margin-bottom: 20px;
-
-  @include _tablet {
+  @include tablet {
     margin-bottom: 30px;
   }
 }

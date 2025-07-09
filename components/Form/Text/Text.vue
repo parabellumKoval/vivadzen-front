@@ -46,18 +46,26 @@ export default {
   },
 
   methods: {
-    changeHandler(v) {
-      this.$emit('update:modelValue', v.target.value)
+    changeHandler(event) {
+      this.$emit('update:modelValue', event.target.value)
     },
 
-    focusHandler() {
+    focusHandler(event) {
       this.onFocus = true
-      this.$emit('focused')
+      this.$emit('focused', event)
     },
 
-    blurHandler() {
+    blurHandler(event) {
       this.onFocus = false
-      this.$emit('blured')
+      this.$emit('blured', event)
+    }, 
+
+    keyUpHandler(event) {
+      this.$emit('keyup', event)
+    },
+
+    keyDownHandler(event) {
+      this.$emit('keydown', event)
     }
   },
 }
@@ -69,7 +77,8 @@ export default {
   <div
     :class="{
       error: error && error.length,
-      disabled: isDisabled
+      disabled: isDisabled,
+      required: required
     }"
     class="input__wrapper"
   >
@@ -77,6 +86,8 @@ export default {
       :value="modelValue"
       :id="id"
       @input="changeHandler"
+      @keydown="keyDownHandler"
+      @keyup="keyUpHandler"
       @focus="focusHandler"
       @blur="blurHandler"
       :placeholder="placeholder"

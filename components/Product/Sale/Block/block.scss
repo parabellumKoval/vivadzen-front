@@ -1,78 +1,60 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .block {
   display: grid;
   grid-gap: 20px;
-
-  @include _desktop {
+  @include desktop {
     grid-gap: 30px;
   }
 }
-
 .sale {
   display: grid;
   grid-template-columns: 3fr 5fr;
   grid-gap: 15px;
-
-  @include _desktop {
+  @include desktop {
     grid-template-columns: 2fr 3fr 4fr;
     grid-gap: 15px;
   }
-
   &-amount {
     width: 100%;
   }
-
   &-btn {
     &-cart {
       width: 100%;
     }
-
     &-one {
       width: 100%;
       grid-column-start: 1;
       grid-column-end: 3;
-
-      @include _desktop {
+      @include desktop {
         grid-column-start: initial;
         grid-column-end: initial;
       }
     }
   }
 }
-
 .price{
   &-block  {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     grid-gap: 20px;
-
-    @include _desktop {
+    @include desktop {
       grid-template-columns: min-content 1fr min-content;
       grid-gap: 45px;
     }
   }
-
-
   &-available {
     font-weight: 500;
-
     :deep(.icon) {
       margin-right: 10px;
       font-size: 24px;
     }
   }
-
   &-guarantee {
     display: none !important;
-
-    @include _desktop {
+    @include desktop {
       display: block !important;
     }
   }
-
   &-comp {
     font-size: 20px;
   }

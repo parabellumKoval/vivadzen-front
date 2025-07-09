@@ -1,38 +1,70 @@
 <script setup>
+
+import {useProductStore} from '~/store/product'
+
+import PageProduct from '~/components/Page/Product/Product.vue'
+import PageProductSkeleton from '~/components/Page/Product/Skeleton/Skeleton.vue'
+
+// import PageCategory from '~/components/Page/Category/Category.vue'
+// import PageCategorySkeleton from '~/components/Page/Category/Skeleton/Skeleton.vue'
+
+import { getCategorySlugs } from '~/server/utils/categoryCache';
+
 const route = useRoute()
 
-const product = ref(null)
-const category = ref(null)
+const isServer = process.server
+const slug = route.params.slug
+const categories = await getCategorySlugs();
+const isCategory = categories.has(slug)
 
-// COMPUTEDS
-const slug = computed(() => {
-  return route.params.slug
-})
+// Product loader
+const {
+  data: product,
+  pending: productPending,
+  error: productError
+} = await useAsyncData(
+  'product-' + slug,
+  async () => {
+    if (isCategory) return null
+    const response = await useProductStore().show(slug)
+    const data = response.data.value
 
-const query = computed(() => {
-  return route.query
-})
-
-// METHODS
-// HANDLERS
-// WATCHERS
-// await useAsyncData(() => $fetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value))
-await useAsyncData(() => useServerApiFetch(`${useRuntimeConfig().public.apiBase}/product_or_category/` + slug.value, query.value))
-.then(({data, error}) => {
-
-  if(data?.value?.data) {
-    // console.log('data.value.data', data.value.data)
-    if(data.value.data.price === undefined){
-      product.value = null
-      category.value = data.value.data
-    }else {
-      category.value = null
-      product.value = data.value.data
+    if (data) {
+      return data
+    } else {
+      throw createError({ statusCode: 404, message: 'Product Not Found' })
     }
-  }else {
-    throw createError({ statusCode: 404, message: 'Page Not Found' })
+  },
+  {
+    lazy: !isServer,
+    server: true,
   }
-})
+)
+
+// Category loader
+// const {
+//   data: category,
+//   pending: categoryPending,
+//   error: categoryError
+// } = await useAsyncData(
+//   'category-' + slug,
+//   async () => {
+//     if (!isCategory) return null
+//     const response = await useCategoryStore().showCached(slug)
+//     const data = response.data
+//     console.log('Category data:', data, response)
+//     if (data) {
+//       return data
+//     } else {
+//       throw createError({ statusCode: 404, message: 'Category Not Found' })
+//     }
+//   },
+//   {
+//     lazy: !isServer,
+//     server: true,
+//   }
+// )
+
 
 </script>
 
@@ -41,7 +73,20 @@ await useAsyncData(() => useServerApiFetch(`${useRuntimeConfig().public.apiBase}
 
 <template>
   <div>
-    <lazy-page-product v-if="product" :product="product"></lazy-page-product>
-    <lazy-page-category v-else-if="category" :categoryData="category"></lazy-page-category>
+    <template v-if="!isCategory">
+      <transition name="fade" mode="in-out">
+        <component :is="productPending ? PageProductSkeleton : PageProduct" :product="product" />
+        <!-- <page-product-skeleton></page-product-skeleton>
+         <page-product v-if="!productPending" :product="product"></page-product> -->
+      </transition>
+    </template>
+    <template v-else>
+      <lazy-page-category></lazy-page-category>
+      <!-- <transition name="fade" mode="in-out">
+        <component :is="categoryPending ? PageCategorySkeleton : PageCategory" :categoryData="category" />
+         <page-category-skeleton></page-category-skeleton>
+         <page-category v-if="!categoryPending" :categoryData="category"></page-category>
+      </transition> -->
+    </template>
   </div>
 </template>

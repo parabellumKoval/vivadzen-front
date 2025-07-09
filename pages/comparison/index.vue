@@ -3,6 +3,7 @@ import {useComparisonStore} from '~/store/comparison.ts'
 import {useProductStore} from '~/store/product.ts'
 
 const {t} = useI18n()
+const localePath = useLocalePath()
 const products = ref([])
 
 const breadcrumbs = [

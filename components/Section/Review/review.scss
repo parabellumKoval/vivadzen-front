@@ -1,19 +1,14 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .wrapper {
   display: grid;
   grid-auto-rows: auto;
   grid-gap: 50px;
-
-  @include _desktop {
+  @include desktop {
     grid-template-columns: calc(70% - 45px) calc(30% - 45px);
     grid-gap: 90px;
   }
 }
-
 .title-mobile {
-  @include _tablet {
+  @include tablet {
     display: none;
   }
 }
@@ -22,27 +17,22 @@
     padding-bottom: 30px;
     margin-bottom: 30px;
     border-bottom: 1px solid $color-6;
-
     &:last-child {
       margin-bottom: 0;
     }
-
-    @include _desktop {
+    @include desktop {
       margin-bottom: 50px;
       border-bottom: 0;
     }
   }
 }
-
 .feedback {
   margin: 0 0 0 -15px;
   padding: 0;
   height: min-content;
-
-  @include _desktop {
+  @include desktop {
     width: calc(100% + 20px);
   }
-
   &-info {
     width: 100%;
     margin: 30px auto 0 auto;
@@ -50,28 +40,21 @@
     // background: $color-7;
     line-height: 160%;
     text-align: center;
-
-    @include _desktop {
+    @include desktop {
       padding: 20px;
       width: 360px;
     }
-
-
     .more-link {
       color: $color-green;
     }
-
   }
-
   .slider {
     width: 100vw;
-
-    @include _desktop {
+    @include desktop {
       width: 100%;
     }
   }
 }
-
 .footer-wrapper {
   display: grid;
   grid-gap: 10px;

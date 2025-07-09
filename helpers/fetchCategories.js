@@ -19,8 +19,6 @@ export default async () => {
         name: 'category-' + category.id,
         path: '/' + category.slug,
         file: resolver.resolve('./../extra_pages/category/index.vue')
-        // params: {category: category.slug},
-        // component: () => import('~/pages/category/index.vue').then(r => r.default || r)
       }
     })
 

@@ -1,13 +1,10 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
+@use "sass:color";
 
 .comp-btn {
   margin-top: -15px;
-
   :deep(.comparison-btn) {
     font-size: 14px;
   }
-
   :deep(.icon) {
     position: absolute;
     top: 50%;
@@ -15,67 +12,55 @@
     transform: translateY(-50%);
   }
 }
-
 .m-wrapper {
   :deep(.close-btn-inner) {
     color: $color-8;
     background: $color-11;
   }
 }
-
 .mm {
-
   &-header {
     margin: -30px -20px 20px -20px;
     width: calc(100vw - 25px);
     padding: 30px 20px;
     background: $color-11;
-
-    @include _desktop {
+    @include desktop {
       display: none;
     }
-
     &-user {
       display: grid;
       grid-template-columns: 50px max-content;
       grid-gap: 20px;
     }
-
     &-btn {
       font-weight: 500;
       color: $color-8;
     }
-
     &-delimiter {
       height: 20px;
       width: 2px;
       background: $color-8;
     }
   }
-
   &-content {
     display: grid;
     grid-gap: 30px;
     padding: 0 0 30px 0;
-
-    @include _desktop {
+    @include desktop {
       padding: 0;
       width: calc(100% + 30px);
       margin: -15px;
     }
-
     &-catalog {
       display: block;
       position: relative;
-      // background: scale-color($color-green, $lightness: 85%);
+      // background: color.scale($color-green, $lightness: 85%);
       background: $color-green;
       color: $color-8;
       border: 2px solid $color-green;
-
-      @include _desktop {
+      @include desktop {
         display: none;
       }
-
       :deep(.icon) {
         position: absolute;
         top: 50%;
@@ -85,18 +70,15 @@
     }
   }
 }
-
 .menu {
   &-label {
     margin: 0 0 15px 0;
     color: $color-4;
   }
-
   &-ul {
     display: grid;
     grid-gap: 15px;
   }
-
   &-link {
     transition: color $speed;
     &:hover {
@@ -104,14 +86,12 @@
     }
   }
 }
-
 .avatar {
   &-image {
     width: 50px;
     height: 50px;
     border-radius: $radius;
   }
-
   &-faker {
     display: flex;
     align-items: center;
@@ -123,7 +103,6 @@
     color: $color-8;
   }
 }
-
 .langs {
   display: grid;
   grid-template-columns: 50px min-content;
@@ -132,17 +111,14 @@
   margin: 30px 0 0 0;
   width: min-content;
   grid-gap: 20px;
-
   &-label {
     color: $color-3;
   }
-
   &-switcher {
     display: grid;
     grid-template-columns: repeat(2, min-content);
     background-color: $color-1;
     border-radius: $radius;
-
     :deep(.router-link-active) {
       background-color: $color-2;
     }

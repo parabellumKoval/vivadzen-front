@@ -1,17 +1,17 @@
 export const useSchema = () => {
 
   const setSchema = (product: Product, reviews: Review[]) => {
-    const imageUrl = product.images && product.images[0]?.src? `${useRuntimeConfig().public.base}/${product.images[0]?.src}`: null
+    const imageUrl = product?.images && product?.images[0]?.src? `${useRuntimeConfig().public.base}/${product?.images[0]?.src}`: null
     
     const scheema = {
-      name: product.name,
+      name: product?.name,
       image: imageUrl,
-      description: product.content,
-      sku: product.code,
+      description: product?.content,
+      sku: product?.code,
       brand: 'Djini',
       offers: [
         { 
-          price: product.price,
+          price: product?.price,
           priceCurrency: 'UAH'
         },
       ],

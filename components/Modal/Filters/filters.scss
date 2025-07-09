@@ -1,22 +1,15 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .filters {
   width: calc(100vw - 5px);
   margin: 0 -15px;
   padding-bottom: 80px;
-
-
   &.pending {
     opacity: 0.5;
     pointer-events: none;
-
     :deep(*) {
       pointer-events: none;
     }
   }
 }
-
 .selected-wrapper {
   position: sticky;
   top: -20px;
@@ -30,7 +23,6 @@
   border-bottom: 3px solid $color-6;
   background: $color-8;
 }
-
 .buttons {
   position: fixed;
   width: calc(100% + 30px);
@@ -42,11 +34,9 @@
   z-index: 100;
   background: $color-8;
   overflow: hidden;
-
   .apply-btn {
     width: 100%;
   }
-
   .label {
     margin-bottom: 5px;
   }

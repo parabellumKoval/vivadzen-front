@@ -1,125 +1,155 @@
-export const useFilterItem = (filterId: Number) => {
-  
-  const modelValue = useState('activeFilters', () => {return []})
+// Кэшируем результат импорта useQuerySingleton
+import { useLazyComposable } from '~/composables/useLazyComposable';
 
-  //WATCHERS
-  // watch(() => modelValue.value, (v) => {
-  //   console.log('modelValue', v)
-  // }, {
-  //   deep: true,
-  //   immediate: true
-  // })
+export const useFilterItem = (filterId: string) => {
 
+  const {activeFilters, pushToActiveFilters} = useFilter()
+
+  const {removeQueryParam, addOrUpdateQueryParams } = useLazyComposable(
+    'useQuerySingleton',
+    ['removeQueryParam', 'addOrUpdateQueryParams']
+  );
+
+
+  // const { useQuerySingleton } = await import('~/composables/lazy/catalog/useQuerySingleton.ts');
   // COMPUTEDS
   const thisFilter = computed(() => {
-    return modelValue.value.find((item) => {
-      return item.id === filterId
+    return activeFilters.value.find((item) => {
+      return String(item.id) === String(filterId)
     })
   })
 
-  const isMetaBlocked = computed(() => {
-    if(!modelValue)
+  const isUpdateMetaBlocked = computed(() => {
+    // cant be blocked if no selected filters at all
+    if(!activeFilters.value)
       return false 
 
-    const index = modelValue.value.findIndex((item) => {
+    // find index of this filter in selected array
+    const index = activeFilters.value.findIndex((item) => {
       return item.id === filterId 
     })
 
-    if(index !== -1 && (index + 1) === modelValue.value.length){
+    // Blocked if it was last added filter in selected array
+    if(index !== -1 && (index + 1) === activeFilters.value.length){
       return true
     }else {
       return false
     }
   })
+  
 
   // METHODS
-  const setFilters = (params: Array) => {
-    if(params.selections) {
-      let selections = []
-      const selectionsAvailable = ['top_sales', 'in_stock', 'with_sales']
-
-      if(Array.isArray(params.selections)) {
-        selections = params.selections.filter(value => selectionsAvailable.includes(value))
-      }else {
-        if(selectionsAvailable.includes(params.selections)) {
-          selections.push(params.selections)
-        }
-      }
-      
-      updateModelValue([
-        {
-          id: 'selections',
-          values: [...selections]
-        }
-      ])
-
-      return selections
-    }
-
-    return []
-  }
-
-  const updateModelValue = (newModelValue) => {
-    modelValue.value = newModelValue
-  }
-
-  const isValueChecked = (valueId) => {
-    if(!thisFilter.value)
+  const isValueChecked = (valueId: string | number, classV = null) => {
+    if(!thisFilter.value?.values || !Array.isArray(thisFilter.value.values))
       return false
 
-    return thisFilter.value.values.indexOf(valueId) !== -1
+    const isSet = thisFilter.value.values.indexOf(String(valueId)) !== -1
+    return isSet
   }
 
-  const updateRangeValue = (data: any) => {
+  const updateRangeValue = (data: [number, number]) => {
     const filter = thisFilter.value
-
-    if(!filter) {
-      modelValue.value.push({
-        id: filterId,
-        values: {min: data[0], max: data[1]}
-      })
-    }else {
-      filter.values.min = data[0]
-      filter.values.max = data[1]
+    const paramValue = {
+      min: String(data[0]), 
+      max: String(data[1])
     }
 
-    return modelValue.value
+    if(!filter) {
+      pushToActiveFilters({
+        id: filterId,
+        values: paramValue
+      })
+    } else {
+      filter.values = paramValue
+    }
+    
+    addFilterToUrl(paramValue)
+
+    return activeFilters.value
   }
 
-  const updateCheckboxValue = (data: any) => {
+  const updateCheckboxValue = (data: string | number) => {
     const filter = thisFilter.value
+    const stringData = String(data)
 
     // if this filter not exists inside selected yet
     if(!filter) {
-      modelValue.value.push({
+      pushToActiveFilters({
         id: filterId,
-        values: [data]
+        values: [stringData]
       })
+
+      addFilterToUrl(stringData)
     // if filter already exists
-    }else {
-      const findIndex = filter.values.indexOf(data)
+    } else if (Array.isArray(filter.values)) {
+      const findIndex = filter.values.indexOf(stringData)
 
       // Add
       if(findIndex === -1) {
-        filter.values.push(data)
+        filter.values.push(stringData)
+        addFilterToUrl(stringData)
       // Remove
-      }else {
+      } else {
         filter.values.splice(findIndex, 1)
+        removeFilterFromUrl(stringData)
       } 
     }
-    
-    // return modelValue.value
   }
 
+  const removeFilterFromUrl = (data: any, id: string | null = null) => {
+    const key = id ?? filterId
+    let query = null
+
+    if(!Number.isNaN(Number(key))) {
+      let attrs = {attr_id: key}
+
+      if(data) {
+        attrs['attr_value_id'] = String(data)
+      }
+
+      query = {
+        attrs
+      }
+    }else {
+      query = {
+        [key]: String(data)
+      }
+    }
+
+    removeQueryParam.value(query)
+  }
+
+  const addFilterToUrl = (data: any) => {
+    let query = null
+    if(Number.isInteger(filterId)) {
+
+      let attr = {attr_id: filterId}
+
+      if(data.min && data.max) {
+        attr['from'] = data.min
+        attr['to'] = data.max
+      }else {
+        attr['attr_value_id'] = data
+      }
+      
+      query = {
+        attrs: [attr]
+      }
+    }else {
+      query = {
+        [filterId]: filterId === 'price'? data: [data]
+      }
+    }
+
+    
+    addOrUpdateQueryParams.value(query)
+  }
 
   return {
-    modelValue,
-    updateModelValue,
+    thisFilter,
+    isValueChecked,
     updateRangeValue,
     updateCheckboxValue,
-    isValueChecked,
-    thisFilter,
-    isMetaBlocked,
-    setFilters
+    removeFilterFromUrl
   }
 }

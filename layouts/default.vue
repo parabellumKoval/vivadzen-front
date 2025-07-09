@@ -5,6 +5,7 @@ import { useAppPersistStore } from '~/store/appPersist';
 
 const {t, locale} = useI18n()
 const route = useRoute()
+const title = 'Djini.com.ua'
 
 const head = useLocaleHead({
   addDirAttribute: true,
@@ -25,35 +26,35 @@ const isSearchMobile = computed(() => {
 })
 
 // AUTH
-const { auth } = useSupabaseClient()
+// const { auth } = useSupabaseClient()
 
-auth.onAuthStateChange((event, session) => {
-  // console.log(event, session);
-  if(event === 'SIGNED_OUT') {
-    useNoty().setNoty({
-      content: t('noty.auth.logout')
-    })
-  }else if(event === 'INITIAL_SESSION'){
-    if(session) {
-      useAuthStore().setUserFromSession(session.user)
-      // useFavoritesStore().getIds({user_id: user?.value?.id})
+// auth.onAuthStateChange((event, session) => {
+//   // console.log(event, session);
+//   if(event === 'SIGNED_OUT') {
+//     useNoty().setNoty({
+//       content: t('noty.auth.logout')
+//     })
+//   }else if(event === 'INITIAL_SESSION'){
+//     if(session) {
+//       useAuthStore().setUserFromSession(session.user)
+//       // useFavoritesStore().getIds({user_id: user?.value?.id})
       
-      if(useAppPersistStore().from === 'login') {
-        useNoty().setNoty({
-          content: t('noty.auth.login.success')
-        })
-        useAppPersistStore().setFrom(null)
-      }
-    }else {
-      useAuthStore().resetUser()
-    }
-  }else if(event === 'SIGNED_IN') {
-    useAuthStore().setUserFromSession(session.user)
-    // useFavoritesStore().getIds({user_id: user?.value?.id})
-    // getFavoriteIds()
-  }else if(event === 'PASSWORD_RECOVERY') {
-  }
-})
+//       if(useAppPersistStore().from === 'login') {
+//         useNoty().setNoty({
+//           content: t('noty.auth.login.success')
+//         })
+//         useAppPersistStore().setFrom(null)
+//       }
+//     }else {
+//       useAuthStore().resetUser()
+//     }
+//   }else if(event === 'SIGNED_IN') {
+//     useAuthStore().setUserFromSession(session.user)
+//     // useFavoritesStore().getIds({user_id: user?.value?.id})
+//     // getFavoriteIds()
+//   }else if(event === 'PASSWORD_RECOVERY') {
+//   }
+// })
 
 // HANDLERS
 // METHODS
@@ -79,6 +80,12 @@ useSchemaOrg([
   }),
   defineWebPage(),
 ])
+
+onMounted(async () => {
+  const supa = await useLazyComposable('useSupabaseAuthHandler')
+  console.log('Supabase auth handler loaded:', supa)
+  supa.loadComposable()
+})
 </script>
 
 <style src="~/assets/scss/layout-default.scss" lang="scss" scoped />

@@ -1,15 +1,10 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .no-medicine-box {
   margin-bottom: 30px;
 }
-
 .content {
   position: relative;
   max-height: 189px;
   overflow: hidden;
-
   &:after {
     position: absolute;
     content: '';
@@ -20,8 +15,7 @@
     background: rgb(255,255,255);
     background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
   }
-
-  @include _desktop {
+  @include desktop {
     max-height: initial;
   }
 }

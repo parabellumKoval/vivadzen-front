@@ -1,7 +1,5 @@
 <script setup>
-// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
-// import {useSort} from '~/composables/product/useSort.ts'
-
+import {useCatalog} from '~/composables/product/useCatalog.ts'
 const {t} = useI18n()
 
 const { scrollToAnchor } = useAnchorScroll({
@@ -13,8 +11,18 @@ const { scrollToAnchor } = useAnchorScroll({
   },
 })
 
+const route = useRoute()
+
 const props = defineProps({
+  title: {
+    type: String,
+    default: ''
+  },
   breadcrumbs: {
+    type: Array,
+    default: []
+  },
+  filterOptions: {
     type: Array,
     default: []
   },
@@ -26,81 +34,64 @@ const props = defineProps({
     type: Object,
     default: null
   },
-  filtersMetaInit: {
-    type: Object,
-    default: null
+  filtersPending: {
+    type: Boolean,
+    default: false
   },
   products: {
     type: Array,
     default: []
   },
-  meta: {
+  productsMeta: {
     type: Object,
     default: {}
   },
-  pending: {
+  productsPending: {
     type: Boolean,
     default: false
+  },
+  sorting: {
+    type: Object,
+    default: []
   },
   noFilters: {
     type: Boolean,
     default: false
   },
-  updateFiltersCallback: {
+  refresh: {
+    type: Promise,
     default: null
   },
-  updateOrderCallback: {
+  loadmore: {
+    type: Function,
     default: null
   },
-  updatePageCallback: {
-    default: null
-  },
-  sortings: {
-    default: null
-  }
 })
 
-const {modelValue, updateModelValue} = useFilterItem()
+const emit = defineEmits(['update:mode'])
 
-const {options: useSortOptions} = useSort()
-const sortSelectedIndex = ref(0)
-const sort = ref({order_by: 'created_at', order_dir: 'desc'})
-
-const router = useRouter()
-const route = useRoute()
+const {setQuery, setMode, loadFilters} = useCatalog()
 
 // COMPUTED
-const sortingOptions = computed(() => {
-  if(props.sortings) {
-    return props.sortings
-  }else {
-    return useSortOptions.value
-  }
-})
-
 const filtersData = computed(() => {
   return {
     'filters': props.filters,
     'meta': props.filtersMeta,
-    'metaInit': props.filtersMetaInit
   }
 })
 
-// WATCH
-watch(sortSelectedIndex, (v) => {
-  if(sortingOptions.value[v]) {
-    sort.value = {
-      order_by: sortingOptions.value[v].by,
-      order_dir: sortingOptions.value[v].dir
-    }
+// METHODS
+const beforeFilterSetToUrl = () => {
+  setMode('FILTER')
+}
 
-    scrollHandler('title')
+const { addOrUpdateQueryParams } = useLazyComposable(
+  'useQuerySingleton',
+  ['addOrUpdateQueryParams'],
+  {beforeUpdateCallback: beforeFilterSetToUrl}
+);
 
-    if(props.updateOrderCallback) {
-      props.updateOrderCallback(sort.value)
-    }
-  }
-})
+const {activeFilters, activeAttrs, initFiltersFromUrl} = useFilter()
 
 // HANDLERS
 const scrollHandler = (item) => {
@@ -109,49 +100,52 @@ const scrollHandler = (item) => {
   });
 }
 
+const updateOrderHandler = (v) => {
+  scrollHandler('title')
+  setMode('PAGINATION')
+  addOrUpdateQueryParams.value({...v}, true, false)
+}
+
 const updatePageHandler = (v) => {
   scrollHandler('title')
-
-  if(props.updatePageCallback) {
-    props.updatePageCallback(v)
-  }
+  setMode('PAGINATION')
+  addOrUpdateQueryParams.value({page: v}, true, false, false)
 }
 
-const updatePageMoreHandler = (v) => {
-  if(props.updatePageCallback) {
-    props.updatePageCallback(v, true)
-  }
+const updatePageMoreHandler = () => {
+  props.loadmore()
 }
 
-const updateSelected = (v) => {
-  let values = []
-  
-  if(v.length) {
-    // remove filters with empty values
-    values = v.filter((item) => {
-      if(item.values === undefined || !item.values)
-        return true
-      
-      if(Array.isArray(item.values)){
-        return item.values.length? true: false
-      }else {
-        return true
-      }
-    })
-  }
-
-  if(props.updateFiltersCallback) {
-    props.updateFiltersCallback(values)
-  }
+const updateSelected = () => {
+  props.refresh()
 }
 
-// METHODS
+
 // WATCHERS
-watch(() => modelValue.value, (v) => {
-  updateSelected(v)
+watch(() => route.query, (newQuery, oldQuery) => {
+  const queryChanged = JSON.stringify(newQuery) !== JSON.stringify(oldQuery);
+
+  if (queryChanged ) {
+    updateSelected()
+  }
 }, {
   deep: true
 })
+
+// When new catalog page is loaded or switched to new catalog page
+watch(() => route.path, (v) => {
+  // initialize filters from URL query params
+  initFiltersFromUrl()
+}, {
+  immediate: true
+})
+
+//
+watch(() => props.products, (list) => {
+  if (list && list.length > 0) {
+    useGoogleEvent().setEvent('ViewItemList', {name: props.title, id: route.fullPath, products: list})
+  }
+}, { immediate: true })
 </script>
 
 <style src="~/assets/scss/layout-catalog.scss" lang="scss" scoped></style>
@@ -168,7 +162,7 @@ watch(() => modelValue.value, (v) => {
     </div>
 
     <transition name="fade-in">
-      <div v-if="modelValue?.length" class="selected">
+      <div v-if="activeAttrs?.length && !filtersPending" class="selected">
         <div class="container">
           <lazy-filter-selected :filters="filters"></lazy-filter-selected>
         </div>
@@ -180,30 +174,16 @@ watch(() => modelValue.value, (v) => {
 
     <div class="container">
       <div :class="{'no-filters': noFilters}" class="header">
-        <div v-if="meta?.total && !noFilters" class="header-title">
+        <div v-if="!noFilters" class="header-title">
           {{ t('label.filters') }}
         </div>
 
         <div class="header-desc">
-          {{ t('messages.products_found', {amount: (meta?.total || 0)}) }}
+          {{ t('messages.products_found', {amount: (productsMeta?.total || 0)}) }}
         </div>
 
-        <div v-if="meta?.total" class="header-actions">
-          <div class="sorting-wrapper">
-            <button class="button mini light sorting-btn">
-              <IconCSS name="iconoir:sort-down" class="inline-icon"></IconCSS>
-              <span>{{ sortingOptions[sortSelectedIndex].caption }}</span>
-            </button>
-            <select v-model="sortSelectedIndex" class="sorting-select">
-              <option
-                v-for="(srt, key) in sortingOptions" 
-                :key="key"
-                :value="key"
-              >
-                {{ srt.caption }}
-              </option>
-            </select>
-          </div>
+        <div v-if="productsMeta?.total" class="header-actions">
+          <catalog-sort-btn :sortings="sorting" @update="updateOrderHandler"></catalog-sort-btn>
         </div>
 
       </div>
@@ -212,17 +192,19 @@ watch(() => modelValue.value, (v) => {
     <div :class="{'no-filters': noFilters}" class="content full-container">
       <!-- All filters -->
       <lazy-filter-list
-        v-if="$device.isDesktop && filters && !noFilters && meta?.total"
+        v-if="$device.isDesktop && filters && !noFilters"
         :filters="filters"
         :meta="filtersMeta"
-        :meta-init="filtersMetaInit"
-        :class="{pending: pending}"
+        :class="{pending: productsPending}"
         class="filters"
       ></lazy-filter-list> 
 
       <!-- Products list -->
-      <div class="content-grid">
-          <template v-if="pending">
+      <div v-if="!productsPending && !products.length" class="content-empty">
+        <div class="content-empty-message">{{ t('messages.no_catalog_results')}}</div>
+      </div>
+      <div v-else class="content-grid">
+          <template v-if="productsPending">
             <product-card-skeleton
               v-for="i in 20"
               :key="i"
@@ -242,23 +224,23 @@ watch(() => modelValue.value, (v) => {
       </div>
     </div>
 
-    <div v-if="meta" class="container">
+    <div v-if="productsMeta" class="container">
       <div :class="{'no-filters': noFilters}" class="content">
         <div></div>
         <div>
           <!-- Pagination -->
           <div class="pagination">
             <lazy-simple-pagination
-              v-if="meta.total >= meta.per_page"
-              :total="meta.last_page"
-              :current="meta.current_page"
+              v-if="productsMeta.total >= productsMeta.per_page"
+              :total="productsMeta.last_page"
+              :current="productsMeta.current_page"
               @update:current="updatePageHandler"
             ></lazy-simple-pagination>
 
             <lazy-simple-pagination-more
-              v-if="meta.total >= meta.per_page && meta.last_page !== meta.current_page"
-              :total="meta.last_page"
-              :current="meta.current_page"
+              v-if="productsMeta.total >= productsMeta.per_page && productsMeta.last_page !== productsMeta.current_page"
+              :total="productsMeta.last_page"
+              :current="productsMeta.current_page"
               @update:current="updatePageMoreHandler"
             ></lazy-simple-pagination-more>
           </div>
@@ -272,8 +254,9 @@ watch(() => modelValue.value, (v) => {
 
     <lazy-filter-mobile-buttons
       v-if="$device.isMobile && filters && !noFilters"
+      :sortings="sorting"
       :data="filtersData"
-      :update-order-callback="updateOrderCallback"
+      :update-order-callback="updateOrderHandler"
     ></lazy-filter-mobile-buttons>
 
   </div>

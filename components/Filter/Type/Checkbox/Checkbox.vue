@@ -1,6 +1,4 @@
 <script setup>
-// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
-
 const props = defineProps({
   filter: {
     type: Object
@@ -10,16 +8,6 @@ const props = defineProps({
     type: Array,
     default: []
   },
-
-  metaInit: {
-    type: Array,
-    default: null
-  },
-
-  modelValue: {
-    type: Object,
-    default: []
-  }
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -28,21 +16,48 @@ const meta = ref([])
 const {
   updateCheckboxValue,
   isValueChecked,
-  thisFilter,
-  isMetaBlocked
+  thisFilter
 } = useFilterItem(props.filter.id)
 
 // COMPUTED
+const items = computed(() => {
+  let values = props.filter?.values || [];
+  if(!Array.isArray(props.filter.values)) {
+    values = Object.values(props.filter.values);
+  }
+
+  if (!values) {
+    return [];
+  }
+  
+  if(!meta.value) {
+    return values;
+  }
+
+  return values.sort((a, b) => {
+     const aCount = meta.value[a.id] || 0;
+     const bCount = meta.value[b.id] || 0;
+     const aChecked = isValueChecked(a.id, props.filter.name);
+     const bChecked = isValueChecked(b.id, props.filter.name);
+
+    if ((aCount === 0 && bCount !== 0) || (!aChecked && bChecked)) {
+      return 1; // Переместить 'a' (с count: 0) в конец
+    } else if ((aCount !== 0 && bCount === 0)  || (aChecked && !bChecked)) {
+      return -1; // Переместить 'b' (с count: 0) в конец
+    } else {
+      return 0; // Сохранить исходный порядок для остальных элементов
+    }
+  });
+})
 
 // HANDLERS
 const checkHandler = (valueId) => {
-   updateCheckboxValue(valueId)
-  // emit('update:modelValue', newValue)
+  updateCheckboxValue(valueId)
 }
 
 // METHODS
 const isPlus = (valueId) => {
-  return thisFilter.value && getMeta(valueId) > 0 && !isValueChecked(valueId)
+  return thisFilter.value && getMeta(valueId) > 0 && !isValueChecked(valueId) && !props.filter?.isNarrowing
 }
 
 const isDisabled = (valueId) => {
@@ -52,9 +67,11 @@ const isDisabled = (valueId) => {
   if(isValueChecked(valueId))
     return false
 
-  if(meta.value && !meta.value[valueId]) {
+  if(meta.value && (meta.value[valueId] === undefined || !meta.value[valueId]) ) {
     return true
   }
+
+  return false;
 }
 
 const getMeta = (valueId) => {
@@ -77,22 +94,10 @@ const getMeta = (valueId) => {
 // })
 
 watch(() => props.meta, (v) => {
-  if(isMetaBlocked.value || !v)
-    return
-
   meta.value = v
 }, {
-  deep: true
-})
-
-watch(() => props.metaInit, (v) => {
-  if(!v)
-    return
-
-  meta.value = v
-}, {
-  immediate: true,
-  deep: true
+  deep: true,
+  immediate: true
 })
 </script>
 
@@ -101,10 +106,8 @@ watch(() => props.metaInit, (v) => {
 <template>
   <div class="wrapper">
     <ul class="checkbox-list">
-      <template v-for="(value, index) in filter.values">
+      <template v-for="(value, index) in items" :key="value.id">
         <li
-          v-if="filter.noMeta || metaInit[value.id]"
-          :key="value.id"
           :class="[
             {disabled: isDisabled(value.id)},
             {checked: isValueChecked(value.id)}

@@ -3,14 +3,12 @@ export default defineNuxtRouteMiddleware(() => {
     return;
   }
 
-  console.log('client m')
-
   const appVersion = useCookie(
     'appVersion'
   )
 
   if(appVersion.value != useRuntimeConfig().public.appVersion) {
-    console.log('clear', appVersion.value, useRuntimeConfig().public.appVersion)
+    // console.log('clear', appVersion.value, useRuntimeConfig().public.appVersion)
 
     // clear localStorage
     localStorage.clear()

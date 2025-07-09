@@ -1,19 +1,13 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .main {
   position: relative;
   width: 100%;
-  
-  @include _tablet {
+  @include tablet {
     overflow-x: initial;
   }
-
-  @include _desktop {
+  @include desktop {
     width: auto;
   }
 }
-
 .comp-btn{
   :deep(.comparison-btn) {
     border: 2px solid $color-8;

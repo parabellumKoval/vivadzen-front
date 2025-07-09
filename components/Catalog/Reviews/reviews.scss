@@ -1,38 +1,28 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .review {
   &-title {
     margin-bottom: 15px;
-
-    @include _desktop {
+    @include desktop {
       margin-bottom: 30px;
     }
   }
-
   &-header {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: min-content;
     grid-gap: 35px;
     margin-bottom: 30px;
-
-    @include _desktop {
+    @include desktop {
       margin-bottom: 50px;
     }
   }
-
   &-count {
     white-space: nowrap;
   }
-
   &-item {
     margin-bottom: 30px;
-
-    @include _desktop {
+    @include desktop {
       margin-bottom: 50px;
     }
-
     &:last-child {
       margin-bottom: 0;
     }

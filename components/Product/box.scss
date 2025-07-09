@@ -1,51 +1,40 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .product-box {
   width: 100vw;
   margin: 0 -15px;
   padding: 30px 15px;
   border-top: 1px solid $color-5;
-
-  @include _desktop {
+  @include desktop {
     width: 100%;
     margin: 0;
     padding: 30px;
     border: 1px solid $color-5;
     border-radius: $radius;
   }
-
   &-label {
     margin-bottom: 10px;
     color: $color-3;
-
-    @include _desktop {
+    @include desktop {
       margin-bottom: 20px;
     }
   }
-
   .box {
     &-btn {
       margin-top: 20px;
     }
   }
-
   .more-btn {
     margin-top: 20px;
-
-    @include _desktop {
+    @include desktop {
       display: none;
     }
   }
-
   .mobile-title {
     width: 100%;
     margin-bottom: 20px;
     font-size: 24px;
     line-height: 120%;
     text-transform: uppercase;
-
-    @include _desktop {
+    @include desktop {
       display: none;
     }
   }

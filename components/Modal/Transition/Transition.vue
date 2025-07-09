@@ -49,9 +49,8 @@ const closeHandler = () => {
 <style src="./transition.scss" lang="scss" scoped />
 
 <style lang="scss" scoped>
-@import '/assets/scss/_mixins.scss';
 :deep(.modal) {
-  @include _desktop {
+  @include desktop {
     top: v-bind(topCss);
     bottom: v-bind(bottomCss);
     right: v-bind(rightCss);

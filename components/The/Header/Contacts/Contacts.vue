@@ -2,7 +2,8 @@
 const { t } = useI18n()
 
 const openContactsHandler = (event) => {
-  useModal().open(resolveComponent('ModalContacts'), null, null)
+  const component = defineAsyncComponent(() => import('~/components/Modal/Contacts/Contacts.vue'))
+  useModal().open(component, null, null)
 }
 </script>
 

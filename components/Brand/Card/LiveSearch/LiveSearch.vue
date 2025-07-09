@@ -1,5 +1,7 @@
 <script setup>
 const {t} = useI18n()
+const localePath = useLocalePath()
+
 const props = defineProps({
   item: {
     required: true

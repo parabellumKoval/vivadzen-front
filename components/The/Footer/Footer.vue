@@ -1,8 +1,8 @@
 <script setup>
 import { useFeedbackStore } from '~~/store/feedback';
-import {useCategoryStore} from '~/store/category'
 
 const {t} = useI18n()
+const localePath = useLocalePath()
 
 const sub = ref({
   type: 'subscription',
@@ -16,14 +16,6 @@ const menu = computed(() => {
     info: useMenu().info.value
   }
 })
-
-const categories = computed(() => {
-  return useCategoryStore().all
-})
-
-const socials = ref([
-  ...useSocial().all
-])
 
 const payments = ref([
   ...usePaymentVendor().main

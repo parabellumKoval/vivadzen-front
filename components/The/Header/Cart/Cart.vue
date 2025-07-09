@@ -4,7 +4,8 @@ import { useCartStore } from '~~/store/cart';
 const { t } = useI18n()
 
 const openCartHandler = () => {
-  useModal().open(resolveComponent('ModalCart'), null, null, {width: {
+  const component = defineAsyncComponent(() => import('~/components/Modal/Cart/Cart.vue'))
+  useModal().open(component, null, null, {width: {
     min: 968, max: 968
   }})
 }

@@ -1,6 +1,6 @@
 <script setup>
-// import {useFilterItem} from "~/composables/product/useFilterItem"
-const {modelValue, updateModelValue} = useFilterItem()
+const {activeFilters, updateActiveFilters, resetFilters} = useFilter()
+const {removeFilterFromUrl} = useFilterItem()
 
 const props = defineProps({
   filters: {
@@ -14,23 +14,40 @@ const selected = computed(() => {
   const values = []
 
   // For each selected filter
-  for(const index in modelValue.value) {
-    const key = modelValue.value[index].id
-    const value = modelValue.value[index].values
+  for(const index in activeFilters.value) {
+    const key = activeFilters.value[index].id
+    const value = activeFilters.value[index].values
 
     // Find this iterration filter by ID
     let filter = props.filters.find((filter) => {
       return filter.id == key
     })
 
+    console.log('props.filters', props.filters, key, value, filter)
+
     if(!filter)
       continue
-    
+
     // For lists
     if(filter.type === 'checkbox' || filter.type === 'radio' || filter.type === 'brand') {
+
+      const arrayValues = Array.isArray(value) ? value : Object.values(value)
+
       // For each values
-      value.forEach((selectedValue) => {
-        let filterValue = filter.values.find(v => v.id == selectedValue)
+      arrayValues.forEach((selectedValue) => {
+        let filterValue = null
+
+        if (Array.isArray(filter.values)) {
+          filterValue = filter.values.find(v => v.id == selectedValue)
+        }else {
+          filterValue = Object.values(filter.values).find(v => v.id == selectedValue);
+        }
+
+        // console.log('filterValue', filterValue)
+
+        if(filterValue === undefined || filterValue === null)
+          return
+        
         let filterValueName = filterValue?.value || filterValue?.name || null
 
         values.push({
@@ -43,7 +60,7 @@ const selected = computed(() => {
       values.push({
         filterId: filter.id,
         valueId: null,
-        name: filter.name + ': ' + value.min + '-' + value.max
+        name: filter.name + ': ' + value?.min + '-' + value?.max
       })
     }
   }
@@ -53,24 +70,28 @@ const selected = computed(() => {
 
 
 const deleteHandler = (filter) => {
-  const modelValueCopy = [...modelValue.value]
+  const modelValueCopy = [...activeFilters.value]
   const filterModel = props.filters.find(item => item.id === filter.filterId)
   const thisModelValueIndex = modelValueCopy.findIndex((item) => {
-    if(item.id === filter.filterId) {
+    if(String(item.id) === String(filter.filterId)) {
       return item
     }
   })
 
-  if(thisModelValueIndex === undefined)
+  if(thisModelValueIndex === -1)
     return
+
+  const paramName = modelValueCopy[thisModelValueIndex].id
 
   // For doubleslider, number - type etc.
   if(filterModel.type === 'number') {
     modelValueCopy.splice(thisModelValueIndex, 1)
+    removeFilterFromUrl(filter.valueId, paramName);
   // For lists checkbox, radio
   }else if(filterModel.type === 'checkbox' || filterModel.type === 'radio' || filterModel.type === 'brand') {
-    const valueIndex = modelValueCopy[thisModelValueIndex].values.indexOf(filter.valueId)
+    const valueIndex = modelValueCopy[thisModelValueIndex].values.indexOf(String(filter.valueId))
 
+    removeFilterFromUrl(filter.valueId, paramName);
     if(valueIndex !== -1){
       modelValueCopy[thisModelValueIndex].values.splice(valueIndex, 1)
 
@@ -80,11 +101,11 @@ const deleteHandler = (filter) => {
     }
   }
 
-  updateModelValue(modelValueCopy)
+  updateActiveFilters(modelValueCopy)
 }
 
 const removeAllHandler = () => {
-  updateModelValue([])
+  resetFilters()
 }
 
 </script>

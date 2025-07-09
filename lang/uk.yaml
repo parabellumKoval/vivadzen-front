@@ -87,20 +87,11 @@ label:
   show: Показати
   reviews: '{reviews} відгуків | {reviews} відгук | {reviews} відгуку | {reviews} відгуків'
   products: '{products} товарів | {products} товар | {products} товару| {products} товарів'
+  page: 'сторінка {page}'
   product:
     sale: Акція
     price: Супер ціна
     top: Топ продажів
-  sorting:
-    default: За точністю збігу
-    news_asc: Спочатку найновіші
-    news_desc: Спочатку старі
-    price_asc: За зростанням ціни
-    price_desc: Зменшення ціни
-    in_stock_desc: Спочатку в наявності
-    in_stock_asc: Спершу немає в наявності
-
-
 
 messages:
   review_gift: Купон на -5% за верифікований відгук про магазин
@@ -119,6 +110,7 @@ messages:
   payment_methods: Способи оплати
   i_agreed_with: Я згоден/згодна з
   agree_privacy_policy: Політикою конфіденційності
+  no_catalog_results: Нічого не знайдено, спробуйте змінити фільтри або запит
 
 button:
   collapse: Згорнути

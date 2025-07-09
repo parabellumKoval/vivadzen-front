@@ -1,5 +1,6 @@
 <script setup>
 import {useCard} from '~/composables/product/useCard.ts'
+const localePath = useLocalePath()
 
 const props = defineProps({
   item: {
@@ -15,7 +16,7 @@ const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
 
 <template>
 <div v-if="item" class="wrapper">
-  <NuxtLink :to="localePath('/' + item.slug)" :aria-label="item.name" clickable class="image-wrapper">
+  <NuxtLink :to="localePath('/' + item.slug)" :aria-label="item.name"  :prefetch="false" clickable class="image-wrapper">
     <nuxt-img
       :src = "photo"
       :alt = "photoAlt"
@@ -38,6 +39,7 @@ const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
       v-if="item.category"
       :to="localePath('/' + item.category.slug)"
       :aria-label="item.category.name"
+       :prefetch="false"
       clickable
       class="category"
     >{{ item.category.name }}</NuxtLink>
@@ -46,6 +48,7 @@ const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
       :aria-label="item.name"
       clickable
       class="name"
+       :prefetch="false"
     >{{ item.name }}</NuxtLink>
     <div class="footer">
       <simple-stars :amount="item.rating" mobile="medium"></simple-stars>

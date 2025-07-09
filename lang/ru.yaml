@@ -87,20 +87,11 @@ label:
   show: Показать
   reviews: '{reviews} отзывов | {reviews} отзыв | {reviews} отзыва | {reviews} отзывов'
   products: '{products} товаров | {products} товар | {products} товара| {products} товаров'
+  page: 'страница {page}'
   product:
     sale: Акция
     price: Супер цена
     top: Топ продаж
-  sorting:
-    default: По точности совпадения
-    news_asc: Сначала самые новые
-    news_desc: Сначала старые
-    price_asc: Сначала дешевые
-    price_desc: Сначала дорогие
-    in_stock_desc: Сначала в наличии
-    in_stock_asc: Сначала нет в наличии
-
-
 
 messages:
   review_gift: Купон на -5% за верифицированный отзыв о магазине
@@ -119,6 +110,7 @@ messages:
   payment_methods: Способы оплаты
   i_agreed_with: Я согласен/согласна с
   agree_privacy_policy: Политикой конфиденциальности
+  no_catalog_results: Ничего не найдено, попробуйте изменить фильтры или запрос
 
 button:
   collapse: Свернуть

@@ -1,0 +1,60 @@
+.breadcrumbs {
+  padding: 20px 0px;
+  @include desktop {
+    padding: 30px 0px;
+  }
+  .list {
+    display: block;
+    font-size: 14px;
+    line-height: 14px;
+    min-height: 14px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 0 -20px;
+    padding: 0 20px;
+    width: calc(100% + 40px);
+    @include desktop {
+      overflow-x: visible;
+      overflow-y: visible;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .item {
+    display: inline-block;
+    margin-right: 20px;
+    position: relative;
+    &:not(:last-child)::before {
+      content: " > ";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #828282;
+    }
+  }
+  &__link {
+    display: inline-block;
+    height: 14px;
+    width: 80px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 2px;
+  }
+}
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

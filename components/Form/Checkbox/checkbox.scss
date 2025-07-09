@@ -1,18 +1,13 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .input__wrapper-checkbox {
   position: relative;
   display: flex;
   cursor: pointer;
 }
-
 .input-checkbox {
   position: absolute;
   left: 0px;
   top: 0px;
   opacity: 0;
-
   &:checked {
     & + .custome-checkbox {
       background: $color-green;
@@ -23,7 +18,6 @@
     }
   }
 }
-
 .custome-checkbox {
   display: flex;
   justify-content: center;
@@ -43,7 +37,6 @@
   opacity: 0;
   transition: opacity 0.3s;
 }
-
 .input__wrapper-checkbox{
   &:hover {
     .custome-checkbox {

@@ -11,6 +11,10 @@ const props = defineProps({
   error: {
     type: [Object, Array, String, Boolean],
     default: false
+  },
+  required: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -104,7 +108,7 @@ const updateModelValueHandler = (ref) => {
       :is-disabled="isDisabled"
       list-value="warehouse"
       list-key="warehouseRef"
-      required
+      :required="required"
     >
     </form-dropdown>
 

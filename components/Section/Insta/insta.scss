@@ -1,37 +1,29 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .insta-section {
   display: grid;
   background: linear-gradient(105deg, rgba(225, 48, 108, 0.17) 15.02%, rgba(64, 93, 230, 0.17) 78.61%);
   padding: 50px 20px 0 20px;
   overflow: hidden;
-
-  @include _desktop {
+  @include desktop {
     grid-template-columns: 320px minmax(min-content, 1fr);
     padding: 80px 45px;
     width: 100%;
   }
 }
-
 .feed {
   display: flex;
   align-items: center;
   margin: 0 -20px;
   width: calc(100% + 40px);
-
-  @include _tablet {
+  @include tablet {
     margin: 0;
     width: 100%;
   }
-
   &-item {
     position: relative;
     width: 20%;
     height: 0;
     padding-bottom: 20%;
     flex-shrink: 0;
-
     .image {
       position: absolute;
       top: 0;
@@ -42,21 +34,17 @@
     }
   }
 }
-
 .box {
   padding: 0 0 25px 0;
-
-  @include _desktop {
+  @include desktop {
     height: 220px;
     padding: 50px 40px 50px 0;
   }
-
   &-title {
     margin-bottom: 20px;
     line-height: 160%;
     text-transform: uppercase;
   }
-
   &-btn {
     width: 100%;
     background: #E1306C;

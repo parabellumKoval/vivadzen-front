@@ -19,11 +19,10 @@ const toggleHandler = () => {
 </script>
 
 <style src="./row.scss" lang="scss" scoped />
-<style lang="scss" scoped>
-@import './assets/scss/mixins';
 
+<style lang="scss" scoped>
 .columns-area {
-  @include _desktop {
+  @include desktop {
     grid-template-columns: v-bind(grid);
   }
 }

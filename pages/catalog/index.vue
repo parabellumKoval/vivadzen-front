@@ -1,11 +1,7 @@
 <script setup>
-// import {useFilter} from '~/composables/product/useFilter.ts'
-// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
 import {useCategoryStore} from '~/store/category'
 
 const {t} = useI18n()
-
-const route = useRoute()
 
 const setCrumbs = () => {
   breadcrumbs.value = [
@@ -18,13 +14,11 @@ const setCrumbs = () => {
     }
   ]
 }
+const {loadCatalog, setFiltersAndCount, loadMore, catalogQuery} = useCatalog()
 
-const {getFilters} = useFilter()
-const {setFilters} = useFilterItem()
 
 // REFS
-// Attributes
-const attributes = ref([])
+const isServer = process.server
 const breadcrumbs = ref([])
 
 // COMPUTEDS
@@ -32,41 +26,76 @@ const categories = computed(() => {
   return useCategoryStore().list
 })
 
+const title = computed(() => {
+  let page = catalogQuery.value.page > 1? ', ' + t('label.page', {page: catalogQuery.value.page}): ''
+  return t('title.catalog') + page
+})
+
 // METHODS
-const getQuery = () => {
-  let query = {
-    per_page: 20,
-    page: route.query.page || 1
-  }
+setFiltersAndCount(['selections', 'brands', 'price'])
 
-  // Set filters from URL
-  if(route.query) {
-    query.selections = setFilters(route.query)
-  }
+// Loader products
+const {
+  data: catalog,
+  pending: catalogPending,
+  error: catalogError,
+  refresh
+} = await useAsyncData(
+  'product-catalog',
+  async () => {
+    const response = await loadCatalog();
 
-  return query
+    return {
+      filters: {
+        data: response.filters?.data || catalog?.value?.filters?.data || [],
+        count: response.filters?.count || catalog?.value?.filters?.count || {}
+      },
+      products: response.products || { data: [], meta: {} },
+      sorting: response.sorting || catalog?.value?.sorting || []
+    }
+  }, {
+    lazy: !isServer,
+    server: true,
+  }
+);
+
+
+const loadProductsAndMerge = async () => {
+  const response = await loadMore(catalog.value);
+  if (response) {
+    catalog.value = response
+  }
 }
-
-// HOOKS
-attributes.value = await getFilters(getQuery(), false).then(({data}) => {
-  return data.value || []
-});
 
 setCrumbs()
 </script>
 
-<!-- <style src="./category.scss" lang="scss" scoped></style>
-<i18n src="./lang.yaml" lang="yaml"></i18n> -->
-
 <template>
   <NuxtLayout
-    name="category"
+    v-if="!catalog?.products && catalogPending"
+    name="catalog-skeleton"
+    :categories="true"
+  ></NuxtLayout>
+  <NuxtLayout
+    v-else
+    name="catalog"
+    :title="title"
+    :products-pending="catalogPending"
+    
+    :products="catalog?.products?.data || []"
+    :products-meta="catalog?.products?.meta || {}"
+
+    :filters="catalog?.filters?.data || []"
+    :filters-meta="catalog?.filters?.count || []"
+
+    :sorting="catalog?.sorting || []"
+
     :breadcrumbs="breadcrumbs"
-    :attributes="attributes"
-    :initQuery="getQuery()"
+    :refresh="refresh"
+    :loadmore="loadProductsAndMerge"
   >
     <template #title>
-      {{ t('title.catalog') }}
+      {{ title }}
     </template>
 
     <template #header>

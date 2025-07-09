@@ -1,5 +1,7 @@
 
 <script setup>
+const localePath = useLocalePath()
+
 const props = defineProps({
   item: {
     type: Object

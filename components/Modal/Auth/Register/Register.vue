@@ -2,6 +2,7 @@
 import {useAuthStore} from '~/store/auth'
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 const isLoading = ref(false)
 
 const auth = ref({

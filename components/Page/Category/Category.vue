@@ -1,24 +1,14 @@
 <script setup>
-// import {useFetchReview} from '~/composables/review/useFetchReview.ts'
-// import {useFilter} from '~/composables/product/useFilter.ts'
-// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
+import {useCategoryStore} from '~/store/category'
 
-const props = defineProps({
-  categoryData: {
-    type: Object,
-    required: true
-  }
-})
+const {loadCatalog, setFiltersAndCount, catalogQuery} = useCatalog()
+
+const isServer = process.server
 
 const {t} = useI18n()
 const route = useRoute()
 
-const {getFilters} = useFilter()
-const {setFilters} = useFilterItem()
-
 // Attributes
-const attributes = ref([])
-
 const breadcrumbs = ref([])
 
 // COMPUTED
@@ -26,8 +16,81 @@ const slug = computed(() => {
   return route.path.substring(route.path.lastIndexOf('/') + 1) || null 
 })
 
-const setCrumbs = () => {
-  let cat = props.categoryData.category
+
+const title = computed(() => {
+  let page = catalogQuery.value.page > 1? ', ' + t('label.page', {page: catalogQuery.value.page}): ''
+  let title = category.value?.category?.seo?.h1 || category.value?.category?.name
+  return  title + page
+})
+
+// METHODS
+setFiltersAndCount(['selections', 'brands', 'attributes', 'price']);
+
+// Category loader
+const {
+  data: catalog,
+  pending: catalogPending,
+  error: catalogError,
+  refresh
+} = await useAsyncData(
+  'product-category-' + slug.value,
+  async () => {
+    const response = await loadCatalog({category_slug: slug.value});
+    
+    return {
+      filters: {
+        data: response.filters?.data || catalog?.value?.filters?.data || [],
+        count: response.filters?.count || catalog?.value?.filters?.count || {}
+      },
+      products: response.products || { data: [], meta: {} },
+      sorting: response.sorting || catalog?.value?.sorting || []
+    }
+  }, {
+    lazy: !isServer,
+    server: true,
+  }
+);
+
+const {
+  data: category,
+  pending: categoryPending,
+  error: categoryError,
+} = await useAsyncData(
+  'category-' + slug.value,
+  async () => {
+    const response = await useCategoryStore().showCached(slug.value)
+    const data = response.data
+
+    // console.log('useAsyncData Category data:', data)
+
+    if (data) {
+      return data
+    }
+    else throw createError({ statusCode: 404, message: 'Category Not Found' })
+
+  },
+  {
+    lazy: !isServer,
+    server: true,
+  }
+)
+
+
+const setSeo = (v) => {
+  useHead({
+    title: v?.seo?.meta_title,
+    meta: [
+      {
+        name: 'description',
+        content: v?.seo?.meta_description
+      },
+    ],
+  })
+}
+
+const setCrumbs = (v) => {
+  breadcrumbs.value = []
+  let cat = v
 
   // categories tree
   while(cat) {
@@ -46,64 +109,15 @@ const setCrumbs = () => {
     
 }
 
-const category_slug = computed(() => {
-  return props.categoryData.category.slug
-})
-
-const categories = computed(() => {
-  return props.categoryData.category.children
-})
-
-// METHODS
-const getQuery = () => {
-  let query = {
-    per_page: 20,
-    page: route.query.page || 1
+watch(() => category.value?.category, (v) => {
+  if(v) {
+    setCrumbs(v)
+    setSeo(v)
   }
-
-  if(slug.value)
-    query.category_slug = slug.value
-
-  // Set filters from URL
-  if(route.query) {
-    const selections = setFilters(route.query)
-    
-    if(selections?.length) {
-      query.selections = selections
-    }
-  }
-
-  return query
-}
-
-const setSeo = () => {
-  useHead({
-    title: props.categoryData.category?.seo?.meta_title,
-    meta: [
-      {
-        name: 'description',
-        content: props.categoryData.category?.seo?.meta_description
-      },
-    ],
-  })
-}
-
-// HOOKS
-// onServerPrefetch(() => {
-//   setSchema(props.product, reviews.value)
-// })
-setSeo()
-setCrumbs()
-
-// const {data: filtersData} = await getFilters(getQuery())
-
-// watch(filtersData, (v) => {
-//   if(v) {
-//     attributes.value = v
-//   }
-// }, {
-//   immediate: true
-// })
+}, {
+    immediate: true,
+    deep: true
+})
 
 </script>
 
@@ -111,30 +125,46 @@ setCrumbs()
 
 <template>
   <NuxtLayout
-    name="category"
-    :slug="category_slug"
+    v-if="catalogPending && catalog?.products?.data?.length === 0"
+    name="catalog-skeleton"
+    :categories="true"
+  ></NuxtLayout>
+  <NuxtLayout
+    v-else
+    name="catalog"
+    :title="title"
+    :products-pending="catalogPending"
+
+    :products="catalog?.products?.data || []"
+    :products-meta="catalog?.products?.meta || {}"
+
+    :filters="catalog?.filters?.data || []"
+    :filters-meta="catalog?.filters?.count || []"
+
+    :sorting="catalog?.sorting || []"
+
     :breadcrumbs="breadcrumbs"
-    :category-data="categoryData"
-    :initQuery="getQuery()"
+    :refresh="refresh"
+    :loadmore="loadProductsAndMerge"
   >
     <template #title>
-      {{ categoryData.category.seo?.h1 || categoryData.category.name }}
+      {{ title }}
     </template>
 
     <template #header>
-      <lazy-catalog-categories v-if="categories?.length" :categories="categories" class="full-container"></lazy-catalog-categories>
+      <lazy-catalog-categories v-if="category?.category?.children?.length" :categories="category.category.children" class="full-container"></lazy-catalog-categories>
     </template>
     
-    <template #footer>
-      <lazy-catalog-reviews :slug="category_slug" :category-name="categoryData.category?.name" :reviews="categoryData?.reviews" class="review-wrapper"></lazy-catalog-reviews>
+    <template v-if="!categoryPending" #footer>
+      <lazy-catalog-reviews :slug="slug" :category-name="category?.category?.name" :reviews="category?.reviews" class="review-wrapper"></lazy-catalog-reviews>
 
       <lazy-catalog-text
-        v-if="categoryData.category.content"
-        :content="categoryData.category.content"
+        v-if="category?.category?.content"
+        :content="category?.category.content"
         class="seo-text"
       ></lazy-catalog-text>
 
-      <lazy-section-faq-catalog :category-data="categoryData" class="faq-section"></lazy-section-faq-catalog>
+      <lazy-section-faq-catalog v-if="category" :category-data="category" class="faq-section"></lazy-section-faq-catalog>
     </template>
   </NuxtLayout>
 </template>

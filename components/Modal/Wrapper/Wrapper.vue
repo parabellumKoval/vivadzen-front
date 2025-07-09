@@ -75,9 +75,9 @@ const closeHandler = () => {
 <style src="./wrapper.scss" lang="sass" scoped />
 
 <style lang="scss" scoped>
-@import '/assets/scss/_mixins.scss';
+// @use '/assets/scss/mixins' as *;
 :deep(.modal-inner) {
-  @include _desktop {
+  @include desktop {
     max-height: v-bind(maxHeight);
     min-height: v-bind(minHeight);
     min-width: v-bind(minWidth);

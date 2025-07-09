@@ -15,7 +15,8 @@ const props = defineProps({
 <template>
   <div class="price" v-if="value !== null">
     <span class="value">
-      {{ currency? $n(value, 'currency'): $n(value, 'cur') }}
+      <i18n-n v-if="currency" :value="value" format="currency" />
+      <i18n-n v-else :value="value" format="cur" />
     </span>
   </div>
 </template>

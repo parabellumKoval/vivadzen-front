@@ -2,6 +2,7 @@
 import {useComparisonStore} from '~/store/comparison.ts'
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 const productsCount = computed(() => {
   return useComparisonStore().ids?.length

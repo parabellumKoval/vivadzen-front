@@ -1,31 +1,23 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .header {
   position: relative;
   margin-bottom: 0px;
   width: 100%;
   text-align: center;
-
-  @include _tablet {
+  @include tablet {
     text-align: left;
   }
-
-  @include _desktop {
+  @include desktop {
     text-align: center;
   }
 }
-
 .title {
   font-size: 28px;
   font-weight: 600;
   line-height: 145%;
 }
-
 .link {
   display: none;
-
-  @include _tablet {
+  @include tablet {
     display: flex;
     align-items: center;
     grid-gap: 5px;

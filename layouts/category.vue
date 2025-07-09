@@ -58,6 +58,7 @@ const queryObject = ref({
   page: 1
 })
 
+
 const pending = ref(false)
 
 // COMPUTED
@@ -155,6 +156,7 @@ const updateQueryHandler = async (loadmore = false) => {
 const tempData = ref(null)
 
 const setInitData = async () => {
+  // already loaded data
   if(props.categoryData) {
     products.value = props.categoryData.products.data
     meta.value = props.categoryData.products.meta

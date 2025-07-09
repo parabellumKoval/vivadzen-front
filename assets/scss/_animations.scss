@@ -1,5 +1,5 @@
-@import './vars';
-@import './mixins';
+@use './vars' as *;
+@use './mixins' as *;
 
 .page-tr-enter-active {
   transition: opacity .3s, filter .3s;
@@ -7,13 +7,11 @@
 .page-tr-leave-active{
   transition: none;
 }
-
 .page-tr-enter-from,
 .page-tr-leave-to {
   opacity: 0;
   filter: blur(0.1rem);
 }
-
 //
 .layout-tr-enter-active,
 .layout-tr-leave-active {
@@ -23,8 +21,6 @@
 .layout-tr-leave-to {
   opacity: 0;
 }
-
-
 // zoom
 .zoom-enter-active,
 .zoom-leave-active {
@@ -41,7 +37,6 @@
 .zoom-leave-to {
   transform: scale(1);
 }
-
 // move-y
 .move-y-enter-active,
 .move-y-leave-active {
@@ -59,7 +54,6 @@
   transform: translateY(0);
   transition: all 0s;
 }
-
 // move-x
 .move-x-enter-active,
 .move-x-leave-active {
@@ -76,7 +70,6 @@
 .move-x-leave-to {
   transform: translateX(100px);
 }
-
 // move-x-right
 .move-x-right-enter-active,
 .move-x-right-leave-active {
@@ -93,7 +86,6 @@
 .move-x-right-leave-to {
   transform: translateX(0);
 }
-
 // modal-right
 .modal-right-enter-active,
 .modal-right-leave-active {
@@ -108,8 +100,6 @@
       filter: blur(1rem);
       transform: translateX(100px) !important;
   }
-
-  
 }
 .modal-right-leave-to {
   .effect-2 {
@@ -117,7 +107,6 @@
       transform: translateX(0) !important;
   }
 }
-
 //fade-in
 .fade-in-enter-active,
 .fade-in-leave-active {
@@ -127,25 +116,19 @@
   opacity: 0;
   filter: blur(1rem);
 }
-
 .fade-in-leave-to {
   transition: all 0s;
 }
-
 // Opacity
 .opacity-enter-active,
 .opacity-leave-active {
   transition: all 1s;
 }
-.opacity-enter-from {
-  opacity: 0;
-}
-
+.opacity-enter-from,
 .opacity-leave-to {
+  opacity: 0;
   transition: all 0s;
 }
-
-
 //scale-x
 .scale-x-enter-active,
 .scale-x-leave-active {
@@ -156,14 +139,11 @@
   opacity: 0;
   transform: scaleX(0);
 }
-
-
 // EFFECTS
 .clickable {
   position: relative;
   //transition: filter .5s;
   //transition: transform .6s, filter .6s;
-
   &:after {
     content: '';
     position: absolute;
@@ -177,13 +157,11 @@
     //transition: transform .3s;
     animation-fill-mode: backwards;
   }
-
   &--effect {
     //transition: filter .1s;
     //filter: drop-shadow(0px 0px 10px white);
     // transform: scale(1.1);
     //transition: transform .3s, filter .3s;
-
     &:after {
       //transform: translate(-50%, -50%) scale(1);
       //transform: translate(-50%, -50%) scale(0);
@@ -192,7 +170,6 @@
     }
   }
 }
-
 @keyframes blick {
   0% {
     opacity: 1;
@@ -207,12 +184,7 @@
     // transform: translate(-50%, -50%) scale(1);
   }
 }
-
-
-
 .can-loading {
-  
-  
   &:before {
     content: '';
     position: absolute;
@@ -225,17 +197,14 @@
     border-radius: 100%;
     transition: width $speed, padding $speed;
   }
-
   &.loading {
     pointer-events: none;
-
     &:before {
       background: $color-0;
       animation: loading 2s infinite;
     }
   }
 }
-
 @keyframes loading {
   0%{
     width: 0;
@@ -249,4 +218,25 @@
     width: 0;
     padding-bottom: 0;
   }
+}
+
+
+// List animations
+
+/* CSS классы для анимации */
+.list-move, /* применяется к перемещаемым элементам */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.2s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px); /* Небольшое смещение для эффекта */
+}
+
+/* Убедитесь, что покидающие элементы не занимают место */
+.list-leave-active {
+  position: absolute;
 }

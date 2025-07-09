@@ -1,61 +1,50 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
+@use './vars' as *;
+@use './mixins' as *;
 
 .rich-text,
 :deep(.rich-text) {
   font-size: 16px;
   color: $color-0;
   line-height: 180%;
-
   strong, b {
     font-weight: 500;
     color: $color-0;
   }
-
   a {
     position: relative;
     border-bottom: 1px dashed $color-0;
     transition: color $speed, border $speed;
-
     &:before {
       content: '🔗';
       padding-right: 5px;
     }
-
     &:hover {
       color: $color-green;
       border-bottom: 1px dashed $color-green;
     }
   }
-
   h6 {
     font-size: 14px;
     color: #fff;
   }
-
   ul, ol {
     margin-top: 30px;
     margin-bottom: 30px;
-
     li {
       position: relative;
       padding-left: 20px;
       margin-bottom: 20px;
       color: $color-0;
-
       &:last-child {
         margin-bottom: 0px;
       }
-
       * {
         color: $color-0;
       }
     }
   }
-
   ul {
     list-style-type: none;
-
     li {
       &::before {
         content: "";
@@ -67,25 +56,20 @@
         border-radius: 50%;
         background-color: $color-0;
       }
-
     }
   }
-
   ol {
     padding-left: 20px;
     // margin-bottom: 20px;
   }
-
   &.lists-margin {
     ul, ol {
       padding-left: 20px;
-
-      @include _desktop {
+      @include desktop {
         padding-left: 30px;
       }
     }
   }
-
   h2,
   h3,
   h4,
@@ -96,21 +80,17 @@
     color: $color-0;
     font-weight: 500;
     line-height: 115%;
-
     &:first-child {
       margin-top: 0;
     }
-
     &:last-child {
       margin-bottom: 0;
     }
-
-    @include _desktop {
+    @include desktop {
       margin-top: 40px;
       line-height: 145%;
     }
   }
-  
   h1 {
     margin: 40px 0 20px 0;
     font-size: 30px;
@@ -118,33 +98,27 @@
     text-transform: uppercase;
     line-height: 115%;
   }
-
   h2 {
     margin: 40px 0 20px 0;
     font-size: 24px;
     font-weight: 400;
     text-transform: uppercase;
-
     // &:first-of-type {
     //   margin-top: 0;
     // }
   }
-
   h3 {
     margin-top: 30px;
     margin-bottom: 15px;
-
-    @include _desktop {
+    @include desktop {
       margin-top: 40px;
     }
   }
-  
   p {
     margin-bottom: 20px;
     line-height: 180%;
     color: $color-2;
   }
-
   table {
     margin-bottom: 20px;
     width: 100%;
@@ -156,20 +130,16 @@
     border-radius: $radius;
     outline: 3px solid rgba($color-green, 0.2);
     overflow: hidden;
-
     tr {
       margin: 0;
-      
       td, th {
         margin: 0;
         padding: 10px 10px;
         border: 1px solid $color-5;
       }
-
       td {
         font-size: 0.9em;
       }
-
       th {
         font-size: 0.8em;
         font-weight: 500;

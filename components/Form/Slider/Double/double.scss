@@ -1,47 +1,89 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
-.slider {
-  width: 100%;
-  padding: 0 14px;
-
-  :deep(*) {
-    touch-action: auto !important;
-    pointer-events: all !important;
-  }
-
-  &-wrapper {}
-
-  &-inner {
-    display: flex;
+.input{
+  &-wrapper {
+    display: grid;
+    grid-template-columns: 100px 1fr 100px;
+    grid-gap: 5px;
     align-items: center;
-    grid-gap: 35px;
+    height: 40px;
+    border: 1px solid $color-5;
+    border-radius: $radius;
+    margin-bottom: 30px;
   }
-
-  &-input {
-    width: 50px;
-    height: 50px;
+  &-line {
+    width: 100%;
+    height: 1px;
+    background: $color-5;
+  }
+  &-form {
+    width: 100%;
+    height: 38px;
     flex-shrink: 0;
-    background: $color-bg-2;
     padding: 15px 0;
-    border-radius: $radiusBtn;
+    border-radius: $radius;
     border: 0;
     outline: 0;
     text-align: center;
-
     -moz-appearance:textfield;
-
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
         -webkit-appearance: none;
     }
   }
-
 }
-
-.inputs-compact {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+.custom-slider {
+  position: relative;
+  height: 2px;
+  background: #ddd;
+  border-radius: 5px;
+  user-select: none;
+  width: calc(100% - 26px);
+  left: 50%;
+  transform: translateX(-50%);
+  
+  &-wrapper {
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem auto;
+  }
+}
+.track {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: $color-6;
+  border-radius: 5px;
+}
+.range {
+  position: absolute;
+  height: 100%;
+  background-color: $color-blue;
+  border-radius: 5px;
+}
+.thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  background: $color-8;
+  border-radius: 4px;
+  border: 2px solid $color-blue;
+  cursor: pointer;
+  z-index: 10;
+  &:after {
+    background: $color-blue-2;
+    border-radius: 2px;
+    content: "";
+    height: 18px;
+    left: 3px;
+    position: absolute;
+    top: 3px;
+    transition: background .3s;
+    width: 18px;
+  }
+  &:hover {
+    &:after {
+      background: $color-blue;
+    }
+  }
 }

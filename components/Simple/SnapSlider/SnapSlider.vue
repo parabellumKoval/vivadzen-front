@@ -295,7 +295,6 @@ defineExpose({
 <style src="./snap-slider.scss" lang="scss" scoped />
 
 <style lang="scss" scoped>
-@import './assets/scss/mixins'; 
 .list-ul {
   grid-auto-columns: v-bind(gridAutoColumnsCss);
   // grid-gap: v-bind(gutterCss);

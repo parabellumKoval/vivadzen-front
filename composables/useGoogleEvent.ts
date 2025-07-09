@@ -1,4 +1,3 @@
-
 type Product = {
   id: number,
   name: string,
@@ -7,22 +6,41 @@ type Product = {
   categories: Category[],
   amount?: number,
   code: string,
+  index?: number,
+  item_list_name?: string,
+  item_list_id?: string,
 }
 
-interface ItemData {
-  item_id: string,
+type ProductEcommerce = {
+  item_id: number | string,
   item_name: string,
-  item_brand: string,
   price: number,
+  item_brand: string,
+  item_category: string,
+  item_category2?: string,
+  item_category3?: string,
+  item_category4?: string,
+  item_list_name?: string,
+  item_list_id?: string,
   quantity?: number,
-  [key: string]: string | number | undefined,
+  item_variant?: string,
+  index?: number,
 }
+
+// interface ItemData {
+//   item_id: string,
+//   item_name: string,
+//   item_brand: string,
+//   price: number,
+//   quantity?: number,
+//   [key: string]: string | number | undefined,
+// }
 
 // Общий интерфейс для всего объекта data
 interface EcommerceData {
   currency: string;
   value: number;
-  items: ItemData[];
+  items: ProductEcommerce[];
 }
 
 // type EventName = 'AddToCart' | 'ViewItem' | 'RemoveFromCart' | 'BeginCheckout' | 'Purchase' | 'Refund'
@@ -38,6 +56,10 @@ type EventHandlers = {
 type EventName = keyof EventPayloadMap;
 
 interface EventPayloadMap {
+  АddShippingInfo: Checkout,
+  АddPaymentInfo: Checkout,
+  ViewItemList: ItemsList;
+  SelectItem: ItemUnit;
   AddToCart: Product;
   RemoveFromCart: Product;
   ViewItem: Product;
@@ -46,71 +68,124 @@ interface EventPayloadMap {
   Refund: Product;
 }
 
+type ItemUnit = {
+  product: Product,
+  id: string,
+  name: string
+}
+
+type ItemsList = {
+  products: Product[],
+  id: string,
+  name: string
+}
+
 type Checkout = {
   products: Product[],
   total: number,
-  code?: string
+  code?: string,
+  shipping?: string,
+  payment?: string,
 }
 
 export const useGoogleEvent = () => {
-  const getProductData = (product: Product) => {
-    let data: EcommerceData = {
-        currency: "UAH",
-        value: product.price,
-        items: [
-          {
-            item_id: product?.code,
-            item_name: product?.name,
-            item_brand: product?.brand?.name || '',
-            price: product?.price,
-            quantity: product.amount
-          }
-        ]
+
+  const getProductUnitData = (product: Product, item_list_id: string | null = null, item_list_name: string | null = null) => {
+    let data: ProductEcommerce = {
+      item_id: product?.id,
+      item_name: product?.name,
+      price: product?.price,
+    }
+
+
+    if(product?.brand?.name) {
+      data['item_brand'] = product?.brand?.name || ''
+    }
+
+    if(product?.amount) {
+      data['quantity'] = product.amount
     }
 
     if(product?.categories) {
       product.categories.forEach((cat, index) => {
-        data.items[0]['item_category' + (index + 1)] = cat.name
+        data['item_category' + (index + 1)] = cat.name
       })
+    }
+
+    if(product?.index) {
+      data['index'] = product.index
+    }
+
+    if(product?.item_list_name || item_list_name) {
+      data['item_list_name'] = product.item_list_name || item_list_name
+    }
+
+    if(product?.item_list_id || item_list_id) {
+      data['item_list_id'] = product.item_list_id || item_list_id
+    }
+
+    return data
+  }
+
+  const getItemData = (product: Product) => {
+    let data: EcommerceData = {
+        currency: "UAH",
+        value: product.price,
+        items: [
+          getProductUnitData(product)
+        ]
     }
 
     return data
   }
 
   const eventHandlers: EventHandlers = {
-    getAddToCartData: (product) => {
+    getViewItemListData: (data) => {
+
+      let items = data.products.map((item) => {
+        return getProductUnitData(item, data.id, data.name)
+      })
+
       return {
-        event: "add_to_cart",
+        event: "view_item_list",
         ecommerce: {
-          currency: "UAH",
-          value: product.price,
-          items: [getProductData(product)]
+          item_list_name: data?.name,
+          item_list_id: data?.id,
+          items: items
+        }
+      }
+    },
+    getSelectItemData: (data) => {
+      return {
+        event: "select_item",
+        ecommerce: {
+          item_list_name: data?.name,
+          item_list_id: data?.id,
+          items: [getProductUnitData(data.product, data.id, data.name)]
         }
       }
     },
     getViewItemData: (product) => {
       return {
         event: "view_item",
-        ecommerce: {
-          currency: "UAH",
-          value: product.price,
-          items: [getProductData(product)]
-        }
+        ecommerce: getItemData(product)
+      }
+    },
+    getAddToCartData: (product) => {
+      return {
+        event: "add_to_cart",
+        ecommerce: getItemData(product)
       }
     },
     getRemoveFromCartData: (product) => {
       return {
         event: "remove_from_cart",
-        ecommerce: {
-          currency: "UAH",
-          value: product.price,
-          items: [getProductData(product)]
-        }
+        ecommerce: getItemData(product)
       }
     },
     getBeginCheckoutData: (data) => {
       let items = data.products.map((item) => {
-        return getProductData(item)
+        return getProductUnitData(item)
       })
 
       return {
@@ -124,7 +199,7 @@ export const useGoogleEvent = () => {
     },
     getPurchaseData: (data) => {
       let items = data.products.map((item) => {
-        return getProductData(item)
+        return getProductUnitData(item)
       })
 
       return {
@@ -137,28 +212,47 @@ export const useGoogleEvent = () => {
         }
       }
     },
-    getRefundData: (product) => {
+    getАddShippingInfoData: (data) => {
+      let items = data.products.map((item) => {
+        return getProductUnitData(item)
+      })
+
       return {
-        event: "refund",
+        event: "add_shipping_info",
         ecommerce: {
+          shipping_tier: data.shipping,
           currency: "UAH",
-          value: product.price,
-          items: [getProductData(product)]
+          value: data.total,
+          items: items
+        }
+      }
+    },
+    getАddPaymentInfoData: (data) => {
+      let items = data.products.map((item) => {
+        return getProductUnitData(item)
+      })
+
+      return {
+        event: "add_payment_info",
+        ecommerce: {
+          payment_type: data.payment,
+          currency: "UAH",
+          value: data.total,
+          items: items
         }
       }
     },
   }
 
   const setEvent = <E extends EventName>(eventName: E, data: EventPayloadMap[E]) => {
+    const { gtag } = useGtag()
+
     const functionName = `get${eventName}Data` as keyof EventHandlers
     const handler = eventHandlers[functionName as keyof EventHandlers];
 
-    if (process.client && window.dataLayer && handler) {
-      window.dataLayer.push({ecommerce: null});
-      window.dataLayer.push(handler(data));
-    }else {
-        console.warn(`Обработчик для события "${eventName}" с именем "${functionName}" не найден.`);
-    }
+    const gTagData = handler(data)
+    console.log('event', gTagData.event, {ecommerce: gTagData.ecommerce})
+    gtag('event', gTagData.event, {ecommerce: gTagData.ecommerce})
   }
 
   return {

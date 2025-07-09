@@ -1,11 +1,6 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .brand {
   &-list {
-
   }
-
   &-item {
     &-btn {
       display: grid;
@@ -16,12 +11,12 @@
       width: 100%;
       padding: 0 30px;
     }
-
     &:hover {
       background: $color-7;
     }
-
     &.disabled {
+      pointer-events: none;
+      
       .brand-name,
       .brand-count {
         color: $color-4;
@@ -30,18 +25,15 @@
         opacity: 0.3;
       }
     }
-
     &.checked {
       .brand-input {
         border: 1px solid $color-0;
       }
-
       .brand-input-icon {
         opacity: 1;
       }
     }
   }
-
   &-content {
     display: grid;
     grid-template-columns: 40px minmax(min-content, 1fr) min-content;
@@ -49,7 +41,6 @@
     align-items: center;
     text-align: left;
   }
-
   &-image {
     width: 40px;
     height: 40px;
@@ -57,16 +48,21 @@
     border: 1px solid $color-5;
     border-radius: $radius;
   }
-
   &-name {}
-
   &-count {
     margin-top: 2px;
     font-size: 14px;
     font-weight: 100;
     color: $color-3;
-  }
 
+    &.plus {
+      color: $color-green;
+      &:before {
+        content: '+';
+        font-size: 10px;
+      }
+    }
+  }
   &-input {
     display: flex;
     align-items: center;
@@ -76,7 +72,6 @@
     border: 1px solid $color-3;
     border-radius: $radius;
     background: $color-8;
-
     &-icon {
       opacity: 0;
       font-size: 14px;

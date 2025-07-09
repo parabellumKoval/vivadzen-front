@@ -18,6 +18,10 @@ const {isFavorite, toFavoriteHandler} = useFavorite(props.item.id)
 const {photos, stock, label} = useCard(props.item)
 const {toCartHandler} = useCart(props.item)
 
+
+// Inject
+const listData = inject('list', {id: '', name: ''});
+
 // COMPUTEDS
 const loading = computed(() => {
   if(props.index === null || props.index !== 0)
@@ -42,11 +46,15 @@ const favoriteIcon = computed(() => {
 })
 
 // METHODS
-
 // HANDLERS
 const toReviewsHandler = () => {
   navigateTo(localePath('/' + props.item.slug + '#reviews'))
 }
+
+const setGoogleEventHandler = () => {
+  useGoogleEvent().setEvent('SelectItem', {name: listData.name, id: listData.id, product: {...props.item, index: props.index}})
+}
+
 </script>
 
 <style src="./card.scss" lang="scss" scoped />
@@ -84,6 +92,8 @@ const toReviewsHandler = () => {
     <NuxtLink
       :to="localePath('/' + item.slug)"
       :aria-label="item.name"
+      :prefetch="false"
+      @click="setGoogleEventHandler"
       clickable
       class="image-wrapper"
     >
@@ -121,6 +131,8 @@ const toReviewsHandler = () => {
         :to="localePath(`/${item.slug}`)"
         class="name"
         clickable
+        :prefetch="false"
+        @click="setGoogleEventHandler"
       >
         {{ item.name }}
       </NuxtLink>

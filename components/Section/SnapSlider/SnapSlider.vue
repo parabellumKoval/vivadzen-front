@@ -35,16 +35,16 @@ const pagination = ref({
 
 
 const setPaginationHandler = (val) => {
-  pagination.value.isActive = val.isActive
-  pagination.value.total = val.total
+  pagination.value.isActive = val?.isActive || true
+  pagination.value.total = val?.total || 3
 }
 
 const setProgress = (val) => {
-  pagination.value.progress = val
+  pagination.value.progress = val || 0
 }
 
 const setActiveIndex = (val) => {
-  pagination.value.activeIndex = val
+  pagination.value.activeIndex = val || 0
 }
 
 // HANDLERS

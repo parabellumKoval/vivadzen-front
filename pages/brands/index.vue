@@ -11,6 +11,7 @@ const { scrollToAnchor } = useAnchorScroll({
 })
 
 const {t} = useI18n()
+const localePath = useLocalePath()
 
 const brands_grouped = ref([])
 const breadcrumbs = [

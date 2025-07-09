@@ -15,6 +15,10 @@ const props = defineProps({
   error: {
     type: [Object, Array, String, Boolean],
     default: false
+  },
+  required: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -103,7 +107,7 @@ watch(() => props.modelValue.settlementRef, (v) => {
       list-value="value"
       list-key="settlementRef"
       :error="error"
-      required
+      :required="required"
     >
     </form-dropdown>
 

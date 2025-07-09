@@ -1,46 +1,36 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-@import './assets/scss/rich-text';
+@use './assets/scss/rich-text' as *;
 
 .article {
   &-wrapper {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 25px;
-
-    @include _desktop {
+    @include desktop {
       grid-template-columns: 5fr 2fr;
       grid-gap: 45px;
-
     }
   }
-
   &-content {
   }
-
   &-image {
     width: 100%;
+    max-width: calc(100vw - 30px);
     height: 400px;
     object-fit: cover;
     border-radius: $radius;
     margin: 30px 0;
   }
-
   &-header {
-
   }
-
   &-meta {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 20px;
     align-items: center;
-
-    @include _desktop {
+    @include desktop {
       grid-template-columns: min-content 1fr;
       grid-gap: 35px;
     }
-
     &-box {
       display: flex;
       align-items: center;
@@ -50,8 +40,6 @@
       // border: 2px solid $color-5;
     }
   }
-
-
   &-time,
   &-comments {
     display: grid;
@@ -60,51 +48,41 @@
     align-items: center;
     white-space: nowrap;
     padding: 0 20px;
-
     &-icon {
       font-size: 18px;
     }
   }
-
   &-comments {
     border-left: 2px solid $color-5;
     color: $color-3;
-
     &-text {
       color: $color-3;
-
       &.active {
         color: $color-0;
       }
-
       &:hover {
         color: $color-green;
       }
     }
   }
-
   &-share {
     margin: 0 auto;
-
-    @include _desktop {
+    @include desktop {
       margin: 0 0 0 auto;
     }
   }
-
   &-text {
     &:deep(img) {
       width: 100% !important;
       object-fit: contain;
       max-height: calc(50vh);
       margin: 30px 0;
-
-      @include _desktop {
+      @include desktop {
         max-height: calc(100vh - 300px);
         margin: 70px 0
       }
     }
   }
-
   &-aside {
     height: min-content;
     max-height: calc(100vh - 130px);
@@ -114,48 +92,39 @@
     border: 2px solid $color-6;
     background: $color-8;
     order:1;
-
-    @include _scrollbar;
-
-    @include _desktop {
+    @include scrollbar;
+    @include desktop {
       position: sticky;
       top: 100px;
       padding: 30px;
       order: 2;
     }
-
     &-title {
       // font-size: 20px;
       font-weight: 500;
       margin: 0 0 20px 0;
     }
-
     &-list {
       display: grid;
       grid-gap: 10px;
       list-style-type: decimal;
       padding: 0 0 0 20px;
     }
-
     &-item {
       &.H3 {
         list-style-type: circle;
         margin: 0 0 0 15px;
       }
     }
-
     &-link {
       line-height: 135%;
       color: $color-0;
       text-align: left;
-
       &:hover {
         color: $color-green;
       }
-
       &.H3 {
         color: $color-2;
-
         &:hover {
           color: $color-green;
         }
@@ -163,4 +132,3 @@
     }
   }
 }
-

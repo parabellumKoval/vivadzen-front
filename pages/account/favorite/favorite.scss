@@ -1,49 +1,35 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
-
 .products-wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 0;
   transition: filter $speed;
-
-  @include _tablet {
+  @include tablet {
     grid-gap: 20px;
   }
-
-  @include _desktop {
+  @include desktop {
     grid-template-columns: repeat(3, 1fr);
   }
-
   :deep(.card) {
     background: #fff;
   }
-
   &.pending {
     filter: blur(3px);
   }
 }
-
 .product-item {
   padding: 10px 5px;
   border-bottom: 1px solid $color-7;
   background: $color-8;
-
-  @include _desktop {
+  @include desktop {
     border-bottom: 0;
   }
-
   &:nth-child(2n - 1) {
     border-right: 1px solid $color-7;
-
-    @include _desktop {
+    @include desktop {
       border-right: 0;
     }
   }
 }
-
-
 .load-more-wrapper {
   display: flex;
   align-items: center;
@@ -51,14 +37,12 @@
   flex-direction: column;
   grid-gap: 25px;
   margin-top: 40px;
-
-  @include _desktop {
+  @include desktop {
     flex-direction: row;
   }
 }
-
 .pagi {
-  @include _desktop {
+  @include desktop {
     margin: 0 0 0 auto;
   }
 }

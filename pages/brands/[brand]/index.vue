@@ -1,86 +1,65 @@
 <script setup>
-// import {useFilter} from '~/composables/product/useFilter.ts'
-// import {useCatalog} from './../../../composables/product/useCatalog'
-// import {useBrandStore} from './../../../store/brand'
-// import {useFilter} from '~/composables/product/useFilter'
-// import {useCatalog} from '~/composables/product/useCatalog'
 import {useBrandStore} from '~/store/brand'
-import {useProductStore} from '~/store/product'
 
 const {t} = useI18n()
-const props = defineProps({})
 const route = useRoute()
 
-const {getAttributes, prepareFilters, prepareAttrs} = useFilter()
-const {getProducts} = useCatalog()
+const {loadCatalog, setFiltersAndCount, loadMore, catalogQuery} = useCatalog()
 
-// Attributes
-const attributes = ref([])
-
-// Filters
-const filtersMeta = ref(null)
-const filtersMetaInit = ref(null)
-
-// Products
-const products = ref([])
-const meta = ref(null)
-
-// Query
-const queryObject = ref({
-  order: null,
-  filters: null,
-  price: null,
-  selections: null,
-  page: 1
-})
+// REFS
+const isServer = process.server
+const loadingAmount = ref(0);
 
 // Brand
 const brand = ref(null)
 
-// const pending = ref(false)
-const isLoading = ref(true)
-
 const breadcrumbs = ref([])
 
 // COMPUTEDS
-const slug = computed(() => {
-  return route?.params?.brand || null
-})
+const slug = ref(route?.params?.brand) || null
 
-const query = computed(() => {
-  let query = {
-    per_page: 20,
-    page: queryObject.value.page || 1,
-    brand_slug: slug.value
-  }
-
-  if(queryObject.value.selections) {
-    query.selections = queryObject.value.selections
-  }
-
-  if(queryObject.value.filters) {
-    query.attrs = queryObject.value.filters
-  }
-
-  if(queryObject.value.price) {
-    query.price = queryObject.value.price
-  }
-
-  if(queryObject.value.order) {
-    query = {
-      ...query,
-      ...queryObject.value.order
-    }
-  }
-
-  if(slug.value) {
-    query.category_slug = slug.value
-  }
-
-  return query
+const title = computed(() => {
+  let page = catalogQuery.value.page > 1? ', ' + t('label.page', {page: catalogQuery.value.page}): ''
+  let title = brand?.seo?.h1 || t('company_prod') + ' ' + brand.value.name
+  return  title + page
 })
 
 // METHODS
+setFiltersAndCount(['selections', 'price']);
+
+// Loader products
+const {
+  data: catalog,
+  pending: catalogPending,
+  error: catalogError,
+  refresh
+} = await useAsyncData(
+  'product-brand-' + slug.value,
+  async () => {
+    const response = await loadCatalog({brand_slug: slug.value});
+    
+    return {
+      filters: {
+        data: response.filters?.data || catalog?.value?.filters?.data || [],
+        count: response.filters?.count || catalog?.value?.filters?.count || {}
+      },
+      products: response.products || { data: [], meta: {} },
+      sorting: response.sorting || catalog?.value?.sorting || []
+    }
+  }, {
+    lazy: !isServer,
+    server: true,
+  }
+);
+
+const loadProductsAndMerge = async () => {
+  loadingAmount.value += 1;
+  const response = await loadMore(catalog.value);
+  if (response) {
+    catalog.value = response
+  }
+}
+
 const setSeo = () => {
   useHead({
     title: brand.value?.seo?.meta_title || t('seo_title_template', {brand: brand.value?.name}),
@@ -108,79 +87,12 @@ const setCrumbs = () => {
   ]
 }
 
-const getQuery = () => {
-  const query = {
-    per_page: 20,
-    page: route.query.page || 1,
-    brand_slug: slug.value
-  }
-  return query
-}
 
 // HANDLERS
-const updateFiltersHandler = async (v) => {
-  queryObject.value.page = 1;
-
-  (
-    {
-      filters: queryObject.value.filters,
-      brands: queryObject.value.brands,
-      selections: queryObject.value.selections,
-      price: queryObject.value.price,
-    } = prepareAttrs(v)
-  );
-
-  await updateQueryHandler()
-}
-
-const updateOrderHandler = (v) => {
-  queryObject.value.order = v;
-  updateQueryHandler()
-}
-
-const updatePageHandler = (v, loadmore) => {
-  queryObject.value.page = v;
-  updateQueryHandler(loadmore)
-}
-
-const updateQueryHandler = async (loadmore = false) => {
-  pending.value = true;
-
-  if(loadmore)
-  {
-    await getProducts(query.value).then((response) => {
-      products.value = products.value.concat(response.products)
-      meta.value = response.meta
-    }).finally(() => {
-      pending.value = false
-    })
-  }
-  else 
-  {
-    ({
-      products: products.value,
-      meta: meta.value,
-      filters: filtersMeta.value
-    } = await getProducts(query.value).finally(() => {
-      pending.value = false
-    }))
-  }
-}
 
 // WATCHERS
 
 // HOOKS
-await useAsyncData('brand_attributes-'+slug.value, async () => getAttributes(getQuery())).then(({data}) => {
-  if(data?.value) {
-    attributes.value = prepareFilters(data.value)
-  }
-});
-
-// ({
-//   products: products.value,
-//   meta: meta.value,
-//   filters: filtersMetaInit.value
-// } = await getProducts(getQuery(), 'brand-products-' + slug.value).finally(() => {}));
 
 await useAsyncData(`brand-${slug.value}`, () => useBrandStore().show(slug.value)).then(({data}) => {
   if(data.value) {
@@ -189,30 +101,8 @@ await useAsyncData(`brand-${slug.value}`, () => useBrandStore().show(slug.value)
   }
 });
 
-const {pending, data: tempData} = await useProductStore().index(getQuery());
-
-
-watch(tempData, (data) => {
-  if(data?.products?.data) {
-    products.value = data.products.data
-  }
-
-  if(data?.products?.meta) {
-    meta.value = data.products.meta
-  }
-
-  if(data?.filters) {
-    filtersMetaInit.value = data.filters
-  }
-}, {
-  immediate: true
-})
 
 setSeo()
-
-// onServerPrefetch(() => {
-//   setSchema(props.product, reviews.value)
-// })
 </script>
 
 <style src='./brand.scss' lang='scss' scoped></style>
@@ -221,25 +111,23 @@ setSeo()
 <template>
   <NuxtLayout
     name="catalog"
+    :title="title"
+    :products-pending="catalogPending"
+
+    :products="catalog?.products?.data || []"
+    :products-meta="catalog?.products?.meta || {}"
+
+    :filters="catalog?.filters?.data || []"
+    :filters-meta="catalog?.filters?.count || []"
+
+    :sorting="catalog?.sorting || []"
+    
     :breadcrumbs="breadcrumbs"
-    :noFilters="true"
-    :filters="attributes"
-    :filters-meta="filtersMeta"
-    :filters-meta-init="filtersMetaInit"
-    :products="products"
-    :meta="meta"
-    :pending="pending"
-    :updateFiltersCallback = "updateFiltersHandler"
-    :updateOrderCallback = "updateOrderHandler"
-    :updatePageCallback = "updatePageHandler"
+    :refresh="refresh"
+    :loadmore="loadProductsAndMerge"
   >
     <template #title>
-      <template v-if="brand?.seo?.h1">
-        {{ brand?.seo?.h1 }}
-      </template>
-      <template v-else>
-        {{ t('company_prod') }} {{ brand?.name }}
-      </template>
+      {{title }}
     </template>
 
     <template #header>

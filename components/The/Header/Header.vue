@@ -1,5 +1,6 @@
 <script setup>
 const { t } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <style src="./header.scss" lang="scss" scoped />

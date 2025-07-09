@@ -1,10 +1,6 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .table {
   width: 100%;
 }
-
 :deep(.row-wrapper) {
   &:first-child {
     .row {

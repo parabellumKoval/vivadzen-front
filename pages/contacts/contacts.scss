@@ -1,64 +1,49 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .contacts {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 30px;
-
-  @include _desktop {
+  @include desktop {
     grid-template-columns: 4fr 5fr 4fr;
-
   }
-
   &-block {
     display: grid;
     grid-gap: 10px;
   }
-
   &-wrapper {
     display: grid;
     grid-auto-rows: min-content;
     grid-gap: 30px;
   }
-
   &-label {
     font-size: 14px;
     font-weight: 400;
     color: $color-4;
   }
-
   &-value {
     display: block;
     font-size: 16px;
     line-height: 140%;
-
     &:hover {
       color: $color-green;
     }
-
-    @include _desktop {
+    @include desktop {
       font-size: 20px;
     }
   }
 }
-
 .phone {
   display: grid;
   grid-gap: 15px;
 }
-
 .map {
   &-wrapper {
     border-radius: $radius;
     border: 3px solid $color-6;
   }
-
   &-iframe {
     width: 100%;
     height: 320px;
-
-    @include _desktop {
+    @include desktop {
       height: 100%;
     }
   }
@@ -73,28 +58,22 @@
     border: 3px solid $color-6;
     border-radius: $radius;
     background: $color-7;
-
-    @include _desktop {
+    @include desktop {
       padding: 40px;
-
     }
   }
-
   &-label {
     margin-bottom: 10px;
     font-size: 20px;
     color: $color-green;
   }
-
   &-button {
     width: 100%;
   }
 }
-
 .social {
   display: flex;
   flex-wrap: wrap;
-
   &-item  {
     display: grid;
     grid-template-columns: repeat(2, min-content);
@@ -105,16 +84,13 @@
     padding: 0 15px;
     margin: 0 15px 15px 0;
     border-radius: $radius;
-
     &:last-child {
       margin: 0;
     }
   }
-
   &-icon {
     font-size: 20px;
   }
-
   &-text {
     font-weight: 500;  
   }

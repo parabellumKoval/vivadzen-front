@@ -1,33 +1,35 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .right {
   position: absolute;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
 }
-
 .input__wrapper {
   position: relative;
   display: block;
   width: 100%;
-
   &.disabled {
     pointer-events: none;
-
     input {
       pointer-events: none;
     }
   }
-
   &.error {
     .main-input {
       border: 2px solid rgba($color-red, 0.85);
     }
   }
+  &.required {
+    &:after {
+      content: "*";
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(calc(-50% + 4px));
+      color: $color-red;
+    }
+  }
 }
-
 .main-input {
   position: relative;
   width: 100%;
@@ -38,16 +40,13 @@
   outline-color: rgba($color-green, 0.85);
   color: $color-text;
   background-color: $color-8;
-
-  @include _desktop {
+  @include desktop {
     padding: 0 15px;
     height: 50px;
   }
-
   &::placeholder {
     color: $color-3;
   }
-
   &:before {
     content: '';
     position: absolute;
@@ -74,7 +73,6 @@
     z-index: -2;
   }
 }
-
 .main-input:-webkit-autofill,
 .main-input:-webkit-autofill:hover,
 .main-input:-webkit-autofill:focus,

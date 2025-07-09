@@ -3,7 +3,7 @@
 // import {useCatalog} from '~/composables/product/useCatalog.ts'
 
 const {t} = useI18n()
-const {modelValue} = useFilterItem()
+const {activeFilters} = useFilter()
 const {catalogMeta, pending} = useCatalog()
 
 // COMPUTEDS
@@ -16,7 +16,7 @@ const productsLength = computed(() => {
 })
 
 const filtersLength = computed(() => {
-  return modelValue?.value?.length
+  return activeFilters?.value?.length
 })
 // METHODS
 // HANDLERS
@@ -39,7 +39,6 @@ const applyHandler = () => {
       <filter-list
         :filters="data.filters"
         :meta="data.meta"
-        :meta-init="data.metaInit"
         :class="{pending: pending}"
         class="filters"
       ></filter-list>

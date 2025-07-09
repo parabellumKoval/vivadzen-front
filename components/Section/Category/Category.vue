@@ -1,5 +1,6 @@
 <script setup>
 import { useCategoryStore } from '~/store/category'
+const localePath = useLocalePath()
 
 const {t} = useI18n()
 

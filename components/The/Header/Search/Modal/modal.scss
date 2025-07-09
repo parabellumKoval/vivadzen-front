@@ -1,17 +1,12 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
-
+@use "sass:color";
 
 .typing {
   display: grid;
   grid-template-columns: repeat(3, 5px);
   grid-gap: 5px;
   align-items: center;
-  
   .dot {
     opacity: 0;
-
     &:nth-child(1) {
       animation: dot1 1s infinite;
     }
@@ -23,7 +18,6 @@
     }
   }
 }
-
 @keyframes dot1 {
   0% {
     opacity: 0;
@@ -48,18 +42,15 @@
     opacity: 1;
   }
 }
-
 .message-box {
   color: $color-4;
   line-height: 135%;
 }
-
 // .simple-search {
 //   position: fixed;
 //   top: 65px;
 //   width: calc(100vw - 20px);
 // }
-
 .mobile-close-btn {
   position: absolute;
   top: 15px;
@@ -69,7 +60,6 @@
   font-size: 20px;
   z-index: 100;
 }
-
 .livesearch {
   position: absolute;
   top: 60px;
@@ -83,14 +73,11 @@
   font-size: 16px;
   z-index: 2;
   border-radius: $radius;
-
-  @include _scrollbar;
-
-  @include _desktop {
+  @include scrollbar;
+  @include desktop {
     padding: 30px;
     max-height: calc(100vh - 100px);
   }
-
   &-bg {
     position: fixed;
     z-index: 1;
@@ -101,7 +88,6 @@
     height: 100vh;
     background: rgba($color-0, 50%);
   }
-
   .powered-by {
     position: sticky;
     bottom: 0;
@@ -112,109 +98,84 @@
     justify-content: end;
     color: $color-4;
     font-size: 14px;
-
-    @include _desktop {
+    @include desktop {
       margin: 0;
     }
-
     .algolia {
       display: inline-block;
     }
-
     &-text {
       background: #fff;
     }
-
   }
-
   &-box {
     margin: 30px 0 0 0;
     padding: 0 0 0 0;
     // border-bottom: 1px solid $color-6;
-
-    @include _desktop {
+    @include desktop {
       margin: 45px 0 0 0;
     }
-
     &:first-of-type {
       margin: 0;
     }
-
     &:last-of-type{
       border-bottom: 0;
     }
   }
-
   &-label {
     margin-bottom: 10px;
     font-size: 14px;
     color: $color-3;
   }
-
   &-list {
     display: grid;
     grid-gap: 10px;
     margin: 10px 0 0 0;
   }
-
   &-inline {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-
     & > .livesearch-item {
       flex-shrink: 0;
       margin: 0 15px 10px 0;
     }
   }
-
   &-item {
   }
-
   &-link {
-
     &:hover {
       color: $color-green;
     }
-
   }
-
   &-columns {
     display: grid;
     grid-gap: 30px;
     grid-template-columns: 1fr;
-
-    @include _desktop {
+    @include desktop {
       grid-gap: 40px;
       grid-template-columns: repeat(3, 1fr);
     }
   }
-
   &-grid {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 1fr;
-
-    @include _desktop {
+    @include desktop {
       grid-gap: 20px;
       grid-template-columns: repeat(6, 1fr);
     }
   }
-
   &-brands {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 1fr;
-
-    @include _desktop {
+    @include desktop {
       grid-gap: 20px;
       grid-template-columns: repeat(4, 1fr);
-
     }
   }
 }
-
-
 .item {
   &-image {
     width: 40px;
@@ -224,21 +185,17 @@
     border: 1px solid $color-6;
   }
 }
-
 .all-results-btn {
   margin-top: 15px;
-
   &-link {
     display: grid;
     grid-template-columns: repeat(2, min-content);
     align-items: center;
     grid-gap: 10px;
     color: $color-green;
-  
     &:hover {
-      color: scale-color($color-green, $lightness: 30%);
+      color: color.scale($color-green, $lightness: 30%);
     }
-  
     .text {
       padding: 5px 0;
       border-bottom: 1px dashed;

@@ -1,30 +1,23 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
 .m-wrapper {
   :deep(.modal-inner) {
     padding: 0;
   }
-
   :deep(.modal-slot) {
     overflow: hidden;
   }
 }
-
 .catalog {
   position: relative;
   display: flex;
   height: initial;
   width: 100%;
   overflow-y: scroll;
-
-  @include _desktop {
+  @include desktop {
     width: calc(100vw - 90px);
     height: calc(100vh - 170px);
     overflow-y: initial;
   }
 }
-
 .category {
   &-wrapper {
     display: none;
@@ -32,10 +25,8 @@
     height: 100%;
     padding: 30px 20px 30px 20px;
     overflow-y: auto;
-
-    @include _scrollbar;
-
-    @include _desktop {
+    @include scrollbar;
+    @include desktop {
       display: block;
       position: absolute;
       top: 0;
@@ -44,21 +35,18 @@
       width: 375px;
       background: $color-6;
     }
-
     &.mobile-active {
       display: block;
     }
   }
-  
   &-inner {
-    @include _desktop {
+    @include desktop {
       position: sticky;
       height: min-content;
       top: 0;
       display: block;
     }
   }
-
   &-item {
     position: relative;
     display: flex;
@@ -69,27 +57,22 @@
     line-height: 120%;
     border-radius: $radius;
     transition: background $speed, color $speed;
-
-    @include _desktop {
+    @include desktop {
       margin: 0 0 5px 0;
       padding: 10px 45px 10px 10px;
     }
-
     &:last-of-type {
       margin: 0;
     }
-
     &.active {
       color: $color-primary;
       background: $color-5;
     }
-
     &:hover {
       background: $color-5;
       color: $color-primary;
     }
   }
-
   &-image {
     width: 40px;
     height: 40px;
@@ -97,23 +80,19 @@
     margin: 0 15px 0 0;
     border-radius: $radius;
   }
-
   &-name {
     text-transform: uppercase;
     font-size: 12px;
-
-    @include _desktop {
+    @include desktop {
       font-size: 14px;
     }
   }
-
   &-icon {
     position: absolute;
     right: 10px;
     font-size: 24px;
   }
 }
-
 .sub {
   &-header {
     position: sticky;
@@ -126,12 +105,10 @@
     margin: 0 0 20px 0;
     width: calc(100% + 5px);
     background: $color-7;
-
-    @include _desktop {
+    @include desktop {
       display: none;
     }
   }
-
   &-btn {
     display: flex;
     align-items: center;
@@ -139,13 +116,11 @@
     height: 40px;
     width: 40px;
   }
-
   &-title {
     text-transform: uppercase;
     margin-left: 15px;
     font-size: 12px;
   }
-
   &-wrapper {
     width: 100%;
     height: 100%;
@@ -153,10 +128,8 @@
     overflow-y: scroll;
     display: none;
     padding: 0;
-
-    @include _scrollbar;
-
-    @include _desktop {
+    @include scrollbar;
+    @include desktop {
       position: absolute;
       top: 0;
       left: 375px;
@@ -165,21 +138,17 @@
       overflow-y: scroll;
       width: calc(100vw - 375px - 90px);
     }
-
     &.mobile-active {
       display: block;
     }
   }
-
   &-inner {
     display: block;
     padding: 0 0 20px 0;
-
-    @include _desktop {
+    @include desktop {
       columns: 3;
     }
   }
-
   &-item {
     display: block;
     margin: 0;
@@ -187,32 +156,26 @@
     text-transform: uppercase;
     line-height: 130%;
     font-size: 12px;
-
-    @include _desktop {
+    @include desktop {
       margin: 0 0 10px 30px;
       padding: 0;
       font-size: 14px;
     }
-
     &:first-of-type {
       font-weight: 500;
     }
   }
 }
-
 .last {
   margin: 0 0 10px 20px;
-
-  @include _desktop {
+  @include desktop {
     margin: 0 0 20px 30px;
   }
-
   &-link {
     display: block;
     padding: 10px 0;
     color: $color-3;
-
-    @include _desktop {
+    @include desktop {
       margin: 0 0 10px 0;
       padding: 0;
     }

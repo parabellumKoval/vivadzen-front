@@ -1,17 +1,16 @@
-@import './vars';
-@import './mixins';
+@use './vars' as *;
+@use './mixins' as *;
+@use "sass:color";
 
 // BUTTONS
 .btn {
   height: 40px;
   border-radius: $radius;
   transition: border $speed-fast, color $speed-fast, background $speed-fast;
-
-  @include _desktop {
+  @include desktop {
     height: 50px;
   }
 }
-
 .button {
   position: relative;
   display: flex;
@@ -28,16 +27,13 @@
   white-space: nowrap;
   overflow: hidden;
   transition: transform $speed-fast, color $speed-fast .3s, border $speed-fast, background $speed-fast;
-
-  @include _tablet {
+  @include tablet {
     width: min-content;
   }
-
-  @include _desktop {
+  @include desktop {
     height: 50px;
     font-size: 14px;
   }
-
   // &:before {
   //   content: '';
   //   position: absolute;
@@ -48,200 +44,157 @@
   //   padding-bottom: 100%;
   //   border-radius: 100%;
   // }
-
   &.clear-padding {
     padding: 0;
   }
-
   &.full {
     width: 100%;
     max-width: 100%;
   }
-
   &.lowcase {
     text-transform: none;
   }
-
   &.wide {
     padding: 0 45px;
   }
-
   &.light {
     text-transform: none;
     font-weight: 400;
   }
-  
   &.small {
     height: 40px;
     padding: 0 20px;
   }
-  
   &.mini {
     height: 34px;
     padding: 0 15px;
   }
-
   &.primary {
     background: $color-green;
     color: #fff;
-
     &:hover {
-      background: lighten($color-green, 10%);
+      background: color.adjust($color-green, $lightness: 10%);
     }
-
     &.loading {
       &:before {
-        background: lighten($color-green, 10%);
+        background: color.adjust($color-green, $lightness: 10%);;
       }
     }
   }
-
   &.secondary {
     background: $color-7;
     color: $color-2;
-
     &:hover {
-      background: darken($color-7, 4%);
+      background: color.adjust($color-7, $lightness: -4%);
     }
-
     &.darker {
       color: $color-0;
     }
-
     &.loading {
       &:before {
         background: $color-5;
       }
     }
   }
-
   &.color-primary {
     border: 1px solid $color-green;
     color: $color-green;
-
     &:hover {
-      border-color: lighten($color-green, 10%);
-      color: lighten($color-green, 10%);
+      border-color: color.adjust($color-green, $lightness: 10%);
+      color: color.adjust($color-green, $lightness: 10%);
     }
   }
-
   &.color-dark {
     border: 2px solid $color-0;
-
   }
-
-
   &.violet {
-    background: scale-color($color-violet, $lightness: 94%);
+    background: color.scale($color-violet, $lightness: 94%);
     color: $color-violet;
-
     &:hover {
-      background: scale-color($color-violet, $lightness: 84%);
+      background: color.scale($color-violet, $lightness: 84%);
     }
-
     &.loading {
       &:before {
-        background: scale-color($color-violet, $lightness: 80%);
+        background: color.scale($color-violet, $lightness: 80%);
       }
     }
-
     &.active {
       background: $color-violet;
       color: $color-8;
-
       &:hover {
-        background: scale-color($color-violet, $lightness: 15%);
+        background: color.scale($color-violet, $lightness: 15%);
       }
     }
   }
-
   &.blue {
-    background: scale-color($color-blue, $lightness: 84%);
+    background: color.scale($color-blue, $lightness: 84%);
     color: $color-blue;
-
     &:hover {
-      background: scale-color($color-blue, $lightness: 80%);
+      background: color.scale($color-blue, $lightness: 80%);
     }
-
     &.loading {
       &:before {
-        background: scale-color($color-blue, $lightness: 80%);
+        background: color.scale($color-blue, $lightness: 80%);
       }
     }
   }
-
   & > * {
     position: relative;
     z-index: 1;
   }
-
   &:active {
     transition: transform 0s;
     transform: scale(0.95);
   }
-  
   &.loading {
     opacity: 0.55;
     pointer-events: none;
-
     & > * {
       pointer-events: none;
     }
-
     &:before {
       animation: loading 2s infinite;
     }
   }
-
   &.disabled {
     opacity: 0.35;
     pointer-events: none;
-
     & > * {
       pointer-events: none;
     }
   }
-
   .icon {
     position: absolute;
     left: 20px;
     flex-shrink: 0;
     font-size: 20px;
   }
-
   .inline-icon {
     font-size: 20px;
     flex-shrink: 0;
   }
-
   &.inline-icon {
     .icon {
       position: relative;
       left: initial;
     }
   }
-
   &.large-icon {
     .icon {
       font-size: 24px;
     }
   }
 }
-
-
 // LINK
 .link {
   transition: color $speed;
-
   &:hover {
     color: $color-green !important;
   }
 }
-
 .a-link {
   text-decoration: underline;
 }
-
 .text-link {
   display: inline-grid;
   grid-auto-flow: column;
@@ -249,25 +202,20 @@
   grid-gap: 6px;
   transition: color $speed;
   white-space: nowrap;
-
   span {
     position: relative;
     padding: 2px 0;
     border-bottom: 1px dashed;
   }
-
   &:hover {
     color: $color-green;
   }
-
   &.loading {
     pointer-events: none;
     cursor: auto;
-
     &:hover {
       color: initial;
     }
-
     span{
       &:after {
         content: '';
@@ -287,11 +235,9 @@
     }
   }
 }
-
 .router-link-active {
   color: $color-green;  
 }
-
 @keyframes loading2 {
   0%{
     opacity: 1;

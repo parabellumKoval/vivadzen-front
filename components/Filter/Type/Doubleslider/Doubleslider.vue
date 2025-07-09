@@ -1,81 +1,63 @@
 <script setup>
-// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
-
 const props = defineProps({
   filter: {
     type: Object
   },
 
   meta: {
-    type: Object
-  },
-
-  metaInit: {
     type: Object,
-    default: null
-  }
+    default: () => {min: 0; max: 0}
+  },
 })
 
-const limits = ref([0, 0])
-const value = ref([0, 0])
-const delay = ref(null)
-const fixValue = ref(false)
 
-const {modelValue, updateRangeValue, isMetaBlocked, thisFilter} = useFilterItem(props.filter.id)
+const {updateRangeValue, thisFilter} = useFilterItem(props.filter.id)
+
+const limits = ref([props.meta.min || props.filter?.values?.min, props.meta.max || props.filter?.values?.max])
+const value = ref([thisFilter.value?.values?.min || props.meta?.min, thisFilter.value?.values?.max || props.meta?.max])
+const timeout = ref(null)
+const fixValue = ref(false)
+const preventUpdate = ref(false)
 
 // HANDLERS
 const changeHandler = (v) => {}
 
 const setHandler = (v) => {
   fixValue.value = true
-
-  delay.value = setTimeout(() => {
+  clearTimeout(timeout.value)
+  
+  timeout.value = setTimeout(() => {
     updateRangeValue(v)
-  }, 500)
+  }, 1000)
 }
 
 // WATCHERS
-watch(() => modelValue.value, (v) => {
-  if(fixValue.value) {
-    fixValue.value = false
-    return 
+watch(value, (v) => {
+  if(preventUpdate.value) {
+    preventUpdate.value = false
+    return
   }
 
-  if(thisFilter.value === undefined) {
-    value.value = limits.value
-  }
+  setHandler(v)
 }, {
   deep: true,
+})
+
+
+// This need to reset modelValue when filter is removed from selectedFilters
+watch(thisFilter, (v) => {
+  if(v === undefined) {
+    preventUpdate.value = true
+    value.value = [limits.value[0], limits.value[1]]
+  }
+}, {
+  deep: true
 })
 
 watch(() => props.meta, (v) => {
-  if(
-    isMetaBlocked.value || 
-    !v || 
-    v.min === undefined || 
-    v.max === undefined ||
-    v.min === null ||
-    v.max === null
-  ) return
-  
   limits.value = [v.min, v.max]
 }, {
   deep: true,
-})
-
-watch(() => props.metaInit, (v) => {
-  if(!v || 
-      v.min === undefined || 
-      v.max === undefined ||
-      v.min === null ||
-      v.max === null
-    ) return
-
-  limits.value = [v.min, v.max]
-  value.value = [v.min, v.max]
-}, {
-  deep: true,
-  immediate: true
 })
 </script>
 
@@ -85,28 +67,6 @@ watch(() => props.metaInit, (v) => {
 
 <template>
   <div class="slider-wrapper">
-    
-    <div class="slider-form">
-      <div class="input-wrapper">
-        <input v-if="value[0] !== undefined" type="number" v-model="value[0]" class="input-form">
-        <div class="input-line"></div>
-        <input v-if="value[1] !== undefined" type="number" v-model="value[1]" class="input-form">
-      </div>
-    </div>
-
-    <div class="slider-inner">
-      <div class="slider" >
-        <UiSlider
-          v-model="value"
-          :min="limits[0]"
-          :max="limits[1]"
-          :lazy="false"
-          :tooltips="false"
-          @change="changeHandler"
-          @set="setHandler"
-          clickable 
-        />
-      </div>
-    </div>
+    <form-slider-double v-model="value" :min="limits[0]" :max="limits[1]"></form-slider-double>
   </div>
 </template>

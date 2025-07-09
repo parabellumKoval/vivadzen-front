@@ -1,12 +1,7 @@
-@import './assets/scss/vars';
-@import './assets/scss/mixins';
-
-
 .languages-btn {
   &-item {
     width: 100%;
   }
-
   &-link {
     display: flex;
     align-items: center;
@@ -16,7 +11,6 @@
     border-radius: 3px;
     font-size: 14px;
     color: $color-4;
-
     &.router-link-exact-active {
       background: $color-11;
     }
