@@ -134,6 +134,10 @@ watch(() => route.query, (newQuery, oldQuery) => {
 
 // When new catalog page is loaded or switched to new catalog page
 watch(() => route.path, (v) => {
+  // console.log('Catalog page changed:', v)
+  // reset mode
+  setMode('INITIAL')
+
   // initialize filters from URL query params
   initFiltersFromUrl()
 }, {

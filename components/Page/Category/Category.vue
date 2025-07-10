@@ -1,7 +1,7 @@
 <script setup>
 import {useCategoryStore} from '~/store/category'
 
-const {loadCatalog, setFiltersAndCount, catalogQuery} = useCatalog()
+const {loadCatalog, setFiltersAndCount, catalogQuery, setMode} = useCatalog()
 
 const isServer = process.server
 
@@ -119,6 +119,7 @@ watch(() => category.value?.category, (v) => {
     deep: true
 })
 
+setMode('INITIAL')
 </script>
 
 <style src="./category.scss" lang="scss" scoped></style>

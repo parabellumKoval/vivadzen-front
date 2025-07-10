@@ -13,12 +13,13 @@ const props = defineProps({
 
 const {updateRangeValue, thisFilter} = useFilterItem(props.filter.id)
 
-const limits = ref([props.meta.min || props.filter?.values?.min, props.meta.max || props.filter?.values?.max])
-const value = ref([thisFilter.value?.values?.min || props.meta?.min, thisFilter.value?.values?.max || props.meta?.max])
+const limits = ref([props.meta.min || props.meta[0], props.meta.max || props.meta[1]])
+const value = ref([thisFilter.value?.values?.min || props.meta?.min || props.meta[0], thisFilter.value?.values?.max || props.meta?.max || props.meta[1]])
 const timeout = ref(null)
 const fixValue = ref(false)
 const preventUpdate = ref(false)
 
+console.log('limits', limits.value, props.meta, props.filter)
 // HANDLERS
 const changeHandler = (v) => {}
 
@@ -55,7 +56,7 @@ watch(thisFilter, (v) => {
 })
 
 watch(() => props.meta, (v) => {
-  limits.value = [v.min, v.max]
+  limits.value = [v.min || v[0], v.max || v[1]]
 }, {
   deep: true,
 })

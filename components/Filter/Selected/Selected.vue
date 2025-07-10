@@ -23,8 +23,6 @@ const selected = computed(() => {
       return filter.id == key
     })
 
-    console.log('props.filters', props.filters, key, value, filter)
-
     if(!filter)
       continue
 
@@ -42,8 +40,6 @@ const selected = computed(() => {
         }else {
           filterValue = Object.values(filter.values).find(v => v.id == selectedValue);
         }
-
-        // console.log('filterValue', filterValue)
 
         if(filterValue === undefined || filterValue === null)
           return

@@ -83,7 +83,6 @@ useSchemaOrg([
 
 onMounted(async () => {
   const supa = await useLazyComposable('useSupabaseAuthHandler')
-  console.log('Supabase auth handler loaded:', supa)
   supa.loadComposable()
 })
 </script>

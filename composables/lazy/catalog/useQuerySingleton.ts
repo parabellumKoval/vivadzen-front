@@ -59,7 +59,7 @@ function createQuery (options = {}) {
       const valToRemove = paramsToRemove[key]
 
       // Если null — удалить полностью
-      if (valToRemove === null) {
+      if (valToRemove === null || valToRemove === 'null') {
         delete updated[key]
       }
       // Если простой массив или скаляр — удаляем конкретное значение
@@ -73,7 +73,8 @@ function createQuery (options = {}) {
         updated[key] = updated[key].filter((item: any) => {
           // Если valToRemove содержит несколько ключей — ищем полное соответствие подмножества
           for (const innerKey in valToRemove) {
-            if (item[innerKey] !== valToRemove[innerKey]) {
+        console.log('here 2')
+            if (String(item[innerKey]) !== String(valToRemove[innerKey])) {
               return true // не совпало — оставляем
             }
           }
@@ -131,33 +132,49 @@ function createQuery (options = {}) {
    */
   function deepMerge(target: any, source: any): any {
     if (Array.isArray(target) && Array.isArray(source)) {
-      const merged = [...target]
+      const merged = [...target];
       for (const item of source) {
-        // Добавляем только уникальные значения (по JSON.stringify — можно заменить)
-        if (!merged.some(existing => JSON.stringify(existing) === JSON.stringify(item))) {
-          merged.push(item)
+        // Проверяем, является ли элемент объектом с полями 'from' и 'to'
+        if (isObject(item) && 'attr_id' in item && 'from' in item && 'to' in item) {
+          // Ищем существующий элемент с тем же attr_id
+          const existingIndex = merged.findIndex(existing => 
+            isObject(existing) && 'attr_id' in existing && String(existing.attr_id) === String(item.attr_id)
+          );
+          
+          if (existingIndex !== -1) {
+            // Если нашли, заменяем его на новый
+            merged[existingIndex] = item;
+          } else {
+            // Иначе добавляем как новый элемент
+            merged.push(item);
+          }
+        } else {
+          // Для других типов элементов добавляем только уникальные значения
+          if (!merged.some(existing => JSON.stringify(existing) === JSON.stringify(item))) {
+            merged.push(item);
+          }
         }
       }
-      return merged
+      return merged;
     }
 
     if (isObject(target) && isObject(source)) {
-      const result: Record<string, any> = { ...target }
+      const result: Record<string, any> = { ...target };
       for (const key in source) {
         if (key in target) {
-          result[key] = deepMerge(target[key], source[key])
+          result[key] = deepMerge(target[key], source[key]);
         } else {
-          result[key] = source[key]
+          result[key] = source[key];
         }
       }
-      return result
+      return result;
     }
 
     // Иначе — перезапись
-    return source
+    return source;
   }
 
-const addOrUpdateQueryParams = (
+  const addOrUpdateQueryParams = (
     newQueryParams: QueryParam,
     replaceExisting: boolean = false,
     isFireBeforeHook: boolean = true,

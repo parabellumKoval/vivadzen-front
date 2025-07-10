@@ -4,7 +4,7 @@ import {useBrandStore} from '~/store/brand'
 const {t} = useI18n()
 const route = useRoute()
 
-const {loadCatalog, setFiltersAndCount, loadMore, catalogQuery} = useCatalog()
+const {loadCatalog, setFiltersAndCount, loadMore, catalogQuery, setMode} = useCatalog()
 
 // REFS
 const isServer = process.server
@@ -93,7 +93,6 @@ const setCrumbs = () => {
 // WATCHERS
 
 // HOOKS
-
 await useAsyncData(`brand-${slug.value}`, () => useBrandStore().show(slug.value)).then(({data}) => {
   if(data.value) {
     brand.value = data.value
@@ -101,8 +100,9 @@ await useAsyncData(`brand-${slug.value}`, () => useBrandStore().show(slug.value)
   }
 });
 
-
 setSeo()
+
+setMode('INITIAL')
 </script>
 
 <style src='./brand.scss' lang='scss' scoped></style>

@@ -14,7 +14,7 @@ const setCrumbs = () => {
     }
   ]
 }
-const {loadCatalog, setFiltersAndCount, loadMore, catalogQuery} = useCatalog()
+const {loadCatalog, setFiltersAndCount, loadMore, catalogQuery, setMode} = useCatalog()
 
 
 // REFS
@@ -68,6 +68,8 @@ const loadProductsAndMerge = async () => {
 }
 
 setCrumbs()
+
+setMode('INITIAL')
 </script>
 
 <template>

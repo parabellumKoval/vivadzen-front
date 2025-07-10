@@ -90,7 +90,6 @@ export const useCatalog = () => {
       })
     }
 
-    console.log('new query computed', q )
     return Object.fromEntries(
       Object.entries(q).filter(([_, value]) => 
         value !== null && (!Array.isArray(value) || value.length > 0)

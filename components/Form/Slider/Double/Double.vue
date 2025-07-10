@@ -36,21 +36,11 @@ watch(internalValue, ([minVal, maxVal]) => {
 watch(() => props.min, (v) => {
   internalValue.value[0] = v
   inputMin.value = v
-
-  // if(internalValue.value[0] < v) {
-  //   internalValue.value[0] = v
-  //   console.log('min internalValue.value[0]', internalValue.value[0])
-  // }
 })
 
 watch(() => props.max, (v) => {
   internalValue.value[1] = v
   inputMax.value = v
-
-  // if(internalValue.value[1] > v) {
-  //   internalValue.value[1] = v
-  //   console.log('max internalValue.value[1]', internalValue.value[1])
-  // }
 })
 
 const leftPercent = computed(() => getPercent(internalValue.value[0]))
@@ -58,7 +48,6 @@ const rightPercent = computed(() => getPercent(internalValue.value[1]))
 const widthPercent = computed(() => rightPercent.value - leftPercent.value)
 
 function getPercent(val) {
-  // console.log('getPercent', val, props.min, props.max)
   return ((val - props.min) / (props.max - props.min)) * 100
 }
 

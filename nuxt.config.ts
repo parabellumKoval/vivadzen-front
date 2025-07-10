@@ -209,7 +209,7 @@ export default defineNuxtConfig({
           'defineStore',
         ],
       },
-    ], '@nuxtjs/i18n', '@nuxt/content', "@nuxtjs/seo", 'nuxt-gtag'],
+    ], '@nuxtjs/i18n', '@nuxt/content', "@nuxtjs/seo"],
 
   experimental: {
     renderJsonPayloads: false,
