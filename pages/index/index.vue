@@ -4,12 +4,14 @@ const {t} = useI18n()
 const topQuery = ref({
   per_page: 10,
   selections: ['in_stock'],
-  order_by: 'sales'
+  order_by: 'sales',
+  cache: ['with_products'],
 })
 
 const saleQuery = ref({
   per_page: 10,
   selections: ['with_sales', 'in_stock'],
+  cache: ['with_products'],
 })
 
 //
