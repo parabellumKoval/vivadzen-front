@@ -4,14 +4,12 @@ const {t} = useI18n()
 const topQuery = ref({
   per_page: 10,
   selections: ['in_stock'],
-  order_by: 'sales',
-  with_filters: 0
+  order_by: 'sales'
 })
 
 const saleQuery = ref({
   per_page: 10,
   selections: ['with_sales', 'in_stock'],
-  with_filters: 0
 })
 
 //
@@ -41,7 +39,7 @@ setSeo()
       list-id="top-products"
       :query="topQuery"
       :fetchOptions="{key:'top'}"
-      link="/catalog?selections=in_stock&order_by=sales"
+      link="/catalog?selections[0]=in_stock&selections[1]=top_sales"
     ></section-slider-products>
 
     <section-slider-products
@@ -49,7 +47,7 @@ setSeo()
       list-id="promotional-products"
       :query="saleQuery"
       :fetchOptions="{key:'sale'}"
-      link="/catalog?selections=with_sales&selections=in_stock"
+      link="/catalog?selections[0]=with_sales&selections[1]=in_stock"
     ></section-slider-products>
 
     <!-- <lazy-section-category></lazy-section-category> -->
