@@ -251,11 +251,7 @@ export const useGoogleEvent = () => {
     const handler = eventHandlers[functionName as keyof EventHandlers];
 
     const gTagData = handler(data)
-    // console.log('event', gTagData.event, gTagData.ecommerce)
-    gtag('event', gTagData.event, {
-      ...gTagData.ecommerce,
-      debug_mode: true
-    })
+    gtag('event', gTagData.event, gTagData.ecommerce)
   }
 
   return {

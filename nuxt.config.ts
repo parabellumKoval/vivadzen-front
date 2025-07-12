@@ -125,13 +125,7 @@ export default defineNuxtConfig({
       {
         class: 'icon'
       }
-  ], [
-    '@nuxtjs/partytown',
-    {
-      debug: process.env.NODE_ENV === 'development',
-      forward: ['dataLayer.push']
-    }
-  ], [
+  ],[
     'nuxt-delay-hydration',
     {
       // mode: 'manual',
@@ -227,7 +221,7 @@ export default defineNuxtConfig({
   },
   
   gtag: {
-    id: process.env.GTM
+    id: process.env.GTAG,
   },
   
   i18n: {
