@@ -94,7 +94,7 @@ export const useGoogleEvent = () => {
     let data: ProductEcommerce = {
       item_id: product?.id,
       item_name: product?.name,
-      price: product?.price,
+      price: formatPrice(product?.price)
     }
 
 
@@ -127,16 +127,25 @@ export const useGoogleEvent = () => {
     return data
   }
 
+
   const getItemData = (product: Product) => {
     let data: EcommerceData = {
         currency: "UAH",
-        value: product.price,
+        value: formatPrice(product.price),
         items: [
           getProductUnitData(product)
         ]
     }
 
     return data
+  }
+
+
+  const formatPrice = (value: number | string): number => {
+    const floatValue = parseFloat(String(value).replace(',', '.'));
+
+    // Округляем до двух знаков после запятой
+    return parseFloat(floatValue.toFixed(2));
   }
 
   const eventHandlers: EventHandlers = {
@@ -192,7 +201,7 @@ export const useGoogleEvent = () => {
         event: "begin_checkout",
         ecommerce: {
           currency: "UAH",
-          value: data.total,
+          value: formatPrice(data.total),
           items: items
         }
       }
@@ -206,7 +215,7 @@ export const useGoogleEvent = () => {
         event: "purchase",
         ecommerce: {
           transaction_id: data.code,
-          value: data.total,
+          value: formatPrice(data.total),
           currency: "UAH",
           items: items
         }
@@ -222,7 +231,7 @@ export const useGoogleEvent = () => {
         ecommerce: {
           shipping_tier: data.shipping,
           currency: "UAH",
-          value: data.total,
+          value: formatPrice(data.total),
           items: items
         }
       }
@@ -237,7 +246,7 @@ export const useGoogleEvent = () => {
         ecommerce: {
           payment_type: data.payment,
           currency: "UAH",
-          value: data.total,
+          value: formatPrice(data.total),
           items: items
         }
       }
