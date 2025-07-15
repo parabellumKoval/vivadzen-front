@@ -34,6 +34,7 @@
     "@nuxtjs/seo": "^3.0.3",
     "@nuxtjs/supabase": "^1.2.0",
     "@types/node": "^18",
+    "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
     "nuxt": "^3.17.5",
     "nuxt-anchorscroll": "^1.0.3",
     "nuxt-gtag": "^3.0.3",

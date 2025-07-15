@@ -120,6 +120,7 @@ export default defineNuxtConfig({
   //   }
   // ],
   'nuxt-gtag',
+  '@zadigetvoltaire/nuxt-gtm',
   [
       'nuxt-icon',
       {
@@ -220,6 +221,12 @@ export default defineNuxtConfig({
     fallbackTitle: false
   },
   
+  gtm: {
+    id: process.env.GTM,
+    defer: true,
+    compatibility: true, 
+  },
+
   gtag: {
     id: process.env.GTAG,
   },
