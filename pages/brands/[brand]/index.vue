@@ -20,7 +20,7 @@ const slug = ref(route?.params?.brand) || null
 
 const title = computed(() => {
   let page = catalogQuery.value.page > 1? ', ' + t('label.page', {page: catalogQuery.value.page}): ''
-  let title = brand?.seo?.h1 || t('company_prod') + ' ' + brand.value.name
+  let title = brand?.seo?.h1 || t('company_prod') + ' ' + brand.value?.name
   return  title + page
 })
 

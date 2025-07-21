@@ -292,15 +292,15 @@ export default defineNuxtConfig({
       process.env.API_SERVER_URL + '/sitemap/articles'
     ]
   },
+
+  schemaOrg: {
+    enabled: true,
+  },
   
   content: {
     defaultLocale: 'ru',
     locales: ['uk','ru'],
     navigation: false
-  },
-
-  schemaOrg: {
-    enabled: true,
   },
 
   // i18n: {

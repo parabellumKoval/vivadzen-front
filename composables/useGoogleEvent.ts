@@ -131,7 +131,7 @@ export const useGoogleEvent = () => {
   const getItemData = (product: Product) => {
     let data: EcommerceData = {
         currency: "UAH",
-        value: formatPrice(product.price),
+        value: formatPrice(product?.price),
         items: [
           getProductUnitData(product)
         ]
