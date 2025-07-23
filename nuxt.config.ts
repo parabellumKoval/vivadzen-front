@@ -229,6 +229,21 @@ export default defineNuxtConfig({
 
   gtag: {
     id: process.env.GTAG,
+    initCommands: [
+      // Setup up consent mode
+      ['consent', 'default', {
+        // ad_user_data: 'denied',
+        // ad_personalization: 'denied',
+        // ad_storage: 'denied',
+        // analytics_storage: 'denied',
+        // wait_for_update: 500,
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        // wait_for_update: 500,
+      }]
+    ]
   },
   
   i18n: {
