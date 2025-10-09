@@ -39,8 +39,8 @@ title:
     favorite: Избранные товары
 
 meta:
-  address: Днепропетровская область, Днепр, улица Троицкая, 3А
-  djini_desc: Интернет-магазин “Джинни” - продукты спортивного питания, витамины и минералы, биологически активные добавки, косметическую продукцию
+  address: На Боишти 1471/22, 120 00 Нове Место, Прага 2, Чехия
+  djini_desc: Интернет-магазин “Vivadzen”
 
 label:
   articul: Артикул
@@ -294,5 +294,5 @@ noty:
 
 seo:
   page:
-    title: "{title} - Djini"
-    desc: "{title} на сайте djini.com.ua"
+    title: "{title} - Vivadzen"
+    desc: "{title} на сайте vivadzen.com"

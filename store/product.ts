@@ -87,7 +87,7 @@ export const useProductStore = defineStore('productStore', {
     },
 
     async catalog(query: Object) {
-      const url = useRuntimeConfig().public.apiBase + '/product/catalog'
+      const url = useRuntimeConfig().public.apiBase + '/catalog'
       return await useApiFetch(url, query, 'GET', {lazy: false})
     },
 

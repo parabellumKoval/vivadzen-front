@@ -55,6 +55,7 @@ const setGoogleEventHandler = () => {
   useGoogleEvent().setEvent('SelectItem', {name: listData.name, id: listData.id, product: {...props.item, index: props.index}})
 }
 
+console.log('item', props.item)
 </script>
 
 <style src="./card.scss" lang="scss" scoped />
@@ -147,7 +148,7 @@ const setGoogleEventHandler = () => {
         <span class="buy-btn-name">{{ t('button.buy') }}</span>
         <IconCSS name="iconoir:shopping-bag" class="buy-btn-icon"></IconCSS>
       </button>
-      <lazy-product-price :price="item.price" :old-price="item.oldPrice"></lazy-product-price>
+      <lazy-product-price :price="item.price" :old-price="item.oldPrice" currency-code="USD"></lazy-product-price>
     </div>
 
   </div>

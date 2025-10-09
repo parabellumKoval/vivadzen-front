@@ -1,5 +1,6 @@
 <script setup>
-const { locale, locales } = useI18n()
+
+const { locale, locales, t } = useI18n()
 
 const switchLocalePath = useSwitchLocalePath()
 
@@ -20,13 +21,21 @@ const switchHandler = (item) => {
   useModal().close()
   emit('select')
 }
+
+const openModalHandler = (event) => {
+  const component = defineAsyncComponent(() => import('~/components/Modal/Region/Region.vue'))
+  useModal().open(component, null, null)
+}
 </script>
 
 <style src="./languages.scss" lang="scss" scoped />
 
 <template>
-  <div class="languages-btn header-btn">
-    <span
+  <div>
+    <button @click="openModalHandler" class="btn" type="button" clickable>>
+      Change
+    </button>
+    <!-- <span
       v-for="locale in locales"
       :key="locale.code"
       :class="{active: locale === locale.code}"
@@ -36,6 +45,6 @@ const switchHandler = (item) => {
       <nuxt-link :to="switchLocalePath(locale.code)" :aria-label="locale.name" class="languages-btn-link" clickable>
         {{ locale.shortName }}
       </nuxt-link>
-    </span>
+    </span> -->
   </div> 
 </template>

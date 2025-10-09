@@ -1,0 +1,298 @@
+title:
+  categories: Kategorie
+  products: Produkty
+  home: Domů
+  catalog: Katalog
+  contacts: Kontakty
+  cart: Košík
+  checkout: Pokladna
+  search_results: Výsledky hledání
+  search: Hledat
+  comparison: Porovnání produktů
+  favorite: Oblíbené
+  brands: Značky
+  articles: Články
+  blog: Blog
+  delivery: Doprava
+  payment: Platba
+  guarantees: Záruky
+  qa: Otázky / Odpovědi
+  about: O nás
+  sales: Akce
+  news: Novinky
+  reviews: Recenze
+  agreement: Veřejná nabídka smlouvy
+  returns: Podmínky vrácení zboží
+  checkout_payment: Platba objednávky
+  checkout_complete: Děkujeme za objednávku!
+  checkout_complete_failed: Chyba při zpracování objednávky
+  policy: Zásady ochrany osobních údajů
+  terms: Uživatelská smlouva
+  remove_userdata: Odstranění uživatelských údajů
+  account: 
+    account: Účet
+    orders: Historie objednávek
+    promocodes: Moje promo kódy
+    referrals: Partnerský program
+    settings: Nastavení
+    support: Podpora
+    favorite: Oblíbené produkty
+
+meta:
+  address: Na Bošti 1471/22, 120 00 Nové Město, Praha 2, Česká republika
+  djini_desc: Internetový obchod “Vivadzen”
+
+label:
+  articul: Kód produktu
+  sale: Sleva
+  status: Stav
+  value_search: Hledání hodnot
+  only_in_stock: Pouze skladem
+  top_sales: Nejprodávanější
+  top_price: Super cena
+  with_rates: S hodnocením a recenzemi
+  selections: Výběry
+  grn: Kč
+  sec: sek
+  price: Cena
+  all: Produkt
+  desc: Popis
+  props: Specifikace
+  guide: Nákupní průvodce
+  common_info: Obecné informace
+  auth: Přihlášení na webu
+  register: Registrace
+  login: Přihlásit se
+  lang: Jazyk
+  auth_enter: Přihlášení do účtu
+  total: Celkem
+  available: Skladem
+  running_out: Dochází
+  not_available: Není skladem
+  delivery_ready: Připraveno k odeslání
+  customer: Zákazník
+  promocode: Promo kód
+  brand: Značka
+  thorough: Více informací
+  filters: Filtry
+  our_address: Naše adresa
+  product_code: Kód produktu
+  contact_phones: Kontaktní telefony
+  our_socials: Naše sociální sítě
+  sub_title: Přihlaste se k odběru slev!
+  sub_desc: Každý týden zasíláme promo kódy a bonusy našim odběratelům.
+  min_read: min. čtení
+  active_filters: Použité filtry
+  all_products: Všechny produkty
+  show: Zobrazit
+  reviews: '{reviews} recenzí | {reviews} recenze | {reviews} recenze | {reviews} recenzí'
+  products: '{products} produktů | {products} produkt | {products} produkty | {products} produktů'
+  page: 'stránka {page}'
+  product:
+    sale: Akce
+    price: Super cena
+    top: Nejprodávanější
+
+messages:
+  review_gift: Kupón na -5 % za ověřenou recenzi obchodu
+  rates_reviews: '{rates} hodnocení a {reviews} recenzí'
+  products_found: Nalezeno {amount} produktů
+  no_results: Žádné výsledky
+  empty_cart: Váš košík je prázdný
+  leave_review: Zanechat recenzi
+  delivery_price: Cena dopravy
+  delivery_vendor_price: Podle sazeb dopravce
+  products_total: Zboží celkem
+  to_pay: K úhradě
+  use_promocode: Použít promo kód
+  enter_promocode: Zadejte kód
+  accept_payment: Přijímáme platby
+  payment_methods: Platební metody
+  i_agreed_with: Souhlasím s
+  agree_privacy_policy: zásadami ochrany osobních údajů
+  no_catalog_results: Nic nebylo nalezeno, zkuste upravit filtry nebo dotaz
+
+button:
+  collapse: Sbalit
+  expand: Rozbalit
+  logout: Odhlásit se
+  logout_system: Odhlásit ze systému
+  yes: Ano
+  no: Ne
+  enter: Přihlásit se
+  register: Registrovat se
+  pay: Pokračovat k platbě
+  back: Zpět
+  reply: Odpovědět
+  buy: Koupit
+  to_cart: Do košíku
+  leave_review: Zanechat recenzi
+  1_click_buy: Koupit jedním klikem 
+  filters: Filtry
+  sorting: Řazení
+  apply: Použít
+  save: Uložit
+  cancel: Zrušit
+  delete: Odstranit
+  load_more: Načíst více
+  reset_all: Obnovit vše
+  view_all: Zobrazit vše
+  send: Odeslat
+  sub: Přihlásit se k odběru
+  create_order: Vytvořit objednávku
+  login_or_register: Přihlásit / Registrovat
+  go_home: Zpět na domovskou stránku
+
+form:
+  enter:
+    name: Zadejte jméno
+    phone: Zadejte telefon
+    email: Zadejte e-mail
+    message: Zadejte zprávu
+    comment: Zadejte komentář 
+    password: Zadejte heslo
+    password_confirmation: Zadejte heslo znovu
+    review: Napište recenzi
+    reply: Napište odpověď
+  firstname: Jméno
+  name: Jméno
+  income: Příjem
+  referrals: Doporučení
+  lastname: Příjmení
+  phone: Telefon
+  email: E-mail
+  comment: Komentář
+  password: Heslo
+  password_confirmation: Heslo znovu
+  method: Metoda
+  review: Recenze
+  reply: Odpověď
+  delivery:
+    settlement: Obec
+    warehouse: Číslo pobočky
+    city: Město
+    street: Ulice
+    house: Dům
+    room: Byt
+    zip: PSČ
+    address: Dodací adresa
+    courier: Doručení kurýrem
+    pickup: Osobní odběr
+  payment:
+    online: Online platba
+    cash: Při převzetí
+
+status:
+  new: Nový
+  canceled: Zrušeno
+  fail: Chyba
+  failed: Chyba
+  completed: Dokončeno
+  pending: Čeká se
+  promocode:
+    active: Aktivní
+    not_active: Neaktivní
+    expired: Vypršelo
+    limit: Limit vyčerpán
+
+pay_status:
+  waiting: Čeká na platbu
+  failed: Chyba
+  paied: Zaplaceno
+
+delivery_status:
+  waiting: Čeká na odeslání
+  sent: Odesláno
+  failed: Chyba
+  delivered: Doručeno
+  pickedup: Vyzdviženo
+
+payment:
+  type:
+    delivery: Dobírka
+    cash: Hotově
+    online: Bezhotovostní platba
+
+error:
+  occurred: Došlo k chybě, zkuste to znovu 😓
+  required: Pole je povinné
+  error: Došlo k chybě
+  check_fields: Zkontrolujte správnost vyplněných polí
+  auth:
+    password:
+      require: Heslo musí mít alespoň 6 znaků
+      confirmation: Heslo a potvrzení hesla se musí shodovat
+    "A user with this email address has already been registered": Uživatel s touto e-mailovou adresou je již zaregistrován
+    "Password recovery requires an email": K obnovení hesla je vyžadován e-mail
+    "Auth session missing!": Chybí autorizační relace!
+    "Invalid login credentials": Neplatné přihlašovací údaje
+    "User already registered": Uživatel je již zaregistrován
+    "Password should be at least 6 characters": Heslo musí mít alespoň 6 znaků
+    "Signup requires a valid password": Registrace vyžaduje platné heslo
+    "To signup, please provide your email": Zadejte prosím svůj e-mail pro registraci
+    "Unable to validate email address: invalid format": "Nelze ověřit e-mailovou adresu: neplatný formát"
+    "Anonymous sign-ins are disabled": Anonymní přihlášení je zakázáno
+    "Email rate limit exceeded": Limit SMTP serveru byl překročen
+
+noty:
+  add: Přidáno
+  remove: Odstraněno
+  comparison:
+    add: Produkt přidán do seznamu porovnání
+    remove: Produkt odstraněn ze seznamu porovnání
+  favorite:
+    need_login: Pro přidání do oblíbených se musíte přihlásit 🔑
+    success: Produkt byl přidán do oblíbených 😍
+  1_click:
+    title: Děkujeme, požadavek odeslán 
+    sent: Brzy vás budeme kontaktovat pro upřesnění objednávky 😎
+    fail: Objednávka nebyla vytvořena 😔
+  subscription:
+    sent: Úspěšně jste se přihlásili k odběru 😉
+    fail: Odběr se nezdařil 😔
+  feedback:
+    sent: Požadavek úspěšně odeslán 😉
+    fail: Požadavek nebyl odeslán
+  copied: "Zkopírováno do schránky: {text}"
+  product_to_cart: Produkt {product} přidán do košíku
+  product_delete_cart: Produkt {product} odstraněn z košíku
+  auth:
+    logout: Byli jste odhlášeni 😉
+    register:
+      privacy: Pro registraci musíte souhlasit se zásadami ochrany osobních údajů. 
+      success: Úspěšně jste se zaregistrovali 👍
+      fail: Registrace se nezdařila. Zkontrolujte zadané údaje 👈
+    login:
+      success: Úspěšně jste se přihlásili 😎
+      failed: Chyba při přihlášení. Zkontrolujte správnost polí 😔
+    password:
+      recovery:
+        sent: Na e-mail {email} byl odeslán odkaz pro obnovení hesla.
+        fail: Chyba. Odkaz nebyl odeslán 😓
+      changed: 
+        success: Heslo bylo úspěšně změněno. Nyní se můžete přihlásit novým heslem 🔑.
+    email:
+      confirmation:
+        sent: Na váš e-mail byl odeslán potvrzovací odkaz.
+      changed:
+        success: E-mail byl úspěšně potvrzen. Nyní jej můžete použít pro přihlášení 👍
+        fail: Potvrzení e-mailu se nezdařilo. Zkuste to znovu.
+  update:
+    success: Údaje byly úspěšně aktualizovány
+    fail: Údaje nebyly aktualizovány
+  promocode:
+    success: Promo kód {code} byl úspěšně použit na objednávku
+    removed: Použití promo kódu {code} bylo zrušeno
+  review:
+    need_login: Pro zanechání recenze se musíte přihlásit 🔑
+    fail_title: Recenze nebyla zveřejněna 😓
+    fail: Zkontrolujte správnost vyplněných polí
+    success_title: Skvělé 😎
+    success: Děkujeme, vaše recenze byla úspěšně odeslána
+  order:
+    fail: Při vytváření objednávky došlo k chybě
+
+seo:
+  page:
+    title: "{title} - Vivadzen"
+    desc: "{title} na vivadzen.com"

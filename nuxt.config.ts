@@ -1,6 +1,8 @@
 import dynamicRoutes from './helpers/dynamicRoutes'
 import fetchCategories from './helpers/fetchCategories'
 import path from 'path'
+import RegionsModule from './modules/regions'
+
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -15,10 +17,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      supabaseUrl: process.env.SUPABASE_URL,
-      supabaseKey: process.env.SUPABASE_KEY,
-
-      siteUrl: process.env.SITE_URL || 'https://djini.com.ua',
+      siteUrl: process.env.SITE_URL || 'https://vivadzen.com',
       frontendUrl: process.env.SITE_URL,
       novaposhtaKey: process.env.NOVAPOSHTA_KEY,
       apiBase: process.env.SERVER_URL + '/api',
@@ -50,7 +49,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       templateParams: {
-        siteName: 'Djini.com.ua',
+        siteName: 'Vivadzen.com',
         separator: '-'
       },
 
@@ -110,17 +109,11 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['nuxt-anchorscroll', // [
-  //   '@nuxtjs/supabase',
-  //   {
-  //     redirectOptions: {
-  //       login: '/',
-  //       include: ['/account(/*)?']
-  //     }
-  //   }
-  // ],
-  'nuxt-gtag',
-  '@zadigetvoltaire/nuxt-gtm',
+  modules: [
+  RegionsModule,
+  'nuxt-anchorscroll',
+  // 'nuxt-gtag',
+  // '@zadigetvoltaire/nuxt-gtm',
   [
       'nuxt-icon',
       {
@@ -183,7 +176,7 @@ export default defineNuxtConfig({
         },
 
         bunny: {
-          baseURL: "https://djini-v2.b-cdn.net",
+          baseURL: "https://vivadzen-v2.b-cdn.net",
         },
 
         ipx: {
@@ -210,49 +203,50 @@ export default defineNuxtConfig({
     renderJsonPayloads: false,
   },
 
+  regionsModule: {
+    regions: ['ua', 'cz', 'de', 'es'],
+    // если нужен второй сегмент языка внутри региона
+    locales: ['uk','ru','cs','de','en','es']
+  },
+
   site: {
     indexable: true,
-    url: 'https://djini.com.ua',
-    name: 'Djini',
-    description: 'Джини ☝️ интернет-магазин здорового питания.',
+    url: 'https://vivadzen.com',
+    name: 'Vivadzen',
+    description: 'Vivadzen desc',
   },
 
   seo: {
     fallbackTitle: false
   },
   
-  gtm: {
-    id: process.env.GTM,
-    defer: true,
-    compatibility: true, 
-  },
+  // gtm: {
+  //   id: process.env.GTM,
+  //   defer: true,
+  //   compatibility: true, 
+  // },
 
-  gtag: {
-    id: process.env.GTAG,
-    initCommands: [
-      // Setup up consent mode
-      ['consent', 'default', {
-        // ad_user_data: 'denied',
-        // ad_personalization: 'denied',
-        // ad_storage: 'denied',
-        // analytics_storage: 'denied',
-        // wait_for_update: 500,
-        ad_user_data: 'granted',
-        ad_personalization: 'granted',
-        ad_storage: 'granted',
-        analytics_storage: 'granted',
-        // wait_for_update: 500,
-      }]
-    ]
-  },
+  // gtag: {
+  //   id: process.env.GTAG,
+  //   initCommands: [
+  //     // Setup up consent mode
+  //     ['consent', 'default', {
+  //       ad_user_data: 'granted',
+  //       ad_personalization: 'granted',
+  //       ad_storage: 'granted',
+  //       analytics_storage: 'granted',
+  //     }]
+  //   ]
+  // },
   
   i18n: {
-    baseUrl: 'https://djini.com.ua',
+    baseUrl: 'https://vivadzen.com',
     defaultLocale: 'uk',
     lazy: true,
-    strategy: 'prefix_except_default',
+    strategy: 'no_prefix',
     langDir: '../lang',
     vueI18n: '../i18n.config.ts',
+    detectBrowserLanguage: false,
     locales: [
       {
         iso: 'uk-UA',
@@ -261,14 +255,28 @@ export default defineNuxtConfig({
         name: 'Українська',
         shortName: 'Укр',
         isCatchallLocale: true
-      },
-      {
+      },{
         iso: 'ru-RU',
         code: 'ru',
         file: 'ru.yaml',
         name: 'Русский',
         shortName: 'Рус',
         isCatchallLocale: true
+      },{
+        iso: 'en-US',
+        code: 'en',
+        file: 'en.yaml',
+        name: 'English',
+      },{
+        iso: 'cs-CZ',
+        code: 'cs',
+        file: 'cs.yaml',
+        name: 'Čeština',
+      }, {
+        iso: 'de-DE',
+        code: 'de',
+        file: 'de.yaml',
+        name: 'Deutsch',
       }
     ],
     experimental: {
@@ -317,34 +325,6 @@ export default defineNuxtConfig({
     locales: ['uk','ru'],
     navigation: false
   },
-
-  // i18n: {
-  //   baseUrl: 'https://djini.com.ua',
-  //   defaultLocale: 'uk',
-  //   lazy: true,
-  //   langDir: './lang',
-  //   locales: [
-  //     {
-  //       iso: 'uk-UA',
-  //       code: 'uk',
-  //       file: 'uk.yaml',
-  //       name: 'Українська',
-  //       shortName: 'Укр',
-  //       isCatchallLocale: true
-  //     },
-  //     {
-  //       iso: 'ru-RU',
-  //       code: 'ru',
-  //       file: 'ru.yaml',
-  //       name: 'Русский',
-  //       shortName: 'Рус',
-  //       isCatchallLocale: true
-  //     }
-  //   ],
-  //   // precompile: {
-  //   //   strictMessage: false
-  //   // }
-  // },
 
   webpack: {
     optimization: {

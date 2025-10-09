@@ -1,0 +1,298 @@
+title:
+  categories: Kategorien
+  products: Produkte
+  home: Startseite
+  catalog: Katalog
+  contacts: Kontakte
+  cart: Warenkorb
+  checkout: Zur Kasse
+  search_results: Suchergebnisse
+  search: Suche
+  comparison: Produktvergleich
+  favorite: Favoriten
+  brands: Marken
+  articles: Artikel
+  blog: Blog
+  delivery: Lieferung
+  payment: Zahlung
+  guarantees: Garantien
+  qa: Fragen / Antworten
+  about: Über uns
+  sales: Aktionen
+  news: Neuigkeiten
+  reviews: Bewertungen
+  agreement: Öffentliche Angebotsvereinbarung
+  returns: Rückgabebedingungen
+  checkout_payment: Bestellzahlung
+  checkout_complete: Vielen Dank für Ihre Bestellung!
+  checkout_complete_failed: Fehler bei der Bestellabwicklung
+  policy: Datenschutzrichtlinie
+  terms: Nutzungsbedingungen
+  remove_userdata: Löschung von Benutzerdaten
+  account: 
+    account: Konto
+    orders: Bestellhistorie
+    promocodes: Meine Gutscheincodes
+    referrals: Partnerprogramm
+    settings: Einstellungen
+    support: Support
+    favorite: Lieblingsprodukte
+
+meta:
+  address: Na Boisti 1471/22, 120 00 Nove Mesto, Prag 2, Tschechien
+  djini_desc: Online-Shop Vivadzen
+
+label:
+  articul: Artikelnummer
+  sale: Rabatt
+  status: Status
+  value_search: Wertsuche
+  only_in_stock: Nur auf Lager
+  top_sales: Bestseller
+  top_price: Superpreis
+  with_rates: Mit Bewertungen und Rezensionen
+  selections: Auswahlen
+  grn: UAH
+  sec: Sek
+  price: Preis
+  all: Produkt
+  desc: Beschreibung
+  props: Merkmale
+  guide: Kaufberatung
+  common_info: Allgemeine Informationen
+  auth: Anmeldung auf der Website
+  register: Registrierung
+  login: Anmelden
+  lang: Sprache
+  auth_enter: Anmeldung im persönlichen Konto
+  total: Gesamt
+  available: Auf Lager
+  running_out: Geht zur Neige
+  not_available: Nicht verfügbar
+  delivery_ready: Versandbereit
+  customer: Kunde
+  promocode: Gutscheincode
+  brand: Marke
+  thorough: Mehr Details
+  filters: Filter
+  our_address: Unsere Adresse
+  product_code: Produktcode
+  contact_phones: Kontakttelefonnummern
+  our_socials: Unsere sozialen Netzwerke
+  sub_title: Abonnieren Sie für Rabatte!
+  sub_desc: Wir senden wöchentlich Gutscheine und Boni an unsere Abonnenten.
+  min_read: Min. Lesezeit
+  active_filters: Angewandte Filter
+  all_products: Alle Produkte
+  show: Anzeigen
+  reviews: "{reviews} Bewertungen | {reviews} Bewertung | {reviews} Bewertungen | {reviews} Bewertungen"
+  products: "{products} Produkte | {products} Produkt | {products} Produkte | {products} Produkte"
+  page: 'Seite {page}'
+  product:
+    sale: Aktion
+    price: Superpreis
+    top: Bestseller
+
+messages:
+  review_gift: Gutschein -5% für eine verifizierte Shop-Bewertung
+  rates_reviews: "{rates} Bewertungen und {reviews} Rezensionen"
+  products_found: "{amount} Produkte gefunden"
+  no_results: Keine Ergebnisse
+  empty_cart: Ihr Warenkorb ist leer
+  leave_review: Eine Bewertung hinterlassen
+  delivery_price: Lieferkosten
+  delivery_vendor_price: Nach Spediteurstarif
+  products_total: Produktgesamtbetrag
+  to_pay: Zu zahlen
+  use_promocode: Gutscheincode anwenden
+  enter_promocode: Code eingeben
+  accept_payment: Wir akzeptieren Zahlungen
+  payment_methods: Zahlungsmethoden
+  i_agreed_with: Ich stimme zu mit
+  agree_privacy_policy: der Datenschutzrichtlinie
+  no_catalog_results: Nichts gefunden, ändern Sie die Filter oder die Suchanfrage
+
+button:
+  collapse: Einklappen
+  expand: Ausklappen
+  logout: Abmelden
+  logout_system: Vom System abmelden
+  yes: Ja
+  no: Nein
+  enter: Einloggen
+  register: Registrieren
+  pay: Zur Zahlung fortfahren
+  back: Zurück
+  reply: Antworten
+  buy: Kaufen
+  to_cart: In den Warenkorb
+  leave_review: Bewertung hinterlassen
+  1_click_buy: In einem Klick kaufen 
+  filters: Filter
+  sorting: Sortierung
+  apply: Anwenden
+  save: Speichern
+  cancel: Abbrechen
+  delete: Löschen
+  load_more: Mehr laden
+  reset_all: Alles zurücksetzen
+  view_all: Alle ansehen
+  send: Senden
+  sub: Abonnieren
+  create_order: Bestellung aufgeben
+  login_or_register: Anmelden / Registrieren
+  go_home: Zur Startseite
+
+form:
+  enter:
+    name: Namen eingeben
+    phone: Telefonnummer eingeben
+    email: E-Mail eingeben
+    message: Nachricht eingeben
+    comment: Kommentar eingeben 
+    password: Passwort eingeben
+    password_confirmation: Passwort erneut eingeben
+    review: Bewertung schreiben
+    reply: Ihre Antwort schreiben
+  firstname: Vorname
+  name: Name
+  income: Einkommen
+  referrals: Empfehlungen
+  lastname: Nachname
+  phone: Telefon
+  email: E-Mail
+  comment: Kommentar
+  password: Passwort
+  password_confirmation: Passwort wiederholen
+  method: Methode
+  review: Bewertung
+  reply: Antwort
+  delivery:
+    settlement: Ort
+    warehouse: Filialnummer
+    city: Stadt
+    street: Straße
+    house: Haus
+    room: Wohnung
+    zip: Postleitzahl
+    address: Lieferadresse
+    courier: Kurierlieferung
+    pickup: Selbstabholung
+  payment:
+    online: Online-Zahlung
+    cash: Bei Erhalt
+
+status:
+  new: Neu
+  canceled: Storniert
+  fail: Fehler
+  failed: Fehler
+  completed: Abgeschlossen
+  pending: Ausstehend
+  promocode:
+    active: Aktiv
+    not_active: Inaktiv
+    expired: Abgelaufen
+    limit: Limit erreicht
+
+pay_status:
+  waiting: Wartet auf Zahlung
+  failed: Fehler
+  paied: Bezahlt
+
+delivery_status:
+  waiting: Wartet auf Versand
+  sent: Gesendet
+  failed: Fehler
+  delivered: Zugestellt
+  pickedup: Abgeholt
+
+payment:
+  type:
+    delivery: Nachnahme
+    cash: Barzahlung
+    online: Überweisung
+
+error:
+  occurred: Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut 😓
+  required: Dieses Feld ist erforderlich
+  error: Ein Fehler ist aufgetreten
+  check_fields: Überprüfen Sie die Richtigkeit der eingegebenen Felder
+  auth:
+    password:
+      require: Das Passwort muss mindestens 6 Zeichen lang sein
+      confirmation: Passwort und Bestätigung müssen übereinstimmen
+    "A user with this email address has already been registered": Ein Benutzer mit dieser E-Mail-Adresse ist bereits registriert
+    "Password recovery requires an email": Zur Passwortwiederherstellung ist eine E-Mail erforderlich
+    "Auth session missing!": Authentifizierungssitzung fehlt!
+    "Invalid login credentials": Ungültige Anmeldedaten
+    "User already registered": Benutzer bereits registriert
+    "Password should be at least 6 characters": Passwort muss mindestens 6 Zeichen lang sein
+    "Signup requires a valid password": Registrierung erfordert ein gültiges Passwort
+    "To signup, please provide your email": Bitte geben Sie Ihre E-Mail-Adresse zur Registrierung an
+    "Unable to validate email address: invalid format": "E-Mail-Adresse konnte nicht bestätigt werden: ungültiges Format"
+    "Anonymous sign-ins are disabled": Anonyme Anmeldungen sind deaktiviert
+    "Email rate limit exceeded": SMTP-Serverlimit überschritten
+
+noty:
+  add: Hinzugefügt
+  remove: Entfernt
+  comparison:
+    add: Produkt zur Vergleichsliste hinzugefügt
+    remove: Produkt aus der Vergleichsliste entfernt
+  favorite:
+    need_login: Um ein Produkt zu Favoriten hinzuzufügen, müssen Sie sich anmelden 🔑
+    success: Produkt erfolgreich zu Favoriten hinzugefügt 😍
+  1_click:
+    title: Danke, Anfrage gesendet 
+    sent: Wir kontaktieren Sie in Kürze, um die Bestelldetails zu klären 😎
+    fail: Bestellung wurde nicht aufgegeben 😔
+  subscription:
+    sent: Sie haben sich erfolgreich angemeldet 😉
+    fail: Anmeldung fehlgeschlagen 😔
+  feedback:
+    sent: Anfrage erfolgreich gesendet 😉
+    fail: Anfrage nicht gesendet
+  copied: "In die Zwischenablage kopiert: {text}"
+  product_to_cart: Produkt {product} zum Warenkorb hinzugefügt
+  product_delete_cart: Produkt {product} aus Warenkorb entfernt
+  auth:
+    logout: Sie haben sich abgemeldet 😉
+    register:
+      privacy: Um sich zu registrieren, müssen Sie der Datenschutzrichtlinie zustimmen. 
+      success: Sie haben sich erfolgreich registriert 👍
+      fail: Registrierung fehlgeschlagen. Überprüfen Sie die eingegebenen Daten 👈
+    login:
+      success: Erfolgreich angemeldet 😎
+      failed: Anmeldefehler. Stellen Sie sicher, dass die Felder korrekt ausgefüllt sind 😔
+    password:
+      recovery:
+        sent: Eine E-Mail zum Zurücksetzen des Passworts wurde an {email} gesendet.
+        fail: Fehler. Der Link wurde nicht gesendet 😓
+      changed: 
+        success: Passwort erfolgreich geändert. Sie können sich nun mit dem neuen Passwort anmelden 🔑.
+    email:
+      confirmation:
+        sent: Eine Bestätigungs-E-Mail wurde gesendet.
+      changed:
+        success: E-Mail erfolgreich bestätigt. Sie können sie nun für die Anmeldung verwenden 👍
+        fail: E-Mail-Bestätigung fehlgeschlagen. Bitte versuchen Sie es erneut.
+  update:
+    success: Daten erfolgreich aktualisiert
+    fail: Daten nicht aktualisiert
+  promocode:
+    success: Gutscheincode {code} erfolgreich auf Bestellung angewendet
+    removed: Verwendung des Gutscheins {code} aufgehoben
+  review:
+    need_login: Um eine Bewertung zu hinterlassen, müssen Sie sich anmelden 🔑
+    fail_title: Bewertung wurde nicht veröffentlicht 😓
+    fail: Überprüfen Sie die Richtigkeit der eingegebenen Felder
+    success_title: Super 😎
+    success: Danke, Ihre Bewertung wurde erfolgreich gesendet
+  order:
+    fail: Bei der Bestellaufgabe ist ein Fehler aufgetreten
+
+seo:
+  page:
+    title: "{title} - Vivadzen"
+    desc: "{title} auf vivadzen.com"

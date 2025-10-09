@@ -78,6 +78,7 @@ export const useCatalog = () => {
         with_filter: withFilters.value,
         with_filter_count: withFiltersCount.value,
         with_sorting: true,
+        with_products: true,
         cache: ['with_filter', 'with_filter_count']
       })
     }

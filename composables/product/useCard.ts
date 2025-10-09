@@ -10,7 +10,8 @@ export const useCard = (product: Product) => {
         return {
           alt: item?.alt || product.name,
           title: item?.title || product.name,
-          src: useImg().folderSrc(item.src, 'products')
+          // src: useImg().folderSrc(item.src, 'products')
+          src: item.src
         }
       })
     }else {

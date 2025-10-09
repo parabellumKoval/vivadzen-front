@@ -1,11 +1,10 @@
 <script setup>
 import { useCategoryStore } from '~/store/category'
-import { useAuthStore } from '~~/store/auth';
 import { useAppPersistStore } from '~/store/appPersist';
 
 const {t, locale} = useI18n()
 const route = useRoute()
-const title = 'Djini.com.ua'
+const title = 'Vivadzen.com'
 
 const head = useLocaleHead({
   addDirAttribute: true,
@@ -24,37 +23,6 @@ const isSearchMobile = computed(() => {
 
   return useDevice().isMobile && isSearch? true: false
 })
-
-// AUTH
-// const { auth } = useSupabaseClient()
-
-// auth.onAuthStateChange((event, session) => {
-//   // console.log(event, session);
-//   if(event === 'SIGNED_OUT') {
-//     useNoty().setNoty({
-//       content: t('noty.auth.logout')
-//     })
-//   }else if(event === 'INITIAL_SESSION'){
-//     if(session) {
-//       useAuthStore().setUserFromSession(session.user)
-//       // useFavoritesStore().getIds({user_id: user?.value?.id})
-      
-//       if(useAppPersistStore().from === 'login') {
-//         useNoty().setNoty({
-//           content: t('noty.auth.login.success')
-//         })
-//         useAppPersistStore().setFrom(null)
-//       }
-//     }else {
-//       useAuthStore().resetUser()
-//     }
-//   }else if(event === 'SIGNED_IN') {
-//     useAuthStore().setUserFromSession(session.user)
-//     // useFavoritesStore().getIds({user_id: user?.value?.id})
-//     // getFavoriteIds()
-//   }else if(event === 'PASSWORD_RECOVERY') {
-//   }
-// })
 
 // HANDLERS
 // METHODS
@@ -75,15 +43,13 @@ const {refresh: refreshCategories} = useAsyncData('all-categories', async () => 
 
 useSchemaOrg([
   defineWebSite({
-    url: 'https://djini.com.ua',
-    name: 'djini.com.ua',
+    url: 'https://vivadzen.com',
+    name: 'vivadzen.com',
   }),
   defineWebPage(),
 ])
 
 onMounted(async () => {
-  const supa = await useLazyComposable('useSupabaseAuthHandler')
-  supa.loadComposable()
 })
 </script>
 
