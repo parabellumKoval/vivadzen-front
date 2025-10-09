@@ -277,6 +277,11 @@ export default defineNuxtConfig({
         code: 'de',
         file: 'de.yaml',
         name: 'Deutsch',
+      },{
+        iso: 'es-ES',
+        code: 'es',
+        file: 'es.yaml',
+        name: 'Spain',
       }
     ],
     experimental: {

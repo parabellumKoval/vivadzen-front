@@ -11,6 +11,14 @@ export const useRegion = () => {
     cz: 'CZK'
   }
 
+  const DEFAULT_LOCALE_BY_REGION: Record<string, string> = {
+  ua: 'uk',
+  cz: 'cs',
+  de: 'de',
+  es: 'es',
+  global: 'en',
+};
+
   const changeLanguage = (lang: String) => {
   }
   const changeUrlRegion = (url: String, loc: String) => {
@@ -43,14 +51,31 @@ export const useRegion = () => {
     if (lang) {
       const newLang = lang.toLowerCase()
       if (LOCALE_CODES.includes(newLang)) {
-        // If URL has a valid region and valid locale
-        if (hasValidRegion && hasValidLocale) {
-          segments[1] = newLang
-        } 
-        // If URL has valid region but no valid locale
-        else if (hasValidRegion) {
-          segments.splice(1, 0, newLang)
+        const currentRegion = segments[0]
+        const defaultLangForRegion = DEFAULT_LOCALE_BY_REGION[currentRegion]
+        
+        // If the new language is the default for the region, remove the language segment
+        if (newLang === defaultLangForRegion) {
+          if (hasValidRegion && hasValidLocale) {
+            segments.splice(1, 1)
+          }
+        } else {
+          // Handle non-default language
+          if (hasValidRegion && hasValidLocale) {
+            segments[1] = newLang
+          } else if (hasValidRegion) {
+            segments.splice(1, 0, newLang)
+          }
         }
+      }
+    } else if (hasValidRegion && hasValidLocale) {
+      // Check if current language is default for region and remove if it is
+      const currentRegion = segments[0]
+      const currentLang = segments[1]
+      const defaultLangForRegion = DEFAULT_LOCALE_BY_REGION[currentRegion]
+      
+      if (currentLang === defaultLangForRegion) {
+        segments.splice(1, 1)
       }
     }
     

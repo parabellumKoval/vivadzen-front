@@ -12,7 +12,7 @@ const availableLocales = computed(() => {
 })
 
 const availableRegions = [
-  { code: '', name: 'Global' },
+  { code: 'global', name: 'Global' },
   { code: 'ua', name: 'Ukraine' },
   { code: 'de', name: 'Germany' },
   { code: 'cz', name: 'Czechia' },
@@ -30,9 +30,12 @@ const availableRegions = [
     <div class="regions">
       <div>
         Язык:
-        <button v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)" style="display: block;">
+        <!-- <button v-for="locale in availableLocales" :key="locale.code" @click.prevent.stop="setLocale(locale.code)" style="display: block;">
           {{ locale.name }}
-        </button>
+        </button> -->
+        <NuxtLink v-for="locale in availableLocales" :key="locale.code" :to="useRegion().currentUrl(null, locale.code)" style="display: block;">
+          {{ locale.name }}
+        </NuxtLink>
 
         Регион:
         <NuxtLink v-for="region in availableRegions" :key="region.code" :to='useRegion().currentUrl(region.code)' style="display: block;">

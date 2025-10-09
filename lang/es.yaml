@@ -1,0 +1,298 @@
+title:
+  categories: Categorías
+  products: Productos
+  home: Inicio
+  catalog: Catálogo
+  contacts: Contactos
+  cart: Carrito
+  checkout: Finalizar compra
+  search_results: Resultados de búsqueda
+  search: Búsqueda
+  comparison: Comparación de productos
+  favorite: Favoritos
+  brands: Marcas
+  articles: Artículos
+  blog: Blog
+  delivery: Entrega
+  payment: Pago
+  guarantees: Garantías
+  qa: Pregunta / Respuesta
+  about: Sobre nosotros
+  sales: Promociones
+  news: Noticias
+  reviews: Reseñas
+  agreement: Contrato de oferta pública
+  returns: Condiciones de devolución de productos
+  checkout_payment: Pago del pedido
+  checkout_complete: ¡Gracias por tu pedido!
+  checkout_complete_failed: Error al realizar el pedido
+  policy: Política de privacidad
+  terms: Acuerdo del usuario
+  remove_userdata: Eliminación de datos del usuario
+  account: 
+    account: Cuenta
+    orders: Historial de pedidos
+    promocodes: Mis códigos promocionales
+    referrals: Programa de socios
+    settings: Configuración
+    support: Soporte
+    favorite: Productos favoritos
+
+meta:
+  address: Na Bojisti 1471/22, 120 00 Nove Mesto, Praga 2, Chequia
+  djini_desc: Tienda online “Vivadzen”
+
+label:
+  articul: Artículo
+  sale: Descuento
+  status: Estado
+  value_search: Buscar valores
+  only_in_stock: Solo en stock
+  top_sales: Más vendidos
+  top_price: Súper precio
+  with_rates: Con calificación y reseñas
+  selections: Selecciones
+  grn: грн.
+  sec: seg
+  price: Precio
+  all: Producto
+  desc: Descripción
+  props: Características
+  guide: Guía de compra
+  common_info: Información general
+  auth: Autenticación en el sitio
+  register: Registro
+  login: Iniciar sesión
+  lang: Idioma
+  auth_enter: Iniciar sesión en la cuenta personal
+  total: Total
+  available: Disponible
+  running_out: Quedando poco
+  not_available: No disponible
+  delivery_ready: Listo para envío
+  customer: Cliente
+  promocode: Código promocional
+  brand: Marca
+  thorough: Más detalles
+  filters: Filtros
+  our_address: Nuestra dirección
+  product_code: Código del producto
+  contact_phones: Teléfonos de contacto
+  our_socials: Nuestras redes sociales
+  sub_title: ¡Suscríbete para descuentos!
+  sub_desc: Enviamos códigos promocionales y bonos a los suscriptores cada semana.
+  min_read: min. de lectura
+  active_filters: Filtros aplicados
+  all_products: Todos los productos
+  show: Mostrar
+  reviews: '{reviews} reseñas | {reviews} reseña | {reviews} reseñas | {reviews} reseñas'
+  products: '{products} productos | {products} producto | {products} productos| {products} productos'
+  page: 'página {page}'
+  product:
+    sale: Promoción
+    price: Súper precio
+    top: Más vendido
+
+messages:
+  review_gift: Cupón del -5% por una reseña verificada sobre la tienda
+  rates_reviews: '{rates} valoraciones y {reviews} reseñas'
+  products_found: Encontrados {amount} productos
+  no_results: No hay resultados
+  empty_cart: No hay productos en el carrito
+  leave_review: Dejar una reseña
+  delivery_price: Costo de entrega
+  delivery_vendor_price: Según tarifas del transportista
+  products_total: Productos por un total de
+  to_pay: A pagar
+  use_promocode: Aplicar código promocional
+  enter_promocode: Introduzca el código
+  accept_payment: Aceptamos pagos
+  payment_methods: Métodos de pago
+  i_agreed_with: Estoy de acuerdo con
+  agree_privacy_policy: la Política de privacidad
+  no_catalog_results: No se encontró nada, intente cambiar los filtros o la búsqueda
+
+button:
+  collapse: Colapsar
+  expand: Expandir
+  logout: Cerrar sesión
+  logout_system: Cerrar sesión del sistema
+  yes: Sí
+  no: No
+  enter: Entrar
+  register: Registrarse
+  pay: Proceder al pago
+  back: Atrás
+  reply: Responder
+  buy: Comprar
+  to_cart: Añadir al carrito
+  leave_review: Dejar una reseña
+  1_click_buy: Comprar en un clic 
+  filters: Filtros
+  sorting: Clasificación
+  apply: Aplicar
+  save: Guardar
+  cancel: Cancelar
+  delete: Eliminar
+  load_more: Cargar más
+  reset_all: Restablecer todo
+  view_all: Ver todo
+  send: Enviar
+  sub: Suscribirse
+  create_order: Realizar pedido
+  login_or_register: Iniciar sesión / Registrarse
+  go_home: Ir al inicio
+
+form:
+  enter:
+    name: Introduzca el nombre
+    phone: Introduzca el teléfono
+    email: Introduzca el correo electrónico
+    message: Introduzca el mensaje
+    comment: Introduzca el comentario 
+    password: Introduzca la contraseña
+    password_confirmation: Introduzca la contraseña nuevamente
+    review: Escriba una reseña
+    reply: Escriba su respuesta
+  firstname: Nombre
+  name: Nombre
+  income: Ingreso
+  referrals: Referencias
+  lastname: Apellido
+  phone: Teléfono
+  email: Correo electrónico
+  comment: Comentario
+  password: Contraseña
+  password_confirmation: Contraseña nuevamente
+  method: Método
+  review: Reseña
+  reply: Respuesta
+  delivery:
+    settlement: Localidad
+    warehouse: Número de sucursal
+    city: Ciudad
+    street: Calle
+    house: Casa
+    room: Apartamento
+    zip: Código postal
+    address: Dirección de entrega
+    courier: Entrega por mensajero
+    pickup: Recogida en tienda
+  payment:
+    online: Pago en línea
+    cash: Al recibir
+
+status:
+  new: Nuevo
+  canceled: Cancelado
+  fail: Error
+  failed: Error
+  completed: Completado
+  pending: Pendiente
+  promocode:
+    active: Activo
+    not_active: Inactivo
+    expired: Expirado
+    limit: Límite agotado
+
+pay_status:
+  waiting: Esperando pago
+  failed: Error
+  paied: Pagado
+
+delivery_status:
+  waiting: Esperando envío
+  sent: Enviado
+  failed: Error
+  delivered: Entregado
+  pickedup: Recogido
+
+payment:
+  type:
+    delivery: Pago contra reembolso
+    cash: En efectivo
+    online: Transferencia bancaria
+
+error:
+  occurred: Ocurrió un error, inténtelo de nuevo 😓
+  required: Campo obligatorio
+  error: Ocurrió un error
+  check_fields: Verifique la corrección de los campos
+  auth:
+    password:
+      require: La contraseña debe tener al menos 6 caracteres
+      confirmation: La contraseña y su confirmación deben coincidir
+    "A user with this email address has already been registered": Un usuario con este correo electrónico ya está registrado
+    "Password recovery requires an email": Se requiere un correo electrónico para recuperar la contraseña
+    "Auth session missing!": ¡Falta la sesión de autenticación!
+    "Invalid login credentials": Credenciales de acceso inválidas
+    "User already registered": El usuario ya está registrado
+    "Password should be at least 6 characters": La contraseña debe tener al menos 6 caracteres
+    "Signup requires a valid password": Se requiere una contraseña válida para registrarse
+    "To signup, please provide your email": Para registrarse, por favor introduzca su correo electrónico
+    "Unable to validate email address: invalid format": "No se puede validar la dirección de correo electrónico: formato inválido"
+    "Anonymous sign-ins are disabled": El registro anónimo no está permitido
+    "Email rate limit exceeded": Se ha excedido el límite del servidor SMTP
+
+noty:
+  add: Añadido
+  remove: Eliminado
+  comparison:
+    add: El producto se añadió a la lista de comparación
+    remove: El producto se eliminó de la lista de comparación
+  favorite:
+    need_login: Para añadir un producto a favoritos debe iniciar sesión 🔑
+    success: El producto fue añadido a favoritos 😍
+  1_click:
+    title: Gracias, solicitud enviada 
+    sent: Nos pondremos en contacto con usted pronto para confirmar los detalles del pedido 😎
+    fail: El pedido no se completó 😔
+  subscription:
+    sent: Se ha suscrito con éxito al boletín 😉
+    fail: No se pudo completar la suscripción 😔
+  feedback:
+    sent: Solicitud enviada con éxito 😉
+    fail: No se pudo enviar la solicitud
+  copied: "Copiado al portapapeles: {text}"
+  product_to_cart: El producto {product} se añadió al carrito
+  product_delete_cart: El producto {product} se eliminó del carrito
+  auth:
+    logout: Ha cerrado sesión 😉
+    register:
+      privacy: Para registrarse debe aceptar la política de privacidad. 
+      success: Se ha registrado con éxito 👍
+      fail: No se pudo completar el registro. Verifique los datos ingresados 👈
+    login:
+      success: Ha iniciado sesión con éxito 😎
+      failed: Error de inicio de sesión. Asegúrese de que los campos estén correctamente completados 😔
+    password:
+      recovery:
+        sent: Se le ha enviado un correo electrónico a {email} para restablecer la contraseña.
+        fail: Error. El enlace no fue enviado 😓
+      changed: 
+        success: Contraseña cambiada con éxito. Puede iniciar sesión con la nueva contraseña 🔑.
+    email:
+      confirmation:
+        sent: Se le ha enviado un correo electrónico para confirmar su dirección.
+      changed:
+        success: Correo confirmado con éxito. Ahora puede usarlo para iniciar sesión 👍
+        fail: No se pudo confirmar el correo electrónico. Inténtelo de nuevo.
+  update:
+    success: Los datos se actualizaron correctamente
+    fail: Los datos no se actualizaron
+  promocode:
+    success: El código promocional {code} se aplicó correctamente al pedido
+    removed: El uso del código promocional {code} fue cancelado
+  review:
+    need_login: Para dejar una reseña debe iniciar sesión 🔑
+    fail_title: La reseña no se publicó 😓
+    fail: Verifique la corrección de los campos
+    success_title: ¡Genial 😎
+    success: Gracias, su reseña fue enviada correctamente
+  order:
+    fail: Ocurrió un error al realizar el pedido
+
+seo:
+  page:
+    title: "{title} - Vivadzen"
+    desc: "{title} en el sitio vivadzen.com"
