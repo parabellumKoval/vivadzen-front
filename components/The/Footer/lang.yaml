@@ -6,3 +6,19 @@ uk:
   we_receive: Ми приймаємо
   delivery: Служби доставки
   rights: Всі права захищені
+de:
+  we_receive: Wir akzeptieren
+  delivery: Lieferdienste
+  rights: Alle Rechte vorbehalten
+es:
+  we_receive: Aceptamos
+  delivery: Servicios de entrega
+  rights: Todos los derechos reservados
+cs:
+  we_receive: Přijímáme
+  delivery: Doručovací služby
+  rights: Všechna práva vyhrazena
+en:
+  we_receive: We accept
+  delivery: Delivery services
+  rights: All rights reserved

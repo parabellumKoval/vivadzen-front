@@ -4,3 +4,15 @@ ru:
 uk:
   thx: Дякуємо за замовлення!
   thx_desc: Ваше замовлення обробляється нашим менеджером.
+de:
+  thx: Danke für Ihre Bestellung!
+  thx_desc: Ihre Bestellung wird von unserem Manager bearbeitet.
+es:
+  thx: ¡Gracias por su pedido!
+  thx_desc: Su pedido está siendo procesado por nuestro gerente.
+cs:
+  thx: Děkujeme za objednávku!
+  thx_desc: Vaši objednávku právě zpracovává náš manažer.
+en:
+  thx: Thank you for your order!
+  thx_desc: Your order is being processed by our manager.

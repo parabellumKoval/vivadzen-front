@@ -2,3 +2,11 @@ ru:
   login_or_register: Вход / Регистрация
 uk:
   login_or_register: Вхід / Реєстрація
+de:
+  login_or_register: Anmeldung / Registrierung
+es:
+  login_or_register: Inicio de sesión / Registro
+cs:
+  login_or_register: Přihlášení / Registrace
+en:
+  login_or_register: Login / Registration

@@ -7,3 +7,35 @@ ru:
   desc_change: После изменения пароля старый пароль перестанет действовать. Для входа в аккаунт необходимо будет вводить новый пароль. Приступить к смене пароля?
   sent_link: Отправить ссылку
 uk:
+de:
+  personal_data: Persönliche Daten
+  security: Sicherheit
+  change_email: Login-E-Mail ändern
+  change_pass: Passwort ändern
+  title_change_pass: Passwortänderung
+  desc_change: Nach der Änderung des Passworts ist das alte Passwort nicht mehr gültig. Zum Anmelden im Konto müssen Sie das neue Passwort eingeben. Mit der Passwortänderung fortfahren?
+  sent_link: Link senden
+es:
+  personal_data: Datos personales
+  security: Seguridad
+  change_email: Cambiar el correo de acceso
+  change_pass: Cambiar la contraseña
+  title_change_pass: Cambio de contraseña
+  desc_change: Después de cambiar la contraseña, la anterior dejará de funcionar. Para iniciar sesión deberá introducir la nueva contraseña. ¿Desea continuar con el cambio de contraseña?
+  sent_link: Enviar enlace
+cs:
+  personal_data: Osobní údaje
+  security: Zabezpečení
+  change_email: Změnit přihlašovací e-mail
+  change_pass: Změnit heslo
+  title_change_pass: Změna hesla
+  desc_change: Po změně hesla přestane staré heslo fungovat. Pro přihlášení do účtu budete muset zadat nové heslo. Pokračovat ve změně hesla?
+  sent_link: Odeslat odkaz
+en:
+  personal_data: Personal data
+  security: Security
+  change_email: Change login email
+  change_pass: Change password
+  title_change_pass: Password change
+  desc_change: After changing the password, the old password will no longer work. To log into your account you will need to enter the new password. Proceed with changing the password?
+  sent_link: Send link

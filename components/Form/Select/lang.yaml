@@ -1,6 +1,12 @@
-en:
-  please_select: Please select
 ru:
   please_select: Выберите вариант
 uk:
   please_select: Виберіть варіант
+de:
+  please_select: Wählen Sie eine Option
+es:
+  please_select: Seleccione una opción
+cs:
+  please_select: Vyberte možnost
+en:
+  please_select: Please select an option

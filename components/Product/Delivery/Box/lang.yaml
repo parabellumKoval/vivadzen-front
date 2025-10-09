@@ -28,3 +28,63 @@ uk:
   delivery_three:
     title: Самовивіз
     desc: за адресою
+de:
+  more: Mehr über die Lieferung
+  free: Kostenloser Versand
+  order: bei Bestellungen
+  grn: ab 1000 UAH.
+  delivery: Lieferung in der Ukraine
+  delivery_one:
+    title: "Zur Filiale / Packstation 'Nova Poshta'"
+    desc: Nach den Tarifen des Anbieters
+  delivery_two:
+    title: "Nova-Poshta-Kurier an Ihre Adresse"
+    desc: Nach den Tarifen des Anbieters
+  delivery_three:
+    title: Selbstabholung
+    desc: unter der Adresse
+es:
+  more: Más sobre la entrega
+  free: Envío gratuito
+  order: en pedidos
+  grn: desde 1000 UAH.
+  delivery: Entrega en toda Ucrania
+  delivery_one:
+    title: "A la sucursal / taquilla 'Nova Poshta'"
+    desc: Según las tarifas del transportista
+  delivery_two:
+    title: "Mensajero de Nova Poshta a su dirección"
+    desc: Según las tarifas del transportista
+  delivery_three:
+    title: Recogida en tienda
+    desc: en la dirección
+cs:
+  more: Více o doručení
+  free: Doprava zdarma
+  order: při objednávce
+  grn: od 1000 UAH.
+  delivery: Doručení po celé Ukrajině
+  delivery_one:
+    title: "Na pobočku / do boxu 'Nova Poshta'"
+    desc: Podle tarifů dopravce
+  delivery_two:
+    title: "Kurýr Nova Poshta na vaši adresu"
+    desc: Podle tarifů dopravce
+  delivery_three:
+    title: Osobní odběr
+    desc: na adrese
+en:
+  more: More about delivery
+  free: Free delivery
+  order: for orders
+  grn: from 1000 UAH.
+  delivery: Delivery across Ukraine
+  delivery_one:
+    title: "To a Nova Poshta branch / parcel locker"
+    desc: According to carrier rates
+  delivery_two:
+    title: "Nova Poshta courier to your address"
+    desc: According to carrier rates
+  delivery_three:
+    title: Self pickup
+    desc: at the address

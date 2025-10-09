@@ -4,3 +4,15 @@ ru:
 uk:
   no_account: У вас немає облікового запису?
   enter_with: Увійти за допомогою
+de:
+  no_account: Sie haben kein Konto?
+  enter_with: Anmelden mit
+es:
+  no_account: ¿No tiene una cuenta?
+  enter_with: Iniciar sesión con
+cs:
+  no_account: Nemáte účet?
+  enter_with: Přihlásit se pomocí
+en:
+  no_account: Don't have an account?
+  enter_with: Sign in with

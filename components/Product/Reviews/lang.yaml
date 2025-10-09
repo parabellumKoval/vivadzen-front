@@ -4,3 +4,15 @@ ru:
 uk:
   reviews: Відгуки покупців
   no_reviews: Тут ще нічого немає, залиште перший відгук.
+de:
+  reviews: Kundenbewertungen
+  no_reviews: Hier gibt es noch nichts, hinterlassen Sie die erste Bewertung.
+es:
+  reviews: Opiniones de clientes
+  no_reviews: Aquí aún no hay nada, deje la primera reseña.
+cs:
+  reviews: Hodnocení zákazníků
+  no_reviews: Zatím zde nic není, zanechte první recenzi.
+en:
+  reviews: Customer reviews
+  no_reviews: Nothing here yet, leave the first review.

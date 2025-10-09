@@ -4,3 +4,15 @@ ru:
 uk:
   favorite: У обране
   favorite_active: Улюблений товар
+de:
+  favorite: Zu Favoriten
+  favorite_active: Lieblingsprodukt
+es:
+  favorite: A favoritos
+  favorite_active: Producto favorito
+cs:
+  favorite: Do oblíbených
+  favorite_active: Oblíbený produkt
+en:
+  favorite: Add to favorites
+  favorite_active: Favorite product

@@ -4,3 +4,15 @@ ru:
 uk:
   product: товарів | товар | товару | товарів
   comparison: в порівнянні
+de:
+  product: Produkte | Produkt | Produkte | Produkte
+  comparison: zum Vergleich
+es:
+  product: productos | producto | productos | productos
+  comparison: a la comparación
+cs:
+  product: produktů | produkt | produkty | produktů
+  comparison: ke srovnání
+en:
+  product: products | product | products | products
+  comparison: for comparison

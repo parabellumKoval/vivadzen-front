@@ -2,3 +2,11 @@ ru:
   select_lang: Выберите язык
 uk:
   select_lang: Виберіть мову
+de:
+  select_lang: Wählen Sie eine Sprache
+es:
+  select_lang: Seleccione un idioma
+cs:
+  select_lang: Vyberte jazyk
+en:
+  select_lang: Choose a language

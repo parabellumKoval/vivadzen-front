@@ -6,3 +6,19 @@ uk:
   comments: коментарів
   content: Зміст
   seo_title: "{title} - Інтернет-магазин вітамінів Djini"
+de:
+  comments: Kommentare
+  content: Inhalt
+  seo_title: "{title} - Online-Shop für Vitamine Djini"
+es:
+  comments: comentarios
+  content: Contenido
+  seo_title: "{title} - Tienda online de vitaminas Djini"
+cs:
+  comments: komentářů
+  content: Obsah
+  seo_title: "{title} - Internetový obchod s vitamíny Djini"
+en:
+  comments: comments
+  content: Contents
+  seo_title: "{title} - Djini online vitamin store"
