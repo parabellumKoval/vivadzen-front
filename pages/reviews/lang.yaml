@@ -8,3 +8,23 @@ uk:
   review_product: Відгуки про товари
   shop: про магазин
   product: про товар
+de:
+  review_shop: Bewertungen zum Shop
+  review_product: Bewertungen zu Produkten
+  shop: zum Shop
+  product: zum Produkt
+es:
+  review_shop: Reseñas de la tienda
+  review_product: Reseñas de los productos
+  shop: de la tienda
+  product: del producto
+cs:
+  review_shop: Recenze na obchod
+  review_product: Recenze na produkty
+  shop: na obchod
+  product: na produkt
+en:
+  review_shop: Store reviews
+  review_product: Product reviews
+  shop: about the store
+  product: about the product

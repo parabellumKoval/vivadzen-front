@@ -5,3 +5,15 @@ ru:
 uk:
   search: Пошук
   find: Знайти
+de:
+  search: Suche
+  find: Finden
+es:
+  search: Búsqueda
+  find: Buscar
+cs:
+  search: Hledání
+  find: Hledat
+en:
+  search: Search
+  find: Find

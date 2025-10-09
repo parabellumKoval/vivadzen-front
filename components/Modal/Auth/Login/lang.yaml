@@ -6,3 +6,19 @@ uk:
   forget: Забули пароль?
   have_not: У вас немає облікового запису?
   restore: Відновити
+de:
+  forget: Passwort vergessen?
+  have_not: Sie haben kein Konto?
+  restore: Wiederherstellen
+es:
+  forget: ¿Olvidó su contraseña?
+  have_not: ¿No tiene una cuenta?
+  restore: Restablecer
+cs:
+  forget: Zapomněli jste heslo?
+  have_not: Nemáte účet?
+  restore: Obnovit
+en:
+  forget: Forgot your password?
+  have_not: Don't have an account?
+  restore: Reset

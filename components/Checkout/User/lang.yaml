@@ -6,3 +6,19 @@ uk:
   title: Вихід з облікового запису
   desc: Ви точно хочете вийти з облікового запису?
   logout: Якщо ви хочете оформити замовлення як гість, необхідно
+de:
+  title: Abmeldung vom Konto
+  desc: Möchten Sie sich wirklich vom Konto abmelden?
+  logout: Wenn Sie als Gast bestellen möchten, müssen Sie
+es:
+  title: Cerrar sesión
+  desc: ¿Seguro que desea cerrar la sesión?
+  logout: Si desea realizar un pedido como invitado, debe
+cs:
+  title: Odhlášení z účtu
+  desc: Opravdu se chcete odhlásit z účtu?
+  logout: Pokud chcete dokončit objednávku jako host, musíte
+en:
+  title: Log out of the account
+  desc: Are you sure you want to log out of the account?
+  logout: If you want to place an order as a guest, you need to

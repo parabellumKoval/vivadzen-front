@@ -12,3 +12,31 @@ uk:
   no_res: Пошук не дав результатів, спробуйте змінити запит.
   search_history: Історія пошуку
   all: Всі результати пошуку
+de:
+  search: Suche
+  find: Finden
+  searching: Suche läuft
+  no_res: Keine Ergebnisse gefunden, versuchen Sie die Anfrage zu ändern.
+  search_history: Suchverlauf
+  all: Alle Suchergebnisse
+es:
+  search: Búsqueda
+  find: Buscar
+  searching: Buscando
+  no_res: La búsqueda no dio resultados, pruebe a cambiar la consulta.
+  search_history: Historial de búsqueda
+  all: Todos los resultados de búsqueda
+cs:
+  search: Hledání
+  find: Hledat
+  searching: Probíhá hledání
+  no_res: Vyhledávání nepřineslo výsledky, zkuste upravit dotaz.
+  search_history: Historie hledání
+  all: Všechny výsledky hledání
+en:
+  search: Search
+  find: Find
+  searching: Searching
+  no_res: No results found, try changing the query.
+  search_history: Search history
+  all: All search results

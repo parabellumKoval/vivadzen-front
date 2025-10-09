@@ -18,3 +18,43 @@ uk:
     one: Отримайте винагороду у вигляді
     two: купона -5%
     three: на будь-яку продукцію
+de:
+  cond1:
+    one: Schreiben Sie eine Bewertung
+    two: über den Shop
+  cond2: Fügen Sie Ihrer Bewertung einen Link zu Ihrem Social-Media-Profil hinzu, damit andere Nutzer sehen können, dass Ihre Bewertung echt ist
+  cond3: Nach der Moderation wird Ihre Bewertung veröffentlicht
+  cond4:
+    one: Erhalten Sie eine Belohnung in Form eines
+    two: Coupons über -5 %
+    three: für jedes Produkt
+es:
+  cond1:
+    one: Escriba una reseña
+    two: sobre la tienda
+  cond2: Adjunte a la reseña un enlace a su perfil en la red social para que otros usuarios puedan comprobar que es auténtica
+  cond3: Tras superar la moderación, su reseña se publicará
+  cond4:
+    one: Reciba una recompensa en forma de
+    two: cupón del -5 %
+    three: para cualquier producto
+cs:
+  cond1:
+    one: Napište recenzi
+    two: na obchod
+  cond2: Přiložte k recenzi odkaz na svůj profil na sociální síti, aby se ostatní uživatelé mohli přesvědčit, že je vaše recenze skutečná
+  cond3: Po schválení moderátorem bude vaše recenze zveřejněna
+  cond4:
+    one: Získejte odměnu ve formě
+    two: kupónu -5 %
+    three: na jakékoli zboží
+en:
+  cond1:
+    one: Write a review
+    two: about the store
+  cond2: Attach a link to your social media profile so other users can confirm that your review is genuine
+  cond3: After moderation, your review will be published
+  cond4:
+    one: Receive a reward in the form of
+    two: a -5% coupon
+    three: for any product

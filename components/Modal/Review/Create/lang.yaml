@@ -26,3 +26,59 @@ uk:
   flaws: Недоліки
   tab_product: Про товар
   tab_djini: Про магазин Djini
+de:
+  new_review: Neue Bewertung
+  set_rating: Bewerten Sie das Produkt von 1 bis 5
+  set_rating_shop: Bewerten Sie den Djini-Shop insgesamt von 1 bis 5
+  w_advantages: Beschreiben Sie die Vorteile des Produkts
+  w_flaws: Beschreiben Sie die Nachteile des Produkts
+  w_link: Hinterlassen Sie einen Link zu Facebook oder Instagram
+  link: Zum Beispiel https://facebook.com/my_account
+  link_desc_1: Fügen Sie den Link zu Ihrer aktiven Facebook- oder Instagram-Seite hinzu, um anderen Nutzern zu zeigen, dass Ihre Bewertung echt ist.
+  link_desc_2: Nach der Moderation Ihrer Bewertung mit Link erhalten Sie einen Gutschein mit 5 % Rabatt für Einkäufe bei Djini.com.ua.
+  advantages: Vorteile
+  flaws: Nachteile
+  tab_product: Über das Produkt
+  tab_djini: Über den Djini-Shop
+es:
+  new_review: Nueva reseña
+  set_rating: Califique el producto de 1 a 5
+  set_rating_shop: Califique la tienda Djini en general de 1 a 5
+  w_advantages: Describa las ventajas del producto
+  w_flaws: Describa las desventajas del producto
+  w_link: Deje un enlace a Facebook o Instagram
+  link: Por ejemplo https://facebook.com/my_account
+  link_desc_1: Añada un enlace a su página activa de Facebook o Instagram para mostrar a otros usuarios que su reseña es auténtica.
+  link_desc_2: Tras la moderación de su reseña con enlace, recibirá un cupón de descuento del 5 % para comprar en Djini.com.ua.
+  advantages: Ventajas
+  flaws: Desventajas
+  tab_product: Sobre el producto
+  tab_djini: Sobre la tienda Djini
+cs:
+  new_review: Nová recenze
+  set_rating: Ohodnoťte produkt od 1 do 5
+  set_rating_shop: Ohodnoťte obchod Djini celkově od 1 do 5
+  w_advantages: Popište přednosti produktu
+  w_flaws: Popište nedostatky produktu
+  w_link: Zanechte odkaz na Facebook nebo Instagram
+  link: Například https://facebook.com/my_account
+  link_desc_1: Přidejte odkaz na svou aktivní stránku na Facebooku nebo Instagramu, aby ostatní uživatelé viděli, že je vaše recenze skutečná.
+  link_desc_2: Po schválení vaší recenze s odkazem získáte kupón se slevou 5 % na nákupy na Djini.com.ua.
+  advantages: Přednosti
+  flaws: Nedostatky
+  tab_product: O produktu
+  tab_djini: O obchodě Djini
+en:
+  new_review: New review
+  set_rating: Rate the product from 1 to 5
+  set_rating_shop: Rate the Djini store overall from 1 to 5
+  w_advantages: Describe the product advantages
+  w_flaws: Describe the product drawbacks
+  w_link: Leave a link to Facebook or Instagram
+  link: For example https://facebook.com/my_account
+  link_desc_1: Add a link to your active Facebook or Instagram page to show other users that your review is genuine.
+  link_desc_2: After your linked review passes moderation, you will receive a 5% discount coupon for shopping at Djini.com.ua.
+  advantages: Advantages
+  flaws: Drawbacks
+  tab_product: About the product
+  tab_djini: About the Djini store

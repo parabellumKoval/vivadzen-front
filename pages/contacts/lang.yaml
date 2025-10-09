@@ -10,3 +10,27 @@ uk:
   social: Наші соц.мережі
   questions: З усіх питань
   send: Надіслати повідомлення
+de:
+  phones: Unsere Telefonnummern
+  email: E-Mail-Adresse
+  social: Unsere sozialen Netzwerke
+  questions: Für alle Fragen
+  send: Nachricht senden
+es:
+  phones: Nuestros teléfonos
+  email: Dirección de correo electrónico
+  social: Nuestras redes sociales
+  questions: Para cualquier consulta
+  send: Enviar mensaje
+cs:
+  phones: Naše telefonní čísla
+  email: E-mailová adresa
+  social: Naše sociální sítě
+  questions: Na všechny dotazy
+  send: Odeslat zprávu
+en:
+  phones: Our phone numbers
+  email: Email address
+  social: Our social networks
+  questions: For all inquiries
+  send: Send message

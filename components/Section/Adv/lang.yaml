@@ -34,3 +34,75 @@ uk:
   adv4:
     title: 500+ реальних відгуків
     desc: У нашому магазині тільки справжні відгуки. Переконайтеся у цьому
+de:
+  title: Gesundheit an erster Stelle
+  desc: Erhalten Sie unschätzbare Vorteile, wenn Sie gemeinsam mit unserem Shop auf Ihre Gesundheit achten.
+  sub: Abonnieren
+  reg: Registrieren
+  button: Gesundheitsprodukte
+  adv1:
+    title: Gutscheine und Promo-Codes
+    desc: für Updates und wöchentliche Rabatte auf verschiedene Produktkategorien
+  adv2:
+    title: Bonussystem
+    desc: Unser Bonussystem
+  adv3:
+    title: Originalprodukte
+    desc: Zertifizierte Produkte und ausschließlich originale Markenartikel
+  adv4:
+    title: 500+ echte Bewertungen
+    desc: In unserem Shop gibt es nur echte Bewertungen. Überzeugen Sie sich selbst.
+es:
+  title: La salud es lo primero
+  desc: Obtenga ventajas invaluables al cuidar su salud junto con nuestra tienda.
+  sub: Suscríbase
+  reg: Regístrese
+  button: Productos para la salud
+  adv1:
+    title: Cupones y códigos promocionales
+    desc: para recibir novedades y descuentos semanales en distintas categorías de productos
+  adv2:
+    title: Sistema acumulativo
+    desc: Nuestro sistema de fidelización acumulativo
+  adv3:
+    title: Productos originales
+    desc: Productos certificados y solo artículos de marca originales
+  adv4:
+    title: 500+ reseñas reales
+    desc: En nuestra tienda solo hay reseñas auténticas. Compruébelo usted mismo.
+cs:
+  title: Zdraví na prvním místě
+  desc: Získejte neocenitelné výhody péče o své zdraví společně s naším obchodem.
+  sub: Přihlaste se k odběru
+  reg: Zaregistrujte se
+  button: Produkty pro zdraví
+  adv1:
+    title: Kupóny a promo kódy
+    desc: pro novinky a týdenní slevy na různé kategorie zboží
+  adv2:
+    title: Bonusový systém
+    desc: Náš kumulační věrnostní program
+  adv3:
+    title: Originální produkty
+    desc: Produkty jsou certifikované a pouze originální značkové zboží
+  adv4:
+    title: 500+ skutečných recenzí
+    desc: V našem obchodě najdete jen opravdové recenze. Přesvědčte se sami.
+en:
+  title: Health comes first
+  desc: Gain invaluable benefits from caring for your health together with our store.
+  sub: Subscribe
+  reg: Register
+  button: Health products
+  adv1:
+    title: Coupons and promo codes
+    desc: for updates and weekly discounts on different product categories
+  adv2:
+    title: Bonus program
+    desc: Our accumulative loyalty system
+  adv3:
+    title: Original products
+    desc: Certified products and only genuine branded items
+  adv4:
+    title: 500+ real reviews
+    desc: Only genuine reviews in our store. See for yourself.

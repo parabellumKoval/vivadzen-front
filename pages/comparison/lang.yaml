@@ -6,3 +6,19 @@ uk:
   product_name: Назва товару
   category: Категорія
   count: Товарів у порівнянні
+de:
+  product_name: Produktname
+  category: Kategorie
+  count: Produkte im Vergleich
+es:
+  product_name: Nombre del producto
+  category: Categoría
+  count: Productos en la comparación
+cs:
+  product_name: Název produktu
+  category: Kategorie
+  count: Produktů ve srovnání
+en:
+  product_name: Product name
+  category: Category
+  count: Products in comparison

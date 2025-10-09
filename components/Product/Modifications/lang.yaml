@@ -2,3 +2,11 @@ ru:
   select: Модификации товара
 uk: 
   select: Модифікації товару
+de:
+  select: Produktvarianten
+es:
+  select: Variantes del producto
+cs:
+  select: Varianty produktu
+en:
+  select: Product modifications

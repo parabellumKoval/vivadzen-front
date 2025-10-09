@@ -6,3 +6,19 @@ uk:
   w: Вкажіть ваш телефон, і ми зв'яжемося з вами для оформлення замовлення.
   w_comment: Напишіть коментар
   w_phone: Ваш телефон
+de:
+  w: Geben Sie Ihre Telefonnummer an, und wir kontaktieren Sie zur Bestellung.
+  w_comment: Schreiben Sie einen Kommentar
+  w_phone: Ihre Telefonnummer
+es:
+  w: Indique su teléfono y nos pondremos en contacto con usted para realizar el pedido.
+  w_comment: Escriba un comentario
+  w_phone: Su teléfono
+cs:
+  w: Uveďte své telefonní číslo a my vás budeme kontaktovat kvůli dokončení objednávky.
+  w_comment: Napište komentář
+  w_phone: Váš telefon
+en:
+  w: Enter your phone number and we will contact you to complete the order.
+  w_comment: Write a comment
+  w_phone: Your phone

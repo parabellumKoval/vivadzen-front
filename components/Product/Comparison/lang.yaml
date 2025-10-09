@@ -4,3 +4,15 @@ ru:
 uk:
   comparision: Додати до порівняння
   comparision_active: У списку порівняння
+de:
+  comparision: Zum Vergleich hinzufügen
+  comparision_active: In der Vergleichsliste
+es:
+  comparision: Añadir a la comparación
+  comparision_active: En la lista de comparación
+cs:
+  comparision: Přidat ke srovnání
+  comparision_active: Ve srovnávacím seznamu
+en:
+  comparision: Add to comparison
+  comparision_active: In the comparison list
