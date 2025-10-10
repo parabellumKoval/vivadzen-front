@@ -11,7 +11,7 @@ const props = defineProps({
 })
 
 const { t } = useI18n()
-const localePath = useLocalePath()
+const {$regionPath} = useNuxtApp();
 
 const {isComparison, toComparisonHandler} = useComparison(props.item.id)
 const {isFavorite, toFavoriteHandler} = useFavorite(props.item.id)
@@ -45,10 +45,14 @@ const favoriteIcon = computed(() => {
   }
 })
 
+const reviewsPath = computed(() => {
+  return $regionPath('/' + props.item.slug + '#reviews')
+})
+
 // METHODS
 // HANDLERS
 const toReviewsHandler = () => {
-  navigateTo(localePath('/' + props.item.slug + '#reviews'))
+  navigateTo($regionPath('/' + props.item.slug + '#reviews'))
 }
 
 const setGoogleEventHandler = () => {

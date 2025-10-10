@@ -3,8 +3,6 @@ type Options = {
   server?: boolean
 }
 
-import { useRegionStore } from "~/store/region";
-
 export const useApiFetch = async (
   url: string, 
   body: Object | null = null, 
