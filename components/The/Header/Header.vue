@@ -1,6 +1,5 @@
 <script setup>
 const { t } = useI18n()
-const localePath = useLocalePath()
 </script>
 
 <style src="./header.scss" lang="scss" scoped />
@@ -13,7 +12,7 @@ const localePath = useLocalePath()
       <the-header-menu class="menu"></the-header-menu>
 
       <!-- LOGO -->
-      <NuxtLink :to="localePath('/')" class="logo" clickable>
+      <NuxtLink :to="$regionPath('/')" class="logo" clickable>
         <nuxt-img
           src = "/images/djini.png"
           :provider = "useImg().provider"

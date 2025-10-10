@@ -2,6 +2,7 @@
 import { useAuthStore } from '~~/store/auth';
 
 const { t } = useI18n()
+const { $regionPath } = useNuxtApp();
 
 // COMPUTED
 const user = computed(() => {
@@ -15,7 +16,7 @@ const auth = computed(() => {
 
 const showAuthHandler = () => {
   if(auth.value && user.value) {
-    navigateTo(useLocalePath()('/account/settings'))
+    navigateTo($regionPath('/account/settings'))
   } else {
     const component = defineAsyncComponent(() => import('~/components/Modal/Auth/Social/Social.vue'))
     useModal().open(component, null, null, {width: {

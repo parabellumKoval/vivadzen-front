@@ -1,5 +1,5 @@
 <script setup>
-const localePath = useLocalePath()
+const { $regionPath } = useNuxtApp();
 const {t} = useI18n()
 
 
@@ -32,11 +32,11 @@ const tabs = computed(() => {
 // WATCHERS
 watch(subTab, (index) => {
   if(index === 0) {
-    navigateTo(localePath('/account/network/common'))
+    navigateTo($regionPath('/account/network/common'))
   }else if(index === 1) {
-    navigateTo(localePath('/account/network/referrals'))
+    navigateTo($regionPath('/account/network/referrals'))
   }else if(index === 2) {
-    navigateTo(localePath('/account/network/conditions'))
+    navigateTo($regionPath('/account/network/conditions'))
   }
 })
 

@@ -3,8 +3,7 @@ import {useCartStore} from '~/store/cart'
 import {useAuthStore} from '~/store/auth';
 
 const {t} = useI18n()
-const localePath = useLocalePath()
-
+const { $regionPath } = useNuxtApp();
 const props = defineProps({
   cart: {
     type: Object
@@ -61,7 +60,7 @@ const goCompleteHandler = () => {
   useCartStore().createOrder(orderable).then((response) => {
     if(response?.code) {
       useCartStore().$reset()
-      navigateTo(localePath('/checkout/complete/' + response.code))
+      navigateTo($regionPath('/checkout/complete/' + response.code))
     }
   }).catch((e) => {
     useNoty().setNoty({
@@ -89,7 +88,7 @@ const goPayHandler = () => {
 
   useCartStore().validate(orderable).then((response) => {
     if(response) {
-      navigateTo(localePath('/checkout/payment'))
+      navigateTo($regionPath('/checkout/payment'))
     }
   }).catch((e) => {
     useNoty().setNoty({

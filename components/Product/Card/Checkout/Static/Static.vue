@@ -2,8 +2,6 @@
 import {useCard} from '~/composables/product/useCard.ts'
 
 const { t } = useI18n()
-const localePath = useLocalePath()
-
 const props = defineProps({
   item: {
     type: Object
@@ -26,7 +24,7 @@ const deleteHandler = () => {}
 
 <template>
 <div class="product-static-wrapper">
-  <NuxtLink :to="localePath('/' + item.slug)" :aria-label="item.name" clickable class="image-wrapper">
+  <NuxtLink :to="$regionPath('/' + item.slug)" :aria-label="item.name" clickable class="image-wrapper">
     <nuxt-img
       :src = "photo"
       width="100"
@@ -47,7 +45,7 @@ const deleteHandler = () => {}
       <span class="value">{{ item.code }}</span>
     </span>
     <NuxtLink
-      :to="localePath('/' + item.slug)"
+      :to="$regionPath('/' + item.slug)"
       :aria-label="item.name"
       clickable
       class="name"

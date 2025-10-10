@@ -1,6 +1,4 @@
 <script setup>
-const localePath = useLocalePath()
-
 const props = defineProps({
   categories: {
     type: Array
@@ -17,7 +15,7 @@ const props = defineProps({
 
 <template>
   <div class="category-wrapper">
-    <NuxtLink v-for="category in categories" :key="category.id" :to="localePath('/' + category.slug)" class="category">
+    <NuxtLink v-for="category in categories" :key="category.id" :to="$regionPath('/' + category.slug)" class="category">
       <nuxt-img
         :src = "useImg().category(category.image)"
         :alt = "category.image?.alt || category.name"

@@ -1,7 +1,5 @@
 <script setup>
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const props = defineProps({
   item: {
     required: true
@@ -17,7 +15,7 @@ const props = defineProps({
 <!-- <i18n src='' lang='yaml'></i18n> -->
 
 <template>
-  <NuxtLink :to="localePath('/brands/' + item.slug)" class="brand-item">
+  <NuxtLink :to="$regionPath('/brands/' + item.slug)" class="brand-item">
     <nuxt-img
       :src = "useImg().brand(item.image)"
       width="50"

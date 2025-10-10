@@ -1,6 +1,4 @@
 <script setup>
-const localePath = useLocalePath()
-
 const props = defineProps({
     title: {
       type: String,
@@ -87,7 +85,7 @@ const nextHandler = () => {
       
       <template v-if="moreBtn">
         <NuxtLink
-          :to="localePath(link)"
+          :to="$regionPath(link)"
           :aria-label="title"
           class="action-button slider-button button secondary"
           clickable

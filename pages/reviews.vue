@@ -1,6 +1,6 @@
 <script setup>
 import { useAuthStore } from '~~/store/auth';
-const localePath = useLocalePath()
+const { $regionPath } = useNuxtApp();
 const {t} = useI18n()
 
 // VARS
@@ -56,9 +56,9 @@ const reviewHandler = () => {
 // WATCH
 watch(tab, (index) => {
   if(index === 0) {
-    navigateTo(localePath('/reviews/shop'))
+    navigateTo($regionPath('/reviews/shop'))
   }else if(index === 1) {
-    navigateTo(localePath('/reviews/products'))
+    navigateTo($regionPath('/reviews/products'))
   }
 })
 

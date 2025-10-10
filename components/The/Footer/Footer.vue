@@ -2,8 +2,6 @@
 import { useFeedbackStore } from '~~/store/feedback';
 
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const sub = ref({
   type: 'subscription',
   email: null
@@ -147,7 +145,7 @@ const subHandler = () => {
           <div class="footer-label">{{ t('label.guide') }}</div>
           <ul class="menu-ul">
             <li v-for="item in menu.customer" :key="item.id">
-              <NuxtLink :to="localePath(item.link)" class="menu-link">{{ item.title }}</NuxtLink>
+              <NuxtLink :to="$regionPath(item.link)" class="menu-link">{{ item.title }}</NuxtLink>
             </li>
           </ul>
         </div>
@@ -156,7 +154,7 @@ const subHandler = () => {
           <div class="footer-label">{{ t('label.common_info') }}</div>
           <ul class="menu-ul">
             <li v-for="item in menu.info" :key="item.id">
-              <NuxtLink :to="localePath(item.link)" class="menu-link">{{ item.title }}</NuxtLink>
+              <NuxtLink :to="$regionPath(item.link)" class="menu-link">{{ item.title }}</NuxtLink>
             </li>
           </ul>
         </div>

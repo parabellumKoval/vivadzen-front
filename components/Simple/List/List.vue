@@ -1,5 +1,4 @@
 <script setup>
-const localePath = useLocalePath()
 const props = defineProps({
   list: {
     type: [Array, Object],
@@ -20,7 +19,7 @@ const clickedHandler = (event) => {
 <template>
   <ul class="list">
     <li v-for="(item, index) in list" :key="index">
-      <NuxtLink v-if="item.link" :to="localePath(item.link)" class="link href">
+      <NuxtLink v-if="item.link" :to="$regionPath(item.link)" class="link href">
         <IconCSS v-if="item.icon" :name="item.icon" size="20px"/>
         <span class="text">{{ item.text }}</span>
       </NuxtLink>

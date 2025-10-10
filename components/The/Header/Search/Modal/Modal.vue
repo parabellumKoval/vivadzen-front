@@ -2,8 +2,7 @@
 import {useSearchStore} from '~/store/search'
 
 const { t } = useI18n()
-const localePath = useLocalePath()
-
+const { $regionPath } = useNuxtApp();
 // const props = defineProps({
 //   searchInput: {
 //     type: String
@@ -75,7 +74,7 @@ const focusHandler  = () => {
 
 const goSearchPageHandler = (val) => {
   let query = val? val: searchInput.value
-  navigateTo(localePath('/search?q=' + query))
+  navigateTo($regionPath('/search?q=' + query))
 }
 
 // const blurHandler  = () => {
@@ -151,7 +150,7 @@ watch(() => searchInput.value, (v) => {
         </ul>
 
         <div @click="closeHandler" class="all-results-btn">
-          <NuxtLink :to="localePath('/search?q=' + searchInput)" class="all-results-btn-link">
+          <NuxtLink :to="$regionPath('/search?q=' + searchInput)" class="all-results-btn-link">
             <span class="text">{{ t('all') }}</span>
             <IconCSS name="iconoir:arrow-right" class="icon"></IconCSS>
           </NuxtLink>
@@ -173,7 +172,7 @@ watch(() => searchInput.value, (v) => {
           <div class="livesearch-label">{{ t('title.categories') }}</div>
           <ul class="livesearch-list">
             <li v-for="item in categories" :key="item.id" class="livesearch-item">
-              <NuxtLink :to="localePath('/' + item.slug)" @click="closeHandler" class="livesearch-link">
+              <NuxtLink :to="$regionPath('/' + item.slug)" @click="closeHandler" class="livesearch-link">
                 <span class="value">{{ item.name }}</span>
               </NuxtLink>
             </li>

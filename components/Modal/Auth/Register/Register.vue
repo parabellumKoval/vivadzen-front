@@ -2,7 +2,6 @@
 import {useAuthStore} from '~/store/auth'
 
 const { t } = useI18n()
-const localePath = useLocalePath()
 const isLoading = ref(false)
 
 const auth = ref({
@@ -128,7 +127,7 @@ const loginHandler = () => {
           <form-checkbox v-model="auth.privacy" :is-boolean="true">
             <span class="privacy-policy">
               {{ $t('messages.i_agreed_with') }}&nbsp;
-              <NuxtLink :to="localePath('/privacy')" clickable class="a-link" target="_blade">{{ $t('messages.agree_privacy_policy') }}</NuxtLink>
+              <NuxtLink :to="$regionPath('/privacy')" clickable class="a-link" target="_blade">{{ $t('messages.agree_privacy_policy') }}</NuxtLink>
             </span>
           </form-checkbox>
         </div>

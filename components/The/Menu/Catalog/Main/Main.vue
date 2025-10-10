@@ -1,8 +1,7 @@
 <script setup>
 import { useCategoryStore } from '~/store/category'
 const {t} = useI18n()
-const localePath = useLocalePath()
-
+const { $regionPath } = useNuxtApp();
 const emit = defineEmits([
   'changeSelected'
 ])
@@ -24,7 +23,7 @@ const select = (index) => {
 // HANDLERS
 const clickHandler = (index, slug) => {
   if(useDevice().isDesktop){
-    navigateTo(localePath('/' + slug))
+    navigateTo($regionPath('/' + slug))
   }else {
     select(index)
   }

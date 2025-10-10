@@ -11,8 +11,6 @@ definePageMeta({
 });
 
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const breadcrumbs = [
   {
     name: t('title.home'),
@@ -149,7 +147,7 @@ const submitHandler = (v) => {
 
         <div class="wrapper">
           <div class="section">
-            <NuxtLink :to="localePath('/checkout')" class="back-btn link" type="button">
+            <NuxtLink :to="$regionPath('/checkout')" class="back-btn link" type="button">
               <IconCSS name="fluent:chevron-left-48-filled" size="30px" class="icon"></IconCSS>
               <span>{{ t('back_to') }}</span>
             </NuxtLink>

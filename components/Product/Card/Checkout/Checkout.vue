@@ -3,8 +3,6 @@ import {useCartStore} from '~/store/cart'
 import {useCard} from '~/composables/product/useCard.ts'
 
 const { t } = useI18n()
-const localePath = useLocalePath()
-
 const props = defineProps({
   item: {
     type: Object
@@ -29,7 +27,7 @@ const deleteHandler = () => {
 
 <template>
 <div class="wrapper">
-  <NuxtLink :to="localePath('/' + item.slug)" :aria-label="item.name" clickable class="image-wrapper">
+  <NuxtLink :to="$regionPath('/' + item.slug)" :aria-label="item.name" clickable class="image-wrapper">
     <nuxt-img
       :src = "photo"
       :alt = "photoAlt"
@@ -50,7 +48,7 @@ const deleteHandler = () => {
   <div class="body">
     <span v-if="item.code" class="code label">{{ item.code }}</span>
     <NuxtLink
-      :to="localePath('/' + item.slug)"
+      :to="$regionPath('/' + item.slug)"
       :aria-label="item.name"
       clickable
       class="name"

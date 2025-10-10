@@ -1,6 +1,4 @@
 <script setup>
-const localePath = useLocalePath()
-
 const props = defineProps({
   items: {
     type: Array,
@@ -41,7 +39,7 @@ const openHandler = (index) => {
               <ul>
                 <li v-for="(li, index) in htmlItem" :key="li.id">
                   <template v-if="li.slug">
-                    <NuxtLink :to="localePath('/' + li.slug)">{{ li.name }}</NuxtLink>
+                    <NuxtLink :to="$regionPath('/' + li.slug)">{{ li.name }}</NuxtLink>
                   </template>
                   <template v-else>
                     <span v-html="li"></span>
