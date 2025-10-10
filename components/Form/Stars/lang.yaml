@@ -13,3 +13,31 @@ uk:
     normal: "Зазвичай"
     good: "Добре"
     perfect: "Ідеально"
+de:
+  mark:
+    bad: "Schlecht"
+    so_so: "Geht so"
+    normal: "Normal"
+    good: "Gut"
+    perfect: "Perfekt"
+es:
+  mark:
+    bad: "Malo"
+    so_so: "Así así"
+    normal: "Normal"
+    good: "Bueno"
+    perfect: "Perfecto"
+cs:
+  mark:
+    bad: "Špatné"
+    so_so: "Ujde to"
+    normal: "Normální"
+    good: "Dobré"
+    perfect: "Perfektní"
+en:
+  mark:
+    bad: "Bad"
+    so_so: "So-so"
+    normal: "Average"
+    good: "Good"
+    perfect: "Perfect"

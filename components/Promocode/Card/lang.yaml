@@ -6,3 +6,19 @@ uk:
   number: Номер
   valid_until: Годен до
   sale: Скидка
+de:
+  number: Nummer
+  valid_until: Gültig bis
+  sale: Rabatt
+es:
+  number: Número
+  valid_until: Válido hasta
+  sale: Descuento
+cs:
+  number: Číslo
+  valid_until: Platné do
+  sale: Sleva
+en:
+  number: Number
+  valid_until: Valid until
+  sale: Discount

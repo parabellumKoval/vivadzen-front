@@ -2,3 +2,11 @@ ru:
   placeholder: Что ищете?
 uk:
   placeholder: Що шукаєте?
+de:
+  placeholder: Wonach suchen Sie?
+es:
+  placeholder: ¿Qué busca?
+cs:
+  placeholder: Co hledáte?
+en:
+  placeholder: What are you looking for?

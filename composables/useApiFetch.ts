@@ -3,6 +3,8 @@ type Options = {
   server?: boolean
 }
 
+import { useRegionStore } from "~/store/region";
+
 export const useApiFetch = async (
   url: string, 
   body: Object | null = null, 
@@ -20,6 +22,7 @@ export const useApiFetch = async (
     }, []);
     
   const locale = useNuxtApp().$i18n.locale
+  const region = useRegion().region.value
 
   const headers = {
     'Accept': 'application/json',
@@ -54,18 +57,27 @@ export const useApiFetch = async (
     ...options
   }
 
-  if(method === 'GET' && body) {
+  let fullBody = {
+    ...body,
+  }
 
-    let x = getPairs(body)
+  if(region) {
+    fullBody.country = region
+  }
+
+  if(method === 'GET' && fullBody) {
+
+    let x = getPairs(fullBody)
       .map(([[key0, ...keysRest], value]) =>
         `${key0}${keysRest.map(a => `[${a}]`).join('')}=${value}`)
       .join('&');
 
     // const params = body? '?' + new URLSearchParams(body).toString(): '';
-    const params = body? '?' + x: '';
+    const params = fullBody? '?' + x: '';
     url = url + params
-  }else if(method === 'POST' && body) {
-    allOptions.body = JSON.parse(JSON.stringify(body))
+
+  }else if(method === 'POST' && fullBody) {
+    allOptions.body = JSON.parse(JSON.stringify(fullBody))
   }
 
   if(options.lazy) {

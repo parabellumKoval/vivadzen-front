@@ -20,3 +20,47 @@ uk:
   pay_qr: Або скористайтеся QR-кодом
   btn_pay: Перейти до оплати
   redirect: Після здійснення оплати ви будете перенаправлені назад на сайт
+de:
+  wait_payment: Wartet auf Zahlung
+  back_to: Zurück zur Bestellung
+  pay_for_order: Bestellung bezahlen
+  status: Bestellstatus
+  to_pay: Zu zahlen
+  pay_liqpay: Besuchen Sie die LiqPay-Website, um die Bestellung zu bezahlen, indem Sie auf die Schaltfläche unten klicken
+  go_and_pay: Klicken Sie auf die Schaltfläche unten, um zur Zahlung zu gelangen
+  pay_qr: Oder nutzen Sie einfach den QR-Code
+  btn_pay: Zur Zahlung gehen
+  redirect: Nach Abschluss der Zahlung werden Sie zurück auf die Website geleitet
+es:
+  wait_payment: Pendiente de pago
+  back_to: Volver al proceso de compra
+  pay_for_order: Pago del pedido
+  status: Estado del pedido
+  to_pay: A pagar
+  pay_liqpay: Vaya al sitio de LiqPay para pagar el pedido pulsando el botón inferior
+  go_and_pay: Pulse el botón inferior para ir al pago del pedido
+  pay_qr: O simplemente utilice el código QR
+  btn_pay: Ir al pago
+  redirect: Después de completar el pago será redirigido de nuevo al sitio
+cs:
+  wait_payment: Čeká na platbu
+  back_to: Vrátit se k dokončení objednávky
+  pay_for_order: Platba objednávky
+  status: Stav objednávky
+  to_pay: K úhradě
+  pay_liqpay: Přejděte na web LiqPay a zaplaťte objednávku kliknutím na tlačítko níže
+  go_and_pay: Klikněte na tlačítko níže a přejděte k platbě
+  pay_qr: Nebo jednoduše použijte QR kód
+  btn_pay: Přejít k platbě
+  redirect: Po dokončení platby budete přesměrováni zpět na web
+en:
+  wait_payment: Awaiting payment
+  back_to: Return to checkout
+  pay_for_order: Order payment
+  status: Order status
+  to_pay: Amount due
+  pay_liqpay: Go to the LiqPay website to pay for the order by clicking the button below
+  go_and_pay: Click the button below to proceed to payment
+  pay_qr: Or simply use the QR code
+  btn_pay: Proceed to payment
+  redirect: After completing the payment you will be redirected back to the site

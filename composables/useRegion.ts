@@ -1,5 +1,5 @@
 export const useRegion = () => {
-  const {t} = useI18n({useScope: 'global'})
+  const region = useState<'global' | 'ua' | 'cz' | 'de' | 'es'>('region', () => 'global');
 
   const REGION_CODES = ['ua', 'cz', 'de', 'es']
   const LOCALE_CODES = ['uk', 'ru', 'cs', 'de', 'en', 'es']
@@ -23,6 +23,10 @@ export const useRegion = () => {
   }
   const changeUrlRegion = (url: String, loc: String) => {
 
+  }
+
+  const setRegion = (v: typeof region.value) => {
+    region.value = v;
   }
 
   const currentUrl = (region: String|null, lang: String|null) => {
@@ -87,6 +91,9 @@ export const useRegion = () => {
   return {
     changeLanguage,
     changeUrlRegion,
-    currentUrl
+    currentUrl,
+    region, 
+    setRegion,
+    DEFAULT_LOCALE_BY_REGION
   }
 }

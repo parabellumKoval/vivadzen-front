@@ -6,3 +6,19 @@ uk:
   login_or_register: Вхід / Реєстрація
   all_pages: Усі сторінки
   dashboard: Особистий кабінет
+de:
+  login_or_register: Anmeldung / Registrierung
+  all_pages: Alle Seiten
+  dashboard: Persönlicher Bereich
+es:
+  login_or_register: Inicio de sesión / Registro
+  all_pages: Todas las páginas
+  dashboard: Área personal
+cs:
+  login_or_register: Přihlášení / Registrace
+  all_pages: Všechny stránky
+  dashboard: Osobní účet
+en:
+  login_or_register: Login / Registration
+  all_pages: All pages
+  dashboard: Personal account

@@ -20,3 +20,47 @@ uk:
     warehouse: Відділення Нової Пошти
     address: Кур'єром Нової Пошти
     pickup: Самовивіз
+de:
+  no_products: Der Warenkorb ist leer. Gehen Sie zum
+  select: und wählen Sie sich etwas aus.
+  catalog: Produktkatalog
+  pay:
+    online: Online-Zahlung mit Karte
+    cash: Bezahlung bei Erhalt der Bestellung
+  delivery:
+    warehouse: Filiale von Nova Poshta
+    address: Nova-Poshta-Kurier an Ihre Adresse
+    pickup: Selbstabholung
+es:
+  no_products: El carrito está vacío. Vaya al
+  select: y elija algo.
+  catalog: Catálogo de productos
+  pay:
+    online: Pago en línea con tarjeta
+    cash: Pago al recibir el pedido
+  delivery:
+    warehouse: Sucursal de Nova Poshta
+    address: Mensajería de Nova Poshta
+    pickup: Recogida en tienda
+cs:
+  no_products: Košík je prázdný. Přejděte do
+  select: a vyberte si něco.
+  catalog: Katalog produktů
+  pay:
+    online: Online platba kartou
+    cash: Platba při převzetí objednávky
+  delivery:
+    warehouse: Pobočka Nova Poshta
+    address: Kurýr Nova Poshta na vaši adresu
+    pickup: Osobní odběr
+en:
+  no_products: Cart is empty. Go to
+  select: and pick something.
+  catalog: Product catalog
+  pay:
+    online: Online card payment
+    cash: Payment upon receiving the order
+  delivery:
+    warehouse: Nova Poshta branch
+    address: Nova Poshta courier
+    pickup: Self pickup

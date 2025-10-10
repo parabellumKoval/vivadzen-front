@@ -12,3 +12,31 @@ uk:
   all_attrs: Всі характеристики
   seo_title_template: "{product} купити в Україні, Дніпрі - вигідна ціна в інтернет-магазині Djini"
   seo_desc_template: "{product} купити в інтернет-магазині Djini ✅ Для замовлення телефонуйте за ☎ (099)777-33-45, (097)777-33-45. Доставка по всій Україні та Дніпру. ⏩ Гарантія. Відгуки покупців."
+de:
+  simular: Ähnliche Produkte
+  guarantee: Qualitätsgarantie
+  attrs: Produkteigenschaften
+  all_attrs: Alle Eigenschaften
+  seo_title_template: "{product} in der Ukraine, Dnipro kaufen – günstiger Preis im Online-Shop Djini"
+  seo_desc_template: "{product} im Online-Shop Djini kaufen ✅ Für eine Bestellung rufen Sie ☎ (099)777-33-45, (097)777-33-45 an. Lieferung in die gesamte Ukraine und nach Dnipro. ⏩ Garantie. Kundenbewertungen."
+es:
+  simular: Productos similares
+  guarantee: Garantía de calidad
+  attrs: Características del producto
+  all_attrs: Todas las características
+  seo_title_template: "{product} comprar en Ucrania, Dnipro - precio ventajoso en la tienda online Djini"
+  seo_desc_template: "{product} comprar en la tienda online Djini ✅ Para hacer un pedido llame al ☎ (099)777-33-45, (097)777-33-45. Entrega en toda Ucrania y en Dnipro. ⏩ Garantía. Opiniones de clientes."
+cs:
+  simular: Podobné produkty
+  guarantee: Záruka kvality
+  attrs: Vlastnosti produktu
+  all_attrs: Všechny vlastnosti
+  seo_title_template: "{product} koupit na Ukrajině, v Dnipru – výhodná cena v internetovém obchodě Djini"
+  seo_desc_template: "{product} koupit v internetovém obchodě Djini ✅ Objednávejte na ☎ (099)777-33-45, (097)777-33-45. Doručení po celé Ukrajině i v Dnipru. ⏩ Záruka. Hodnocení zákazníků."
+en:
+  simular: Similar products
+  guarantee: Quality guarantee
+  attrs: Product specifications
+  all_attrs: All specifications
+  seo_title_template: "{product} buy in Ukraine, Dnipro – great price in the Djini online store"
+  seo_desc_template: "{product} buy in the Djini online store ✅ To order call ☎ (099)777-33-45, (097)777-33-45. Delivery across Ukraine and in Dnipro. ⏩ Warranty. Customer reviews."

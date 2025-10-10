@@ -4,3 +4,15 @@ ru:
 uk:
   title: Новий пароль
   no_eq: Паролі не співпадають
+de:
+  title: Neues Passwort
+  no_eq: Passwörter stimmen nicht überein
+es:
+  title: Nueva contraseña
+  no_eq: Las contraseñas no coinciden
+cs:
+  title: Nové heslo
+  no_eq: Hesla se neshodují
+en:
+  title: New password
+  no_eq: Passwords do not match

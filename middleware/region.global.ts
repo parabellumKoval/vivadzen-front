@@ -1,6 +1,6 @@
 // middleware/region.global.ts
 import { setCookie } from 'h3';
-import {useRegionStore} from '~/store/region'
+// import {useRegionStore} from '~/store/region'
 
 const DEFAULT_LOCALE_BY_REGION: Record<string, string> = {
   ua: 'uk',
@@ -12,7 +12,7 @@ const DEFAULT_LOCALE_BY_REGION: Record<string, string> = {
 
 export default defineNuxtRouteMiddleware((to) => {
   const { $i18n } = useNuxtApp()
-  const store = useRegionStore()
+  const store = useRegion()
 
   if (process.server) {
     const ev = useRequestEvent()

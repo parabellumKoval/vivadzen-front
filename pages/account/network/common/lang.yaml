@@ -22,3 +22,51 @@ uk:
   level: рівня
   first: першого
   second: другого
+de:
+  current: Aktueller Kontostand
+  your_code: Ihr Partnercode
+  your_link: Ihr Partnerlink
+  desc_1: Der Bonussaldo kann zur Bezahlung von Bestellungen verwendet werden
+  desc_2_1: Sie können eine
+  desc_2_2: Auszahlung beantragen
+  desc_2_3: bei einem Kontostand ab 500 UAH
+  income: Einnahmen von Referenzen
+  level: Ebene
+  first: erste
+  second: zweite
+es:
+  current: Saldo actual
+  your_code: Su código de socio
+  your_link: Su enlace de referencia
+  desc_1: Puede usar el saldo de bonificación para pagar pedidos
+  desc_2_1: Puede solicitar
+  desc_2_2: un retiro
+  desc_2_3: cuando el saldo sea de al menos 500 UAH
+  income: Ingresos de referidos
+  level: nivel
+  first: primero
+  second: segundo
+cs:
+  current: Aktuální zůstatek
+  your_code: Váš partnerský kód
+  your_link: Váš partnerský odkaz
+  desc_1: Bonusový zůstatek lze použít na úhradu objednávek
+  desc_2_1: Můžete požádat o
+  desc_2_2: výběr prostředků
+  desc_2_3: při zůstatku od 500 UAH
+  income: Příjem z referencí
+  level: úroveň
+  first: první
+  second: druhá
+en:
+  current: Current balance
+  your_code: Your partner code
+  your_link: Your referral link
+  desc_1: Bonus balance can be used to pay for orders
+  desc_2_1: You can request
+  desc_2_2: a withdrawal
+  desc_2_3: once your balance is at least 500 UAH
+  income: Referral income
+  level: level
+  first: first
+  second: second

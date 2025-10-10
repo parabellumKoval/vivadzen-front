@@ -91,7 +91,7 @@ console.log('item', props.item)
     </div>
 
     <NuxtLink
-      :to="localePath('/' + item.slug)"
+      :to="$regionPath('/' + item.slug)"
       :aria-label="item.name"
       :prefetch="false"
       @click="setGoogleEventHandler"
@@ -129,7 +129,7 @@ console.log('item', props.item)
 
     <div class="name-wrapper">
       <NuxtLink
-        :to="localePath(`/${item.slug}`)"
+        :to="$regionPath(`/${item.slug}`)"
         class="name"
         clickable
         :prefetch="false"
@@ -148,7 +148,7 @@ console.log('item', props.item)
         <span class="buy-btn-name">{{ t('button.buy') }}</span>
         <IconCSS name="iconoir:shopping-bag" class="buy-btn-icon"></IconCSS>
       </button>
-      <lazy-product-price :price="item.price" :old-price="item.oldPrice" currency-code="USD"></lazy-product-price>
+      <lazy-product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency"></lazy-product-price>
     </div>
 
   </div>

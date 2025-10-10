@@ -14,3 +14,35 @@ uk:
   check_email: Посилання було відправлено на {email}. Перевірте свою пошту та перейдіть за посиланням. Якщо листа не надійшло, спробуйте отримати посилання знову через {sec} сек.
   noty:
     password_recovery_send: "Посилання для зміни пароля було відправлено на вашу пошту 📬: {email}"
+de:
+  for: für {email}
+  title: Link zum Zurücksetzen des Passworts
+  get_reset_link: Passwort zurücksetzen
+  reset_password: Wir senden einen Link zum Zurücksetzen Ihres Passworts an Ihre E-Mail. Folgen Sie dem Link und geben Sie ein neues Passwort ein.
+  check_email: Der Link wurde an {email} gesendet. Prüfen Sie Ihr Postfach und folgen Sie dem Link. Wenn keine E-Mail eingegangen ist, versuchen Sie, den Link nach {sec} Sekunden erneut anzufordern.
+  noty:
+    password_recovery_send: "Der Link zur Passwortänderung wurde an 📬 {email} gesendet"
+es:
+  for: para {email}
+  title: Enlace para restablecer la contraseña
+  get_reset_link: Restablecer contraseña
+  reset_password: Enviaremos un enlace para restablecer la contraseña a su correo electrónico. Siga el enlace e introduzca una nueva contraseña.
+  check_email: El enlace se envió a {email}. Revise su correo y siga el enlace. Si el mensaje no llegó, intente solicitar el enlace nuevamente en {sec} s.
+  noty:
+    password_recovery_send: "El enlace para cambiar la contraseña se envió al correo 📬: {email}"
+cs:
+  for: pro {email}
+  title: Odkaz na obnovení hesla
+  get_reset_link: Obnovit heslo
+  reset_password: Zašleme odkaz pro obnovení hesla na váš e-mail. Přejděte na odkaz a zadejte nové heslo.
+  check_email: Odkaz byl odeslán na {email}. Zkontrolujte e-mail a postupujte podle odkazu. Pokud zpráva nepřišla, zkuste získat odkaz znovu za {sec} s.
+  noty:
+    password_recovery_send: "Odkaz pro změnu hesla byl odeslán na e-mail 📬: {email}"
+en:
+  for: for {email}
+  title: Password reset link
+  get_reset_link: Reset password
+  reset_password: We will send a password reset link to your email. Follow the link and enter a new password.
+  check_email: The link was sent to {email}. Check your inbox and follow the link. If the email hasn't arrived, try requesting the link again in {sec} seconds.
+  noty:
+    password_recovery_send: "A link to change your password has been sent to 📬 {email}"

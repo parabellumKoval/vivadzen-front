@@ -254,13 +254,13 @@ export const useGoogleEvent = () => {
   }
 
   const setEvent = <E extends EventName>(eventName: E, data: EventPayloadMap[E]) => {
-    const { gtag } = useGtag()
+    // const { gtag } = useGtag()
 
-    const functionName = `get${eventName}Data` as keyof EventHandlers
-    const handler = eventHandlers[functionName as keyof EventHandlers];
+    // const functionName = `get${eventName}Data` as keyof EventHandlers
+    // const handler = eventHandlers[functionName as keyof EventHandlers];
 
-    const gTagData = handler(data)
-    gtag('event', gTagData.event, gTagData.ecommerce)
+    // const gTagData = handler(data)
+    // gtag('event', gTagData.event, gTagData.ecommerce)
   }
 
   return {
