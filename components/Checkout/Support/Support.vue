@@ -3,8 +3,6 @@
 // import {Vue3Lottie} from 'vue3-lottie'
 
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const ctaElement = ref(null)
 const lottieElement = ref(null)
 const playedTimes = ref(0)
@@ -70,7 +68,7 @@ onBeforeUnmount(() => {
       <div class="title">{{ t('title') }}</div>
       <div class="desc">{{ t('desc') }}</div>
       <div class="phone">{{ useContacts().all.value.phone }}</div>
-      <NuxtLink :to="localePath('/contacts')" class="link all-contacts">
+      <NuxtLink :to="$regionPath('/contacts')" class="link all-contacts">
         <span>{{ t('contacts') }}</span>
         <IconCSS name="fluent:chevron-right-48-filled" size="18px" class="icon"></IconCSS>
       </NuxtLink>

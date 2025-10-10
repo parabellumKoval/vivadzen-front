@@ -1,7 +1,5 @@
 <script setup>
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const advantages = computed(() => {
   return [
     {
@@ -48,7 +46,7 @@ const advantages = computed(() => {
       </div>
     </div>
 
-    <NuxtLink :to="localePath('/catalog')" class="button primary adv-btn">{{ t('button') }}</NuxtLink>
+    <NuxtLink :to="$regionPath('/catalog')" class="button primary adv-btn">{{ t('button') }}</NuxtLink>
 
     <nuxt-img
       src = "/images/apple.png"

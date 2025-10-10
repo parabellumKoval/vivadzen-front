@@ -1,8 +1,6 @@
 <script setup>
 import {useAuthStore} from '~/store/auth';
 import {useReviewStore} from '~/store/review'
-const localePath = useLocalePath()
-
 const {t} = useI18n()
 
 const reviews = ref([])
@@ -165,7 +163,7 @@ watch(feedbackData, (v) => {
     </div>
 
     <div class="footer-wrapper">
-      <NuxtLink :to="localePath('/reviews/shop')" class="button secondary">{{ t('reviews') }}</NuxtLink>
+      <NuxtLink :to="$regionPath('/reviews/shop')" class="button secondary">{{ t('reviews') }}</NuxtLink>
       <button @click="reviewHandler" class="button primary">{{ t('button.leave_review') }}</button>
     </div>
   </section>

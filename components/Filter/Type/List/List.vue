@@ -1,5 +1,4 @@
 <script setup>
-const localePath = useLocalePath()
 const props = defineProps({
   filter: {
     type: Object
@@ -20,7 +19,7 @@ const props = defineProps({
       :class="{'has-children': value.children?.length}"
       class="item"
     >
-      <NuxtLink :to="localePath('/brands/' + value.slug)" class="item-btn">
+      <NuxtLink :to="$regionPath('/brands/' + value.slug)" class="item-btn">
         <nuxt-img
           v-if="value.image?.src"
           :src = "value.image.src"

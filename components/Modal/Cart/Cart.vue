@@ -2,9 +2,6 @@
 import {useCartStore} from '~/store/cart'
 
 const { t } = useI18n()
-const localePath = useLocalePath()
-
-
 const products = computed(() => {
   return useCartStore().cart
 })
@@ -44,7 +41,7 @@ const closeHandler = () => {
           <simple-price :value="useCartStore().total" class="price"></simple-price>
         </div>
 
-        <NuxtLink @click="closeHandler" :to="localePath('/checkout')" class="button primary checkout-btn" type="button">
+        <NuxtLink @click="closeHandler" :to="$regionPath('/checkout')" class="button primary checkout-btn" type="button">
           <span>{{ $t('title.checkout') }}</span>
         </NuxtLink>
       </div>

@@ -3,7 +3,6 @@ import {useComparisonStore} from '~/store/comparison.ts'
 import {useProductStore} from '~/store/product.ts'
 
 const {t} = useI18n()
-const localePath = useLocalePath()
 const products = ref([])
 
 const breadcrumbs = [
@@ -278,7 +277,7 @@ watch(() => useComparisonStore().ids, (v) => {
                 {{ cell.value }}
               </template>
               <template v-else-if="!cell.type || cell.type === 'link'">
-                <NuxtLink :to="localePath('/' + cell.src)" class="field-link">{{ cell.value }}</NuxtLink>
+                <NuxtLink :to="$regionPath('/' + cell.src)" class="field-link">{{ cell.value }}</NuxtLink>
               </template>
               <template v-else-if="!cell.type || cell.type === 'price'">
                 <span v-if="cell.value === 0">–</span>

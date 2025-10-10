@@ -1,7 +1,5 @@
 <script setup>
 import {useArticleStore} from '~/store/article'
-const localePath = useLocalePath()
-
 const {t} = useI18n()
 const articles = ref([])
 
@@ -27,7 +25,7 @@ watch(dataArticles, (v) => {
       <article-card v-for="(article, index) in articles" :key="article.id" :index="index" :item="article" class="articles-item"></article-card>
     </div>
     <div class="footer-wrapper">
-      <NuxtLink :to="localePath('/blog')" class="button secondary">{{ t('articles') }}</NuxtLink>
+      <NuxtLink :to="$regionPath('/blog')" class="button secondary">{{ t('articles') }}</NuxtLink>
     </div>
   </section>
 </template>

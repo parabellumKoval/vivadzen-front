@@ -1,7 +1,7 @@
 <script setup>
 import { useAuthStore } from '~~/store/auth';
 
-const localePath = useLocalePath()
+const { $regionPath } = useNuxtApp();
 const {t} = useI18n()
 
 // COMPUTEDS
@@ -28,7 +28,7 @@ const phones = computed(() => {
 // METHODS
 // HANDLERS
 const goToAccount = () => {
-  navigateTo(localePath('/account/settings'))
+  navigateTo($regionPath('/account/settings'))
 }
 
 const loginHandler = () => {
@@ -100,13 +100,13 @@ const selectMainHandler = (index) => {
         <div class="menu">
           <ul class="menu-ul">
             <li>
-              <NuxtLink :to="localePath('/catalog?selections=with_sales&selections=in_stock')" @click="closeHandler" class="menu-link menu-link-sales">
+              <NuxtLink :to="$regionPath('/catalog?selections=with_sales&selections=in_stock')" @click="closeHandler" class="menu-link menu-link-sales">
                 {{ t('title.sales') }}
                 <IconCSS name="iconoir:percentage" class="icon"></IconCSS>
               </NuxtLink>
             </li>
             <li v-for="item in useMenu().common.value" :key="item.id">
-              <NuxtLink :to="localePath(item.link)" @click="closeHandler" class="menu-link">{{ item.title }}</NuxtLink>
+              <NuxtLink :to="$regionPath(item.link)" @click="closeHandler" class="menu-link">{{ item.title }}</NuxtLink>
             </li>
             <li>
               <button @click="infoMenuHandler" class="menu-link  menu-link-more">

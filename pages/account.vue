@@ -1,6 +1,7 @@
 <script setup>
 import { useAuthStore } from '~~/store/auth';
 const {t} = useI18n()
+const { $regionPath } = useNuxtApp();
 const route = useRoute()
 
 definePageMeta({
@@ -94,7 +95,7 @@ const clickMenuHandler = (item) => {
   isMenuOpen.value = false
 
   if(item.link){
-    navigateTo(useLocalePath()(item.link))
+    navigateTo($regionPath(item.link))
   }else if(item.callback) {
     item.callback()
   }

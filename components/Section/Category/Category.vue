@@ -1,7 +1,5 @@
 <script setup>
 import { useCategoryStore } from '~/store/category'
-const localePath = useLocalePath()
-
 const {t} = useI18n()
 
 const categories = ref([])
@@ -46,7 +44,7 @@ await useAsyncData('main-categories-is_hit', () => useCategoryStore().index(quer
       <NuxtLink
         v-for="category in categories"
         :key="category.id"
-        :to="localePath('/' + category.slug)"
+        :to="$regionPath('/' + category.slug)"
         :aria-label="category.name"
         clickable
         class="category"

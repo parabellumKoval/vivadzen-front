@@ -1,7 +1,5 @@
 <script setup>
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const props = defineProps({
   item: {
     required: true
@@ -17,7 +15,7 @@ const props = defineProps({
 <!-- <i18n src='' lang='yaml'></i18n> -->
 
 <template>
-  <NuxtLink :to="localePath('/' + item.slug)" class="livesearch-link product-card">
+  <NuxtLink :to="$regionPath('/' + item.slug)" class="livesearch-link product-card">
     <nuxt-img
       :src = "useImg().product(item.image)"
       width="207"

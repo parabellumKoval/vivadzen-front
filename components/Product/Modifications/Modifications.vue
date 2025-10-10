@@ -1,7 +1,5 @@
 <script setup>
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const props = defineProps({
   product: {
     type: Object
@@ -39,7 +37,7 @@ const mods = computed(() => {
       <NuxtLink
         v-for="mod in mods"
         :key="mod.id"
-        :to="localePath('/' + mod.slug)"
+        :to="$regionPath('/' + mod.slug)"
         class="mod-item"
         :class="{'not-in-stock': mod.inStock === 0}"
       >

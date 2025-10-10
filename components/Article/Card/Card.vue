@@ -1,7 +1,5 @@
 
 <script setup>
-const localePath = useLocalePath()
-
 const props = defineProps({
   item: {
     type: Object
@@ -26,7 +24,7 @@ const loading = computed(() => {
 <style src="./card.scss" lang="scss" scoped></style>
 
 <template>
-  <NuxtLink :to="localePath('/blog/' + item.slug)" class="article-card">
+  <NuxtLink :to="$regionPath('/blog/' + item.slug)" class="article-card">
     <nuxt-img
       :src = "useImg().blog(item.image)"
       :alt = "item.image.alt || item.name"

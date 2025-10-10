@@ -1,7 +1,5 @@
 <script setup>
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const props = defineProps({
   product: {
     type: Object
@@ -19,7 +17,7 @@ const props = defineProps({
 <template>
   <div class="brand">
     <span class="brand-label">{{ $t('label.brand') }}:</span>
-    <NuxtLink :to="localePath('/brands/' + product.brand.slug)" class="brand-value text-link">
+    <NuxtLink :to="$regionPath('/brands/' + product.brand.slug)" class="brand-value text-link">
       <span>{{ product.brand.name }}</span>
     </NuxtLink>
   </div>

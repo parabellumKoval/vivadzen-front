@@ -1,7 +1,7 @@
 <script setup>
 import { useAuthStore } from '~~/store/auth';
 
-const localePath = useLocalePath()
+const { $regionPath } = useNuxtApp();
 const {t} = useI18n()
 
 // COMPUTEDS
@@ -24,7 +24,7 @@ const auth = computed(() => {
 // HANDLERS
 const goToAccount = () => {
   closeHandler()
-  navigateTo(localePath('/account/settings'))
+  navigateTo($regionPath('/account/settings'))
 }
 
 const closeHandler = () => {
@@ -88,7 +88,7 @@ const loginHandler = () => {
           <div class="menu-label">{{ t('label.common_info') }}</div>
           <ul class="menu-ul">
             <li v-for="item in menu.info" :key="item.id">
-              <NuxtLink :to="localePath(item.link)" @click="closeHandler" class="menu-link">{{ item.title }}</NuxtLink>
+              <NuxtLink :to="$regionPath(item.link)" @click="closeHandler" class="menu-link">{{ item.title }}</NuxtLink>
             </li>
           </ul>
         </div>
@@ -97,7 +97,7 @@ const loginHandler = () => {
           <div class="menu-label">{{ t('label.guide') }}</div>
           <ul class="menu-ul">
             <li v-for="item in menu.customer" :key="item.id">
-              <NuxtLink :to="localePath(item.link)" @click="closeHandler" class="menu-link">{{ item.title }}</NuxtLink>
+              <NuxtLink :to="$regionPath(item.link)" @click="closeHandler" class="menu-link">{{ item.title }}</NuxtLink>
             </li>
           </ul>
         </div>

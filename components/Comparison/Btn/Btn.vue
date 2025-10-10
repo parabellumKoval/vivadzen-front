@@ -1,7 +1,6 @@
 <script setup>
 import {useComparisonStore} from '~/store/comparison.ts'
 const {t} = useI18n()
-const localePath = useLocalePath()
 // COMPUTEDS
 const productsCount = computed(() => {
   return useComparisonStore().ids?.length
@@ -21,7 +20,7 @@ const closeModalHandler = () => {
   <transition name="move-y">
     <div v-if="productsCount" class="comparison-wrapper">
       <NuxtLink
-        :to="localePath('/comparison')"
+        :to="$regionPath('/comparison')"
         @click="closeModalHandler"
         class="button blue comparison-btn"
         clickable

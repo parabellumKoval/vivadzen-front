@@ -11,8 +11,6 @@ const { scrollToAnchor } = useAnchorScroll({
 })
 
 const {t} = useI18n()
-const localePath = useLocalePath()
-
 const brands_grouped = ref([])
 const breadcrumbs = [
   {
@@ -204,7 +202,7 @@ setSeo()
       <div v-if="populars?.length" class="brand-box">
         <div class="title-secondary">{{ t('popular') }}</div>
         <div class="popular">
-          <NuxtLink v-for="item in populars" :key="item.id" :to="localePath('/brands/' + item.slug)" class="popular-item">
+          <NuxtLink v-for="item in populars" :key="item.id" :to="$regionPath('/brands/' + item.slug)" class="popular-item">
             <nuxt-img
               :src = "useImg().brand(item.image)"
               width="254"
@@ -229,7 +227,7 @@ setSeo()
           </div>
           <ul class="brand-list">
             <li v-for="item in brand" :key="item.id" class="brand-item">
-              <NuxtLink :to="localePath('/brands/' + item.slug)" class="brand-link">{{ item.name }}</NuxtLink>
+              <NuxtLink :to="$regionPath('/brands/' + item.slug)" class="brand-link">{{ item.name }}</NuxtLink>
             </li>
           </ul>
         </div>
