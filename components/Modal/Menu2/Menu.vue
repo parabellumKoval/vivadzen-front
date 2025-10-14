@@ -1,8 +1,7 @@
 <script setup>
-import { useAuthStore } from '~~/store/auth';
-
 const { $regionPath } = useNuxtApp();
 const {t} = useI18n()
+const { user: authUser, isAuthenticated: isLoggedIn, avatar: authAvatar } = useAuth()
 
 // COMPUTEDS
 const menu = computed(() => {
@@ -10,14 +9,6 @@ const menu = computed(() => {
     customer: useMenu().customer.value,
     info: useMenu().info.value
   }
-})
-
-const user = computed(() => {
-  return useAuthStore().user
-})
-
-const auth = computed(() => {
-  return useAuthStore().auth
 })
 
 // METHODS
@@ -47,10 +38,10 @@ const loginHandler = () => {
       <div class="mm-header">
         <!-- User -->
         <div class="mm-header-user">
-          <template v-if="auth && user" >
+          <template v-if="isLoggedIn && authUser" >
             <button @click="goToAccount" class="avatar" type="button" clickable>
               <nuxt-img
-                :src="useAuthStore().avatar"
+                :src="authAvatar"
                 width="50"
                 height="50"
                 sizes = "mobile:30px tablet:30px desktop:30px"
@@ -60,7 +51,7 @@ const loginHandler = () => {
                 class = "avatar-image"
               />
             </button>
-            <button @click="goToAccount" class="mm-header-btn">{{ user.email }}</button>
+            <button @click="goToAccount" class="mm-header-btn">{{ authUser.email }}</button>
           </template>
           <template v-else>
             <div @click="loginHandler" class="avatar-faker">

@@ -1,7 +1,9 @@
 <script setup>
-import {useAuthStore} from '~/store/auth'
-
+import { ref, computed } from 'vue'
 const { t } = useI18n()
+const { resetPassword } = useAuth()
+const modal = useModal()
+const modalPayload = computed(() => modal.active?.data)
 const isLoading = ref(false)
 
 const user = ref({
@@ -14,52 +16,74 @@ const errors = ref({
   password_confirmation: null
 })
 
+const applyErrors = (payload) => {
+  if (!payload) return
+  Object.entries(payload).forEach(([key, messages]) => {
+    if (Object.prototype.hasOwnProperty.call(errors.value, key) && Array.isArray(messages) && messages.length) {
+      errors.value[key] = messages[0]
+    }
+  })
+}
 
-// METHODS
 const validate = () => {
-  if(user.value.password !== user.value.password_confirmation) {
+  errors.value.password = null
+  errors.value.password_confirmation = null
+
+  if (!user.value.password) {
+    errors.value.password = t('error.auth.password.require')
+    return false
+  }
+
+  if (user.value.password !== user.value.password_confirmation) {
+    errors.value.password_confirmation = t('error.auth.password.confirmation')
     useNoty().setNoty({
       content: t('error.auth.password.confirmation'),
       type: 'error'
     }, 7000)
-    
     return false
   }
 
   return true
 }
 
-// HANDLERS
-const saveHandler = () => {
-  if(!validate())
-    return;
+const saveHandler = async () => {
+  if(!validate()) return
+
+  const payload = modalPayload.value
+  if (!payload?.token || !payload?.email) {
+    useNoty().setNoty({
+      content: t('noty.update.fail'),
+      type: 'error'
+    }, 7000)
+    return
+  }
 
   isLoading.value = true
+  try {
+    await resetPassword(
+      payload.token,
+      payload.email,
+      user.value.password,
+      user.value.password_confirmation
+    )
 
-  useAuthStore().update({
-    password: user.value.password
-  }).then(({data, error}) => {
+    useNoty().setNoty({
+      content: t('noty.auth.password.changed.success'),
+      type: 'success'
+    })
 
-    if(data.user){
-      useNoty().setNoty({
-        content: t('noty.auth.password.changed.success'),
-        type: 'success'
-      })
-      
-      useModal().close()
-      navigateTo('/')
-    }
-
-    if(error){
-      useNoty().setNoty({
-        content: t(`errors.${error.message}`),
-        type: 'error'
-      }, 7000)
-    }
-
-  }).finally(() => {
+    useModal().close()
+    navigateTo('/')
+  } catch (err) {
+    const data = err?.data || {}
+    if (data?.errors) applyErrors(data.errors)
+    const message =
+      (typeof data?.message === 'string' && data.message) ||
+      t('noty.update.fail')
+    useNoty().setNoty({ content: message, type: 'error' }, 7000)
+  } finally {
     isLoading.value = false
-  })
+  }
 }
 
 </script>

@@ -53,7 +53,7 @@ const deleteHandler = () => {}
   </div>
   <div class="footer">
     <div class="price-ditails">
-      <simple-price v-if="+item.price" :value="+item.price" class="price"></simple-price>
+      <simple-price v-if="+item.price" :value="+item.price" :currency-code="item.currency" class="price"></simple-price>
       <span class="price-delimiter">X</span>
       <span class="price-amount">{{ item.amount }}</span>
     </div>

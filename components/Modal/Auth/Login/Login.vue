@@ -1,46 +1,59 @@
 <script setup>
-import {useAuthStore} from '~/store/auth'
-
+import { ref } from 'vue'
 const { t } = useI18n()
+const { login } = useAuth()
 const isLoading = ref(false)
 
-const auth = ref({
-  email: '',
-  password: ''
-})
+const auth = ref({ email: '', password: '' })
+const errors = ref({ email: null, password: null })
 
+const validate = () => {
+  let ok = true
+  errors.value.email = null
+  errors.value.password = null
 
-const errors = ref({
-  email: null,
-  password: null
-})
+  if (!auth.value.email) {
+    errors.value.email = t('error.required')
+    ok = false
+  }
+  if (!auth.value.password) {
+    errors.value.password = t('error.auth.password.require')
+    ok = false
+  }
 
-// HANDLERS
-const loginHandler = () => {
+  return ok
+}
+
+const applyErrors = (payload) => {
+  if (!payload) return
+  for (const [key, messages] of Object.entries(payload)) {
+    if (Object.prototype.hasOwnProperty.call(errors.value, key) && Array.isArray(messages) && messages.length) {
+      errors.value[key] = messages[0]
+    }
+  }
+}
+
+const loginHandler = async () => {
+  if (!validate()) return
+
   isLoading.value = true
-
-  useAuthStore().login(auth.value)
-    .then(({data, error}) => {
-      if(data && data.user) {
-        useAuthStore().setUserFromSession(data.user)
-
-        useNoty().setNoty({
-          content: t('noty.auth.login.success')
-        }, 5000)
-        
-        useModal().close()
-      }
-
-      if(error){
-        useNoty().setNoty({
-          content: t(`error.auth.${error.message}`),
-          type: 'error'
-        }, 10000)
-      }
-    })
-    .finally(() => {
-      isLoading.value = false
-    })
+  try {
+    await login(auth.value.email, auth.value.password)
+    useNoty().setNoty({
+      content: t('noty.auth.login.success'),
+      type: 'success'
+    }, 5000)
+    useModal().close()
+  } catch (err) {
+    const data = err?.data || {}
+    if (data?.errors) applyErrors(data.errors)
+    const message =
+      (typeof data?.message === 'string' && data.message) ||
+      t('noty.auth.login.fail')
+    useNoty().setNoty({ content: message, type: 'error' }, 7000)
+  } finally {
+    isLoading.value = false
+  }
 }
 
 const changePasswordHandler = () => {
@@ -78,7 +91,11 @@ const regHandler = () => {
           required
         ></form-password>
 
-        <button @click="loginHandler" class="button primary form-button">{{ t('button.enter') }}</button>
+        <button
+          @click="loginHandler"
+          :class="{loading: isLoading}"
+          class="button primary form-button"
+        >{{ t('button.enter') }}</button>
       </div>
 
       <div class="footer">

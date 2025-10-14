@@ -1,10 +1,10 @@
 <script setup>
 import {Vue3Lottie} from 'vue3-lottie'
 
-import {useAuthStore} from '~/store/auth'
 import {useCartStore} from '~/store/cart'
 import {useLiqpayStore} from '~/store/liqpay'
 import {useMonoStore} from '~/store/mono'
+const { orderable } = useAuth()
 
 definePageMeta({
   bg: '#eee'
@@ -51,11 +51,6 @@ const form = ref({
 })
 
 // COMPUTED
-const orderable = computed(() => {
-  return useAuthStore().orderable  
-})
-
-
 // WATCH
 watch(formElement, (v) => {
   if(v) {

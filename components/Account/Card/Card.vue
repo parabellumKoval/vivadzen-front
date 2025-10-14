@@ -1,18 +1,10 @@
 <script setup>
-import { useAuthStore } from '~~/store/auth';
-
+const { user, avatar, displayName } = useAuth()
 // COMPUTEDS
-const user = computed(() => {
-  return useAuthStore().user
-})
-
-const photo = computed(() => {
-  return useAuthStore().avatar
-})
-
 const name = computed(() => {
-  let fullname = ((user.value.firstname || '') + ' ' + (user.value.lastname || '')).trim()
-  return fullname || user.value.fullname
+  if (displayName.value) return displayName.value
+  const fullname = ((user.value?.firstname || '') + ' ' + (user.value?.lastname || '')).trim()
+  return fullname || user.value?.fullname || ''
 })
 // METHODS
 
@@ -26,7 +18,7 @@ const name = computed(() => {
 <template>
   <div class="profile">
     <nuxt-img
-      :src = "photo"
+      :src = "avatar"
       :provider = "useImg().provider"
       width="70"
       height="70"

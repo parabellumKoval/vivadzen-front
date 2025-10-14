@@ -51,7 +51,7 @@ const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
     <div class="footer">
       <simple-stars :amount="item.rating" mobile="medium"></simple-stars>
 
-      <product-price :price="item.price" :old-price="item.oldPrice" class="price-block"></product-price>
+      <product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency" class="price-block"></product-price>
     </div>
   </div>
 </div>

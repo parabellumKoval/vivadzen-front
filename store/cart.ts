@@ -21,17 +21,11 @@ export const useCartStore = defineStore('cartStore', {
       payment: {
         method: 'online'
       },
-      // user: {
-      //   phone: '+380981245151',
-      //   email: 'test@gmail.com',
-      //   firstname: 'Test',
-      //   lastname: 'Ntcnth',
-      // },
       user: {
         phone: null,
         email: null,
-        firstname: null,
-        lastname: null,
+        first_name: null,
+        last_name: null,
       },
       comment: null,
       promocode: null,
@@ -76,7 +70,7 @@ export const useCartStore = defineStore('cartStore', {
     filled: (state) => {
       return (key: string) => {
         if(key === 'user') {
-          return state.orderState.user.firstname && state.orderState.user.phone && state.orderState.user.email
+          return state.orderState.user.first_name && state.orderState.user.phone && state.orderState.user.email
         }
 
         if(key === 'delivery') {
@@ -135,9 +129,9 @@ export const useCartStore = defineStore('cartStore', {
     },
 
     toProductType(data: Product) {
-      const {id, name, slug, price, oldPrice, amount, images} = data
+      const {id, name, slug, price, oldPrice, amount, images, currency} = data
       const image  = images?.length? images[0]: null
-      return {id, name, slug, price, oldPrice, amount, image} as Product
+      return {id, name, slug, price, oldPrice, amount, image, currency} as Product
     },
 
     serializeCart() {
@@ -153,11 +147,6 @@ export const useCartStore = defineStore('cartStore', {
 
     useBonuses(value: number) {
       this.orderState.bonusesUsed = value
-    },
-
-    setUser(user) {
-      // const {firstname, lastname, email, phone} = user
-      // this.orderState.user = {firstname, lastname, email, phone}
     },
 
     async copyOrder(id: number) {
@@ -186,8 +175,8 @@ export const useCartStore = defineStore('cartStore', {
       return await useApiFetch(url, query, 'GET')
         .then(({data, error}) => {
 
-          if(data) {
-            return data
+          if(data.value) {
+            return data.value
           }
 
           if(error) {
@@ -292,7 +281,7 @@ export const useCartStore = defineStore('cartStore', {
         ...orderable,
         ...this.orderState,
         products: this.serializeCart(),
-        provider: 'data'
+        provider: useAuth().isAuthenticated? 'auth': 'data'
       }
       
       return await useApiFetch(url, dataPost, 'POST')

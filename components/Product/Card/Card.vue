@@ -59,7 +59,6 @@ const setGoogleEventHandler = () => {
   useGoogleEvent().setEvent('SelectItem', {name: listData.name, id: listData.id, product: {...props.item, index: props.index}})
 }
 
-console.log('item', props.item)
 </script>
 
 <style src="./card.scss" lang="scss" scoped />

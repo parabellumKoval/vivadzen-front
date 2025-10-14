@@ -1,9 +1,10 @@
 <script setup>
 import {useCartStore} from '~/store/cart'
-import {useAuthStore} from '~/store/auth';
 
 const {t} = useI18n()
 const { $regionPath } = useNuxtApp();
+const { orderable } = useAuth()
+
 const props = defineProps({
   cart: {
     type: Object
@@ -34,30 +35,12 @@ const promocodeSale = computed(() => {
   return useCartStore().promocodeSale
 })
 
-const user = computed(() => {
-  return useAuthStore().user
-})
-
-const auth = computed(() => {
-  return useAuthStore().auth
-})
-
 // METHODS
 
 // HANDLERS
 const goCompleteHandler = () => {
-  
-  let orderable = {
-    orderable_id: null,
-    orderable_type: null
-  }
-
-  if(auth.value && user.value) {
-    orderable.orderable_id = user.value.id
-    orderable.orderable_type = 'supabase'
-  }
-
-  useCartStore().createOrder(orderable).then((response) => {
+  const payload = { ...orderable.value }
+  useCartStore().createOrder(payload).then((response) => {
     if(response?.code) {
       useCartStore().$reset()
       navigateTo($regionPath('/checkout/complete/' + response.code))
@@ -74,19 +57,8 @@ const goCompleteHandler = () => {
 }
 
 const goPayHandler = () => {
-  
-  let orderable = {
-    orderable_id: null,
-    orderable_type: null
-  }
-
-  if(auth.value && user.value) {
-    orderable.orderable_id = user.value.id
-    orderable.orderable_type = 'supabase'
-  }
-
-
-  useCartStore().validate(orderable).then((response) => {
+  const payload = { ...orderable.value }
+  useCartStore().validate(payload).then((response) => {
     if(response) {
       navigateTo($regionPath('/checkout/payment'))
     }
@@ -110,7 +82,9 @@ const goPayHandler = () => {
     <div class="sale-list">
       <div class="sale-item">
         <div class="sale-label">{{ productsLength }} {{ t('messages.products_total') }}</div>
-        <div class="sale-value">{{ $n(productsTotal, 'currency') }}</div>
+        <div class="sale-value">
+          <simple-price :value="total" class="price price-total"></simple-price>
+        </div>
       </div>
       <div class="sale-item">
         <div class="sale-label">{{ t('messages.delivery_price') }}</div>
@@ -126,7 +100,9 @@ const goPayHandler = () => {
       <div class="sale-footer">
         <div class="sale-item">
           <div class="sale-label">{{ t('messages.to_pay') }}</div>
-          <div class="sale-value large">{{ $n(total, 'currency') }}</div>
+          <div class="sale-value large">
+            <simple-price :value="total" class="price price-total"></simple-price>
+          </div>
         </div>
       </div>
 

@@ -1,6 +1,5 @@
 <script setup>
 import {useCartStore} from '~/store/cart'
-import { useAuthStore } from '~~/store/auth';
 
 definePageMeta({
   bg: '#eee'
@@ -16,6 +15,8 @@ const { scrollToAnchor } = useAnchorScroll({
 })
 
 const {t} = useI18n()
+const { user, isAuthenticated, init } = useAuth()
+await init()
 const breadcrumbs = [
   {
     name: t('title.home'),
@@ -59,13 +60,9 @@ const total = computed(() => {
   return useCartStore().total
 })
 
-const user = computed(() => {
-  return useAuthStore().user
-})
-
 const userFirstName = computed(() => {
-  if(user.value?.firstname) {
-    return user.value.firstname;
+  if(user.value?.first_name) {
+    return user.value.first_name;
   }else if(user.value?.fullname) {
     return user.value.fullname.split(' ')[0]
   }else {
@@ -74,8 +71,8 @@ const userFirstName = computed(() => {
 })
 
 const userLastName = computed(() => {
-  if(user.value?.lastname) {
-    return user.value.lastname;
+  if(user.value?.last_name) {
+    return user.value.last_name;
   }else if(user.value?.fullname) {
     let nameArray = user.value.fullname.split(' ')
     return nameArray[1]? nameArray[1]: null
@@ -84,9 +81,7 @@ const userLastName = computed(() => {
   }
 })
 
-const auth = computed(() => {
-  return useAuthStore().auth
-})
+const auth = isAuthenticated
 
 /**
  * computed-свойство, которое определяет:
@@ -144,8 +139,8 @@ const scrollHandler = (item) => {
 }
 
 const setUserData = () => {
-  order.value.user.firstname = !order.value.user.firstname? userFirstName.value: order.value.user.firstname
-  order.value.user.lastname = !order.value.user.lastname? userLastName.value: order.value.user.lastname
+  order.value.user.first_name = !order.value.user.first_name? userFirstName.value: order.value.user.first_name
+  order.value.user.last_name = !order.value.user.last_name? userLastName.value: order.value.user.last_name
   order.value.user.phone = !order.value.user.phone? (user.value?.phone || null): order.value.user.phone
   order.value.user.email = !order.value.user.email? (user.value?.email || null): order.value.user.email
 }
@@ -283,17 +278,17 @@ useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: tot
             <div class="form-grid">
               <form-text
                 v-if="!auth"
-                v-model="order.user.firstname"
-                :error="errors?.user?.firstname"
-                @input="() => errors?.user?.firstname && (errors.user.firstname = null)"
+                v-model="order.user.first_name"
+                :error="errors?.user?.first_name"
+                @input="() => errors?.user?.first_name && (errors.user.first_name = null)"
                 :placeholder="t('form.firstname')"
                 :required="isFieldRequired('user.children.firstname')"
               ></form-text>
               <form-text
                 v-if="!auth"
-                v-model="order.user.lastname"
-                :error="errors?.user?.lastname"
-                @input="() => errors?.user?.lastname && (errors.user.lastname = null)"
+                v-model="order.user.last_name"
+                :error="errors?.user?.last_name"
+                @input="() => errors?.user?.last_name && (errors.user.last_name = null)"
                 :placeholder="t('form.lastname')"
                 :required="isFieldRequired('user.children.lastname')"
               ></form-text>

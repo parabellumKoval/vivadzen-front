@@ -1,8 +1,8 @@
 <script setup>
 import { useReviewStore } from '~~/store/review';
-import { useAuthStore } from '~~/store/auth';
 
 const { t } = useI18n()
+const { user: authUser, displayName, avatar } = useAuth()
 
 const review = ref({
   provider: 'data',
@@ -121,9 +121,11 @@ const clearProductData = () => {
 }
 
 const setUserData = () => {
-  review.value.owner.name = useAuthStore().name
-  review.value.owner.email = useAuthStore().user.email || null
-  review.value.owner.photo = useAuthStore().user.photo || null
+  const current = authUser.value
+  if (!current) return
+  review.value.owner.name = displayName.value || current.name || review.value.owner.name
+  review.value.owner.email = current.email || review.value.owner.email
+  review.value.owner.photo = avatar.value || current.photo || current.avatar || review.value.owner.photo
 }
 
 // WATCH
@@ -137,8 +139,9 @@ watch(() => tab.value, (v) => {
   immediate: true
 })
 
-setUserData()
 setActiveTab()
+
+watch(authUser, () => setUserData(), { immediate: true })
 </script>
 
 <style src="./create.scss" lang="scss" scoped></style>
@@ -168,7 +171,7 @@ setActiveTab()
           </div>
         </div>
 
-        <div v-if="!useAuthStore().name">
+        <div v-if="!displayName">
           <div class="form-label">{{ t('form.name') }}</div>
           <form-text
             v-model="review.owner.name"

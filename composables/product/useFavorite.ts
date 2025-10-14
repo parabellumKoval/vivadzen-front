@@ -1,4 +1,3 @@
-import {useAuthStore} from '~/store/auth'
 import {useFavoritesStore} from '~/store/favorites'
 import {useModal} from '~/composables/useModal'
 import { ModalAuthSocial } from '#components'
@@ -7,6 +6,7 @@ export const useFavorite = (productId: Number) => {
 
   const {t} = useI18n({useScope: 'global'})
   const id = ref(productId)
+  const { user, isAuthenticated } = useAuth()
 
   // COMPUTEDS
   const isFavorite = computed(() => {
@@ -18,13 +18,8 @@ export const useFavorite = (productId: Number) => {
     return false
   })
 
-  const user = computed(() => {
-    return useAuthStore().user
-  })
-
-  
   const toFavoriteHandler = () => {
-    if(!useAuthStore().auth) {
+    if(!isAuthenticated.value || !user.value) {
       useNoty().setNoty({
         content: t('noty.favorite.need_login'),
         type: 'warning'

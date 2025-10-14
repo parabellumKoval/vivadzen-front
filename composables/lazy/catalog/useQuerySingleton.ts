@@ -73,7 +73,6 @@ function createQuery (options = {}) {
         updated[key] = updated[key].filter((item: any) => {
           // Если valToRemove содержит несколько ключей — ищем полное соответствие подмножества
           for (const innerKey in valToRemove) {
-        console.log('here 2')
             if (String(item[innerKey]) !== String(valToRemove[innerKey])) {
               return true // не совпало — оставляем
             }

@@ -1,8 +1,7 @@
 <script setup>
-import {useAuthStore} from '~/store/auth'
-
 const { t } = useI18n()
 const isLoading = ref(false)
+const { requestEmailChange } = useAuth()
 
 const email = ref(null)
 const errors = ref({
@@ -12,26 +11,22 @@ const errors = ref({
 // METHODS
 
 // HANDLERS
-const saveHandler = () => {
+const saveHandler = async () => {
   isLoading.value = true
-
-  useAuthStore().update({email: email.value}, '/account/email-change').then(({data, error}) => {
-
-    if(data && data.user)
-      useNoty().setNoty({
-        content: t('noty.auth.email.confirmation.sent', {email: email.value}),
-        type: 'success'
-      })
-    
-    if(error)
-      useNoty().setNoty({
-        content: t(`errors.${error.message}`),
-        type: 'error'
-      })
-
-  }).finally(() => {
+  try {
+    await requestEmailChange({ email: email.value })
+    useNoty().setNoty({
+      content: t('noty.auth.email.confirmation.sent', {email: email.value}),
+      type: 'success'
+    })
+  } catch (error) {
+    useNoty().setNoty({
+      content: t('noty.update.fail'),
+      type: 'error'
+    })
+  } finally {
     isLoading.value = false
-  })
+  }
 }
 
 </script>

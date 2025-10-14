@@ -1,9 +1,8 @@
 export default defineNuxtPlugin((nuxtApp) => {
   // 1) Берём глобальный i18n (vue-i18n v9)
-  //    В nuxt i18n он доступен как nuxtApp.$i18n
   const i18n = (nuxtApp as any).$i18n;
   // 2) Берём Pinia store/композабл ОДИН РАЗ в плагине
-  const regionStore = useRegion(); // или useRegionStore(), если это Pinia store
+  const regionStore = useRegion();
 
   const regionPath = (path: string, opts: { absolute?: boolean } = {}) => {
     // НЕ вызываем useI18n()/useRegion() тут!

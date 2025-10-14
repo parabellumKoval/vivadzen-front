@@ -62,6 +62,14 @@ const subHandler = () => {
     errors.value = e
   })
 }
+// const { $getSetting, $settings } = useNuxtApp()
+// const { $getSetting, $settings } = useNuxtApp()
+const {get: getSettings, all} = useSettings()
+// const allow = get('profile.users.allow_registration', false)
+// const allSettings = computed(() => all.value)
+// const allowRegistration = computed(() => get('profile.points.base'))
+
+console.log('settings',  all.value, getSettings('profile.points.base') )
 </script>
 
 <style src="./footer.scss" lang="scss" scoped />
@@ -207,7 +215,7 @@ const subHandler = () => {
     <hr class="footer-hr" />
 
     <div class="last-section">
-      djini.com.ua ©2019 - {{ new Date().getFullYear() }} / {{ t('rights') }}
+      vivadzen.com ©2021 - {{ new Date().getFullYear() }} / {{ t('rights') }}
     </div>
 
   </footer>

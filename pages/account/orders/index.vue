@@ -1,8 +1,10 @@
 <script setup>
-import {useAuthStore} from '~/store/auth'
 import {useCartStore} from '~/store/cart'
 
 const {t} = useI18n()
+const { user, orderable, init } = useAuth()
+
+await init()
 
 definePageMeta({
   crumb: {
@@ -24,15 +26,11 @@ const nextPage = computed(() => {
   return meta.value && meta.value.current_page !== meta.value.last_page
 })
 
-const user = computed(() => {
-  return useAuthStore().user
-})
-
 const loadmoreHandler = () => {
   isLoading.value = true
 
   const query = {
-    ...useAuthStore().orderable,
+    ...orderable.value,
     page: ++meta.value.current_page
   }
 
@@ -53,8 +51,9 @@ const getOrders = async (data) => {
 }
 
 useAsyncData('get-orders', () => getOrders({
-  ...useAuthStore().orderable,
+  ...orderable.value,
 })).then(({data, error}) => {
+  console.log('data', data)
   isInitLoading.value = true
 
   if(data && data.value) {
@@ -74,7 +73,7 @@ useAsyncData('get-orders', () => getOrders({
   <div>
     <div class="title-secondary">{{ t('title.account.orders') }}</div>
 
-    <simple-table v-if="isInitLoading || (orders.length && !isInitLoading)">
+    <simple-table v-if="isInitLoading || (orders?.length && !isInitLoading)">
       <template v-if="!isInitLoading">
         <order-card
           v-for="(order, index) in orders"

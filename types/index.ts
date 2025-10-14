@@ -74,6 +74,7 @@ declare global {
     },
     price: number,
     oldPrice: number,
+    currency: string,
     rating: {
       rating: number,
       rating_count: number,

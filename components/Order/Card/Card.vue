@@ -14,8 +14,8 @@ const user = computed(() => {
     value: ''
   }
 
-  string.value += props.order.user.firstname ? props.order.user.firstname + ' ': ''
-  string.value += props.order.user.lastname ? props.order.user.lastname: ''
+  string.value += props.order.user.first_name ? props.order.user.first_name + ' ': ''
+  string.value += props.order.user.last_name ? props.order.user.last_name: ''
   string.value += props.order.user.phone ? ', ' + props.order.user.phone: ''
   string.value += props.order.user.email ? ', ' + props.order.user.email: ''
 

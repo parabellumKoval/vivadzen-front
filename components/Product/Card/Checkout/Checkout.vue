@@ -59,7 +59,7 @@ const deleteHandler = () => {
     <div>
       <button @click="deleteHandler" class="remove-btn">{{ t('button.delete') }}</button>
     </div>
-    <product-price :price="item.price" :old-price="item.oldPrice"></product-price>
+    <product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency"></product-price>
   </div>
 </div>
 </template>

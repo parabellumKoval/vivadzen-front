@@ -1,7 +1,7 @@
 <script setup>
-import {useAuthStore} from '~/store/auth';
 import {useReviewStore} from '~/store/review'
 const {t} = useI18n()
+const { isAuthenticated } = useAuth()
 
 const reviews = ref([])
 const feedback = ref([])
@@ -75,7 +75,7 @@ const moreInfoHandler = () => {
 }
 
 const reviewHandler = () => {
-  if(useAuthStore().auth) {
+  if(isAuthenticated.value) {
     useModal().open(resolveComponent('ModalReviewCreate'), null, null, {width: {min: 420, max: 420}})
   }else{
     useNoty().setNoty({

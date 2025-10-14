@@ -110,16 +110,34 @@ export default defineNuxtConfig({
   },
 
   modules: [
-  RegionsModule,
-  'nuxt-anchorscroll',
-  // 'nuxt-gtag',
+    ['./modules/auth-bridge', {
+      tokenCookieName: 'auth_token',
+      endpoints: {
+        me: '/auth/me',
+        login: '/auth/login',
+        logout: '/auth/logout',
+        register: '/auth/register',
+        forgot: '/auth/password/forgot',
+        reset: '/auth/password/reset',
+        resendLoggedIn: '/auth/email/verification-notification',
+        resendByEmail: '/auth/email/resend',
+        changePassword: '/auth/password/change',
+        profileUpdate: '/profile/update',
+        profileEmailChange: '/profile/email-change',
+        socialUrl: (p: String) => `/auth/oauth/${p}/url`,
+      },
+      heartbeat: { enabled: true, intervalMs: 300000 },
+    }],
+    './modules/settings',
+    RegionsModule,
+    'nuxt-anchorscroll', // 'nuxt-gtag',
   // '@zadigetvoltaire/nuxt-gtm',
   [
       'nuxt-icon',
       {
         class: 'icon'
       }
-  ],[
+  ], [
     'nuxt-delay-hydration',
     {
       // mode: 'manual',
@@ -201,6 +219,12 @@ export default defineNuxtConfig({
 
   experimental: {
     renderJsonPayloads: false,
+  },
+
+  settingsModule: {
+    apiUrl: process.env.SERVER_URL + '/api/settings/nested',
+    ttlSec: 300, // TTL кэша в секундах
+    refreshRoutePath: '/api/_refresh-settings', // POST для принудительного обновления
   },
 
   regionsModule: {

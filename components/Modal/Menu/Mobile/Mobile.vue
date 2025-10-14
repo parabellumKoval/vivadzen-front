@@ -1,18 +1,9 @@
 <script setup>
-import { useAuthStore } from '~~/store/auth';
-
 const { $regionPath } = useNuxtApp();
 const {t} = useI18n()
+const { user: authUser, isAuthenticated: isLoggedIn, avatar: userAvatar } = useAuth()
 
 // COMPUTEDS
-const user = computed(() => {
-  return useAuthStore().user
-})
-
-const auth = computed(() => {
-  return useAuthStore().auth
-})
-
 const phones = computed(() => {
   return [
     {
@@ -55,12 +46,12 @@ const selectMainHandler = (index) => {
       <div class="header">
         <!-- User -->
         
-        <template v-if="auth && user" >
+        <template v-if="isLoggedIn && authUser" >
           <button @click="goToAccount" class="avatar" type="button" clickable>
             <ClientOnly>
               <nuxt-img
                 :provider="useImg().provider"
-                :src="useAuthStore().avatar"
+                :src="userAvatar"
                 width="50"
                 height="50"
                 sizes = "mobile:30px tablet:30px desktop:30px"
@@ -72,7 +63,7 @@ const selectMainHandler = (index) => {
             </ClientOnly>
           </button>
           <button @click="goToAccount" class="header-btn">
-            <span class="header-btn-name">{{ user.email }}</span>
+            <span class="header-btn-name">{{ authUser.email }}</span>
             <span class="header-btn-label">{{ t('dashboard') }}</span>
           </button>
         </template>

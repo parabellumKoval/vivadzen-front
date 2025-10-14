@@ -1,12 +1,10 @@
 <script setup>
-import { useAuthStore } from '~~/store/auth';
 const {t} = useI18n()
 const props = defineProps({})
+const { isAuthenticated, logout } = useAuth()
 
 // COMPUTEDS
-const auth = computed(() => {
-  return useAuthStore().auth
-})
+const auth = isAuthenticated
 // METHODS
 // HANDLERS
 const loginModalHandler = () => {
@@ -33,10 +31,9 @@ const logoutConfirmHandler = () => {
   })
 }
 
-const logoutHandler = () => {
-  useAuthStore().logout().then(() => {
-    navigateTo('/checkout')
-  })
+const logoutHandler = async () => {
+  await logout()
+  navigateTo('/checkout')
 }
 
 // WATCHERS

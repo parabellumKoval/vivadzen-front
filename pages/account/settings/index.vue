@@ -1,8 +1,9 @@
 <script setup>
-import {useAuthStore} from '~/store/auth'
-
 const {t} = useI18n()
 const props = defineProps({})
+const { user: authUser, updateProfile, init } = useAuth()
+
+await init()
 
 definePageMeta({
   crumb: {
@@ -17,8 +18,8 @@ const isLoading = ref(false)
 const isLoadingPassword = ref(false)
 
 const user = ref({
-  firstname: null,
-  lastname: null,
+  first_name: null,
+  last_name: null,
   phone: null,
   email: null
 })
@@ -36,32 +37,26 @@ const saveAdressHandler = () => {
 
 }
 
-const saveInfoHandler = () => {
+const saveInfoHandler = async () => {
   isLoading.value = true
-  useAuthStore()
-    .update({data: {
-      firstname: user.value.firstname,
-      lastname: user.value.lastname,
+  try {
+    await updateProfile({
+      first_name: user.value.first_name,
+      last_name: user.value.last_name,
       phone: user.value.phone
-    }})
-    .then(({data, error}) => {
-      if(data) {
-        useNoty().setNoty({
-          content: t('noty.update.success'),
-          type: 'success'
-        })
-      }
-
-      if(error) {
-        useNoty().setNoty({
-          content: t('noty.update.fail'),
-          type: 'error'
-        })
-      }
     })
-    .finally(() => {
-      isLoading.value = false
+    useNoty().setNoty({
+      content: t('noty.update.success'),
+      type: 'success'
     })
+  } catch (error) {
+    useNoty().setNoty({
+      content: t('noty.update.fail'),
+      type: 'error'
+    })
+  } finally {
+    isLoading.value = false
+  }
 }
 
 const showUpdateEmailHandler = () => {
@@ -111,9 +106,14 @@ const updatePasswordHandler = () => {
 }
 
 // WATCHERS
-watch(() => useAuthStore().user, (v) => {
+watch(authUser, (v) => {
   if(v){
-    user.value = v
+    user.value = {
+      first_name: v.first_name ?? null,
+      last_name: v.last_name ?? null,
+      phone: v.phone ?? null,
+      email: v.email ?? null
+    }
   }
 }, {
   immediate: true
@@ -130,8 +130,8 @@ watch(() => useAuthStore().user, (v) => {
     <div class="settings-box">
       <div class="settings-label">{{ t('personal_data') }}</div>
       <div class="settings-grid">
-        <form-text v-model="user.firstname" :placeholder="t('form.firstname')"></form-text>
-        <form-text v-model="user.lastname" :placeholder="t('form.lastname')"></form-text>
+        <form-text v-model="user.first_name" :placeholder="t('form.firstname')"></form-text>
+        <form-text v-model="user.last_name" :placeholder="t('form.lastname')"></form-text>
         <form-text v-model="user.phone" :placeholder="t('form.phone')"></form-text>
         <form-text v-model="user.email" :placeholder="t('form.email')"></form-text>
       </div>

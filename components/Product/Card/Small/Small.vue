@@ -42,6 +42,7 @@ const deleteHandler = () => {}
       <product-price
         :price="item.price"
         :old-price="item.oldPrice"
+        :currency-code="item.currency"
         class="price-block"
       ></product-price>
     </div>

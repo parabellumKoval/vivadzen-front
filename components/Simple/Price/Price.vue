@@ -7,12 +7,8 @@ const props = defineProps({
   currencyCode: { type: String, default: 'UAH' },
 })
 
-const route = useRoute()
-// пример: брать из query-параметра ?cur=USD (если есть)
-const routeCurrency = computed(() => {
-  const c = String(route.query.cur || '').toUpperCase()
-  // простая валидация: код 3 буквы
-  return /^[A-Z]{3}$/.test(c) ? c : null
+const appCurrency = computed(() => {
+  return useRegion().сurrency.value
 })
 
 const numericValue = computed(() => {
@@ -29,7 +25,7 @@ const numberFormat = computed(() => {
   // валюта: ключ "currency" + динамический ISO-код
   return {
     key: 'currency',
-    currency: routeCurrency.value ?? props.currencyCode,  // приоритет query, потом проп
+    currency: appCurrency.value ?? props.currencyCode,  // приоритет query, потом проп
     currencyDisplay: 'narrowSymbol',                      // можно переопределить опции при необходимости
   }
 })

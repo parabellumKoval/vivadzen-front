@@ -1,8 +1,8 @@
 <script setup>
-import {useAuthStore} from '~~/store/auth';
 import {useLikesStore} from '~~/store/likes';
 
 const {t} = useI18n()
+const { isAuthenticated } = useAuth()
 const props = defineProps({
   item: {
     type: Object
@@ -28,7 +28,7 @@ const isMyLike = computed(() => {
 
 // HANDLERS
 const replyHandler = () => {
-  if(useAuthStore().auth) {
+  if(isAuthenticated.value) {
     useModal().open(resolveComponent('ModalReviewReply'), props.item, null, {width: {min: 420, max: 420}})
   }else{
     useNoty().setNoty({

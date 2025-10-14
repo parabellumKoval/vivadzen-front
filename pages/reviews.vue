@@ -1,7 +1,7 @@
 <script setup>
-import { useAuthStore } from '~~/store/auth';
 const { $regionPath } = useNuxtApp();
 const {t} = useI18n()
+const { isAuthenticated } = useAuth()
 
 // VARS
 const breadcrumbs = [
@@ -41,7 +41,7 @@ const setAmountHandler = (v) => {
 }
 
 const reviewHandler = () => {
-  if(useAuthStore().auth) {
+  if(isAuthenticated.value) {
     useModal().open(resolveComponent('ModalReviewCreate'), null, null, {width: {min: 420, max: 420}})
   }else{
     useNoty().setNoty({

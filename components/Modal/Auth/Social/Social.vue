@@ -1,8 +1,9 @@
 <script setup>
-import { useAuthStore } from '~/store/auth';
 import { useAppPersistStore } from '~/store/appPersist';
 
 const { t } = useI18n()
+const { socialSignIn } = useAuth()
+const route = useRoute()
 
 // HANDLERS
 const regHandler = () => {
@@ -15,12 +16,14 @@ const emailLoginHandler = () => {
 
 const googleHandler = async () => {
   useAppPersistStore().setFrom('login')
-  useAuthStore().oAuth('google', useRoute().path)
+  const redirect = typeof window !== 'undefined' ? `${window.location.origin}${route.fullPath}` : undefined
+  await socialSignIn('google', redirect ? { redirect_uri: redirect } : undefined)
 }
 
 const facebookHandler = async () => {
   useAppPersistStore().setFrom('login')
-  useAuthStore().oAuth('facebook', useRoute().path)
+  const redirect = typeof window !== 'undefined' ? `${window.location.origin}${route.fullPath}` : undefined
+  await socialSignIn('facebook', redirect ? { redirect_uri: redirect } : undefined)
 }
 </script>
 

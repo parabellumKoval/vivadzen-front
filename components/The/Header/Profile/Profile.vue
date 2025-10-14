@@ -1,21 +1,11 @@
 <script setup>
-import { useAuthStore } from '~~/store/auth';
-
 const { t } = useI18n()
 const { $regionPath } = useNuxtApp();
+const { user, isAuthenticated, avatar } = useAuth()
 
 // COMPUTED
-const user = computed(() => {
-  return useAuthStore().user
-})
-
-const auth = computed(() => {
-  return useAuthStore().auth
-})
-
-
 const showAuthHandler = () => {
-  if(auth.value && user.value) {
+  if(isAuthenticated.value && user.value) {
     navigateTo($regionPath('/account/settings'))
   } else {
     const component = defineAsyncComponent(() => import('~/components/Modal/Auth/Social/Social.vue'))
@@ -31,10 +21,10 @@ const showAuthHandler = () => {
 
 <template>
   <div>
-    <button v-if="auth && user" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
+    <button v-if="isAuthenticated && user" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
       <ClientOnly>
         <nuxt-img
-          :src="useAuthStore().avatar"
+          :src="avatar"
           :provider = "useImg().provider"
           width="30"
           height="30"
@@ -48,7 +38,7 @@ const showAuthHandler = () => {
       <span class="hint">{{ t('profile') }}</span>
     </button>
 
-    <button v-if="!auth" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
+    <button v-if="!isAuthenticated" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
       <IconCSS name="iconoir:user" size="30px" class="icon"></IconCSS>
       <span class="hint">{{ t('profile') }}</span>
     </button>

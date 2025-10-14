@@ -1,7 +1,6 @@
 <script setup>
-  import { useAuthStore } from '~/store/auth';
-
   const { t } = useI18n() 
+  const { forgotPassword } = useAuth()
 
   const isLoading = ref(false)
   const email = ref('')
@@ -25,6 +24,7 @@
 
       if(throttleTimer.value <= 0)
         clearInterval(throttleTimerId.value)
+
     }, 1000)
   }
 
@@ -35,27 +35,26 @@
 
   const sendHandler = async () => {
   
+    if (!email.value) {
+      return
+    }
+
     isLoading.value = true
-    
-    await useAuthStore().sendPasswordResetLink(email.value)
-      .then(({data, error}) => {
-        if(data !== null) {
-          setThrottleTimeout()
-          useNoty().setNoty({
-            content: t('noty.auth.password.recovery.sent', {email: email.value})
-          })
-        }
-        
-        if(error) {
-          useNoty().setNoty({
-            content: t(`errors.${error.message}`),
-            type: 'error'
-          }, 7000)
-        }
+    try {
+      await forgotPassword(email.value)
+      setThrottleTimeout()
+      useNoty().setNoty({
+        content: t('noty.auth.password.recovery.sent', {email: email.value})
       })
-      .finally(() => {
-        isLoading.value = false
-      })
+    } catch (err) {
+      const data = err?.data || {}
+      const message =
+        (typeof data?.message === 'string' && data.message) ||
+        t('noty.update.fail')
+      useNoty().setNoty({ content: message, type: 'error' }, 7000)
+    } finally {
+      isLoading.value = false
+    }
   }
 
   // HOOKS

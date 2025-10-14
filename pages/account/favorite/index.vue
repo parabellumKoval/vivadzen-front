@@ -1,9 +1,11 @@
 <script setup>
-import {useAuthStore} from '~/store/auth'
 import {useFavoritesStore} from '~/store/favorites'
 
 const {t} = useI18n()
 const props = defineProps({})
+const { user, init } = useAuth()
+
+await init()
 
 const products = ref([])
 const meta = ref(null)
@@ -19,15 +21,12 @@ definePageMeta({
 });
 
 // COMPUTEDS
-const user = computed(() => {
-  return useAuthStore().user
-})
-
 const nextPage = computed(() => {
   return meta.value && meta.value.current_page !== meta.value.last_page
 })
 
 const query = computed(() => {
+  if(!user.value?.id) return null
   const query = {
     user_id: user.value.id,
     per_page: 12,
@@ -40,6 +39,10 @@ const query = computed(() => {
 // METHODS
 const getProducts = async (query, refresh) => {
   pending.value = true
+  if(!query) {
+    pending.value = false
+    return
+  }
 
   return useAsyncData('favorites', () => {
     return useFavoritesStore().getAll(query)

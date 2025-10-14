@@ -1,6 +1,6 @@
 <script setup>
-import { useAuthStore } from '~~/store/auth';
 const {t} = useI18n()
+const { isAuthenticated } = useAuth()
 
 const props = defineProps({
   reviews: {
@@ -58,7 +58,7 @@ const updateCurrentHandler = (v) => {
 }
 
 const createReviewHandler = () => {
-  if(useAuthStore().auth) {
+  if(isAuthenticated.value) {
     useModal().open(resolveComponent('ModalReviewCreate'), productMicro.value, null, {width: {min: 420, max: 420}})
   }else{
     // useNoty().setNoty({

@@ -36,7 +36,8 @@ export const useCard = (product: Product) => {
   })
 
   const photo = computed(() => {
-    return useImg().product(product.image)
+    // return useImg().product(product.image)
+    return product.image?.src
   })
 
   const stock = computed(() => {

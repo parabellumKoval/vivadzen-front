@@ -12,12 +12,16 @@ export const useRegion = () => {
   }
 
   const DEFAULT_LOCALE_BY_REGION: Record<string, string> = {
-  ua: 'uk',
-  cz: 'cs',
-  de: 'de',
-  es: 'es',
-  global: 'en',
-};
+    ua: 'uk',
+    cz: 'cs',
+    de: 'de',
+    es: 'es',
+    global: 'en',
+  };
+
+  const сurrency = computed(() => {
+    return REGION_CURRENCY_CODES[region.value] || REGION_CURRENCY_CODES.zz;
+  });
 
   const changeLanguage = (lang: String) => {
   }
@@ -86,13 +90,15 @@ export const useRegion = () => {
     newUrl = '/' + segments.join('/')
     return newUrl
   }
+  
 
 
   return {
     changeLanguage,
     changeUrlRegion,
     currentUrl,
-    region, 
+    region,
+    сurrency,
     setRegion,
     DEFAULT_LOCALE_BY_REGION
   }

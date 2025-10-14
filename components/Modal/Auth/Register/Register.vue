@@ -1,89 +1,96 @@
 <script setup>
-import {useAuthStore} from '~/store/auth'
-
+import { ref } from 'vue'
 const { t } = useI18n()
+const { register } = useAuth()
 const isLoading = ref(false)
 
 const auth = ref({
   email: '',
   password: '',
   password_confirmation: '',
-  privacy: false
+  privacy: false,
 })
 
 const errors = ref({
-  fullname: null,
   email: null,
   password: null,
-  password_confirmation: null
+  password_confirmation: null,
 })
 
-// HANDLERS
-const registerValidateHandler = () => {
-  if(!auth.value.email || auth.value.email < 3) {
-    useNoty().setNoty({
-      content: t('noty.auth.register.fail'),
-      type: 'error'
-    })
+const resetErrors = () => {
+  errors.value.email = null
+  errors.value.password = null
+  errors.value.password_confirmation = null
+}
 
+const applyErrors = (payload) => {
+  if (!payload) return
+  Object.entries(payload).forEach(([key, messages]) => {
+    if (Object.prototype.hasOwnProperty.call(errors.value, key) && Array.isArray(messages) && messages.length) {
+      errors.value[key] = messages[0]
+    }
+  })
+}
+
+const validate = () => {
+  resetErrors()
+  let ok = true
+
+  if (!auth.value.email) {
     errors.value.email = t('error.required')
-    return
+    ok = false
   }
 
-  if(!auth.value.password || auth.value.password.length < 6) {
-    useNoty().setNoty({
-      content: t('noty.auth.register.fail'),
-      type: 'error'
-    })
-
+  if (!auth.value.password) {
     errors.value.password = t('error.auth.password.require')
-    return
+    ok = false
+  } else if (auth.value.password.length < 6) {
+    errors.value.password = t('error.auth.password.require')
+    ok = false
   }
 
-  if(auth.value.password !== auth.value.password_confirmation) {
-    useNoty().setNoty({
-      content: t('noty.auth.register.fail'),
-      type: 'error'
-    })
-
+  if (auth.value.password !== auth.value.password_confirmation) {
     errors.value.password_confirmation = t('error.auth.password.confirmation')
-    return
+    ok = false
   }
 
-  if(!auth.value.privacy) {
+  if (!auth.value.privacy) {
     useNoty().setNoty({
       content: t('noty.auth.register.privacy'),
       type: 'error'
     })
-
-    return
+    ok = false
   }
 
-  registerHandler()
+  return ok
 }
 
-const registerHandler = () => {
+const submitHandler = async () => {
+  if (!validate()) return
+
   isLoading.value = true
-
-  useAuthStore().register(auth.value)
-    .then(({data, error}) => {
-      if(data && data.user) {
-
-        useNoty().setNoty({
-          content: t('noty.auth.email.confirmation.sent')
-        }, 10000)
-        
-      }
-
-      if(error){
-        useNoty().setNoty({
-          content: t(`error.auth.${error.message}`)
-        }, 10000)
-      }
+  try {
+    await register({
+      email: auth.value.email,
+      password: auth.value.password,
     })
-    .finally(() => {
-      isLoading.value = false
-    })
+
+    useNoty().setNoty({
+      content: t('noty.auth.email.confirmation.sent'),
+      type: 'success'
+    }, 10000)
+
+    useModal().close()
+  } catch (err) {
+    const data = err?.data || {}
+    if (data?.errors) applyErrors(data.errors)
+    const message =
+      (typeof data?.message === 'string' && data.message) ||
+      t('noty.auth.register.fail')
+    useNoty().setNoty({ content: message, type: 'error' }, 7000)
+  } finally {
+    isLoading.value = false
+  }
 }
 
 const loginHandler = () => {
@@ -132,7 +139,11 @@ const loginHandler = () => {
           </form-checkbox>
         </div>
 
-        <button @click="registerValidateHandler" class="button primary form-button">{{ t('button.register') }}</button>
+        <button
+          @click="submitHandler"
+          :class="{loading: isLoading}"
+          class="button primary form-button"
+        >{{ t('button.register') }}</button>
       </div>
 
       <div class="footer">

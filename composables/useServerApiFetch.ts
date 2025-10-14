@@ -13,12 +13,16 @@ export const useServerApiFetch = async (url: string, body: Object = null, method
 
   const locale = useNuxtApp().$i18n.locale
 
-  const headers = {
+  const headers: Record<string, any> = {
     'Accept': 'application/json',
     'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value,
     'X-Requested-With': 'XMLHttpRequest',
     'Accept-Language': locale.value
   };
+  const { token } = useAuth()
+  if (token.value) {
+    headers.Authorization = `Bearer ${token.value}`
+  }
   
 
   let data = null;

@@ -1,8 +1,8 @@
 <script setup>
-import { useAuthStore } from '~~/store/auth';
 const {t} = useI18n()
 const { $regionPath } = useNuxtApp();
 const route = useRoute()
+const { logout } = useAuth()
 
 definePageMeta({
   bg: '#eee'
@@ -101,10 +101,9 @@ const clickMenuHandler = (item) => {
   }
 }
 
-const logoutHandler = () => {
-  useAuthStore().logout().then(() => {
-    navigateTo('/')
-  })
+const logoutHandler = async () => {
+  await logout()
+  navigateTo('/')
 }
 
 const logoutConfirmHandler = () => {
