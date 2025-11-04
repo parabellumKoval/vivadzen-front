@@ -4,12 +4,12 @@
     grid-template-columns: 60px 1fr;
     align-items: center;
     grid-gap: 10px;
+
     @include desktop {
       padding: 0 0 10px 0;
       grid-template-columns: 1fr;
-      grid-template-rows: 105px 75px 20px;
-      border: 1px solid $color-6;
-      border-radius: $radius;
+      // border: 1px solid $color-6;
+      // border-radius: $radius;
       &:hover {
         .product-name {
           color: $color-green;
@@ -18,15 +18,25 @@
     }
   }
   &-image {
+    position: absolute;
     width: 100%;
-    height: 70px;
+    height: 100%;
     object-fit: contain;
-    grid-row-start: 1;
-    grid-row-end: 3;
-    // background: #eee;
+
     @include desktop {
-      height: 100%;
       grid-row-end: 1;
+    }
+
+    &-wrapper {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+      background: $color-bg-2;
+      grid-row-start: 1;
+      grid-row-end: 3;
+      border-radius: $radius;
+      overflow: hidden;
     }
   }
   &-name {
@@ -43,6 +53,28 @@
       -webkit-line-clamp: 3;
     }
   }
+
+  &-modification {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: flex-start;
+    grid-row-start: 2;
+    grid-column-start: 2;
+    margin: 0 10px;
+    padding: 0 10px;
+    height: 22px;
+    background: $color-orange;
+    color: $color-dark;
+    font-weight: 600;
+    font-size: 0.8em;
+    border-radius: 12px;
+
+    @include desktop {
+      grid-row-start: initial;
+      grid-column-start: initial;
+    }
+  }
   &-price {
     padding: 0 10px;
     display: grid;
@@ -51,9 +83,15 @@
     grid-gap: 10px;
     font-weight: 500;
     grid-column-start: 2;
+    grid-row-start: 2;
+    justify-self: end;
+
     @include desktop {
       grid-column-start: 1;
+      grid-row-start: initial;
+      justify-self: initial;
     }
+
     .base-price {
       color: $color-0;
       font-size: 16px;

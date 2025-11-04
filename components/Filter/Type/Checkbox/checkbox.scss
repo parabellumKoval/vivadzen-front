@@ -12,7 +12,9 @@
       padding: 0 30px;
     }
     &:hover {
-      background: $color-7;
+      .checkbox-name {
+        color: $color-orange;
+      }
     }
     &.disabled {
       .checkbox-item-btn {
@@ -28,10 +30,11 @@
     }
     &.checked {
       .checkbox-input {
-        border: 1px solid $color-0;
+        border: 2px solid $color-orange;
       }
       .checkbox-input-icon {
         opacity: 1;
+        color: $color-orange;
       }
     }
   }
@@ -65,11 +68,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
-    border: 1px solid $color-3;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-border;
     border-radius: $radius;
-    background: $color-8;
+    // background: $color-8;
     &-icon {
       opacity: 0;
       font-size: 14px;

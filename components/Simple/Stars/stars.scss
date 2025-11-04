@@ -44,14 +44,15 @@
   }
 }
 .amount {
-  color: $color-5;
+  color: $color-bg-2;
   font-weight: 500;
   &.active {
     color: $color-orange;
   }
 }
 .star {
-  color: $color-5;
+  transform: translateY(-1px);
+  color: $color-bg-2;
   &.active {
     color: $color-orange;
   }

@@ -32,7 +32,7 @@ const openModalHandler = (event) => {
 
 <template>
   <div>
-    <button @click="openModalHandler" class="btn" type="button" clickable>>
+    <button @click="openModalHandler" class="btn" type="button" clickable>
       Change
     </button>
     <!-- <span

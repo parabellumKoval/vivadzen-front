@@ -25,31 +25,33 @@
     }
   }
   &-desc {
+    display: flex;
+    gap: 5px;
     grid-column-start: 2;
     white-space: nowrap;
     color: $color-3;
     @include desktop {
       grid-column-start: initial;
     }
-  }
-}
-.free-delivery {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  grid-gap: 10px;
-  align-items: center;
-  margin-top: 30px;
-  &-icon {
-    font-size: 24px;
-    color: $color-violet;
-  }
-  &-name {
-    color: $color-violet;
-  }
-  &-desc {
-    color: $color-1;
-    .bold {
+
+    &.amount {
+      color: $color-dark;
       font-weight: 500;
     }
+  }
+}
+
+.free-delivery {
+  margin-top: 30px;
+}
+
+.product-box-label {
+  :deep(.country-label) {
+    font-weight: 400;
+  }
+
+  :deep(.country-value-label) {
+    color: $color-dark;
+    font-weight: 500;
   }
 }

@@ -3,9 +3,9 @@
   justify-content: space-between;
   max-width: 120px;
   height: 40px;
-  border-radius: $radius;
-  background: $color-8;
-  border: 2px solid $color-6;
+  border-radius: 20px;
+  background: $color-bg-2;
+  border: 2px solid $color-border;
   &.large {
     @include desktop {
       height: 50px;
@@ -25,10 +25,18 @@
   font-size: 16px;
   width: 100%;
   min-width: 20px;
-  text-align: center;
   border: none;
   background-color: transparent;
-  pointer-events: none;
+  // pointer-events: none;
+    
+  -moz-appearance: textfield;
+  appearance: none;
+  
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
 }
 .btn {
   display: flex;
@@ -39,15 +47,19 @@
   flex-shrink: 0;
   background-color: $color-8;
   transition: background $speed;
-  .icon {
-    font-size: 20px;
-    transition: transform $speed;
-  }
   &:hover {
     background-color: $color-7;
   }
   &:active {
     transition: none;
     background-color: $color-5;
+  }
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  .icon {
+    font-size: 20px;
+    transition: transform $speed;
   }
 }

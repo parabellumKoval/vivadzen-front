@@ -1,27 +1,43 @@
 export const useContacts = () => {
-  const {t} = useI18n({useScope: 'global'})
+  const {get} = useSettings()
 
-  const phone = '+38 (099) 777-33-45'
-  const phone2 = '+38 (097) 777-33-45'
-  const email = 'djini.in.ua@gmail.com'
-  const address = computed(() => {
-    return t('meta.address')
+  const phone = computed(() => {
+    return get('site.contacts.phone')
   })
+
+  const email = computed(() => {
+    return get('site.contacts.email')
+  })
+
+  const address = computed(() => {
+    return get('site.contacts.address')
+  })
+
+  const map = computed(() => {
+    return get('site.contacts.map')
+  })
+
+  const schedule = computed(() => {
+    return get('site.contacts.schedule')
+  })
+
 
   const all = computed(() => {
     return {
-      phone: phone,
-      phone2: phone2,
-      email: email,
-      address: address.value
+      phone: phone.value,
+      email: email.value,
+      address: address.value,
+      schedule: schedule.value,
+      map: map.value
     }
   })
 
   return {
     phone,
-    phone2,
     email,
     address,
+    map,
+    schedule,
     all
   }
 }

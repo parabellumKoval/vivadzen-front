@@ -1,18 +1,5 @@
 import { defineStore } from "pinia";
 
-type ProductSmall = {
-  id: number,
-  name: string,
-  slug: string,
-  price: number,
-  image: object,
-  old_price?: number,
-  excerpt: string,
-  stimulation?: number,
-  relaxation?: number,
-  euphoria?: number,
-  modifications: object[]
-};
 
 type ProductLarge = {
   id: number,
@@ -30,37 +17,13 @@ type ProductLarge = {
 };
 
 export const useProductStore = defineStore('productStore', {
-  state: () => ({ 
-    // allState: {
-    //   data: [] as ProductSmall[],
-    //   meta: Object
-    // },
-
-    // productState: null as ProductLarge | null,
-
-    searchState: {
-      data: [] as ProductSmall[],
-      meta: Object
-    },
-
-    gridData: [] as ProductSmall[]
+  state: () => ({
   }),
   
   getters: {
-    // all: (state) => state.allState.data,
-    // meta: (state) => state.allState.meta,
-    // product: (state) => state.productState,
-    found: (state) => state.searchState.data,
-    grid: (state) => state.gridData,
   },
 
   actions: {
-    async search(query: string) {
-      await this.getAll(query).then(({ data }) => {
-        this.searchState.data = data.data
-        this.searchState.meta = data.meta
-      })
-    },
 
     indexLazy(query: Object, options: Object) {
       const url = useRuntimeConfig().public.apiBase + '/product'
@@ -101,6 +64,11 @@ export const useProductStore = defineStore('productStore', {
       return await useApiFetch(url, query, 'GET', {lazy: true})
     },
 
+    async lists(query: Object, page: String) {
+      const url = useRuntimeConfig().public.apiBase + `/lists/${page}`
+      return await useApiFetch(url, query, 'GET', {lazy: false})
+    },
+
     // async index(query: Object) {
     //   return await this.getAll(query).then(({ data }) => {
 
@@ -139,7 +107,6 @@ export const useProductStore = defineStore('productStore', {
         .then(({data, error}) => {
 
           if(data && data.data) {
-            this.gridData = data.data
             return data.data
           }
 
@@ -149,7 +116,7 @@ export const useProductStore = defineStore('productStore', {
     },
 
     async show(slug: string) {
-      const url = `${useRuntimeConfig().public.apiBase}/product/${slug}`;
+      const url = `${useRuntimeConfig().public.apiBase}/catalog/${slug}`;
 
       return await useApiFetch(url, null, 'GET', {lazy: false})
     },

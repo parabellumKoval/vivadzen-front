@@ -16,7 +16,7 @@ const name = computed(() => {
 <!-- <i18n src='' lang='yaml'></i18n> -->
 
 <template>
-  <div class="profile">
+  <div v-if="user" class="profile">
     <nuxt-img
       :src = "avatar"
       :provider = "useImg().provider"
@@ -28,7 +28,7 @@ const name = computed(() => {
       loading = "lazy"
       fit="outside"
       class="profile-image"
-      :placeholder="useImg().noImage"
+      placeholder="/images/avatars/no.png"
     >
     </nuxt-img>
     <div class="profile-data">

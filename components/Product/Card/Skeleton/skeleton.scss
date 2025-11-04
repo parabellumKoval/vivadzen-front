@@ -5,16 +5,13 @@
   display: grid;
   grid-auto-rows: auto;
   grid-gap: 10px;
-  padding: 0 10px;
   width: 100%;
-  background: $color-8;
+  background: $color-bg;
   @include tablet {
     grid-gap: 15px;
-    padding: 0 15px;
   }
   @include desktop {
     grid-gap: 22px;
-    padding: 0 20px;
   }
 }
 @keyframes blick {
@@ -51,11 +48,11 @@
 .image {
   display: block;
   width: 100%;
-  height: 50vw;
+  height: 0;
   border-radius: $radius;
   @extend .skeleton-loading;
   @include desktop {
-    height: 260px;
+    padding-bottom: 100%;
   }
 }
 .reviews {

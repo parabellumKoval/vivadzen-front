@@ -1,4 +1,5 @@
 import { refreshSettingsNow } from '../../server/utils/settings-cache'
+import { countDatasetEntries } from '../../utils/settings-helpers'
 
 export default defineEventHandler(async (event) => {
   if (getMethod(event).toUpperCase() !== 'POST') {
@@ -7,5 +8,5 @@ export default defineEventHandler(async (event) => {
   }
   // TODO: Add your auth/secret check here if needed
   const data = await refreshSettingsNow()
-  return { ok: true, count: Object.keys(data || {}).length }
+  return { ok: true, count: countDatasetEntries(data || {}) }
 })

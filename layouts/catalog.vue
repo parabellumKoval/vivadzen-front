@@ -12,6 +12,7 @@ const { scrollToAnchor } = useAnchorScroll({
 })
 
 const route = useRoute()
+const isLoadMorePending = ref(false)
 
 const props = defineProps({
   title: {
@@ -112,8 +113,25 @@ const updatePageHandler = (v) => {
   addOrUpdateQueryParams.value({page: v}, true, false, false)
 }
 
-const updatePageMoreHandler = () => {
-  props.loadmore()
+const updatePageMoreHandler = async (page) => {
+  if (isLoadMorePending.value) {
+    return;
+  }
+
+  const nextPage = page ?? (props.productsMeta?.current_page || 1) + 1
+  setMode('PAGINATION')
+
+  if (typeof props.loadmore === 'function') {
+    isLoadMorePending.value = true
+    try {
+      await props.loadmore(nextPage)
+    } finally {
+      isLoadMorePending.value = false
+    }
+    return
+  }
+
+  addOrUpdateQueryParams.value({page: nextPage}, true, false, false)
 }
 
 const updateSelected = () => {
@@ -146,10 +164,11 @@ watch(() => route.path, (v) => {
 
 //
 watch(() => props.products, (list) => {
-  if (list && list.length > 0) {
+  if (list && list?.length > 0) {
     useGoogleEvent().setEvent('ViewItemList', {name: props.title, id: route.fullPath, products: list})
   }
 }, { immediate: true })
+
 </script>
 
 <style src="~/assets/scss/layout-catalog.scss" lang="scss" scoped></style>
@@ -204,7 +223,7 @@ watch(() => props.products, (list) => {
       ></lazy-filter-list> 
 
       <!-- Products list -->
-      <div v-if="!productsPending && !products.length" class="content-empty">
+      <div v-if="!productsPending && !products?.length" class="content-empty">
         <div class="content-empty-message">{{ t('messages.no_catalog_results')}}</div>
       </div>
       <div v-else class="content-grid">

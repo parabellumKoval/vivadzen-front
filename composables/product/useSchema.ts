@@ -8,7 +8,7 @@ export const useSchema = () => {
       image: imageUrl,
       description: product?.content,
       sku: product?.code,
-      brand: 'Djini',
+      brand: 'Vivadzen',
       offers: [
         { 
           price: product?.price,

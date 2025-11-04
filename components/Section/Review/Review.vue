@@ -1,5 +1,4 @@
 <script setup>
-import {useReviewStore} from '~/store/review'
 const {t} = useI18n()
 const { isAuthenticated } = useAuth()
 
@@ -54,21 +53,6 @@ const setActiveIndex = (val) => {
   pagination.value.activeIndex = val
 }
 
-const getProductReviewQuery = () => {
-  return {
-    per_page: 3,
-    reviewable_type: String.raw`Backpack\Store\app\Models\Product`,
-    resource: 'large'
-  }
-}
-
-const getShopReviewQuery = () => {
-  return {
-    per_page: 3,
-    reviewable_type: null,
-  }
-}
-
 // HANDLERS
 const moreInfoHandler = () => {
   useModal().open(resolveComponent('ModalReviewBonus'), null, null, {width: {min: 420, max: 420}})
@@ -88,22 +72,37 @@ const reviewHandler = () => {
 }
 
 // FETCH
-const {data: reviewsData} = await useLazyAsyncData(() => useReviewStore().getAll(getProductReviewQuery()))
-const {data: feedbackData} = await useLazyAsyncData(() => useReviewStore().getAll(getShopReviewQuery()))
+// const asArray = (payload) => {
+//   if (Array.isArray(payload)) {
+//     return payload
+//   }
+//   if (Array.isArray(payload?.data)) {
+//     return payload.data
+//   }
+//   if (Array.isArray(payload?.reviews)) {
+//     return payload.reviews
+//   }
+//   return []
+// }
 
-watch(reviewsData, (v) => {
-  if(v?.reviews)
-    reviews.value = v.reviews
-}, {
-  immediate: true
-})
+const {data: productReviews} = await useAsyncData('homepage-product-reviews', () => useFetcherData('homepage-product-reviews'))
+const {data: shopReviews} = await useAsyncData('homepage-shop-reviews', () => useFetcherData('homepage-shop-reviews'))
 
-watch(feedbackData, (v) => {
-  if(v?.reviews)
-    feedback.value = v.reviews
-}, {
-  immediate: true
-})
+// const {
+//   data: shopReviews
+// } = await useFetcherData('homepage-shop-reviews', { lazy: false, default: () => ({ data: [] }) })
+
+watch(productReviews, (value) => {
+  if (value?.data?.data) {
+    reviews.value = value.data.data ?? []
+  }
+}, { immediate: true})
+
+watch(shopReviews, (value) => {
+  if (value?.data?.data) {
+    reviews.value = value.data.data ?? []
+  }
+}, { immediate: true })
 </script>
 
 <style src="./review.scss" lang="scss" scoped></style>

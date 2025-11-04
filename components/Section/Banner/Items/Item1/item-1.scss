@@ -1,0 +1,94 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: $color-bg-2;
+
+  &-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap:30px;
+    align-items: center;
+
+    @include desktop {
+      grid-template-columns: 1fr 1.3fr;
+      gap:200px;
+      max-width: 1600px;
+    }
+  }
+
+  &-content {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 30px;
+    padding: 0 40px 0 40px;
+    text-align: center;
+
+    @include desktop {
+      gap: 50px;
+      text-align: left;
+    }
+  }
+
+  &-title {
+    font-weight: 900;
+    color: $color-primary;
+    line-height: 110%;
+
+    &-1 {
+      font-size: 60px;
+      color: $color-orange;
+
+      @include desktop {
+        font-size: 133px;
+      }
+    }
+    &-2 {
+      font-size: 48px;
+      color: $color-primary;
+
+      @include desktop {
+        font-size: 110px;
+      }
+    }
+  }
+
+  &-desc {
+    font-size: 20px;
+    line-height: 130%;
+
+    @include desktop {
+      font-size: 28px;
+    }
+  }
+
+  &-btns {
+    display: grid;
+    grid-auto-flow: row;
+    align-items: center;
+    gap: 20px;
+
+    @include desktop {
+      grid-auto-flow: column;
+      grid-auto-columns: min-content;
+      gap: 40px;
+    }
+  }
+
+  &-btn-text {
+    justify-self: center;
+    height: min-content;
+    padding: 4px 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 2px solid;
+    width: min-content;
+
+
+    @include desktop {
+      justify-self: initial;
+    }
+  }
+}

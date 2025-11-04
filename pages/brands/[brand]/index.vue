@@ -18,12 +18,6 @@ const breadcrumbs = ref([])
 // COMPUTEDS
 const slug = ref(route?.params?.brand) || null
 
-const title = computed(() => {
-  let page = catalogQuery.value.page > 1? ', ' + t('label.page', {page: catalogQuery.value.page}): ''
-  let title = brand?.seo?.h1 || t('company_prod') + ' ' + brand.value?.name
-  return  title + page
-})
-
 // METHODS
 setFiltersAndCount(['selections', 'price']);
 
@@ -52,9 +46,23 @@ const {
   }
 );
 
-const loadProductsAndMerge = async () => {
+const currentPageNumber = computed(() => {
+  const metaPage = catalog.value?.products?.meta?.current_page ?? 1;
+  const queryPage = catalogQuery.value.page ?? 1;
+  return Math.max(Number(metaPage) || 1, Number(queryPage) || 1, 1);
+});
+
+const title = computed(() => {
+  const baseTitle = brand.value?.seo?.h1 || (brand.value?.name ? `${t('company_prod')} ${brand.value.name}` : t('company_prod'));
+  const pageSuffix = currentPageNumber.value > 1 ? ', ' + t('label.page', {page: currentPageNumber.value}) : '';
+  return `${baseTitle}${pageSuffix}`;
+});
+
+const loadProductsAndMerge = async (page) => {
   loadingAmount.value += 1;
-  const response = await loadMore(catalog.value);
+  const response = await loadMore(catalog.value, page, {
+    brand_slug: slug.value,
+  });
   if (response) {
     catalog.value = response
   }

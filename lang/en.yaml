@@ -8,7 +8,7 @@ title:
   checkout: Checkout
   search_results: Search results
   search: Search
-  comparison: Product comparison
+  comparison: Comparison
   favorite: Favorites
   brands: Brands
   articles: Articles
@@ -16,20 +16,22 @@ title:
   delivery: Delivery
   payment: Payment
   guarantees: Guarantees
-  qa: Q&A
-  about: About Us
+  qa: FAQ
+  about: About us
   sales: Promotions
   news: News
   reviews: Reviews
   agreement: Public offer agreement
   returns: Return policy
   checkout_payment: Order payment
+  other: Other
   checkout_complete: Thank you for your order!
-  checkout_complete_failed: Error while processing the order
-  policy: Privacy Policy
-  terms: Terms of Use
-  remove_userdata: User data deletion
-  account: 
+  checkout_complete_failed: Error while placing the order
+  policy: Privacy policy
+  terms: Terms of use
+  remove_userdata: Deleting user data
+  withdrawal: Withdrawal
+  account:
     account: Account
     orders: Order history
     promocodes: My promo codes
@@ -39,19 +41,19 @@ title:
     favorite: Favorite products
 
 meta:
-  address: Na Boisti 1471/22, 120 00 Nove Mesto, Prague 2, Czech Republic
-  djini_desc: Online store “Vivadzen”
+  address: Na Bojisti 1471/22, 120 00 Nove Mesto, Prague 2, Czechia
+  djini_desc: Online store "Vivadzen"
 
 label:
   articul: SKU
   sale: Sale
   status: Status
-  value_search: Value search
+  value_search: Search values
   only_in_stock: In stock only
-  top_sales: Bestsellers
-  top_price: Super price
+  top_sales: Best sellers
+  top_price: Great price
   with_rates: With ratings and reviews
-  selections: Selections
+  selections: Collections
   grn: UAH
   sec: sec
   price: Price
@@ -60,7 +62,7 @@ label:
   props: Specifications
   guide: Buying guide
   common_info: General information
-  auth: Website authentication
+  auth: Site authentication
   register: Registration
   login: Login
   lang: Language
@@ -77,57 +79,61 @@ label:
   filters: Filters
   our_address: Our address
   product_code: Product code
-  contact_phones: Contact phones
+  contact_phones: Contact phone numbers
   our_socials: Our social networks
   sub_title: Subscribe for discounts!
-  sub_desc: We send promo codes and bonuses to subscribers every week.
+  sub_desc: We email subscribers promo codes and bonuses every week.
   min_read: min read
   active_filters: Applied filters
   all_products: All products
   show: Show
   reviews: '{reviews} reviews | {reviews} review | {reviews} reviews | {reviews} reviews'
-  products: '{products} products | {products} product | {products} products| {products} products'
+  products: '{products} products | {products} product | {products} products | {products} products'
   page: 'page {page}'
   product:
     sale: Promotion
-    price: Super price
+    price: Great price
     top: Bestseller
 
 messages:
-  review_gift: Coupon for -5% for a verified store review
+  review_gift: 5% coupon for a verified store review
   rates_reviews: '{rates} ratings and {reviews} reviews'
   products_found: Found {amount} products
   no_results: No results
   empty_cart: Your cart is empty
   leave_review: Leave a review
   delivery_price: Delivery cost
-  delivery_vendor_price: According to carrier rates
-  products_total: Products total
-  to_pay: To pay
+  delivery_vendor_price: According to the carrier rates
+  products_total: Items total
+  to_pay: Amount due
+  bonuses_use: Paid with bonuses
   use_promocode: Apply promo code
-  enter_promocode: Enter code
-  accept_payment: We accept payments
+  enter_promocode: Enter the code
+  accept_payment: We accept payment
   payment_methods: Payment methods
-  i_agreed_with: I agree with
-  agree_privacy_policy: the Privacy Policy
-  no_catalog_results: Nothing found, try changing filters or your query
+  i_agreed_with: I agree with the
+  agree_privacy_policy: Privacy policy
+  no_catalog_results: Nothing found, try changing the filters or query
+  personal_discount: Personal discount
+  chose_delivery_country: Select a delivery country
+  chose_delivery: Choose a delivery method to see available payment methods
 
 button:
   collapse: Collapse
   expand: Expand
-  logout: Logout
+  logout: Log out
   logout_system: Log out
   yes: Yes
   no: No
-  enter: Enter
-  register: Register
+  enter: Sign in
+  register: Sign up
   pay: Proceed to payment
   back: Back
   reply: Reply
   buy: Buy
   to_cart: Add to cart
   leave_review: Leave a review
-  1_click_buy: Buy in one click 
+  1_click_buy: Buy in one click
   filters: Filters
   sorting: Sorting
   apply: Apply
@@ -140,20 +146,25 @@ button:
   send: Send
   sub: Subscribe
   create_order: Place order
-  login_or_register: Login / Register
+  send_request: Send request
+  login_or_register: Sign in / Sign up
   go_home: Go to homepage
+  download_invoice: Download invoice PDF
 
 form:
   enter:
-    name: Enter name
+    name: Enter your name
     phone: Enter phone number
     email: Enter email
     message: Enter message
-    comment: Enter comment 
+    comment: Enter comment
     password: Enter password
-    password_confirmation: Re-enter password
+    password_confirmation: Enter password again
     review: Write a review
     reply: Write your reply
+    invoice_qr: QR code to pay the invoice
+    invoice_pdf: You can download the invoice
+  full_name: Full name
   firstname: First name
   name: Name
   income: Income
@@ -167,6 +178,9 @@ form:
   method: Method
   review: Review
   reply: Reply
+  country: Country
+  city: City
+  max: Maximum {value}
   delivery:
     settlement: Locality
     warehouse: Branch number
@@ -176,15 +190,23 @@ form:
     room: Apartment
     zip: ZIP code
     address: Delivery address
-    courier: Courier delivery
-    pickup: Pickup
+    novaposhta_warehouse: Nova Poshta branch/parcel locker
+    novaposhta_address: Nova Poshta courier delivery
+    packeta_warehouse: Zasilkovna branch/parcel locker
+    packeta_address: Zasilkovna courier delivery
+    default_pickup: Pickup
+    default_address: Postal delivery
   payment:
-    online: Online payment
-    cash: On delivery
+    liqpay_online: LiqPay online payment
+    card_online: Card payment online
+    default_cash: Pay on delivery
+    zasilkovna_cod: Zasilkovna cash on delivery
+    novaposhta_cod: Nova Poshta cash on delivery
+    bank_transfer: Bank transfer
 
 status:
   new: New
-  canceled: Canceled
+  canceled: Cancelled
   fail: Error
   failed: Error
   completed: Completed
@@ -202,7 +224,7 @@ pay_status:
 
 delivery_status:
   waiting: Awaiting shipment
-  sent: Sent
+  sent: Shipped
   failed: Error
   delivered: Delivered
   pickedup: Picked up
@@ -211,28 +233,28 @@ payment:
   type:
     delivery: Cash on delivery
     cash: Cash
-    online: Bank transfer
+    online: Cashless payment
 
 error:
   occurred: An error occurred, please try again 😓
   required: This field is required
   error: An error occurred
-  check_fields: Check the correctness of the entered fields
+  check_fields: Check that the fields are filled in correctly
   auth:
     password:
-      require: Password must be at least 6 characters long
-      confirmation: Password and confirmation password must match
-    "A user with this email address has already been registered": A user with this email address has already been registered
-    "Password recovery requires an email": Password recovery requires an email address
-    "Auth session missing!": Authentication session missing!
+      require: The password must be at least 6 characters
+      confirmation: Password and confirmation must match
+    "A user with this email address has already been registered": A user with this email address is already registered
+    "Password recovery requires an email": Email is required to recover the password
+    "Auth session missing!": Authorization session is missing!
     "Invalid login credentials": Invalid login credentials
     "User already registered": User already registered
-    "Password should be at least 6 characters": Password must be at least 6 characters long
+    "Password should be at least 6 characters": Password must be at least 6 characters
     "Signup requires a valid password": Signup requires a valid password
-    "To signup, please provide your email": To sign up, please provide your email
+    "To signup, please provide your email": Please provide your email to sign up
     "Unable to validate email address: invalid format": "Unable to validate email address: invalid format"
     "Anonymous sign-ins are disabled": Anonymous sign-ins are disabled
-    "Email rate limit exceeded": SMTP server limit exceeded
+    "Email rate limit exceeded": Email rate limit exceeded
 
 noty:
   add: Added
@@ -241,58 +263,104 @@ noty:
     add: Product added to comparison list
     remove: Product removed from comparison list
   favorite:
-    need_login: To add a product to favorites, you need to log in 🔑
-    success: Product successfully added to favorites 😍
+    need_login: Log in to add the product to favorites 🔑
+    success: Product added to favorites 😍
   1_click:
-    title: Thank you, request sent 
-    sent: We will contact you soon to clarify the order details 😎
-    fail: Order was not placed 😔
+    title: Thanks, request sent
+    sent: We will contact you shortly to clarify the order details 😎
+    fail: The order was not placed 😔
   subscription:
     sent: You have successfully subscribed 😉
     fail: Subscription failed 😔
   feedback:
-    sent: Request successfully sent 😉
-    fail: Request not sent
+    sent: Request sent successfully 😉
+    fail: Request was not sent
   copied: "Copied to clipboard: {text}"
   product_to_cart: Product {product} added to cart
   product_delete_cart: Product {product} removed from cart
   auth:
     logout: You have logged out 😉
     register:
-      privacy: To register, you must agree to the privacy policy. 
-      success: You have successfully registered 👍
-      fail: Registration failed. Check the entered data 👈
+      privacy: You must agree with the privacy policy to sign up.
+      success: Registration successful 👍
+      fail: Registration failed. Check the details provided 👈
     login:
-      success: You have successfully logged in 😎
-      failed: Login error. Make sure fields are filled in correctly 😔
+      success: Logged in successfully 😎
+      failed: Login error. Make sure the fields are filled in correctly 😔
     password:
       recovery:
-        sent: An email has been sent to {email} to reset your password.
+        sent: A password reset email was sent to {email}.
         fail: Error. The link was not sent 😓
-      changed: 
-        success: Password successfully changed. You can now log in using the new password 🔑.
+      changed:
+        success: Password changed successfully. You can log in with the new password 🔑.
     email:
       confirmation:
-        sent: A confirmation email has been sent to your address.
+        sent: A confirmation email has been sent to you.
       changed:
-        success: Email successfully confirmed. You can now use it to log in 👍
+        success: Email confirmed successfully. You can now use it to access your account. 👍
         fail: Email confirmation failed. Please try again.
   update:
-    success: Data successfully updated
-    fail: Data not updated
+    success: Data updated successfully
+    fail: Data was not updated
   promocode:
-    success: Promo code {code} successfully applied to order
-    removed: Promo code {code} usage canceled
+    success: Promo code {code} applied to the order
+    removed: Promo code {code} removed
   review:
-    need_login: To leave a review, please log in 🔑
-    fail_title: Review not published 😓
-    fail: Check the correctness of the entered fields
+    need_login: Log in to leave a review 🔑
+    fail_title: Review was not published 😓
+    fail: Check that the fields are filled in correctly
     success_title: Great 😎
-    success: Thank you, your review has been successfully sent
+    success: Thank you, your review has been sent
   order:
     fail: An error occurred while placing the order
+  withdrawal:
+    success_title: Great 😎
+    fail_title: Error
+    requested: Withdrawal request received, please wait for processing.
+    fail: Make sure the fields are filled in correctly 😔
 
 seo:
   page:
     title: "{title} - Vivadzen"
     desc: "{title} on vivadzen.com"
+
+delivery:
+  more: More about delivery
+  delivery: Delivery across Ukraine
+  provider_tariffs: According to carrier rates
+  np_warehouse: "To Nova Poshta branch / locker"
+  np_address: "Nova Poshta courier to your address"
+  z_warehouse: "To Zasilkovna branch / locker"
+  z_address: "Zasilkovna courier to your address"
+  pickup: Pickup
+  address: Delivery to address
+  from_shop: from the store
+  packeta_warehouse: Zasilkovna branch/locker
+  packeta_address: By Zasilkovna courier
+  novaposhta_warehouse: Nova Poshta branch/locker
+  novaposhta_address: By Nova Poshta courier
+  default_pickup: Pickup
+  from: from
+  subtitle: Delivery methods depend on the selected country. Change the delivery country to see options for your region.
+
+payments:
+  subtitle: Payment methods depend on the selected country. Change the delivery country to see the options for your region.
+  liqpay_online:
+    title: LiqPay online payment
+    desc: Pay for your order online
+  card_online:
+    title: Card payment online
+    desc: Pay for your order online
+  default_cash:
+    title: Pay on delivery
+    desc: Pay by card or cash when picking up at our store
+  zasilkovna_cod:
+    title: Zasilkovna cash on delivery
+    desc: Pay by card or cash upon receipt
+  novaposhta_cod:
+    title: Nova Poshta cash on delivery
+    desc: Pay by card or cash upon receipt
+  bank_transfer:
+    title: Bank transfer
+    desc: We will email you the payment details you need, including the variable symbol required for the transfer. You can also create the payment order by scanning a QR code.
+    fill_contacts: Fill in the fields required to issue an invoice

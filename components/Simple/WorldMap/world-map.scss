@@ -1,0 +1,55 @@
+.world-map {
+  height: 100%;
+
+  &-holder {
+    height: 100%;
+  }
+
+  &:deep(svg) {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Базовая стилизация всех path (страны) */
+  &:deep(path) {
+    fill: $color-8;
+    stroke: $color-4;
+    stroke-width: 1;
+    transition: fill 0.12s ease, stroke 0.12s ease, transform 0.12s ease;
+    cursor: pointer;
+    outline: none;
+    pointer-events: auto;
+  }
+
+  // &:deep(path.is-hover),
+  // &:deep(path:hover) {
+  //   fill: $color-primary;
+  //   stroke: $color-primary;
+  // }
+
+  &:deep(.available-country) {
+    fill: $color-bg-2;
+    stroke: $color-4;
+    stroke-width: 1;
+  }
+
+  &:deep(.available-country:hover) {
+    fill: $color-orange;
+    stroke: $color-orange;
+  }
+
+  /* Активные (например выбранные фильтром) */
+  &:deep(path.is-active) {
+    fill: $color-primary;
+    stroke: $color-primary;
+  }
+
+  /* Подсветка «с ховера списка» (обратная связь) */
+  &:deep(path.is-list-hover) {
+    fill: $color-orange;
+    stroke: $color-orange;
+  }
+
+}

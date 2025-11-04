@@ -10,7 +10,7 @@ const props = defineProps({
     type: String,
     default: 'right'
   },
-  currencyCode: { type: String, default: 'UAH' },
+  currencyCode: { type: String, default: null },
 })
 
 </script>

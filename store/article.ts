@@ -12,9 +12,9 @@ export const useArticleStore = defineStore('articleStore', {
     async index(params: Object) {
       const url = useRuntimeConfig().public.apiBase + '/articles'
 
-      return await useServerApiFetch(url, params).then(({data, error}) => {
-        if(data) {
-          return data
+      return await useApiFetch(url, params).then(({data, error}) => {
+        if(data.value) {
+          return data.value
         }
 
         if(error)
@@ -25,9 +25,9 @@ export const useArticleStore = defineStore('articleStore', {
     async show(slug: string) {
       const url = `${useRuntimeConfig().public.apiBase}/articles/${slug}`
 
-      return await useServerApiFetch(url).then(({data, error}) => {
-        if(data.data) {
-          return data.data
+      return await useApiFetch(url).then(({data, error}) => {
+        if(data.value) {
+          return data.value
         }
 
         if(error)

@@ -11,10 +11,10 @@
     border-radius: $radius;
   }
   &-label {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: $color-3;
     @include desktop {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
   }
   .box {

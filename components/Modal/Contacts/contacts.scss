@@ -4,7 +4,7 @@
   grid-gap: 40px;
   @include desktop {
     grid-template-columns: 260px 1px 410px;
-    grid-gap: 60px;
+    grid-gap: 40px;
   }
   &-btn {
     width: 100%;
@@ -35,9 +35,10 @@
     font-size: 14px;
     text-transform: uppercase;
   }
-  &-iframe {
+  
+  :deep(iframe) {
     width: 100%;
-    height: 320px;
+    height: 340px !important;
     margin-bottom: 40px;
     @include desktop {
       margin-bottom: 0;

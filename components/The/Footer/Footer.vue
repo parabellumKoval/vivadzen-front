@@ -2,6 +2,9 @@
 import { useFeedbackStore } from '~~/store/feedback';
 
 const {t} = useI18n()
+const {get} = useSettings()
+const {vendors} = useDelivery()
+
 const sub = ref({
   type: 'subscription',
   email: null
@@ -19,9 +22,11 @@ const payments = ref([
   ...usePaymentVendor().main
 ])
 
-const deliveries = ref([
-  ...useDeliveryVendor().all
-])
+
+const deliveries = computed(() => {
+  return vendors.value || []
+})
+
 
 // METHODS
 const resetSub = () => {
@@ -37,7 +42,7 @@ const subHandler = () => {
 
   useFeedbackStore().create(sub.value).then(({data, error}) => {
 
-    if(data) {
+    if(data.value) {
       useNoty().setNoty({
         content: t('noty.subscription.sent'),
         type: 'success'
@@ -47,7 +52,7 @@ const subHandler = () => {
       resetErrors()
     }
 
-    if(error) {
+    if(error.value) {
       throw error
     }
 
@@ -62,14 +67,7 @@ const subHandler = () => {
     errors.value = e
   })
 }
-// const { $getSetting, $settings } = useNuxtApp()
-// const { $getSetting, $settings } = useNuxtApp()
-const {get: getSettings, all} = useSettings()
-// const allow = get('profile.users.allow_registration', false)
-// const allSettings = computed(() => all.value)
-// const allowRegistration = computed(() => get('profile.points.base'))
-
-console.log('settings',  all.value, getSettings('profile.points.base') )
+ 
 </script>
 
 <style src="./footer.scss" lang="scss" scoped />
@@ -79,38 +77,37 @@ console.log('settings',  all.value, getSettings('profile.points.base') )
   <footer class="footer">
     <div class="company">
       <div class="company-container full-container">
-        <div class="djini">
+        <div class="brand">
           <nuxt-img
-            src = "/images/djini.png"
+            src = "/images/company-white.png"
             :provider = "useImg().provider"
-            width="55"
-            height="51"
-            sizes = "mobile:50px tablet:120px desktop:120px"
+            width="200"
+            height="58"
+            sizes = "mobile:220px"
             format = "avif"
             loading = "lazy"
             fit="outside"
-            class="djini-logo"
+            class="brand-logo"
           />
-          <div class="djini-desc">{{ t('meta.djini_desc') }}</div>
+          <div class="brand-desc" v-html="get('site.common.description')"></div>
         </div>
 
         <div class="phone">
           <div class="footer-label">{{ t('label.contact_phones') }}</div>
           <a :href="'tel:' + useContacts().phone" class="phone-item">{{ useContacts().phone }}</a>
-          <a :href="'tel:' + useContacts().phone2" class="phone-item">{{ useContacts().phone2 }}</a>
         </div>
 
         <div class="social">
           <div class="footer-label">{{ t('label.our_socials') }}</div>
           <div class="social-items">
             <a
-              v-for="network in useSocial().networks"
-              :key="network.key"
-              :href="network.link"
-              :class="network.key + '-bg'"
+              v-for="network in useSocial().all"
+              :key="network?.key"
+              :href="network?.link"
+              :class="network?.key + '-bg'"
               class="social-item"
             >
-              <IconCSS :name="network.icon" class="social-icon"></IconCSS>
+              <IconCSS :name="network?.icon" class="social-icon"></IconCSS>
             </a>
           </div>
         </div>
@@ -188,7 +185,7 @@ console.log('settings',  all.value, getSettings('profile.points.base') )
             </div>
           </div>
 
-          <div class="delivery">
+          <div v-if="deliveries?.length" class="delivery">
             <div class="footer-label">{{ t('delivery') }}</div>
             <div class="delivery-inner">
               <div v-for="delivery in deliveries" :key="delivery.id" class="delivery-item">

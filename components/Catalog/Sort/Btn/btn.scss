@@ -3,8 +3,9 @@
     position: relative;
   }
   &-btn {
-    border: 1px solid $color-5;
-    background: $color-8;
+    height: 40px;
+    border: 2px solid $color-border;
+    // background: $color-bg-2;
     pointer-events: none;
   }
   &-select {

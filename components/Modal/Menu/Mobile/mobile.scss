@@ -55,7 +55,7 @@
   width: calc(100vw - 25px);
   height: 1px;
   margin: 0 -20px;
-  background: $color-6;
+  background: $color-border;
 }
 .mm {
   &-content {
@@ -151,36 +151,14 @@
   grid-gap: 20px;
   &-item {
     display: grid;
-    grid-template-columns: 24px 1fr;
-    grid-gap: 15px;
+    grid-template-columns: 30px 1fr;
+    grid-gap: 5px;
     align-items: center;
   }
-  &-logo {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
+  &-icon {
+    font-size: 30px;
   }
   &-value {
     font-weight: 500;
-  }
-}
-.langs {
-  height: min-content;
-  width: 50px;
-  &-label {
-    display: none;
-  }
-  &-switcher {
-    display: grid;
-    grid-auto-flow: row;
-    // grid-template-columns: repeat(2, min-content);
-    background-color: $color-1;
-    border-radius: $radius;
-    :deep(.languages-btn-link) {
-      height: 25px;
-    }
-    :deep(.router-link-active) {
-      background-color: $color-2;
-    }
   }
 }

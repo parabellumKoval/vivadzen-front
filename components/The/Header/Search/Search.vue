@@ -55,7 +55,7 @@ watch(() => route.fullPath, (v) => {
     ></simple-search> -->
 
     <div class="simple-search">
-      <IconCSS v-if="!$device.isMobile" name="iconoir:search" size="20px" class="simple-search-icon"></IconCSS>
+      <IconCSS v-if="!$device.isMobile" name="mynaui:search" size="28px" class="simple-search-icon"></IconCSS>
       <input
         @click="openSearchHandler"
         :placeholder="t('title.search')"

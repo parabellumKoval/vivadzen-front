@@ -1,7 +1,7 @@
 <script setup>
 import {useCategoryStore} from '~/store/category'
 
-const {loadCatalog, setFiltersAndCount, catalogQuery, setMode} = useCatalog()
+const {loadCatalog, setFiltersAndCount, catalogQuery, setMode, loadMore} = useCatalog()
 
 const isServer = process.server
 
@@ -16,12 +16,6 @@ const slug = computed(() => {
   return route.path.substring(route.path.lastIndexOf('/') + 1) || null 
 })
 
-
-const title = computed(() => {
-  let page = catalogQuery.value.page > 1? ', ' + t('label.page', {page: catalogQuery.value.page}): ''
-  let title = category.value?.category?.seo?.h1 || category.value?.category?.name
-  return  title + page
-})
 
 // METHODS
 setFiltersAndCount(['selections', 'brands', 'attributes', 'price']);
@@ -51,6 +45,19 @@ const {
   }
 );
 
+const loadProductsAndMerge = async (page) => {
+  if (!catalog.value) {
+    return;
+  }
+
+  const response = await loadMore(catalog.value, page, {
+    category_slug: slug.value,
+  });
+  if (response) {
+    catalog.value = response;
+  }
+};
+
 const {
   data: category,
   pending: categoryPending,
@@ -74,6 +81,18 @@ const {
     server: true,
   }
 )
+
+const currentPageNumber = computed(() => {
+  const metaPage = catalog.value?.products?.meta?.current_page ?? 1;
+  const queryPage = catalogQuery.value.page ?? 1;
+  return Math.max(Number(metaPage) || 1, Number(queryPage) || 1, 1);
+});
+
+const title = computed(() => {
+  const baseTitle = category.value?.category?.seo?.h1 || category.value?.category?.name || t('title.catalog');
+  const pageSuffix = currentPageNumber.value > 1 ? ', ' + t('label.page', {page: currentPageNumber.value}) : '';
+  return `${baseTitle}${pageSuffix}`;
+});
 
 
 const setSeo = (v) => {

@@ -1,0 +1,30 @@
+ru:
+  free: Бесплатная доставка
+  order: при заказе
+  from: от
+  activated: активирована
+  
+uk:
+  free: Безкоштовна доставка
+  order: при замовленні
+  from: від
+  
+de:
+  free: Kostenloser Versand
+  order: bei Bestellungen
+  from: ab
+  
+es:
+  free: Envío gratuito
+  order: en pedidos
+  from: desde
+  
+cs:
+  free: Doprava zdarma
+  order: při objednávce
+  from: od
+  
+en:
+  free: Free delivery
+  order: for orders
+  from: from

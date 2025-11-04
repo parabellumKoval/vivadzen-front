@@ -1,0 +1,76 @@
+
+.story {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  /* Вертикальная «сторис»-рамка */
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: $color-bg-2;
+  border-radius: 30px;
+
+  /* Превью как cover */
+  .poster {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.9);
+    object-fit: cover;
+  }
+
+  /* Хитрость: видео 16:9, контейнер 9:16.
+     Делаем высоту = 100%, ширину ~177.78% и центрируем — получается эффект cover */
+  .frame {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 177.78%;
+    transform: translateX(-50%);
+    /* фикс “миганий” при загрузке */
+    backface-visibility: hidden;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 60px;
+    align-items: center;
+    width: 100%;
+    padding: 40px;
+    background: linear-gradient(to top, #000000, transparent);
+  }
+  .playBtn {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(2px);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease;
+
+    &:hover { transform: scale(1.06); background: rgba(255,255,255,0.24); }
+    &:active { transform: scale(0.98); }
+
+    .triangle {
+      display: block;
+      width: 0;
+      height: 0;
+      margin-left: 6px; /* чтобы визуально центр треугольника был по центру круга */
+      border-left: 22px solid $color-orange;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+    }
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 500;
+    color: $color-8;
+  }
+}

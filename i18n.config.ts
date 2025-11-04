@@ -82,5 +82,16 @@ export default defineI18nConfig(() => {
         }
       },
     },
+
+    pluralRules: {
+      ru: (choice, choicesLength) => {
+        if (choice === 0) return 0
+        const teen = choice > 10 && choice < 20
+        const endsWithOne = choice % 10 === 1
+        if (!teen && endsWithOne) return 1          // 1 товар
+        if (!teen && choice % 10 >= 2 && choice % 10 <= 4) return 2 // 2–4 товара
+        return choicesLength < 4 ? 2 : 3            // 5+, 11–14, 0 → «товаров»
+      }
+    }
   }
 })

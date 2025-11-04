@@ -65,8 +65,8 @@ setLikes()
   <div>
     <div class="full">
       <div class="header">
-        <div class="name">{{ item.author.name }}</div>
-        <simple-stars :amount="item.rating" mobile="medium" class="stars"></simple-stars>
+        <div class="name">{{ item.owner?.name }}</div>
+        <simple-stars v-if="item.rating" :amount="item.rating" mobile="medium" class="stars"></simple-stars>
         <div class="date">{{ $d(item.created_at, 'long') }}</div>
       </div>
       <div v-if="item.extras?.verified_purchase === '1'" class="approved">
@@ -92,10 +92,15 @@ setLikes()
 
         <button
           @click="toggleLikeHandler"
-          :class="{violet: likes > 0, secondary: likes <= 0, active: isMyLike}"
+          :class="[isMyLike ? 'violet' : 'secondary']"
           class="button mini"
         >
-          <IconCSS name="iconoir:thumbs-up" class="inline-icon"></IconCSS>
+          <template v-if="isMyLike">
+            <IconCSS name="mynaui:like-solid" class="inline-icon"></IconCSS>
+          </template>
+          <template v-else>
+            <IconCSS name="mynaui:like" class="inline-icon"></IconCSS>
+          </template>
           <span v-if="likes">{{ likes }}</span>
         </button>
 
@@ -111,7 +116,7 @@ setLikes()
           v-for="ch in item.children"
           :key="ch.id"
           :item="ch"
-          :parent-name="item.author.name"
+          :parent-name="item.owner?.name"
           class="deep-child"
         ></review-card-full>
       </div>

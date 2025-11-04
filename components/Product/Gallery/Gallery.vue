@@ -149,7 +149,7 @@ const mouseOverHandler = (e) => {
       >
         <nuxt-img
           v-if="item.src"
-          :src = "useImg().product(item)"
+          :src = "item.src"
           :alt = "item.alt"
           :title = "item.title"
           :class="item.size"
@@ -169,7 +169,7 @@ const mouseOverHandler = (e) => {
       
       <nuxt-img
         v-if="image.src"
-        :src = "useImg().product(image)"
+        :src = "image.src"
         :alt = "image.alt"
         :title = "image.title"
         :class="image.size"
@@ -191,7 +191,7 @@ const mouseOverHandler = (e) => {
       >
         <nuxt-img
           v-if="image.src"
-          :src = "useImg().product(image)"
+          :src = "image.src"
           sizes = "mobile:0px tablet:0px desktop:1200px"
           quality = "100"
           loading = "lazy"

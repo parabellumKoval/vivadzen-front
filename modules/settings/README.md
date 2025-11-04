@@ -21,6 +21,7 @@ export default defineNuxtConfig({
   ],
   settingsModule: {
     apiUrl: process.env.SETTINGS_API_URL || 'http://localhost:8000/api/settings',
+    enableTtl: process.env.SETTINGS_CACHE_ENABLE_TTL !== 'false',
     ttlSec: parseInt(process.env.SETTINGS_CACHE_TTL_SEC || '300', 10),
     refreshRoutePath: '/api/_refresh-settings'
   }
@@ -62,7 +63,6 @@ const allow = $getSetting('profile.users.allow_registration', false)
 
 - On first SSR request (cold start), module fetches from Laravel and saves to Nitro storage (`cache:`) with timestamp.
 - On subsequent requests, it serves from cache.
-- When TTL expires, it serves stale data immediately and refreshes in the background.
+- When TTL expires, it serves stale data immediately and refreshes in the background (unless `enableTtl` is set to `false`).
 - You can trigger an immediate refresh by POSTing to `/api/_refresh-settings`.
 ```
-

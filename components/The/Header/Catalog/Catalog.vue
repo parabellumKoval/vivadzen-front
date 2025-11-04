@@ -16,7 +16,7 @@ const openMenuHandler = () => {
 
 <template>
   <button @click="openMenuHandler" class="catalog-btn btn" type="button" clickable>
-    <IconCSS name="iconoir:view-grid" size="24px" class="icon"></IconCSS>
+    <IconCSS name="mynaui:grid" size="28px" class="icon"></IconCSS>
     <span class="text">{{ t('catalog') }}</span>
   </button>
 </template>

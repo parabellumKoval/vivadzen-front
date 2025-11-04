@@ -8,7 +8,7 @@ const props = defineProps({
   }
 })
 
-const {photo} = useCard(props.item)
+// const {photo} = useCard(props.item)
 const amount = ref(1)
 
 // COMPUTED
@@ -16,6 +16,10 @@ const totalPrice = computed(() => {
   return props.item.amount * props.item.price
 })
 
+const photo = computed(() => {
+  const config = useRuntimeConfig()
+  return props.item.image? config.public.serverBase + '/' + props.item.image : '/images/noimage.png'
+})
 // HANDLER
 const deleteHandler = () => {}
 </script>

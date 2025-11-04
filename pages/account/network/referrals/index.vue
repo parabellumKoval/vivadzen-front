@@ -16,8 +16,16 @@ const nextPage = computed(() => {
   return meta.value && meta.value.current_page !== meta.value.last_page
 })
 
-const referrals = computed(() => {
-  return useReferralFaker()(3)
+const {referrals} = useAuth()
+// const referrals = computed(() => {
+//   return useReferralFaker()(3)
+// })
+
+const referralsData = await referrals()
+console.log('referralsList', referralsData.data)
+
+const list = computed(() => {
+  return referralsData.data || []
 })
 
 const loadmoreHandler = () => {}
@@ -32,10 +40,10 @@ const loadmoreHandler = () => {}
 
 <template>
   <div>
-    <simple-table v-if="isInitLoading || (referrals.length && !isInitLoading)">
+    <simple-table v-if="isInitLoading || (list?.length && !isInitLoading)">
       <template v-if="!isInitLoading">
         <referral-card
-          v-for="(referral, index) in referrals"
+          v-for="(referral, index) in list"
           :key="referral.id"
           :item="referral"
           class="order-card"

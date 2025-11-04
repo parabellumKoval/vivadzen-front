@@ -3,7 +3,8 @@ import {useCartStore} from '~/store/cart'
 
 const {t} = useI18n()
 const { $regionPath } = useNuxtApp();
-const { orderable } = useAuth()
+const { orderable, user } = useAuth()
+const {currency, region, fallbackRegion} = useRegion()
 
 const props = defineProps({
   cart: {
@@ -15,12 +16,27 @@ const emit = defineEmits(['scrollToError'])
 
 
 // COMPUTEDS
+const isDefaultRegion = computed(() => {
+  return region.value === fallbackRegion
+})
+const personalDiscount = computed(() => {
+  return user.value?.discount_percent || 0
+})
+const personalDiscountedTotal = computed(() => {
+  return useCartStore().personalDiscount
+})
+
 const productsLength = computed(() => {
   return useCartStore().cart?.length || 0
 })
 
 const productsTotal = computed(() => {
   return useCartStore().totalProducts
+})
+
+const finishTotal = computed(() => {
+  const v = useCartStore().finishTotal
+  return v < 0 ? 0 : v
 })
 
 const total = computed(() => {
@@ -34,6 +50,7 @@ const order = computed(() => {
 const promocodeSale = computed(() => {
   return useCartStore().promocodeSale
 })
+
 
 // METHODS
 
@@ -83,33 +100,58 @@ const goPayHandler = () => {
       <div class="sale-item">
         <div class="sale-label">{{ productsLength }} {{ t('messages.products_total') }}</div>
         <div class="sale-value">
-          <simple-price :value="total" class="price price-total"></simple-price>
+          <simple-price :value="productsTotal" class="price price-total"></simple-price>
         </div>
       </div>
-      <div class="sale-item">
-        <div class="sale-label">{{ t('messages.delivery_price') }}</div>
-        <div class="sale-value">{{ t('messages.delivery_vendor_price') }}</div>
+
+      <div v-if="personalDiscount" class="sale-item">
+        <div class="sale-label">{{ t('messages.personal_discount') }} {{ personalDiscount }}%</div>
+        <div class="sale-value">
+          -<simple-price :value="personalDiscountedTotal" class="price price-total"></simple-price>
+        </div>
       </div>
+
+      <checkout-sale-delivery></checkout-sale-delivery>
+
+      <div v-if="order.bonusInFiat" class="sale-item">
+        <div class="sale-label">{{ t('messages.bonuses_use') }}</div>
+        <div class="sale-value">
+          -<simple-price :value="order.bonusInFiat" :currency-code="currency"></simple-price>
+        </div>
+      </div>
+
       <div v-if="promocodeSale" class="sale-item">
         <div class="sale-label">{{ t('label.promocode') }}</div>
-        <div class="sale-value">-{{ $n(promocodeSale, 'currency') }}</div>
+        <div class="sale-value">
+          -<simple-price :value="promocodeSale" class="price"></simple-price>
+        </div>
       </div>
       
-      <checkout-promocode></checkout-promocode>
+      <div class="sale-features">
 
-      <div class="sale-footer">
-        <div class="sale-item">
-          <div class="sale-label">{{ t('messages.to_pay') }}</div>
-          <div class="sale-value large">
-            <simple-price :value="total" class="price price-total"></simple-price>
+        <product-delivery-free :value="total" class="free-delivery-box"></product-delivery-free>
+
+        <checkout-bonus></checkout-bonus>
+
+        <checkout-promocode></checkout-promocode>
+
+        <div class="sale-footer">
+          <div class="sale-item">
+            <div class="sale-label">{{ t('messages.to_pay') }}</div>
+            <div class="sale-value large">
+              <simple-price :value="finishTotal" class="price price-total"></simple-price>
+            </div>
           </div>
         </div>
+
+        
       </div>
 
       <transition name="fade-in">
         <button
           v-if="order.payment.method === 'online'"
           @click="goPayHandler"
+          :class="{disabled: isDefaultRegion}"
           class="button primary sale-button"
         >
           <span>{{ t('button.pay') }}</span>
@@ -117,6 +159,7 @@ const goPayHandler = () => {
         <button
           v-else
           @click="goCompleteHandler"
+          :class="{disabled: isDefaultRegion}"
           class="button primary sale-button"
         >
           <span>{{ t('button.create_order') }}</span>

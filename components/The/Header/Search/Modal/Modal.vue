@@ -14,6 +14,7 @@ const emit = defineEmits(['close', 'setInput'])
 const categories = ref([])
 const products = ref([])
 const brands = ref([])
+const meta = ref(null)
 const searchInput = ref('')
 
 const timeout = ref(null)
@@ -34,10 +35,10 @@ const search = async (search) => {
   timeout.value = null
 
   const params = {
-    search: search
+    q: search
   }
 
-  if(!params.search?.length) {
+  if(!params.q?.length) {
     categories.value = null
     products.value = null
     return
@@ -45,12 +46,20 @@ const search = async (search) => {
 
   isLoading.value = true
 
-  await useAsyncData('livesearch', () => useSearchStore().livesearch(params)).then(({data, error}) => {
-    if(data?.value) {
-      categories.value = data.value.categories
-      products.value = data.value.products
-      brands.value = data.value.brands
+  await useAsyncData('livesearch-' + params.q, () => useSearchStore().livesearch(params)).then(({data, error}) => {
+    // console.log('livesearch data', data)
+    if(data.value.data) {
+      meta.value = data.value.meta
     }
+
+    if(data.value.data) {
+      products.value = data.value.data
+    }
+    // if(data?.value) {
+    //   categories.value = data.value.categories
+    //   products.value = data.value.products
+    //   brands.value = data.value.brands
+    // }
   }).finally(() => {
     isLoading.value = false
   })
@@ -91,7 +100,7 @@ watch(() => searchInput.value, (v) => {
 
   timeout.value = setTimeout(() => {
       search(v)
-  }, 1000)
+  }, 200)
 }, {
   deep: true,
   immediate: true
@@ -142,19 +151,22 @@ watch(() => searchInput.value, (v) => {
       </transition>
 
       <div v-if="products?.length" class="livesearch-box">
-        <div class="livesearch-label">{{ t('title.products') }}</div>
-        <ul class="livesearch-grid">
-          <li v-for="item in products" :key="item.id" class="livesearch-grid-item">
-            <product-card-live-search :item="item" @click="closeHandler"></product-card-live-search>
-          </li>
-        </ul>
+        <div class="livesearch-label">
+          {{ t('displayed') }} {{ t('label.products', {products: products?.length}) }}. {{ t('searched') }} {{ t('label.products', {products: meta?.total}) }}.
+        </div>
 
-        <div @click="closeHandler" class="all-results-btn">
+        <div v-if="meta?.total > products?.length" @click="closeHandler" class="all-results-btn">
           <NuxtLink :to="$regionPath('/search?q=' + searchInput)" class="all-results-btn-link">
             <span class="text">{{ t('all') }}</span>
             <IconCSS name="iconoir:arrow-right" class="icon"></IconCSS>
           </NuxtLink>
         </div>
+
+        <ul class="livesearch-grid">
+          <li v-for="item in products" :key="item.id" class="livesearch-grid-item">
+            <product-card-live-search :item="item" @click="closeHandler"></product-card-live-search>
+          </li>
+        </ul>
       </div>
 
       <div v-if="brands?.length" class="livesearch-box">
@@ -191,26 +203,6 @@ watch(() => searchInput.value, (v) => {
         </div>
       </div>
 
-
-      <span
-        v-if="categories?.length || products?.length || brands?.length"
-        class="powered-by"
-      >
-        <span class="powered-by-text">Powered by</span>
-
-        <nuxt-img
-          :provider="useImg().provider"
-          src="/images/algolia.png"
-          width="30"
-          height="30"
-          sizes = "mobile:50px tablet:50px desktop:50px"
-          format = "webp"
-          quality = "100"
-          loading = "lazy"
-          fit="outside"
-          class="algolia"
-        />
-      </span>
     </div>
     <div v-if="isOpen" class="livesearch-bg" @click="closeHandler"></div>
   </div>

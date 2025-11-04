@@ -49,15 +49,15 @@ const scrollHandler = (item) => {
 }
 
 const setSeo = () => {
-  useHead({
-    title: article.value.seo.meta_title || t('seo_title', {title: article.value.title}),
-    meta: [
-      {
-        name: 'description',
-        content: article.value.seo.meta_description
-      },
-    ],
-  })
+  // useHead({
+  //   title: article.value.seo.meta_title || t('seo_title', {title: article.value.title}),
+  //   meta: [
+  //     {
+  //       name: 'description',
+  //       content: article.value.seo.meta_description
+  //     },
+  //   ],
+  // })
 }
 
 // HANDLERS
@@ -92,6 +92,7 @@ watch(() => html.value, (v) => {
 
 
 await useAsyncData('get-article', () => useArticleStore().show(slug.value)).then(({data, error}) => {
+  console.log('data', data.value)
   if(data.value) {
     article.value = data.value
     setCrumbs()
@@ -136,7 +137,7 @@ setSeo()
           <div class="article-header">
             
             <nuxt-img
-              :src = "useImg().blog(article.image)"
+              :src = "article.image.src"
               :alt = "article.image.alt || article.name"
               :title = "article.image.title || article.name"
               width="800"

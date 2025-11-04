@@ -14,11 +14,16 @@ export interface AuthBridgeOptions {
     changePassword?: string
     profileUpdate?: string
     profileEmailChange?: string
-    // social helper (получить URL провайдера)
-    socialUrl?: (provider: string) => string
+    socialUrl?: string
+    validateReferralCode?: string
   }
   order?: { orderableType?: string }
   heartbeat?: { enabled?: boolean; intervalMs?: number }
+  referrals?: {
+    queryParam?: string
+    ttlDays?: number
+    cookieName?: string
+  }
 }
 
 export default defineNuxtModule<AuthBridgeOptions>({
@@ -37,10 +42,16 @@ export default defineNuxtModule<AuthBridgeOptions>({
       changePassword: '/api/auth/password/change',
       profileUpdate: '/api/profile/update',
       profileEmailChange: '/api/profile/email-change',
-      socialUrl: (p: string) => `/api/auth/oauth/${p}/url`,
+      socialUrl: '/api/auth/oauth/:provider/url',
+      validateReferralCode: '/api/auth/referral/validate/:code',
     },
     order: { orderableType: 'profile_user' },
     heartbeat: { enabled: true, intervalMs: 5 * 60 * 1000 },
+    referrals: {
+      queryParam: 'ref',
+      ttlDays: 30,
+      cookieName: 'referral_code',
+    },
   },
   setup(opts, nuxt) {
     const { resolve } = createResolver(import.meta.url)
@@ -50,8 +61,14 @@ export default defineNuxtModule<AuthBridgeOptions>({
 
     // авто-импорт composable
     addImports({ name: 'useAuth', as: 'useAuth', from: resolve('./runtime/composables/useAuth') })
+    addImports({
+      name: 'useReferralBridge',
+      as: 'useReferralBridge',
+      from: resolve('./runtime/composables/useReferralBridge'),
+    })
 
     // плагин, который регистрирует route-middlewares programmatically
+    addPlugin({ src: resolve('./runtime/plugins/query-handlers'), mode: 'all' })
     addPlugin({ src: resolve('./runtime/plugins/register-middlewares'), mode: 'all' })
 
     // heartbeat по фокусу/интервалу (клиент)

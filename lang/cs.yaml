@@ -6,30 +6,32 @@ title:
   contacts: Kontakty
   cart: Košík
   checkout: Pokladna
-  search_results: Výsledky hledání
+  search_results: Výsledky vyhledávání
   search: Hledat
-  comparison: Porovnání produktů
+  comparison: Srovnání
   favorite: Oblíbené
   brands: Značky
   articles: Články
   blog: Blog
-  delivery: Doprava
+  delivery: Doručení
   payment: Platba
   guarantees: Záruky
-  qa: Otázky / Odpovědi
+  qa: FAQ
   about: O nás
   sales: Akce
   news: Novinky
   reviews: Recenze
-  agreement: Veřejná nabídka smlouvy
+  agreement: Smlouva veřejné nabídky
   returns: Podmínky vrácení zboží
   checkout_payment: Platba objednávky
+  other: Ostatní
   checkout_complete: Děkujeme za objednávku!
-  checkout_complete_failed: Chyba při zpracování objednávky
+  checkout_complete_failed: Chyba při vytváření objednávky
   policy: Zásady ochrany osobních údajů
-  terms: Uživatelská smlouva
-  remove_userdata: Odstranění uživatelských údajů
-  account: 
+  terms: Podmínky použití
+  remove_userdata: Smazání uživatelských údajů
+  withdrawal: Výběr
+  account:
     account: Účet
     orders: Historie objednávek
     promocodes: Moje promo kódy
@@ -39,21 +41,21 @@ title:
     favorite: Oblíbené produkty
 
 meta:
-  address: Na Bošti 1471/22, 120 00 Nové Město, Praha 2, Česká republika
-  djini_desc: Internetový obchod “Vivadzen”
+  address: Na Bojisti 1471/22, 120 00 Nove Mesto, Praha 2, Cesko
+  djini_desc: Internetový obchod "Vivadzen"
 
 label:
   articul: Kód produktu
   sale: Sleva
   status: Stav
-  value_search: Hledání hodnot
+  value_search: Hledat hodnoty
   only_in_stock: Pouze skladem
   top_sales: Nejprodávanější
-  top_price: Super cena
+  top_price: Skvělá cena
   with_rates: S hodnocením a recenzemi
-  selections: Výběry
-  grn: Kč
-  sec: sek
+  selections: Kolekce
+  grn: UAH
+  sec: s
   price: Cena
   all: Produkt
   desc: Popis
@@ -62,9 +64,9 @@ label:
   common_info: Obecné informace
   auth: Přihlášení na webu
   register: Registrace
-  login: Přihlásit se
+  login: Přihlášení
   lang: Jazyk
-  auth_enter: Přihlášení do účtu
+  auth_enter: Přihlaste se do účtu
   total: Celkem
   available: Skladem
   running_out: Dochází
@@ -73,50 +75,54 @@ label:
   customer: Zákazník
   promocode: Promo kód
   brand: Značka
-  thorough: Více informací
+  thorough: Více detailů
   filters: Filtry
   our_address: Naše adresa
   product_code: Kód produktu
   contact_phones: Kontaktní telefony
   our_socials: Naše sociální sítě
   sub_title: Přihlaste se k odběru slev!
-  sub_desc: Každý týden zasíláme promo kódy a bonusy našim odběratelům.
+  sub_desc: Každý týden posíláme předplatitelům promo kódy a bonusy.
   min_read: min. čtení
-  active_filters: Použité filtry
+  active_filters: Aktivní filtry
   all_products: Všechny produkty
   show: Zobrazit
   reviews: '{reviews} recenzí | {reviews} recenze | {reviews} recenze | {reviews} recenzí'
   products: '{products} produktů | {products} produkt | {products} produkty | {products} produktů'
-  page: 'stránka {page}'
+  page: 'strana {page}'
   product:
     sale: Akce
-    price: Super cena
+    price: Skvělá cena
     top: Nejprodávanější
 
 messages:
-  review_gift: Kupón na -5 % za ověřenou recenzi obchodu
+  review_gift: Kupon -5 % za ověřenou recenzi obchodu
   rates_reviews: '{rates} hodnocení a {reviews} recenzí'
   products_found: Nalezeno {amount} produktů
   no_results: Žádné výsledky
-  empty_cart: Váš košík je prázdný
+  empty_cart: Košík je prázdný
   leave_review: Zanechat recenzi
   delivery_price: Cena dopravy
-  delivery_vendor_price: Podle sazeb dopravce
-  products_total: Zboží celkem
-  to_pay: K úhradě
+  delivery_vendor_price: Dle tarifů dopravce
+  products_total: Hodnota zboží
+  to_pay: K zaplacení
+  bonuses_use: Uhrazena bonusy
   use_promocode: Použít promo kód
   enter_promocode: Zadejte kód
   accept_payment: Přijímáme platby
   payment_methods: Platební metody
   i_agreed_with: Souhlasím s
-  agree_privacy_policy: zásadami ochrany osobních údajů
-  no_catalog_results: Nic nebylo nalezeno, zkuste upravit filtry nebo dotaz
+  agree_privacy_policy: zásadami ochrany soukromí
+  no_catalog_results: Nic nenalezeno, zkuste změnit filtry nebo dotaz
+  personal_discount: Osobní sleva
+  chose_delivery_country: Vyberte zemi doručení
+  chose_delivery: Zvolte způsob doručení pro zobrazení dostupných platebních metod
 
 button:
   collapse: Sbalit
   expand: Rozbalit
   logout: Odhlásit se
-  logout_system: Odhlásit ze systému
+  logout_system: Odhlásit se
   yes: Ano
   no: Ne
   enter: Přihlásit se
@@ -127,21 +133,23 @@ button:
   buy: Koupit
   to_cart: Do košíku
   leave_review: Zanechat recenzi
-  1_click_buy: Koupit jedním klikem 
+  1_click_buy: Koupit na jeden klik
   filters: Filtry
   sorting: Řazení
   apply: Použít
   save: Uložit
   cancel: Zrušit
-  delete: Odstranit
-  load_more: Načíst více
-  reset_all: Obnovit vše
+  delete: Smazat
+  load_more: Načíst další
+  reset_all: Resetovat vše
   view_all: Zobrazit vše
   send: Odeslat
-  sub: Přihlásit se k odběru
-  create_order: Vytvořit objednávku
+  sub: Přihlásit se
+  create_order: Odeslat objednávku
+  send_request: Odeslat žádost
   login_or_register: Přihlásit / Registrovat
-  go_home: Zpět na domovskou stránku
+  go_home: Na úvodní stránku
+  download_invoice: Stáhnout fakturu PDF
 
 form:
   enter:
@@ -149,11 +157,14 @@ form:
     phone: Zadejte telefon
     email: Zadejte e-mail
     message: Zadejte zprávu
-    comment: Zadejte komentář 
+    comment: Zadejte komentář
     password: Zadejte heslo
     password_confirmation: Zadejte heslo znovu
     review: Napište recenzi
     reply: Napište odpověď
+    invoice_qr: QR kód pro platbu faktury
+    invoice_pdf: Můžete si stáhnout fakturu
+  full_name: Celé jméno
   firstname: Jméno
   name: Jméno
   income: Příjem
@@ -167,6 +178,9 @@ form:
   method: Metoda
   review: Recenze
   reply: Odpověď
+  country: Země
+  city: Město
+  max: Maximum {value}
   delivery:
     settlement: Obec
     warehouse: Číslo pobočky
@@ -176,11 +190,19 @@ form:
     room: Byt
     zip: PSČ
     address: Dodací adresa
-    courier: Doručení kurýrem
-    pickup: Osobní odběr
+    novaposhta_warehouse: Pobočka/box Nova Poshta
+    novaposhta_address: Kurýr Nova Poshta
+    packeta_warehouse: Pobočka/box Zasilkovna
+    packeta_address: Kurýr Zasilkovna
+    default_pickup: Osobní odběr
+    default_address: Poštovní doručení
   payment:
-    online: Online platba
-    cash: Při převzetí
+    liqpay_online: Online platba LiqPay
+    card_online: Platba kartou online
+    default_cash: Platba při převzetí
+    zasilkovna_cod: Dobírka Zasilkovna
+    novaposhta_cod: Dobírka Nova Poshta
+    bank_transfer: Bankovní převod
 
 status:
   new: Nový
@@ -188,11 +210,11 @@ status:
   fail: Chyba
   failed: Chyba
   completed: Dokončeno
-  pending: Čeká se
+  pending: Čeká na vyřízení
   promocode:
     active: Aktivní
     not_active: Neaktivní
-    expired: Vypršelo
+    expired: Vypršel
     limit: Limit vyčerpán
 
 pay_status:
@@ -205,7 +227,7 @@ delivery_status:
   sent: Odesláno
   failed: Chyba
   delivered: Doručeno
-  pickedup: Vyzdviženo
+  pickedup: Vyzdvihnuto
 
 payment:
   type:
@@ -217,82 +239,128 @@ error:
   occurred: Došlo k chybě, zkuste to znovu 😓
   required: Pole je povinné
   error: Došlo k chybě
-  check_fields: Zkontrolujte správnost vyplněných polí
+  check_fields: Zkontrolujte správnost vyplnění polí
   auth:
     password:
       require: Heslo musí mít alespoň 6 znaků
-      confirmation: Heslo a potvrzení hesla se musí shodovat
-    "A user with this email address has already been registered": Uživatel s touto e-mailovou adresou je již zaregistrován
-    "Password recovery requires an email": K obnovení hesla je vyžadován e-mail
-    "Auth session missing!": Chybí autorizační relace!
+      confirmation: Hesla se musí shodovat
+    "A user with this email address has already been registered": Uživatel s touto e-mailovou adresou je již registrován
+    "Password recovery requires an email": Pro obnovení hesla je potřeba e-mail
+    "Auth session missing!": Chybí relace autorizace!
     "Invalid login credentials": Neplatné přihlašovací údaje
-    "User already registered": Uživatel je již zaregistrován
+    "User already registered": Uživatel je již registrován
     "Password should be at least 6 characters": Heslo musí mít alespoň 6 znaků
     "Signup requires a valid password": Registrace vyžaduje platné heslo
-    "To signup, please provide your email": Zadejte prosím svůj e-mail pro registraci
+    "To signup, please provide your email": Pro registraci zadejte svůj e-mail
     "Unable to validate email address: invalid format": "Nelze ověřit e-mailovou adresu: neplatný formát"
-    "Anonymous sign-ins are disabled": Anonymní přihlášení je zakázáno
-    "Email rate limit exceeded": Limit SMTP serveru byl překročen
+    "Anonymous sign-ins are disabled": Anonymní přihlášení jsou zakázána
+    "Email rate limit exceeded": Limit e-mailů byl překročen
 
 noty:
   add: Přidáno
-  remove: Odstraněno
+  remove: Odebráno
   comparison:
-    add: Produkt přidán do seznamu porovnání
-    remove: Produkt odstraněn ze seznamu porovnání
+    add: Produkt byl přidán do seznamu srovnání
+    remove: Produkt byl odebrán ze seznamu srovnání
   favorite:
-    need_login: Pro přidání do oblíbených se musíte přihlásit 🔑
+    need_login: Pro přidání do oblíbených se přihlaste 🔑
     success: Produkt byl přidán do oblíbených 😍
   1_click:
-    title: Děkujeme, požadavek odeslán 
-    sent: Brzy vás budeme kontaktovat pro upřesnění objednávky 😎
-    fail: Objednávka nebyla vytvořena 😔
+    title: Děkujeme, žádost odeslána
+    sent: Brzy vás kontaktujeme ohledně detailů objednávky 😎
+    fail: Objednávku se nepodařilo vytvořit 😔
   subscription:
     sent: Úspěšně jste se přihlásili k odběru 😉
-    fail: Odběr se nezdařil 😔
+    fail: Přihlášení k odběru se nezdařilo 😔
   feedback:
-    sent: Požadavek úspěšně odeslán 😉
-    fail: Požadavek nebyl odeslán
+    sent: Žádost byla úspěšně odeslána 😉
+    fail: Žádost nebyla odeslána
   copied: "Zkopírováno do schránky: {text}"
-  product_to_cart: Produkt {product} přidán do košíku
-  product_delete_cart: Produkt {product} odstraněn z košíku
+  product_to_cart: Produkt {product} byl přidán do košíku
+  product_delete_cart: Produkt {product} byl odstraněn z košíku
   auth:
     logout: Byli jste odhlášeni 😉
     register:
-      privacy: Pro registraci musíte souhlasit se zásadami ochrany osobních údajů. 
-      success: Úspěšně jste se zaregistrovali 👍
+      privacy: Pro registraci musíte souhlasit se zásadami ochrany soukromí.
+      success: Registrace proběhla úspěšně 👍
       fail: Registrace se nezdařila. Zkontrolujte zadané údaje 👈
     login:
-      success: Úspěšně jste se přihlásili 😎
-      failed: Chyba při přihlášení. Zkontrolujte správnost polí 😔
+      success: Úspěšné přihlášení 😎
+      failed: Chyba přihlášení. Ujistěte se, že jsou pole vyplněna správně 😔
     password:
       recovery:
-        sent: Na e-mail {email} byl odeslán odkaz pro obnovení hesla.
+        sent: Na adresu {email} byl odeslán e-mail pro obnovení hesla.
         fail: Chyba. Odkaz nebyl odeslán 😓
-      changed: 
-        success: Heslo bylo úspěšně změněno. Nyní se můžete přihlásit novým heslem 🔑.
+      changed:
+        success: Heslo bylo úspěšně změněno. Přihlaste se novým heslem 🔑.
     email:
       confirmation:
-        sent: Na váš e-mail byl odeslán potvrzovací odkaz.
+        sent: Byl vám odeslán e-mail pro potvrzení.
       changed:
-        success: E-mail byl úspěšně potvrzen. Nyní jej můžete použít pro přihlášení 👍
+        success: E-mail byl úspěšně potvrzen. Můžete ho použít pro přihlášení. 👍
         fail: Potvrzení e-mailu se nezdařilo. Zkuste to znovu.
   update:
-    success: Údaje byly úspěšně aktualizovány
-    fail: Údaje nebyly aktualizovány
+    success: Data byla úspěšně aktualizována
+    fail: Data nebyla aktualizována
   promocode:
-    success: Promo kód {code} byl úspěšně použit na objednávku
-    removed: Použití promo kódu {code} bylo zrušeno
+    success: Promo kód {code} byl použit na objednávku
+    removed: Promo kód {code} byl zrušen
   review:
-    need_login: Pro zanechání recenze se musíte přihlásit 🔑
-    fail_title: Recenze nebyla zveřejněna 😓
-    fail: Zkontrolujte správnost vyplněných polí
-    success_title: Skvělé 😎
-    success: Děkujeme, vaše recenze byla úspěšně odeslána
+    need_login: Pro odeslání recenze se přihlaste 🔑
+    fail_title: Recenzi se nepodařilo zveřejnit 😓
+    fail: Zkontrolujte správnost vyplnění polí
+    success_title: Super 😎
+    success: Děkujeme, vaše recenze byla odeslána
   order:
     fail: Při vytváření objednávky došlo k chybě
+  withdrawal:
+    success_title: Super 😎
+    fail_title: Chyba
+    requested: Žádost o výběr přijata, vyčkejte na zpracování.
+    fail: Ujistěte se, že jsou pole vyplněna správně 😔
 
 seo:
   page:
     title: "{title} - Vivadzen"
     desc: "{title} na vivadzen.com"
+
+delivery:
+  more: Více o doručení
+  delivery: Doručení po Ukrajině
+  provider_tariffs: Dle tarifů dopravce
+  np_warehouse: "Na pobočku / box Nova Poshta"
+  np_address: "Kurýr Nova Poshta na vaši adresu"
+  z_warehouse: "Na pobočku / box Zasilkovna"
+  z_address: "Kurýr Zasilkovna na vaši adresu"
+  pickup: Osobní odběr
+  address: Doručení na adresu
+  from_shop: z obchodu
+  packeta_warehouse: Pobočka/box Zasilkovna
+  packeta_address: Kurýr Zasilkovna
+  novaposhta_warehouse: Pobočka/box Nova Poshta
+  novaposhta_address: Kurýr Nova Poshta
+  default_pickup: Osobní odběr
+  from: od
+  subtitle: Způsoby doručení závisí na zvolené zemi. Změňte zemi doručení a zobrazte dostupné možnosti pro váš region.
+
+payments:
+  subtitle: Platební metody závisí na zvolené zemi. Změňte zemi doručení a zobrazte dostupné možnosti.
+  liqpay_online:
+    title: Online platba LiqPay
+    desc: Zaplaťte objednávku online
+  card_online:
+    title: Platba kartou online
+    desc: Zaplaťte objednávku online
+  default_cash:
+    title: Platba při převzetí
+    desc: Při převzetí v našem obchodě zaplaťte kartou nebo hotově
+  zasilkovna_cod:
+    title: Dobírka Zasilkovna
+    desc: Zaplaťte kartou nebo hotově při převzetí
+  novaposhta_cod:
+    title: Dobírka Nova Poshta
+    desc: Zaplaťte kartou nebo hotově při převzetí
+  bank_transfer:
+    title: Bankovní převod
+    desc: Zašleme vám e-mailem platební údaje včetně variabilního symbolu. Platbu lze vytvořit také naskenováním QR kódu.
+    fill_contacts: Vyplňte pole potřebná k vystavení faktury

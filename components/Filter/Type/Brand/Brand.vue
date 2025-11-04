@@ -112,7 +112,7 @@ watch(() => props.meta, (v) => {
       >
         <button class="brand-item-btn" button>
           <div class="brand-input">
-            <IconCSS name="iconoir:check" class="brand-input-icon"></IconCSS>
+            <IconCSS name="mynaui:check-solid" class="brand-input-icon"></IconCSS>
           </div>
           <span class="brand-content">
             <nuxt-img

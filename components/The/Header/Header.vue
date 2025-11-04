@@ -14,13 +14,12 @@ const { t } = useI18n()
       <!-- LOGO -->
       <NuxtLink :to="$regionPath('/')" class="logo" clickable>
         <nuxt-img
-          src = "/images/djini.png"
-          :provider = "useImg().provider"
-          width = "55"
-          height = "51"
-          sizes = "mobile:50px tablet:120px desktop:120px"
+          src = "/images/company.png"
+          width = "200"
+          height = "58"
+          sizes = "mobile:200px tablet:200px desktop:220px"
           fit = "inside"
-          format = "avif"
+          format = "webp"
           class = "logo-img"
         />
       </NuxtLink>
@@ -32,10 +31,12 @@ const { t } = useI18n()
       <the-header-search v-if="!$device.isMobile" class="search"></the-header-search>
 
       <!-- PHONE -->
-    <the-header-contacts v-if="!$device.isMobile" class="contacts"></the-header-contacts>
+      <!-- <the-header-contacts v-if="!$device.isMobile" class="contacts"></the-header-contacts> -->
 
       <!-- LANGUAGE -->
-      <the-header-languages class="languages"></the-header-languages>
+      <!-- <the-header-languages class="languages"></the-header-languages> -->
+
+      <div class="blank"></div>
 
       <!-- SEARCH BTN -->
       <button class="header-btn search-btn" type="button" clickable>

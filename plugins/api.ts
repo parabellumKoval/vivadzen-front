@@ -1,4 +1,6 @@
-// plugins/api.ts
+import {useReferralBridge} from '~/modules/auth-bridge/runtime/composables/useReferralBridge'
+import {useRegion} from '~/modules/regions/runtime/composables/useRegion'
+
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig()
   const token = useCookie<string | null>('auth_token', {
@@ -6,58 +8,42 @@ export default defineNuxtPlugin((nuxtApp) => {
     secure: process.env.NODE_ENV === 'production',
     path: '/',
   })
+  const referral = useReferralBridge()
 
   const i18n = (nuxtApp as any).$i18n;
   const regionStore = useRegion();
 
   const locale = i18n?.locale;
-  const region = regionStore.region;  
+  const region = regionStore.regionAlias;  
 
 
   const $api = $fetch.create({
     baseURL: config.public.apiBase,
     credentials: 'include',
     onRequest({ options }) {
-      // базовые заголовки
-      const headers: Record<string, string> = {
+      // Заголовки из конкретного вызова + то, что уже поставил ofetch
+      const h = new Headers(options.headers || {})
+
+      const base: Record<string, string> = {
         Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
         ...(locale?.value ? { 'Accept-Language': locale.value } : {}),
         ...(region?.value ? { 'X-Region': region.value } : {}),
       }
-      if (token.value) headers.Authorization = `Bearer ${token.value}`
-      const xsrf = useCookie('XSRF-TOKEN').value
-      if (xsrf) headers['X-XSRF-TOKEN'] = xsrf
-      options.headers = { ...(options.headers as any), ...headers }
 
-      // ⚠️ НЕ пересобираем query — только ДОБАВИМ country, если его нет
-      const method = (options.method || 'GET').toUpperCase()
-      if (region?.value) {
-        if (method === 'GET') {
-          if (options.query instanceof URLSearchParams) {
-            if (!options.query.has('country')) {
-              options.query = new URLSearchParams(options.query)
-              options.query.append('country', region.value)
-            }
-          } else if (options.query && typeof options.query === 'object') {
-            if ((options.query as any).country == null) {
-              (options.query as any).country = region.value
-            }
-          } else {
-            // если query ещё не задан — заведём объект
-            options.query = { country: region.value }
-          }
-        } else {
-          // POST/PUT/PATCH: аккуратно дополним body, но не трогаем FormData
-          const b = options.body as any
-          const isForm = (typeof FormData !== 'undefined') && b instanceof FormData
-          if (!isForm) {
-            const next = (b && typeof b === 'object') ? { ...b } : {}
-            if (next.country == null) next.country = region.value
-            options.body = next
-          }
-        }
+      if (token.value) base.Authorization = `Bearer ${token.value}`
+
+      const xsrf = useCookie('XSRF-TOKEN').value
+      if (xsrf) base['X-XSRF-TOKEN'] = xsrf
+
+      const referralCode = referral.code.value
+      if (referralCode) base['X-Referral-Code'] = referralCode
+
+      for (const [k, v] of Object.entries(base)) {
+        if (!h.has(k)) h.set(k, v)
       }
+
+      options.headers = h
     },
     onResponseError({ response }) {
       if (response.status === 401) {

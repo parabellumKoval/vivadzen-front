@@ -20,23 +20,25 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 36px;
+    height: 40px;
     padding: 0 20px;
     margin: 0 5px 5px 0;
     border-radius: $radius;
-    border: 1px solid $color-5;
+    border: 2px solid $color-border;
     transition: border .3s;
     @include desktop {
       margin: 0 15px 15px 0;
     }
     &.router-link-active {
-      border: 1px solid $color-primary;
+      border: 2px solid $color-primary;
     }
     &.not-in-stock {
-      color: $color-3;
+      color: $color-4;
+      opacity: 0.6;
+      pointer-events: none;
     }
     &:hover {
-      border: 1px solid $color-primary;
+      border: 2px solid $color-primary;
       // color: $color-primary;
     }
     &-icon {

@@ -1,70 +1,93 @@
 <script>
 export default {
-  data() {
-    return {}
-  },
-
   props: {
-    modelValue: {
-      type: Number,
-      default: 1
-    },
-
-    min: {
-      type: Number,
-      default: 1
-    },
-
-    max: {
-      type: Number,
-      default: 999999
-    },
-
-    size: {
-      type: String,
-      default: 'medium' // small, medium, large
+    modelValue: { type: Number, default: 1 },
+    min: { type: Number, default: 1 },
+    max: { type: Number, default: 999999 },
+    size: { type: String, default: 'medium' }
+  },
+  data() {
+    const initial =
+      typeof this.modelValue === 'number' && !isNaN(this.modelValue) ? this.modelValue : this.min
+    const clamped = Math.max(this.min, Math.min(initial, this.max))
+    return {
+      localValue: clamped,
+      inputValue: typeof clamped === 'number' && !isNaN(clamped) ? String(clamped) : ''
     }
   },
-
+  watch: {
+    modelValue(val) {
+      this.localValue = val
+      this.inputValue = this.formatValue(val)
+    },
+    localValue(val) {
+      this.$emit('update:modelValue', val)
+      this.inputValue = this.formatValue(val)
+    }
+  },
   methods: {
     minusHandler() {
-      if(this.modelValue > this.min) {
-        let value = this.modelValue
-        this.$emit('update:modelValue', --value)
+      const normalized = this.clampValue(this.localValue)
+      if (normalized !== this.localValue) {
+        this.localValue = normalized
+      } else if (normalized > this.min) {
+        this.localValue = normalized - 1
       }
     },
-
     plusHandler() {
-      if(this.modelValue < this.max) {
-        let value = this.modelValue
-        this.$emit('update:modelValue', ++value)
+      const normalized = this.clampValue(this.localValue)
+      if (normalized !== this.localValue) {
+        this.localValue = normalized
+      } else if (normalized < this.max) {
+        this.localValue = normalized + 1
       }
     },
-
-    updateHandler(event) {
-      let value = 1
-      
-      if(event.target.value > 0)
-        value = event.target.value
-      
-      this.$emit('update:modelValue', value)
+    updateHandler(e) {
+      const raw = e.target.value
+      this.inputValue = raw
+      const parsed = parseInt(raw, 10)
+      if (!isNaN(parsed)) {
+        this.localValue = parsed
+      }
+    },
+    blurHandler() {
+      const normalized = this.clampValue(this.inputValue)
+      this.localValue = normalized
+      this.inputValue = this.formatValue(normalized)
+    },
+    clampValue(value) {
+      let val = parseInt(value, 10)
+      if (isNaN(val)) val = this.min
+      if (val < this.min) val = this.min
+      if (val > this.max) val = this.max
+      return val
+    },
+    formatValue(value) {
+      return typeof value === 'number' && !isNaN(value) ? String(value) : ''
     }
   }
 }
 </script>
 
-<style src="./amount.scss" lang="postcss" scoped />
-
 <template>
-  <div :class="size" class="amount">
-    <button @click="minusHandler" clickable type="button" class="btn">
-      <IconCSS name="fluent:subtract-20-regular" class="icon"></IconCSS>
+  <div :class="['amount', size]">
+    <button @click="minusHandler" :class="{disabled: localValue <= min}" type="button" class="btn">
+      <IconCSS name="fluent:subtract-20-regular" class="icon" />
     </button>
-    
-    <input :value="modelValue" @change="updateHandler" :max="max" :min="min" type="text" class="calc-input">
-
-    <button @click="plusHandler" clickable type="button" class="btn">
-      <IconCSS name="fluent:add-20-regular" class="icon"></IconCSS>
+    <input
+      :value="inputValue"
+      @input="updateHandler"
+      @blur="blurHandler"
+      type="number"
+      :min="min"
+      :max="max"
+      step="1"
+      class="calc-input"
+    />
+    <button @click="plusHandler" :class="{disabled: localValue >= max}" type="button" class="btn">
+      <IconCSS name="fluent:add-20-regular" class="icon" />
     </button>
   </div>
 </template>
+
+<style src="./amount.scss" lang="postcss" scoped />

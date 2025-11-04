@@ -38,7 +38,7 @@ const sendHandler = async () => {
   let data = {...review.value}
   await useReviewStore().create(data).then(({data, error}) => {
 
-    if(data) {
+    if(data.value) {
       resetReview()
 
       useNoty().setNoty({
@@ -49,9 +49,9 @@ const sendHandler = async () => {
 
       useModal().close()
     }
-    
-    if(error) 
-      throw error
+
+    if(error.value) 
+      throw error.value
 
   }).catch((e) => {
     useNoty().setNoty({
@@ -98,7 +98,7 @@ watch(authUser, () => setUserData(), { immediate: true })
     <div class="modal-wrapper">
 
       <div class="parent">
-        <div class="parent-name">{{ parent.author.name }}</div>
+        <div class="parent-name">{{ parent.owner?.name }}</div>
         <div class="parent-text">{{ parent.text }}</div>
       </div>
 

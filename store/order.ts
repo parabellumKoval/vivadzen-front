@@ -45,13 +45,6 @@ export const useOrderStore = defineStore('orderStore', {
       return await useApiFetch(url, data, 'POST')
         .then(({data, error}) => {
           if(data.value) {
-            // if(refresh)
-            //   this.ordersState.data = data.data
-            // else
-            //   this.ordersState.data = this.ordersState.data.concat(data.data)
-          
-            // this.ordersState.meta = data.meta
-
             return data.value
           }
 

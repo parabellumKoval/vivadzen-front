@@ -1,0 +1,130 @@
+en:
+  refGrow:
+    title: "How you can grow"
+    subtitleAccent: "Three-Level"
+    subtitleRest: "Referral System"
+    col1:
+      title: "Invite a Friends"
+      kicker: "Earn commission from their purchases"
+      text: "Invite a friend via your link. Get a percentage from every purchase they make in partner stores — your direct reward for bringing in an active user."
+    col2:
+      title: "Friend Invites Their Friend"
+      kicker: "Get additional commission on second level"
+      text: "Your friend invites others. Each new user under them joins your second level. Earn a smaller but steady cut from their purchases — your income grows through referrals’ activity."
+    col3:
+      title: "Network Keeps Growing"
+      kicker: "Earn passive income from whole network"
+      text: "Second-level users invite more people, building your third level. Receive ongoing commissions from all their purchases. The larger and more active the network, the greater your passive earnings."
+    cta:
+      title: "Join Now"
+      text: "Sign up to start growing your own community — thousands are already building thriving networks and earning passive income with Viva Points!"
+      button: "Sign up to start"
+
+cs:
+  refGrow:
+    title: "Jak můžete růst"
+    subtitleAccent: "Tříúrovňový"
+    subtitleRest: "partnerský systém"
+    col1:
+      title: "Pozvěte přátele"
+      kicker: "Provize z jejich nákupů"
+      text: "Pozvěte přítele přes svůj odkaz. Získáte procenta z každého jeho nákupu u partnerských obchodů — přímá odměna za aktivního uživatele."
+    col2:
+      title: "Přítel pozve svého přítele"
+      kicker: "Další provize na druhé úrovni"
+      text: "Váš přítel pozve další. Noví uživatelé pod ním tvoří vaši druhou úroveň. Menší, ale stabilní podíl z jejich nákupů — příjem roste s aktivitou sítě."
+    col3:
+      title: "Síť stále roste"
+      kicker: "Pasivní příjem z celé sítě"
+      text: "Uživatelé druhé úrovně zvou další lidi a staví třetí úroveň. Průběžné provize z jejich nákupů. Čím větší a aktivnější síť, tím vyšší pasivní příjem."
+    cta:
+      title: "Přidejte se nyní"
+      text: "Zaregistrujte se a začněte budovat svou komunitu — tisíce uživatelů už rostou a vydělávají pasivní příjem s Viva Points!"
+      button: "Zaregistrovat se"
+
+uk:
+  refGrow:
+    title: "Як ви можете зростати"
+    subtitleAccent: "Трирівнева"
+    subtitleRest: "реферальна система"
+    col1:
+      title: "Запросіть друзів"
+      kicker: "Комісія з їхніх покупок"
+      text: "Запросіть друга за вашим посиланням. Отримуйте відсоток з кожної його покупки в партнерських магазинах — ваша пряма винагорода за активного користувача."
+    col2:
+      title: "Друг кличе свого друга"
+      kicker: "Додаткова комісія на другому рівні"
+      text: "Ваш друг запрошує інших. Нові користувачі під ним формують ваш другий рівень. Менший, але стабільний відсоток з їхніх покупок — дохід зростає разом з активністю мережі."
+    col3:
+      title: "Мережа продовжує зростати"
+      kicker: "Пасивний дохід з усієї мережі"
+      text: "Користувачі другого рівня приводять нових — утворюється третій рівень. Постійні комісії з їхніх покупок. Чим більша й активніша мережа, тим вищий пасивний дохід."
+    cta:
+      title: "Приєднуйтесь зараз"
+      text: "Зареєструйтесь і почніть розвивати власну спільноту — тисячі вже будують мережі та отримують пасивний дохід із Viva Points!"
+      button: "Почати реєстрацію"
+
+de:
+  refGrow:
+    title: "Wie Sie wachsen können"
+    subtitleAccent: "Dreistufiges"
+    subtitleRest: "Empfehlungssystem"
+    col1:
+      title: "Freunde einladen"
+      kicker: "Provision aus deren Einkäufen"
+      text: "Laden Sie einen Freund über Ihren Link ein. Erhalten Sie einen Prozentsatz von jedem Einkauf in Partner-Shops — Ihre direkte Belohnung für aktive Nutzer."
+    col2:
+      title: "Freund lädt seinen Freund ein"
+      kicker: "Zusätzliche Provision auf der zweiten Ebene"
+      text: "Ihr Freund lädt weitere ein. Neue Nutzer unter ihm bilden Ihre zweite Ebene. Ein kleiner, aber stetiger Anteil an deren Einkäufen — Ihr Einkommen wächst mit der Aktivität des Netzwerks."
+    col3:
+      title: "Das Netzwerk wächst weiter"
+      kicker: "Passives Einkommen aus dem ganzen Netzwerk"
+      text: "Nutzer der zweiten Ebene laden weitere Menschen ein und bauen Ihre dritte Ebene auf. Laufende Provisionen aus deren Einkäufen. Je größer und aktiver das Netzwerk, desto höher das passive Einkommen."
+    cta:
+      title: "Jetzt beitreten"
+      text: "Registrieren Sie sich und bauen Sie Ihre Community auf — Tausende wachsen bereits und verdienen passives Einkommen mit Viva Points!"
+      button: "Registrieren"
+
+es:
+  refGrow:
+    title: "Cómo puedes crecer"
+    subtitleAccent: "Sistema de Referidos"
+    subtitleRest: "de tres niveles"
+    col1:
+      title: "Invita a tus amigos"
+      kicker: "Comisión por sus compras"
+      text: "Invita a un amigo con tu enlace. Recibe un porcentaje de cada compra en tiendas asociadas — una recompensa directa por traer usuarios activos."
+    col2:
+      title: "Tu amigo invita a su amigo"
+      kicker: "Comisión adicional en el segundo nivel"
+      text: "Tu amigo invita a otros. Los nuevos usuarios bajo él forman tu segundo nivel. Un porcentaje menor pero constante de sus compras — tus ingresos crecen con la actividad de la red."
+    col3:
+      title: "La red sigue creciendo"
+      kicker: "Ingresos pasivos de toda la red"
+      text: "Los usuarios del segundo nivel invitan a más personas y crean tu tercer nivel. Comisiones continuas por sus compras. Cuanto más grande y activa la red, mayores serán tus ingresos pasivos."
+    cta:
+      title: "Únete ahora"
+      text: "Regístrate y empieza a hacer crecer tu comunidad — miles ya están construyendo redes prósperas y ganando ingresos pasivos con Viva Points."
+      button: "Regístrate"
+ru:
+  refGrow:
+    title: "Как вы можете расти"
+    subtitleAccent: "Трехуровневая"
+    subtitleRest: "реферальная система"
+    col1:
+      title: "Приглашайте друзей"
+      kicker: "Комиссия с их покупок"
+      text: "Пригласите друга по своей ссылке. Получайте процент с каждой его покупки в партнерских магазинах — ваша прямая награда за активного пользователя."
+    col2:
+      title: "Друг приглашает своего друга"
+      kicker: "Дополнительная комиссия на втором уровне"
+      text: "Ваш друг приглашает других. Новые пользователи под ним формируют ваш второй уровень. Меньший, но стабильный процент с их покупок — доход растет вместе с активностью сети."
+    col3:
+      title: "Сеть продолжает расти"
+      kicker: "Пассивный доход со всей сети"
+      text: "Пользователи второго уровня приводят новых людей и строят третий уровень. Получайте постоянные комиссии с их покупок. Чем больше и активнее сеть, тем выше пассивный доход."
+    cta:
+      title: "Присоединиться"
+      text: "Зарегистрируйтесь и начните развивать свою комьюнити — тысячи уже строят сети и получают пассивный доход с Viva Points!"
+      button: "Начать регистрацию"

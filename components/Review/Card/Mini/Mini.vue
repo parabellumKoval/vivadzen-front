@@ -39,7 +39,7 @@ const toggleHandler = () => {
 <template>
   <div class="review">
     <div class="review-header">
-      <div class="review-name">{{ item.author.name }}</div>
+      <div class="review-name">{{ item.owner.name }}</div>
       <div class="review-date">{{ $d(item.created_at, 'short') }}</div>
     </div>
     

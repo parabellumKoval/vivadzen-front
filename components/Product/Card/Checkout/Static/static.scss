@@ -17,8 +17,9 @@
     width: 50px;
     height: 80px;
     flex-shrink: 0;
-    border: 1px solid $color-6;
     border-radius: $radius;
+    background: $color-bg-2;
+    
     @include desktop {
       width: 100px;
       height: 100px;

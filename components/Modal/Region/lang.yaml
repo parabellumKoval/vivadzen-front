@@ -1,0 +1,42 @@
+ru:
+  title: Настройки региона
+  languageTitle: Выберите язык
+  languageCurrent: Текущий язык
+  regionTitle: Выберите регион
+  regionCurrent: Текущий регион
+  mapHint: Выберите регион на карте
+uk:
+  title: Налаштування регіону
+  languageTitle: Оберіть мову
+  languageCurrent: Поточна мова
+  regionTitle: Оберіть регіон
+  regionCurrent: Поточний регіон
+  mapHint: Оберіть регіон на карті
+de:
+  title: Regionseinstellungen
+  languageTitle: Sprache wählen
+  languageCurrent: Aktuelle Sprache
+  regionTitle: Region wählen
+  regionCurrent: Aktuelle Region
+  mapHint: Wählen Sie eine Region auf der Karte
+es:
+  title: Configuración de región
+  languageTitle: Elegir idioma
+  languageCurrent: Idioma actual
+  regionTitle: Elegir región
+  regionCurrent: Región actual
+  mapHint: Seleccione una región en el mapa
+cs:
+  title: Nastavení regionu
+  languageTitle: Vyberte jazyk
+  languageCurrent: Aktuální jazyk
+  regionTitle: Vyberte region
+  regionCurrent: Aktuální region
+  mapHint: Vyberte region na mapě
+en:
+  title: Region settings
+  languageTitle: Choose language
+  languageCurrent: Current language
+  regionTitle: Choose region
+  regionCurrent: Current region
+  mapHint: Pick a region on the map

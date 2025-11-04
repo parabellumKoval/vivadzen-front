@@ -1,17 +1,9 @@
 <script setup>
 const {t} = useI18n()
 
-const topQuery = ref({
-  per_page: 10,
-  selections: ['in_stock'],
-  order_by: 'sales',
-  cache: ['with_products'],
-})
 
-const saleQuery = ref({
-  per_page: 10,
-  selections: ['with_sales', 'in_stock'],
-  cache: ['with_products'],
+const slidersQuery = computed(() => {
+  return {}
 })
 
 //
@@ -36,37 +28,36 @@ setSeo()
   <DelayHydration>
     <lazy-section-banner></lazy-section-banner>
 
-    <section-slider-products
-      :title="t('top')"
-      list-id="top-products"
-      :query="topQuery"
-      :fetchOptions="{key:'top'}"
-      link="/catalog?selections[0]=in_stock&selections[1]=top_sales"
-    ></section-slider-products>
+    <lazy-section-category></lazy-section-category>
 
-    <section-slider-products
-      :title="t('sale')"
-      list-id="promotional-products"
-      :query="saleQuery"
-      :fetchOptions="{key:'sale'}"
-      link="/catalog?selections[0]=with_sales&selections[1]=in_stock"
-    ></section-slider-products>
+    <section-lists-main :query="slidersQuery" class="home-section-margin"></section-lists-main>
 
-    <!-- <lazy-section-category></lazy-section-category> -->
+    <lazy-section-about class="home-section-margin"></lazy-section-about>
     
-    <div class="container">
-      <lazy-section-review></lazy-section-review>
-      <lazy-section-adv></lazy-section-adv>
+    <div class="container home-section-margin">
+      <lazy-section-review-video></lazy-section-review-video>
     </div>
+
+    <div class="container home-section-margin">
+      <lazy-section-referral></lazy-section-referral>
+    </div>
+
+    <div class="container home-section-margin">
+      <lazy-section-viva></lazy-section-viva>
+    </div>
+
+    <!-- <div class="container">
+      <section-review></section-review>
+      <lazy-section-adv></lazy-section-adv>
+    </div> -->
     
     <div class="container">
       <lazy-section-article></lazy-section-article>
     </div>
     
-    <!-- <lazy-section-insta></lazy-section-insta> -->
 
-    <div class="container">
+    <!-- <div class="container">
       <section-seo></section-seo>
-    </div>
+    </div> -->
   </DelayHydration>
 </template>

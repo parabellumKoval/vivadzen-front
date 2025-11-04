@@ -7,7 +7,6 @@ const props = defineProps({
 })
 
 const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
-
 </script>
 
 <style src="./micro.scss" lang="scss" scoped></style>

@@ -25,7 +25,7 @@ const emit = defineEmits(['update:current'])
 
 const productMicro = computed(() => {
   return {
-    id: props.product.id,
+    id: props.product.group_id,
     code: props.product.code,
     name: props.product.name,
     slug: props.product.slug,
@@ -37,11 +37,11 @@ const productMicro = computed(() => {
 })
 
 const ratingCount = computed(() => {
-  return props.product.reviews_rating_detailes?.rating_count || 0
+  return props.product.ratings || 0
 })
 
 const reviewsCount = computed(() => {
-  return props.product.reviews_rating_detailes?.reviews_count || 0
+  return props.product.reviews || 0
 })
 
 const reviewItems = computed(() => {
@@ -83,7 +83,7 @@ defineExpose({
 
     <div class="review-form">
       <div class="review-form-title">{{ t('reviews') }}</div>
-      <button @click="createReviewHandler" class="button violet wide large-icon inline-icon">
+      <button @click="createReviewHandler" class="button color-violet wide large-icon inline-icon">
         <IconCSS name="iconoir:message-text" class="icon"></IconCSS>
         <span>{{ t('messages.leave_review') }}</span>
       </button>

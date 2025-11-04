@@ -1,84 +1,84 @@
 ru:
   new_review: Новый отзыв
   set_rating: Оцените товар от 1 до 5
-  set_rating_shop: Оцените магазин Djini в целом от 1 до 5
+  set_rating_shop: Оцените магазин Vivadzen в целом от 1 до 5
   w_advantages: Опишите достоинства товара
   w_flaws: Опишите недостатки товара
   w_link: Оставьте ссылку на Facebook или Instagram 
   link: Например https://facebook.com/my_account
   link_desc_1: Добавьте ссылку на вашу действующую страницу в Facebook или Instagram чтобы показать другим пользвателям, что ваш отзыв настоящий.
-  link_desc_2: После модерации вашего отзыва со ссылкой вы получите купон со скидкой 5% для покупок в магазине Djini.com.ua.
+  link_desc_2: После модерации вашего отзыва со ссылкой вы получите купон со скидкой 5% для покупок в магазине Vivadzen.com.
   advantages: Достоинства
   flaws: Недостатки
   tab_product: О товаре
-  tab_djini: О магазине Djini
+  tab_djini: О магазине Vivadzen
 uk:
   new_review: Новий відгук
   set_rating: Оцініть товар від 1 до 5
-  set_rating_shop: Оцініть магазин Djini загалом від 1 до 5
+  set_rating_shop: Оцініть магазин Vivadzen загалом від 1 до 5
   w_advantages: Опишіть переваги товару
   w_flaws: Опишіть недоліки товару
   w_link: Залишіть посилання на Facebook або Instagram
   link: Наприклад https://facebook.com/my_account
   link_desc_1: Додати посилання на вашу діючу сторінку в Facebook або Instagram щоб показати іншим користувачам, що ваш відгук справжній.
-  link_desc_2: Після модерації вашого відгуку з посиланням ви отримаєте купон зі знижкою 5% для покупок у магазині Djini.com.ua.
+  link_desc_2: Після модерації вашого відгуку з посиланням ви отримаєте купон зі знижкою 5% для покупок у магазині Vivadzen.com.
   advantages: Переваги
   flaws: Недоліки
   tab_product: Про товар
-  tab_djini: Про магазин Djini
+  tab_djini: Про магазин Vivadzen
 de:
   new_review: Neue Bewertung
   set_rating: Bewerten Sie das Produkt von 1 bis 5
-  set_rating_shop: Bewerten Sie den Djini-Shop insgesamt von 1 bis 5
+  set_rating_shop: Bewerten Sie den Vivadzen-Shop insgesamt von 1 bis 5
   w_advantages: Beschreiben Sie die Vorteile des Produkts
   w_flaws: Beschreiben Sie die Nachteile des Produkts
   w_link: Hinterlassen Sie einen Link zu Facebook oder Instagram
   link: Zum Beispiel https://facebook.com/my_account
   link_desc_1: Fügen Sie den Link zu Ihrer aktiven Facebook- oder Instagram-Seite hinzu, um anderen Nutzern zu zeigen, dass Ihre Bewertung echt ist.
-  link_desc_2: Nach der Moderation Ihrer Bewertung mit Link erhalten Sie einen Gutschein mit 5 % Rabatt für Einkäufe bei Djini.com.ua.
+  link_desc_2: Nach der Moderation Ihrer Bewertung mit Link erhalten Sie einen Gutschein mit 5 % Rabatt für Einkäufe bei Vivadzen.com.
   advantages: Vorteile
   flaws: Nachteile
   tab_product: Über das Produkt
-  tab_djini: Über den Djini-Shop
+  tab_djini: Über den Vivadzen-Shop
 es:
   new_review: Nueva reseña
   set_rating: Califique el producto de 1 a 5
-  set_rating_shop: Califique la tienda Djini en general de 1 a 5
+  set_rating_shop: Califique la tienda Vivadzen en general de 1 a 5
   w_advantages: Describa las ventajas del producto
   w_flaws: Describa las desventajas del producto
   w_link: Deje un enlace a Facebook o Instagram
   link: Por ejemplo https://facebook.com/my_account
   link_desc_1: Añada un enlace a su página activa de Facebook o Instagram para mostrar a otros usuarios que su reseña es auténtica.
-  link_desc_2: Tras la moderación de su reseña con enlace, recibirá un cupón de descuento del 5 % para comprar en Djini.com.ua.
+  link_desc_2: Tras la moderación de su reseña con enlace, recibirá un cupón de descuento del 5 % para comprar en Vivadzen.com.
   advantages: Ventajas
   flaws: Desventajas
   tab_product: Sobre el producto
-  tab_djini: Sobre la tienda Djini
+  tab_djini: Sobre la tienda Vivadzen
 cs:
   new_review: Nová recenze
   set_rating: Ohodnoťte produkt od 1 do 5
-  set_rating_shop: Ohodnoťte obchod Djini celkově od 1 do 5
+  set_rating_shop: Ohodnoťte obchod Vivadzen celkově od 1 do 5
   w_advantages: Popište přednosti produktu
   w_flaws: Popište nedostatky produktu
   w_link: Zanechte odkaz na Facebook nebo Instagram
   link: Například https://facebook.com/my_account
   link_desc_1: Přidejte odkaz na svou aktivní stránku na Facebooku nebo Instagramu, aby ostatní uživatelé viděli, že je vaše recenze skutečná.
-  link_desc_2: Po schválení vaší recenze s odkazem získáte kupón se slevou 5 % na nákupy na Djini.com.ua.
+  link_desc_2: Po schválení vaší recenze s odkazem získáte kupón se slevou 5 % na nákupy na Vivadzen.com.
   advantages: Přednosti
   flaws: Nedostatky
   tab_product: O produktu
-  tab_djini: O obchodě Djini
+  tab_djini: O obchodě Vivadzen
 en:
   new_review: New review
   set_rating: Rate the product from 1 to 5
-  set_rating_shop: Rate the Djini store overall from 1 to 5
+  set_rating_shop: Rate the Vivadzen store overall from 1 to 5
   w_advantages: Describe the product advantages
   w_flaws: Describe the product drawbacks
   w_link: Leave a link to Facebook or Instagram
   link: For example https://facebook.com/my_account
   link_desc_1: Add a link to your active Facebook or Instagram page to show other users that your review is genuine.
-  link_desc_2: After your linked review passes moderation, you will receive a 5% discount coupon for shopping at Djini.com.ua.
+  link_desc_2: After your linked review passes moderation, you will receive a 5% discount coupon for shopping at Vivadzen.com.
   advantages: Advantages
   flaws: Drawbacks
   tab_product: About the product
-  tab_djini: About the Djini store
+  tab_djini: About the Vivadzen store

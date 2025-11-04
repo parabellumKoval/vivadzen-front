@@ -1,28 +1,32 @@
 <script setup>
 const {t} = useI18n()
 
-const methods = computed(() => {
-  return [
-    {
-      id: 1,
-      name: t('delivery_one.title'),
-      desc: t('delivery_one.desc'),
-      image: '/images/logo/np-mini.png'
-    },{
-      id: 2,
-      name: t('delivery_two.title'),
-      desc: t('delivery_two.desc'),
-      image: '/images/logo/np-mini.png'
-    },{
-      id: 3,
-      name: t('delivery_three.title'),
-      desc: t('delivery_three.desc'),
-      image: '/images/logo/np-mini.png'
-    }
-  ]
+const {methods} = useDelivery()
+
+const m = computed(() => {
+  return methods.value
+  // return [
+  //   {
+  //     id: 1,
+  //     name: t('delivery_one.title'),
+  //     desc: t('delivery_one.desc'),
+  //     image: '/images/logo/np-mini.png'
+  //   },{
+  //     id: 2,
+  //     name: t('delivery_two.title'),
+  //     desc: t('delivery_two.desc'),
+  //     image: '/images/logo/np-mini.png'
+  //   },{
+  //     id: 3,
+  //     name: t('delivery_three.title'),
+  //     desc: t('delivery_three.desc'),
+  //     image: '/images/logo/np-mini.png'
+  //   }
+  // ]
 })
 
 const emit = defineEmits(['more'])
+
 </script>
 
 <style src="./../../box.scss" lang="scss" scoped></style>
@@ -32,12 +36,14 @@ const emit = defineEmits(['more'])
 <template>
   <div class="product-box">
     <div class="mobile-title">{{ t('title.delivery') }}</div>
-    <div class="product-box-label">{{ t('delivery') }}:</div>
+    <div class="product-box-label">
+      <checkout-delivery-country></checkout-delivery-country>
+    </div>
     <div class="method">
       <div v-for="method in methods" :key="method.id" class="method-item">
         <nuxt-img
-          v-if="method.image"
-          :src = "method.image"
+          v-if="method.logo"
+          :src = "method.logo"
           :provider = "useImg().provider"
           width="20"
           height="20"
@@ -48,17 +54,20 @@ const emit = defineEmits(['more'])
           class="method-image"
         />
 
-        <div class="method-name">{{ method.name }}</div>
-        <div class="method-desc">{{ method.desc }}</div>
+        <div class="method-name">{{ method.label }}</div>
+        <div :class="{'amount': method.isPriceObject}" class="method-desc">
+          <template v-if="!method.isPriceObject">
+            {{ method.price }}
+          </template>
+          <template v-else>
+            {{ t('delivery.from') }} <simple-price :value="method.price.amount" :currency-code="method.price.currency" />
+          </template>
+        </div>
       </div>
     </div>
-    <div class="free-delivery">
-      <IconCSS name="solar:gift-bold-duotone" class="free-delivery-icon"></IconCSS>
-      <span class="free-delivery-name">
-        {{ t('free') }}
-        <span class="free-delivery-desc">{{ t('order') }} <span class="bold">{{ t('grn') }}</span></span>
-      </span>
-    </div>
+    
+    <product-delivery-free class="free-delivery"></product-delivery-free>
+
     <button @click="emit('more')" class="button secondary darker more-btn">
       {{ t('more') }}
     </button>

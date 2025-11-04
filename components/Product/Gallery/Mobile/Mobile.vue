@@ -51,7 +51,7 @@ const scrollToHandler = (index) => {
         class="thumbnail-btn"
       >
         <nuxt-img
-          :src = "useImg().product(item)"
+          :src = "item.src"
           :alt = "item.alt"
           :title = "item.title"
           sizes = "400px"
@@ -68,7 +68,7 @@ const scrollToHandler = (index) => {
     <div ref="mainRef" :class="{full: images?.length <= 1}" class="main">
       <div v-for="(image, index) in images" :key="index" :ref="setImageRef">
         <nuxt-img
-          :src = "useImg().product(image)"
+          :src = "image.src"
           :alt = "image.alt"
           :title = "image.title"
           sizes = "400px"

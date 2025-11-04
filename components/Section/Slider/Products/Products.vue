@@ -37,8 +37,9 @@ const isServer = process.server
 const { data: products, pending} = await useAsyncData(
   'products-main-' + props.title,
   async () => {
-    const response = await useProductStore().catalog(props.query)
-    return response.data.value.products.data
+    const response = await useProductStore().list(props.query, 'product')
+    console.log(response)
+    // return response.data.value.products.data
   },{
     lazy: !isServer,
     server: true,

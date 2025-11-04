@@ -96,9 +96,17 @@
       content: ':';
     }
   }
+  .text {
+    font-weight: 500;
+    margin: 0 0 10px 0;
+  }
   .value {
     display: inline-block;
     color: $color-1;
+    &-btn {
+      margin-top: 10px;
+    }
+
     &.paied,
     &.completed,
     &.pickedup {

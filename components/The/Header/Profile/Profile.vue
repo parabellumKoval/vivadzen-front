@@ -6,7 +6,7 @@ const { user, isAuthenticated, avatar } = useAuth()
 // COMPUTED
 const showAuthHandler = () => {
   if(isAuthenticated.value && user.value) {
-    navigateTo($regionPath('/account/settings'))
+    navigateTo($regionPath('/account/network/common'))
   } else {
     const component = defineAsyncComponent(() => import('~/components/Modal/Auth/Social/Social.vue'))
     useModal().open(component, null, null, {width: {
@@ -26,21 +26,19 @@ const showAuthHandler = () => {
         <nuxt-img
           :src="avatar"
           :provider = "useImg().provider"
-          width="30"
-          height="30"
-          sizes = "mobile:30px tablet:30px desktop:30px"
+          width="50"
+          height="50"
+          sizes = "mobile:50px"
           fit = "cover"
           quality = "80"
           class = "avatar-image"
-          :placeholder="useImg().noImage"
+          placeholder="/images/avatars/no.png"
         />
       </ClientOnly>
-      <span class="hint">{{ t('profile') }}</span>
     </button>
 
     <button v-if="!isAuthenticated" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
-      <IconCSS name="iconoir:user" size="30px" class="icon"></IconCSS>
-      <span class="hint">{{ t('profile') }}</span>
+      <IconCSS name="mynaui:user" size="34px" class="icon"></IconCSS>
     </button>
   </div>
 </template>

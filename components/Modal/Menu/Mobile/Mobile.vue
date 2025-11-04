@@ -73,13 +73,7 @@ const selectMainHandler = (index) => {
           </div>
           <button @click="loginHandler" class="header-btn">{{ t('login_or_register') }}</button>
         </template>
-        
-        <!-- Languages -->
-        <div class="langs">
-          <span class="langs-label">{{ t('label.lang') }}</span>
-          <the-header-languages class="langs-switcher"></the-header-languages>
-        </div>
-
+      
       </div>
 
       <div class="mm-content">
@@ -111,19 +105,9 @@ const selectMainHandler = (index) => {
         <div class="line"></div>
 
         <div class="phone">
-          <div v-for="(phone, index) in phones" :key="index" class="phone-item">
-            <nuxt-img
-              :src = "phone.logo"
-              :provider="useImg().provider"
-              width="24"
-              height="24"
-              sizes = "mobile:24px"
-              quality = "70"
-              loading = "lazy"
-              fit="outside"
-              class="phone-logo"
-            />
-            <div class="phone-value">{{ phone.value }}</div>
+          <div class="phone-item">
+            <IconCSS name="mynaui:telephone-call" class="phone-icon"></IconCSS>
+            <div class="phone-value">{{ useContacts().phone }}</div>
           </div>
         </div>
 
@@ -132,7 +116,7 @@ const selectMainHandler = (index) => {
         <div class="social">
           <div class="social-items">
             <a
-              v-for="network in useSocial().networks"
+              v-for="network in useSocial().all"
               :key="network.key"
               :href="network.link"
               :class="network.key + '-bg'"

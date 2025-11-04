@@ -1,23 +1,11 @@
 ru:
   more: Подробнее про доставку
-  free: Бесплатная доставка
-  order: при заказе
-  grn: от 1000 грн.
-  delivery: Доставка по Украине
-  delivery_one:
-    title: "В отделение / почтомат 'Новая почта'"
-    desc: По тарифам перевозчика
-  delivery_two:
-    title: "Курьер НП по вашему адресу"
-    desc: По тарифам перевозчика
-  delivery_three:
-    title: Самовывоз
-    desc: по адресу
+  delivery_by: Доставка в
 uk:
   more: Докладніше про доставку
   free: Безкоштовна доставка
   order: при замовленні
-  grn: від 1000 грн.
+  from: від
   delivery: Доставка по Україні
   delivery_one:
     title: "У відділення / поштомат 'Нова пошта'"
@@ -32,7 +20,7 @@ de:
   more: Mehr über die Lieferung
   free: Kostenloser Versand
   order: bei Bestellungen
-  grn: ab 1000 UAH.
+  from: ab
   delivery: Lieferung in der Ukraine
   delivery_one:
     title: "Zur Filiale / Packstation 'Nova Poshta'"
@@ -47,7 +35,7 @@ es:
   more: Más sobre la entrega
   free: Envío gratuito
   order: en pedidos
-  grn: desde 1000 UAH.
+  from: desde
   delivery: Entrega en toda Ucrania
   delivery_one:
     title: "A la sucursal / taquilla 'Nova Poshta'"
@@ -62,7 +50,7 @@ cs:
   more: Více o doručení
   free: Doprava zdarma
   order: při objednávce
-  grn: od 1000 UAH.
+  from: od
   delivery: Doručení po celé Ukrajině
   delivery_one:
     title: "Na pobočku / do boxu 'Nova Poshta'"
@@ -77,7 +65,7 @@ en:
   more: More about delivery
   free: Free delivery
   order: for orders
-  grn: from 1000 UAH.
+  from: from
   delivery: Delivery across Ukraine
   delivery_one:
     title: "To a Nova Poshta branch / parcel locker"

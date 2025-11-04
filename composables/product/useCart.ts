@@ -1,27 +1,27 @@
 import {useCartStore} from '~/store/cart'
 import { ModalCart } from '#components'
 
+type ProductProto = {
+  id: number
+}
+
 export const useCart = (productData: Product) => {
 
   const {t} = useI18n({useScope: 'global'})
 
-  const toCartHandler = (count: Integer = 1) => {
+  const toCartHandler = (count: Number = 1, modification: ProductProto | null = null) => {
+    let productOrModification = modification? modification: productData
     const data = {
-      ...productData,
+      ...productOrModification,
       amount: count
     }
     
-    useGoogleEvent().setEvent('AddToCart', productData)
+    useGoogleEvent().setEvent('AddToCart', productOrModification)
 
     useCartStore().add(data).then(() => {
-    
       useModal().open(ModalCart, null, null, {width: {
         min: 968, max: 968
       }})
-
-      // useNoty().setNoty({
-      //   content: t('noty.product_to_cart', {product: productData.name})
-      // }, 2000)
     })
   }
 

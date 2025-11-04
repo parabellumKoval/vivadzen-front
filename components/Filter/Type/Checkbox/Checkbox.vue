@@ -116,7 +116,7 @@ watch(() => props.meta, (v) => {
         >
           <button @click="checkHandler(value.id)" class="checkbox-item-btn" button>
             <div class="checkbox-input">
-              <IconCSS name="iconoir:check" class="checkbox-input-icon"></IconCSS>
+              <IconCSS name="mynaui:check-solid" class="checkbox-input-icon"></IconCSS>
             </div>
             <span class="checkbox-content">
               <span class="checkbox-name">{{ value.value }}</span>

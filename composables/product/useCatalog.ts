@@ -68,6 +68,7 @@ export const useCatalog = () => {
 
   const query = computed(() => {
     let q = {
+      with_products: true,
       per_page: useScreen().getCatalogPerPage('product'),
       page: Number(route.query.page) || 1,
       ...getQueryParams()
@@ -78,8 +79,8 @@ export const useCatalog = () => {
         with_filter: withFilters.value,
         with_filter_count: withFiltersCount.value,
         with_sorting: true,
-        with_products: true,
-        cache: ['with_filter', 'with_filter_count']
+        // cache: ['with_filter', 'with_filter_count'],
+        cache: true
       })
     }
     if (queryMode.value === QUERY_MODE.PAGINATION) {
@@ -105,19 +106,47 @@ export const useCatalog = () => {
     return response.data.value
   }
 
-  const loadMore = async (catalog: Catalog) => {
+  const loadMore = async (
+    catalog: Catalog,
+    nextPage?: number,
+    extraQuery: Record<string, any> = {}
+  ) => {
     const productStore = useProductStore();
-    // Увеличиваем страницу
-    query.value.page += 1;
+    const currentMeta = catalog?.products?.meta;
 
-    const productsResponse = await productStore.index(getQuery());
-    const newProducts = productsResponse.data.value.products.data;
+    if (!currentMeta) {
+      return catalog;
+    }
 
-    catalog.products = [...catalog.products, ...newProducts];
-    catalog.meta = productsResponse.data.value.products.meta;
-    catalog.filtersMeta = productsResponse.data.value.filters;
+    const pageToLoad = nextPage ?? (Number(currentMeta.current_page) || 1) + 1;
 
-    return catalog
+    if (currentMeta.last_page && pageToLoad > currentMeta.last_page) {
+      return catalog;
+    }
+
+    const requestQuery = {
+      ...query.value,
+      ...extraQuery,
+      page: pageToLoad,
+    };
+
+    const productsResponse = await productStore.catalog(requestQuery);
+    const response = productsResponse.data.value;
+
+    const newProducts = response?.products?.data || [];
+    const mergedCatalog: Catalog = {
+      ...catalog,
+      products: {
+        data: [
+          ...(catalog.products?.data || []),
+          ...newProducts,
+        ],
+        meta: response?.products?.meta || currentMeta,
+      },
+      filters: response?.filters || catalog.filters,
+    };
+
+    return mergedCatalog;
   };
 
   return {
@@ -131,4 +160,3 @@ export const useCatalog = () => {
     catalogQuery: query,
   }
 }
-

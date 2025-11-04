@@ -5,7 +5,6 @@
   }
   &-item {
     padding: 30px 20px;
-    background: $color-7;
     border-radius: $radius;
     &.active {
       .faq-content {
@@ -45,7 +44,7 @@
   &-count {
     font-size: 20px;
     font-weight: 300;
-    color: $color-5;
+    color: $color-bg-2;
     @include desktop {
       font-size: 60px;
     }

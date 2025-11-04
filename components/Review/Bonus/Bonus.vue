@@ -13,7 +13,7 @@ const {t} = useI18n()
   <div>
     <div class="info-title">🎁 {{ t('messages.review_gift') }}</div>
     <ol class="info-list">
-      <li><button class="text-link"><span>{{ t('cond1.one') }}</span></button> {{ t('cond1.two') }} Djini.com.ua</li>
+      <li><button class="text-link"><span>{{ t('cond1.one') }}</span></button> {{ t('cond1.two') }} Vivadzen.com</li>
       <li>{{ t('cond2') }}</li>
       <li>{{ t('cond3') }}</li>
       <li>{{ t('cond4.one') }} <span class="violet-text">{{ t('cond4.two') }}</span> {{ t('cond4.three') }}</li>

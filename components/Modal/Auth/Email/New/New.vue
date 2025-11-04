@@ -4,8 +4,10 @@ const isLoading = ref(false)
 const { requestEmailChange } = useAuth()
 
 const email = ref(null)
+const password = ref('')
 const errors = ref({
-  email: null
+  email: null,
+  password: null
 })
 
 // METHODS
@@ -14,7 +16,7 @@ const errors = ref({
 const saveHandler = async () => {
   isLoading.value = true
   try {
-    await requestEmailChange({ email: email.value })
+    await requestEmailChange({ email: email.value, password: password.value })
     useNoty().setNoty({
       content: t('noty.auth.email.confirmation.sent', {email: email.value}),
       type: 'success'
@@ -47,6 +49,14 @@ const saveHandler = async () => {
           class="form-component"
         >
         </form-text>
+        <form-password
+          v-model="password"
+          :placeholder="$t('form.password')"
+          :error="errors?.password"
+          required
+          class="form-component"  
+        >
+        </form-password>
       </div>
 
       <div class="footer">

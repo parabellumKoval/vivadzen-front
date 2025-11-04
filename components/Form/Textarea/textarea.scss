@@ -18,12 +18,12 @@
 .main-textarea {
   width: 100%;
   padding: 13px 15px !important;
-  border: 1px solid $color-4;
+  border: 1px solid $color-border;
   background: $color-8;
   min-height: 50px;
   resize: none;
   line-height: 135%;
-  border-radius: $radiusBtn;
+  border-radius: $radius;
   outline-color: rgba($color-green, 0.85);
   &::placeholder {
     color: $color-3;

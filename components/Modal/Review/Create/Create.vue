@@ -2,7 +2,7 @@
 import { useReviewStore } from '~~/store/review';
 
 const { t } = useI18n()
-const { user: authUser, displayName, avatar } = useAuth()
+const { user: authUser, displayName, avatar, isAuthenticated} = useAuth()
 
 const review = ref({
   provider: 'data',
@@ -27,6 +27,7 @@ const tab = ref(100)
 const product = computed(() => {
   return useModal().active.data
 })
+
 
 const tabs = computed(() => {
   return [
@@ -61,7 +62,8 @@ const sendHandler = async () => {
   let data = {...review.value}
   await useReviewStore().create(data).then(({data, error}) => {
 
-    if(data) {
+    console.log('sendHandler', data, error)
+    if(data.value) {
       resetReview()
 
       useNoty().setNoty({
@@ -73,10 +75,11 @@ const sendHandler = async () => {
       useModal().close()
     }
     
-    if(error) 
-      throw error
+    if(error.value) 
+      throw error.value
 
   }).catch((e) => {
+    console.error('sendHandler', e)
     useNoty().setNoty({
       title: t('noty.review.fail_title'),
       content: t('noty.review.fail'),
@@ -112,7 +115,7 @@ const setActiveTab = () => {
 
 const setProductData = () => {
   review.value.reviewable_id = product.value?.id || null
-  review.value.reviewable_type = product.value?.id? String.raw`Backpack\Store\app\Models\Product`: null
+  review.value.reviewable_type = product.value?.id? String.raw`App\Models\Product`: null
 }
 
 const clearProductData = () => {
@@ -121,8 +124,11 @@ const clearProductData = () => {
 }
 
 const setUserData = () => {
+  review.value.provider = isAuthenticated.value ? 'auth' : 'data'
+
   const current = authUser.value
   if (!current) return
+  
   review.value.owner.name = displayName.value || current.name || review.value.owner.name
   review.value.owner.email = current.email || review.value.owner.email
   review.value.owner.photo = avatar.value || current.photo || current.avatar || review.value.owner.photo

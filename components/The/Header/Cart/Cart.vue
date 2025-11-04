@@ -11,7 +11,7 @@ const openCartHandler = () => {
 }
 
 const cartLength = computed(() => {
-  return useCartStore().cart.length
+  return useCartStore().cartLength
 })
 
 </script>
@@ -20,8 +20,7 @@ const cartLength = computed(() => {
 
 <template>
   <button @click="openCartHandler" class="header-btn cart-btn" type="button" clickable>
-    <IconCSS name="iconoir:shopping-bag" size="30px" class="icon"></IconCSS>
-    <span class="hint">{{ t('title.cart') }}</span>
+    <IconCSS name="mynaui:cart" size="34px" class="icon"></IconCSS>
     <transition name="zoom">
       <div v-if="cartLength" class="budge">{{ cartLength }}</div>
     </transition>

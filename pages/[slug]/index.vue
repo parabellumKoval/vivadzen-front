@@ -8,14 +8,34 @@ import PageProductSkeleton from '~/components/Page/Product/Skeleton/Skeleton.vue
 // import PageCategory from '~/components/Page/Category/Category.vue'
 // import PageCategorySkeleton from '~/components/Page/Category/Skeleton/Skeleton.vue'
 
-import { getCategorySlugs } from '~/server/utils/categoryCache';
-
 const route = useRoute()
+const runtimeConfig = useRuntimeConfig()
 
 const isServer = process.server
-const slug = route.params.slug
-const categories = await getCategorySlugs();
-const isCategory = categories.has(slug)
+const slugParam = route.params.slug
+const slug = Array.isArray(slugParam) ? slugParam[0] : (slugParam || '')
+
+const slugsRoutePath =
+  runtimeConfig.public.categoryModule?.slugsRoutePath || '/api/_categories/slugs'
+
+const {
+  data: categorySlugs
+} = await useAsyncData(
+  'category-slugs-all',
+  async () => {
+    const response = await $fetch(slugsRoutePath)
+    return Array.isArray(response?.slugs) ? response.slugs : []
+  },
+  {
+    server: true,
+    default: () => []
+  }
+)
+
+const isCategory = computed(() => {
+  if (!slug || typeof slug !== 'string') return false
+  return (categorySlugs.value || []).includes(slug)
+})
 
 // Product loader
 const {
@@ -25,7 +45,10 @@ const {
 } = await useAsyncData(
   'product-' + slug,
   async () => {
-    if (isCategory) return null
+    if (isCategory.value) return null
+    if (!slug) {
+      throw createError({ statusCode: 404, message: 'Product Not Found' })
+    }
     const response = await useProductStore().show(slug)
     const data = response.data.value
 
@@ -40,31 +63,6 @@ const {
     server: true,
   }
 )
-
-// Category loader
-// const {
-//   data: category,
-//   pending: categoryPending,
-//   error: categoryError
-// } = await useAsyncData(
-//   'category-' + slug,
-//   async () => {
-//     if (!isCategory) return null
-//     const response = await useCategoryStore().showCached(slug)
-//     const data = response.data
-//     console.log('Category data:', data, response)
-//     if (data) {
-//       return data
-//     } else {
-//       throw createError({ statusCode: 404, message: 'Category Not Found' })
-//     }
-//   },
-//   {
-//     lazy: !isServer,
-//     server: true,
-//   }
-// )
-
 
 </script>
 

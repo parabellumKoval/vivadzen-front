@@ -1,10 +1,23 @@
+
+type ProductSmall = {
+  id: number,
+  name: string,
+  short_name: string,
+  slug: string,
+  price: number,
+  old_price?: number,
+  totalPrice: number
+  totalOldPrice: number | null
+  image: object,
+  amount: number
+}; 
 export const useCartStore = defineStore('cartStore', {
   persist: true,
 
   state: () => ({
     orderState: {
       delivery: {
-        method: 'warehouse',
+        method: null,
         settlement: null,
         settlementRef: null,
         region: null,
@@ -16,10 +29,17 @@ export const useCartStore = defineStore('cartStore', {
         room: null,
         zip: null,
         warehouse: null,
-        warehouseRef: null
+        warehouseRef: null,
+        price: null,
+        priceCurrency: null,
       },
       payment: {
-        method: 'online'
+        method: null,
+        settlement: null,
+        street: null,
+        house: null,
+        room: null,
+        zip: null
       },
       user: {
         phone: null,
@@ -29,16 +49,26 @@ export const useCartStore = defineStore('cartStore', {
       },
       comment: null,
       promocode: null,
+      bonus: null,
+      bonusInFiat: null,
       provider: 'data'
     },
     
     data: [] as Product[],
 
+    cartIdAmounts: {} as Record<number, number>,
+    cartProductsState: [] as ProductSmall[],
+
     errorsState: {},
 
     flashOrder: null,
 
-    promocodeData: null
+    promocodeData: null,
+
+    deliveryPriceState: null as { amount: number; currency: string } | null,
+    deliveryQuoteState: null as unknown,
+
+    rulesState: {}
   }),
 
   getters: {
@@ -53,10 +83,18 @@ export const useCartStore = defineStore('cartStore', {
         return useCartStore().totalProducts * state.promocodeData.value / 100
       }
     },
-    cart: (state) => state.data,
+    personalDiscount: (state) => {
+      const {user} = useAuth()
+      if(!user.value) return 0
+
+      const percent = user.value.discount_percent
+      return (useCartStore().totalProducts * percent) / 100
+    },
+    cartLength: (state) => Object.values(state.cartIdAmounts).length,
+    cart: (state) => state.cartProductsState,
     totalProducts: (state) => {
-      const v = state.data.reduce((carry, item) => {
-        return carry + item.price * item.amount
+      const v = state.cartProductsState.reduce((carry, item) => {
+        return carry + item.totalPrice
       }, 0)
     
       return Number(v.toFixed(2))
@@ -65,7 +103,14 @@ export const useCartStore = defineStore('cartStore', {
       const v = useCartStore().totalProducts - useCartStore().promocodeSale
       return v
     },
+    finishTotal: (state) => {
+      const deliveryCost = state.deliveryPriceState?.amount || 0
+      const personalDiscount = useCartStore().personalDiscount
+      return useCartStore().total - (state.orderState.bonusInFiat || 0) + deliveryCost - personalDiscount
+    },
     order: (state) => state.orderState,
+    deliveryPrice: (state) => state.deliveryPriceState,
+    deliveryQuote: (state) => state.deliveryQuoteState,
     errors: (state) => state.errorsState,
     filled: (state) => {
       return (key: string) => {
@@ -89,7 +134,14 @@ export const useCartStore = defineStore('cartStore', {
         }
       }
     },
-    flash: (state) => state.flashOrder
+    flash: (state) => state.flashOrder,
+    isAddressCollected: (state) => {
+      const methodsWithFullAddress = ['novaposhta_address', 'packeta_address', 'default_address']
+      const method = state.orderState.delivery.method
+
+      if(method && methodsWithFullAddress.includes(method)) return true
+      else return false
+    }
   },
 
   actions: {
@@ -101,27 +153,124 @@ export const useCartStore = defineStore('cartStore', {
       this.promocodeData = data
     },
 
-    add(data: Product) {
-      const product: Product = this.toProductType(data)
-      
-      const issetProduct = this.data.find((item) => item.id === product.id)
+    setDeliveryFields(fields: Partial<typeof this.orderState.delivery>) {
+      // Создаем новый объект где все поля null
+      const resetDelivery = Object.keys(this.orderState.delivery).reduce((acc, key) => {
+        acc[key] = null
+        return acc
+      }, {} as typeof this.orderState.delivery)
 
-      if(!issetProduct)
-        this.data.push(product)
-      else
-        issetProduct.amount += product.amount
+      // Объединяем с переданными полями
+      // this.orderState.delivery = {
+      //   ...resetDelivery,
+      //   ...fields
+      // }
+      this.orderState.delivery = fields
+    },
+
+    setDeliveryPricing(payload?: { price?: { amount: number; currency: string } | null; quote?: unknown }) {
+      const price = payload?.price ?? null
+      if (!price) {
+        this.deliveryPriceState = null
+        this.deliveryQuoteState = payload?.quote ?? null
+        return
+      }
+
+      const amount = Number(price.amount)
+      const currency = price.currency || null
+
+      if (!Number.isFinite(amount) || !currency) {
+        this.deliveryPriceState = null
+      } else {
+        this.deliveryPriceState = { amount, currency }
+      }
+
+      this.deliveryQuoteState = payload?.quote ?? null
+    },
+
+    add(product: Product) {
+      if(this.cartIdAmounts[product.id]) {
+        this.cartIdAmounts[product.id] += product.amount || 1
+      }else{
+        this.cartIdAmounts[product.id] = product.amount || 1
+      }
         
       return Promise.resolve(true)
     },
+
+
+    async fetchCartProducts() {
+      const runtimeConfig = useRuntimeConfig()
+      const url = `${runtimeConfig.public.apiBase}/product/cart`;
+      const query = {
+        'cart': this.cartIdAmounts
+      }
+
+      return await useApiFetch(url, query, 'GET', {lazy: false}).then(({data, error}) => {
+          if(data?.value?.data) {
+            this.cartProductsState = this.addAmountToProducts(data?.value?.data)
+            return data?.value?.data
+          }
+
+          if(error)
+            throw new Error(error)
+        })
+    },
+
+    addAmountToProducts(products: ProductSmall[]) {
+      return products.map((item) => {
+        item.amount = this.cartIdAmounts[item.id] || 1
+        item.totalPrice = item.amount * item.price 
+        item.totalOldPrice = item.old_price? item.amount * item.old_price: null
+        return item
+      })
+    },
+    // add(data: Product) {
+    //   const product: Product = this.toProductType(data)
+    //   const issetProduct = this.data.find((item) => item.id === product.id)
+
+    //   console.log('this.data', this.data)
+
+    //   if(!issetProduct)
+    //     this.data.push(product)
+    //   else
+    //     issetProduct.amount += product.amount
+        
+    //   return Promise.resolve(true)
+    // },
     
     remove(id: number) {
-      const index = this.data.findIndex(item => (item.id === id))
-      this.data.splice(index, 1)
+      // Удаляем с примитивного объекта
+      delete this.cartIdAmounts[id]
+
+      // Удаляем зафетченный товар из стора
+      const index = this.cartProductsState.findIndex(item => item.id === id);
+      if (index !== -1) {
+        this.cartProductsState.splice(index, 1);
+      }
+      
       return Promise.resolve(true)
+    },
+
+    updateAmount(id: number, amount: number) {
+      // Меняем в примитивном объекте
+      this.cartIdAmounts[id] = amount
+
+      // Меняем в зафетченном массиве товаров
+      const index = this.cartProductsState.findIndex(item => item.id === id);
+      if (index !== -1) {
+        this.cartProductsState[index].amount = amount;
+        this.cartProductsState[index].totalPrice = this.cartProductsState[index].amount * this.cartProductsState[index].price 
+        this.cartProductsState[index].totalOldPrice = this.cartProductsState[index].old_price? this.cartProductsState[index].amount * this.cartProductsState[index].old_price: null
+      }
     },
 
     clearCart() {
       this.data = []
+      this.deliveryPriceState = null
+      this.deliveryQuoteState = null
+      this.orderState.delivery.price = null
+      this.orderState.delivery.priceCurrency = null
     },
 
     clearErrors() {
@@ -143,10 +292,6 @@ export const useCartStore = defineStore('cartStore', {
       }
 
       return serialized
-    },
-
-    useBonuses(value: number) {
-      this.orderState.bonusesUsed = value
     },
 
     async copyOrder(id: number) {
@@ -221,6 +366,32 @@ export const useCartStore = defineStore('cartStore', {
       }else  if(this.orderState.delivery.method === 'pickup') {
         this.normalizeDeliveryPickup()
       }
+
+      // Auth or Data
+      this.orderState.provider = useAuth().isAuthenticated? 'auth': 'data'
+
+      // Clear other user fields
+      // if(this.orderState.provider === 'auth') {
+      //   this.keepKeys(this.orderState.user, ['email', 'phone'])
+      // }
+    },
+
+    keepKeys(object: Object, keys: Array<string>) {
+      // Create a new object with only the desired keys
+      const filteredObject = {} as Record<string, any>
+      
+      // Copy only the specified keys to the new object
+      keys.forEach(key => {
+        if (key in object) {
+          filteredObject[key] = object[key]
+        }
+      })
+
+      // Assign all properties back to the original object
+      Object.keys(object).forEach(key => {
+        delete object[key]
+      })
+      Object.assign(object, filteredObject)
     },
 
 
@@ -231,6 +402,7 @@ export const useCartStore = defineStore('cartStore', {
         .then(({data, error}) => {
 
           if(data.value) {
+            this.rulesState = data.value
             return data.value
           }
 
@@ -239,6 +411,42 @@ export const useCartStore = defineStore('cartStore', {
           }
 
         })
+    },
+
+
+    isFieldRequired (rulePath: string) {
+      // 5.1) Достаём объект правила
+      const ruleObj = this.getRuleByPath(rulePath)
+      if (!ruleObj) {
+        return false
+      }
+
+      // 5.2) Если явно required: true
+      if (ruleObj.required) {
+        return true
+      }
+
+      // 5.3) Если есть условие requiredIf
+      if (ruleObj.requiredIf) {
+        const { field, values } = ruleObj.requiredIf
+        const otherValue = this.getFieldValue(field)
+        return values.includes(otherValue)
+      }
+
+      // 5.4) В остальных случаях — не обязательное
+      return false
+    },
+
+    getRuleByPath (rulePath: string) {
+      return rulePath
+        .split('.')
+        .reduce((acc, segment) => (acc && acc[segment] !== undefined ? acc[segment] : null), this.rulesState)
+    },
+
+    getFieldValue (path) {
+      return path
+        .split('.')
+        .reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : null), this.orderState)
     },
 
     async validate(orderable: Object) {
@@ -269,19 +477,14 @@ export const useCartStore = defineStore('cartStore', {
     async createOrder(orderable: Object) {
       const url = `${useRuntimeConfig().public.apiBase}/order`
 
-      // delete this.orderState.delivery.city
-      // delete this.orderState.delivery.ref
-      // delete this.orderState.delivery.name
-      // delete this.orderState.delivery.comment
-
       // Normalize delivery at first
       this.normalizedOrderState()
 
       const dataPost = {
-        ...orderable,
+        // ...orderable,
         ...this.orderState,
-        products: this.serializeCart(),
-        provider: useAuth().isAuthenticated? 'auth': 'data'
+        // products: this.serializeCart(),
+        products: this.cartIdAmounts,
       }
       
       return await useApiFetch(url, dataPost, 'POST')

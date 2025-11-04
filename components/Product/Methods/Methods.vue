@@ -18,13 +18,13 @@ const props = defineProps({
       >
         <div class="header">
           <IconCSS :name="item.icon" size="24" class="icon"></IconCSS>
-          <span class="title">{{ item.name }}</span>
+          <span class="title">{{ item.title }}</span>
           <span class="line"></span>
           <span class="logo">
             <nuxt-img
-              :src = "item.logo"
-              :alt = "item.name"
-              :title = "item.name"
+              :src = "item.image"
+              :alt = "item.title"
+              :title = "item.title"
               :provider = "useImg().provider"
               sizes = "mobile:155px tablet:155px desktop:155px"
               width = "auto"

@@ -1,0 +1,30 @@
+ru:
+  balance: Ваш баланс
+  min_withdrawal: Минимальная сумма вывода
+  withdrawal_amount: Укажите сумму для вывода
+  fiat: Сумма в валюте вывода
+uk:
+  balance: Ваш баланс
+  min_withdrawal: Мінімальна сума виводу
+  withdrawal_amount: Вкажіть суму для виводу
+  fiat: Сума у валюті виплати
+en:
+  balance: Your balance
+  min_withdrawal: Minimum withdrawal amount
+  withdrawal_amount: Enter withdrawal amount
+  fiat: Amount in payout currency
+de:
+  balance: Ihr Guthaben
+  min_withdrawal: Mindestbetrag für Auszahlung
+  withdrawal_amount: Geben Sie den Auszahlungsbetrag an
+  fiat: Betrag in Auszahlungswährung
+es:
+  balance: Tu saldo
+  min_withdrawal: Monto mínimo de retiro
+  withdrawal_amount: Indica el importe a retirar
+  fiat: Importe en la moneda de pago
+cs:
+  balance: Váš zůstatek
+  min_withdrawal: Minimální částka pro výběr
+  withdrawal_amount: Zadejte částku k výběru
+  fiat: Částka ve výplatní měně

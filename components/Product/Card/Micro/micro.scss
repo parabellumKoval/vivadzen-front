@@ -10,6 +10,8 @@
     width: 85px;
     height: 85px;
     flex-shrink: 0;
+    background: $color-bg-2;
+    border-radius: $radius;
     @include desktop {
       height: 110px;
     }
@@ -17,13 +19,12 @@
 }
 .body {
   display: grid;
-  grid-template-rows: 12px 1fr 20px;
-  grid-gap: 5px;
+  grid-template-rows: min-content min-content 20px;
+  grid-gap: 8px;
   width: 100%;
   margin-left: 20px;
-  @include desktop {
-    grid-template-rows: 17px 1fr 20px;
-  }
+  padding: 10px 0;
+
   .category {
     white-space: nowrap;
     overflow: hidden;
@@ -40,14 +41,12 @@
   .name {
     display: -webkit-box;
     overflow: hidden;
-    height: 46px;
     font-size: 12px;
     font-weight: 500;
     line-height: 125%;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     @include desktop {
-      height: 55px;
       font-size: 14px;
     }
   }

@@ -7,6 +7,10 @@ export interface SettingsModuleOptions {
    */
   apiUrl: string,
   /**
+   * Enable automatic refresh based on TTL (default true)
+   */
+  enableTtl?: boolean,
+  /**
    * Cache TTL in seconds (default 300 = 5 min)
    */
   ttlSec?: number,
@@ -14,7 +18,15 @@ export interface SettingsModuleOptions {
    * Route for manual cache refresh
    * POST /api/_refresh-settings by default
    */
-  refreshRoutePath?: string
+  refreshRoutePath?: string,
+  /**
+   * Regions to prefetch settings for
+   */
+  regions?: string[],
+  /**
+   * Locales to prefetch settings for (per region)
+   */
+  locales?: string[]
 }
 
 export default defineNuxtModule<SettingsModuleOptions>({
@@ -24,8 +36,11 @@ export default defineNuxtModule<SettingsModuleOptions>({
   },
   defaults: {
     apiUrl: 'http://localhost:8000/api/settings',
+    enableTtl: true,
     ttlSec: 300,
-    refreshRoutePath: '/api/_refresh-settings'
+    refreshRoutePath: '/api/_refresh-settings',
+    regions: [],
+    locales: []
   },
   setup (options, nuxt) {
     const resolver = createResolver(import.meta.url)

@@ -56,7 +56,7 @@ watch(sortSelectedIndex, (v) => {
   <div class="sorting-wrapper">
     <button class="button mini light sorting-btn">
       <IconCSS name="iconoir:sort-down" class="inline-icon"></IconCSS>
-      <span>{{ sortingOptions[sortSelectedIndex]?.caption }}</span>
+      <span>{{ sortingOptions[sortSelectedIndex]?.name }}</span>
     </button>
     <select v-model="sortSelectedIndex" class="sorting-select">
       <option
@@ -64,7 +64,7 @@ watch(sortSelectedIndex, (v) => {
         :key="key"
         :value="key"
       >
-        {{ srt.caption }}
+        {{ srt.name }}
       </option>
     </select>
   </div>

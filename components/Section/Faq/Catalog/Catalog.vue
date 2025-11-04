@@ -57,8 +57,8 @@ const faq = computed(() =>{
 
 // METHODS
 const setInitData = () => {
-  chipProducts.value = props.categoryData?.chip_products?.data
-  popularProducts.value =  props.categoryData?.popular_products?.data
+  chipProducts.value = props.categoryData?.chip_products
+  popularProducts.value =  props.categoryData?.popular_products
 }
 // const getChipProducts = async() => {
 //   const query = {

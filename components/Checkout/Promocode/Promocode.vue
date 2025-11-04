@@ -92,7 +92,7 @@ const applyPromocodeHandler = async () => {
             {{ promocode.name }}
           </div>
           <button @click="removePromocodeHandler" class="buttom small promocode-remove-btn">
-            <IconCSS name="iconoir:trash" size="14px"></IconCSS>
+            <IconCSS name="mynaui:x" size="16px"></IconCSS>
           </button>
         </div>
         <div class="promocode-desc">
@@ -114,8 +114,8 @@ const applyPromocodeHandler = async () => {
       <div v-else class="promocode-form">
         <form-text v-model="order.promocode" :placeholder="t('messages.enter_promocode')"></form-text>
         <div class="promocode-btns">
-          <button @click="togglePromocodeHandler" class="button mini secondary full">{{ t('button.cancel') }}</button>
-          <button @click="applyPromocodeHandler" class="button mini violet full">{{ t('button.apply') }}</button>
+          <button @click="togglePromocodeHandler" class="button small secondary full">{{ t('button.cancel') }}</button>
+          <button @click="applyPromocodeHandler" class="button small primary full">{{ t('button.apply') }}</button>
         </div>
       </div>
     </transition>

@@ -1,16 +1,13 @@
-.wrapper {
-  width: 100%;
-}
-.item {
-  position: relative;
-  width: 100%;
-  height: 0;
-  max-height: 334px;
-  padding-bottom: 24%;
-}
-.image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.banners{
+  &-wrapper {
+    height: calc(100vh - 150px);
+    border-radius: 50px;
+    overflow: hidden;
+    margin-top: 20px;
+
+    @include desktop {
+      height: 945px;
+      margin-top: 30px;
+    }
+  }
 }

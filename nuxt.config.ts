@@ -1,14 +1,14 @@
-import dynamicRoutes from './helpers/dynamicRoutes'
-import fetchCategories from './helpers/fetchCategories'
+// import dynamicRoutes from './helpers/dynamicRoutes'
+// import fetchCategories from './helpers/fetchCategories'
 import path from 'path'
-import RegionsModule from './modules/regions'
 
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: process.env.SRC_DIR || '',
   rootDir: process.env.ROOT_DIR || '',
-  devtools: { enabled: false },
+  devtools: { enabled: true },
+  logLevel: 'verbose', 
 
   // Debug
   debug: process.env.NODE_ENV === 'development'? true: false,
@@ -17,9 +17,13 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      site: {
+        url: process.env.SITE_URL || 'http://localhost:3000'
+      },
       siteUrl: process.env.SITE_URL || 'https://vivadzen.com',
       frontendUrl: process.env.SITE_URL,
       novaposhtaKey: process.env.NOVAPOSHTA_KEY,
+      serverBase: process.env.SERVER_URL,
       apiBase: process.env.SERVER_URL + '/api',
       instagramToken: process.env.INSTAGRAM_TOKEN,
       imagesDir: '/server/uploads/images',
@@ -106,33 +110,53 @@ export default defineNuxtConfig({
           `
         }
       }
-    }
+    },
+    server: {
+      fs: {
+        strict: true,
+        // Разрешаем только корень проекта и, при необходимости, конкретные пакеты
+        allow: [process.cwd()],
+      },
+      watch: {
+        // Игнорим тяжёлые каталоги
+        ignored: [
+          '**/.git/**',
+          '**/.nuxt/**',
+          '**/dist/**',
+          '**/node_modules/**',
+          '**/coverage/**',
+          '**/.turbo/**',
+          '**/.next/**',
+          '**/*.log'
+        ],
+      },
+    },
+    // На всякий случай запретим vite идти «выше»
+    resolve: { preserveSymlinks: false },
   },
 
-  modules: [
-    ['./modules/auth-bridge', {
-      tokenCookieName: 'auth_token',
-      endpoints: {
-        me: '/auth/me',
-        login: '/auth/login',
-        logout: '/auth/logout',
-        register: '/auth/register',
-        forgot: '/auth/password/forgot',
-        reset: '/auth/password/reset',
-        resendLoggedIn: '/auth/email/verification-notification',
-        resendByEmail: '/auth/email/resend',
-        changePassword: '/auth/password/change',
-        profileUpdate: '/profile/update',
-        profileEmailChange: '/profile/email-change',
-        socialUrl: (p: String) => `/auth/oauth/${p}/url`,
-      },
-      heartbeat: { enabled: true, intervalMs: 300000 },
-    }],
-    './modules/settings',
-    RegionsModule,
-    'nuxt-anchorscroll', // 'nuxt-gtag',
-  // '@zadigetvoltaire/nuxt-gtm',
-  [
+  modules: [['./modules/auth-bridge', {
+    tokenCookieName: 'auth_token',
+    endpoints: {
+      me: '/auth/me',
+      login: '/auth/login',
+      logout: '/auth/logout',
+      register: '/auth/register',
+      forgot: '/auth/password/forgot',
+      reset: '/auth/password/reset',
+      resendLoggedIn: '/auth/email/verification-notification',
+      resendByEmail: '/auth/email/resend',
+      changePassword: '/auth/password/change',
+      profileUpdate: '/profile/update',
+      profileEmailChange: '/auth/email/change',
+      socialUrl: '/auth/oauth/:provider/url',
+      validateReferralCode: '/auth/referral/validate/:code',
+      referrals: '/auth/referral/all'
+    },
+    heartbeat: { enabled: true, intervalMs: 300000 },
+  }], './modules/settings', './modules/regions', './modules/converter', './modules/category', './modules/fetcher', // 'nuxt-gtag',
+  '~/modules/snap-carousel', // '@zadigetvoltaire/nuxt-gtm',
+  '~/modules/packeta', 'nuxt-anchorscroll', [
       'nuxt-icon',
       {
         class: 'icon'
@@ -156,9 +180,17 @@ export default defineNuxtConfig({
         Rubik: {
           wght: [300, 400, 500, 700]
         },
+        Onest: {
+          wght: [400, 500, 600, 700, 900]
+        },
+        'Alegreya Sans': {
+          wght: [400, 500, 700, 900]
+        },
       },
       display: 'swap',
-      preload: true
+      preload: true,
+      preconnect: true,
+      subsets: ['latin', 'cyrillic']
     }
   ], [
       '@nuxt/image',
@@ -215,22 +247,143 @@ export default defineNuxtConfig({
           'defineStore',
         ],
       },
-    ], '@nuxtjs/i18n', '@nuxt/content', "@nuxtjs/seo"],
+    ], // "@nuxtjs/seo", 
+  '@nuxtjs/i18n', '@nuxt/content', 'nuxt-schema-org', '@nuxtjs/sitemap', '@nuxtjs/robots', '@nuxtjs/seo'],
 
   experimental: {
     renderJsonPayloads: false,
+    appManifest: false
+  },
+  
+  // checkOutdatedBuildInterval: false,
+  
+  packeta: {
+    widgetApiKey: process.env.PACKETA_WIDGET_API_KEY,
+    language: 'en',
+    defaultCountry: 'CZ',
+    carriers: ['packeta']
+  },
+
+  // /api/_fetcher/{endpointKey}/refresh 
+  fetcherModule: {
+      enableTtl: false,
+      ttlSec: 600,
+      languages: ['uk', 'ru', 'cs', 'de', 'es'],
+      regions: ['zz', 'ua', 'cz', 'de', 'es'],
+      endpoints: [
+        {
+          key: 'homepage-product-reviews',
+          endpoint: '/review/relation',
+          query: {
+            per_page: 3,
+            reviewable_type: 'App\\Models\\Product'
+          },
+          dependsOnLocale: true,
+          dependsOnRegion: true
+        },
+        {
+          key: 'homepage-shop-reviews',
+          endpoint: '/review/relation',
+          query: {
+            per_page: 3
+          },
+          dependsOnLocale: true,
+          dependsOnRegion: true
+        },
+        {
+          key: 'homepage-main-lists',
+          endpoint: '/lists/main',
+          dependsOnLocale: true,
+          dependsOnRegion: true
+        },
+        {
+          key: 'homepage-main-articles',
+          endpoint: 'articles/grouped-by-tags',
+          query: {
+            per_tag: 5,
+            tag_id:  {0: 1, 1:2}
+          },
+          dependsOnLocale: true,
+          dependsOnRegion: true
+        },
+        {
+          key: 'homepage-video-reviews',
+          endpoint: 'review/relation',
+          query: {
+            video: 1,
+            per_page:  4
+          },
+          dependsOnLocale: true,
+          dependsOnRegion: true
+        }
+      ]
+  },
+
+  snapCarousel: {
+    screens: {
+      mobile: 0,
+      tablet: 768,
+      desktop: 1024,
+      ld: 1441,
+      xld: 1920
+    },
+    defaults: {
+      mode: 'page',         // 'page' | 'item'
+      loop: true,
+      gap: 16,
+      showArrows: true,
+      showDots: true,
+      snapStop: 'normal',
+      itemsPerPage: { mobile: 2, tablet: 4, desktop: 5, ld: 6, xld: 7 }
+    }
+  },
+
+  categoryModule: {
+    slugsEndpoint: '/company-category/slugs-simple',
+    detailsEndpoint: '/category_cached/:slug',
+    listEndpoint: '/category',
+    enableTtl: false,
+    ttlSec: 600,
+    languages: ['uk', 'ru', 'en', 'cs', 'de', 'es'],
+    regions: ['zz', 'ua', 'cz', 'de', 'es'],
+    slugsRoutePath: '/api/_categories/slugs',
+    categoryRoutePath: '/api/_categories/:slug',
+    listRoutePath: '/api/_categories/list',
+    refreshSlugsRoutePath: '/api/_categories/refresh/slugs',
+    refreshAllRoutePath: '/api/_categories/refresh/all',
+    refreshSingleRoutePath: '/api/_categories/refresh/:slug',
+    refreshListRoutePath: '/api/_categories/refresh/list'
   },
 
   settingsModule: {
     apiUrl: process.env.SERVER_URL + '/api/settings/nested',
+    enableTtl: false,
     ttlSec: 300, // TTL кэша в секундах
     refreshRoutePath: '/api/_refresh-settings', // POST для принудительного обновления
+    regions: ['ua', 'cz', 'de', 'es'],
+    locales: ['uk','ru','cs','de','en','es']
+  },
+
+  converterModule: {
+    ttlSec: 300,
+    ratesEndpoint: '/points/rates',
+    apiRoutePath: '/api/_converter/rates',
+    refreshRoutePath: '/api/_converter/refresh',
   },
 
   regionsModule: {
-    regions: ['ua', 'cz', 'de', 'es'],
-    // если нужен второй сегмент языка внутри региона
-    locales: ['uk','ru','cs','de','en','es']
+    regions: {
+      global: { name: 'Global', locale: 'en', currency: 'USD', flagClass: 'emojione:globe-showing-europe-africa'},
+      ua: { name: 'Ukraine', locale: 'uk', currency: 'UAH', flagClass: 'emojione:flag-for-ukraine'},
+      cz: { name: 'Czechia', locale: 'cs', currency: 'CZK', flagClass: 'emojione:flag-for-czechia'},
+      de: { name: 'Germany', locale: 'de', currency: 'EUR', flagClass: 'emojione:flag-for-germany'},
+      es: { name: 'Spain', locale: 'es', currency: 'EUR', flagClass: 'emojione:flag-for-spain'}
+    },
+    regionAliases: {
+      global: 'zz'
+    },
+    fallbackRegion: 'global',
+    fallbackCurrency: 'USD'
   },
 
   site: {
@@ -273,6 +426,13 @@ export default defineNuxtConfig({
     detectBrowserLanguage: false,
     locales: [
       {
+        iso: 'ru-RU',
+        code: 'ru',
+        file: 'ru.yaml',
+        name: 'Русский',
+        shortName: 'Рус',
+      },
+      {
         iso: 'uk-UA',
         code: 'uk',
         file: 'uk.yaml',
@@ -280,17 +440,11 @@ export default defineNuxtConfig({
         shortName: 'Укр',
         isCatchallLocale: true
       },{
-        iso: 'ru-RU',
-        code: 'ru',
-        file: 'ru.yaml',
-        name: 'Русский',
-        shortName: 'Рус',
-        isCatchallLocale: true
-      },{
         iso: 'en-US',
         code: 'en',
         file: 'en.yaml',
         name: 'English',
+        isCatchallLocale: true
       },{
         iso: 'cs-CZ',
         code: 'cs',
@@ -351,7 +505,7 @@ export default defineNuxtConfig({
   
   content: {
     defaultLocale: 'ru',
-    locales: ['uk','ru'],
+    locales: ['uk','ru','en','cs','de','es'],
     navigation: false
   },
 

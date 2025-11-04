@@ -5,11 +5,11 @@ ru:
   desc_1: Бонусный баланс можно использовать для оплаты заказов
   desc_2_1: Вы можете заказать
   desc_2_2: вывод средств
-  desc_2_3: при балансе от 500 ГРН
+  desc_2_3: при балансе от {amount} {currency}
   income: Доход от рефералов
   level: уровня
-  first: первого
-  second: второго
+  level1: первого
+  level2: второго
 uk:
   current: Поточний баланс
   your_code: Ваш партнерський код
@@ -20,8 +20,8 @@ uk:
   desc_2_3: при балансі від 500 грн.
   income: Дохід від рефералів
   level: рівня
-  first: першого
-  second: другого
+  level1: першого
+  level2: другого
 de:
   current: Aktueller Kontostand
   your_code: Ihr Partnercode
@@ -32,8 +32,8 @@ de:
   desc_2_3: bei einem Kontostand ab 500 UAH
   income: Einnahmen von Referenzen
   level: Ebene
-  first: erste
-  second: zweite
+  level1: erste
+  level2: zweite
 es:
   current: Saldo actual
   your_code: Su código de socio
@@ -44,8 +44,8 @@ es:
   desc_2_3: cuando el saldo sea de al menos 500 UAH
   income: Ingresos de referidos
   level: nivel
-  first: primero
-  second: segundo
+  level1: primero
+  level2: segundo
 cs:
   current: Aktuální zůstatek
   your_code: Váš partnerský kód
@@ -56,8 +56,8 @@ cs:
   desc_2_3: při zůstatku od 500 UAH
   income: Příjem z referencí
   level: úroveň
-  first: první
-  second: druhá
+  level1: první
+  level2: druhá
 en:
   current: Current balance
   your_code: Your partner code
@@ -68,5 +68,5 @@ en:
   desc_2_3: once your balance is at least 500 UAH
   income: Referral income
   level: level
-  first: first
-  second: second
+  level1: level1
+  level2: level2

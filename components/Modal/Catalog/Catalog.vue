@@ -22,11 +22,11 @@ const sub = computed(() => {
   else 
     return [
       {
-        id: selectedCategory.value.id,
+        id: selectedCategory?.value?.id,
         name: t('label.all_products'),
-        slug: selectedCategory.value.slug
+        slug: selectedCategory?.value?.slug
       },
-      ...selectedCategory.value.children
+      ...selectedCategory?.value?.children
     ]
 })
 

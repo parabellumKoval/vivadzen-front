@@ -8,7 +8,7 @@ title:
   checkout: Zur Kasse
   search_results: Suchergebnisse
   search: Suche
-  comparison: Produktvergleich
+  comparison: Vergleich
   favorite: Favoriten
   brands: Marken
   articles: Artikel
@@ -16,62 +16,64 @@ title:
   delivery: Lieferung
   payment: Zahlung
   guarantees: Garantien
-  qa: Fragen / Antworten
+  qa: FAQ
   about: Über uns
   sales: Aktionen
   news: Neuigkeiten
   reviews: Bewertungen
-  agreement: Öffentliche Angebotsvereinbarung
+  agreement: Vertrag des öffentlichen Angebots
   returns: Rückgabebedingungen
   checkout_payment: Bestellzahlung
-  checkout_complete: Vielen Dank für Ihre Bestellung!
-  checkout_complete_failed: Fehler bei der Bestellabwicklung
+  other: Sonstiges
+  checkout_complete: Danke für Ihre Bestellung!
+  checkout_complete_failed: Fehler bei der Bestellung
   policy: Datenschutzrichtlinie
   terms: Nutzungsbedingungen
-  remove_userdata: Löschung von Benutzerdaten
-  account: 
+  remove_userdata: Nutzerdaten löschen
+  withdrawal: Auszahlung
+  account:
     account: Konto
-    orders: Bestellhistorie
-    promocodes: Meine Gutscheincodes
+    orders: Bestellverlauf
+    promocodes: Meine Promo-Codes
     referrals: Partnerprogramm
     settings: Einstellungen
     support: Support
     favorite: Lieblingsprodukte
 
 meta:
-  address: Na Boisti 1471/22, 120 00 Nove Mesto, Prag 2, Tschechien
-  djini_desc: Online-Shop Vivadzen
+  address: Na Bojisti 1471/22, 120 00 Nove Mesto, Prag 2, Tschechien
+  djini_desc: Onlineshop "Vivadzen"
 
 label:
   articul: Artikelnummer
   sale: Rabatt
   status: Status
-  value_search: Wertsuche
+  value_search: Werte durchsuchen
   only_in_stock: Nur auf Lager
   top_sales: Bestseller
-  top_price: Superpreis
+  top_price: Top-Preis
   with_rates: Mit Bewertungen und Rezensionen
-  selections: Auswahlen
+  selections: Kollektionen
   grn: UAH
-  sec: Sek
+  sec: Sek.
   price: Preis
   all: Produkt
   desc: Beschreibung
-  props: Merkmale
-  guide: Kaufberatung
+  props: Spezifikationen
+  guide: Kaufberater
   common_info: Allgemeine Informationen
-  auth: Anmeldung auf der Website
+  auth: Website-Authentifizierung
   register: Registrierung
-  login: Anmelden
+  login: Anmeldung
   lang: Sprache
-  auth_enter: Anmeldung im persönlichen Konto
-  total: Gesamt
-  available: Auf Lager
-  running_out: Geht zur Neige
+  auth_enter: Anmeldung im persönlichen Bereich
+  total: Summe
+  available: Verfügbar
+  running_out: Fast ausverkauft
   not_available: Nicht verfügbar
   delivery_ready: Versandbereit
   customer: Kunde
-  promocode: Gutscheincode
+  promocode: Promo-Code
   brand: Marke
   thorough: Mehr Details
   filters: Filter
@@ -79,47 +81,51 @@ label:
   product_code: Produktcode
   contact_phones: Kontakttelefonnummern
   our_socials: Unsere sozialen Netzwerke
-  sub_title: Abonnieren Sie für Rabatte!
-  sub_desc: Wir senden wöchentlich Gutscheine und Boni an unsere Abonnenten.
+  sub_title: Für Rabatte anmelden!
+  sub_desc: Wir senden Abonnenten jede Woche Promo-Codes und Boni.
   min_read: Min. Lesezeit
-  active_filters: Angewandte Filter
+  active_filters: Aktive Filter
   all_products: Alle Produkte
   show: Anzeigen
-  reviews: "{reviews} Bewertungen | {reviews} Bewertung | {reviews} Bewertungen | {reviews} Bewertungen"
-  products: "{products} Produkte | {products} Produkt | {products} Produkte | {products} Produkte"
+  reviews: '{reviews} Bewertungen | {reviews} Bewertung | {reviews} Bewertungen | {reviews} Bewertungen'
+  products: '{products} Produkte | {products} Produkt | {products} Produkte | {products} Produkte'
   page: 'Seite {page}'
   product:
     sale: Aktion
-    price: Superpreis
+    price: Top-Preis
     top: Bestseller
 
 messages:
-  review_gift: Gutschein -5% für eine verifizierte Shop-Bewertung
-  rates_reviews: "{rates} Bewertungen und {reviews} Rezensionen"
-  products_found: "{amount} Produkte gefunden"
+  review_gift: Gutschein über -5% für eine verifizierte Shop-Bewertung
+  rates_reviews: '{rates} Bewertungen und {reviews} Rezensionen'
+  products_found: {amount} Produkte gefunden
   no_results: Keine Ergebnisse
   empty_cart: Ihr Warenkorb ist leer
-  leave_review: Eine Bewertung hinterlassen
+  leave_review: Bewertung hinterlassen
   delivery_price: Lieferkosten
-  delivery_vendor_price: Nach Spediteurstarif
-  products_total: Produktgesamtbetrag
+  delivery_vendor_price: Nach Tarifen des Versanddienstes
+  products_total: Warenwert
   to_pay: Zu zahlen
-  use_promocode: Gutscheincode anwenden
+  bonuses_use: Mit Boni bezahlt
+  use_promocode: Promo-Code anwenden
   enter_promocode: Code eingeben
   accept_payment: Wir akzeptieren Zahlungen
   payment_methods: Zahlungsmethoden
   i_agreed_with: Ich stimme zu mit
   agree_privacy_policy: der Datenschutzrichtlinie
-  no_catalog_results: Nichts gefunden, ändern Sie die Filter oder die Suchanfrage
+  no_catalog_results: Nichts gefunden, ändern Sie Filter oder Suchanfrage
+  personal_discount: Persönlicher Rabatt
+  chose_delivery_country: Lieferland auswählen
+  chose_delivery: Wählen Sie eine Liefermethode, um verfügbare Zahlungsmethoden zu sehen
 
 button:
   collapse: Einklappen
   expand: Ausklappen
   logout: Abmelden
-  logout_system: Vom System abmelden
+  logout_system: Abmelden
   yes: Ja
   no: Nein
-  enter: Einloggen
+  enter: Anmelden
   register: Registrieren
   pay: Zur Zahlung fortfahren
   back: Zurück
@@ -127,7 +133,7 @@ button:
   buy: Kaufen
   to_cart: In den Warenkorb
   leave_review: Bewertung hinterlassen
-  1_click_buy: In einem Klick kaufen 
+  1_click_buy: In einem Klick kaufen
   filters: Filter
   sorting: Sortierung
   apply: Anwenden
@@ -140,8 +146,10 @@ button:
   send: Senden
   sub: Abonnieren
   create_order: Bestellung aufgeben
+  send_request: Anfrage senden
   login_or_register: Anmelden / Registrieren
   go_home: Zur Startseite
+  download_invoice: Rechnung als PDF herunterladen
 
 form:
   enter:
@@ -149,15 +157,18 @@ form:
     phone: Telefonnummer eingeben
     email: E-Mail eingeben
     message: Nachricht eingeben
-    comment: Kommentar eingeben 
+    comment: Kommentar eingeben
     password: Passwort eingeben
     password_confirmation: Passwort erneut eingeben
     review: Bewertung schreiben
-    reply: Ihre Antwort schreiben
+    reply: Antwort schreiben
+    invoice_qr: QR-Code zur Rechnungszahlung
+    invoice_pdf: Sie können die Rechnung herunterladen
+  full_name: Vollständiger Name
   firstname: Vorname
   name: Name
   income: Einkommen
-  referrals: Empfehlungen
+  referrals: Referrals
   lastname: Nachname
   phone: Telefon
   email: E-Mail
@@ -167,6 +178,9 @@ form:
   method: Methode
   review: Bewertung
   reply: Antwort
+  country: Land
+  city: Stadt
+  max: Maximum {value}
   delivery:
     settlement: Ort
     warehouse: Filialnummer
@@ -174,13 +188,21 @@ form:
     street: Straße
     house: Haus
     room: Wohnung
-    zip: Postleitzahl
+    zip: PLZ
     address: Lieferadresse
-    courier: Kurierlieferung
-    pickup: Selbstabholung
+    novaposhta_warehouse: Nova-Poshta-Filiale/Paketautomat
+    novaposhta_address: Nova-Poshta-Kurierzustellung
+    packeta_warehouse: Zasilkovna-Filiale/Paketautomat
+    packeta_address: Zasilkovna-Kurierzustellung
+    default_pickup: Abholung
+    default_address: Postzustellung
   payment:
-    online: Online-Zahlung
-    cash: Bei Erhalt
+    liqpay_online: LiqPay-Onlinezahlung
+    card_online: Kartenzahlung online
+    default_cash: Nachnahme
+    zasilkovna_cod: Zasilkovna-Nachnahme
+    novaposhta_cod: Nova-Poshta-Nachnahme
+    bank_transfer: Banküberweisung
 
 status:
   new: Neu
@@ -188,7 +210,7 @@ status:
   fail: Fehler
   failed: Fehler
   completed: Abgeschlossen
-  pending: Ausstehend
+  pending: In Bearbeitung
   promocode:
     active: Aktiv
     not_active: Inaktiv
@@ -196,13 +218,13 @@ status:
     limit: Limit erreicht
 
 pay_status:
-  waiting: Wartet auf Zahlung
+  waiting: Zahlung ausstehend
   failed: Fehler
   paied: Bezahlt
 
 delivery_status:
-  waiting: Wartet auf Versand
-  sent: Gesendet
+  waiting: Versand ausstehend
+  sent: Versandt
   failed: Fehler
   delivered: Zugestellt
   pickedup: Abgeholt
@@ -211,28 +233,28 @@ payment:
   type:
     delivery: Nachnahme
     cash: Barzahlung
-    online: Überweisung
+    online: Unbare Zahlung
 
 error:
-  occurred: Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut 😓
-  required: Dieses Feld ist erforderlich
-  error: Ein Fehler ist aufgetreten
-  check_fields: Überprüfen Sie die Richtigkeit der eingegebenen Felder
+  occurred: Es ist ein Fehler aufgetreten, bitte erneut versuchen 😓
+  required: Feld ist erforderlich
+  error: Es ist ein Fehler aufgetreten
+  check_fields: Prüfen Sie die Eingaben auf Richtigkeit
   auth:
     password:
-      require: Das Passwort muss mindestens 6 Zeichen lang sein
+      require: Das Passwort muss mindestens 6 Zeichen haben
       confirmation: Passwort und Bestätigung müssen übereinstimmen
     "A user with this email address has already been registered": Ein Benutzer mit dieser E-Mail-Adresse ist bereits registriert
-    "Password recovery requires an email": Zur Passwortwiederherstellung ist eine E-Mail erforderlich
-    "Auth session missing!": Authentifizierungssitzung fehlt!
+    "Password recovery requires an email": Für die Passwortwiederherstellung ist eine E-Mail erforderlich
+    "Auth session missing!": Autorisierungssitzung fehlt!
     "Invalid login credentials": Ungültige Anmeldedaten
     "User already registered": Benutzer bereits registriert
-    "Password should be at least 6 characters": Passwort muss mindestens 6 Zeichen lang sein
-    "Signup requires a valid password": Registrierung erfordert ein gültiges Passwort
-    "To signup, please provide your email": Bitte geben Sie Ihre E-Mail-Adresse zur Registrierung an
-    "Unable to validate email address: invalid format": "E-Mail-Adresse konnte nicht bestätigt werden: ungültiges Format"
+    "Password should be at least 6 characters": Passwort muss mindestens 6 Zeichen haben
+    "Signup requires a valid password": Für die Registrierung ist ein gültiges Passwort erforderlich
+    "To signup, please provide your email": Bitte geben Sie für die Registrierung Ihre E-Mail an
+    "Unable to validate email address: invalid format": "E-Mail-Adresse kann nicht bestätigt werden: falsches Format"
     "Anonymous sign-ins are disabled": Anonyme Anmeldungen sind deaktiviert
-    "Email rate limit exceeded": SMTP-Serverlimit überschritten
+    "Email rate limit exceeded": E-Mail-Limit überschritten
 
 noty:
   add: Hinzugefügt
@@ -241,58 +263,104 @@ noty:
     add: Produkt zur Vergleichsliste hinzugefügt
     remove: Produkt aus der Vergleichsliste entfernt
   favorite:
-    need_login: Um ein Produkt zu Favoriten hinzuzufügen, müssen Sie sich anmelden 🔑
-    success: Produkt erfolgreich zu Favoriten hinzugefügt 😍
+    need_login: Melden Sie sich an, um Produkte zu Favoriten hinzuzufügen 🔑
+    success: Produkt wurde zu den Favoriten hinzugefügt 😍
   1_click:
-    title: Danke, Anfrage gesendet 
-    sent: Wir kontaktieren Sie in Kürze, um die Bestelldetails zu klären 😎
-    fail: Bestellung wurde nicht aufgegeben 😔
+    title: Danke, Anfrage gesendet
+    sent: Wir kontaktieren Sie bald zur Klärung der Bestellung 😎
+    fail: Bestellung wurde nicht erstellt 😔
   subscription:
-    sent: Sie haben sich erfolgreich angemeldet 😉
+    sent: Erfolgreich abonniert 😉
     fail: Anmeldung fehlgeschlagen 😔
   feedback:
     sent: Anfrage erfolgreich gesendet 😉
-    fail: Anfrage nicht gesendet
+    fail: Anfrage wurde nicht gesendet
   copied: "In die Zwischenablage kopiert: {text}"
-  product_to_cart: Produkt {product} zum Warenkorb hinzugefügt
-  product_delete_cart: Produkt {product} aus Warenkorb entfernt
+  product_to_cart: Produkt {product} wurde in den Warenkorb gelegt
+  product_delete_cart: Produkt {product} wurde aus dem Warenkorb entfernt
   auth:
     logout: Sie haben sich abgemeldet 😉
     register:
-      privacy: Um sich zu registrieren, müssen Sie der Datenschutzrichtlinie zustimmen. 
-      success: Sie haben sich erfolgreich registriert 👍
-      fail: Registrierung fehlgeschlagen. Überprüfen Sie die eingegebenen Daten 👈
+      privacy: Für die Registrierung müssen Sie der Datenschutzrichtlinie zustimmen.
+      success: Erfolgreich registriert 👍
+      fail: Registrierung fehlgeschlagen. Prüfen Sie Ihre Eingaben 👈
     login:
       success: Erfolgreich angemeldet 😎
       failed: Anmeldefehler. Stellen Sie sicher, dass die Felder korrekt ausgefüllt sind 😔
     password:
       recovery:
-        sent: Eine E-Mail zum Zurücksetzen des Passworts wurde an {email} gesendet.
+        sent: Eine E-Mail zum Zurücksetzen wurde an {email} gesendet.
         fail: Fehler. Der Link wurde nicht gesendet 😓
-      changed: 
-        success: Passwort erfolgreich geändert. Sie können sich nun mit dem neuen Passwort anmelden 🔑.
+      changed:
+        success: Passwort erfolgreich geändert. Sie können sich mit dem neuen Passwort anmelden 🔑.
     email:
       confirmation:
         sent: Eine Bestätigungs-E-Mail wurde gesendet.
       changed:
-        success: E-Mail erfolgreich bestätigt. Sie können sie nun für die Anmeldung verwenden 👍
-        fail: E-Mail-Bestätigung fehlgeschlagen. Bitte versuchen Sie es erneut.
+        success: E-Mail erfolgreich bestätigt. Sie können sie jetzt für den Login verwenden. 👍
+        fail: Bestätigung der E-Mail fehlgeschlagen. Bitte erneut versuchen.
   update:
     success: Daten erfolgreich aktualisiert
-    fail: Daten nicht aktualisiert
+    fail: Daten wurden nicht aktualisiert
   promocode:
-    success: Gutscheincode {code} erfolgreich auf Bestellung angewendet
-    removed: Verwendung des Gutscheins {code} aufgehoben
+    success: Promo-Code {code} wurde auf die Bestellung angewendet
+    removed: Promo-Code {code} wurde entfernt
   review:
-    need_login: Um eine Bewertung zu hinterlassen, müssen Sie sich anmelden 🔑
+    need_login: Melden Sie sich an, um eine Bewertung zu schreiben 🔑
     fail_title: Bewertung wurde nicht veröffentlicht 😓
-    fail: Überprüfen Sie die Richtigkeit der eingegebenen Felder
+    fail: Prüfen Sie die Eingaben
     success_title: Super 😎
-    success: Danke, Ihre Bewertung wurde erfolgreich gesendet
+    success: Danke, Ihre Bewertung wurde gesendet
   order:
-    fail: Bei der Bestellaufgabe ist ein Fehler aufgetreten
+    fail: Bei der Bestellung ist ein Fehler aufgetreten
+  withdrawal:
+    success_title: Super 😎
+    fail_title: Fehler
+    requested: Auszahlungsanfrage erhalten, bitte warten Sie auf die Bearbeitung.
+    fail: Stellen Sie sicher, dass die Felder korrekt ausgefüllt sind 😔
 
 seo:
   page:
     title: "{title} - Vivadzen"
     desc: "{title} auf vivadzen.com"
+
+delivery:
+  more: Mehr über Lieferung
+  delivery: Lieferung in die Ukraine
+  provider_tariffs: Nach Tarifen des Versanddienstes
+  np_warehouse: "In die Nova-Poshta-Filiale / Paketautomat"
+  np_address: "Nova-Poshta-Kurier an Ihre Adresse"
+  z_warehouse: "In die Zasilkovna-Filiale / Paketautomat"
+  z_address: "Zasilkovna-Kurier an Ihre Adresse"
+  pickup: Abholung
+  address: Lieferung an Adresse
+  from_shop: aus dem Geschäft
+  packeta_warehouse: Zasilkovna-Filiale/Paketautomat
+  packeta_address: Per Zasilkovna-Kurier
+  novaposhta_warehouse: Nova-Poshta-Filiale/Paketautomat
+  novaposhta_address: Per Nova-Poshta-Kurier
+  default_pickup: Abholung
+  from: ab
+  subtitle: Liefermethoden hängen vom gewählten Land ab. Ändern Sie das Lieferland, um verfügbare Optionen zu sehen.
+
+payments:
+  subtitle: Zahlungsmethoden hängen vom gewählten Land ab. Ändern Sie das Lieferland, um verfügbare Optionen zu sehen.
+  liqpay_online:
+    title: LiqPay-Onlinezahlung
+    desc: Bestellung online bezahlen
+  card_online:
+    title: Kartenzahlung online
+    desc: Bestellung online bezahlen
+  default_cash:
+    title: Nachnahme
+    desc: Bei Abholung im Geschäft mit Karte oder bar bezahlen
+  zasilkovna_cod:
+    title: Zasilkovna-Nachnahme
+    desc: Bei Erhalt per Karte oder bar bezahlen
+  novaposhta_cod:
+    title: Nova-Poshta-Nachnahme
+    desc: Bei Erhalt per Karte oder bar bezahlen
+  bank_transfer:
+    title: Banküberweisung
+    desc: Wir senden Ihnen per E-Mail die Zahlungsdaten inklusive Variablem Symbol. Sie können den Auftrag auch per QR-Code erstellen.
+    fill_contacts: Füllen Sie die Felder für die Rechnungserstellung aus

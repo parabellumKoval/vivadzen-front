@@ -29,7 +29,7 @@ export const useReviewStore = defineStore('reviewStore', {
     async indexLazy(query: string) {
       const runtimeConfig = useRuntimeConfig()
       const params = query? '?' + new URLSearchParams(query).toString(): '';
-      const url = `${runtimeConfig.public.apiBase}/review${params}`
+      const url = `${runtimeConfig.public.apiBase}/review/relation${params}`
 
       return useApiFetch(url, null, 'GET', {lazy: true})
     },
@@ -37,7 +37,7 @@ export const useReviewStore = defineStore('reviewStore', {
     async getAll(query: string) {
       const runtimeConfig = useRuntimeConfig()
       const params = query? '?' + new URLSearchParams(query).toString(): '';
-      const url = `${runtimeConfig.public.apiBase}/review${params}`
+      const url = `${runtimeConfig.public.apiBase}/review/relation${params}`
 
       return await useApiFetch(url).then(({data}) => {
         return {
@@ -50,7 +50,7 @@ export const useReviewStore = defineStore('reviewStore', {
     async create(data: object) {
       const runtimeConfig = useRuntimeConfig()
       const url = `${runtimeConfig.public.apiBase}/review`
-
+      
       const fullData = {
         ...data,
         // 'reviewable_id': this.reviewableId,

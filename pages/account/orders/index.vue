@@ -1,5 +1,6 @@
 <script setup>
 import {useCartStore} from '~/store/cart'
+import {useOrderStore} from '~/store/order'
 
 const {t} = useI18n()
 const { user, orderable, init } = useAuth()
@@ -47,7 +48,7 @@ const loadmoreHandler = () => {
 }
 
 const getOrders = async (data) => {
-  return await useCartStore().index(data)
+  return await useOrderStore().getOrders(data)
 }
 
 useAsyncData('get-orders', () => getOrders({
@@ -56,7 +57,7 @@ useAsyncData('get-orders', () => getOrders({
   console.log('data', data)
   isInitLoading.value = true
 
-  if(data && data.value) {
+  if(data?.value) {
     orders.value = data.value.data
     meta.value = data.value.meta
   }

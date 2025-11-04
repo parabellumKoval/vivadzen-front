@@ -5,7 +5,7 @@
     grid-gap: 30px;
   }
 }
-.sale {
+.sell {
   display: grid;
   grid-template-columns: 3fr 5fr;
   grid-gap: 15px;
@@ -13,12 +13,15 @@
     grid-template-columns: 2fr 3fr 4fr;
     grid-gap: 15px;
   }
-  &-amount {
-    width: 100%;
-  }
   &-btn {
     &-cart {
       width: 100%;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      @include desktop {
+        grid-column-start: initial;
+        grid-column-end: initial;
+      }
     }
     &-one {
       width: 100%;
@@ -32,30 +35,78 @@
   }
 }
 .price{
+  &-wrapper {
+    display: grid;
+    grid-template-rows: repeat(2, min-content);
+    gap: 10px;
+  }
   &-block  {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, min-content);
     align-items: center;
     grid-gap: 20px;
     @include desktop {
-      grid-template-columns: min-content 1fr min-content;
-      grid-gap: 45px;
+      grid-gap: 30px;
     }
   }
-  &-available {
+  &-comp {
+    font-size: 20px;
+
+    &.priceSale {
+      color: $color-orange;
+    }
+  }
+}
+
+.available {
+  &-block {
+    display: grid;
+    grid-template-columns: repeat(2, min-content);
+    align-items: center;
+    grid-gap: 30px;
+  }
+
+  &-value {
     font-weight: 500;
     :deep(.icon) {
       margin-right: 10px;
       font-size: 24px;
     }
   }
+
   &-guarantee {
     display: none !important;
     @include desktop {
       display: block !important;
     }
   }
-  &-comp {
-    font-size: 20px;
+}
+
+.sale {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  justify-self: flex-start;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 15px;
+  background-color: $color-orange;
+  font-weight: 500;
+  color: $color-8;
+
+  &-label {
+  }
+  &-amount {
+  }
+}
+
+.total-price {
+  display: flex;
+  gap: 5px;
+  color: $color-3;
+  font-size: 14px;
+
+  &-value {
+    font-weight: 500;
   }
 }

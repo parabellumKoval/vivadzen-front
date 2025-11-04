@@ -29,6 +29,7 @@ export function useAuth() {
     secure: process.env.NODE_ENV === 'production',
     path: '/',
   })
+
   const user = useState<User | null>('auth_user', () => null)
   const pending = useState<boolean>('auth_pending', () => false)
   const initialized = useState<boolean>('auth_initialized', () => false)
@@ -37,12 +38,15 @@ export function useAuth() {
   const withAuthHeaders = (headers: Record<string, string> = {}) => {
     const next: Record<string, string> = { Accept: 'application/json', ...headers }
     const xsrf = process.client ? useCookie('XSRF-TOKEN').value : null
+    
     if (token.value && !next.Authorization) {
       next.Authorization = `Bearer ${token.value}`
     }
+
     if (xsrf && !next['X-XSRF-TOKEN']) {
       next['X-XSRF-TOKEN'] = xsrf
     }
+
     return next
   }
 
@@ -78,6 +82,11 @@ export function useAuth() {
       return null
     }
     return me(true)
+  }
+
+  async function referrals() {
+    const response = await fetcher(endpoints.referrals, { method: 'GET' })
+    return response;
   }
 
   async function me(force = false) {
@@ -209,9 +218,13 @@ export function useAuth() {
 
   async function socialSignIn(provider: 'google' | 'facebook', opts?: { redirect_uri?: string }) {
     if (typeof window === 'undefined') return
-    const urlBuilder = endpoints.socialUrl as undefined | ((provider: string) => string)
-    if (!urlBuilder) throw new Error('Social login endpoint is not configured')
-    const baseUrl = urlBuilder(provider)
+    const urlTemplate = endpoints.socialUrl as string
+
+    if (!urlTemplate) throw new Error('Social login endpoint is not configured')
+    
+    // Replace :provider in the template
+    const baseUrl = urlTemplate.replace(':provider', provider)
+
     const finalUrl = opts?.redirect_uri ? `${baseUrl}?redirect_uri=${encodeURIComponent(opts.redirect_uri)}` : baseUrl
     const { url: redirect } = await fetcher<{ url: string }>(finalUrl, { method: 'GET' })
     if (redirect) window.location.href = redirect
@@ -223,8 +236,11 @@ export function useAuth() {
     await me(true)
   }
 
+  // COMPUTEDS
   const isAuthenticated = computed(() => Boolean(user.value && token.value))
+
   const isEmailVerified = computed(() => Boolean(user.value?.email_verified_at))
+
   const displayName = computed(() => {
     if (!user.value) return ''
     const candidate =
@@ -234,6 +250,7 @@ export function useAuth() {
     return candidate || ''
   })
   const avatar = computed(() => user.value?.photo || user.value?.avatar || user.value?.avatar_url || null)
+
   const orderable = computed(() => {
     if (!user.value?.id) {
       return { orderable_id: null, orderable_type: null }
@@ -258,6 +275,7 @@ export function useAuth() {
     orderable,
     init: ensureInit,
     me,
+    referrals,
     login,
     register,
     logout,

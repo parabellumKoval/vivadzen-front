@@ -69,25 +69,27 @@ const setCrumbs = (title) => {
 const fetchSearch = async (search, query = {}, loadmore = false) => {
 
   const params = {
-    search: search,
+    q: search,
     ...query
   }
 
-  if(!params.search?.length) {
+  if(!params.q?.length) {
     return
   }
 
   isLoading.value = true
 
   await useAsyncData('search', () => useSearchStore().index(params)).then(({data, error}) => {
-    if(data?.value?.products?.data) {
-      if(loadmore) {
-        products.value = products.value.concat(data.value.products.data)
-      }else {
-        products.value = data.value.products.data
-      }
+    console.log('search data', data)
+    if(data?.value) {
+      products.value = data.value.data
+      // if(loadmore) {
+      //   products.value = products.value.concat(data.value.products.data)
+      // }else {
+      //   products.value = data.value.products.data
+      // }
 
-      meta.value = data.value.products.meta || null
+      meta.value = data.value.meta || null
     }
 
   }).finally(() => {

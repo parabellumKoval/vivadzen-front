@@ -9,7 +9,7 @@ const props = defineProps({
   }
 })
 
-
+// .updateAmount(props.item.id)
 const {photo, photoAlt, photoTitle, photoSize} = useCard(props.item)
 
 const deleteHandler = () => {
@@ -21,6 +21,18 @@ const deleteHandler = () => {
 
   useGoogleEvent().setEvent('RemoveFromCart', props.item)
 }
+
+const setAmountHandler = (newAmount) => {
+  useCartStore().updateAmount(props.item.id, newAmount)
+}
+
+// watch(() => props.item.amount, (newAmount) => {
+// })
+
+
+// watch(() => props.item, (v) => {
+//   console.log('item changed', v)
+// }, {deep: true})
 </script>
 
 <style src="./checkout.scss" lang="scss" scoped></style>
@@ -53,13 +65,15 @@ const deleteHandler = () => {
       clickable
       class="name"
     >{{ item.name }}</NuxtLink>
+
+    <div v-if="item.shortName" class="product-modification">{{ item.shortName }}</div>
   </div>
   <div class="footer">
-    <form-amount v-model="item.amount"></form-amount>
+    <form-amount :modelValue="item.amount" @update:modelValue="setAmountHandler"></form-amount>
     <div>
       <button @click="deleteHandler" class="remove-btn">{{ t('button.delete') }}</button>
     </div>
-    <product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency"></product-price>
+    <product-price :price="item.totalPrice" :old-price="item.totalOldPrice"></product-price>
   </div>
 </div>
 </template>

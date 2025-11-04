@@ -1,13 +1,15 @@
 <script setup>
 const {t} = useI18n()
 
+const {vendors, types} = usePayment()
+
 const payments = computed(() => {
-  return usePaymentVendor().all
+  return vendors.value || []
 })
 
-const types = computed(() => {
-  return usePaymentVendor().types
-})
+// const types = computed(() => {
+//   return usePaymentVendor().types
+// })
 
 const emit = defineEmits(['more'])
 </script>

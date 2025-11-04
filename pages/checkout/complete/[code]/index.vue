@@ -58,6 +58,7 @@ const products = computed(() => {
 useAsyncData('show-order', async() => await useOrderStore().getOrder(code.value))
   .then(({data, error}) => {
     order.value = data.value
+    console.log('order', order.value)
     useGoogleEvent().setEvent('Purchase', {products: products.value, total: order.value.price, code: order.value.code})
   })
 
@@ -100,13 +101,13 @@ useCartStore().$reset()
           <div class="grid box">
             <div class="column">
               <div class="title-secondary">{{ t('user') }}</div>
-              <div v-if="user?.firstname" class="cell">
+              <div v-if="user?.first_name" class="cell">
                 <div class="label">{{ $t('form.firstname') }}</div>
-                <div class="value">{{ user.firstname }}</div>
+                <div class="value">{{ user.first_name }}</div>
               </div>
-              <div v-if="user?.lastname" class="cell">
+              <div v-if="user?.last_name" class="cell">
                 <div class="label">{{ $t('form.lastname') }}</div>
-                <div class="value">{{ user.lastname }}</div>
+                <div class="value">{{ user.last_name }}</div>
               </div>
               <div v-if="user?.phone" class="cell">
                 <div class="label">{{ $t('form.phone') }}</div>
@@ -170,9 +171,22 @@ useCartStore().$reset()
                 <div class="label">{{ $t('form.method') }}</div>
                 <div class="value">{{ $t(`form.payment.${payment.method}`) }}</div>
               </div>
-              <div v-if="order?.is_paid" class="cell cell-status">
+              <div class="cell cell-status">
                 <div class="label">{{ t('status') }}</div>
-                <div class="value success">{{ order.is_paid }}</div>
+                <div class="value success">{{ t('pay_status.' + order.payStatus) }}</div>
+              </div>
+              <div v-if="payment.method === 'bank_transfer'" class="cell">
+                  <div class="text">Используйте QR-код или счет-фактуру для оплаты заказа</div>
+                  <div class="label">{{ t('form.enter.invoice_qr') }}</div>
+                  <div class="value">
+                    <img :src="order.invoiceQrUrl" />
+                  </div>
+              </div>
+              <div v-if="payment.method === 'bank_transfer'" class="cell">
+                  <div class="label">{{ t('form.enter.invoice_pdf') }}</div>
+                  <div class="value value-btn">
+                    <a :href="order.invoiceDownloadUrl" target="_blank" class="button primary">{{ t('button.download_invoice') }}</a>
+                  </div>
               </div>
             </div>
           </div>

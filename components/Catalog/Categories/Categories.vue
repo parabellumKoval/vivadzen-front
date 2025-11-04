@@ -17,7 +17,7 @@ const props = defineProps({
   <div class="category-wrapper">
     <NuxtLink v-for="category in categories" :key="category.id" :to="$regionPath('/' + category.slug)" class="category">
       <nuxt-img
-        :src = "useImg().category(category.image)"
+        :src = "category.image?.src"
         :alt = "category.image?.alt || category.name"
         :title = "category.image?.title || category.name"
         width="100"
@@ -27,7 +27,7 @@ const props = defineProps({
         quality = "60"
         loading = "lazy"
         fit="outside"
-        :placeholder="useImg().noImageGray"
+        :placeholder="useImg().noImage"
         class="category-image"
       >
       </nuxt-img>

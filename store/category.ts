@@ -9,7 +9,7 @@ export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({ 
     allState: {
       data: [] as Category[],
-      meta: Object
+      meta: null as Record<string, any> | null
     },
     categoryState: null as Category | null,
   }),
@@ -20,29 +20,55 @@ export const useCategoryStore = defineStore('categoryStore', {
   },
 
   actions: {
-    async index(query: Object, state = true) {
-      const url = useRuntimeConfig().public.apiBase + '/category'
+    async listCached(query: Record<string, any> | null = null, state = true, force = false) {
+      const runtimeConfig = useRuntimeConfig()
+      const routePath =
+        runtimeConfig.public?.categoryModule?.listRoutePath || '/api/_categories/list'
 
-      return await useServerApiFetch(url, query).then(({data, error}) => {
+      const locale = useNuxtApp().$i18n.locale
+      const regionAlias = useRegion().region.value
 
-        if(data) {
-          if(state) {
-            this.allState.data = data.data
-            this.allState.meta = data.meta
-          }
+      const headers: Record<string, string> = {
+        Accept: 'application/json'
+      }
 
-          return data
+      const localeValue = locale?.value || locale
+      if (typeof localeValue === 'string' && localeValue.length) {
+        headers['Accept-Language'] = localeValue
+      }
+
+      const regionValue = regionAlias?.value || regionAlias
+      if (typeof regionValue === 'string' && regionValue.length) {
+        headers['X-Region'] = regionValue
+      }
+
+      const queryPayload = query ? JSON.parse(JSON.stringify(query)) : undefined
+      let params: Record<string, any> | undefined = queryPayload
+      if (force) {
+        params = { ...(params || {}), force: '1' }
+      }
+
+      try {
+        const data = await $fetch(routePath, {
+          headers,
+          query: params
+        })
+
+        if (state && (!params || Object.keys(params).length === (force ? 1 : 0))) {
+          this.allState.data = data?.data ?? data ?? []
+          this.allState.meta = data?.meta ?? null
         }
 
-        if(error)
-          throw error
-      })
+        return data
+      } catch (error) {
+        throw error
+      }
     },
 
     async show(slug: string) {
       const url = `${useRuntimeConfig().public.apiBase}/category/${slug}`
 
-      return await useServerApiFetch(url).then(({data, error}) => {
+      return await useApiFetch(url).then(({data, error}) => {
         
         if(data && data.data) {
           return data.data
@@ -52,9 +78,36 @@ export const useCategoryStore = defineStore('categoryStore', {
 
 
     async showCached(slug: string) {
-      const url = `${useRuntimeConfig().public.apiBase}/category_cached/${slug}`
+      const runtimeConfig = useRuntimeConfig()
+      const template =
+        runtimeConfig.public?.categoryModule?.categoryRoutePath || '/api/_categories/:slug'
+      const targetPath = template.includes(':slug')
+        ? template.replace(':slug', encodeURIComponent(slug))
+        : `${template}/${encodeURIComponent(slug)}`
 
-      return await useServerApiFetch(url)
+      const locale = useNuxtApp().$i18n.locale
+      const regionAlias = useRegion().region.value
+
+      const headers: Record<string, string> = {
+        Accept: 'application/json'
+      }
+
+      const localeValue = locale?.value || locale
+      if (typeof localeValue === 'string' && localeValue.length) {
+        headers['Accept-Language'] = localeValue
+      }
+
+      const regionValue = regionAlias?.value || regionAlias
+      if (typeof regionValue === 'string' && regionValue.length) {
+        headers['X-Region'] = regionValue
+      }
+
+      try {
+        const data = await $fetch(targetPath, { headers })
+        return { data, error: null }
+      } catch (error) {
+        return { data: null, error }
+      }
     }
 
   },

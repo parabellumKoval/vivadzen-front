@@ -33,15 +33,19 @@ const loading = computed(() => {
 
 const img = useImage()
 
+const hasModifications = computed(() => {
+  return props.item?.modifications && props.item.modifications.length > 1
+})
+
 const reviewsCount = computed(() => {
-  return props.item?.reviews_rating_detailes?.reviews_count || 0
+  return props.item?.reviews || 0
 })
 
 const favoriteIcon = computed(() => {
   if(isFavorite.value) {
-    return 'iconoir:heart-solid'
+    return 'mynaui:heart-solid'
   }else {
-    return 'iconoir:heart'
+    return 'mynaui:heart'
   }
 })
 
@@ -59,6 +63,10 @@ const setGoogleEventHandler = () => {
   useGoogleEvent().setEvent('SelectItem', {name: listData.name, id: listData.id, product: {...props.item, index: props.index}})
 }
 
+const openChoseModificationModalHandler = (event) => {
+  const component = defineAsyncComponent(() => import('~/components/Modal/Modification/Modification.vue'))
+  useModal().open(component, props.item, null)
+}
 </script>
 
 <style src="./card.scss" lang="scss" scoped />
@@ -118,7 +126,7 @@ const setGoogleEventHandler = () => {
       ></nuxt-img>
     </NuxtLink>
     
-    <div :class="{between: item.rating}" class="reviews">
+    <div class="reviews">
       <lazy-simple-stars v-if="item?.rating" :amount="item.rating" class="rating"></lazy-simple-stars>
       
       <button v-if="reviewsCount" @click="toReviewsHandler" class="reviews-btn">
@@ -142,16 +150,16 @@ const setGoogleEventHandler = () => {
       </NuxtLink>
     </div>
 
-    <hr class="line">
-
     <lazy-product-available :in-stock="item.inStock" class="amount"></lazy-product-available>
 
     <div class="sale">
-      <button @click="() => toCartHandler(1)" type="button" class="button primary small buy-btn">
-        <span class="buy-btn-name">{{ t('button.buy') }}</span>
-        <IconCSS name="iconoir:shopping-bag" class="buy-btn-icon"></IconCSS>
-      </button>
       <lazy-product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency"></lazy-product-price>
+      <button v-if="hasModifications" @click="openChoseModificationModalHandler" type="button" class="button primary small buy-btn">
+        <IconCSS name="mynaui:plus-solid" class="buy-btn-icon"></IconCSS>
+      </button>
+      <button v-else @click="() => toCartHandler(1)" type="button" class="button primary small buy-btn">
+        <IconCSS name="mynaui:cart" class="buy-btn-icon"></IconCSS>
+      </button>
     </div>
 
   </div>

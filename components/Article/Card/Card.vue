@@ -19,6 +19,7 @@ const loading = computed(() => {
     return null
   }
 })
+console.log('item', props.item)
 </script>
 
 <style src="./card.scss" lang="scss" scoped></style>
@@ -26,10 +27,10 @@ const loading = computed(() => {
 <template>
   <NuxtLink :to="$regionPath('/blog/' + item.slug)" class="article-card">
     <nuxt-img
-      :src = "useImg().blog(item.image)"
-      :alt = "item.image.alt || item.name"
-      :title = "item.image.title || item.name"
-      :class = "item.image.size"
+      :src = "item.image?.src"
+      :alt = "item.image?.alt || item.name"
+      :title = "item.image?.title || item.name"
+      :class = "item.image?.size"
       width = "290"
       height = "260"
       sizes = "mobile:70vw tablet:230px desktop:300px"

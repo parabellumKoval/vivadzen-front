@@ -1,3 +1,155 @@
 .regions {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  align-items: stretch;
 
+  @include desktop {
+    grid-template-rows: 400px min-content min-content;
+  }
+
+  &-map {
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: auto;
+
+    @include desktop {
+      padding: 24px 28px;
+    }
+  }
+
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 10px;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: $radiusBtn;
+    // background-color: $color-bg-2;
+    border: 2px solid $color-border;
+    color: $color-1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color $speed, color $speed, transform $speed;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-bg-2;
+      color: $color-0;
+    }
+
+    &--active {
+      background-color: $color-bg-2;
+      color: $color-0;
+      cursor: default;
+    }
+  }
+}
+
+.regions__column {
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include desktop {
+    min-height: 100%;
+  }
+}
+
+.regions__heading {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: $color-1;
+}
+
+.regions__current {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: $color-2;
+
+  span {
+    margin-left: 6px;
+    font-weight: 600;
+    color: $color-0;
+  }
+}
+
+
+.regions__list-item {
+  margin: 0;
+}
+
+
+
+.region-map {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+.region-map__land path {
+  fill: $color-6;
+  stroke: $color-4;
+  stroke-width: 1.5;
+  transition: fill $speed;
+}
+
+.region-map__regions {
+  path {
+    fill: transparent;
+    stroke: transparent;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: fill $speed, stroke $speed, transform $speed;
+    outline: none;
+
+    &:focus-visible {
+      stroke: $color-green;
+      fill: rgba($color-green, 0.25);
+    }
+  }
+}
+
+.region-map__region--hovered,
+.region-map__region--active {
+  fill: rgba($color-green, 0.35);
+  stroke: $color-green;
+}
+
+.region-map__region--global.region-map__region--hovered,
+.region-map__region--global.region-map__region--active {
+  fill: rgba($color-green, 0.2);
+}
+
+.regions__hint {
+  margin-top: 18px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: $color-2;
+  text-align: center;
+  max-width: 360px;
+}
+
+@include tablet {
+  .regions__list {
+    gap: 12px;
+  }
 }

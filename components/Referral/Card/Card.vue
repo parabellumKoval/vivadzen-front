@@ -10,14 +10,14 @@ const props = defineProps({
 
 // COMPUTED
 const photo = computed(() => {
-  return props.item.user.photo? props.item.user.photo: '/images/avatars/no.png'
+  return props.item.avatar? props.item.avatar: '/images/avatars/no.png'
 })
 </script>
 
 <style src="./card.scss" lang="scss" scoped />
 
 <template>
-  <simple-table-row :show-details="item.referrals.length" grid="50px repeat(2, 1fr) 150px 100px  min-content" class="referral-row">
+  <simple-table-row :show-details="item?.referrals?.length" grid="50px repeat(2, 1fr) 150px 100px  min-content" class="referral-row">
     <template v-slot:columns>
       <simple-table-column>
         <nuxt-img
@@ -33,17 +33,30 @@ const photo = computed(() => {
           class="avatar-image"
         />
       </simple-table-column>
-      <simple-table-column :label="t('form.name')" :value="item.user.name"></simple-table-column>
-      <simple-table-column :label="t('form.email')" :value="item.user.email"></simple-table-column>
-      <simple-table-column :label="t('form.phone')" :value="item.user.phone"></simple-table-column>
+      <simple-table-column :label="t('form.name')" :value="item.full_name"></simple-table-column>
+      <simple-table-column :label="t('form.email')" :value="item.email"></simple-table-column>
+      <simple-table-column :label="t('form.phone')" :value="item.phone || '–'"></simple-table-column>
       <simple-table-column :label="t('form.income')">
-        <simple-price :value="item.income"></simple-price>
+      <simple-price :value="item?.balance?.balance" :currency-code="item?.balance?.currency"></simple-price>
       </simple-table-column>
-      <simple-table-column :label="t('form.referrals')" :value="item.referrals.length"></simple-table-column>
+      <simple-table-column :label="t('form.referrals')" :value="item?.referrals?.length"></simple-table-column>
     </template>
     <template v-slot:details>
       <div class="detailes-box">
-       ----
+        <template v-if="item?.referrals?.length">
+          <simple-table>
+            <referral-card
+              v-for="(referral, index) in item.referrals"
+              :key="referral.id"
+              :item="referral"
+              class="order-card"
+            >
+            </referral-card>
+          </simple-table>
+        </template>
+        <template v-else>
+          <div class="no-referrals">{{ t('referrals.no_referrals') }}</div>
+        </template>
       </div>
     </template>
   </simple-table-row>

@@ -7,20 +7,7 @@ const props = defineProps({
 })
 // COMPUTEDS
 const mods = computed(() => {
-  let items = [{
-    short_name: props.product.short_name,
-    slug: props.product.slug,
-    inStock: props.product.inStock
-  }]
-
-  if(props.product?.modifications?.length) {
-    items = [
-      ...items,
-      ...props.product?.modifications
-    ]
-  }
-
-  return items
+  return props.product?.modifications
 })
 // METHODS
 // HANDLERS

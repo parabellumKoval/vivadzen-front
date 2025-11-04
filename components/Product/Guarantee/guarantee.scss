@@ -4,13 +4,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 40px;
-  padding: 0 15px;
-  margin: 0 -15px;
-  background: color.scale($color-green, $lightness: 94%);
+  width: 100%;
+  padding: 20px;
+  background: $color-bg-2;
   border-top: 1px solid $color-6;
+  border-radius: $radius;
+
   @include desktop {
+    padding: 0 15px;
+    margin: 0 -15px;
     width: 100%;
     height: initial;
     background: 0;

@@ -1,0 +1,57 @@
+items:
+  qa1:
+    id: 1
+    q: What are your working hours?
+    a: We accept phone orders Monday to Friday from 10:00 to 18:00. Saturday and Sunday are days off. Online orders on the website are accepted 24/7.
+  qa2:
+    id: 2
+    q: If the website says an item is out of stock, can I still order it?
+    a: Leave a request with your phone number and email address. Our manager will contact you as soon as the item is back in stock.
+  qa3:
+    id: 3
+    q: Do I have to create an account on the site?
+    a: Registration is optional, but it speeds up order processing. In any case, our manager will contact you.
+  qa4:
+    id: 4
+    q: When will I receive my order?
+    a: Orders are shipped with Nova Poshta at the customer’s expense unless the product page states otherwise. Delivery usually takes 2–3 days.
+  qa5:
+    id: 5
+    q: Can the total order cost change?
+    a: If prices change, the manager will call you beforehand to let you know.
+  qa6:
+    id: 6
+    q: How do I pay for my order?
+    a: Cash on delivery at a Nova Poshta branch, or cashless payments to a Visa, MasterCard, or company bank account.
+  qa7:
+    id: 7
+    q: How can I return an item that doesn’t fit or has defects?
+    a: "<p>Under Article 9 of the Law of Ukraine “On Consumer Protection,” customers can exchange a product within 14 days if it doesn’t suit them by color, size, or shape, or cannot be used as intended—provided it hasn’t been used and the product looks new, retains consumer properties, factory packaging, seals, and purchase documents. If the needed product is not available at the time of exchange, the customer may:</p>
+        <ul><li>purchase any other product in our store;</li>
+            <li>receive a refund equal to the purchase price;</li>
+            <li>exchange the item for the same model once it is back in stock;</li>
+        </ul>
+        <p>During refunds, the customer is reimbursed based on the price paid at the time of purchase.</p>"
+  qa8:
+    id: 8
+    q: Where and how can I exchange or return an item?
+    a: "<p>Send the product back via Nova Poshta. Please note that the Cabinet of Ministers of Ukraine approved a list of high-quality goods that cannot be exchanged or returned (Resolution No. 172 of March 19, 1994). This list includes:</p>
+        <ul><li>food, medicines, and hygiene products;</li>
+            <li>non-food items such as toothbrushes; combs and massage brushes; baby products (diapers, pacifiers, feeding bottles, etc.);</li>
+            <li>manicure and pedicure tools (scissors, nail files, etc.).</li>
+        </ul>"
+  qa9:
+    id: 9
+    q: Where do you ship orders?
+    a: Across Ukraine, except Crimea and certain areas of the Donetsk and Luhansk regions.
+  qa10:
+    id: 10
+    q: How can I find the right item in such a large catalog?
+    a: "<p>Try one of these methods:</p>
+        <ol><li>Enter the product name, ingredient, or brand in the search field.</li>
+            <li>Use the product filters to set the parameters you need—type, price range, manufacturer, etc.—and the system will do the rest.</li>
+        </ol>"
+  qa11:
+    id: 11
+    q: How can I track my parcel if it’s shipped by mail?
+    a: After shipping, you will receive an SMS or Viber message with the Nova Poshta tracking number. Track the parcel at https://novaposhta.ua/

@@ -5,24 +5,25 @@
     grid-gap: 5px;
     align-items: center;
     height: 40px;
-    border: 1px solid $color-5;
     border-radius: $radius;
     margin-bottom: 30px;
   }
   &-line {
     width: 100%;
-    height: 1px;
-    background: $color-5;
+    height: 2px;
+    background: $color-border;
   }
   &-form {
     width: 100%;
-    height: 38px;
+    height: 40px;
     flex-shrink: 0;
     padding: 15px 0;
-    border-radius: $radius;
+    border-radius: 20px;
     border: 0;
     outline: 0;
     text-align: center;
+    background: none;
+    border: 2px solid $color-border;
     -moz-appearance:textfield;
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
@@ -50,13 +51,13 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: $color-6;
+  background-color: $color-border;
   border-radius: 5px;
 }
 .range {
   position: absolute;
   height: 100%;
-  background-color: $color-blue;
+  background-color: $color-orange;
   border-radius: 5px;
 }
 .thumb {
@@ -66,13 +67,13 @@
   width: 28px;
   height: 28px;
   background: $color-8;
-  border-radius: 4px;
-  border: 2px solid $color-blue;
+  border-radius: 100%;
+  border: 2px solid $color-orange;
   cursor: pointer;
   z-index: 10;
   &:after {
-    background: $color-blue-2;
-    border-radius: 2px;
+    background: $color-orange-2;
+    border-radius: 100%;
     content: "";
     height: 18px;
     left: 3px;
@@ -83,7 +84,7 @@
   }
   &:hover {
     &:after {
-      background: $color-blue;
+      background: $color-orange;
     }
   }
 }

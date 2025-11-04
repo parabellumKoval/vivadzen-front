@@ -25,13 +25,13 @@ export const useSearchStore = defineStore('searchStore', {
     },
 
     async index(params: object) {
-      const url = useRuntimeConfig().public.apiBase + '/search'
+      const url = useRuntimeConfig().public.apiBase + '/search/products'
 
-      return await useServerApiFetch(url, params).then(({data, error}) => {
+      return await useApiFetch(url, params, 'GET', {lazy: false}).then(({data, error}) => {
 
-        if(data) {
-          this.setHistory(params.search)
-          return data
+        if(data.value) {
+          this.setHistory(params.q)
+          return data.value
         }
 
         if(error) {
@@ -41,13 +41,12 @@ export const useSearchStore = defineStore('searchStore', {
     },
 
     async livesearch(params: object) {
-      const url = useRuntimeConfig().public.apiBase + '/search/livesearch'
+      const url = useRuntimeConfig().public.apiBase + '/search/products'
 
-      return await useServerApiFetch(url, params).then(({data, error}) => {
-
-        if(data) {
+      return await useApiFetch(url, params, 'GET', {lazy: false}).then(({data, error}) => {
+        if(data.value) {
           // this.setHistory(params.search)
-          return data
+          return data.value
         }
 
         if(error) {

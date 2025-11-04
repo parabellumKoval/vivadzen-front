@@ -14,8 +14,9 @@ const emit = defineEmits(['set:amount', 'scroll:top'])
 const getReviewQuery = () => {
   return {
     per_page: 12,
-    reviewable_type: String.raw`Backpack\Store\app\Models\Product`,
-    resource: 'large'
+    // reviewable_type: String.raw`Backpack\Store\app\Models\Product`,
+    reviewable_type: String.raw`App\Models\Product`,
+    // resource: 'large'
   }
 }
 

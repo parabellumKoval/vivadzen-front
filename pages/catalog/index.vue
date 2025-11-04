@@ -26,11 +26,6 @@ const categories = computed(() => {
   return useCategoryStore().list
 })
 
-const title = computed(() => {
-  let page = catalogQuery.value.page > 1? ', ' + t('label.page', {page: catalogQuery.value.page}): ''
-  return t('title.catalog') + page
-})
-
 // METHODS
 setFiltersAndCount(['selections', 'brands', 'price'])
 
@@ -59,13 +54,28 @@ const {
   }
 );
 
+const currentPageNumber = computed(() => {
+  const metaPage = catalog.value?.products?.meta?.current_page ?? 1;
+  const queryPage = catalogQuery.value.page ?? 1;
+  return Math.max(Number(metaPage) || 1, Number(queryPage) || 1, 1);
+});
 
-const loadProductsAndMerge = async () => {
-  const response = await loadMore(catalog.value);
-  if (response) {
-    catalog.value = response
+const title = computed(() => {
+  const pageSuffix = currentPageNumber.value > 1 ? ', ' + t('label.page', {page: currentPageNumber.value}) : '';
+  return t('title.catalog') + pageSuffix;
+});
+
+
+const loadProductsAndMerge = async (page) => {
+  try {
+    const response = await loadMore(catalog.value, page);
+    if (response) {
+      catalog.value = response;
+    }
+  } catch (error) {
+    console.error('Error loading more products:', error);
   }
-}
+};
 
 setCrumbs()
 

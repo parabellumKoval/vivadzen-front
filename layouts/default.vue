@@ -1,10 +1,14 @@
 <script setup>
 import { useCategoryStore } from '~/store/category'
-import { useAppPersistStore } from '~/store/appPersist';
+// import { useSchemaOrg, defineWebSite, defineWebPage } from '#imports'
+import { useAppPersistStore } from '~/store/appPersist'
 
 const {t, locale} = useI18n()
+const region = useRegion()
 const route = useRoute()
 const title = 'Vivadzen.com'
+
+const categoryStore = useCategoryStore()
 
 const head = useLocaleHead({
   addDirAttribute: true,
@@ -14,7 +18,7 @@ const head = useLocaleHead({
 
 // COMPUTEDS
 const background = computed(() => {
-  return route?.meta?.bg || '#fff'
+  return route?.meta?.bg || '#FFF7EC'
 })
 
 const isSearchMobile = computed(() => {
@@ -28,7 +32,7 @@ const isSearchMobile = computed(() => {
 // METHODS
 
 // WATCHERS
-watch(locale, (v) => {
+watch(() => [locale, region.region.value], (v) => {
   refreshCategories()
 })
 
@@ -39,7 +43,7 @@ watch(() => route.fullPath, (v) => {
 })
 
 // HOOKS
-const {refresh: refreshCategories} = useAsyncData('all-categories', async () =>  await useCategoryStore().index())
+const { refresh: refreshCategories } = useAsyncData('all-categories', () => categoryStore.listCached(null, true))
 
 useSchemaOrg([
   defineWebSite({
@@ -49,8 +53,6 @@ useSchemaOrg([
   defineWebPage(),
 ])
 
-onMounted(async () => {
-})
 </script>
 
 <style src="~/assets/scss/layout-default.scss" lang="scss" scoped />
@@ -71,7 +73,7 @@ onMounted(async () => {
       <Body>
         <!-- <slot /> -->
     
-        <!-- <the-supheader></the-supheader> -->
+        <the-supheader></the-supheader>
 
         <lazy-the-header></lazy-the-header>
         

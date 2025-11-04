@@ -1,0 +1,24 @@
+
+.free-delivery {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  grid-gap: 10px;
+  align-items: center;
+  line-height: 120%;
+  &-icon {
+    font-size: 24px;
+    color: $color-violet;
+  }
+  &-name {
+    color: $color-violet;
+  }
+  &-desc {
+    color: $color-1;
+    .bold {
+      font-weight: 500;
+    }
+  }
+  &-price {
+    display: inline;
+  }
+}

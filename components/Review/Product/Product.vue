@@ -15,7 +15,7 @@ const props = defineProps({
 
 <template>
   <div v-if="item" class="review-wrapper">
-    <div class="product">
+    <div v-if="item.product" class="product">
       <product-card-micro :item="item.product"></product-card-micro>
     </div>
     <div class="devide"></div>

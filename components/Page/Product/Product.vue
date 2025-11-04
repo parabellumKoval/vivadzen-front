@@ -43,23 +43,15 @@ const category = computed(() => {
 const simularQuery = computed(() => {
   return {
     per_page: 10,
-    category_id: category?.value?.id,
-    selections: [ 'in_stock'],
-    with_filters: 0    
+    anchors: {
+      model: 'product',
+      ids: [props.product.id]
+    }
   }
 })
 
 const slug = computed(() => {
   return route.params.slug
-})
-
-
-const ratingCount = computed(() => {
-  return props.product.reviews_rating_detailes?.rating_count || 0
-})
-
-const reviewsCount = computed(() => {
-  return props.product.reviews_rating_detailes?.reviews_count || 0
 })
 
 const isSpecsIsset = computed(() => {
@@ -86,7 +78,7 @@ const allAttrs = computed(() => {
 })
 
 const reviewQuery = computed(() => {
-  const type = String.raw`Backpack\Store\app\Models\Product`;
+  const type = String.raw`App\Models\Product`;
 
   return {
     per_page: 6,
@@ -284,7 +276,7 @@ onBeforeUnmount(() => {
       <div class="header-reviews">
         <simple-stars :amount="product.rating|| 0" desktop="large" mobile="large"></simple-stars>
         <div v-if="product.rating" class="rating-label">
-          {{ t('messages.rates_reviews', {rates: ratingCount, reviews: reviewsCount }) }}
+          {{ t('messages.rates_reviews', {rates: product.ratings, reviews: product.reviews }) }}
         </div>
         <simple-button-text
           :text="t('button.leave_review')"
@@ -312,7 +304,6 @@ onBeforeUnmount(() => {
           <!-- Common -->
           <template v-if="tab === 1">
             <div class="content-common">
-              <product-no-medicine v-if="$device.isDesktop && product.no_medicine === 1" class="no-medicine" />
               <lazy-product-gallery-mobile v-if="$device.isMobile" :items="product.images" class="gallery-wrapper"></lazy-product-gallery-mobile>
               <lazy-product-gallery v-else :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
               <div v-if="$device.isDesktop" class="content-html rich-text" v-html="product.content"></div>
@@ -323,7 +314,6 @@ onBeforeUnmount(() => {
           <template v-else-if="tab === 2">
             <div class="full-content">
               <div class="rich-text" v-html="product.content"></div>
-              <product-no-medicine v-if="product.no_medicine === 1" class="no-medicine" />
             </div>
           </template>
 
@@ -454,13 +444,7 @@ onBeforeUnmount(() => {
 
   
   <div class="content-box">
-    <lazy-section-slider-products
-      :title="t('simular')"
-      list-id="simular-products"
-      :query="simularQuery"
-      :fetchOptions="{key:'sale'}"
-    ></lazy-section-slider-products>
-
+    <lazy-section-lists :query="simularQuery" page="product"></lazy-section-lists>
   </div>
 
   <!-- Sale block mobile   -->

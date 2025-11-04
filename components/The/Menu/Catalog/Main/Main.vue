@@ -54,7 +54,7 @@ const hoverEventHandler = (index) => {
         clickable
       >
         <nuxt-img
-          :src = "useImg().category(category.image)"
+          :src = "category?.image?.src"
           width="40"
           height="40"
           sizes = "mobile:60px tablet:60px desktop:60px"
@@ -67,7 +67,7 @@ const hoverEventHandler = (index) => {
         >
         </nuxt-img>
         <div class="category-name">{{ category.name }}</div>
-        <IconCSS v-if="selectedIndex === index" name="iconoir:nav-arrow-right" class="category-icon"></IconCSS>
+        <IconCSS v-if="selectedIndex === index" name="iconoir:nav-arrow-down" class="category-icon"></IconCSS>
       </button>
     </div>
   </div>
