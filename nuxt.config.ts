@@ -527,7 +527,7 @@ export default defineNuxtConfig({
   nitro: {    
     storage: {
       cache: {
-        driver: 'vercelKV',
+        driver: 'upstash',
       }
     },
     // routeRules: {

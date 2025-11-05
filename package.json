@@ -16,6 +16,7 @@
     "@nuxtjs/device": "^3.0.0",
     "@nuxtjs/partytown": "^1.6.0",
     "@pinia/nuxt": "^0.4.8",
+    "@vercel/kv": "^1.0.1",
     "@vueform/slider": "^2.1.10",
     "lodash.isequal": "^4.5.0",
     "lodash.merge": "^4.6.2",
