@@ -146,10 +146,21 @@ function isFresh(entryTimestamp: number | undefined, ttlMs: number, enableTtl: b
 }
 
 async function readSlugsEntry(): Promise<SlugsCacheEntry | null> {
-  return await storage().getItem<SlugsCacheEntry>(SLUGS_STORAGE_KEY)
+  const entry = await storage().getItem<SlugsCacheEntry>(SLUGS_STORAGE_KEY)
+  console.log('[category-cache] Reading slugs entry from cache', { 
+    found: !!entry,
+    aggregatedCount: entry?.aggregated.length,
+    fetchedAt: entry?.fetchedAt,
+    age: entry ? Math.round((Date.now() - entry.fetchedAt) / 1000) + 's' : 'N/A'
+  })
+  return entry
 }
 
 async function writeSlugsEntry(entry: SlugsCacheEntry) {
+  console.log('[category-cache] Writing slugs entry to cache', { 
+    aggregatedCount: entry.aggregated.length,
+    contextSignature: entry.contextSignature 
+  })
   await storage().setItem(SLUGS_STORAGE_KEY, entry)
 }
 

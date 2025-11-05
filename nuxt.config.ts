@@ -524,7 +524,12 @@ export default defineNuxtConfig({
   },
   
 
-  nitro: {
+  nitro: {    
+    storage: {
+      cache: {
+        driver: 'vercelKV',
+      }
+    },
     // routeRules: {
     //   '/': {swr: true},
     //   '/reviews/**': {isr: 60 * 30},
