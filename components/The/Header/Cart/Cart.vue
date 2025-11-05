@@ -20,7 +20,7 @@ const cartLength = computed(() => {
 
 <template>
   <button @click="openCartHandler" class="header-btn cart-btn" type="button" clickable>
-    <IconCSS name="mynaui:cart" size="34px" class="icon"></IconCSS>
+    <IconCSS name="mynaui:cart" class="icon"></IconCSS>
     <transition name="zoom">
       <div v-if="cartLength" class="budge">{{ cartLength }}</div>
     </transition>

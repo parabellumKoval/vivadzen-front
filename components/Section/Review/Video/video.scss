@@ -54,13 +54,14 @@
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 80vw;
-    gap: 40px;
+    gap: 15px;
     overflow-x: auto;
 
 
     @include desktop {
       grid-auto-columns: 1fr;
       overflow-x: initial;
+      gap: 40px;
     }
   }
 

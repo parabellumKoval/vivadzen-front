@@ -220,12 +220,17 @@ img {
   }
 
   &-title {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     line-height: 120%;
-    font-size: 58px;
+    font-size: 32px;
     font-weight: 900;
     color: $color-primary;
     text-align: center;
+
+    @include desktop {
+      margin-bottom: 50px;
+      font-size: 58px;
+    }
   }
 }
 .section-nav {

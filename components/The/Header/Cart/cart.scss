@@ -28,4 +28,12 @@
       right: -8px;
     }
   }
+
+  .icon {
+    font-size: 30px;
+
+    @include desktop {
+      font-size: 34px;
+    }
+  }
 }

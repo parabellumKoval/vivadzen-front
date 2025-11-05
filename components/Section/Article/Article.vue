@@ -19,7 +19,7 @@ watch(dataArticles, (v) => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <section class="main-section">
+  <section v-if="articles?.length" class="main-section">
     <div class="main-section-title">{{ t('title.articles') }}</div>
     <div v-if="articles" class="articles-wrapper">
       <article-card v-for="(article, index) in articles" :key="article.id" :index="index" :item="article" class="articles-item"></article-card>

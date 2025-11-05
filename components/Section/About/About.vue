@@ -21,11 +21,10 @@ const getTag = (category) => {
   return null
 }
 
-const {data: articles} = await useAsyncData('homepage-main-articles', () => useFetcherData('homepage-main-articles'))
+// const {data: articles} = await useAsyncData('homepage-main-articles', () => useFetcherData('homepage-main-articles'))
 
-watch(articles, (value) => {
-  // console.log('articles', value);
-}, { immediate: true })
+// watch(articles, (value) => {
+// }, { immediate: true })
 </script>
 
 <style src="./about.scss" lang="scss" scoped></style>

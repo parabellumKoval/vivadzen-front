@@ -168,13 +168,15 @@
   &__text {
     position: relative;
     margin: 0;
-    height: 45px;
+    padding: 0 30px 0 30px;
     text-align: center;
     color: $color-8;
     font-weight: 700;
     font-size: 20px;
 
     @include desktop {
+      height: 45px;
+      padding: 0;
       font-size: 16px;
     }
   }
