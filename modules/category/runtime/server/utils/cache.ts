@@ -65,7 +65,13 @@ const FALLBACK_LIST_ENDPOINT = '/category'
 const now = () => Date.now()
 
 function storage() {
-  return useStorage(STORAGE_NAMESPACE)
+  const storageInstance = useStorage(STORAGE_NAMESPACE)
+  console.log('[category-cache] Storage driver info:', {
+    namespace: STORAGE_NAMESPACE,
+    hasUpstash: !!process.env.UPSTASH_REDIS_REST_URL,
+    driver: process.env.UPSTASH_REDIS_REST_URL ? 'upstash' : 'memory'
+  })
+  return storageInstance
 }
 
 function detailsStorageKey(slug: string) {
@@ -165,10 +171,22 @@ async function writeSlugsEntry(entry: SlugsCacheEntry) {
 }
 
 async function readCategoryEntry(slug: string): Promise<CategoryDetailsCacheEntry | null> {
-  return await storage().getItem<CategoryDetailsCacheEntry>(detailsStorageKey(slug))
+  const entry = await storage().getItem<CategoryDetailsCacheEntry>(detailsStorageKey(slug))
+  console.log('[category-cache] Reading category entry from cache', { 
+    slug,
+    found: !!entry,
+    fetchedAt: entry?.fetchedAt,
+    age: entry ? Math.round((Date.now() - entry.fetchedAt) / 1000) + 's' : 'N/A'
+  })
+  return entry
 }
 
 async function writeCategoryEntry(slug: string, entry: CategoryDetailsCacheEntry) {
+  console.log('[category-cache] Writing category entry to cache', { 
+    slug,
+    contextSignature: entry.contextSignature,
+    contextsCount: Object.keys(entry.perContext).length
+  })
   await storage().setItem(detailsStorageKey(slug), entry)
 }
 

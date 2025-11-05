@@ -274,8 +274,8 @@ export default defineNuxtConfig({
 
   // /api/_fetcher/{endpointKey}/refresh 
   fetcherModule: {
-      enableTtl: false,
-      ttlSec: 600,
+      enableTtl: true,
+      ttlSec: 3600, // 1 час
       languages: ['uk', 'ru', 'cs', 'de', 'es'],
       regions: ['zz', 'ua', 'cz', 'de', 'es'],
       endpoints: [
@@ -350,8 +350,8 @@ export default defineNuxtConfig({
     slugsEndpoint: '/company-category/slugs-simple',
     detailsEndpoint: '/category_cached/:slug',
     listEndpoint: '/category',
-    enableTtl: false,
-    ttlSec: 600,
+    enableTtl: true,
+    ttlSec: 3600, // 1 час
     languages: ['uk', 'ru', 'en', 'cs', 'de', 'es'],
     regions: ['zz', 'ua', 'cz', 'de', 'es'],
     slugsRoutePath: '/api/_categories/slugs',
@@ -365,8 +365,8 @@ export default defineNuxtConfig({
 
   settingsModule: {
     apiUrl: process.env.SERVER_URL + '/api/settings/nested',
-    enableTtl: false,
-    ttlSec: 300, // TTL кэша в секундах
+    enableTtl: true,
+    ttlSec: 1800, // 30 минут
     refreshRoutePath: '/api/_refresh-settings', // POST для принудительного обновления
     regions: ['ua', 'cz', 'de', 'es'],
     locales: ['uk','ru','cs','de','en','es']
@@ -526,8 +526,12 @@ export default defineNuxtConfig({
 
   nitro: {    
     storage: {
-      cache: {
+      cache: process.env.UPSTASH_REDIS_REST_URL ? {
         driver: 'upstash',
+        url: process.env.UPSTASH_REDIS_REST_URL,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN,
+      } : {
+        driver: 'memory'
       }
     },
     // routeRules: {
