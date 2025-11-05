@@ -38,7 +38,7 @@ const categories = computed(() => {
                 :class="category.image.size"
                 width="200"
                 height="200"
-                sizes = "mobile:100vw tablet:360px desktop:360px"
+                sizes = "mobile:50vw tablet:360px desktop:360px"
                 format = "avif"
                 quality = "60"
                 loading = "lazy"
