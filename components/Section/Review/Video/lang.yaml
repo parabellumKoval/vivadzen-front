@@ -1,24 +1,47 @@
-ru:
-  reviews: Все отзывы
-  products_reviews: Отзывы о товарах
-  shop_reviews: Отзывы о магазине
-uk:
-  reviews: Всі відгуки
-  products_reviews: Відгуки про товари
-  shop_reviews: Відгуки про магазин
-de:
-  reviews: Alle Bewertungen
-  products_reviews: Bewertungen zu Produkten
-  shop_reviews: Bewertungen zum Shop
-es:
-  reviews: Todas las reseñas
-  products_reviews: Reseñas de productos
-  shop_reviews: Reseñas de la tienda
-cs:
-  reviews: Všechny recenze
-  products_reviews: Recenze na produkty
-  shop_reviews: Recenze na obchod
 en:
   reviews: All reviews
   products_reviews: Product reviews
   shop_reviews: Store reviews
+  title: Real people. Real experience.
+  no_filters: No filters.
+  description: Craft detailed, engaging reviews and earn 200 Viva. Your insights help the community make smarter purchases, boost product visibility, and unlock exclusive bonuses for top reviewers — all while growing your passive income!
+
+ru:
+  reviews: Все отзывы
+  products_reviews: Отзывы о товарах
+  shop_reviews: Отзывы о магазине
+  title: Настоящие люди. Настоящий опыт.
+  no_filters: Без фильтров.
+  description: Пишите подробные и интересные отзывы и получайте 200 Viva. Ваши рекомендации помогают сообществу делать более разумные покупки, повышают видимость товаров и открывают эксклюзивные бонусы для лучших авторов — и всё это с ростом вашего пассивного дохода!
+
+uk:
+  reviews: Усі відгуки
+  products_reviews: Відгуки про товари
+  shop_reviews: Відгуки про магазин
+  title: Справжні люди. Справжній досвід.
+  no_filters: Без фільтрів.
+  description: Пишіть детальні та цікаві відгуки й отримуйте 200 Viva. Ваші поради допомагають спільноті робити розумніші покупки, підвищують видимість товарів і відкривають ексклюзивні бонуси для кращих авторів — водночас збільшуючи ваш пасивний дохід!
+
+de:
+  reviews: Alle Bewertungen
+  products_reviews: Produktbewertungen
+  shop_reviews: Shop-Bewertungen
+  title: Echte Menschen. Echte Erfahrungen.
+  no_filters: Keine Filter.
+  description: Verfassen Sie detaillierte und ansprechende Bewertungen und verdienen Sie 200 Viva. Ihre Erfahrungen helfen der Community, klügere Kaufentscheidungen zu treffen, erhöhen die Sichtbarkeit von Produkten und schalten exklusive Boni für Top-Rezensenten frei — und das alles bei steigendem passiven Einkommen!
+
+es:
+  reviews: Todas las reseñas
+  products_reviews: Reseñas de productos
+  shop_reviews: Reseñas de la tienda
+  title: Personas reales. Experiencia real.
+  no_filters: Sin filtros.
+  description: Escribe reseñas detalladas y atractivas y gana 200 Viva. Tus opiniones ayudan a la comunidad a tomar mejores decisiones de compra, aumentan la visibilidad de los productos y desbloquean bonificaciones exclusivas para los mejores autores — mientras haces crecer tus ingresos pasivos.
+
+cz:
+  reviews: Všechny recenze
+  products_reviews: Recenze produktů
+  shop_reviews: Recenze obchodu
+  title: Skuteční lidé. Skutečná zkušenost.
+  no_filters: Bez filtrů.
+  description: Pište podrobné a poutavé recenze a získejte 200 Viva. Vaše postřehy pomáhají komunitě dělat chytřejší nákupy, zvyšují viditelnost produktů a odemykají exkluzivní bonusy pro nejlepší recenzenty — zároveň tím roste váš pasivní příjem!

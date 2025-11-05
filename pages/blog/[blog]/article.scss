@@ -35,7 +35,7 @@
       display: flex;
       align-items: center;
       height: 40px;
-      background: $color-7;
+      background: $color-bg-2;
       border-radius: $radius;
       // border: 2px solid $color-5;
     }
@@ -75,10 +75,11 @@
     &:deep(img) {
       width: 100% !important;
       object-fit: contain;
-      max-height: calc(50vh);
+      // max-height: calc(50vh);
       margin: 30px 0;
+      border-radius: $radius;
       @include desktop {
-        max-height: calc(100vh - 300px);
+        // max-height: calc(100vh - 300px);
         margin: 70px 0
       }
     }
@@ -89,8 +90,7 @@
     padding: 20px;
     overflow-y: scroll;
     border-radius: $radius;
-    border: 2px solid $color-6;
-    background: $color-8;
+    background: $color-bg-2;
     order:1;
     @include scrollbar;
     @include desktop {

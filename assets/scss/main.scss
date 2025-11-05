@@ -167,33 +167,38 @@ img {
 // TITLE
 .title {
   &-common {
+    font-family: var(--font-display);
     margin-bottom: 20px;
     font-size: 20px;
     line-height: 115%;
-    font-weight: 400;
+    font-weight: 900;
+    color: $color-1;
     @include desktop {
       margin-bottom: 30px;
       line-height: 145%;
-      font-size: 24px;
+      font-size: 44px;
     }
   }
   &-secondary {
+    font-family: var(--font-display);
     font-size: 24px;
     line-height: 115%;
-    text-transform: uppercase;
+    font-weight: 900;
+    // text-transform: uppercase;
     @include desktop {
       line-height: 145%;
     }
   }
 }
 .section-title {
+  font-family: var(--font-display);
   padding: 0 20px;
   margin-bottom: 15px;
   color: $color-1;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 900;
   line-height: 140%;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   text-align: center;
   @include tablet{
     margin-bottom: 20px;

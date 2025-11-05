@@ -91,8 +91,7 @@ watch(() => html.value, (v) => {
 })
 
 
-await useAsyncData('get-article', () => useArticleStore().show(slug.value)).then(({data, error}) => {
-  console.log('data', data.value)
+await useAsyncData('get-article-' + slug.value, () => useArticleStore().show(slug.value)).then(({data, error}) => {
   if(data.value) {
     article.value = data.value
     setCrumbs()

@@ -54,7 +54,6 @@ const img = useImg()
           quality="60"
           loading="lazy"
           fit="outside"
-          :placeholder="img.noImage"
         />
         <IconCSS name="guidance:currency-exchange" class="vp__rate-swap" />
         <nuxt-img
@@ -66,7 +65,6 @@ const img = useImg()
           quality="60"
           loading="lazy"
           fit="outside"
-          :placeholder="img.noImage"
         />
         <span class="vp__rate-num">1</span>
       </div>
@@ -88,7 +86,6 @@ const img = useImg()
             quality="60"
             loading="lazy"
             fit="outside"
-            :placeholder="img.noImage"
           />
         </div>
         <p class="vp__text">{{ t('viva.earn1') }}</p>
@@ -106,7 +103,6 @@ const img = useImg()
             quality="60"
             loading="lazy"
             fit="outside"
-            :placeholder="img.noImage"
           />
         </div>
         <p class="vp__text">{{ t('viva.earn2') }}</p>
@@ -124,7 +120,6 @@ const img = useImg()
             quality="60"
             loading="lazy"
             fit="outside"
-            :placeholder="img.noImage"
           />
         </div>
         <p class="vp__text">{{ t('viva.spend3') }}</p>
@@ -142,7 +137,6 @@ const img = useImg()
             quality="60"
             loading="lazy"
             fit="outside"
-            :placeholder="img.noImage"
           />
         </div>
         <p class="vp__text">{{ t('viva.spend4') }}</p>

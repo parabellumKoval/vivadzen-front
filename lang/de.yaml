@@ -98,7 +98,7 @@ label:
 messages:
   review_gift: Gutschein über -5% für eine verifizierte Shop-Bewertung
   rates_reviews: '{rates} Bewertungen und {reviews} Rezensionen'
-  products_found: {amount} Produkte gefunden
+  products_found: "{amount} Produkte gefunden"
   no_results: Keine Ergebnisse
   empty_cart: Ihr Warenkorb ist leer
   leave_review: Bewertung hinterlassen

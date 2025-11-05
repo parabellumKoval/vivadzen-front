@@ -1,6 +1,11 @@
 .refgrow {
   line-height: normal;
   &__header {
+      margin-bottom: 15px;
+      
+    @include desktop {
+      margin-bottom: 40px;
+    }
   }
 
   &__title {
@@ -14,12 +19,10 @@
   }
 
   &__subtitle {
-    margin: 5px 0 0 0;
     font-size: 20px;
     color: $color-primary;
 
     @include desktop {
-      margin: 25px 0 0 0;
       font-size: 24px;
     }
   }

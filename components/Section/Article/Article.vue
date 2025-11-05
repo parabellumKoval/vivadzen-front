@@ -20,7 +20,7 @@ watch(dataArticles, (v) => {
 
 <template>
   <section class="main-section">
-    <div class="section-title">{{ t('title.articles') }}</div>
+    <div class="main-section-title">{{ t('title.articles') }}</div>
     <div v-if="articles" class="articles-wrapper">
       <article-card v-for="(article, index) in articles" :key="article.id" :index="index" :item="article" class="articles-item"></article-card>
     </div>

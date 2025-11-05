@@ -1,7 +1,8 @@
 .footer {
   position: relative;
-  background: $color-dark;
+  background: $color-dark-1;
   padding: 0 20px;
+  
   &-label {
     margin-bottom: 10px;
     font-size: 12px;
@@ -20,15 +21,17 @@
   }
   @include tablet {
     padding: 0 45px;
+    margin-top: 80px;
   }
   @include desktop {
+    margin-top: 160px;
   }
 }
 .company {
   width: calc(100% + 40px);
   padding: 30px 20px;
   margin: 0px -20px 30px -20px;
-  background: #2C2D2C;
+  background: $color-dark-2;
   @include tablet {
     width: calc(100% + 90px);
     margin: 0px -45px 0 -45px;

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const { t } = useI18n()
+const { $regionPath } = useNuxtApp();
+const { user, isAuthenticated, avatar } = useAuth()
 
 const avatars = ref([
   '/images/ref/avatars/av-1.png',
@@ -7,6 +9,17 @@ const avatars = ref([
   '/images/ref/avatars/av-3.png',
   '/images/ref/avatars/av-4.png',
 ])
+
+const showAuthHandler = () => {
+  if(isAuthenticated.value && user.value) {
+    navigateTo($regionPath('/account/network/common'))
+  } else {
+    const component = defineAsyncComponent(() => import('~/components/Modal/Auth/Social/Social.vue'))
+    useModal().open(component, null, null, {width: {
+      min: 420, max: 420
+    }})
+  }
+}
 </script>
 
 <style src='./referral.scss' lang='scss' scoped></style>
@@ -38,7 +51,6 @@ const avatars = ref([
               quality = "60"
               loading = "lazy"
               fit="outside"
-              :placeholder="useImg().noImage"
             >
             </nuxt-img>
         </div>
@@ -61,7 +73,6 @@ const avatars = ref([
               quality = "60"
               loading = "lazy"
               fit="outside"
-              :placeholder="useImg().noImage"
             >
             </nuxt-img>
         </div>
@@ -84,7 +95,6 @@ const avatars = ref([
               quality = "60"
               loading = "lazy"
               fit="outside"
-              :placeholder="useImg().noImage"
             >
             </nuxt-img>
         </div>
@@ -112,13 +122,12 @@ const avatars = ref([
               quality = "60"
               loading = "lazy"
               fit="outside"
-              :placeholder="useImg().noImage"
             >
             </nuxt-img>
           </li>
         </ul>
 
-        <button class="refgrow__cta-btn button orange" type="button">
+        <button @click="showAuthHandler" class="refgrow__cta-btn button orange" type="button">
           {{ t('refGrow.cta.button') }}
         </button>
       </aside>

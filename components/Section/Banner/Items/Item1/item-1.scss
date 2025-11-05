@@ -5,14 +5,24 @@
   height: 100%;
   background: $color-bg-2;
 
+  &-media {
+    &-img {
+      object-fit: contain;
+      width: 100%;
+      height: auto;
+    }
+  }
   &-inner {
     display: grid;
     grid-template-columns: 1fr;
-    gap:30px;
+    gap:0px;
     align-items: center;
+    height: 100%;
+    grid-template-rows: 1fr min-content;
 
     @include desktop {
       grid-template-columns: 1fr 1.3fr;
+      grid-template-rows: initial;
       gap:200px;
       max-width: 1600px;
     }
@@ -21,7 +31,7 @@
   &-content {
     display: grid;
     grid-auto-flow: row;
-    gap: 30px;
+    gap: 20px;
     padding: 0 40px 0 40px;
     text-align: center;
 
@@ -37,25 +47,32 @@
     line-height: 110%;
 
     &-1 {
-      font-size: 60px;
+      // font-size: 60px;
       color: $color-orange;
 
       @include desktop {
-        font-size: 133px;
+        // font-size: 133px;
       }
     }
     &-2 {
-      font-size: 48px;
+      // font-size: 48px;
       color: $color-primary;
 
       @include desktop {
-        font-size: 110px;
+        // font-size: 110px;
+      }
+    }
+
+    &-1,
+    &-2 {
+      @include desktop {
+        font-size: 2em;
       }
     }
   }
 
   &-desc {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 130%;
 
     @include desktop {

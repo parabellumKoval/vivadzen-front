@@ -56,7 +56,6 @@ watch(articles, (value) => {
               quality = "60"
               loading = "lazy"
               fit="outside"
-              :placeholder="useImg().noImage"
               class="category-image"
             ></nuxt-img>
           </div>
