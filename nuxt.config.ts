@@ -209,6 +209,8 @@ export default defineNuxtConfig({
         domains: [
           process.env.DOMAIN,
           "*.vivadzen.com",
+          "api.vivadzen.com",
+          "vivadzen.com",
           "localhost:8000",
           '*.googleusercontent.com',
           'lh3.googleusercontent.com',
@@ -235,6 +237,8 @@ export default defineNuxtConfig({
           domains: [
             process.env.DOMAIN,
             "*.vivadzen.com",
+            "api.vivadzen.com",
+            "vivadzen.com",
             "localhost:8000",
             '*.googleusercontent.com',
             'lh3.googleusercontent.com',
