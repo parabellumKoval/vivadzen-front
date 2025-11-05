@@ -18,9 +18,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       site: {
-        url: process.env.SITE_URL || 'http://localhost:3000'
+        url: process.env.SITE_URL || 'https://new.vivadzen.com'
       },
-      siteUrl: process.env.SITE_URL || 'https://vivadzen.com',
+      siteUrl: process.env.SITE_URL || 'https://new.vivadzen.com',
       frontendUrl: process.env.SITE_URL,
       novaposhtaKey: process.env.NOVAPOSHTA_KEY,
       serverBase: process.env.SERVER_URL,
@@ -388,7 +388,7 @@ export default defineNuxtConfig({
 
   site: {
     indexable: true,
-    url: 'https://vivadzen.com',
+    url: 'https://new.vivadzen.com',
     name: 'Vivadzen',
     description: 'Vivadzen desc',
   },
@@ -417,7 +417,7 @@ export default defineNuxtConfig({
   // },
   
   i18n: {
-    baseUrl: 'https://vivadzen.com',
+    baseUrl: 'https://new.vivadzen.com',
     defaultLocale: 'uk',
     lazy: true,
     strategy: 'no_prefix',
