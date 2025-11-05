@@ -207,7 +207,9 @@ export default defineNuxtConfig({
         },
 
         domains: [
-          '*.'+ process.env.DOMAIN,
+          process.env.DOMAIN,
+          "*.vivadzen.com",
+          "localhost:8000",
           '*.googleusercontent.com',
           'lh3.googleusercontent.com',
           'images.prismic.io',
@@ -231,7 +233,9 @@ export default defineNuxtConfig({
 
         ipx: {
           domains: [
-            '*.'+ process.env.DOMAIN,
+            process.env.DOMAIN,
+            "*.vivadzen.com",
+            "localhost:8000",
             '*.googleusercontent.com',
             'lh3.googleusercontent.com',
             'images.prismic.io',
