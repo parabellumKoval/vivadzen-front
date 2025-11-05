@@ -207,7 +207,7 @@ export default defineNuxtConfig({
         },
 
         domains: [
-          process.env.DOMAIN,
+          '*.'+ process.env.DOMAIN,
           '*.googleusercontent.com',
           'lh3.googleusercontent.com',
           'images.prismic.io',
@@ -231,7 +231,7 @@ export default defineNuxtConfig({
 
         ipx: {
           domains: [
-            process.env.DOMAIN,
+            '*.'+ process.env.DOMAIN,
             '*.googleusercontent.com',
             'lh3.googleusercontent.com',
             'images.prismic.io',
