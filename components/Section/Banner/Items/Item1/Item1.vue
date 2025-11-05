@@ -61,6 +61,7 @@ const showAuthHandler = () => {
           loading = "lazy"
           fit="outside"
           class="banner-media-img"
+          :provider="useImg().provider"
         ></nuxt-img>
       </div>
     </div>
