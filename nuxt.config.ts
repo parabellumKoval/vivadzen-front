@@ -556,9 +556,9 @@ export default defineNuxtConfig({
       // api
       // '/api/**': {swr: true},
       // assets
-      // '/_ipx/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/_ipx/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/assets/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-      // '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/_nuxt/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/**/*.js': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/**/*.css': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
