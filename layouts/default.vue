@@ -77,7 +77,7 @@ useSchemaOrg([
 
         <the-header></the-header>
         
-        <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky>
+        <!-- <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky> -->
 
         <main class="main" :style="{background: background}">
           <slot />

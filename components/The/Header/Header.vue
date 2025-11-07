@@ -28,7 +28,7 @@ const { t } = useI18n()
       <the-header-catalog v-if="!$device.isMobile" class="catalog"></the-header-catalog>
 
       <!-- SEARCH -->
-      <!-- <the-header-search v-if="!$device.isMobile" class="search"></the-header-search> -->
+      <the-header-search v-if="!$device.isMobile" class="search"></the-header-search>
 
       <!-- PHONE -->
       <!-- <the-header-contacts v-if="!$device.isMobile" class="contacts"></the-header-contacts> -->
