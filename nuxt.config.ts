@@ -535,7 +535,7 @@ export default defineNuxtConfig({
       }
     },
     routeRules: {
-      '/': {swr: 180},
+      '/': {swr: true},
       '/reviews/**': {isr: 60 * 30},
       '/blog': {isr: 60 * 30},
       '/blog/**': {isr: 60 * 30},
@@ -547,7 +547,7 @@ export default defineNuxtConfig({
       '/delivery': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/contacts': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/faq': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-      '/faq': { static: true },
+      '/faq': { swr: true },
       '/payment': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/guarantees': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/terms': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
@@ -556,9 +556,9 @@ export default defineNuxtConfig({
       // api
       // '/api/**': {swr: true},
       // assets
-      // '/_ipx/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-      // '/assets/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-      // '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/_ipx/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/assets/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/_nuxt/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/**/*.js': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/**/*.css': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
