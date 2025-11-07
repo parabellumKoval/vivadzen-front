@@ -535,7 +535,7 @@ export default defineNuxtConfig({
       }
     },
     routeRules: {
-      '/': {swr: true},
+      '/': {isr: 1200},
       '/reviews/**': {isr: 60 * 30},
       '/blog': {isr: 60 * 30},
       '/blog/**': {isr: 60 * 30},
@@ -546,7 +546,8 @@ export default defineNuxtConfig({
       '/about': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/delivery': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/contacts': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-      '/faq': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      // '/faq': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/faq': { static: true },
       '/payment': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/guarantees': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/terms': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
