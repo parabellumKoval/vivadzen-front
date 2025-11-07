@@ -73,11 +73,11 @@ useSchemaOrg([
       <Body :style="{background: background}">
         <!-- <slot /> -->
     
-        <the-supheader></the-supheader>
+        <lazy-the-supheader></lazy-the-supheader>
 
         <lazy-the-header></lazy-the-header>
         
-        <the-header-search-sticky v-if="isSearchMobile"></the-header-search-sticky>
+        <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky>
 
         <main class="main" :style="{background: background}">
           <slot />

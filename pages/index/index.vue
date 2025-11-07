@@ -26,11 +26,11 @@ setSeo()
 
 <template>
   <DelayHydration>
-    <lazy-section-banner></lazy-section-banner>
+    <section-banner></section-banner>
 
     <lazy-section-category></lazy-section-category>
 
-    <section-lists-main :query="slidersQuery" class="home-section-margin"></section-lists-main>
+    <lazy-section-lists-main :query="slidersQuery" class="home-section-margin"></lazy-section-lists-main>
 
     <lazy-section-about class="home-section-margin"></lazy-section-about>
     
