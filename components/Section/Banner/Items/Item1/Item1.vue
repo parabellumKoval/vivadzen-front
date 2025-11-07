@@ -55,12 +55,12 @@ const showAuthHandler = () => {
           src = "/images/banners/banner-1.png"
           width="725"
           height="670"
-          sizes = "mobile:100vw tablet:800px"
-          format = "webp"
+          sizes = "mobile:80vw tablet:800px"
+          format = "avif"
           quality = "60"
-          loading = "lazy"
           fit="outside"
           class="banner-media-img"
+          fetchpriority="high"
         ></nuxt-img>
       </div>
     </div>

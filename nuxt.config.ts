@@ -274,7 +274,7 @@ export default defineNuxtConfig({
 
   // /api/_fetcher/{endpointKey}/refresh 
   fetcherModule: {
-      enableTtl: true,
+      enableTtl: false,
       ttlSec: 3600, // 1 час
       languages: ['uk', 'ru', 'cs', 'de', 'es'],
       regions: ['zz', 'ua', 'cz', 'de', 'es'],
@@ -350,7 +350,7 @@ export default defineNuxtConfig({
     slugsEndpoint: '/company-category/slugs-simple',
     detailsEndpoint: '/category_cached/:slug',
     listEndpoint: '/category',
-    enableTtl: true,
+    enableTtl: false,
     ttlSec: 3600, // 1 час
     languages: ['uk', 'ru', 'en', 'cs', 'de', 'es'],
     regions: ['zz', 'ua', 'cz', 'de', 'es'],
@@ -365,7 +365,7 @@ export default defineNuxtConfig({
 
   settingsModule: {
     apiUrl: process.env.SERVER_URL + '/api/settings/nested',
-    enableTtl: true,
+    enableTtl: false,
     ttlSec: 1800, // 30 минут
     refreshRoutePath: '/api/_refresh-settings', // POST для принудительного обновления
     regions: ['ua', 'cz', 'de', 'es'],
