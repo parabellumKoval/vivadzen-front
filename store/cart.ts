@@ -367,8 +367,10 @@ export const useCartStore = defineStore('cartStore', {
         this.normalizeDeliveryPickup()
       }
 
+      const {isAuthenticated} = useAuth()
+
       // Auth or Data
-      this.orderState.provider = useAuth().isAuthenticated? 'auth': 'data'
+      this.orderState.provider = isAuthenticated.value? 'auth': 'data'
 
       // Clear other user fields
       // if(this.orderState.provider === 'auth') {

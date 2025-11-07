@@ -11,6 +11,8 @@ interface ConverterState {
   ttlMs: number | null
   promise: Promise<PointRatesResponse> | null
   error: unknown
+  lastErrorTime: number | null
+  errorCount: number
 }
 
 const isFiniteNumber = (value: unknown): value is number =>
@@ -18,6 +20,18 @@ const isFiniteNumber = (value: unknown): value is number =>
 
 const normalizeCode = (code: string) => code.trim().toUpperCase()
 const now = () => Date.now()
+
+// Константы для контроля ошибок
+const MAX_ERROR_COUNT = 5
+const ERROR_COOLDOWN_MS = 300000 // 5 минут
+
+function shouldSkipRetryDueToErrors(state: ConverterState): boolean {
+  if (state.errorCount >= MAX_ERROR_COUNT && state.lastErrorTime) {
+    const timeSinceLastError = now() - state.lastErrorTime
+    return timeSinceLastError < ERROR_COOLDOWN_MS
+  }
+  return false
+}
 
 export function useConverter() {
   const config = useRuntimeConfig()
@@ -38,6 +52,8 @@ export function useConverter() {
     ttlMs: null,
     promise: null,
     error: null,
+    lastErrorTime: null,
+    errorCount: 0,
   }))
 
   const hasFreshLocalPayload = () => {
@@ -54,7 +70,7 @@ export function useConverter() {
       return state.value.promise
     }
 
-    const requestPromise = await ofetch<ConverterPayload>(apiRoutePath, {
+    const requestPromise = ofetch<ConverterPayload>(apiRoutePath, {
         method: 'GET',
         query: forceRefresh ? { force: '1' } : undefined,
       })
@@ -63,10 +79,17 @@ export function useConverter() {
         state.value.fetchedAt = response.fetchedAt
         state.value.ttlMs = response.ttlMs ?? defaultTtlMs
         state.value.error = null
+        state.value.errorCount = 0
+        state.value.lastErrorTime = null
         return response.payload
       })
       .catch((error) => {
+        const currentTime = now()
         state.value.error = error
+        state.value.errorCount = state.value.errorCount + 1
+        state.value.lastErrorTime = currentTime
+        
+        console.error(`[converter] Fetch failed (attempt ${state.value.errorCount})`, error)
         throw error
       })
       .finally(() => {
@@ -102,10 +125,16 @@ export function useConverter() {
       return state.value.payload
     }
 
-    if (!opts?.lazy) {
-      void fetchRates({ forceRefresh }).catch(() => {
+    // Проверяем, нужно ли пропустить запрос из-за ошибок
+    const skipDueToErrors = shouldSkipRetryDueToErrors(state.value)
+    
+    if (!opts?.lazy && !skipDueToErrors) {
+      void fetchRates({ forceRefresh }).catch((error) => {
+        console.warn('[converter] Background fetch failed:', error)
         // suppress errors for sync flow; consumers can retry explicitly
       })
+    } else if (skipDueToErrors) {
+      console.warn('[converter] Skipping fetch due to recent failures')
     }
 
     if (!forceRefresh && state.value.payload) {
@@ -195,8 +224,10 @@ export function useConverter() {
     })
   }
   
-  if (!state.value.payload && !state.value.promise) {
-    void fetchRates().catch(() => {
+  // Инициализируем данные только если нет ошибок
+  if (!state.value.payload && !state.value.promise && !shouldSkipRetryDueToErrors(state.value)) {
+    void fetchRates().catch((error) => {
+      console.warn('[converter] Initial fetch failed:', error)
       // silent background fetch failure; consumers can retry
     })
   }
@@ -205,14 +236,20 @@ export function useConverter() {
   const base = computed(() => state.value.payload?.base ?? null)
   const pending = computed(() => !!state.value.promise)
   const error = computed(() => state.value.error ?? null)
+  const errorCount = computed(() => state.value.errorCount)
+  const lastErrorTime = computed(() => state.value.lastErrorTime)
   const fetchedAt = computed(() => state.value.fetchedAt)
   const hasFreshRates = computed(() => hasFreshLocalPayload())
+  const isInErrorCooldown = computed(() => shouldSkipRetryDueToErrors(state.value))
 
   return {
     base,
     rates,
     pending,
     error,
+    errorCount,
+    lastErrorTime,
+    isInErrorCooldown,
     fetchedAt,
     fetchRates,
     ensureRates,
@@ -224,5 +261,11 @@ export function useConverter() {
     convertFiatToFiatSync,
     hasFreshRates,
     refresh: () => fetchRates({ forceRefresh: true }),
+    // Функция для сброса ошибок
+    clearErrors: () => {
+      state.value.error = null
+      state.value.errorCount = 0
+      state.value.lastErrorTime = null
+    }
   }
 }

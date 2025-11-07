@@ -70,7 +70,7 @@ useSchemaOrg([
           <Meta :id="meta.id" :property="meta.property" :content="meta.content" />
         </template>
       </Head>
-      <Body>
+      <Body :style="{background: background}">
         <!-- <slot /> -->
     
         <the-supheader></the-supheader>
