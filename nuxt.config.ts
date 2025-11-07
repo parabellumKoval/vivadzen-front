@@ -177,14 +177,14 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     {
       families: {
-        Rubik: {
-          wght: [300, 400, 500, 700]
-        },
+        // Rubik: {
+        //   wght: [300, 400, 500, 700]
+        // },
         Onest: {
-          wght: [400, 500, 600, 700, 900]
+          wght: [400, 600, 900]
         },
         'Alegreya Sans': {
-          wght: [400, 500, 700, 900]
+          wght: [400, 900]
         },
       },
       display: 'swap',
