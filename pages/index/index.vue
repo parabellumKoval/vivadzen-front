@@ -28,7 +28,7 @@ setSeo()
   <DelayHydration>
     <section-banner></section-banner>
 
-    <lazy-section-category></lazy-section-category>
+    <section-category></section-category>
 
     <lazy-section-lists-main :query="slidersQuery" class="home-section-margin"></lazy-section-lists-main>
 

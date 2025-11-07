@@ -535,7 +535,7 @@ export default defineNuxtConfig({
       }
     },
     routeRules: {
-      '/': {isr: 1200},
+      '/': {swr: true},
       '/reviews/**': {isr: 60 * 30},
       '/blog': {isr: 60 * 30},
       '/blog/**': {isr: 60 * 30},

@@ -75,7 +75,7 @@ useSchemaOrg([
     
         <lazy-the-supheader></lazy-the-supheader>
 
-        <lazy-the-header></lazy-the-header>
+        <the-header></the-header>
         
         <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky>
 
