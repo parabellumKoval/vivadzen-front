@@ -72,9 +72,8 @@
   }
 }
 .profile {
-  display: none;
+  display: block;
   @include tablet {
-    display: block;
     order: 6;
   }
   @include desktop {

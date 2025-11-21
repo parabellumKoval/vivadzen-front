@@ -19,7 +19,6 @@ const loading = computed(() => {
     return null
   }
 })
-console.log('item', props.item)
 </script>
 
 <style src="./card.scss" lang="scss" scoped></style>

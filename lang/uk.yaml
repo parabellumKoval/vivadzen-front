@@ -364,3 +364,39 @@ payments:
     title: Банківський переказ
     desc: Ми надішлемо лист із платіжними реквізитами, включно з варіабельним символом, який потрібно вказати. Платіж можна оформити також за QR-кодом.
     fill_contacts: Заповніть поля, необхідні для виставлення рахунку
+
+wallet:
+  created_at: Створено
+  type: Тип
+  amount: Сума
+  operation_info: Інформація про операцію
+  related_order: Пов'язане замовлення
+  referral_info: Реферальна інформація
+  related_operation: Пов'язана операція
+  currency_conversion: Конвертація валют
+  order_info: Інформація про замовлення
+  context_info: Контекстна інформація
+  description: Опис
+  trigger: Тригер
+  order_id: ID замовлення
+  order_total: Сума замовлення
+  user_id: ID користувача
+  referral_level: Рівень реферала
+  beneficiary_type: Тип отримувача
+  rewards_count: Кількість винагород
+  total_reward: Загальна винагорода
+  payment_status: Статус платежу
+  paid: Сплачено
+  unpaid: Не сплачено
+  reference_type: Тип посилання
+  reference_id: ID посилання
+  target_currency: Цільова валюта
+  exchange_rate: Курс обміну
+  target_amount: Цільова сума
+  currency: Валюта
+  order_code: Код замовлення
+  context_currency: Валюта контексту
+  upline: Вищестоящий
+  withdrawal_request: Запит на виведення
+  order: Замовлення
+  no_details_available: Деталі недоступні

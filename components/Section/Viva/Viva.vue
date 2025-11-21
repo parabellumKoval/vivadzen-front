@@ -35,6 +35,7 @@ const img = useImg()
           loading="lazy"
           fit="outside"
           :placeholder="img.noImage"
+          class="vp__coin-img"
         />
       </div>
 

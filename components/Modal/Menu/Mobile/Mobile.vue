@@ -43,37 +43,9 @@ const selectMainHandler = (index) => {
   <modal-wrapper class="m-wrapper">
     <div class="mm">
       
-      <div class="header">
-        <!-- User -->
-        
-        <template v-if="isLoggedIn && authUser" >
-          <button @click="goToAccount" class="avatar" type="button" clickable>
-            <ClientOnly>
-              <nuxt-img
-                :provider="useImg().provider"
-                :src="userAvatar"
-                width="50"
-                height="50"
-                sizes = "mobile:30px tablet:30px desktop:30px"
-                fit = "cover"
-                quality = "100"
-                :placeholder="useImg().noImage"
-                class = "avatar-image"
-              />
-            </ClientOnly>
-          </button>
-          <button @click="goToAccount" class="header-btn">
-            <span class="header-btn-name">{{ authUser.email }}</span>
-            <span class="header-btn-label">{{ t('dashboard') }}</span>
-          </button>
-        </template>
-        <template v-else>
-          <div @click="loginHandler" class="avatar-faker">
-            <IconCSS name="iconoir:user" size="24"></IconCSS>
-          </div>
-          <button @click="loginHandler" class="header-btn">{{ t('login_or_register') }}</button>
-        </template>
-      
+      <div v-if="isLoggedIn && authUser" class="header">
+        <the-header-favorite class="header-btn"></the-header-favorite>
+        <the-header-comparison class="header-btn"></the-header-comparison>
       </div>
 
       <div class="mm-content">

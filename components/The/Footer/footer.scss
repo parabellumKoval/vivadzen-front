@@ -2,7 +2,15 @@
   position: relative;
   background: $color-dark-1;
   padding: 0 20px;
-  
+  margin-top: 50px;
+  @include tablet {
+    padding: 0 45px;
+    margin-top: 80px;
+  }
+  @include desktop {
+    margin-top: 160px;
+  }
+
   &-label {
     margin-bottom: 10px;
     font-size: 12px;
@@ -18,13 +26,6 @@
     @include tablet {
       margin: 40px 0;
     }
-  }
-  @include tablet {
-    padding: 0 45px;
-    margin-top: 80px;
-  }
-  @include desktop {
-    margin-top: 160px;
   }
 }
 .company {

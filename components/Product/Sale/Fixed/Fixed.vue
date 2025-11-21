@@ -22,9 +22,14 @@ const favoriteIcon = computed(() => {
   }
 })
 
+const imageSrc = computed(() => {
+  return props.product?.images && props.product.images.length > 0 ? props.product.images[0].src : useImg().noImage
+})
+
 // METHODS
 // HANDLERS
 // WATCHERS
+console.log('fixed sale component loaded', props.product)
 </script>
 
 <style src='./fixed.scss' lang='scss' scoped></style>
@@ -32,16 +37,32 @@ const favoriteIcon = computed(() => {
 
 <template>
   <div class="sale-fixed">
-    <button @click="toComparisonHandler" :class="{active: isComparison}" class="sale-fixed-btn comparison-btn">
+    <!-- <button @click="toComparisonHandler" :class="{active: isComparison}" class="sale-fixed-btn comparison-btn">
       <IconCSS name="ph:scales-light" size="24"></IconCSS>
     </button>
 
     <button @click="toFavoriteHandler" :class="{active: isFavorite}" class="sale-fixed-btn favorite-btn">
       <IconCSS :name="favoriteIcon" size="24"></IconCSS>
-    </button>
+    </button> -->
+
+    <div>
+      <nuxt-img
+        :src = "imageSrc"
+        sizes = "40px"
+        format = "avif"
+        quality = "40"
+        fit="outside"
+        :placeholder="useImg().noImage"
+        loading="lazy"
+        class="thumbnail-image"
+      >
+      </nuxt-img> 
+    </div>
+    
+    <div>{{ product.name }}</div>
 
     <div class="price-block">
-      <simple-price :value="product.oldPrice" class="price-old"></simple-price>
+      <simple-price v-if="product.oldPrice" :value="product.oldPrice" class="price-old"></simple-price>
       <simple-price :value="product.price" class="price-base"></simple-price>
     </div>
 

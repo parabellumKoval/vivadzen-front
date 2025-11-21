@@ -39,6 +39,7 @@ title:
     settings: Настройки
     support: Поддержка
     favorite: Избранные товары
+    transactions: Транзакции
 
 meta:
   address: На Боишти 1471/22, 120 00 Нове Место, Прага 2, Чехия
@@ -87,6 +88,7 @@ label:
   active_filters: Примененные фильтры
   all_products: Все товары
   show: Показать
+  in_your_cart: В вашей корзине
   reviews: '{reviews} отзывов | {reviews} отзыв | {reviews} отзыва | {reviews} отзывов'
   products: '{products} товаров | {products} товар | {products} товара| {products} товаров'
   page: 'страница {page}'
@@ -365,3 +367,39 @@ payments:
     title: Банковский перевод
     desc: Мы отправим вам электронное письмо с необходимой платёжной информацией, включая вариабельный символ, который необходимо указать при оплате. Платёжное поручение также можно оформить, отсканировав QR-код.
     fill_contacts: Заполните поля необходимые для выставления счета
+
+wallet:
+  created_at: Создано
+  type: Тип
+  amount: Сумма
+  operation_info: Информация об операции
+  related_order: Связанный заказ
+  referral_info: Реферальная информация
+  related_operation: Связанная операция
+  currency_conversion: Конвертация валюты
+  order_info: Информация о заказе
+  context_info: Контекстная информация
+  description: Описание
+  trigger: Триггер
+  order_id: ID заказа
+  order_total: Сумма заказа
+  user_id: ID пользователя
+  referral_level: Уровень реферала
+  beneficiary_type: Тип получателя
+  rewards_count: Количество вознаграждений
+  total_reward: Общее вознаграждение
+  payment_status: Статус платежа
+  paid: Оплачено
+  unpaid: Не оплачено
+  reference_type: Тип ссылки
+  reference_id: ID ссылки
+  target_currency: Целевая валюта
+  exchange_rate: Курс обмена
+  target_amount: Целевая сумма
+  currency: Валюта
+  order_code: Код заказа
+  context_currency: Валюта контекста
+  upline: Вышестоящий
+  withdrawal_request: Запрос на вывод
+  order: Заказ
+  no_details_available: Детали недоступны

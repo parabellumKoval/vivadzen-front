@@ -127,7 +127,7 @@ const showAuthHandler = () => {
           </li>
         </ul>
 
-        <button @click="showAuthHandler" class="refgrow__cta-btn button orange" type="button">
+        <button @click="showAuthHandler" class="refgrow__cta-btn button color-orange" type="button">
           {{ t('refGrow.cta.button') }}
         </button>
       </aside>

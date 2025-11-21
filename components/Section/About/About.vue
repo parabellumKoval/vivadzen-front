@@ -2,6 +2,10 @@
 import { useCategoryStore } from '~/store/category'
 const {t} = useI18n()
 
+const timeout = ref(null);
+const articles = ref([])
+const activeTag = ref('kanabinoidy')
+const activeIndex = ref(0)
 
 //
 const categories = computed(() => {
@@ -12,6 +16,14 @@ const categories = computed(() => {
   })
 })
 
+const activeArticles = computed(() => {
+  if(activeTag.value) {
+    return articles.value[activeTag.value] || []
+  }else {
+    return []
+  }
+})
+
 // console.log('categories', categories.value);
 
 const getTag = (category) => {
@@ -20,66 +32,77 @@ const getTag = (category) => {
   }
   return null
 }
+const activeCategoryDesc = computed(() => {
+  const category = categories.value[activeIndex.value];
+  return category? category?.name + ' guidebooks' : '';
+})
 
-// const {data: articles} = await useAsyncData('homepage-main-articles', () => useFetcherData('homepage-main-articles'))
 
-// watch(articles, (value) => {
-// }, { immediate: true })
+const slideChangedHandler = (newIndex) => {
+  clearTimeout(timeout.value);
+
+  timeout.value = setTimeout(() => {
+    activeIndex.value = newIndex;
+    const newTag = getTag(categories.value[newIndex])
+    activeTag.value = newTag || null
+  }, 300);
+  
+}
+
+const {data: dataArticles} = await useAsyncData('homepage-main-articles', () => useFetcherData('homepage-main-articles'))
+
+watch(dataArticles, (value) => {
+
+  if(value.data) {
+    articles.value = value.data
+  }
+}, { immediate: true })
 </script>
 
 <style src="./about.scss" lang="scss" scoped></style>
-<i18n src="./lang.yaml" lang="yaml"></i18n>
+<style src="~/assets/scss/snap-nav.scss" lang="scss" scoped></style>
 
 <template>
-  <section class="hemp-section main-section" aria-label="About Hemp">
-    <div
-      class="slides"
-      role="region"
-      :aria-label="ariaLabel"
-    >
-      <article
-        v-for="(s, i) in categories"
-        :key="i"
-        class="slide"
+  <section class="about about-wrapper main-section" aria-label="About Hemp">
+    <div class="about-content">
+      <SnapCarousel
+        mode="page"
+        :items="categories"
+        :items-per-page="1"
+        :loop="true"
+        :show-arrows="true"
+        :show-dots="true"
+        class="about-carousel"
+        @pageChange="slideChangedHandler"
       >
-        <div class="slide-inner">
-          <div class="slide-media">
-            <nuxt-img
-              :src = "s.image?.src"
-              :alt = "s.image?.alt || s.title"
-              :title = "s.image?.title || s.title"
-              width="500"
-              height="500"
-              sizes = "mobile:100vw tablet:500px desktop:600px"
-              format = "webp"
-              quality = "60"
-              loading = "lazy"
-              fit="outside"
-              class="category-image"
-            ></nuxt-img>
-          </div>
-
-          <div class="slide-content">
-            <p class="slide-eyebrow">{{ s.name }}</p>
-
-            <div
-              class="slide-title font-alegreya"
-              v-html="s.extras_trans?.caption"
-            ></div>
-
-            <div v-if="s.extras_trans?.full_description" class="slide-full_desc" v-html="s.extras_trans?.full_description"></div>
-
-            <div v-if="s.children?.length" class="slide-chips" role="list">
-              <NuxtLink v-for="child in s.children" :to="$regionPath('/' + child.slug)" :key="child.id" class="slide-chip" role="listitem">
-                {{ child.name }}
-              </NuxtLink>
-            </div>
-          </div>
+        <template #item="{ item }">
+          <SectionAboutItem :item="item" />
+        </template>
+        <template #prev>
+          <IconCSS name="mynaui:chevron-left" size="24"></IconCSS>
+        </template>
+        <template #next>
+          <IconCSS name="mynaui:chevron-right" size="24"></IconCSS>
+        </template>
+      </SnapCarousel>
+      
+      <div class="sidebar">
+        <div class="sidebar-title">Guidebook</div>
+        <div class="sidebar-content">
+          <div class="sidebar-content-label">{{ activeCategoryDesc }}</div>
+          <Transition name="fade-in">
+            <template v-if="activeArticles.length">
+              <TransitionGroup name="fade-in" tag="div" class="sidebar-articles">
+                <ArticleCardMini v-for="article in activeArticles" :key="article.id" :item="article" />
+              </TransitionGroup>
+            </template>
+            <template v-else>
+              <div class="no-articles">No articles available.</div>
+            </template>
+          </Transition>
         </div>
-      </article>
+        <NuxtLink :to="$regionPath('/blog')" class="button primary sidebar-btn">All guidebooks</NuxtLink>
+      </div>
     </div>
-
-    <!-- Нативный скроллбар внизу (без JS) -->
-    <div class="progress-rail" aria-hidden="true"></div>
   </section>
 </template>

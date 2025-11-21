@@ -29,6 +29,7 @@ const breadcrumbs = [
   }
 ]
 
+const isCheckoutListActive = ref(false)
 const errorHtml = ref(null)
 const authType = ref('new')
 
@@ -211,6 +212,7 @@ setUserData()
 useAsyncData('get-rules', async() => await useCartStore().rules())
 
 useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: total.value})
+
 </script>
 
 <style src="./checkout.scss" lang="scss" scoped></style>
@@ -246,6 +248,10 @@ useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: tot
                 {{ t('select') }}
               </div>
             </template>
+
+            <div v-show="isCheckoutListActive" class="checkout-extrabox" >
+              <lazy-checkout-list @isActive="(v) => isCheckoutListActive = v"></lazy-checkout-list>
+            </div>
           </div>
 
 

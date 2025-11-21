@@ -21,12 +21,26 @@
   &__coin {
     display: grid;
     place-items: center;
+
+    &-img {
+      width: 50vw;
+      height: auto;
+
+      @include desktop {
+        width: initial;
+        height: initial;
+      }
+    }
   }
 
   &__title {
-    font-size: 64px;
+    font-size: 44px;
     color: $color-primary;
     font-weight: 900;
+
+    @include desktop {
+      font-size: 64px;
+    }
   }
 
   &__desc {
@@ -61,26 +75,31 @@
     max-width: 1600px;
     margin: 12px auto 0;
     display: grid;
-    grid-template-columns: 1fr;
-    column-gap: 65px;
-    row-gap: 30px;
-
-    // @media (max-width: 1200px) { grid-template-columns: repeat(2, 1fr); }
-    // @media (max-width: 640px) { grid-template-columns: 1fr; }
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    overflow-y: auto;
 
     @include desktop {
+      column-gap: 65px;
+      row-gap: 30px;
       grid-template-columns: repeat(4, 1fr);
+      overflow-y: initial;
+      width: initial;
     }
   }
 
   &__h {
-    text-align: center;
-    font-size: 24px;
+    grid-column: span 2;
+    font-size: 18px;
     color: $color-green;
+    font-weight: 600;
     margin:0;
+    text-align: left;
 
     @include desktop {
-      grid-column: span 2;
+      font-size: 24px;
+      text-align: center;
     }
 
     &--left { order: -2; }
@@ -88,9 +107,10 @@
       color: $color-orange;
       order: 3;
 
-      @include desktop {
         order: -1;
-      }
+      // @include desktop {
+      //   order: -1;
+      // }
     }
   }
 
@@ -104,12 +124,14 @@
     grid-template-rows:  1fr min-content;
     align-content: end;
     min-height: 440px;
+    width: 60vw;
 
     @include desktop {
       order:initial;
       min-height: 640px;
       grid-template-rows:  initial;
       padding: 40px;
+      width: initial;
     }
     &--green { background: $color-green; }
     &--orange { background: $color-orange; }
@@ -168,16 +190,17 @@
   &__text {
     position: relative;
     margin: 0;
-    padding: 0 30px 0 30px;
+    padding: 0 15px;
     text-align: center;
     color: $color-8;
-    font-weight: 700;
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 16px;
 
     @include desktop {
       height: 45px;
       padding: 0;
       font-size: 16px;
+      font-weight: 700;
     }
   }
 }

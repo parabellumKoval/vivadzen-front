@@ -149,7 +149,7 @@ const goPayHandler = () => {
 
       <transition name="fade-in">
         <button
-          v-if="order.payment.method === 'online'"
+          v-if="order.payment.method === 'liqpay_online'"
           @click="goPayHandler"
           :class="{disabled: isDefaultRegion}"
           class="button primary sale-button"

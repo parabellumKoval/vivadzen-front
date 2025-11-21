@@ -16,7 +16,8 @@
     padding: 10px 50px 10px 0;
     margin: 0 0 20px 0;
     width: calc(100% + 5px);
-    background: $color-7;
+    background: $color-bg;
+    border-bottom: 1px solid $color-border;
     @include desktop {
       display: none;
     }
@@ -31,6 +32,11 @@
   &-title {
     text-transform: uppercase;
     margin-left: 15px;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 600;
   }
+}
+
+.category-image {
+  border-radius: $radius;
 }

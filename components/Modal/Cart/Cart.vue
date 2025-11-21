@@ -5,6 +5,7 @@ const { t } = useI18n()
 const {fetchCartProducts} = useCartStore()
 const {get} = useSettings()
 
+const isCheckoutListActive = ref(false)
 // COMPUTEDS
 const products = computed(() => {
   return useCartStore().cart
@@ -33,22 +34,29 @@ await useAsyncData('cart-products', async () => await fetchCartProducts())
   <modal-wrapper :title="t('title.cart')">
     <div class="cart">
       <div class="body" scrollable>
-        <div v-if="products.length">
-          <transition-group name="fade-in">
-            <product-card-checkout
-              v-for="product in products"
-              :key="product.id"
-              :item="product"
-              class="product-card"
-              edit
-            >
-            </product-card-checkout>
-          </transition-group>
+        <div class="body-inner">
+          <div v-if="products.length">
+            <div class="body-label">{{ t('label.in_your_cart') + ' ' + t('label.products', { products: products.length }) }} </div>
+            <transition-group name="fade-in">
+              <product-card-checkout
+                v-for="product in products"
+                :key="product.id"
+                :item="product"
+                class="product-card"
+                edit
+              >
+              </product-card-checkout>
+            </transition-group>
+          </div>
+          <div v-else>
+            {{ $t('messages.empty_cart') }}
+          </div>
         </div>
-        <div v-else>
-          {{ $t('messages.empty_cart') }}
-        </div>
+
+        <lazy-checkout-list :items-per-page="{mobile: 3, tablet: 6}" class="body-lists"></lazy-checkout-list>
+        
       </div>
+
 
       <div v-if="useCartStore().total" class="footer">
         

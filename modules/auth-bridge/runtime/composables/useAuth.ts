@@ -89,6 +89,11 @@ export function useAuth() {
     return response;
   }
 
+  async function wallet() {
+    const response = await fetcher(endpoints.wallet, { method: 'GET' })
+    return response;
+  }
+
   async function me(force = false) {
     if (!token.value) {
       setSession(null, null)
@@ -276,6 +281,7 @@ export function useAuth() {
     init: ensureInit,
     me,
     referrals,
+    wallet,
     login,
     register,
     logout,

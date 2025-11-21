@@ -364,3 +364,39 @@ payments:
     title: Banküberweisung
     desc: Wir senden Ihnen per E-Mail die Zahlungsdaten inklusive Variablem Symbol. Sie können den Auftrag auch per QR-Code erstellen.
     fill_contacts: Füllen Sie die Felder für die Rechnungserstellung aus
+
+wallet:
+  created_at: Erstellt am
+  type: Typ
+  amount: Betrag
+  operation_info: Operationsinformationen
+  related_order: Zugehörige Bestellung
+  referral_info: Empfehlungsinformationen
+  related_operation: Zugehörige Operation
+  currency_conversion: Währungsumrechnung
+  order_info: Bestellinformationen
+  context_info: Kontextinformationen
+  description: Beschreibung
+  trigger: Auslöser
+  order_id: Bestell-ID
+  order_total: Bestellsumme
+  user_id: Benutzer-ID
+  referral_level: Empfehlungsebene
+  beneficiary_type: Begünstigtentyp
+  rewards_count: Anzahl Belohnungen
+  total_reward: Gesamtbelohnung
+  payment_status: Zahlungsstatus
+  paid: Bezahlt
+  unpaid: Unbezahlt
+  reference_type: Referenztyp
+  reference_id: Referenz-ID
+  target_currency: Zielwährung
+  exchange_rate: Wechselkurs
+  target_amount: Zielbetrag
+  currency: Währung
+  order_code: Bestellcode
+  context_currency: Kontext-Währung
+  upline: Vorgesetzter
+  withdrawal_request: Auszahlungsantrag
+  order: Bestellung
+  no_details_available: Keine Details verfügbar

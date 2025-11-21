@@ -58,7 +58,7 @@ const menus = computed(() => {
         slug: 'favorite',
         icon: 'iconoir:heart',
         link: '/account/favorite'
-      }, {
+      },{
         id: 4,
         title: t('title.account.referrals'),
         slug: 'network',
@@ -66,12 +66,18 @@ const menus = computed(() => {
         link: '/account/network/common'
       },{
         id: 5,
+        title: t('title.account.transactions'),
+        slug: 'transactions',
+        icon: 'mynaui:credit-card',
+        link: '/account/transactions'
+      },{
+        id: 6,
         title: t('title.account.settings'),
         slug: 'settings',
         icon: 'iconoir:settings',
         link: '/account/settings'
       },{
-        id: 6,
+        id: 7,
         title: t('button.logout'),
         icon: 'iconoir:log-out',
         callback: logoutConfirmHandler

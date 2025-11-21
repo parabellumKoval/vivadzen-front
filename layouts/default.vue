@@ -77,7 +77,7 @@ useSchemaOrg([
 
         <the-header></the-header>
         
-        <!-- <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky> -->
+        <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky>
 
         <main class="main" :style="{background: background}">
           <slot />
@@ -93,6 +93,8 @@ useSchemaOrg([
           <component :is="useModal().active.component"></component>
         </modal-transition>
         
+        <lazy-affiliate-link></lazy-affiliate-link>
+
         <lazy-simple-clicker></lazy-simple-clicker>
       </Body>
     </Html>

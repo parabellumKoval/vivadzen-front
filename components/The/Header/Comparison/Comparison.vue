@@ -11,7 +11,7 @@ const productsCount = computed(() => {
 <style src="./comparison.scss" lang="scss" scoped />
 
 <template>
-  <NuxtLink :to="$regionPath('/comparison')" class="header-btn comp-btn" type="button" clickable>
+  <NuxtLink :to="$regionPath('/comparison')" class="comp-btn" type="button" clickable>
     <IconCSS name="ph:scales-light" size="30px" class="icon"></IconCSS>
     <transition name="zoom">
       <div v-if="productsCount" class="budge">{{ productsCount }}</div>

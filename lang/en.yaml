@@ -364,3 +364,39 @@ payments:
     title: Bank transfer
     desc: We will email you the payment details you need, including the variable symbol required for the transfer. You can also create the payment order by scanning a QR code.
     fill_contacts: Fill in the fields required to issue an invoice
+
+wallet:
+  created_at: Created at
+  type: Type
+  amount: Amount
+  operation_info: Operation Information
+  related_order: Related Order
+  referral_info: Referral Information
+  related_operation: Related Operation
+  currency_conversion: Currency Conversion
+  order_info: Order Information
+  context_info: Context Information
+  description: Description
+  trigger: Trigger
+  order_id: Order ID
+  order_total: Order Total
+  user_id: User ID
+  referral_level: Referral Level
+  beneficiary_type: Beneficiary Type
+  rewards_count: Rewards Count
+  total_reward: Total Reward
+  payment_status: Payment Status
+  paid: Paid
+  unpaid: Unpaid
+  reference_type: Reference Type
+  reference_id: Reference ID
+  target_currency: Target Currency
+  exchange_rate: Exchange Rate
+  target_amount: Target Amount
+  currency: Currency
+  order_code: Order Code
+  context_currency: Context Currency
+  upline: Upline
+  withdrawal_request: Withdrawal Request
+  order: Order
+  no_details_available: No details available

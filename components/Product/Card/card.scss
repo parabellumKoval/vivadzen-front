@@ -70,10 +70,10 @@
   display: block;
   display: -webkit-box;
   width: 100%;
-  max-height: 50px;
-  height: 100%;
-  font-size: 12px;
-  text-align: center;
+  height: 43px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
   line-height: 140%;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -84,12 +84,15 @@
   }
   @include desktop {
     position: absolute;
+    height: 100%;
     max-height: 45px;
     font-size: 16px;
     overflow: initial;
+    text-align: center;
   }
 
   &-wrapper {
+    padding: 0 5px;
     @include desktop {
       position: relative;
       height: 22px;
@@ -158,14 +161,14 @@
     }
   }
   &-btn {
-    max-width: 70%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    color: $color-3;
-    font-size: 12px;
-    @include tablet {
-      font-size: 14px;
+    display: none;
+    @include desktop {
+      max-width: 70%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: $color-3;
+      font-size: 12px;
     }
     &:hover {
       text-decoration: underline;
@@ -173,15 +176,15 @@
   }
 }
 .amount {
-  text-align: center !important;
-  font-size: 12px;
+  display: none !important;
   @include tablet {
+    display: block !important;
+    text-align: center !important;
     font-size: 16px;
   }
   :deep(.running_out) {
     position: relative !important;
     right: 0;
-    color: $color-red;
     font-size: 14px !important;
     @include desktop {
       font-size: 16px !important;
@@ -189,12 +192,12 @@
   }
 }
 .hover {
-  display: grid;
-  grid-auto-flow: row;
-  // grid-template-columns: repeat(2, 24px);
-  grid-gap: 5px;
-  transition: opacity $speed;
+  display: none;
   @include desktop {
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 5px;
+    transition: opacity $speed;
     position: absolute;
     grid-template-columns: repeat(2, 60px);
     top: 5px;
@@ -217,7 +220,6 @@
     width: 34px;
     font-size: 18px;
     color: $color-orange;
-    // border: 2px solid $color-dark;
     background: $color-8;
     @include desktop {
       height: 40px;
@@ -225,35 +227,23 @@
       font-size: 24px;
     }
     &.comparison-btn {
-      // color: $color-8;
-      // background: $color-blue;
-      // color: $color-blue;
-      // background: color.scale($color-blue, $lightness: 80%);
-      // border: 1px solid color.scale($color-blue, $lightness: 20%);
       &.active {
         color: $color-blue;
         background: color.scale($color-blue, $lightness: 80%);
         border: 1px solid color.scale($color-blue, $lightness: 60%);
       }
       &:hover {
-        // background: color.scale($color-blue, $lightness: 90%);
         background: $color-orange;
         color: $color-8;
       }
     }
     &.favorite-btn {
-      // color: $color-red;
-      // background: color.scale($color-red, $lightness: 85%);
-      // border: 1px solid color.scale($color-red, $lightness: 20%);
       &.active {
-        // color: $color-8;
-        // background: $color-red;
-        color: $color-red;
-        background: color.scale($color-red, $lightness: 75%);
-        border: 1px solid color.scale($color-red, $lightness: 60%);
+        color: $color-orange;
+        background: color.scale($color-orange, $lightness: 75%);
+        border: 1px solid color.scale($color-orange, $lightness: 60%);
       }
       &:hover {
-        // background: color.scale($color-red, $lightness: 10%);
         background: $color-orange;
         color: $color-8;
       }
@@ -263,18 +253,25 @@
 .sale {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   flex-direction: row-reverse;
-  grid-column-gap: 25px;
+  column-gap: 15px;
   @include tablet {
   }
   @include desktop {
+    justify-content: center;
     flex-direction: row;
+    column-gap: 25px;
   }
   .buy-btn {
-    width: 60px;
-    height: 40px;
+    width: 50px;
+    height: 34px;
     padding: 0;
+
+    @include desktop {
+      width: 60px;
+      height: 40px;
+    }
 
     &-icon {
       font-size: 20px;

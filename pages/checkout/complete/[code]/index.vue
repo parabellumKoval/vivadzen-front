@@ -3,7 +3,7 @@ import {useOrderStore} from '~/store/order';
 import {useCartStore} from '~/store/cart'
 
 definePageMeta({
-  bg: '#eee'
+  bg: '#eee6dd'
 });
 
 const {t} = useI18n() 

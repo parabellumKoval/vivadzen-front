@@ -1,0 +1,193 @@
+@use 'sass:color';
+
+.card {
+  position: relative;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: 5px;
+  width: 100%;
+  @include tablet {
+    grid-gap: 10px;
+  }
+  @include desktop {
+  }
+  &:hover {
+    .hover {
+      opacity: 1;
+      z-index: 10;
+    }
+  }
+  .label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius;
+    padding: 0 6px;
+    height: 20px;
+    background: $color-4;
+    font-size: 10px;
+    text-transform: uppercase;
+    z-index: 10;
+    @include desktop {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      height: 26px;
+      padding: 0 12px;
+      font-size: 12px;
+    }
+    &.red {
+      color: $color-8;
+      background: $color-red;
+    }
+    &.orange {
+      color: $color-8;
+      background: $color-orange;
+    }
+    &.violet {
+      color: $color-8;
+      background: $color-blue;
+    }
+  }
+  &-sub {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 0 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.name {
+  display: block;
+  display: -webkit-box;
+  width: 100%;
+  height: 35px;
+  max-height: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 140%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transition: .3s ease max-height;
+  overflow: hidden;
+  z-index: 1;
+  &:hover {
+  }
+  @include desktop {
+    position: absolute;
+    max-height: 45px;
+    font-size: 14px;
+    overflow: initial;
+    height: 100%;
+  }
+
+  &-wrapper {
+    @include desktop {
+      position: relative;
+      height: 22px;
+      font-size: 16px;
+      overflow: hidden;
+      &:hover {
+        overflow: visible;
+        .name {
+          // color: $color-green;
+          text-decoration: underline;
+          height: auto;
+          max-height: 200px;
+          -webkit-line-clamp: 5;
+          padding: 0 0 15px 0;
+        }
+      }
+    }
+  }
+}
+.image {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  object-position: center center;
+  border-radius: $radius;
+  opacity: 0;
+  transition: opacity .3s;
+  &:first-child {
+    opacity: 1;
+  }
+  &-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    border-radius: $radius;
+    background: $color-bg;
+
+    @include desktop {
+      &:hover {
+        .image {
+          &:first-child {
+            opacity: 0;
+          }
+          &:last-child {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+.reviews {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+  &.between {
+    @include desktop {
+      justify-content: space-between;
+    }
+  }
+  &-btn {
+    max-width: 70%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: $color-3;
+    font-size: 12px;
+    @include tablet {
+      font-size: 14px;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.sale {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+  @include tablet {
+  }
+  @include desktop {
+    grid-column-gap: 25px;
+    flex-direction: row;
+  }
+  .buy-btn {
+    width: 40px;
+    height: 30px;
+    padding: 0;
+    flex-direction: column;
+
+    &-icon {
+      font-size: 18px;
+    }
+  }
+}

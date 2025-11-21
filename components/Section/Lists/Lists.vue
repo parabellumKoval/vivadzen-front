@@ -26,7 +26,7 @@ const pending = computed(() => dataSource.pending.value)
 
 </script>
 
-<style src="./lists.scss" lang="scss" scoped></style>
+<style src="~/assets/scss/snap-nav.scss" lang="scss" scoped></style>
 
 <template>
   <div v-if="!pending && lists?.length" class="container">

@@ -68,17 +68,28 @@
 
   &__icon {
     position: relative;
-    width: 100%;
+    width: auto;
+    height: 30vh;
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
+    margin: 0 auto;
+
+    @include desktop {
+      width: 100%;
+      height: auto;
+    }
 
     img {
       position: relative;
       z-index: 2;
-      max-width: 78%;
+      max-width: 100%;
       height: auto;
       display: block;
+
+      @include desktop {
+        max-width: 78%;
+      }
     }
   }
 
@@ -87,12 +98,17 @@
     position: absolute;
     inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
-    width: 320px;
-    height: 320px;
+    width: 70%;
+    height: 70%;
     background: $color-bg-2; // тёплый бежевый круг
     border-radius: 9999px;
     z-index: 1;
     filter: none;
+
+    @include desktop {
+      width: 320px;
+      height: 320px;
+    }
   }
 
   &__cta {

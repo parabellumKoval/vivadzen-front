@@ -90,6 +90,7 @@ export const useCartStore = defineStore('cartStore', {
       const percent = user.value.discount_percent
       return (useCartStore().totalProducts * percent) / 100
     },
+    productIds: (state) => Object.keys(state.cartIdAmounts),
     cartLength: (state) => Object.values(state.cartIdAmounts).length,
     cart: (state) => state.cartProductsState,
     totalProducts: (state) => {
@@ -455,10 +456,8 @@ export const useCartStore = defineStore('cartStore', {
       const url = `${useRuntimeConfig().public.apiBase}/order/validate`
 
       const dataPost = {
-        ...orderable,
         ...this.orderState,
-        products: this.serializeCart(),
-        provider: 'data'
+        products: this.cartIdAmounts,
       }
       
       return await useApiFetch(url, dataPost, 'POST')

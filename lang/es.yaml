@@ -364,3 +364,39 @@ payments:
     title: Transferencia bancaria
     desc: Te enviaremos por correo los datos necesarios de pago, incluido el símbolo variable que debes indicar. También puedes generar la orden escaneando un código QR.
     fill_contacts: Completa los campos necesarios para emitir la factura
+
+wallet:
+  created_at: Creado el
+  type: Tipo
+  amount: Cantidad
+  operation_info: Información de la operación
+  related_order: Pedido relacionado
+  referral_info: Información de referidos
+  related_operation: Operación relacionada
+  currency_conversion: Conversión de moneda
+  order_info: Información del pedido
+  context_info: Información del contexto
+  description: Descripción
+  trigger: Disparador
+  order_id: ID del pedido
+  order_total: Total del pedido
+  user_id: ID del usuario
+  referral_level: Nivel de referido
+  beneficiary_type: Tipo de beneficiario
+  rewards_count: Cantidad de recompensas
+  total_reward: Recompensa total
+  payment_status: Estado del pago
+  paid: Pagado
+  unpaid: No pagado
+  reference_type: Tipo de referencia
+  reference_id: ID de referencia
+  target_currency: Moneda objetivo
+  exchange_rate: Tasa de cambio
+  target_amount: Cantidad objetivo
+  currency: Moneda
+  order_code: Código del pedido
+  context_currency: Moneda del contexto
+  upline: Superior
+  withdrawal_request: Solicitud de retiro
+  order: Pedido
+  no_details_available: No hay detalles disponibles

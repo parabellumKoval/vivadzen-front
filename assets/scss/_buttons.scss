@@ -107,10 +107,11 @@
     }
   }
   &.color-orange {
-    border: 2px solid $color-orange;
+    // border: 2px solid $color-orange;
     color: $color-orange;
+    background: $color-8;
     &:hover {
-      border-color: color.adjust($color-orange, $lightness: 10%);
+      // border-color: color.adjust($color-orange, $lightness: 10%);
       color: color.adjust($color-orange, $lightness: 10%);
     }
   }
@@ -126,11 +127,31 @@
     border: 2px solid $color-0;
   }
   
+  // &.orange {
+  //   background: $color-8;
+  //   color: $color-orange;
+  //   &:hover {
+  //     background: color.scale($color-bg-2, $lightness: 84%);
+  //   }
+  //   &.loading {
+  //     &:before {
+  //       background: color.scale($color-orange, $lightness: 80%);
+  //     }
+  //   }
+  //   &.active {
+  //     background: $color-orange;
+  //     color: $color-8;
+  //     &:hover {
+  //       background: color.scale($color-orange, $lightness: 15%);
+  //     }
+  //   }
+  // }
+
   &.orange {
-    background: $color-8;
-    color: $color-orange;
+    background: $color-orange;
+    color: $color-8;
     &:hover {
-      background: color.scale($color-bg-2, $lightness: 84%);
+      background: color.scale($color-orange, $lightness: 10%);
     }
     &.loading {
       &:before {

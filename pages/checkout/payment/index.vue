@@ -31,18 +31,18 @@ const isLoading = ref(false)
 //   script: [ {src: 'https://static.liqpay.ua/elements/customElements.js', type: 'text/javascript'} ]
 // })
 
-// const order = ref({
-//   action: "pay",
-//   amount: 0,
-//   currency: "UAH",
-//   description: null,
-//   order: null
-// })
-
 const order = ref({
-  code: null,
-  description: null
+  action: "pay",
+  amount: 0,
+  currency: "UAH",
+  description: null,
+  order: null
 })
+
+// const order = ref({
+//   code: null,
+//   description: null
+// })
 
 const form = ref({
   action: null,
@@ -63,8 +63,9 @@ const getLiqpayForm = async() => {
   isLoading.value = true
   await useLiqpayStore().getFormData(order.value)
     .then((res) => {
-      if(res) {
-        form.value = res
+      // console.log('Liqpay form data', res)
+      if(res.value) {
+        form.value = res.value
       }
     })
     .finally(() => {
@@ -93,12 +94,13 @@ const submitHandler = (v) => {
   useCartStore().createOrder(orderable.value).then(async (response) => {
     if(response.code) {
 
-      order.value.code = response.code
+      order.value.amount = response.price
+      order.value.order = response.code
       order.value.description = `Оплата заказа №${response.code} / Сумма: ${response.price} / Дата: ${response.created_at}`
 
-      // getLiqpayForm()
+      await getLiqpayForm()
       
-      await getMonoUrl()
+      // await getMonoUrl()
     }
   }).catch((err) => {
     useNoty().setNoty({content: t('noty.order.fail'), type: 'error'})

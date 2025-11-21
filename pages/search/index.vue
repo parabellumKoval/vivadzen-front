@@ -6,25 +6,7 @@ const route = useRoute()
 
 const searchInput = ref(null)
 
-const query = ref({
-  page: 1
-})
-
-// Filters
-const filters = ref(null)
-
-// Products
-const products = ref(null)
-const meta = ref(null)
-
-// Categories
-const categories = ref([])
-
-// Brands
-const brands = ref([])
-
-const pending = ref(false)
-const isLoading = ref(true)
+const isServer = process.server
 
 // Breadcrumbs
 const breadcrumbs = ref(null)
@@ -34,6 +16,14 @@ const search = computed(() => {
   return route.query.q
 })
 
+const query = computed(() => {
+  return {
+    q: search.value,
+    page: Number(route.query.page) || 1,
+    order: route.query.order || undefined,
+    dir: route.query.dir || undefined
+  }
+})
 
 const sortingsOptions = computed(() => {
   return [
@@ -66,59 +56,112 @@ const setCrumbs = (title) => {
   ]
 }
 
-const fetchSearch = async (search, query = {}, loadmore = false) => {
-
-  const params = {
-    q: search,
-    ...query
+const loadSearch = async () => {
+  if(!query.value.q?.length) {
+    return {
+      data: [],
+      meta: {}
+    }
   }
 
-  if(!params.q?.length) {
-    return
+  const response = await useSearchStore().index(query.value, 'small')
+  
+  // Преобразуем meta из формата Meilisearch в формат Laravel
+  const meilisearchMeta = response?.meta || {}
+  const transformedMeta = {
+    current_page: meilisearchMeta.page || 1,
+    per_page: meilisearchMeta.per_page || 20,
+    total: meilisearchMeta.total || 0,
+    last_page: meilisearchMeta.total && meilisearchMeta.per_page 
+      ? Math.ceil(meilisearchMeta.total / meilisearchMeta.per_page) 
+      : 1,
+    has_more: meilisearchMeta.has_more || false
   }
+  
+  return {
+    data: response?.data || [],
+    meta: transformedMeta
+  }
+}
 
-  isLoading.value = true
+// Loader products
+const {
+  data: searchResults,
+  pending: searchPending,
+  error: searchError,
+  refresh
+} = await useAsyncData(
+  'search-' + searchInput.value,
+  async () => {
+    const response = await loadSearch();
+    return {
+      products: response
+    }
+  }, {
+    lazy: !isServer,
+    server: true
+  }
+);
 
-  await useAsyncData('search', () => useSearchStore().index(params)).then(({data, error}) => {
-    console.log('search data', data)
-    if(data?.value) {
-      products.value = data.value.data
-      // if(loadmore) {
-      //   products.value = products.value.concat(data.value.products.data)
-      // }else {
-      //   products.value = data.value.products.data
-      // }
-
-      meta.value = data.value.meta || null
+const loadProductsAndMerge = async (page) => {
+  try {
+    const currentMeta = searchResults.value?.products?.meta;
+    
+    if (!currentMeta) {
+      return;
     }
 
-  }).finally(() => {
-    isLoading.value = false
-  })
-}
+    const pageToLoad = page ?? (Number(currentMeta.current_page) || 1) + 1;
+
+    if (currentMeta.last_page && pageToLoad > currentMeta.last_page) {
+      return;
+    }
+
+    const params = {
+      ...query.value,
+      page: pageToLoad
+    };
+
+    if(!params.q?.length) {
+      return;
+    }
+
+    const response = await useSearchStore().index(params, 'small');
+    const newProducts = response?.data || [];
+    
+    // Преобразуем meta из формата Meilisearch в формат Laravel
+    const meilisearchMeta = response?.meta || {}
+    const transformedMeta = {
+      current_page: meilisearchMeta.page || pageToLoad,
+      per_page: meilisearchMeta.per_page || 20,
+      total: meilisearchMeta.total || 0,
+      last_page: meilisearchMeta.total && meilisearchMeta.per_page 
+        ? Math.ceil(meilisearchMeta.total / meilisearchMeta.per_page) 
+        : 1,
+      has_more: meilisearchMeta.has_more || false
+    }
+
+    searchResults.value = {
+      products: {
+        data: [
+          ...(searchResults.value?.products?.data || []),
+          ...newProducts
+        ],
+        meta: transformedMeta
+      }
+    };
+  } catch (error) {
+    console.error('Error loading more products:', error);
+  }
+};
 
 // HANDLERS
 const searchHandler = () => {
-  useRouter().replace({
+  useRouter().push({
     query: {
       q: searchInput.value
     }
   })
-}
-
-const updateOrderHandler = (v) => {
-  query.value = {
-    ...query.value,
-    ...v
-  }
-
-  fetchSearch(searchInput.value, query.value)
-}
-
-const updatePageHandler = (v, loadmore = false) => {
-  query.value.page = v
-
-  fetchSearch(searchInput.value, query.value, loadmore)
 }
 
 // WATCH
@@ -126,7 +169,6 @@ watch(search, (v) => {
   searchInput.value = v
   if(v) {
     setCrumbs(t('title.search_results') + ` «${v}»`)
-    fetchSearch(v)
   }else {
     setCrumbs(t('title.search'))
   }
@@ -134,8 +176,22 @@ watch(search, (v) => {
   immediate: true
 })
 
-await fetchSearch(search.value)
+// Watch for query changes (page, sorting, search query)
+watch(
+  () => [route.query.q, route.query.page, route.query.order, route.query.dir],
+  (newVal, oldVal) => {
+    // Проверяем что query действительно изменился
+    if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+      refresh()
+    }
+  }
+)
 
+// Clear only active filters state (not URL) when entering search page
+const {updateActiveFilters} = useFilter()
+onMounted(() => {
+  updateActiveFilters([])
+})
 
 // Set mobile Search
 onBeforeMount(() => {
@@ -143,7 +199,6 @@ onBeforeMount(() => {
 })
 
 onBeforeUnmount(() => {
-  ////
   useTransport().setData({mobileSearch: true})
 })
 </script>
@@ -155,11 +210,12 @@ onBeforeUnmount(() => {
 <NuxtLayout
   name="catalog"
   :breadcrumbs="breadcrumbs"
-  :products="products"
-  :meta="meta"
-  :updateOrderCallback = "updateOrderHandler"
-  :updatePageCallback = "updatePageHandler"
-  :sortings="sortingsOptions"
+  :products="searchResults?.products?.data || []"
+  :products-meta="searchResults?.products?.meta || {}"
+  :products-pending="searchPending"
+  :refresh="refresh"
+  :loadmore="loadProductsAndMerge"
+  :sorting="sortingsOptions"
   no-filters
 >
   <template #title>

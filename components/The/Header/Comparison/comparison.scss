@@ -1,14 +1,5 @@
 .comp-btn {
-  margin: 0 0 0 auto;
-  &.header-btn {
-    width: 60px;
-    @include tablet {
-      width: inherit;
-    }
-  }
-  @include desktop {
-    margin: 0 auto;
-  }
+  
   .budge {
     position: absolute;
     top: 9px;

@@ -1,0 +1,133 @@
+// --container-max: 2160px;
+// --container-pad: 35px;
+// --slide-w: 60%;
+
+.slide {
+  /* 4) снапим по центру окна */
+  scroll-snap-align: start;
+
+  // padding: clamp(20px, 5vw, 48px);
+  padding: 0 150px 0 0;
+  display: flex;
+  align-items: start;
+
+  @include desktop {
+    align-items: center;
+    // min-height: min(760px, 100svh);
+  }
+
+
+  // scroll-snap-align: start;
+  // padding: clamp(20px, 5vw, 48px);
+
+  &-inner {
+    // width: min(1400px, 100%);
+    width: 100%;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 30px;
+
+    @include desktop {
+      grid-template-columns: min-content 1fr;
+      gap: clamp(24px, 5vw, 64px);
+    }
+  }
+
+  &-media {
+    display: grid;
+    place-items: start;
+    width: 70vw;
+    margin: 0 auto;
+
+    @include desktop {
+      width: 500px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.08));
+    }
+  }
+
+  &-content {
+    width: 100vw;
+    padding: 0 15px;
+
+    @include desktop {
+      width: initial;
+      padding: 0;
+    }
+  }
+
+  &-eyebrow {
+    letter-spacing: .5em;
+    font-weight: 700;
+    opacity: .55;
+    margin: 0 0 .5rem 0;
+  }
+
+  &-title {
+    font-size: clamp(36px, 5vw, 72px);
+    line-height: 1.05;
+    color: $color-primary;
+    margin: 0 0 16px 0;
+    font-weight: 800;
+  }
+
+  &-full_desc {
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+
+    .strong {
+      font-weight: 800;
+    }
+
+    &:deep(p) {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  &-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    @include desktop {
+      gap: 12px;
+    }
+  }
+
+  &-chip {
+    display: inline-flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: #fff;
+    border: 2px solid $color-bg-2;
+    color: $color-green;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      border: 2px solid $color-orange;
+      transition: $speed border;
+    }
+
+    &.all {
+      font-weight: 600;
+      .icon {
+        margin-left: 8px;
+        font-size: 24px;
+      }
+    }
+
+    @include desktop {
+      height: 44px;
+    }
+  }
+}

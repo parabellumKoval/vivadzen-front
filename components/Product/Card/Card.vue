@@ -126,7 +126,7 @@ const openChoseModificationModalHandler = (event) => {
       ></nuxt-img>
     </NuxtLink>
     
-    <div class="reviews">
+    <div  v-if="reviewsCount" class="reviews">
       <lazy-simple-stars v-if="item?.rating" :amount="item.rating" class="rating"></lazy-simple-stars>
       
       <button v-if="reviewsCount" @click="toReviewsHandler" class="reviews-btn">

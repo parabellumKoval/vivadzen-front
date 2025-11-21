@@ -151,10 +151,11 @@ export default defineNuxtConfig({
       profileEmailChange: '/auth/email/change',
       socialUrl: '/auth/oauth/:provider/url',
       validateReferralCode: '/auth/referral/validate/:code',
-      referrals: '/auth/referral/all'
+      referrals: '/auth/referral/all',
+      wallet: '/profile/wallet/ledger'
     },
     heartbeat: { enabled: true, intervalMs: 300000 },
-  }], './modules/settings', './modules/regions', './modules/converter', './modules/category', './modules/fetcher', // 'nuxt-gtag',
+  }], './modules/settings', './modules/regions', './modules/converter', './modules/category', './modules/fetcher', './modules/wrapperHtml', // 'nuxt-gtag',
   '~/modules/snap-carousel', // '@zadigetvoltaire/nuxt-gtm',
   '~/modules/packeta', 'nuxt-anchorscroll', [
       'nuxt-icon',
@@ -184,7 +185,7 @@ export default defineNuxtConfig({
           wght: [400, 600, 900]
         },
         'Alegreya Sans': {
-          wght: [400, 900]
+          wght: [400, 600, 900]
         },
       },
       display: 'swap',
@@ -279,25 +280,25 @@ export default defineNuxtConfig({
       languages: ['uk', 'ru', 'cs', 'de', 'es'],
       regions: ['zz', 'ua', 'cz', 'de', 'es'],
       endpoints: [
-        {
-          key: 'homepage-product-reviews',
-          endpoint: '/review/relation',
-          query: {
-            per_page: 3,
-            reviewable_type: 'App\\Models\\Product'
-          },
-          dependsOnLocale: true,
-          dependsOnRegion: true
-        },
-        {
-          key: 'homepage-shop-reviews',
-          endpoint: '/review/relation',
-          query: {
-            per_page: 3
-          },
-          dependsOnLocale: true,
-          dependsOnRegion: true
-        },
+        // {
+        //   key: 'homepage-product-reviews',
+        //   endpoint: '/review/relation',
+        //   query: {
+        //     per_page: 3,
+        //     reviewable_type: 'App\\Models\\Product'
+        //   },
+        //   dependsOnLocale: true,
+        //   dependsOnRegion: true
+        // },
+        // {
+        //   key: 'homepage-shop-reviews',
+        //   endpoint: '/review/relation',
+        //   query: {
+        //     per_page: 3
+        //   },
+        //   dependsOnLocale: true,
+        //   dependsOnRegion: true
+        // },
         {
           key: 'homepage-main-lists',
           endpoint: '/lists/main',
@@ -308,8 +309,8 @@ export default defineNuxtConfig({
           key: 'homepage-main-articles',
           endpoint: 'articles/grouped-by-tags',
           query: {
-            per_tag: 5,
-            tag_id:  {0: 1, 1:2}
+            per_tag: 10,
+            tag_id:  {0: 2, 1:3, 2:4, 3:5, 4:6, 5:7, 6:8, 7:9, 8:10, 9:11}
           },
           dependsOnLocale: true,
           dependsOnRegion: true
@@ -559,7 +560,7 @@ export default defineNuxtConfig({
       '/_ipx/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/assets/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/images/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-      // '/_nuxt/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
+      '/_nuxt/**': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/**/*.js': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/**/*.css': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/**/*.json': { headers: { 'Cache-Control': 'max-age=31536000, immutable' } },

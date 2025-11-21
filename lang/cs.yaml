@@ -364,3 +364,39 @@ payments:
     title: Bankovní převod
     desc: Zašleme vám e-mailem platební údaje včetně variabilního symbolu. Platbu lze vytvořit také naskenováním QR kódu.
     fill_contacts: Vyplňte pole potřebná k vystavení faktury
+
+wallet:
+  created_at: Vytvořeno
+  type: Typ
+  amount: Částka
+  operation_info: Informace o operaci
+  related_order: Související objednávka
+  referral_info: Referral informace
+  related_operation: Související operace
+  currency_conversion: Převod měny
+  order_info: Informace o objednávce
+  context_info: Kontextové informace
+  description: Popis
+  trigger: Trigger
+  order_id: ID objednávky
+  order_total: Celková částka objednávky
+  user_id: ID uživatele
+  referral_level: Úroveň referralu
+  beneficiary_type: Typ příjemce
+  rewards_count: Počet odměn
+  total_reward: Celková odměna
+  payment_status: Stav platby
+  paid: Zaplaceno
+  unpaid: Nezaplaceno
+  reference_type: Typ reference
+  reference_id: ID reference
+  target_currency: Cílová měna
+  exchange_rate: Směnný kurz
+  target_amount: Cílová částka
+  currency: Měna
+  order_code: Kód objednávky
+  context_currency: Kontextová měna
+  upline: Nadřízený
+  withdrawal_request: Žádost o výběr
+  order: Objednávka
+  no_details_available: Podrobnosti nejsou k dispozici

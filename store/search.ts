@@ -24,10 +24,10 @@ export const useSearchStore = defineStore('searchStore', {
       this.history.unshift(search)
     },
 
-    async index(params: object) {
+    async index(params: object, resource: string = 'medium') {
       const url = useRuntimeConfig().public.apiBase + '/search/products'
 
-      return await useApiFetch(url, params, 'GET', {lazy: false}).then(({data, error}) => {
+      return await useApiFetch(url, {...params, resource}, 'GET', {lazy: false}).then(({data, error}) => {
 
         if(data.value) {
           this.setHistory(params.q)

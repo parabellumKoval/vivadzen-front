@@ -30,12 +30,6 @@ const { t } = useI18n()
       <!-- SEARCH -->
       <the-header-search v-if="!$device.isMobile" class="search"></the-header-search>
 
-      <!-- PHONE -->
-      <!-- <the-header-contacts v-if="!$device.isMobile" class="contacts"></the-header-contacts> -->
-
-      <!-- LANGUAGE -->
-      <!-- <the-header-languages class="languages"></the-header-languages> -->
-
       <div class="blank"></div>
 
       <!-- SEARCH BTN -->
@@ -48,7 +42,7 @@ const { t } = useI18n()
       <the-header-profile class="profile"></the-header-profile>
 
       <!-- SEARCH -->
-      <the-header-comparison v-if="$device.isMobile" class="comparison"></the-header-comparison>
+      <!-- <the-header-comparison v-if="$device.isMobile" class="comparison"></the-header-comparison> -->
 
       <!-- CART -->
       <the-header-cart class="cart"></the-header-cart>

@@ -50,11 +50,11 @@ const backHandler = () => {
         </button>
         <nuxt-img
           v-if="selectedCategory.image.src"
-          :src = "useImg().category(selectedCategory.image)"
+          :src = "selectedCategory.image.src"
           width="40"
           height="40"
           sizes = "mobile:60px tablet:60px desktop:60px"
-          format = "webp"
+          format = "avif"
           quality = "60"
           loading = "lazy"
           fit="outside"
