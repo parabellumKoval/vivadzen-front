@@ -1,7 +1,6 @@
 <script setup>
 const { t, locale } = useI18n()
 const { $regionPath } = useNuxtApp();
-const { user, isAuthenticated, avatar } = useAuth()
 
 // просто таблица: локаль → размер шрифта
 const sizeMap = {
@@ -16,23 +15,6 @@ const sizeMap = {
 // fallback если языков станет больше
 const getSize = (line) => sizeMap[locale.value]?.[line] ?? '100px'
 
-
-const showAuthHandler = () => {
-  if(isAuthenticated.value && user.value) {
-    navigateTo($regionPath('/account/network/common'))
-  } else {
-    const component = defineAsyncComponent(() => import('~/components/Modal/Auth/Social/Social.vue'))
-    useModal().open(component, null, null)
-  }
-}
-
-// const imageSrc = computed( () => {
-//   if($device.isMobile) {
-//     return '/images/banners/banner-2-mobile.png'
-//   } else {
-//     return '/images/banners/banner-2.png'
-//   }
-// })
 </script>
 
 <style src="./item.scss" lang="scss" scoped></style>
@@ -44,15 +26,16 @@ const showAuthHandler = () => {
       <div class="banner-content">
         <div>
           <div :style="{ fontSize: getSize('line1') }">
-            <p class="banner-title banner-title-1 font-alegreya">{{ t('harmonize') }}</p>
-          </div>
-          <div :style="{ fontSize: getSize('line2') }">
-          <p class="banner-title banner-title-2 font-alegreya ">{{ t('bodySpirit') }}</p>
+            <p class="banner-title banner-title-1 font-alegreya">
+              {{ t('title') }} <span class="green">{{ t('titleAccent') }}</span>
+            </p>
           </div>
         </div>
-        <p class="banner-desc">{{ t('ancientWisdom') }}</p>
+        <p class="banner-desc">
+          {{ t('descBefore') }} <span class="sale-label">{{ t('discountLabel') }}</span> {{ t('descAfter') }}
+        </p>
         <div class="banner-btns">
-          <a href="/catalog" class="button promo banner-btn">{{ t('shopNow') }}</a>
+          <NuxtLink :to="$regionPath('/catalog')" class="button promo banner-btn">{{ t('shopNow') }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -62,7 +45,7 @@ const showAuthHandler = () => {
         src="/images/banners/banner-2-mobile.png"
         width="600"
         height="1090"
-        sizes = "mobile:100vw"
+        sizes = "mobile:80vw"
         format = "avif"
         quality = "60"
         fit="outside"

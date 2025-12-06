@@ -1,12 +1,9 @@
 .payment {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min-content;
+  display: flex;
+  flex-wrap: wrap;
   grid-gap: 10px;
   margin: 0 0 20px 0;
   @include desktop {
-    grid-template-columns: initial;
-    grid-auto-columns: 60px;
     margin: 0 0 30px 0;
   }
   &-item {
@@ -15,6 +12,7 @@
     justify-content: center;
     width: 60px;
     height: 40px;
+    flex-shrink: 0;
     border-radius: $radius;
     background: $color-bg-3;
   }

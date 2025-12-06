@@ -44,7 +44,7 @@ const showAuthHandler = () => {
         </div>
         <p class="banner-desc">{{ t('ancientWisdom') }}</p>
         <div class="banner-btns">
-          <a href="/catalog" class="button promo banner-btn">{{ t('shopNow') }}</a>
+          <NuxtLink :to="$regionPath('/catalog')" class="button promo banner-btn">{{ t('shopNow') }}</NuxtLink>
           <button @click="showAuthHandler" class="banner-btn-text">{{ t('joinCommunity') }}</button>
         </div>
       </div>

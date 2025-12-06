@@ -77,6 +77,13 @@
     }
   }
 
+  &-guarantee {
+    display: none !important;
+
+    @include desktop {
+      display: flex !important;
+    }
+  }
 }
 
 .sale {

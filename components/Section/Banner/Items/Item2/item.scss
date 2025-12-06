@@ -131,4 +131,15 @@
       max-width: initial;
     }
   }
+
+  .sale-label {
+    background: $color-8;
+    padding: 2px 10px;
+    border-radius: 999px;
+    color: $color-orange;
+
+    @include desktop {
+      padding: 4px 10px;
+    }
+  }
 }

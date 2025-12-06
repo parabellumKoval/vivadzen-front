@@ -40,7 +40,7 @@ const facebookHandler = async () => {
           src = "/images/mining.png"
           width = "801"
           height = "991"
-          sizes = "mobile:200vw tablet:800px desktop:800px"
+          sizes = "mobile:30vw tablet:800px desktop:800px"
           fit = "inside"
           format = "avif"
           class = "promo-image"
