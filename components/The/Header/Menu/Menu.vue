@@ -18,8 +18,10 @@ const openHandler = (event) => {
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <button @click="openHandler" class="btn-menu" modalable>
-    <IconCSS name="mynaui:menu" size="28" class="icon"></IconCSS>
-    <span class="btn-menu-label">{{ t('menu') }}</span>
+  <button @click="openHandler" class="header-btn" modalable>
+    <div class="menu-btn-content">
+      <IconCSS name="ci:menu-alt-03" size="28" class="icon"></IconCSS>
+      <span class="btn-menu-label">{{ t('menu') }}</span>
+    </div>
   </button>
 </template>

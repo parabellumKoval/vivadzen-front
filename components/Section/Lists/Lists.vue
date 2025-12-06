@@ -30,7 +30,7 @@ const pending = computed(() => dataSource.pending.value)
 
 <template>
   <div v-if="!pending && lists?.length" class="container">
-    <section v-for="list in lists" class="main-section">
+    <section v-for="list in lists" class="secondary-section">
       <template v-if="list.items?.length">
         <div class="section-title">{{ list.title }}</div>
         <SnapCarousel

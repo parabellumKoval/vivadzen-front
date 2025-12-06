@@ -27,31 +27,6 @@ const setInitData = () => {
   }
 }
 
-// const {data: reviewsData} = await useReviewStore().indexLazy({
-//   per_page: 6,
-//   category_slug: props.slug,
-//   resource: 'large'
-// })
-
-// const {pending, data: reviewsData} = useLazyAsyncData(() => useReviewStore().getAll({
-//   per_page: 6,
-//   category_slug: props.slug,
-//   resource: 'large'
-// }))
-
-// watch(reviewsData, (v) => {
-
-//   if(v?.data) {
-//     reviews.value = v.data
-//   }
-  
-//   if(v?.meta) {
-//     reviewsMeta.value = v.meta
-//   }
-// }, {
-//   immediate: true
-// })
-
 setInitData()
 </script>
 
@@ -62,11 +37,12 @@ setInitData()
   <div v-if="reviewsMeta?.total" class="review">
     <div class="title-secondary review-title">{{ t('review') }} {{ categoryName }}</div>
     <div class="review-header">
-      <simple-stars :amount="reviewsMeta?.rating_avg || 0"></simple-stars>
+      <simple-stars :amount="reviewsMeta?.rating_avg || 0" class="simple-start"></simple-stars>
       <div class="review-count">
         {{ t('messages.rates_reviews', {rates: (reviewsMeta?.rating_count || 0),reviews: (reviewsMeta?.total || 0)}) }}
       </div>
+      <NuxtLink :to="$regionPath('/reviews/products')" class="text-link"><span>{{ t('button.view_all_reviews') }}</span></NuxtLink>
     </div>
-    <review-product v-for="review in reviews" :key="review.id" :item="review" type="mini" class="review-item"></review-product>
+    <review-product v-for="review in reviews" :key="review.id" :item="review" :hide-replies="true" class="review-item"></review-product>
   </div>
 </template>

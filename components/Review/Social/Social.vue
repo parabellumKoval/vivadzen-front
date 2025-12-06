@@ -11,40 +11,73 @@ const props = defineProps({
 })
 // COMPUTEDS
 
-const link = computed(() => {
+const PROVIDERS = [
+  {
+    type: 'facebook',
+    pattern: /facebook\.com/i,
+    label: 'Facebook',
+    icon: 'basil:facebook-outline'
+  },
+  {
+    type: 'instagram',
+    pattern: /instagram\.com/i,
+    label: 'Instagram',
+    icon: 'basil:instagram-outline'
+  },
+  {
+    type: 'tiktok',
+    pattern: /tiktok\.com/i,
+    label: 'TikTok',
+    icon: 'mingcute:tiktok-line'
+  },
+  {
+    type: 'twitter',
+    pattern: /(twitter\.com|x\.com)/i,
+    label: 'Twitter (X)',
+    icon: 'ri:twitter-x-line'
+  }
+]
+
+const resolvedLink = computed(() => {
+  const rawHref = props.source?.trim()
+
+  if(!rawHref) {
+    return {
+      href: null,
+      type: null,
+      icon: 'basil:link-outline',
+      label: null,
+      className: null
+    }
+  }
+
   let url = null
-  let link = {
-    type: null,
-    href: props.source || null
-  }
-
-
-  if(!link.href) {
-    return link;
-  }
-
-  // type = link.match('^(?:https?://)?(?:www.)?(\w*)\/')
-
   try {
-    url = new URL(link.href)
-  }catch(e) {
-    console.log(e)
+    url = new URL(rawHref)
+  } catch (e) {
+    try {
+      url = new URL(`https://${rawHref}`)
+    } catch (error) {
+      url = null
+    }
   }
 
-  if(url.host.match('(?:www.)?facebook.com')){ 
-    link.type = 'facebook'
-  }else if(url.host.match('(?:www.)?instagram.com')) {
-    link.type = 'instagram'
-  }else {
-    link.type = null
+  const host = url?.hostname?.toLowerCase() || ''
+  const provider = host ? PROVIDERS.find(({pattern}) => pattern.test(host)) : null
+  const fallback = host.replace(/^www\./, '') || rawHref
+
+  const finalHref = url?.href || rawHref
+
+  return {
+    href: finalHref,
+    type: provider?.type || null,
+    icon: provider?.icon || 'basil:link-outline',
+    label: provider?.label || fallback,
+    className: provider?.type ? `${provider.type}-bg` : null
   }
-  
-  return link
 })
 
-const socialName = computed(() => {
-  return link.value.type.charAt(0).toUpperCase() + link.value.type.slice(1)
-})
+const socialName = computed(() => resolvedLink.value.label || '')
 // METHODS
 // HANDLERS
 // WATCHERS
@@ -54,25 +87,24 @@ const socialName = computed(() => {
 <i18n src='./lang.yaml' lang='yaml'></i18n>
 
 <template>
-  <div v-if="link.href">
+  <div v-if="resolvedLink.href">
     <a
       v-if="!name"
-      :href="link.href"
-      :class="link.type + '-link'"
+      :href="resolvedLink.href"
+      :class="['social-link', resolvedLink.className]"
       target="_blank"
       rel="nofollow"
-      class="social-link"
     >
-      <IconCSS :name="'basil:' + link.type +'-outline'" class="social-link-icon"></IconCSS>
-      <span class="social-link-text">{{ socialName }} {{ t('author') }}</span>
+      <IconCSS :name="resolvedLink.icon" class="social-link-icon"></IconCSS>
+      <!-- <span class="social-link-text">{{ socialName }} {{ t('author') }}</span> -->
     </a>
     <a v-else
-      :href="link.href"
+      :href="resolvedLink.href"
       target="_blank"
       rel="nofollow"
-      class="name-link"
+      :class="['name-link', resolvedLink.className]"
     >
-      <IconCSS :name="'basil:' + link.type +'-outline'" class="name-link-icon"></IconCSS>
+      <IconCSS :name="resolvedLink.icon" class="name-link-icon"></IconCSS>
       <span class="name-link-text">{{ name }}</span>
     </a>
   </div>

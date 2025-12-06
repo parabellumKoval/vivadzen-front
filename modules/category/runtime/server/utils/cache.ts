@@ -11,6 +11,7 @@ interface CategoryModuleRuntimeOptions {
   slugsEndpoint?: string
   detailsEndpoint?: string
   listEndpoint?: string
+  mainListEndpoint?: string
   enableTtl?: boolean
   ttlSec?: number
   languages?: string[]
@@ -61,6 +62,7 @@ const LIST_STORAGE_PREFIX = 'category:list:'
 const FALLBACK_SLUGS_ENDPOINT = '/djini-category/slugs-simple'
 const FALLBACK_DETAILS_ENDPOINT = '/category_cached/:slug'
 const FALLBACK_LIST_ENDPOINT = '/category'
+const FALLBACK_MAIN_LIST_ENDPOINT = '/category/main'
 
 const now = () => Date.now()
 
@@ -97,6 +99,7 @@ function readModuleOptions(): Required<CategoryModuleRuntimeOptions> & {
     slugsEndpoint: moduleConfig.slugsEndpoint || FALLBACK_SLUGS_ENDPOINT,
     detailsEndpoint: moduleConfig.detailsEndpoint || FALLBACK_DETAILS_ENDPOINT,
     listEndpoint: moduleConfig.listEndpoint || FALLBACK_LIST_ENDPOINT,
+    mainListEndpoint: moduleConfig.mainListEndpoint || FALLBACK_MAIN_LIST_ENDPOINT,
     enableTtl,
     ttlSec,
     ttlMs: enableTtl && ttlSec > 0 ? ttlSec * 1000 : 0,
@@ -211,6 +214,11 @@ function resolveListUrl() {
   return joinURL(resolveBaseUrl(), listEndpoint || '')
 }
 
+function resolveMainListUrl() {
+  const { mainListEndpoint } = readModuleOptions()
+  return joinURL(resolveBaseUrl(), mainListEndpoint || '')
+}
+
 async function fetchSlugsForContext(context: ContextDescriptor) {
   const url = resolveSlugsUrl()
   const headers: Record<string, string> = {
@@ -243,6 +251,18 @@ async function fetchCategoryListForContext(
   if (context.locale) headers['Accept-Language'] = context.locale
   if (context.region) headers['X-Region'] = context.region
   return await ofetch(url, { retry: 0, headers, query })
+}
+
+async function fetchCategoryMainListForContext(
+  context: ContextDescriptor
+) {
+  const url = resolveMainListUrl()
+  const headers: Record<string, string> = {
+    Accept: 'application/json'
+  }
+  if (context.locale) headers['Accept-Language'] = context.locale
+  if (context.region) headers['X-Region'] = context.region
+  return await ofetch(url, { retry: 0, headers })
 }
 
 function cloneQueryObject<T extends Record<string, any> | undefined | null>(value: T) {
@@ -523,6 +543,27 @@ export async function refreshCategoryList(query?: Record<string, any>) {
   return { contexts: results, queryHash }
 }
 
+export async function refreshCategoryMainList() {
+  const { contexts, signature } = getContextsSnapshot()
+  const queryHash = 'main'
+  const results = await Promise.all(
+    contexts.map(async (context) => {
+      const payload = await fetchCategoryMainListForContext(context)
+      const entry: CategoryListCacheEntry = {
+        payload,
+        fetchedAt: now(),
+        contextSignature: signature
+      }
+      await writeListEntry(context.key, queryHash, entry)
+      return {
+        context: context.key,
+        fetchedAt: entry.fetchedAt
+      }
+    })
+  )
+  return { contexts: results, queryHash }
+}
+
 export async function refreshAllCategories(): Promise<{ slugs: string[]; list: {
   contexts: Array<{ context: string; fetchedAt: number }>
   queryHash: string
@@ -648,6 +689,73 @@ export async function getCategoryListFromCache(
   }
 
   const entry = await fetchAndStoreCategoryList(selectedContext, queryPayload, queryHash, signature)
+  return entry.payload
+}
+
+export async function getCategoryMainListFromCache(
+  options: {
+    locale?: MaybeString
+    region?: MaybeString
+    force?: boolean
+    event?: H3Event
+  } = {}
+) {
+  const { contexts, signature } = getContextsSnapshot()
+  if (!contexts.length) {
+    throw new Error(
+      'categoryModule.languages or categoryModule.regions must include at least one value'
+    )
+  }
+
+  const event = options.event
+
+  const headerLocale = event ? getHeader(event, 'accept-language') : undefined
+  const locale =
+    options.locale != null
+      ? parseAcceptLanguage(options.locale) ?? options.locale
+      : parseAcceptLanguage(headerLocale)
+  const region =
+    options.region != null ? options.region : event ? getHeader(event, 'x-region') : undefined
+
+  const selectedContext = resolveRequestedContext(locale, region, contexts)
+  if (!selectedContext) {
+    throw new Error('[category-module] Failed to resolve locale/region context for main list cache')
+  }
+
+  const queryHash = 'main'
+
+  const { ttlMs, enableTtl } = readModuleOptions()
+
+  if (!options.force) {
+    const cached = await readListEntry(selectedContext.key, queryHash)
+    if (isListEntryFresh(cached, signature, ttlMs, enableTtl) && cached) {
+      return cached.payload
+    }
+    if (cached && cached.contextSignature === signature) {
+      void (async () => {
+        try {
+          const payload = await fetchCategoryMainListForContext(selectedContext)
+          const entry: CategoryListCacheEntry = {
+            payload,
+            fetchedAt: now(),
+            contextSignature: signature
+          }
+          await writeListEntry(selectedContext.key, queryHash, entry)
+        } catch (error) {
+          console.error('[category-module] background main list refresh failed', error)
+        }
+      })()
+      return cached.payload
+    }
+  }
+
+  const payload = await fetchCategoryMainListForContext(selectedContext)
+  const entry: CategoryListCacheEntry = {
+    payload,
+    fetchedAt: now(),
+    contextSignature: signature
+  }
+  await writeListEntry(selectedContext.key, queryHash, entry)
   return entry.payload
 }
 

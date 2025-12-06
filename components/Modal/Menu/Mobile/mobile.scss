@@ -1,7 +1,7 @@
 @use "sass:color";
 
 :deep(.category-name) {
-  font-size: 18px;
+  font-size: 16px;
 }
 .header {
   display: flex;
@@ -23,7 +23,6 @@
     font-weight: 500;
     text-align: left;
     text-overflow: ellipsis;
-    overflow: hidden;
   }
   &-delimiter {
     height: 20px;

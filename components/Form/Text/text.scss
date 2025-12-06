@@ -40,6 +40,7 @@
   outline-color: rgba($color-green, 0.85);
   color: $color-text;
   background-color: $color-8;
+  font-size: 16px;
   @include desktop {
     padding: 0 15px;
     height: 50px;

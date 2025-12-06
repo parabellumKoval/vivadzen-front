@@ -6,12 +6,15 @@ const emit = defineEmits([
   'changeSelected'
 ])
 
+const categoryStore = useCategoryStore()
 const selectedIndex = ref(null)
 
 // COMPUTEDS
 
+// console.log('locale in footer:', locale.value)
+
 const categories = computed(() => {
-  return useCategoryStore().list
+  return categoryStore.list
 })
 
 // METHODS
@@ -21,12 +24,20 @@ const select = (index) => {
 }
 
 // HANDLERS
-const clickHandler = (index, slug) => {
+const clickHandler = (index, category) => {
+  const slug = category?.slug
+
   if(useDevice().isDesktop){
     navigateTo($regionPath('/' + slug))
-  }else {
-    select(index)
+    return
   }
+
+  if(!category?.children?.length){
+    navigateTo($regionPath('/' + slug))
+    return
+  }
+
+  select(index)
 }
 
 const hoverEventHandler = (index) => {
@@ -46,7 +57,7 @@ const hoverEventHandler = (index) => {
       <button
         v-for="(category, index) in categories"
         :key="category?.id"
-        @click="clickHandler(index, category.slug)"
+        @click="clickHandler(index, category)"
         @mouseenter="hoverEventHandler(index)"
         :aria-label="category.name"
         :class="{active: selectedIndex === index}"
@@ -55,9 +66,9 @@ const hoverEventHandler = (index) => {
       >
         <nuxt-img
           :src = "category?.image?.src"
-          width="40"
-          height="40"
-          sizes = "mobile:60px tablet:60px desktop:60px"
+          width="100"
+          height="100"
+          sizes = "mobile:60px tablet:120px desktop:120px"
           format = "webp"
           quality = "60"
           loading = "lazy"
@@ -67,7 +78,7 @@ const hoverEventHandler = (index) => {
         >
         </nuxt-img>
         <div class="category-name">{{ category.name }}</div>
-        <IconCSS v-if="selectedIndex === index" name="iconoir:nav-arrow-down" class="category-icon"></IconCSS>
+        <IconCSS v-if="selectedIndex === index" name="iconoir:nav-arrow-right" class="category-icon"></IconCSS>
       </button>
     </div>
   </div>

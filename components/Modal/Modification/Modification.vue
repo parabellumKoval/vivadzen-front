@@ -48,7 +48,7 @@ const photoSrc = computed(() => {
               <simple-price :value="modification.price" :class="{sale: modification.sale}" class="price-value" ></simple-price>
             </div>
             <button @click="() => toCartHandler(1, modification)" type="button" class="button primary small buy-btn">
-              <IconCSS name="mynaui:cart" class="buy-btn-icon"></IconCSS>
+              <IconCSS name="ci:shopping-cart-01" class="buy-btn-icon"></IconCSS>
             </button>
           </div>
         </template>

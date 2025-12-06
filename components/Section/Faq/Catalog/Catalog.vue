@@ -1,5 +1,6 @@
 <script setup>
 import {useProductStore} from '~/store/product'
+import {useSupportContent} from '~/composables/useSupportContent'
 // import {useCatalog} from '~/composables/product/useCatalog.ts'
 const {t} = useI18n()
 
@@ -9,9 +10,41 @@ const props = defineProps({
   }
 })
 
-// const {getProducts} = useCatalog()
 const chipProducts = ref([])
 const popularProducts = ref([])
+const {deliveryDetails, paymentDetails} = await useSupportContent()
+
+const deliveryItems = computed(() => {
+  return deliveryDetails.value.map((method) => `<b>${method.title}</b>: ${method.description}`)
+})
+
+const paymentItems = computed(() => {
+  return paymentDetails.value.map((method) => `<b>${method.title}</b>: ${method.description}`)
+})
+
+const staticDelivery = computed(() => [
+  t('delivery_cond1'),
+  t('delivery_cond2'),
+  t('delivery_cond3')
+])
+
+const deliveryAnswer = computed(() => {
+  const parts = []
+  const categoryName = props.categoryData.category?.name?.toLowerCase() || ''
+  const deliveryList = deliveryItems.value.length ? deliveryItems.value : staticDelivery.value
+
+  if (deliveryList.length) {
+    parts.push(t('delivery_a', {category: categoryName}) + ':')
+    parts.push(deliveryList)
+  }
+
+  if (paymentItems.value.length) {
+    parts.push(t('payment_a', {category: categoryName}) + ':')
+    parts.push(paymentItems.value)
+  }
+
+  return parts
+})
 
 // COMPUTEDS
 const faq = computed(() =>{
@@ -29,17 +62,10 @@ const faq = computed(() =>{
   }
 
   list.push({
-      id: 2,
-      q: t('delivery_q', {category: props.categoryData.category?.name?.toLowerCase()}),
-      a: [
-        t('delivery_a', {category: props.categoryData.category?.name?.toLowerCase()}) + ':',
-        [
-          t('delivery_cond1'),
-          t('delivery_cond2'),
-          t('delivery_cond3')
-        ]
-      ]
-    })
+    id: 2,
+    q: t('delivery_q', {category: props.categoryData.category?.name?.toLowerCase()}),
+    a: deliveryAnswer.value
+  })
 
   if(chipProducts.value?.length) {
     list.push({

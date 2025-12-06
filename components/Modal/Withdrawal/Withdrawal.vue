@@ -43,9 +43,7 @@ const errors = ref(null)
 const minWithdrawalValue = computed(() => {
   return get('profile.withdrawal.minAmount') || 0
 })
-const balanceCurrency = computed(() => {
-  return get('profile.points.name') || 'Points'
-})
+const {name: balanceCurrency} = usePoints()
 
 const isWithdrawalAvailable = computed(() => {
   return balance.value >= minWithdrawalValue.value
@@ -172,12 +170,23 @@ const createHandler = () => {
 
           <div class="info-block">
             <div class="info-label">{{ t('balance') }}</div>
-            <simple-price :value="balance" :currency-code="balanceCurrency" :class="[isWithdrawalAvailable? 'high' : 'low']" class="info-value"></simple-price>
+            <simple-price
+              :value="balance"
+              :currency-code="balanceCurrency"
+              :currency-label="balanceCurrency"
+              :class="[isWithdrawalAvailable? 'high' : 'low']"
+              class="info-value"
+            ></simple-price>
           </div>
 
           <div class="info-block">
             <div class="info-label">{{ t('min_withdrawal') }}</div>
-            <simple-price :value="minWithdrawalValue" :currency-code="balanceCurrency" class="info-value"></simple-price>
+            <simple-price
+              :value="minWithdrawalValue"
+              :currency-code="balanceCurrency"
+              :currency-label="balanceCurrency"
+              class="info-value"
+            ></simple-price>
           </div>
 
           <div :class="{disabled: !isWithdrawalAvailable}" class="info-block amount-block">

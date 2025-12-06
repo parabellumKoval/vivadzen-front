@@ -60,25 +60,25 @@
 }
 .name {
   display: block;
-  display: -webkit-box;
   width: 100%;
-  height: 35px;
+  height: 19px;
   max-height: 50px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
   text-align: center;
-  line-height: 140%;
+  line-height: 110%;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  transition: .3s ease max-height;
+  transition: 0.3s max-height;
   overflow: hidden;
-  z-index: 1;
+  
   &:hover {
   }
   @include desktop {
     position: absolute;
     max-height: 45px;
-    font-size: 14px;
+    font-size: 12px;
     overflow: initial;
     height: 100%;
   }
@@ -86,8 +86,7 @@
   &-wrapper {
     @include desktop {
       position: relative;
-      height: 22px;
-      font-size: 16px;
+      height: 38px;
       overflow: hidden;
       &:hover {
         overflow: visible;
@@ -171,14 +170,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
   gap: 5px;
-  font-size: 12px;
+  font-size: 10px;
   @include tablet {
   }
   @include desktop {
     grid-column-gap: 25px;
     flex-direction: row;
+    justify-content: center;
+    font-size: 12px;
   }
   .buy-btn {
     width: 40px;

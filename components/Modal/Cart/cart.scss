@@ -49,18 +49,22 @@
     :deep(.title-secondary) {
       font-weight: 400;
       margin-bottom: 10px;
-      font-size: 18px;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
     }
   }
 }
 .footer {
   position: sticky;
-  bottom: -50px;
+  bottom: -20px;
   left: -20px;
-  padding: 30px 15px 50px 15px;
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 25px;
+  padding: 15px 15px 15px 15px;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  flex-direction: row-reverse;
+  row-gap: 10px;
+  column-gap: 20px;
   transform: translateX(-20px);
   width: calc(100% + 40px);
   justify-content: end;
@@ -70,32 +74,50 @@
 
   @include desktop {
     flex-direction: row-reverse;
+    grid-template-columns: 3fr  1fr minmax(min-content, 200px);
     align-items: center;
+    gap: 25px;
+    bottom: -50px;
     transform: translateX(-50px);
     width: calc(100% + 100px);
+    padding: 30px;
   }
   
 }
 .free-delivery {
-  max-width: 300px;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
   :deep(.free-delivery-desc) {
     font-size: 14px;
   }
+
+  @include desktop {
+    max-width: 300px;
+    grid-column-start: initial;
+    grid-column-end: initial;
+    align-items: flex-start;
+  }
 }
 .checkout-btn {
-  min-width: 220px;
+  width: 100%;
+
+  @include desktop {
+    order: 3;
+  }
 }
 
 .total {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 5px;
 
   @include tablet {
     justify-content: center;
-    flex-direction: column;
     align-items: flex-end;
+    gap: 10px;
   }
 
   @include desktop {
@@ -111,6 +133,7 @@
 
   .price {
     font-size: 20px;
+    font-weight: 600;
     @include desktop {
       font-size: 22px;
     }

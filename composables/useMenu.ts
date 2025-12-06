@@ -42,11 +42,16 @@ export const useMenu = () => {
         link: '/about',
         title: t('title.about')
       },
-      // {
-      //   id: 2,
-      //   link: '/news',
-      //   title: t('title.news')
-      // },
+      {
+        id: 2,
+        link: '/vivapoints',
+        title: t('title.vivapoints_and_rewards')
+      },
+      {
+        id: 21,
+        link: '/affiliate',
+        title: t('title.affiliate_system')
+      },
       {
         id: 3,
         link: '/reviews/products',
@@ -60,11 +65,6 @@ export const useMenu = () => {
         link: '/blog',
         title: t('title.blog')
       },
-      // {
-      //   id: 6,
-      //   link: '/sales',
-      //   title: t('title.sales')
-      // },
       {
         id: 7,
         link: '/contacts',

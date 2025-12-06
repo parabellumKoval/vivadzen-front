@@ -44,6 +44,14 @@
         grid-column-start: initial;
         grid-column-end: initial;
       }
+
+      .label {
+        margin-bottom: 10px;
+
+        @include desktop {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }
@@ -89,7 +97,7 @@
     font-size: 44px;
     font-weight: 700;
     // color: color.scale($color-violet, $lightness: 40%);
-    color: $color-violet;
+    color: $color-orange;
     .symbol {
       font-size: 20px;
       font-weight: 200;
@@ -99,7 +107,7 @@
     font-weight: 600;
     line-height: 145%;
     .select {
-      color: $color-violet;
+      font-weight: 700;
     }
   }
 }

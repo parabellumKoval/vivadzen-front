@@ -8,28 +8,19 @@
 }
 .catalog {
   position: relative;
-  display: flex;
-  height: initial;
+  display: grid;
+  grid-template-columns: minmax(min-content, 320px) 1fr;
+  align-items: start;
   width: 100%;
-  overflow-y: scroll;
-  
-  @include desktop {
-    flex-direction: column;
-    width: 100%;
-    height: calc(100vh - 170px);
-    overflow-y: initial;
-  }
 }
 .category {
   &-wrapper {
-    display: none;
+    display: block;
     width: 100%;
     padding: 0;
+    border-right: 2px solid $color-border;
+    overflow-y: auto;
     @include scrollbar;
-    @include desktop {
-      display: block;
-      background: $color-bg-2;
-    }
     &.mobile-active {
       display: block;
     }
@@ -38,23 +29,30 @@
 
 .sub {
   &-wrapper {
+    position: relative;
     width: 100%;
     height: 100%;
+    max-height: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
+    display: block;
     overflow-y: scroll;
-    display: none;
-    padding: 0;
     @include scrollbar;
-    @include desktop {
-      display: block;
-      padding: 30px 0;
-      overflow-y: scroll;
-    }
+    
     &.mobile-active {
       display: block;
     }
   }
 }
+
+:deep(.sub-inner) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 0;
+}
+
 .last {
   margin: 0 0 10px 20px;
   @include desktop {

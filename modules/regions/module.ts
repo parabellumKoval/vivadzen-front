@@ -42,6 +42,7 @@ export default defineNuxtModule<RegionsModuleOptions>({
     addImportsDir(resolver.resolve('runtime/composables'))
 
     addPlugin(resolver.resolve('runtime/plugins/region-path'))
+    addPlugin(resolver.resolve('runtime/plugins/hreflang'))
     
     addRouteMiddleware({
       name: 'region',

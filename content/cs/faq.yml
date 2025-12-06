@@ -14,7 +14,7 @@ items:
   qa4:
     id: 4
     q: Kdy obdržím svou objednávku?
-    a: Zboží odesíláme společností Nova Poshta na náklady zákazníka, pokud není na stránce produktu uvedeno jinak. Doručení trvá obvykle 2–3 dny.
+    a: Dodací lhůta závisí na vybraném dopravci a zobrazí se přímo u jednotlivých dostupných metod.
   qa5:
     id: 5
     q: Může se změnit celková cena objednávky?
@@ -22,28 +22,20 @@ items:
   qa6:
     id: 6
     q: Jak mohu zaplatit?
-    a: Dobírkou v pobočce Nova Poshta, nebo bezhotovostně na kartu Visa/MasterCard či firemní účet.
+    a: Platební možnosti se zobrazí automaticky po výběru dopravy a řídí se aktivním regionem.
   qa7:
     id: 7
     q: Jak vrátím zboží, které mi nevyhovuje nebo je vadné?
-    a: "<p>Podle článku 9 zákona Ukrajiny „O ochraně práv spotřebitelů“ může zákazník do 14 dnů vyměnit zboží, pokud mu nesedí barva, velikost, tvar nebo ho nelze použít dle určení – za předpokladu, že nebylo použito a má původní vzhled, vlastnosti, obal, plomby a doklady o koupi. Pokud stejný produkt není k dispozici, zákazník může:</p>
-        <ul><li>koupit jiné zboží v našem obchodě;</li>
-            <li>dostat zpět zaplacenou částku;</li>
-            <li>vyměnit zboží za stejné po jeho naskladnění;</li>
-        </ul>
-        <p>Při vrácení peněz se vrací cena zaplacená v den nákupu.</p>"
+    a: "<p>Jako spotřebitel v EU můžete podle našich Podmínek vrácení odstoupit od kupní smlouvy do 14 dnů od převzetí zboží. Výrobek musí být nepoužitý, v původním stavu a s dokladem o koupi. Právo odstoupit se nevztahuje na zboží vyrobené na zakázku, rychle se kazící produkty, hygienicky zapečetěné výrobky s porušeným obalem ani další výjimky uvedené v dokumentu.</p>
+        <p>Zašlete nám oznámení o odstoupení (e-mailem nebo kontaktním formulářem) a do 14 dnů zboží odešlete zpět. Náklady na zpáteční dopravu hradí zákazník. Jakmile obdržíme zboží nebo doklad o odeslání, vrátíme všechny platby (maximálně ve výši nejlevnější nabízené dopravy) do 14 dnů stejným platebním způsobem.</p>"
   qa8:
     id: 8
     q: Kde a jak mohu zboží vyměnit nebo vrátit?
-    a: "<p>Zašlete zboží zpět prostřednictvím Nova Poshta. Upozorňujeme, že vláda Ukrajiny schválila seznam zboží, které není možné vyměnit ani vrátit (usnesení č. 172 z 19. března 1994). Patří sem:</p>
-        <ul><li>potraviny, léčiva a hygienické prostředky;</li>
-            <li>nepotravinové zboží jako zubní kartáčky, hřebeny, masážní kartáče; produkty pro děti (pleny, dudlíky, lahvičky atd.);</li>
-            <li>nástroje pro manikúru a pedikúru (nůžky, pilníky atd.).</li>
-        </ul>"
+    a: Spojte se s naším manažerem nebo navštivte výdejní místo – poradíme, kterou dostupnou dopravní službu využít pro výměnu.
   qa9:
     id: 9
     q: Kam doručujete?
-    a: Po celé Ukrajině, s výjimkou Krymu a některých oblastí Doněcké a Luhanské oblasti.
+    a: Odesíláme pouze službami, které jsou ve vašem regionu dostupné, proto se seznam destinací na webu aktualizuje automaticky.
   qa10:
     id: 10
     q: Jak najdu požadované zboží v tak velkém katalogu?
@@ -54,4 +46,4 @@ items:
   qa11:
     id: 11
     q: Jak zjistím, kde se nachází moje zásilka?
-    a: Po odeslání obdržíte SMS nebo zprávu ve Viberu s číslem zásilky Nova Poshta. Sledujte ji na https://novaposhta.ua/
+    a: Po odeslání vám pošleme sledovací číslo; stav zásilky sledujte na webu nebo v aplikaci vybraného dopravce.

@@ -8,7 +8,6 @@ const props = defineProps({
   }
 })
 
-console.log('error', props.error)
 </script>
 
 <style src="~/assets/scss/error.scss" lang="scss" scoped />
@@ -20,7 +19,7 @@ console.log('error', props.error)
         <div class="status">{{ error.statusCode }}</div>
         <div class="text">{{ error.statusMessage || error.message }}</div>
         <NuxtLink :to="localePath('/')" class="button primary action-btn">
-          <IconCSS name="iconoir:home" size="20px" class="icon"></IconCSS>
+          <IconCSS name="mynaui:home-smile" size="20px" class="icon"></IconCSS>
           <span>{{ t('button.go_home') }}</span>
         </NuxtLink>
       </div>

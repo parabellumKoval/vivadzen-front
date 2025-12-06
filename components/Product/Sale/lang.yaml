@@ -1,12 +1,24 @@
 ru:
   sale: Экономия
+  total_cost_for: Итого стоимость за
+  pcs: шт
 uk:
   sale: Економія
+  total_cost_for: Разом вартість за
+  pcs: шт
 en:
   sale: Savings
+  total_cost_for: Total cost for
+  pcs: pcs
 de:
   sale: Ersparnis
+  total_cost_for: Gesamtkosten für
+  pcs: Stk
 es:
   sale: Ahorro
+  total_cost_for: Costo total por
+  pcs: pzas
 cs:
   sale: Úspora
+  total_cost_for: Celková cena za
+  pcs: ks

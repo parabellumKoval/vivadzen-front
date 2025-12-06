@@ -7,12 +7,15 @@
   }
   &-header {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min-content;
-    grid-gap: 35px;
+    grid-template-columns: repeat(2, min-content);
+    align-items: center;
+    column-gap: 20px;
+    row-gap: 5px;
     margin-bottom: 30px;
     @include desktop {
+      grid-template-columns: repeat(2, min-content) 1fr;
       margin-bottom: 50px;
+      gap: 35px;
     }
   }
   &-count {
@@ -25,6 +28,22 @@
     }
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  .simple-start {
+    font-size: 20px;
+  }
+
+  .text-link {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-self:flex-start;
+
+    @include desktop {
+      grid-column-start: initial;
+      grid-column-end: initial;
+      justify-self:flex-end;
     }
   }
 }

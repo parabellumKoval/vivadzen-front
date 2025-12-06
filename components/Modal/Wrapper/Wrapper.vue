@@ -70,6 +70,39 @@ const closeHandler = () => {
   if(props.canClose)
     useModal().close()
 }
+// Хранилище для сохранения текущей позиции прокрутки
+let scrollPosition = 0;
+
+const disableScroll = () => {
+  if (process.client) {
+    // 1. Сохраняем текущую позицию прокрутки
+    scrollPosition = window.pageYOffset;
+    
+    // 2. Добавляем класс, который "фиксирует" body
+    document.body.classList.add('modal-open-ios');
+    
+    // 3. Смещаем body вверх на сохраненную позицию, чтобы избежать "прыжка"
+    document.body.style.top = `-${scrollPosition}px`;
+  }
+};
+
+const enableScroll = () => {
+  if (process.client) {
+    // 1. Убираем фиксирующие стили
+    document.body.classList.remove('modal-open-ios');
+    document.body.style.top = '';
+    
+    // 2. Восстанавливаем сохраненную позицию прокрутки
+    window.scrollTo(0, scrollPosition);
+  }
+};
+
+disableScroll();
+
+onUnmounted(() => {
+  // На случай, если компонент будет удален, когда модалка открыта
+  enableScroll();
+});
 </script>
 
 <style src="./wrapper.scss" lang="sass" scoped />

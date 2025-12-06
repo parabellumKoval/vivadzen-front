@@ -19,8 +19,7 @@ const paymentMethods = computed(() => {
   //     {key: 'online', title: t('payments.online'), image: '/images/logo/GpayApplepay.png'}, 
   //     {key: 'cash', title: t('payments.cash'), image: '/images/logo/np.png'}
   //   ]
-  const items = methods.value.concat([{key: 'liqpay_online', title: t('payments.liqpay'), image: '/images/logo/liqpay.png'}])
-  return items
+  return methods.value
 })
 
 const isDefaultRegion = computed(() => {

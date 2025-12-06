@@ -1,19 +1,38 @@
 .refgrow {
+  --line-color: #ffd8ae;
+
   line-height: normal;
   &__header {
-      margin-bottom: 15px;
+    margin-bottom: 15px;
+    text-align: center;
       
     @include desktop {
       margin-bottom: 40px;
+      text-align: left;
     }
   }
 
+  &__level {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    color: $color-8;
+    font-weight: 600;
+    padding: 0 10px;
+    background: $color-orange;
+    border-radius: 11px;
+  }
   &__title {
-    font-size: 44px;
+    font-size: 36px;
     color: $color-primary;
     font-weight: 900;
+    line-height: 1.1;
 
     @include desktop {
+      font-size: 36px;
+    }
+    @include ld {
       font-size: 64px;
     }
   }
@@ -23,6 +42,9 @@
     color: $color-primary;
 
     @include desktop {
+      font-size: 16px;
+    }
+    @include ld {
       font-size: 24px;
     }
   }
@@ -34,16 +56,24 @@
     gap: 30px;
 
     @include desktop {
+      align-items: flex-start;
       grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    @include ld {
       gap: 140px;
     }
   }
 
   &__col {
+    position: relative;
     display: grid;
     grid-auto-flow: row;
+    grid-auto-rows: min-content;
     text-align: center;
     gap: 5px;
+    height: 100%;
 
     @include desktop {
       text-align: left;
@@ -51,18 +81,42 @@
     }
 
     &-title {
-      font-size: 32px;
+      position: relative;
+      font-size: 26px;
       color: $color-primary;
       font-weight: 900;
+
+      @include desktop {
+        font-size: 20px;
+      }
+
+      @include ld {
+        font-size: 32px;
+      }
     }
 
     &-kicker {
+      margin: 5px 0 0 0;
       color: $color-1;
       font-weight: 600;
+
+      @include desktop {
+        margin: 10px 0 0 0;
+      }
     }
 
     &-text {
-      color: $color-4;
+      position: relative;
+      color: $color-3;
+      @include desktop {
+        margin-left: 0px;
+      }
+    }
+
+    &-content {
+      @include desktop {
+        padding-left: 25px;
+      }
     }
   }
 
@@ -79,18 +133,6 @@
       width: 100%;
       height: auto;
     }
-
-    img {
-      position: relative;
-      z-index: 2;
-      max-width: 100%;
-      height: auto;
-      display: block;
-
-      @include desktop {
-        max-width: 78%;
-      }
-    }
   }
 
   // круг позади картинки — CSS-блок
@@ -100,14 +142,112 @@
     transform: translate(-50%, -50%);
     width: 70%;
     height: 70%;
+    --text-rotation: -112deg;
     background: $color-bg-2; // тёплый бежевый круг
     border-radius: 9999px;
     z-index: 1;
     filter: none;
 
     @include desktop {
+      width: 160px;
+      height: 160px;
+    }
+
+    @include ld {
       width: 320px;
       height: 320px;
+    }
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      content: attr(data-percent);
+      color: $color-orange;
+      font-size: 22px;
+      font-weight: 700;
+      transform: translateX(25px) translateY(-50%);
+    }
+
+    &:after {
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: $color-orange;
+      border-radius: 1px;
+      transform: translateX(-2px) translateY(-50%);
+
+      @include desktop {
+        height: 3px;
+      }
+    }
+
+    & > span {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      padding-top: 0px;
+      transform: rotate(calc(var(--text-rotation) + var(--i) * 12deg));
+      font-size: 16px;
+      font-weight: 300;
+      color: $color-8;
+      pointer-events: none;
+
+      @include desktop {
+        font-size: 20px;
+        padding-top: 10px;
+      }
+    }
+
+    &-slices {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      z-index: 2;
+
+      @include desktop {
+        width: 160px;
+        height: 160px;
+      }
+
+      @include ld {
+        width: 320px;
+        height: 320px;
+      }
+    }
+  }
+
+  &__image {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    height: auto;
+    display: block;
+
+    &-1 {
+      transform: translateX(30px);
+
+      @include desktop {
+        width: 55%;
+      }
+    }
+
+    &-2 {
+      @include desktop {
+        width: 75%;
+      }
+    }
+
+    &-3 {
+      @include desktop {
+        width: 90%;
+      }
     }
   }
 
@@ -118,21 +258,49 @@
     color: $color-8;
     display: grid;
     align-content: start;
-    gap: 20px;
+    gap: 10px;
     text-align: center;
+    order: 2;
 
     @include desktop {
       text-align: left;
+      gap: 20px;
+      order: initial;
     }
-  }
+    @include ld {
+    }
 
-  &__cta-title {
-    font-size: 36px;
-    font-weight: 900;
-  }
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      gap: 30px;
+    }
 
-  &__cta-text {
-    font-weight: 500;
+    &-title {
+      font-size: 32px;
+      font-weight: 900;
+    }
+
+    &-text {
+      font-weight: 500;
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      padding: 40px;
+      border-radius: 50px;
+      border: 2px solid $color-orange;
+
+      &-text {
+        font-size: 32px;
+        font-weight: 900;
+      }
+    }
   }
 
   &__avatars {
@@ -141,6 +309,7 @@
     justify-content: center;
 
     @include desktop {
+      margin: -10px 0 10px 30px;
       justify-content: flex-start;
     }
 
@@ -169,4 +338,48 @@
     width: 100%;
   }
 
+}
+
+
+.icon {
+  &-prefix {
+    display: none;
+
+    @include desktop {
+      // display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      position: absolute;
+      height: 60px;
+      width: 40px;
+      bottom: 0;
+      right: -1px;
+      transform: translateY(-40px);
+      font-size: 32px;
+      color: var(--line-color);
+    }
+
+    &-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &-1 {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    border: 2px solid var(--line-color);
+  }
+  &-3-1 {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &-3-2 {
+    position: absolute;
+    transform: translateX(-8px) translateY(8px) rotateY(-180deg);
+  }
 }

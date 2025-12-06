@@ -5,20 +5,30 @@
   white-space: nowrap;
   color: $color-green;
   .icon {
-    margin: -2px 0 0px 0;
+    margin: -1px 0 0px 0;
     font-size: 1.3em;
   }
   .in_stock {
     color: $color-green;
+    font-weight: 700;
+
+    @include desktop {
+      font-weight: 400;
+    }
+
     & + .running_out {
       color: $color-red;
     }
   }
   .running_out {
-    position: absolute;
+    position: relative;
     right: 0;
     color: $color-orange;
     font-size: 12px;
+
+    @include desktop {
+      position: absolute;
+    }
   }
   .not_available {
     color: $color-2;

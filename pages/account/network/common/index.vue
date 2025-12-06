@@ -31,9 +31,7 @@ const minWithdrawalValue = computed(() => {
   return get('profile.withdrawal.minAmount') || 0
 })
 
-const balanceCurrency = computed(() => {
-  return get('profile.points.name') || 'Points'
-})
+const {name: balanceCurrency} = usePoints()
 
 const referralCode = computed(() => {
   return user.value?.referral_code || 'N/A'
@@ -67,7 +65,12 @@ const openWithdrawalHandler = (event) => {
       <div class="header-item">
         <div class="label">{{ t('current') }}</div>
         <div class="value">
-          <simple-price :value="balance" :currency-code="balanceCurrency" class="value-price"></simple-price>
+          <simple-price
+            :value="balance"
+            :currency-code="balanceCurrency"
+            :currency-label="balanceCurrency"
+            class="value-price"
+          ></simple-price>
         </div>
       </div>
       <div class="header-item">

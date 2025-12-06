@@ -3,6 +3,7 @@
 
    &__viewport {
     display: flex;
+    align-items: flex-start;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
@@ -15,6 +16,9 @@
     min-width: 0; /* предотвращает перерастяжение */
     contain: layout paint style; /* изоляция для уменьшения перерасчётов/мерцаний */
 
+    @include desktop {
+      align-items: center;
+    }
     &::-webkit-scrollbar { display: none; }
 
     &[data-ready="0"] { visibility: hidden; }
@@ -24,11 +28,11 @@
     display: grid;
     grid-template-columns: 1fr min-content 1fr;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
     gap: 10px;
 
     @include desktop {
-      margin-top: 40px;
+      margin-top: 30px;
       gap: 20px;
     }
   }

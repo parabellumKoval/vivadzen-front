@@ -59,12 +59,9 @@
     width: calc(100vw - 10px);
     z-index: 100;
     @include desktop {
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100vw - 200px);
-      // max-width: 1232px;
-      max-width: 1900px;
+      top: 0;
+      left: 0;
+      width: 100vw;
     }
   }
 }

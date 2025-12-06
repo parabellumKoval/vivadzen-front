@@ -8,16 +8,18 @@
 .sell {
   display: grid;
   grid-template-columns: 3fr 5fr;
-  grid-gap: 15px;
+  gap: 10px;
   @include desktop {
     grid-template-columns: 2fr 3fr 4fr;
-    grid-gap: 15px;
+    gap: 15px;
   }
   &-btn {
     &-cart {
       width: 100%;
       grid-column-start: 1;
       grid-column-end: 3;
+      text-transform: uppercase;
+      font-weight: 700;
       @include desktop {
         grid-column-start: initial;
         grid-column-end: initial;
@@ -27,6 +29,7 @@
       width: 100%;
       grid-column-start: 1;
       grid-column-end: 3;
+      font-weight: 700;
       @include desktop {
         grid-column-start: initial;
         grid-column-end: initial;
@@ -69,17 +72,11 @@
   &-value {
     font-weight: 500;
     :deep(.icon) {
-      margin-right: 10px;
+      margin-right: 5px;
       font-size: 24px;
     }
   }
 
-  &-guarantee {
-    display: none !important;
-    @include desktop {
-      display: block !important;
-    }
-  }
 }
 
 .sale {

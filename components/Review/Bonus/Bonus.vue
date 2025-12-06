@@ -1,22 +1,46 @@
 <script setup>
-const {t} = useI18n()
-// COMPUTEDS
-// METHODS
-// HANDLERS
-// WATCHERS
+const {locale, t} = useI18n()
+
+const reviewBonus = await queryContent('review-bonus').locale(locale.value).findOne()
+
+const bonusTitle = reviewBonus?.title
+const steps = reviewBonus?.items ?? []
 </script>
 
 <style src='./bonus.scss' lang='scss' scoped></style>
-<i18n src='./lang.yaml' lang='yaml'></i18n>
 
 <template>
   <div>
-    <div class="info-title">🎁 {{ t('messages.review_gift') }}</div>
+    <div class="info-header">
+      <nuxt-img
+        src = "/images/viva.png"
+        :provider = "useImg().provider"
+        width="30"
+        height="30"
+        sizes = "mobile:50px"
+        format = "avif"
+        loading = "lazy"
+        fit="outside"
+        class="info-image"
+      />
+      <span class="info-title">{{ bonusTitle }}</span>
+    </div>
     <ol class="info-list">
-      <li><button class="text-link"><span>{{ t('cond1.one') }}</span></button> {{ t('cond1.two') }} Vivadzen.com</li>
-      <li>{{ t('cond2') }}</li>
-      <li>{{ t('cond3') }}</li>
-      <li>{{ t('cond4.one') }} <span class="violet-text">{{ t('cond4.two') }}</span> {{ t('cond4.three') }}</li>
+      <li v-for="(item, index) in steps" :key="index">
+        <template v-if="item.type === 'cta'">
+          <span> {{ item.text }}</span>
+        </template>
+        <template v-else-if="item.type === 'highlight'">
+          {{ item.before }} <span class="violet-text">{{ item.highlight }}</span>{{ item.after }}
+        </template>
+        <template v-else-if="item.type === 'manual'">
+          <NuxtLink :to="$regionPath(item.button.link)" class="text-link"><span>{{ item.button.label }}</span></NuxtLink>
+          {{ item.text }}
+        </template>
+        <template v-else>
+          {{ item.text }}
+        </template>
+      </li>
     </ol>
   </div>
 </template>

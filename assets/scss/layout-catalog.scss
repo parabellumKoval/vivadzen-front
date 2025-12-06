@@ -14,6 +14,19 @@
     padding: 8px 0;
   }
 }
+.catalog {
+  &-header {
+    @include mobile {
+      background-color: $color-green;
+      color: $color-8;
+
+      .title-common,
+      :deep(.breadcrumbs__link) {
+        color: $color-8;
+      }
+    }
+  }
+}
 .header {
   display: grid;
   grid-template-columns: 1fr;
@@ -83,7 +96,7 @@
     position: relative;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    column-gap: 10px;
     row-gap: 30px;
     width: calc(100vw - 30px);
     max-width: 100vw;
@@ -92,6 +105,7 @@
     }
     @include desktop {
       grid-template-columns: repeat(4, 1fr);
+      grid-column-gap: 15px;
       grid-row-gap: 50px;
       width: 100%;
       margin: 0;
@@ -136,5 +150,23 @@
   pointer-events: none;
   :deep(*) {
     pointer-events: none;
+  }
+}
+
+.sentinel {
+  position: absolute;
+  top: -1px; /* Сдвигаем чуть вверх, чтобы observer сработал ровно в момент касания */
+  left: 0;
+  right: 0;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.header-slot {
+  @include mobile {
+    position: sticky;
+    top: 60px;
+    z-index: 100;
   }
 }

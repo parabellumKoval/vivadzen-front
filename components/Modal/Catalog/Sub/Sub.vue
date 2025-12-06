@@ -26,7 +26,8 @@ const sub = computed(() => {
       {
         id: selectedCategory.value.id,
         name: t('label.all_products'),
-        slug: selectedCategory.value.slug
+        slug: selectedCategory.value.slug,
+        isCommon: true
       },
       ...selectedCategory.value.children
     ]
@@ -42,7 +43,7 @@ const backHandler = () => {
 
 <template>
   <modal-wrapper class="m-wrapper">
-    <div class="catalog">
+    <div class="sub-outer">
 
       <div v-if="selectedCategory" class="sub-header">
         <button @click="backHandler" class="sub-btn">
@@ -65,9 +66,11 @@ const backHandler = () => {
         <div class="sub-title">{{ selectedCategory.name }}</div>
       </div>
 
-      <the-menu-catalog-sub
-        :items="sub"
-      ></the-menu-catalog-sub>
+      <div class="catalog">
+        <the-menu-catalog-sub
+          :items="sub"
+        ></the-menu-catalog-sub>
+      </div>
 
     </div>
   </modal-wrapper>

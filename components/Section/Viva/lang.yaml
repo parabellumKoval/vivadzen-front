@@ -2,6 +2,7 @@ ru:
   viva:
     title: "Viva баллы"
     lead: "Viva Points — универсальная система начислений. 1 балл = 1 CZK. Прозрачно привязаны к чешской кроне: зарабатывайте, тратьте или выводите как реальные деньги."
+    cta: "Подробнее о VivaPoints"
     hEarn: "Как зарабатывать Viva баллы?"
     hSpend: "Как тратить Viva баллы?"
     earn1: "Оценивайте товары и оставляйте подробные отзывы на сайте"
@@ -13,6 +14,7 @@ en:
   viva:
     title: "Viva points"
     lead: "Viva Points is a universal earning system. 1 Point = 1 CZK. Transparently linked to the Czech crown: earn, spend, or withdraw as real money."
+    cta: "More about VivaPoints"
     hEarn: "How do you earn Viva points?"
     hSpend: "How can you spend Viva Points?"
     earn1: "Rate products and write detailed reviews on the website"
@@ -24,6 +26,7 @@ cs:
   viva:
     title: "Viva body"
     lead: "Viva Points je univerzální systém odměn. 1 bod = 1 CZK. Transparentně navázáno na českou korunu: vydělávejte, utrácejte nebo vyberte jako skutečné peníze."
+    cta: "Více o VivaPoints"
     hEarn: "Jak získáváte Viva body?"
     hSpend: "Jak můžete Viva body utrácet?"
     earn1: "Hodnoťte produkty a pište podrobné recenze na webu"
@@ -35,6 +38,7 @@ uk:
   viva:
     title: "Viva бали"
     lead: "Viva Points — універсальна система нарахувань. 1 бал = 1 CZK. Прозоро прив’язано до чеської крони: заробляйте, витрачайте або виводьте як реальні гроші."
+    cta: "Докладніше про VivaPoints"
     hEarn: "Як заробляти Viva бали?"
     hSpend: "Як можна витрачати Viva бали?"
     earn1: "Оцінюйте товари та пишіть детальні відгуки на сайті"
@@ -46,6 +50,7 @@ de:
   viva:
     title: "Viva-Punkte"
     lead: "Viva Points ist ein universelles Belohnungssystem. 1 Punkt = 1 CZK. Transparent an die tschechische Krone gekoppelt: verdienen, ausgeben oder als echtes Geld auszahlen."
+    cta: "Mehr über VivaPoints"
     hEarn: "Wie verdienen Sie Viva-Punkte?"
     hSpend: "Wie können Sie Viva-Punkte ausgeben?"
     earn1: "Bewerten Sie Produkte und schreiben Sie ausführliche Rezensionen auf der Website"
@@ -57,6 +62,7 @@ es:
   viva:
     title: "Viva points"
     lead: "Viva Points es un sistema universal de recompensas. 1 punto = 1 CZK. Vinculado de forma transparente a la corona checa: gana, gasta o retira como dinero real."
+    cta: "Más sobre VivaPoints"
     hEarn: "¿Cómo ganas Viva Points?"
     hSpend: "¿Cómo puedes gastar Viva Points?"
     earn1: "Valora productos y escribe reseñas detalladas en el sitio"

@@ -19,6 +19,8 @@ interface QueryResponse {
   brands?: string[];
   selections?: string[];
   price?: FilterValue;
+  order_by?: string | null;
+  order_dir?: string | null;
 }
 
 interface QueryParamValue {
@@ -155,6 +157,16 @@ export const useFilter = () => {
     if (currentQuery.brand) response.brands = currentQuery.brand
     if (currentQuery.selections) response.selections = currentQuery.selections
     if (currentQuery.price) response.price = currentQuery.price
+    if (typeof currentQuery.order_by !== 'undefined') {
+      response.order_by = Array.isArray(currentQuery.order_by)
+        ? currentQuery.order_by[0]
+        : currentQuery.order_by
+    }
+    if (typeof currentQuery.order_dir !== 'undefined') {
+      response.order_dir = Array.isArray(currentQuery.order_dir)
+        ? currentQuery.order_dir[0]
+        : currentQuery.order_dir
+    }
 
     return response
   }

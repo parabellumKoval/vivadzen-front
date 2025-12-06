@@ -7,6 +7,7 @@ const props = defineProps({
   currency: { type: Boolean, default: true }, // показывать как валюту или как число
   // можно и через проп
   currencyCode: { type: String, default: null },
+  currencyLabel: { type: String, default: '' },
 })
 
 const {currency: regionCurrency} = useRegion()
@@ -35,6 +36,14 @@ const supportsCurrency = computed<boolean>(() => {
   }
 })
 
+const fallbackCurrencyLabel = computed(() => {
+  if (props.currencyLabel) {
+    return props.currencyLabel
+  }
+
+  return chosenCode.value
+})
+
 // динамически собираем объект формата
 const numberFormat = computed(() => {
   if (!props.currency) {
@@ -59,7 +68,7 @@ const numberFormat = computed(() => {
     <span class="value">
       <i18n-n :value="numericValue" :format="numberFormat" />
       <template v-if="currency && !supportsCurrency">
-        <span class="currency-code">&nbsp;{{ chosenCode }}</span>
+        <span class="currency-code">&nbsp;{{ fallbackCurrencyLabel }}</span>
       </template>
     </span>
   </div>

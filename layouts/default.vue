@@ -1,14 +1,11 @@
 <script setup>
-import { useCategoryStore } from '~/store/category'
 // import { useSchemaOrg, defineWebSite, defineWebPage } from '#imports'
 import { useAppPersistStore } from '~/store/appPersist'
 
-const {t, locale} = useI18n()
-const region = useRegion()
+// const {regionAlias} = useRegion()
+// const {locale} = useI18n()
 const route = useRoute()
 const title = 'Vivadzen.com'
-
-const categoryStore = useCategoryStore()
 
 const head = useLocaleHead({
   addDirAttribute: true,
@@ -21,21 +18,17 @@ const background = computed(() => {
   return route?.meta?.bg || '#FFF7EC'
 })
 
-const isSearchMobile = computed(() => {
-  const mobileSearch = useTransport().getData('mobileSearch')
-  const isSearch = mobileSearch !== false
+// const isSearchMobile = computed(() => {
+//   const mobileSearch = useTransport().getData('mobileSearch')
+//   const isSearch = mobileSearch !== false
 
-  return useDevice().isMobile && isSearch? true: false
-})
+//   return useDevice().isMobile && isSearch? true: false
+// })
 
 // HANDLERS
 // METHODS
 
 // WATCHERS
-watch(() => [locale, region.region.value], (v) => {
-  refreshCategories()
-})
-
 watch(() => route.fullPath, (v) => {
   useModal().close()
 }, {
@@ -43,8 +36,6 @@ watch(() => route.fullPath, (v) => {
 })
 
 // HOOKS
-const { refresh: refreshCategories } = useAsyncData('all-categories', () => categoryStore.listCached(null, true))
-
 useSchemaOrg([
   defineWebSite({
     url: 'https://vivadzen.com',
@@ -77,7 +68,7 @@ useSchemaOrg([
 
         <the-header></the-header>
         
-        <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky>
+        <!-- <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky> -->
 
         <main class="main" :style="{background: background}">
           <slot />
@@ -96,6 +87,7 @@ useSchemaOrg([
         <lazy-affiliate-link></lazy-affiliate-link>
 
         <lazy-simple-clicker></lazy-simple-clicker>
+        
       </Body>
     </Html>
   </div>

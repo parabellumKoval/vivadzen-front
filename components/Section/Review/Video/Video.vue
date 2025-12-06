@@ -8,19 +8,18 @@ const reviews = ref([])
 // HANDLERS
 const reviewHandler = () => {
   if(isAuthenticated.value) {
-    useModal().open(resolveComponent('ModalReviewCreate'), null, null, {width: {min: 420, max: 420}})
+    useModal().open(resolveComponent('ModalReviewCreate'), null, null)
   }else{
     useNoty().setNoty({
       content: t('noty.review.need_login'),
       type: 'warning'
     }, 7000)
     
-    useModal().open(resolveComponent('ModalAuthSocial'), null, null, {width: {min: 420, max: 420}})
+    useModal().open(resolveComponent('ModalAuthSocial'), null, null)
   }
 }
+
 // WATCHERS
-
-
 const {data: reviewsData} = await useAsyncData('homepage-video-reviews', () => useFetcherData('homepage-video-reviews'))
 
 watch(reviewsData, (value) => {
@@ -39,6 +38,7 @@ watch(reviewsData, (value) => {
     <div class="video-info">
       <div class="video-info-title font-alegreya">{{ t('title') }}<div class="orange">{{ t('no_filters') }}</div></div>
       <div class="video-info-desc">{{ t('description') }}</div>
+      <review-reward class="video-info-reward" />
       
       <div class="video-info-buttons">
         <NuxtLink :to="$regionPath('/reviews/shop')" class="button secondary">{{ t('reviews') }}</NuxtLink>

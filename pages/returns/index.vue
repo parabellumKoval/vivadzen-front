@@ -1,6 +1,7 @@
 <script setup>
 const {t, locale} = useI18n()
 
+const data = await queryContent('returns').locale(locale.value).findOne()
 const breadcrumbs = [
   {
     name: t('title.home'),
@@ -10,6 +11,8 @@ const breadcrumbs = [
     item: '/returns'
   }
 ]
+
+console.log('data returns', data)
 // COMPUTEDS
 // METHODS
 // HANDLERS
@@ -27,33 +30,7 @@ const breadcrumbs = [
 
       <div class="title-common">{{ t('title.returns') }}</div>
 
-      <div class="rich-text"> 
-
-        <ContentQuery path="returns" :locale="locale" find="one">
-          <template #default="{ data }">
-            <h2>{{ data.title1 }}</h2>
-            <p>{{ data.desc1 }}</p>
-            <p>{{ data.desc2 }}</p>
-            <ul v-html="data.list1"></ul>
-            <p>{{ data.desc3 }}</p>
-            <p>{{ data.desc4 }}</p>
-
-            <h2>{{ data.title2 }}</h2>
-            <p>{{ data.desc5 }}</p>
-            <p>{{ data.desc6 }}</p>
-            <p>{{ data.desc7 }}</p>
-            <ul v-html="data.list2"></ul>
-
-            <p>{{ data.desc8 }}</p>
-            <ol v-html="data.list3"></ol>
-            <p>{{ data.desc9 }}</p>
-            <p>{{ data.desc10 }}</p>
-            <p>{{ data.desc11 }}</p>
-            <p>{{ data.desc12 }}</p>
-          </template>
-        </ContentQuery>
-
-        </div>
+          <div class="rich-text" v-html="data.text"></div>
 
     </div>
   </div>

@@ -12,6 +12,7 @@ const props = defineProps({
 const {isComparison, toComparisonHandler} = useComparison(props.product.id)
 const {isFavorite, toFavoriteHandler} = useFavorite(props.product.id)
 const {toCartHandler} = useCart(props.product)
+const {ensureRegionSelected} = useRegionPurchaseGuard()
 
 // COMPUTEDS
 const favoriteIcon = computed(() => {
@@ -26,10 +27,17 @@ const imageSrc = computed(() => {
   return props.product?.images && props.product.images.length > 0 ? props.product.images[0].src : useImg().noImage
 })
 
-// METHODS
-// HANDLERS
-// WATCHERS
-console.log('fixed sale component loaded', props.product)
+const isModification = computed(() => {
+  if(props.product.modifications && props.product.modifications.length > 0 && props.product.short_name !== '' && props.product.short_name !== null) {
+    return true
+  }
+  return false
+})
+const buyHandler = () => {
+  ensureRegionSelected(() => {
+    toCartHandler(1)
+  })
+}
 </script>
 
 <style src='./fixed.scss' lang='scss' scoped></style>
@@ -59,13 +67,21 @@ console.log('fixed sale component loaded', props.product)
       </nuxt-img> 
     </div>
     
-    <div>{{ product.name }}</div>
+    <div class="content">
+      <div class="name">{{ product.name }}</div>
+      <div class="desc">
+        <div v-if="isModification" class="modification">{{ product.short_name }}</div>
+      </div>
+    </div>
 
     <div class="price-block">
       <simple-price v-if="product.oldPrice" :value="product.oldPrice" class="price-old"></simple-price>
       <simple-price :value="product.price" class="price-base"></simple-price>
     </div>
 
-    <button v-if="product.inStock" @click="() => toCartHandler(1)" class="button primary buy-btn">{{ $t('button.buy') }}</button>
+    <button v-if="product.inStock" @click="buyHandler" class="button primary buy-btn">
+      <IconCSS name="ci:shopping-cart-01" class="icon"></IconCSS>
+      <!-- {{ $t('button.buy') }} -->
+    </button>
   </div>
 </template>

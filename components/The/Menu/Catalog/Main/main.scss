@@ -20,8 +20,8 @@
     grid-auto-flow: row;
 
     @include desktop {
-      grid-auto-flow: column;
       grid-auto-columns: 1fr;
+      padding: 20px;
     }
   }
   &-item {
@@ -37,19 +37,20 @@
     transition: background $speed, color $speed;
 
     @include desktop {
-      flex-direction: column;
-      justify-content: center;
-      padding: 60px 20px;
     }
     &:last-of-type {
       margin: 0;
     }
-    &.active {
+    &.active, &:hover {
       color: $color-primary;
-      background: $color-5;
+
+      .category-name {
+        color: $color-primary;
+      }
+      // background: $color-border;
     }
     &:hover {
-      background: $color-bg;
+      // background: $color-bg;
       color: $color-primary;
     }
   }
@@ -59,26 +60,21 @@
     object-fit: contain;
     border-radius: $radius;
     background-color: $color-bg-2;
-
-    @include desktop {
-      width: 100px;
-      height: 100px;
-      background: none;
-    }
   }
   &-name {
     text-transform: uppercase;
+    font-weight: 700;
     font-size: 12px;
+    color: $color-0;
     @include desktop {
-      font-size: 16px;
-      font-weight: 500;
+      font-size: 14px;
     }
   }
   &-icon {
     position: absolute;
-    left: 50%;
-    bottom: 10px;
-    transform: translateX(-50%);
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 24px;
   }
 }

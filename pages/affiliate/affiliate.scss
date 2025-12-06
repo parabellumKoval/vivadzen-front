@@ -1,0 +1,648 @@
+.affiliate-page {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  line-height: 1.5;
+  color: $color-0;
+}
+
+.affiliate-hero {
+  position: relative;
+  // padding: 40px 0 80px;
+  // background: linear-gradient(120deg, rgba($color-green, 0.12), rgba($color-orange, 0.12));
+
+
+
+  &__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 32px;
+    border-radius: 32px;
+    background: #fff;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+
+    @include desktop {
+      align-items: center;
+      padding: 100px;
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 10;
+    padding: 100px;
+    margin: -100px 0 -100px -100px;
+    background: rgba(0,0,0,0.5);
+
+    @include desktop {
+      max-width: 900px;
+    }
+  }
+
+  &__eyebrow {
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: $color-green;
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: 700;
+    color: $color-8;
+    text-transform: uppercase;
+    @include tablet {
+      font-size: 44px;
+    }
+  }
+
+  &__description {
+    color: rgba($color-8, 0.8);
+    font-size: 18px;
+  }
+
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  &__stat {
+    flex: 1 1 160px;
+    padding: 16px;
+    border-radius: 18px;
+    background: rgba($color-green, 0.08);
+    border: 1px solid rgba($color-green, 0.2);
+  }
+
+  &__stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: $color-green;
+  }
+
+  &__stat-label {
+    font-size: 14px;
+    color: $color-4;
+  }
+
+  &__highlights {
+    display: grid;
+    gap: 14px;
+  }
+
+  &__highlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: $color-4;
+    &-icon {
+      font-size: 20px;
+      color: $color-orange;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: $radiusBtn;
+    font-weight: 600;
+    transition: transform $speed, box-shadow $speed;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &--primary {
+      background: linear-gradient(135deg, $color-green, $color-orange);
+      color: #fff;
+      box-shadow: 0 12px 32px rgba($color-orange, 0.35);
+    }
+    &--ghost {
+      color: $color-orange;
+      border: 1px solid $color-orange;
+    }
+  }
+
+  &__media {
+    position: absolute;
+    border-radius: 28px;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    // &:after {
+    //   content: '';
+    //   position: absolute;
+    //   inset: 0;
+    //   background: linear-gradient(180deg, rgba($color-0, 0) 0%, rgba($color-0, 0.35) 100%);
+    // }
+    &-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+}
+
+.affiliate-section {
+
+  @include desktop  {
+    padding: 30px 0;
+  }
+
+  &--muted {
+  }
+
+  &--accent {
+    padding: 30px 0;
+    background: linear-gradient(135deg, rgba($color-green, 0.08), rgba($color-orange, 0.08));
+  }
+
+  &__head {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 40px;
+    text-align: center;
+    max-width: 840px;
+    margin-inline: auto;
+  }
+
+  &__eyebrow {
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: $color-orange;
+  }
+
+  &__title {
+    font-size: 30px;
+    font-weight: 600;
+    color: $color-1;
+    line-height: 1.3;
+  }
+}
+
+.affiliate-levels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+
+  @include desktop {
+    gap: 30px;
+  }
+}
+
+.affiliate-level {
+  background: #fff;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid rgba($color-green, 0.12);
+
+
+  &__label {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: $color-4;
+  }
+
+  &__accent {
+    font-size: 22px;
+    font-weight: 600;
+    color: $color-1;
+  }
+
+  &__percent {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 700;
+    color: $color-green;
+  }
+
+  &__description {
+    color: $color-3;
+    margin: 0;
+  }
+}
+
+.affiliate-level__icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: $radius;
+  font-size: 24px;
+  color: $color-orange;
+  background: rgba($color-orange, 0.1);
+}
+
+.affiliate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+
+  @include desktop {
+    gap: 30px;
+  }
+
+  &--wide {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+.affiliate-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba($color-5, 0.15);
+
+  &--lined {
+    border: 1px solid rgba($color-green, 0.2);
+  }
+
+  &__icon {
+    display: inline-flex;
+
+    .affiliate-level__icon {
+      color: $color-green;
+      background: rgba($color-green, 0.1);
+    }
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: $color-1;
+  }
+
+  &__text {
+    color: $color-3;
+  }
+}
+
+.affiliate-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+
+  &--column {
+  }
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: $color-3;
+  }
+
+  &__icon {
+    font-size: 18px;
+    color: $color-orange;
+    margin-top: 4px;
+  }
+}
+
+.affiliate-quote {
+  margin-top: 10px;
+  padding: 24px;
+  border-radius: 24px;
+  background: rgba($color-orange, 0.08);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+
+  @include desktop {
+    margin-top: 40px;
+  }
+
+  &__icon {
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    color: $color-orange;
+    font-size: 40px;
+  }
+
+  &__title {
+    font-weight: 600;
+    color: $color-1;
+  }
+
+  &__text {
+    color: $color-3;
+  }
+}
+
+.affiliate-link {
+  &__inner {
+    display: grid;
+    gap: 30px;
+    align-items: center;
+    overflow: hidden;
+    @include desktop {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 200px;
+    }
+  }
+
+  &__content {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @include desktop {
+      order: initial;
+      gap: 15px;
+    }
+  }
+
+  &__media {
+    order: 1;
+    position: relative;
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+
+    @include desktop {
+      order: initial;
+      height: 800px;
+    }
+
+    img {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__note {
+    color: $color-3;
+    font-size: 15px;
+  }
+
+  &__shortcuts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__shortcut {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: $radiusBtn;
+    background: rgba($color-green, 0.08);
+    color: $color-green;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    transition: background $speed, transform $speed;
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &--primary {
+      background: $color-green;
+      color: #fff;
+    }
+  }
+}
+
+.affiliate-steps {
+  display: grid;
+  gap: 12px;
+  counter-reset: steps;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  li {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 52px;
+    min-height: 32px;
+
+    &:before {
+      counter-increment: steps;
+      content: counter(steps);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba($color-orange, 0.15);
+      color: $color-orange;
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+    }
+  }
+}
+
+.affiliate-sample {
+  border: 1px solid rgba($color-5, 0.15);
+  border-radius: 20px;
+  padding: 20px;
+  display: grid;
+  gap: 10px;
+  background-color: $color-8;
+
+  &__label {
+    font-size: 14px;
+    color: $color-4;
+  }
+
+  &__code {
+    border-radius: 14px;
+    padding: 12px 16px;
+    background: $color-7;
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &--accent {
+      background: rgba($color-green, 0.08);
+      border: 1px solid rgba($color-green, 0.2);
+      color: $color-green;
+    }
+  }
+
+  &__copy {
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font-size: 18px;
+    display: grid;
+    place-items: center;
+  }
+
+  &__hint {
+    font-size: 13px;
+    color: $color-4;
+  }
+}
+
+.affiliate-ttl {
+  display: grid;
+  gap: 30px;
+  align-items: center;
+  @include desktop {
+    grid-template-columns: 2fr 4fr;
+    gap: 70px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  &__media {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+
+    @include desktop {
+      height: 800px;
+    }
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+  }
+}
+
+.affiliate-control {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 10px;
+
+  @include desktop {
+    gap: 15px;
+  }
+
+  &__title {
+    text-align: left;
+  }
+
+  &__grid {
+    width: 100%;
+  }
+}
+
+.affiliate-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+
+  @include desktop {
+    gap: 30px;
+  }
+}
+
+.affiliate-option {
+  background: #fff;
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border: 1px solid rgba($color-orange, 0.2);
+
+  &__icon {
+    display: inline-flex;
+
+    .affiliate-level__icon {
+      color: $color-orange;
+      background: rgba($color-orange, 0.1);
+      font-size: 26px;
+    }
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: $color-1;
+  }
+
+  &__text {
+    color: $color-3;
+  }
+}
+
+.affiliate-cta {
+  &__card {
+    // background: linear-gradient(120deg, $color-green, $color-orange);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    @include tablet {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  &__text {
+    font-size: 18px;
+    opacity: 0.8;
+  }
+
+  &__btn {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: $radiusBtn;
+    background: $color-orange;
+    color: $color-8;
+    font-weight: 600;
+    transition: transform $speed, box-shadow $speed;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}

@@ -14,7 +14,7 @@ items:
   qa4:
     id: 4
     q: Wann erhalte ich meine Bestellung?
-    a: Der Versand erfolgt mit Nova Poshta auf Kosten des Kunden, sofern auf der Produktseite nichts anderes steht. Die Lieferung dauert normalerweise 2–3 Tage.
+    a: Die Lieferzeit hängt vom ausgewählten Dienst ab und wird direkt neben den verfügbaren Methoden angezeigt.
   qa5:
     id: 5
     q: Kann sich der Gesamtpreis ändern?
@@ -22,28 +22,20 @@ items:
   qa6:
     id: 6
     q: Wie kann ich bezahlen?
-    a: Barzahlung per Nachnahme in einer Nova-Poshta-Filiale oder bargeldlos per Visa-, MasterCard- oder Firmenkonto.
+    a: Zahlungsarten erscheinen automatisch, sobald Sie die Versandart wählen, und richten sich nach Ihrer Region.
   qa7:
     id: 7
     q: Wie kann ich eine ungeeignete oder defekte Ware zurückgeben?
-    a: "<p>Gemäß Artikel 9 des Gesetzes der Ukraine „Zum Schutz der Verbraucherrechte“ kann der Kunde ein Produkt innerhalb von 14 Tagen umtauschen, wenn es in Farbe, Größe oder Form nicht passt oder sich nicht verwenden lässt – vorausgesetzt, es wurde nicht benutzt und behält sein Aussehen, seine Eigenschaften, die Originalverpackung, Siegel und Kaufbelege. Ist die gewünschte Ware nicht verfügbar, kann der Kunde:</p>
-        <ul><li>ein anderes Produkt in unserem Shop kaufen;</li>
-            <li>den Kaufpreis zurückerhalten;</li>
-            <li>den Artikel beim nächsten Wareneingang umtauschen;</li>
-        </ul>
-        <p>Bei Rückerstattungen erhält der Kunde den Preis, der zum Zeitpunkt des Kaufs gezahlt wurde.</p>"
+    a: "<p>Als Verbraucher in der EU können Sie gemäß unserer Widerrufsbelehrung innerhalb von 14 Tagen nach Erhalt der Ware vom Kaufvertrag zurücktreten. Die Artikel müssen unbenutzt, vollständig und im Originalzustand mit Kaufnachweis zurückgesendet werden. Das Widerrufsrecht gilt nicht für maßgeschneiderte Produkte, schnell verderbliche Waren oder aus hygienischen Gründen versiegelte Produkte, deren Siegel entfernt wurde, sowie weitere Ausnahmen aus der Belehrung.</p>
+        <p>Senden Sie uns eine Widerrufserklärung (per E-Mail oder Kontaktformular) und schicken Sie die Ware innerhalb von 14 Tagen zurück. Die Rücksendekosten trägt der Kunde. Sobald wir die Ware oder einen Versandnachweis erhalten, erstatten wir alle Zahlungen (höchstens in Höhe der günstigsten angebotenen Versandart) innerhalb von 14 Tagen über dieselbe Zahlungsmethode.</p>"
   qa8:
     id: 8
     q: Wo und wie kann ich Produkte umtauschen oder zurückgeben?
-    a: "<p>Senden Sie den Artikel mit Nova Poshta zurück. Bitte beachten Sie, dass die ukrainische Regierung eine Liste hochwertiger Waren festgelegt hat, die nicht umgetauscht oder zurückgegeben werden dürfen (Beschluss Nr. 172 vom 19. März 1994). Dazu zählen:</p>
-        <ul><li>Lebensmittel, Arzneimittel und Hygieneartikel;</li>
-            <li>Nichtlebensmittel wie Zahnbürsten, Kämme und Massagebürsten, Babyprodukte (Windeln, Schnuller, Flaschen usw.);</li>
-            <li>Maniküre- und Pediküre-Werkzeuge (Scheren, Feilen usw.).</li>
-        </ul>"
+    a: Kontaktieren Sie unseren Support oder besuchen Sie die Abholstelle, damit wir Ihnen sagen können, welchen verfügbaren Dienst Sie für den Umtausch nutzen sollen.
   qa9:
     id: 9
     q: Wohin liefern Sie?
-    a: In die gesamte Ukraine, ausgenommen die Krim sowie einzelne Regionen der Oblaste Donezk und Luhansk.
+    a: Wir versenden über die Versandpartner, die in Ihrer Region verfügbar sind – die Liste aktualisiert sich automatisch.
   qa10:
     id: 10
     q: Wie finde ich einen Artikel in Ihrem großen Sortiment?
@@ -54,4 +46,4 @@ items:
   qa11:
     id: 11
     q: Wie verfolge ich mein Paket?
-    a: Nach dem Versand erhalten Sie per SMS oder Viber die Nova-Poshta-Sendungsnummer. Verfolgen Sie Ihr Paket auf https://novaposhta.ua/
+    a: Nach dem Versand senden wir Ihnen eine Sendungsnummer; verfolgen Sie diese über die Website oder App des gewählten Dienstes.

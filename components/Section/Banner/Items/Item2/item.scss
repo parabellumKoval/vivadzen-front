@@ -1,0 +1,134 @@
+.banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  background: $color-bg-2;
+  border-radius: 50px;
+  margin: 0 15px;
+
+  @include desktop {
+    margin: 0;
+    padding: 0 200px;
+  }
+
+  &-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    overflow: hidden;
+    &-img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      max-width: initial;
+      max-height: initial;
+
+      @include desktop {
+      }
+    }
+  }
+  &-inner {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+    z-index: 1;
+
+    @include desktop {
+      max-width: 50%;
+      align-items: center;
+    }
+
+    @include ld {
+      gap:200px;
+    }
+  }
+
+  &-content {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 20px;
+    padding: 0 30px;
+    text-align: center;
+    transform: translateY(30px);
+
+    @include desktop {
+      gap: 50px;
+      text-align: left;
+    }
+  }
+
+  &-title {
+    font-weight: 900;
+    color: $color-primary;
+    line-height: 100%;
+
+    @include desktop {
+      line-height: 110%;
+    }
+
+    &-1 {
+      // font-size: 60px;
+      color: $color-orange;
+
+      @include desktop {
+        // font-size: 133px;
+      }
+    }
+    &-2 {
+      // font-size: 48px;
+      color: $color-primary;
+
+      @include desktop {
+        // font-size: 110px;
+      }
+    }
+
+    &-1,
+    &-2 {
+      font-size: 0.9em;
+      @include desktop {
+        font-size: 1.5em;
+      }
+      @include ld {
+        font-size: 2em;
+      }
+    }
+  }
+
+  &-desc {
+    font-size: 16px;
+    line-height: 130%;
+
+    @include desktop {
+      font-size: 28px;
+    }
+  }
+
+  &-btns {
+    display: grid;
+    grid-auto-flow: row;
+    align-items: center;
+    gap: 20px;
+
+    @include desktop {
+      grid-auto-flow: column;
+      grid-auto-columns: min-content;
+      gap: 40px;
+    }
+  }
+
+  &-btn {
+    max-width: 300px;
+    margin: 0 auto;
+
+    @include desktop {
+      max-width: initial;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+.icon {
+  font-size: 26px;
+
+  @include desktop {
+    font-size: 34px;
+  }
+}
+
+
+
+.search {
+  &-wrapper {
+    position: relative;
+    z-index: 10;
+    
+    &.active {
+      .search {
+        position: fixed;
+        top: 5px;
+        left: 5px;
+        width: calc(100vw - 10px); 
+        &-inner {
+          grid-template-columns: 1fr 50px 50px;;
+        }
+      }
+      .search-close {
+        display: flex;
+      }
+      .search-action {
+        display: flex;
+      }
+    }
+  }
+  &-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: calc(var(--app-height) - 90px);
+    z-index: 1000;
+    padding: 15px;
+    // background: rgba($color-dark, 0.5);
+  }
+}

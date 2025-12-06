@@ -1,8 +1,11 @@
 .review {
   &-grid {
-    column-gap: 25px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    
     @include desktop {
-      columns: 2;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   &-pagination {

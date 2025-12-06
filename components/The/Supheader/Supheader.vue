@@ -2,7 +2,6 @@
   const {t, locale} = useI18n()
   const isShow = ref(true)
 
-  const all = useRegion()
   const {regionsMeta, region} = useRegion()
   const {get} = useSettings()
 
@@ -54,7 +53,7 @@
           <button @click="openModalHandler" class="region-btn" clickable>
             <div class="supheader-btn region-label">
               <IconCSS name="mynaui:location" size="24" class="icon"></IconCSS>
-              <span>Країна доставки:</span>
+              <span>{{ t('delivery_country') }}:</span>
             </div>
 
             <div class="supheader-btn region-unit">

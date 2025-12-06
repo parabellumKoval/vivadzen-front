@@ -54,7 +54,7 @@ const showLarge = computed(() => {
     <IconCSS v-for="i in 5" :key="i" name="mynaui:star-solid" :class="{active: i <= starsAmount }" class="star" />
   </div>
   <div v-else-if="showSmall" class="stars stars-small">
-    <IconCSS name="mynaui:star-solid" class="star active" />
+    <IconCSS name="mynaui:star-solid" :class="{active: starsAmount > 0 }" class="star" />
     <span :class="{active: starsAmount > 0 }" class="amount">{{ parseFloat(starsAmount).toFixed(1) }}</span>
   </div>
   <div v-else-if="showLarge" class="stars stars-large">

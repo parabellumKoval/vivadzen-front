@@ -1,28 +1,32 @@
 .btn-menu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-  
-  @include tablet {
-    width: 100%;
-    height: 40px;
-    margin: 0 auto;
-  }
-  @include desktop {
-    height: 50px;
-    margin: 0 auto 0 0;
-    justify-content: initial;
-  }
-
-  .icon {
-    margin-right: 5px;
-  }
 
   &-label {
     display: none;
     @include desktop {
       display: block;
     }
+  }
+}
+
+.menu-btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  border-right: 1px solid $color-border;
+  
+  @include tablet {
+    width: 100%;
+    margin: 0 auto;
+  }
+  @include desktop {
+    margin: 0 auto 0 0;
+    justify-content: initial;
+    text-transform: uppercase;
+  }
+
+  @include desktop {
+    border-right: 0;
   }
 }

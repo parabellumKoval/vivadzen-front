@@ -10,7 +10,7 @@
 
   &-item {
     display: grid;
-    grid-template-columns: min-content 1fr min-content min-content min-content;
+    grid-template-columns: min-content 1fr min-content min-content;
     align-items: center;
     gap: 20px;
     width: 100%;
@@ -30,10 +30,17 @@
     background-color: $color-bg-2;
     border-radius: $radius;
   }
+
+  &-name {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
 }
 
 .name {
   white-space: nowrap;
+  font-weight: 700;
 }
 
 .price{

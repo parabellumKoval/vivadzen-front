@@ -1,12 +1,28 @@
-title1: "1. Wenn Sie Ware mangelhafter Qualität erhalten haben:"
-title2: "2. Wenn die gelieferte Ware von guter Qualität ist, Ihnen aber nicht passt."
-desc1: Gemäß Artikel 8 des Gesetzes der Ukraine hat der Kunde das Recht auf Umtausch oder Rückerstattung, wenn während der Garantiezeit wesentliche Mängel festgestellt werden, die durch den Hersteller verursacht wurden.
-desc2: "Als wesentlicher Mangel im Sinne von Punkt 12, Artikel 1 des Gesetzes „Zum Schutz der Verbraucherrechte“ gilt ein Fehler, der die bestimmungsgemäße Nutzung unmöglich oder unzulässig macht, durch den Hersteller verursacht wurde, nach der Behebung erneut auftritt und mindestens eines der folgenden Kriterien erfüllt:"
-list1: "<li>er lässt sich nicht beseitigen;</li><li>die Reparatur dauert länger als vierzehn Kalendertage;</li><li>er verändert das Produkt wesentlich gegenüber den vereinbarten Eigenschaften.</li>"
-desc3: "Wenn eine Qualitätsprüfung erforderlich ist, kann die Ware an ein autorisiertes Servicecenter gesendet werden. Gemäß Punkt 4, Artikel 17 des Gesetzes „Zum Schutz der Verbraucherrechte“ wird die Prüfung innerhalb von drei Tagen nach schriftlichem Einverständnis des Kunden organisiert. Bestätigt die Prüfung, dass der Mangel durch unsachgemäßen Gebrauch, Lagerung oder Transport entstanden ist, wird der Anspruch abgelehnt und der Kunde trägt die Kosten der Prüfung."
-desc4: "Der Wunsch des Kunden, einen Artikel umzutauschen, wird sofort erfüllt, sofern er verfügbar ist, andernfalls innerhalb von zwei Monaten. Kann der Wunsch nicht erfüllt werden, darf der Kunde den defekten Artikel gegen ein anderes Produkt gleicher Qualität tauschen (mit entsprechender Preisanpassung) oder eine Rückerstattung verlangen."
-desc5: "Gemäß Artikel 9 des Gesetzes „Zum Schutz der Verbraucherrechte“ kann ein qualitativ einwandfreies Produkt innerhalb von 14 Tagen umgetauscht werden, wenn es nach Form, Größe, Stil, Farbe oder Zweck nicht passt – vorausgesetzt, es wurde nicht benutzt und behält sein Aussehen, seine Eigenschaften, Siegel, Originalverpackung und Kaufbelege."
-desc6: "Ist das gewünschte Produkt zum Zeitpunkt des Umtauschs nicht verfügbar, kann der Kunde ein anderes Produkt wählen, eine Rückerstattung in Höhe des Kaufpreises erhalten oder den Austausch auf den nächsten Wareneingang verschieben. Rückzahlungen erfolgen zum Kaufpreis am Tag des Erwerbs."
-desc7: "Lehnt der Kunde eine Lieferung ab oder holt sie nicht ab, weil er die Ware nicht mehr benötigt, werden die Liefer- und Rücksendekosten vom Erstattungsbetrag abgezogen."
-desc8: "Der Kunde hat Anspruch auf Rückerstattung, wenn ein vom autorisierten Servicecenter bestätigter Herstellungsfehler vorliegt."
-desc9: "Rücksendungen und Umtausch für Bestellungen, die vom Vivadzen-Onlineshop in Städte der Ukraine versendet wurden, erfolgen per Rücksendung über Lieferdienste wie Nova Poshta."
+text: |
+  <h2>Rücktritt vom Vertrag</h2>
+  <ol>
+    <li>Ein Kunde, der einen Kaufvertrag außerhalb seiner geschäftlichen Tätigkeit als Verbraucher abgeschlossen hat, ist berechtigt, vom Vertrag zurückzutreten.</li>
+    <li>Die Widerrufsfrist beträgt 14 Tage ab dem Tag, an dem die Ware übernommen wird.</li>
+    <li>Der Kunde kann vom Kaufvertrag nicht zurücktreten, wenn:
+      <ul>
+        <li>mit der Leistungserbringung mit seiner vorherigen ausdrücklichen Zustimmung vor Ablauf der Widerrufsfrist begonnen wurde und der Verkäufer ihn darüber informiert hat, dass das Widerrufsrecht entfällt;</li>
+        <li>der Preis der Waren oder Dienstleistungen von Schwankungen des Finanzmarkts abhängt, die außerhalb des Einflusses des Verkäufers während der Widerrufsfrist liegen;</li>
+        <li>alkoholische Getränke geliefert werden, die erst nach Ablauf von 30 Tagen zugestellt werden können und deren Preis von Finanzmarktschwankungen abhängt, die der Verkäufer nicht beeinflussen kann;</li>
+        <li>Waren nach Kundenspezifikationen angefertigt oder eindeutig personalisiert wurden;</li>
+        <li>verderbliche Waren geliefert werden oder Waren, die nach der Lieferung unwiderruflich mit anderen Produkten vermischt wurden;</li>
+        <li>versiegelte Waren geliefert werden, die aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet sind und deren Versiegelung der Kunde entfernt hat;</li>
+        <li>Audio- oder Videoaufnahmen oder Computersoftware mit beschädigter Originalverpackung geliefert werden;</li>
+        <li>Zeitungen, Zeitschriften oder Magazine geliefert werden;</li>
+        <li>digitale Inhalte, die nicht auf einem körperlichen Datenträger bereitgestellt werden, mit ausdrücklicher Zustimmung des Kunden vor Ablauf der Widerrufsfrist geliefert werden und der Kunde vorab über den Verlust des Widerrufsrechts informiert wurde;</li>
+        <li>andere Fälle gemäß Artikel 1837 des Bürgerlichen Gesetzbuchs vorliegen.</li>
+      </ul>
+    </li>
+    <li>Zur Wahrung der Frist muss der Kunde die Erklärung über den Rücktritt vor Ablauf der Widerrufsfrist absenden.</li>
+    <li>Für den Rücktritt vom Kaufvertrag kann der Kunde das vom Verkäufer bereitgestellte Formular verwenden und es an die in diesen Bedingungen angegebene E-Mail- oder Postadresse senden; der Verkäufer muss den Eingang unverzüglich bestätigen.</li>
+    <li>Ein Kunde, der vom Vertrag zurücktritt, muss die Ware binnen 14 Tagen nach dem Rücktritt an den Verkäufer zurücksenden und trägt die Kosten der Rücksendung, selbst wenn die Ware aufgrund ihrer Beschaffenheit nicht auf dem üblichen Postweg zurückgesandt werden kann.</li>
+    <li>Wenn der Kunde vom Vertrag zurücktritt, muss der Verkäufer alle erhaltenen Zahlungen einschließlich der Lieferkosten unverzüglich, spätestens jedoch 14 Tage nach Eingang der Rücktrittserklärung, mit demselben Zahlungsmittel erstatten, sofern nicht ausdrücklich ein anderes, kostenfreies Verfahren vereinbart wurde.</li>
+    <li>Hat der Kunde eine teurere Versandart gewählt als die günstigste vom Verkäufer angebotene Standardlieferung, erstattet der Verkäufer die Lieferkosten nur bis zur Höhe dieser günstigsten Option.</li>
+    <li>Der Verkäufer ist nicht verpflichtet, die Rückzahlung vorzunehmen, bevor er die Waren zurückerhalten hat oder der Kunde den Nachweis erbracht hat, dass die Waren zurückgesandt wurden.</li>
+    <li>Der Kunde muss die Ware unbeschädigt, ungetragen, sauber und möglichst in der Originalverpackung zurückgeben; der Verkäufer darf eine Forderung auf Schadensersatz gegen den Rückzahlungsanspruch verrechnen.</li>
+    <li>Der Verkäufer kann vom Kaufvertrag zurücktreten, wenn die Ware nicht vorrätig oder nicht mehr verfügbar ist oder wenn Hersteller, Importeur oder Lieferant die Produktion oder den Import eingestellt haben; der Verkäufer informiert den Kunden unverzüglich und erstattet alle Zahlungen einschließlich Lieferkosten innerhalb von 14 Tagen mit derselben oder einer vereinbarten Methode.</li>
+  </ol>

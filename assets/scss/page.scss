@@ -12,7 +12,7 @@
   &-aside {
     height: min-content;
     padding: 30px;
-    border: 2px solid $color-5;
+    border: 1px solid $color-border;
     border-radius: $radius;
     @include desktop {
       position: sticky;

@@ -1,7 +1,9 @@
 <script setup>
 const {t} = useI18n()
+const { t: tGlobal } = useI18n({ useScope: 'global' })
 
 const {methods} = useDelivery()
+const { isInternational } = useRegionPurchaseGuard()
 
 const m = computed(() => {
   return methods.value
@@ -39,37 +41,42 @@ const emit = defineEmits(['more'])
     <div class="product-box-label">
       <checkout-delivery-country></checkout-delivery-country>
     </div>
-    <div class="method">
-      <div v-for="method in methods" :key="method.id" class="method-item">
-        <nuxt-img
-          v-if="method.logo"
-          :src = "method.logo"
-          :provider = "useImg().provider"
-          width="20"
-          height="20"
-          sizes = "mobile:30px tablet:30px desktop:30px"
-          quality = "60"
-          loading = "lazy"
-          fit="outside"
-          class="method-image"
-        />
+    <div v-if="isInternational" class="product-box-notice">
+      {{ tGlobal('messages.select_region_delivery_notice') }}
+    </div>
+    <template v-else>
+      <div class="method">
+        <div v-for="method in methods" :key="method.id" class="method-item">
+          <nuxt-img
+            v-if="method.logo"
+            :src = "method.logo"
+            :provider = "useImg().provider"
+            width="20"
+            height="20"
+            sizes = "mobile:30px tablet:30px desktop:30px"
+            quality = "60"
+            loading = "lazy"
+            fit="outside"
+            class="method-image"
+          />
 
-        <div class="method-name">{{ method.label }}</div>
-        <div :class="{'amount': method.isPriceObject}" class="method-desc">
-          <template v-if="!method.isPriceObject">
-            {{ method.price }}
-          </template>
-          <template v-else>
-            {{ t('delivery.from') }} <simple-price :value="method.price.amount" :currency-code="method.price.currency" />
-          </template>
+          <div class="method-name">{{ method.label }}</div>
+          <div :class="{'amount': method.isPriceObject}" class="method-desc">
+            <template v-if="!method.isPriceObject">
+              {{ method.price }}
+            </template>
+            <template v-else>
+              {{ t('delivery.from') }} <simple-price :value="method.price.amount" :currency-code="method.price.currency" />
+            </template>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <product-delivery-free class="free-delivery"></product-delivery-free>
+      
+      <product-delivery-free class="free-delivery"></product-delivery-free>
 
-    <button @click="emit('more')" class="button secondary darker more-btn">
-      {{ t('more') }}
-    </button>
+      <button @click="emit('more')" class="button secondary darker more-btn">
+        {{ t('more') }}
+      </button>
+    </template>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup>
-const {t} = useI18n()
-const props = defineProps({})
+const { t } = useI18n()
 const { user: authUser, updateProfile, init } = useAuth()
+const noty = useNoty()
 
 await init()
 
@@ -13,8 +13,11 @@ definePageMeta({
   tab: 'settings'
 });
 
+const ADDRESS_FIELDS = ['email', 'phone', 'address_1', 'postcode', 'city', 'state', 'country']
 
 const isLoading = ref(false)
+const isBillingLoading = ref(false)
+const isShippingLoading = ref(false)
 const isLoadingPassword = ref(false)
 
 const user = ref({
@@ -24,17 +27,41 @@ const user = ref({
   email: null
 })
 
-const address = ref({
-  street: '',
-  warehouse: '',
-  city: '',
-  zip: ''
-})
-// COMPUTEDS
-// METHODS
-// HANDLERS
-const saveAdressHandler = () => {
+const createAddressState = () => {
+  const state = {}
+  ADDRESS_FIELDS.forEach((field) => {
+    state[field] = ''
+  })
+  return state
+}
 
+const billing = ref(createAddressState())
+const shipping = ref(createAddressState())
+
+const mapAddressState = (value) => {
+  const next = createAddressState()
+
+  if (!value || typeof value !== 'object') {
+    return next
+  }
+
+  ADDRESS_FIELDS.forEach((field) => {
+    const candidate = value[field]
+    next[field] = typeof candidate === 'string' ? candidate : ''
+  })
+
+  return next
+}
+
+const buildAddressPayload = (value) => {
+  const payload = {}
+
+  ADDRESS_FIELDS.forEach((field) => {
+    const candidate = value[field]
+    payload[field] = typeof candidate === 'string' ? candidate : ''
+  })
+
+  return payload
 }
 
 const saveInfoHandler = async () => {
@@ -45,12 +72,12 @@ const saveInfoHandler = async () => {
       last_name: user.value.last_name,
       phone: user.value.phone
     })
-    useNoty().setNoty({
+    noty.setNoty({
       content: t('noty.update.success'),
       type: 'success'
     })
   } catch (error) {
-    useNoty().setNoty({
+    noty.setNoty({
       content: t('noty.update.fail'),
       type: 'error'
     })
@@ -58,6 +85,27 @@ const saveInfoHandler = async () => {
     isLoading.value = false
   }
 }
+
+const saveAddressSection = async (section, stateRef, loadingRef) => {
+  loadingRef.value = true
+  try {
+    await updateProfile({ [section]: buildAddressPayload(stateRef.value) })
+    noty.setNoty({
+      content: t('noty.update.success'),
+      type: 'success'
+    })
+  } catch (error) {
+    noty.setNoty({
+      content: t('noty.update.fail'),
+      type: 'error'
+    })
+  } finally {
+    loadingRef.value = false
+  }
+}
+
+const saveBillingHandler = () => saveAddressSection('billing', billing, isBillingLoading)
+const saveShippingHandler = () => saveAddressSection('shipping', shipping, isShippingLoading)
 
 const showUpdateEmailHandler = () => {
   useModal().open(resolveComponent('ModalAuthEmailNew'), null, null, {width: {max: 420}})
@@ -105,7 +153,6 @@ const updatePasswordHandler = () => {
   // })
 }
 
-// WATCHERS
 watch(authUser, (v) => {
   if(v){
     user.value = {
@@ -114,6 +161,17 @@ watch(authUser, (v) => {
       phone: v.phone ?? null,
       email: v.email ?? null
     }
+    billing.value = mapAddressState(v.billing)
+    shipping.value = mapAddressState(v.shipping)
+  } else {
+    user.value = {
+      first_name: null,
+      last_name: null,
+      phone: null,
+      email: null
+    }
+    billing.value = createAddressState()
+    shipping.value = createAddressState()
   }
 }, {
   immediate: true
@@ -138,17 +196,42 @@ watch(authUser, (v) => {
       <button
         @click="saveInfoHandler"
         class="button primary settings-action-btn"
+        :disabled="isLoading"
       >{{ t('button.save') }}</button>
     </div>
     <div class="settings-box">
-      <div class="settings-label">{{ t('title.delivery') }}</div>
+      <div class="settings-label">{{ t('payment_data') }}</div>
       <div class="settings-grid">
-        <form-text v-model="address.street" :placeholder="t('form.delivery.address')"></form-text>
-        <form-text v-model="address.city" :placeholder="t('form.delivery.settlement')"></form-text>
-        <form-text v-model="address.zip" :placeholder="t('form.delivery.zip')"></form-text>
-        <form-text v-model="address.warehouse" :placeholder="t('form.delivery.warehouse')"></form-text>
+        <form-text v-model="billing.email" :placeholder="t('address_fields.email')"></form-text>
+        <form-text v-model="billing.phone" :placeholder="t('address_fields.phone')"></form-text>
+        <form-text v-model="billing.address_1" :placeholder="t('address_fields.address_1')"></form-text>
+        <form-text v-model="billing.postcode" :placeholder="t('address_fields.postcode')"></form-text>
+        <form-text v-model="billing.city" :placeholder="t('address_fields.city')"></form-text>
+        <form-text v-model="billing.state" :placeholder="t('address_fields.state')"></form-text>
+        <form-text v-model="billing.country" :placeholder="t('address_fields.country')"></form-text>
       </div>
-      <button @click="saveAdressHandler" class="button primary settings-action-btn">{{ t('button.save') }}</button>
+      <button
+        @click="saveBillingHandler"
+        class="button primary settings-action-btn"
+        :disabled="isBillingLoading"
+      >{{ t('button.save') }}</button>
+    </div>
+    <div class="settings-box">
+      <div class="settings-label">{{ t('delivery_data') }}</div>
+      <div class="settings-grid">
+        <form-text v-model="shipping.email" :placeholder="t('address_fields.email')"></form-text>
+        <form-text v-model="shipping.phone" :placeholder="t('address_fields.phone')"></form-text>
+        <form-text v-model="shipping.address_1" :placeholder="t('address_fields.address_1')"></form-text>
+        <form-text v-model="shipping.postcode" :placeholder="t('address_fields.postcode')"></form-text>
+        <form-text v-model="shipping.city" :placeholder="t('address_fields.city')"></form-text>
+        <form-text v-model="shipping.state" :placeholder="t('address_fields.state')"></form-text>
+        <form-text v-model="shipping.country" :placeholder="t('address_fields.country')"></form-text>
+      </div>
+      <button
+        @click="saveShippingHandler"
+        class="button primary settings-action-btn"
+        :disabled="isShippingLoading"
+      >{{ t('button.save') }}</button>
     </div>
     <div class="settings-box">
       <div class="settings-label">{{ t('security') }}</div>

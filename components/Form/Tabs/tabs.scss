@@ -5,7 +5,11 @@
   align-items: center;
   justify-content: flex-start;
   flex-flow: wrap;
-  grid-gap: 15px;
+  gap: 10px;
+
+  @include desktop {
+    gap: 15px;
+  }
 }
 .tab {
   display: grid;;
@@ -18,7 +22,7 @@
   font-size: 15px;
   background: $color-8;
   border: 2px solid $color-border;
-  border-radius: $radiusBtn;
+  border-radius: $radius;
   text-align: left;
   transition: color .3s, background .3s, border .3s;
   @include desktop {

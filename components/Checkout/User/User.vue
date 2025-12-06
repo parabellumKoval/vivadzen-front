@@ -8,7 +8,7 @@ const auth = isAuthenticated
 // METHODS
 // HANDLERS
 const loginModalHandler = () => {
-  useModal().open(resolveComponent('ModalAuthSocial'), null, null, {width: {min: 420, max: 420}})
+  useModal().open(resolveComponent('ModalAuthSocial'), null, null)
 }
 
 const logoutConfirmHandler = () => {

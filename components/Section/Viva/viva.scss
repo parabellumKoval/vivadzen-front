@@ -1,41 +1,139 @@
 .vp {
+  position: relative;
   display: grid;
   align-items: center;
   line-height: normal;
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 30px;
+  overflow: hidden;
+  margin: 0 -15px 50px -15px;
+  // background: $color-8;
 
   @include desktop {
-    grid-template-columns: 1fr 4fr;
-    gap: 180px;
+    margin: initial;
+    grid-template-columns: 1fr 3fr;
+    gap: 40px;
+    border-radius: 0;
+    // padding: 15px;
+    // background: $color-bg-2;
+  }
+
+  @include ld {
+    // padding: 90px 50px 100px 50px;
+
   }
 
   &__intro {
+    position: relative;
     display: grid;
+    // grid-template-columns: 80px 1fr;
     grid-auto-flow: row;
     grid-auto-rows: min-content;
-    gap: 30px;
+    gap: 15px;
+    z-index: 10;
+    padding: 40px;
+    background-color: $color-orange;
+    border-radius: 50px;
+    margin: 0 15px;
+
+    @include desktop {
+      grid-template-columns: initial;
+      padding: 40px 70px;
+      gap: 30px;
+      height: 100%;
+      text-align: center;
+    }
+
+    @include ld {
+
+    }
+
+    &-btn {
+      flex-direction: column;
+      padding: 0;
+      color: $color-8;
+      font-weight: 600;
+      font-size: 14px;
+      text-align: center;
+      border: 2px solid $color-8;
+      background-color: rgba($color-8, 0.15);
+      transition: background 0.3s;
+      aspect-ratio: 1/1;
+      height: initial;
+      white-space: normal;
+      border-radius: 50px;
+      cursor: pointer;
+
+      @include desktop {
+        font-size: 16px;
+      }
+      &:hover {
+        background-color: rgba($color-8, 0.3);
+      }
+      .icon {
+        position: relative;
+        left: 0;
+        font-size: 30px;
+      }
+    }
+
+    &-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50px;
+      background-size: cover;
+      background-blend-mode: luminosity;
+      background-color: $color-orange;
+      opacity: 0.7;
+    }
+  }
+
+  &__box {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 50%);
+  }
+  &__sub {
+    position: relative;
+    z-index: 1;
     text-align: center;
   }
 
   &__coin {
+    position: relative;
+    height: 220px;
+    z-index: 1;
     display: grid;
     place-items: center;
+    align-self: flex-start;
+
+
+    @include desktop {
+      align-self: initial;
+    }
 
     &-img {
+      position: absolute;
+      top: 0;
+      left: 50%;
       width: 50vw;
       height: auto;
+      object-fit: contain;
+      transform: translateX(-50%);
 
       @include desktop {
-        width: initial;
-        height: initial;
+        width: 100%;
+        height: 100%;
       }
     }
   }
 
   &__title {
-    font-size: 44px;
-    color: $color-primary;
+    font-size: 36px;
+    color: $color-8;
     font-weight: 900;
 
     @include desktop {
@@ -44,44 +142,113 @@
   }
 
   &__desc {
-    margin: 10px 0 0 0;
+    font-size: 15px;
+    color: rgba($color-8, 0.85);
 
-    @media (max-width: 900px) { max-width: 680px; }
+    @include desktop {
+      margin: 10px 0 0 0;
+    }
   }
 
   &__rate {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     justify-self: center;
-    gap: 20px;
-    height: 100px;
+    gap: 10px;
+    width: 100%;
     padding: 0 40px;
     background: $color-bg-2;
     border-radius: 50px;
     color: $color-orange;
+    aspect-ratio: 1/1;
+    // grid-column-start: 1;
+    // grid-column-end: 3;
 
+    @include desktop {
+      grid-column-start: initial;
+      grid-column-end: initial;
+      gap: 20px;
+    }
+
+    &-img {
+      position: absolute;
+      &--1 {
+        top: 15px;
+        left: 15px;
+      }
+      &--2 {
+        bottom: 15px;
+        right: 15px;
+      }
+    }
     &-num {
-      font-size: 40px;
-      font-weight: 600;
+      position: absolute;
+      max-width: 30%;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+
+      @include desktop {
+        font-size: 14px;
+      }
+
+      &--1 {
+        top: 35px;
+        right: 20px;
+        transform: translateY(-50%);
+        text-align: right;
+
+        @include desktop {
+          top: 40px;
+          right: 25px;
+        }
+      }
+
+      &--2 {
+        bottom: 35px;
+        left: 20px;
+        transform: translateY(50%);
+        text-align: left;
+
+        @include desktop {
+          bottom: 40px;
+          left: 25px;
+        }
+      }
     }
 
     &-swap {
       font-size: 40px;
     }
+
+    img {
+      width: 40px;
+      height: 40px;
+
+      @include desktop {
+        width: 50px;
+        height: 50px;
+      }
+    }
   }
 
   &__grid {
+    position: relative;
     max-width: 1600px;
     margin: 12px auto 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
     width: 100%;
+    padding: 0 15px;
     overflow-y: auto;
+    z-index: 10;
 
     @include desktop {
-      column-gap: 65px;
+      column-gap: 40px;
       row-gap: 30px;
       grid-template-columns: repeat(4, 1fr);
       overflow-y: initial;
@@ -118,13 +285,14 @@
     position: relative;
     border-radius: 50px;
     padding: 40px;
-    padding: 10px 0 40px 0;
+    padding: 10px 0 10px 0;
     overflow: hidden;
     display: grid;
     grid-template-rows:  1fr min-content;
     align-content: end;
     min-height: 440px;
     width: 60vw;
+    background-color: $color-bg-2;
 
     @include desktop {
       order:initial;
@@ -133,8 +301,22 @@
       padding: 40px;
       width: initial;
     }
-    &--green { background: $color-green; }
-    &--orange { background: $color-orange; }
+    &--green { 
+      // background: $color-green; 
+      // border: 5px solid $color-green;
+      color: $color-green;
+      &::before {
+        color: $color-green !important;
+      }
+    }
+    &--orange { 
+      // background: $color-orange; 
+      // border: 5px solid $color-orange;
+      color: $color-orange;
+      &::before {
+        color: $color-orange !important;
+      }
+    }
 
     // большое число на фоне
     &::before {
@@ -142,13 +324,17 @@
       position: absolute;
       top: 0;
       left: 0;
-      font-size: 500px;
+      font-size: 450px;
       line-height: 0.8;
       font-weight: 700;
       color: $color-bg;
       transform: translateX(-90px) translateY(-13px);
       pointer-events: none;
       mix-blend-mode: normal;
+
+      @include desktop {
+        font-size: 500px;
+      }
     }
 
     &[data-step="1"] {
@@ -162,6 +348,9 @@
     }
     &[data-step="3"] {
       order:4;
+      &::before {
+        left: -15px;
+      }
     }
     &[data-step="4"] {
       order:5;
@@ -192,7 +381,6 @@
     margin: 0;
     padding: 0 15px;
     text-align: center;
-    color: $color-8;
     font-weight: 600;
     font-size: 16px;
 
@@ -204,3 +392,11 @@
     }
   }
 }
+
+// .rain-img {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 1000px;
+//   height: 1000px;
+// }

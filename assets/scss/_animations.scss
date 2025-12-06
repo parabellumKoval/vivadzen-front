@@ -240,3 +240,14 @@
 .list-leave-active {
   position: absolute;
 }
+
+
+
+// PAGE
+.block-from-top-enter-active {
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.block-from-top-enter-from {
+  opacity: 0;
+  transform: translateY(-40px);
+}

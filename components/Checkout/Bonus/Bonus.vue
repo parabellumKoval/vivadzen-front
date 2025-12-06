@@ -26,9 +26,7 @@ const orderPriceInPoints = computed(() => {
 const maxAvailableToUse = computed(() => {
   return Math.min(balance.value, orderPriceInPoints.value)
 })
-const balanceCurrency = computed(() => {
-  return get('profile.points.name') || 'Points'
-})
+const {name: balanceCurrency} = usePoints()
 
 const order = computed(() => {
   return useCartStore().order
@@ -133,7 +131,12 @@ watch(() => order.value.bonus, (newVal) => {
         <div v-else :key="1" class="bonus-use">
           <div class="bonus-label">
             <span>{{ t('on_your_balance') }}</span>
-            <simple-price :value="balance" :currency-code="balanceCurrency" class="bonus-label-amount"></simple-price>
+            <simple-price
+              :value="balance"
+              :currency-code="balanceCurrency"
+              :currency-label="balanceCurrency"
+              class="bonus-label-amount"
+            ></simple-price>
           </div>
             <div class="bonus-use-label">{{ t('how_much_bonus') }}</div>
             <div class="bonus-form">

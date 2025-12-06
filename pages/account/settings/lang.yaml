@@ -6,6 +6,16 @@ ru:
   title_change_pass: Изменение пароля
   desc_change: После изменения пароля старый пароль перестанет действовать. Для входа в аккаунт необходимо будет вводить новый пароль. Приступить к смене пароля?
   sent_link: Отправить ссылку
+  payment_data: Платёжные данные
+  delivery_data: Доставка
+  address_fields:
+    email: Email
+    phone: Телефон
+    address_1: Адрес
+    postcode: Индекс
+    city: Город
+    state: Регион
+    country: Страна
 uk:
   personal_data: Персональні дані 
   security: Безпека 
@@ -14,6 +24,16 @@ uk:
   title_change_pass: Зміна пароля 
   desc_change: Після зміни пароля старий пароль перестане діяти. Для входу в обліковий запис потрібно буде вводити новий пароль. Почати зміну пароля? 
   sent_link: Надіслати посилання
+  payment_data: Платіжні дані
+  delivery_data: Доставка
+  address_fields:
+    email: Email
+    phone: Телефон
+    address_1: Адреса
+    postcode: Поштовий індекс
+    city: Місто
+    state: Регіон
+    country: Країна
 de:
   personal_data: Persönliche Daten
   security: Sicherheit
@@ -22,6 +42,16 @@ de:
   title_change_pass: Passwortänderung
   desc_change: Nach der Änderung des Passworts ist das alte Passwort nicht mehr gültig. Zum Anmelden im Konto müssen Sie das neue Passwort eingeben. Mit der Passwortänderung fortfahren?
   sent_link: Link senden
+  payment_data: Zahlungsdaten
+  delivery_data: Lieferung
+  address_fields:
+    email: E-Mail
+    phone: Telefon
+    address_1: Adresse
+    postcode: Postleitzahl
+    city: Stadt
+    state: Region
+    country: Land
 es:
   personal_data: Datos personales
   security: Seguridad
@@ -30,6 +60,16 @@ es:
   title_change_pass: Cambio de contraseña
   desc_change: Después de cambiar la contraseña, la anterior dejará de funcionar. Para iniciar sesión deberá introducir la nueva contraseña. ¿Desea continuar con el cambio de contraseña?
   sent_link: Enviar enlace
+  payment_data: Datos de pago
+  delivery_data: Entrega
+  address_fields:
+    email: Correo electrónico
+    phone: Teléfono
+    address_1: Dirección
+    postcode: Código postal
+    city: Ciudad
+    state: Región
+    country: País
 cs:
   personal_data: Osobní údaje
   security: Zabezpečení
@@ -38,6 +78,16 @@ cs:
   title_change_pass: Změna hesla
   desc_change: Po změně hesla přestane staré heslo fungovat. Pro přihlášení do účtu budete muset zadat nové heslo. Pokračovat ve změně hesla?
   sent_link: Odeslat odkaz
+  payment_data: Platební údaje
+  delivery_data: Doručení
+  address_fields:
+    email: E-mail
+    phone: Telefon
+    address_1: Adresa
+    postcode: PSČ
+    city: Město
+    state: Region
+    country: Země
 en:
   personal_data: Personal data
   security: Security
@@ -46,3 +96,13 @@ en:
   title_change_pass: Password change
   desc_change: After changing the password, the old password will no longer work. To log into your account you will need to enter the new password. Proceed with changing the password?
   sent_link: Send link
+  payment_data: Payment details
+  delivery_data: Delivery
+  address_fields:
+    email: Email
+    phone: Phone
+    address_1: Address
+    postcode: Postal code
+    city: City
+    state: Region
+    country: Country

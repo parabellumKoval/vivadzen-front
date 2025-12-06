@@ -125,3 +125,25 @@
     font-size: 0.8em;
     border-radius: 12px;
   }
+
+.checkout-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wrapper--external {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.wrapper--external .remove-btn {
+  pointer-events: auto;
+}
+
+.unavailable-note {
+  margin: 0;
+  font-size: 12px;
+  color: $color-red;
+  line-height: 1.4;
+}

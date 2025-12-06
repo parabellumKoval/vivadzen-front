@@ -1,12 +1,18 @@
 ru:
   all_contacts: Все контакты
+  delivery_country: Страна доставки
 uk:
   all_contacts: Все контакты
+  delivery_country: Країна доставки
 de:
   all_contacts: Все контакты
+  delivery_country: Lieferland
 es:
   all_contacts: Все контакты
+  delivery_country: País de entrega
 cs:
   all_contacts: Все контакты
+  delivery_country: Země doručení
 en:
   all_contacts: Все контакты
+  delivery_country: Delivery country

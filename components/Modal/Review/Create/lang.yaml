@@ -4,81 +4,147 @@ ru:
   set_rating_shop: Оцените магазин Vivadzen в целом от 1 до 5
   w_advantages: Опишите достоинства товара
   w_flaws: Опишите недостатки товара
-  w_link: Оставьте ссылку на Facebook или Instagram 
+  w_link: Ссылка на вашу соц сеть
   link: Например https://facebook.com/my_account
-  link_desc_1: Добавьте ссылку на вашу действующую страницу в Facebook или Instagram чтобы показать другим пользвателям, что ваш отзыв настоящий.
-  link_desc_2: После модерации вашего отзыва со ссылкой вы получите купон со скидкой 5% для покупок в магазине Vivadzen.com.
+  link_desc_supported: "Поддерживаемые соцсети: Facebook, Instagram, TikTok, Twitter (X)."
+  link_desc_requirement: Вознаграждение за текстовый отзыв начислим только если прикрепите ссылку.
+  link_desc_2_prefix: После модерации текстового отзыва мы начислим
+  link_desc_2_suffix: на ваш личный счёт.
   advantages: Достоинства
   flaws: Недостатки
   tab_product: О товаре
-  tab_djini: О магазине Vivadzen
+  tab_company: О магазине Vivadzen
+  review_type_label: Формат отзыва
+  review_type_text: Текстовый отзыв
+  review_type_video: Видео-отзыв
+  video_link_label: Ссылка на видео
+  video_link_placeholder: Например https://youtu.be/dQw4w9WgXcQ
+  video_link_desc_1: Упомяните в кадре, что пользуетесь магазином Vivadzen.
+  video_link_desc_2: Если делитесь мнением о товаре — покажите покупку на видео.
+  video_link_desc_reward_prefix: За видео-отзыв мы начислим
+  video_link_desc_reward_suffix: после верификации на ваш личный счёт.
 uk:
   new_review: Новий відгук
   set_rating: Оцініть товар від 1 до 5
   set_rating_shop: Оцініть магазин Vivadzen загалом від 1 до 5
   w_advantages: Опишіть переваги товару
   w_flaws: Опишіть недоліки товару
-  w_link: Залишіть посилання на Facebook або Instagram
+  w_link: Посилання на вашу соцмережу
   link: Наприклад https://facebook.com/my_account
-  link_desc_1: Додати посилання на вашу діючу сторінку в Facebook або Instagram щоб показати іншим користувачам, що ваш відгук справжній.
-  link_desc_2: Після модерації вашого відгуку з посиланням ви отримаєте купон зі знижкою 5% для покупок у магазині Vivadzen.com.
+  link_desc_supported: "Підтримувані соцмережі: Facebook, Instagram, TikTok, Twitter (X)."
+  link_desc_requirement: Нараховуємо винагороду за текстовий відгук лише якщо додано посилання.
+  link_desc_2_prefix: Після модерації текстового відгуку ми нарахуємо
+  link_desc_2_suffix: на ваш особистий рахунок.
   advantages: Переваги
   flaws: Недоліки
   tab_product: Про товар
-  tab_djini: Про магазин Vivadzen
+  tab_company: Про магазин Vivadzen
+  review_type_label: Формат відгуку
+  review_type_text: Текстовий відгук
+  review_type_video: Відео-відгук
+  video_link_label: Посилання на відео
+  video_link_placeholder: Наприклад https://youtu.be/dQw4w9WgXcQ
+  video_link_desc_1: Згадайте у відео, що купуєте у Vivadzen.
+  video_link_desc_2: Якщо розповідаєте про товар — покажіть покупку у кадрі.
+  video_link_desc_reward_prefix: За відео-відгук ми нарахуємо
+  video_link_desc_reward_suffix: після верифікації на ваш особистий рахунок.
 de:
   new_review: Neue Bewertung
   set_rating: Bewerten Sie das Produkt von 1 bis 5
   set_rating_shop: Bewerten Sie den Vivadzen-Shop insgesamt von 1 bis 5
   w_advantages: Beschreiben Sie die Vorteile des Produkts
   w_flaws: Beschreiben Sie die Nachteile des Produkts
-  w_link: Hinterlassen Sie einen Link zu Facebook oder Instagram
+  w_link: Link zu Ihrem sozialen Netzwerk
   link: Zum Beispiel https://facebook.com/my_account
-  link_desc_1: Fügen Sie den Link zu Ihrer aktiven Facebook- oder Instagram-Seite hinzu, um anderen Nutzern zu zeigen, dass Ihre Bewertung echt ist.
-  link_desc_2: Nach der Moderation Ihrer Bewertung mit Link erhalten Sie einen Gutschein mit 5 % Rabatt für Einkäufe bei Vivadzen.com.
+  link_desc_supported: "Unterstützte Netzwerke: Facebook, Instagram, TikTok, Twitter (X)."
+  link_desc_requirement: Wir vergeben Belohnungen für Textbewertungen nur, wenn ein Link hinzugefügt wird.
+  link_desc_2_prefix: Nach der Moderation Ihrer Textbewertung schreiben wir
+  link_desc_2_suffix: auf Ihrem persönlichen Konto gut.
   advantages: Vorteile
   flaws: Nachteile
   tab_product: Über das Produkt
-  tab_djini: Über den Vivadzen-Shop
+  tab_company: Über den Vivadzen-Shop
+  review_type_label: Bewertungsformat
+  review_type_text: Textbewertung
+  review_type_video: Video-Bewertung
+  video_link_label: Videolink
+  video_link_placeholder: z. B. https://youtu.be/dQw4w9WgXcQ
+  video_link_desc_1: Erwähnen Sie im Video, dass Sie bei Vivadzen einkaufen.
+  video_link_desc_2: Wenn Sie ein Produkt bewerten, zeigen Sie den gekauften Artikel.
+  video_link_desc_reward_prefix: Für eine Videobewertung schreiben wir
+  video_link_desc_reward_suffix: nach der Prüfung auf Ihrem Konto gut.
 es:
   new_review: Nueva reseña
   set_rating: Califique el producto de 1 a 5
   set_rating_shop: Califique la tienda Vivadzen en general de 1 a 5
   w_advantages: Describa las ventajas del producto
   w_flaws: Describa las desventajas del producto
-  w_link: Deje un enlace a Facebook o Instagram
+  w_link: Enlace a tu red social
   link: Por ejemplo https://facebook.com/my_account
-  link_desc_1: Añada un enlace a su página activa de Facebook o Instagram para mostrar a otros usuarios que su reseña es auténtica.
-  link_desc_2: Tras la moderación de su reseña con enlace, recibirá un cupón de descuento del 5 % para comprar en Vivadzen.com.
+  link_desc_supported: "Redes compatibles: Facebook, Instagram, TikTok, Twitter (X)."
+  link_desc_requirement: Solo abonamos la recompensa por reseñas en texto si adjuntas un enlace.
+  link_desc_2_prefix: Tras la moderación de tu reseña en texto abonaremos
+  link_desc_2_suffix: en tu cuenta personal.
   advantages: Ventajas
   flaws: Desventajas
   tab_product: Sobre el producto
-  tab_djini: Sobre la tienda Vivadzen
+  tab_company: Sobre la tienda Vivadzen
+  review_type_label: Formato de reseña
+  review_type_text: Reseña en texto
+  review_type_video: Reseña en video
+  video_link_label: Enlace al video
+  video_link_placeholder: Por ejemplo https://youtu.be/dQw4w9WgXcQ
+  video_link_desc_1: Menciona en el video que compras en Vivadzen.
+  video_link_desc_2: Si reseñas un producto, muestra el artículo que adquiriste.
+  video_link_desc_reward_prefix: Por la reseña en video abonaremos
+  video_link_desc_reward_suffix: tras la verificación en tu cuenta personal.
 cs:
   new_review: Nová recenze
   set_rating: Ohodnoťte produkt od 1 do 5
   set_rating_shop: Ohodnoťte obchod Vivadzen celkově od 1 do 5
   w_advantages: Popište přednosti produktu
   w_flaws: Popište nedostatky produktu
-  w_link: Zanechte odkaz na Facebook nebo Instagram
+  w_link: Odkaz na vaši sociální síť
   link: Například https://facebook.com/my_account
-  link_desc_1: Přidejte odkaz na svou aktivní stránku na Facebooku nebo Instagramu, aby ostatní uživatelé viděli, že je vaše recenze skutečná.
-  link_desc_2: Po schválení vaší recenze s odkazem získáte kupón se slevou 5 % na nákupy na Vivadzen.com.
+  link_desc_supported: "Podporované sítě: Facebook, Instagram, TikTok, Twitter (X)."
+  link_desc_requirement: Odměnu za textovou recenzi připisujeme jen tehdy, když přiložíte odkaz.
+  link_desc_2_prefix: Po schválení textové recenze vám připíšeme
+  link_desc_2_suffix: na váš osobní účet.
   advantages: Přednosti
   flaws: Nedostatky
   tab_product: O produktu
-  tab_djini: O obchodě Vivadzen
+  tab_company: O obchodě Vivadzen
+  review_type_label: Formát recenze
+  review_type_text: Textová recenze
+  review_type_video: Video recenze
+  video_link_label: Odkaz na video
+  video_link_placeholder: Například https://youtu.be/dQw4w9WgXcQ
+  video_link_desc_1: Ve videu zmiňte, že nakupujete na Vivadzen.
+  video_link_desc_2: Pokud hodnotíte produkt, ukažte zakoupené zboží.
+  video_link_desc_reward_prefix: Za video recenzi připíšeme
+  video_link_desc_reward_suffix: po ověření na váš účet.
 en:
   new_review: New review
   set_rating: Rate the product from 1 to 5
   set_rating_shop: Rate the Vivadzen store overall from 1 to 5
   w_advantages: Describe the product advantages
   w_flaws: Describe the product drawbacks
-  w_link: Leave a link to Facebook or Instagram
+  w_link: Link to your social profile
   link: For example https://facebook.com/my_account
-  link_desc_1: Add a link to your active Facebook or Instagram page to show other users that your review is genuine.
-  link_desc_2: After your linked review passes moderation, you will receive a 5% discount coupon for shopping at Vivadzen.com.
+  link_desc_supported: "Supported networks: Facebook, Instagram, TikTok, Twitter (X)."
+  link_desc_requirement: Text review rewards are issued only when a link is attached.
+  link_desc_2_prefix: After we moderate your text review we will credit
+  link_desc_2_suffix: to your personal balance.
   advantages: Advantages
   flaws: Drawbacks
   tab_product: About the product
-  tab_djini: About the Vivadzen store
+  tab_company: About the Vivadzen store
+  review_type_label: Review format
+  review_type_text: Text review
+  review_type_video: Video review
+  video_link_label: Video link
+  video_link_placeholder: For example https://youtu.be/dQw4w9WgXcQ
+  video_link_desc_1: Mention in the video that you shop with Vivadzen.
+  video_link_desc_2: If you review a product, try to show the item on camera.
+  video_link_desc_reward_prefix: A video review grants
+  video_link_desc_reward_suffix: after verification straight to your balance.

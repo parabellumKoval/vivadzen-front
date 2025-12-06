@@ -1,3 +1,22 @@
 .avatar-image {
   border-radius: $radius;
 }
+
+.icon {
+  font-size: 26px;
+
+  @include desktop {
+    font-size: 34px;
+  }
+}
+
+.profile-btn {
+  &-content {
+    width: 100%;
+    border-right: 1px solid $color-border;
+
+    @include desktop {
+      border-right: 0;
+    }
+  }
+}

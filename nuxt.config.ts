@@ -2,12 +2,17 @@
 // import fetchCategories from './helpers/fetchCategories'
 import path from 'path'
 
+const HOST = process.env.HOST_IP || 'localhost'
+const SITE_URL = process.env.SITE_URL || `http://${HOST}:3000`
+const SERVER_URL = process.env.SERVER_URL || `http://${HOST}:8000`
+const API_SERVER_URL = process.env.API_SERVER_URL || `${SERVER_URL}/api`
+const DOMAIN = process.env.DOMAIN || `${HOST}:8000`
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: process.env.SRC_DIR || '',
   rootDir: process.env.ROOT_DIR || '',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   logLevel: 'verbose', 
 
   // Debug
@@ -18,23 +23,29 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       site: {
-        url: process.env.SITE_URL || 'https://new.vivadzen.com'
+        url: SITE_URL
       },
-      siteUrl: process.env.SITE_URL || 'https://new.vivadzen.com',
-      frontendUrl: process.env.SITE_URL,
+      siteUrl: SITE_URL,
+      frontendUrl: SITE_URL,
       novaposhtaKey: process.env.NOVAPOSHTA_KEY,
-      serverBase: process.env.SERVER_URL,
-      apiBase: process.env.SERVER_URL + '/api',
+      serverBase: SERVER_URL,
+      apiBase: API_SERVER_URL,
       instagramToken: process.env.INSTAGRAM_TOKEN,
       imagesDir: '/server/uploads/images',
       noimage: '/images/noimage.png',
       noimagegray: '/images/noimagegray.png',
+      noimageTransparent: '/images/noimage-transparent.png',
       staticImageProvider: process.env.STATIC_IMAGE_PROVIDER,
-      appVersion: '1.0.6',
+      appVersion: '1.0.1',
       i18n: {
         locales: ['uk', 'ru']
       }
     }
+  },
+  
+  devServer: {
+    port: 3000, // Опционально: можно задать порт
+    host: '0.0.0.0' // Привязка ко всем сетевым интерфейсам
   },
 
   imports: {
@@ -182,7 +193,7 @@ export default defineNuxtConfig({
         //   wght: [300, 400, 500, 700]
         // },
         Onest: {
-          wght: [400, 600, 900]
+          wght: [300, 400, 600, 900]
         },
         'Alegreya Sans': {
           wght: [400, 600, 900]
@@ -208,7 +219,7 @@ export default defineNuxtConfig({
         },
 
         domains: [
-          process.env.DOMAIN,
+          DOMAIN,
           "*.vivadzen.com",
           "api.vivadzen.com",
           "vivadzen.com",
@@ -221,7 +232,7 @@ export default defineNuxtConfig({
         ],
         
         alias: {
-          server: process.env.SERVER_URL
+          server: SERVER_URL
         },
         
         dir: process.env.IMAGE_DIR || "public",
@@ -236,7 +247,7 @@ export default defineNuxtConfig({
 
         ipx: {
           domains: [
-            process.env.DOMAIN,
+            DOMAIN,
             "*.vivadzen.com",
             "api.vivadzen.com",
             "vivadzen.com",
@@ -277,7 +288,7 @@ export default defineNuxtConfig({
   fetcherModule: {
       enableTtl: false,
       ttlSec: 3600, // 1 час
-      languages: ['uk', 'ru', 'cs', 'de', 'es'],
+      languages: ['uk', 'ru', 'cs', 'de', 'es', 'en'],
       regions: ['zz', 'ua', 'cz', 'de', 'es'],
       endpoints: [
         // {
@@ -310,7 +321,7 @@ export default defineNuxtConfig({
           endpoint: 'articles/grouped-by-tags',
           query: {
             per_tag: 10,
-            tag_id:  {0: 2, 1:3, 2:4, 3:5, 4:6, 5:7, 6:8, 7:9, 8:10, 9:11}
+            tag_id:  {0: 1, 1:3, 2:4, 3:6, 4:8, 5:9}
           },
           dependsOnLocale: true,
           dependsOnRegion: true
@@ -351,13 +362,19 @@ export default defineNuxtConfig({
     slugsEndpoint: '/company-category/slugs-simple',
     detailsEndpoint: '/category_cached/:slug',
     listEndpoint: '/category',
+    mainListEndpoint: '/category/main',
+    
     enableTtl: false,
     ttlSec: 3600, // 1 час
     languages: ['uk', 'ru', 'en', 'cs', 'de', 'es'],
     regions: ['zz', 'ua', 'cz', 'de', 'es'],
+    
     slugsRoutePath: '/api/_categories/slugs',
     categoryRoutePath: '/api/_categories/:slug',
     listRoutePath: '/api/_categories/list',
+    mainListRoutePath: '/api/_categories/main',
+
+    refreshMainListRoutePath: '/api/_categories/refresh/main',
     refreshSlugsRoutePath: '/api/_categories/refresh/slugs',
     refreshAllRoutePath: '/api/_categories/refresh/all',
     refreshSingleRoutePath: '/api/_categories/refresh/:slug',
@@ -365,11 +382,11 @@ export default defineNuxtConfig({
   },
 
   settingsModule: {
-    apiUrl: process.env.SERVER_URL + '/api/settings/nested',
+    apiUrl: API_SERVER_URL + '/settings/nested',
     enableTtl: false,
     ttlSec: 1800, // 30 минут
     refreshRoutePath: '/api/_refresh-settings', // POST для принудительного обновления
-    regions: ['ua', 'cz', 'de', 'es'],
+    regions: ['ua', 'cz', 'de', 'es', 'zz'],
     locales: ['uk','ru','cs','de','en','es']
   },
 
@@ -500,11 +517,11 @@ export default defineNuxtConfig({
     },
 
     sources: [
-      process.env.API_SERVER_URL + '/sitemap/categories',
-      process.env.API_SERVER_URL + '/sitemap/regions',
-      process.env.API_SERVER_URL + '/sitemap/products',
-      process.env.API_SERVER_URL + '/sitemap/brands',
-      process.env.API_SERVER_URL + '/sitemap/articles'
+      API_SERVER_URL + '/sitemap/categories',
+      API_SERVER_URL + '/sitemap/regions',
+      API_SERVER_URL + '/sitemap/products',
+      API_SERVER_URL + '/sitemap/brands',
+      API_SERVER_URL + '/sitemap/articles'
     ]
   },
 
@@ -540,9 +557,9 @@ export default defineNuxtConfig({
       '/reviews/**': {isr: 60 * 30},
       '/blog': {isr: 60 * 30},
       '/blog/**': {isr: 60 * 30},
-      '/checkout': {ssr: false, static: false, swr: false},
-      '/checkout/**': {ssr: false, static: false, swr: false},
-      '/account/**': {ssr: false, static: false, swr: false},
+      '/checkout': {ssr: false, static: false, swr: false, delayHydration: false},
+      '/checkout/**': {ssr: false, static: false, swr: false, delayHydration: false},
+      '/account/**': {ssr: false, static: false, swr: false, delayHydration: false},
       // pages
       '/about': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/delivery': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },

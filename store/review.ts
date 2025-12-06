@@ -34,6 +34,29 @@ export const useReviewStore = defineStore('reviewStore', {
       return useApiFetch(url, null, 'GET', {lazy: true})
     },
 
+    async amount(query: string) {
+      const runtimeConfig = useRuntimeConfig()
+      const params = query? '?' + new URLSearchParams(query).toString(): '';
+      const url = `${runtimeConfig.public.apiBase}/review/amount${params}`
+
+      return await useApiFetch(url).then(({data}) => {
+        return data.value
+      })
+    },
+
+    async get(query: string) {
+      const runtimeConfig = useRuntimeConfig()
+      const params = query? '?' + new URLSearchParams(query).toString(): '';
+      const url = `${runtimeConfig.public.apiBase}/review${params}`
+
+      return await useApiFetch(url).then(({data}) => {
+        return {
+          reviews: data?.value?.data || [],
+          meta: data?.value?.meta || null
+        }
+      })
+    },
+
     async getAll(query: string) {
       const runtimeConfig = useRuntimeConfig()
       const params = query? '?' + new URLSearchParams(query).toString(): '';

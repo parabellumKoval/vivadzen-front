@@ -21,6 +21,9 @@ title:
   sales: Акції
   news: Новини
   reviews: Відгуки
+  vivapoints: VivaPoints
+  vivapoints_and_rewards: VivaPoints та винагороди
+  affiliate_system: Партнерська програма
   agreement: Договір публічної оферти
   returns: Умови повернення товару
   checkout_payment: Оплата замовлення
@@ -29,6 +32,7 @@ title:
   checkout_complete_failed: Помилка під час оформлення замовлення
   policy: Політика конфіденційності
   terms: Угода користувача
+  certificates: Сертифікати
   remove_userdata: Видалення користувацьких даних
   withdrawal: Вивід коштів
   account:
@@ -101,6 +105,7 @@ messages:
   products_found: Знайдено {amount} товарів
   no_results: Немає результатів
   empty_cart: У кошику немає товарів
+  cart_item_unavailable: Товар недоступний у вашому регіоні
   leave_review: Залишити відгук
   delivery_price: Вартість доставки
   delivery_vendor_price: За тарифами перевізника
@@ -117,6 +122,8 @@ messages:
   personal_discount: Персональна знижка
   chose_delivery_country: Оберіть країну доставки
   chose_delivery: Оберіть спосіб доставки, щоб побачити доступні способи оплати
+  select_region_delivery_notice: Щоб побачити всі доступні способи доставки та детальну інформацію, спочатку оберіть країну доставки
+  select_region_payment_notice: Щоб побачити всі доступні способи оплати та детальну інформацію, спочатку оберіть країну доставки
 
 button:
   collapse: Згорнути
@@ -400,3 +407,59 @@ wallet:
   withdrawal_request: Запит на виведення
   order: Замовлення
   no_details_available: Деталі недоступні
+  type_labels:
+    credit: Поповнення
+    debit: Списання
+    hold: Блокування
+    capture: Підтвердження
+    release: Розблокування
+  operations:
+    credit:
+      referral_reward: Винагорода за реферальну програму
+      review_reward: Винагорода за відгук
+      order_reward: Винагорода за замовлення
+      bonus: Бонусне нарахування
+      refund: Повернення коштів
+      default: Поповнення рахунку
+    debit:
+      withdrawal: Виведення коштів
+      order: Оплата замовлення
+      fee: Комісія
+      default: Списання з рахунку
+    hold:
+      withdrawal: Блокування коштів для виведення
+      order: Блокування коштів для замовлення
+      default: Блокування коштів
+    capture:
+      withdrawal: Підтвердження виведення коштів
+      order: Підтвердження оплати замовлення
+      default: Підтвердження операції
+    release:
+      withdrawal: Розблокування коштів (скасування виведення)
+      order: Розблокування коштів (скасування замовлення)
+      default: Розблокування коштів
+  triggers:
+    review_published: Опублікований відгук
+    store_order_paid: Оплачене замовлення
+    referral_signup: Реєстрація реферала
+    referral_purchase: Покупка реферала
+    unknown: Інша подія
+
+affiliate:
+  defaults:
+    ttl: '30 днів'
+  cta:
+    register_button: 'Зареєструватися'
+    register_prompt: 'Зареєструйтесь'
+  account:
+    label: 'Особистий кабінет'
+  form:
+    code_placeholder: 'ВАШ_КОД'
+  withdrawal:
+    rules_label: 'Бонусна система та виведення коштів'
+  link:
+    regular_label: 'Звичайне посилання'
+    referral_label: 'Партнерське посилання'
+  media:
+    link_preview_alt: 'Попередній перегляд партнерського посилання'
+    ttl_image_alt: 'Ілюстрація правила першого кліку'

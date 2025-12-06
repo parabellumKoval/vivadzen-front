@@ -1,12 +1,12 @@
 ru: 
-  select: Модификации товара
+  select: Выберите модификацию
 uk: 
-  select: Модифікації товару
+  select: Оберіть модифікацію
 de:
-  select: Produktvarianten
+  select: Wählen Sie eine Modifikation
 es:
-  select: Variantes del producto
+  select: Seleccione una modificación
 cs:
-  select: Varianty produktu
+  select: Vyberte modifikaci
 en:
-  select: Product modifications
+  select: Select modification

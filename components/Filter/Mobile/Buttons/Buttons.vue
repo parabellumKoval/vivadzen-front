@@ -1,7 +1,4 @@
 <script setup>
-// import {useFilterItem} from '~/composables/product/useFilterItem.ts'
-// import {useSort} from '~/composables/product/useSort.ts'
-
 const {t} = useI18n()
 
 const props = defineProps({
@@ -11,57 +8,74 @@ const props = defineProps({
   },
   sortings: {
     type: Array,
-    default: null
+    default: () => []
   },
   updateOrderCallback: {
     default: null
   },
 })
 
-const {activeFilters} = useFilter()
+const {activeFilters, sorting: initSorting} = useFilter()
 
-const sortSelectedIndex = ref(1)
-const sort = ref({order_by: 'created_at', order_dir: 'desc'})
+const sortSelectedIndex = ref(0)
+const isSyncingSelection = ref(false)
 
-// COMPUTEDS
 const activeFiltersLength = computed(() => {
   return activeFilters.value?.length || null
 })
 
 const sortingOptions = computed(() => {
-  if(props.sortings) {
-    return props.sortings
-  }
+  return (props.sortings || []).map((option) => ({
+    ...option,
+    caption: option.caption ?? option.name ?? option.id ?? '',
+    name: option.name ?? option.caption ?? option.id ?? '',
+  }))
 })
 
-// METHODS
-// HANDLERS
+const setIndexFromActiveSorting = () => {
+  const { order_by, order_dir } = initSorting.value
+  const index = sortingOptions.value.findIndex((option) => (
+    option.by === order_by && option.dir === order_dir
+  ))
+
+  sortSelectedIndex.value = index !== -1 ? index : 0
+}
+
+watch([
+  sortingOptions,
+  initSorting,
+], () => {
+  isSyncingSelection.value = true
+  setIndexFromActiveSorting()
+  isSyncingSelection.value = false
+}, {
+  immediate: true
+})
+
 const openFiltersHandler = () => {
   const component = defineAsyncComponent(() => import('~/components/Modal/Filters/Filters.vue'))
   useModal().open(component, props.data, null)
 }
 
-// WATCH
-watch(sortSelectedIndex, (v) => {
-  if(sortingOptions.value[v]) {
-    sort.value = {
-      order_by: sortingOptions.value[v].by,
-      order_dir: sortingOptions.value[v].dir
-    }
+watch(sortSelectedIndex, (value) => {
+  if (isSyncingSelection.value) return
 
-    if(props.updateOrderCallback) {
-      props.updateOrderCallback(sort.value)
-    }
-  }
+  const selectedOption = sortingOptions.value[value]
+
+  if (!selectedOption || !props.updateOrderCallback) return
+
+  props.updateOrderCallback({
+    order_by: selectedOption.by ?? null,
+    order_dir: selectedOption.dir ?? null,
+  })
 })
-
 </script>
 
 <style src='./buttons.scss' lang='scss' scoped></style>
 
 <template>
   <div class="buttons-fixed">
-    <button @click="openFiltersHandler" class="button blue lowcase buttons-fixed-btn filter-btn">
+    <button @click="openFiltersHandler" class="button color-dark lowcase buttons-fixed-btn filter-btn">
       <IconCSS name="iconoir:filter" size="20" class="inline-icon"></IconCSS>
       <span>
         {{ t('button.filters') }} 

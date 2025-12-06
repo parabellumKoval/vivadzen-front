@@ -169,13 +169,49 @@ watch(() => props.products, (list) => {
   }
 }, { immediate: true })
 
+
+
+
+// Sticky start
+const sentinel = ref(null);
+const isStuck = ref(false);
+
+let observer = null;
+
+onMounted(() => {
+  if (!sentinel.value) return;
+
+  if(!process.client) return;
+
+  observer = new IntersectionObserver(([entry]) => {
+    if (entry.boundingClientRect.top < 0) {
+        isStuck.value = true;
+    } else {
+        isStuck.value = false;
+    }
+  }, {
+    threshold: [0, 1],
+    rootMargin: '0px 0px 0px 0px',
+  });
+
+  observer.observe(sentinel.value);
+});
+
+onUnmounted(() => {
+  if (observer && sentinel.value) {
+    observer.disconnect();
+  }
+});
+// Sticky end
+
+
 </script>
 
 <style src="~/assets/scss/layout-catalog.scss" lang="scss" scoped></style>
 
 <template>
   <div class="page-base">
-    <div class="container">
+    <div class="container catalog-header">
       <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
       <h1 id="title" class="title-common">
@@ -192,9 +228,20 @@ watch(() => props.products, (list) => {
       </div>
     </transition>
 
+    <div ref="sentinel" class="sentinel"></div>
     <!-- SLOT HEADER HERE -->
-    <slot name="header"></slot>
+    <div :class="{ 'is-stuck': isStuck }" class="header-slot">
+      <slot name="header" :stuck="isStuck"></slot>
+    </div>
 
+
+    <lazy-filter-mobile-buttons
+      v-if="$device.isMobile && filters && !noFilters"
+      :sortings="sorting"
+      :data="filtersData"
+      :update-order-callback="updateOrderHandler"
+    ></lazy-filter-mobile-buttons>
+    
     <div class="container">
       <div :class="{'no-filters': noFilters}" class="header">
         <div v-if="!noFilters" class="header-title">
@@ -274,13 +321,6 @@ watch(() => props.products, (list) => {
         </div>
       </div>
     </div>
-
-    <lazy-filter-mobile-buttons
-      v-if="$device.isMobile && filters && !noFilters"
-      :sortings="sorting"
-      :data="filtersData"
-      :update-order-callback="updateOrderHandler"
-    ></lazy-filter-mobile-buttons>
 
   </div>
 </template>

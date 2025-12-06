@@ -1,0 +1,60 @@
+ru:
+  title: Вознаграждения за отзывы
+  empty: Скоро мы покажем здесь актуальные бонусы за отзывы.
+  types:
+    text:
+      label: За текстовый отзыв
+      note: Оставьте развернутый отзыв и поделитесь ссылкой на себя в соц. сети.
+    video:
+      label: За видео-отзыв
+      note: Загрузите видеообзор на YouTube и прикрепите ссылку для VIP-вознаграждения.
+uk:
+  title: Винагороди за відгуки
+  empty: Актуальні бонуси за відгуки з’являться тут зовсім скоро.
+  types:
+    text:
+      label: За текстовий відгук
+      note: Залиште розгорнутий відгук і поділіться посиланням на свій профіль у соцмережі.
+    video:
+      label: За відео-відгук
+      note: Завантажте відеоогляд на YouTube та прикріпіть посилання для VIP-винагороди.
+de:
+  title: Prämien für Ihre Bewertungen
+  empty: Bald zeigen wir Ihnen hier die verfügbaren Bewertungsprämien.
+  types:
+    text:
+      label: Für eine Textbewertung
+      note: Hinterlassen Sie eine ausführliche Bewertung und teilen Sie einen Link zu Ihrem Social-Media-Profil.
+    video:
+      label: Für eine Videobewertung
+      note: Laden Sie Ihre Videobewertung auf YouTube hoch und fügen Sie den Link für die VIP-Prämie hinzu.
+es:
+  title: Recompensas por tus reseñas
+  empty: Muy pronto mostraremos aquí los bonos disponibles por reseñas.
+  types:
+    text:
+      label: Por una reseña en texto
+      note: Deja una reseña detallada y comparte un enlace a tu perfil en redes sociales.
+    video:
+      label: Por una reseña en video
+      note: Sube una reseña en video a YouTube y adjunta el enlace para la recompensa VIP.
+cs:
+  title: Odměny za vaše recenze
+  empty: Již brzy zde zobrazíme dostupné bonusy za recenze.
+  types:
+    text:
+      label: Za textovou recenzi
+      note: Zanechte podrobnou recenzi a podělte se o odkaz na svůj profil na sociální síti.
+    video:
+      label: Za video recenzi
+      note: Nahrajte video recenzi na YouTube a připojte odkaz pro VIP odměnu.
+en:
+  title: Rewards for your reviews
+  empty: Rewards will show up here as soon as they are configured.
+  types:
+    text:
+      label: Text review bonus
+      note: Leave a detailed review and share a link to your social profile.
+    video:
+      label: Video review bonus
+      note: Upload a video review to YouTube and attach the link for the VIP reward.

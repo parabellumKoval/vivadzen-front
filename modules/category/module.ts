@@ -18,6 +18,10 @@ export interface CategoryModuleOptions {
    */
   listEndpoint?: string
   /**
+   * Endpoint used to fetch categories for the main page.
+   */
+  mainListEndpoint?: string
+  /**
    * When true (default), cached values expire after ttlSec seconds.
    */
   enableTtl?: boolean
@@ -47,6 +51,10 @@ export interface CategoryModuleOptions {
    */
   listRoutePath?: string
   /**
+   * Internal API route that returns cached categories prepared for the main page.
+   */
+  mainListRoutePath?: string
+  /**
    * Internal webhook route that forces slugs cache rebuild.
    */
   refreshSlugsRoutePath?: string
@@ -63,6 +71,10 @@ export interface CategoryModuleOptions {
    * Internal webhook route that rebuilds cached category lists.
    */
   refreshListRoutePath?: string
+  /**
+   * Internal webhook route that rebuilds cached categories prepared for the main page.
+   */
+  refreshMainListRoutePath?: string
 }
 
 const DEFAULT_OPTIONS: Required<Omit<CategoryModuleOptions, 'baseUrl'>> & { baseUrl?: string } = {
@@ -70,6 +82,7 @@ const DEFAULT_OPTIONS: Required<Omit<CategoryModuleOptions, 'baseUrl'>> & { base
   slugsEndpoint: '/djini-category/slugs-simple',
   detailsEndpoint: '/category_cached/:slug',
   listEndpoint: '/category',
+  mainListEndpoint: '/category/main',
   enableTtl: true,
   ttlSec: 600,
   languages: [],
@@ -77,10 +90,12 @@ const DEFAULT_OPTIONS: Required<Omit<CategoryModuleOptions, 'baseUrl'>> & { base
   slugsRoutePath: '/api/_categories/slugs',
   categoryRoutePath: '/api/_categories/:slug',
   listRoutePath: '/api/_categories/list',
+  mainListRoutePath: '/api/_categories/main',
   refreshSlugsRoutePath: '/api/_categories/refresh/slugs',
   refreshAllRoutePath: '/api/_categories/refresh/all',
   refreshSingleRoutePath: '/api/_categories/refresh/:slug',
-  refreshListRoutePath: '/api/_categories/refresh/list'
+  refreshListRoutePath: '/api/_categories/refresh/list',
+  refreshMainListRoutePath: '/api/_categories/refresh/main'
 }
 
 export default defineNuxtModule<CategoryModuleOptions>({
@@ -111,7 +126,9 @@ export default defineNuxtModule<CategoryModuleOptions>({
       ...(nuxt.options.runtimeConfig.public.categoryModule || {}),
       slugsRoutePath: resolvedOptions.slugsRoutePath,
       categoryRoutePath: resolvedOptions.categoryRoutePath,
-      listRoutePath: resolvedOptions.listRoutePath
+      listRoutePath: resolvedOptions.listRoutePath,
+      mainListRoutePath: resolvedOptions.mainListRoutePath,
+      refreshMainListRoutePath: resolvedOptions.refreshMainListRoutePath
     }
 
     nuxt.hook('nitro:config', (nitroConfig) => {
@@ -125,7 +142,9 @@ export default defineNuxtModule<CategoryModuleOptions>({
         ...(nitroConfig.runtimeConfig.public.categoryModule || {}),
         slugsRoutePath: resolvedOptions.slugsRoutePath,
         categoryRoutePath: resolvedOptions.categoryRoutePath,
-        listRoutePath: resolvedOptions.listRoutePath
+        listRoutePath: resolvedOptions.listRoutePath,
+        mainListRoutePath: resolvedOptions.mainListRoutePath,
+        refreshMainListRoutePath: resolvedOptions.refreshMainListRoutePath
       }
       nitroConfig.alias = nitroConfig.alias || {}
       nitroConfig.alias['#category-module'] = runtimeDir
@@ -150,6 +169,11 @@ export default defineNuxtModule<CategoryModuleOptions>({
     })
 
     addServerHandler({
+      route: resolvedOptions.mainListRoutePath,
+      handler: resolver.resolve('./runtime/server/api/main.get')
+    })
+
+    addServerHandler({
       route: resolvedOptions.refreshSlugsRoutePath,
       handler: resolver.resolve('./runtime/server/api/refresh-slugs.post')
     })
@@ -167,6 +191,11 @@ export default defineNuxtModule<CategoryModuleOptions>({
     addServerHandler({
       route: resolvedOptions.refreshListRoutePath,
       handler: resolver.resolve('./runtime/server/api/refresh-list.post')
+    })
+
+    addServerHandler({
+      route: resolvedOptions.refreshMainListRoutePath,
+      handler: resolver.resolve('./runtime/server/api/refresh-main.post')
     })
 
     addImports([
@@ -195,7 +224,15 @@ export default defineNuxtModule<CategoryModuleOptions>({
         from: resolver.resolve('./runtime/server/utils/cache')
       },
       {
+        name: 'getCategoryMainListFromCache',
+        from: resolver.resolve('./runtime/server/utils/cache')
+      },
+      {
         name: 'refreshCategoryList',
+        from: resolver.resolve('./runtime/server/utils/cache')
+      },
+      {
+        name: 'refreshCategoryMainList',
         from: resolver.resolve('./runtime/server/utils/cache')
       }
     ])

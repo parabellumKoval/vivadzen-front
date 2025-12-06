@@ -27,7 +27,7 @@
     position: relative;
 
     &:after, &:before {
-      @include desktop {
+      @include ld {
         content:'';
         position: absolute;
         top: 0;
@@ -56,59 +56,3 @@
   }
 }
 
-
-.sidebar {
-  display: grid;
-  grid-template-rows: min-content 1fr min-content;
-  gap: 30px;
-  height: 100%;
-  border-radius: 50px;
-  background: rgba(255, 219, 169, 0.5);
-  backdrop-filter: blur(5px);
-  z-index: 3;
-  padding: 40px;
-  margin: 30px 15px;
-  line-height: normal;
-
-  @include desktop {
-    position: absolute;
-    top: 0;
-    right: calc((100vw - var(--container-width) + var(--container-padding)) / 2);
-    width: var(--sidebar-width);
-    margin: 0;
-  }
-
-  &-title {
-    font-weight: 900;
-    font-size: 36px;
-    line-height: 100%;
-  }
-
-  &-content {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    gap: 10px;
-    height: 100%;
-    overflow: hidden;
-    transform: translateY(-5px);
-
-    &-label {
-      color: $color-3;
-    }
-  }
-
-  &-articles {
-    display: grid;
-    grid-auto-flow: row;
-    grid-auto-rows: min-content;
-    gap: 15px;
-    overflow-y: auto;
-
-    @include scrollbar;
-  }
-
-  &-btn {
-    width: 100%;
-  }
-
-}

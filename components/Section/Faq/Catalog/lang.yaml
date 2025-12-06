@@ -6,6 +6,7 @@ ru:
   delivery_cond1: Доставка осуществляется по Украине, транспортной компанией 'Новая Почта' в отделение или до дверей заказчика
   delivery_cond2: Отправка заказов происходит в течении 2-х рабочих дней после согласования оплаты
   delivery_cond3: Оплата доставки производится покупателем при получении заказа.
+  payment_a: Способы оплаты, доступные для категории {category}
   chip_q: Какие товары в категории {category} самые дешевые?
   chip_a: ТОП-5 самых доступных товаров в категории {category}
 uk:
@@ -16,6 +17,7 @@ uk:
   delivery_cond1: Доставка здійснюється по Україні, транспортною компанією 'Нова Пошта' у відділення або до дверей замовника
   delivery_cond2: Надсилання замовлень відбувається протягом 2-х робочих днів після погодження оплати
   delivery_cond3: Оплата доставки здійснюється покупцем при отриманні замовлення.
+  payment_a: Способи оплати, доступні для категорії {category}
   chip_q: Які товари в категорії {category} найдешевші?
   chip_a: ТОП-5 найдоступніших товарів у категорії {category}
 de:
@@ -26,6 +28,7 @@ de:
   delivery_cond1: Lieferung in der gesamten Ukraine mit dem Transportunternehmen "Nova Poshta" in die Filiale oder bis zur Tür des Kunden
   delivery_cond2: Der Versand erfolgt innerhalb von 2 Werktagen nach Abstimmung der Zahlung
   delivery_cond3: Die Versandkosten zahlt der Kunde bei Erhalt der Bestellung.
+  payment_a: Zahlungsmethoden für die Kategorie {category}
   chip_q: Welche Produkte der Kategorie {category} sind am günstigsten?
   chip_a: Top 5 der preisgünstigsten Produkte in der Kategorie {category}
 es:
@@ -36,6 +39,7 @@ es:
   delivery_cond1: Entrega en toda Ucrania con la empresa de transporte "Nova Poshta" a la sucursal o a la puerta del cliente
   delivery_cond2: Los pedidos se envían en un plazo de 2 días laborables tras acordar el pago
   delivery_cond3: El coste del envío lo abona el cliente al recibir el pedido.
+  payment_a: Formas de pago disponibles para la categoría {category}
   chip_q: ¿Qué productos de la categoría {category} son los más económicos?
   chip_a: Top 5 de los productos más asequibles de la categoría {category}
 cs:
@@ -46,6 +50,7 @@ cs:
   delivery_cond1: Doručení po celé Ukrajině přepravní společností "Nova Poshta" na pobočku nebo ke dveřím zákazníka
   delivery_cond2: Objednávky se odesílají do 2 pracovních dnů po odsouhlasení platby
   delivery_cond3: Poštovné platí zákazník při převzetí objednávky.
+  payment_a: Platební metody dostupné pro kategorii {category}
   chip_q: Které produkty v kategorii {category} jsou nejlevnější?
   chip_a: Top 5 nejdostupnějších produktů v kategorii {category}
 en:
@@ -56,5 +61,6 @@ en:
   delivery_cond1: Delivery across Ukraine via "Nova Poshta" to a branch or directly to the customer's door
   delivery_cond2: Orders are dispatched within 2 business days after payment confirmation
   delivery_cond3: Delivery is paid by the customer upon receipt of the order.
+  payment_a: Payment methods available for the {category} category
   chip_q: Which products in the {category} category are the cheapest?
   chip_a: Top 5 most affordable products in the {category} category

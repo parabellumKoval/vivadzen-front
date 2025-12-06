@@ -1,14 +1,12 @@
 .buttons-fixed {
-  position: fixed;
-  left: 5px;
-  bottom: 5px;
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
+  gap: 10px;
   align-items: center;
-  width: calc(100vw - 10px);
   height: 50px;
-  padding: 5px;
+  padding: 0 15px;
+  margin: 0 0 15px 0;
   z-index: 98;
   // background: $color-8;
   // border-radius: $radius;
@@ -31,16 +29,10 @@
   }
   &-select {
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: calc(100% - 4px);
-    height: calc(100% - 4px);
+    top: 4px;
+    left: 4px;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
     z-index: 1;
   }
-}
-.filter-btn {
-  border: 1px solid $color-blue;
-}
-.sorting-btn {
-  border: 1px solid $color-4;
 }

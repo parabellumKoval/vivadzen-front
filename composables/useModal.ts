@@ -23,7 +23,11 @@ type Options = {
     min: number | string | 'initial',
     max: number | string | 'initial'
   },
-  transform: string
+  transform: string,
+  detach?: {
+    x?: boolean,
+    y?: boolean
+  }
 }
 
 type Modal = "signInSocial" | "signInEmail" | "logInEmail" | "passwordNew" | "emailNew" | "passwordReset" | "modalMobileAccount" | "modalMobileApp" | "modalMobileMenu" | "modalMobileTableSettings" | "modalMobileTableView" | "modalMobileTableSort" | "modalMobileTableBulks" | "modalMobileTablePerpage" | "modalMobileTableActions" | "modalLangSwitcher" | "modalMobileMessageForm" | "modalMobileNote" | "ModalMobileFilters"
@@ -62,7 +66,11 @@ export const useModal = () => {
       min: 'initial',
       max: 'initial'
     },
-    transform: 'translateX(50%) translateY(50%)'
+    transform: 'translateX(50%) translateY(50%)',
+    detach: {
+      x: false,
+      y: false
+    }
   } as Options})
   
   // const options = useState('options', () => {return {} as Options})
@@ -131,19 +139,21 @@ export const useModal = () => {
   }
 
   const setPositions = (target: HTMLElement | null | 'save' = null, optionsData: Options | null = null) => {
+    let hasTarget = false
 
     if(!target){
       active.value.options = JSON.parse(JSON.stringify(optionsDefault.value))
       active.value.element = null
-      setupOptions(target, optionsData)
     }else if(target === 'save') {
       return
     } else {
+      hasTarget = true
       active.value.options = JSON.parse(JSON.stringify(optionsDefault.value))
-      active.value.options.transform = 'initial'
       active.value.element = target
     }
 
+    setupOptions(optionsData)
+    setupTransform(hasTarget, optionsData)
 
     setupAlignX(optionsData)
     setupAlignY(optionsData)
@@ -155,13 +165,42 @@ export const useModal = () => {
 
   }
 
-  const setupOptions = (target: HTMLElement | null | 'save' = null, optionsData: Options | null = null) => {
-    active.value.options.margin.x = optionsData?.margin?.x || 0
-    active.value.options.margin.y = optionsData?.margin?.y || 0
-    active.value.options.width.min = optionsData?.width?.min || 'initial'
-    active.value.options.width.max = optionsData?.width?.max || 'initial'
+  const setupOptions = (optionsData: Options | null = null) => {
+    active.value.options.margin.x = optionsData?.margin?.x ?? 0
+    active.value.options.margin.y = optionsData?.margin?.y ?? 0
+    active.value.options.width.min = optionsData?.width?.min ?? 'initial'
+    active.value.options.width.max = optionsData?.width?.max ?? 'initial'
 
     // console.log('setupOptions', active.value.options)
+  }
+
+  const setupTransform = (hasTarget: boolean, optionsData: Options | null = null) => {
+    if(optionsData?.transform) {
+      active.value.options.transform = optionsData.transform
+      return
+    }
+
+    if(!hasTarget) {
+      active.value.options.transform = optionsDefault.value.transform
+      return
+    }
+
+    const detachX = !!optionsData?.detach?.x
+    const detachY = !!optionsData?.detach?.y
+
+    if(detachX || detachY) {
+      const transformParts = []
+
+      if(detachX)
+        transformParts.push('translateX(50%)')
+
+      if(detachY)
+        transformParts.push('translateY(50%)')
+
+      active.value.options.transform = transformParts.join(' ')
+    }else {
+      active.value.options.transform = 'initial'
+    }
   }
 
   const setupSizes = (optionsData: Options | null = null) => {
@@ -179,11 +218,14 @@ export const useModal = () => {
 
   const setupPositionX = (optionsData: Options | null = null) => {
 
-    if(optionsData?.x?.left || optionsData?.x?.right) {
-      active.value.options.x.left = optionsData?.x?.left || 'initial'
-      active.value.options.x.right = optionsData?.x?.right || 'initial'
+    if(optionsData?.x && (optionsData.x.left !== undefined || optionsData.x.right !== undefined)) {
+      active.value.options.x.left = optionsData.x.left ?? 'initial'
+      active.value.options.x.right = optionsData.x.right ?? 'initial'
       return
     }
+
+    if(optionsData?.detach?.x)
+      return
 
     if(!active.value.element)
       return
@@ -201,7 +243,7 @@ export const useModal = () => {
 
   const setupPositionY = (optionsData: Options | null = null) => {
 
-    if(optionsData?.y?.top || optionsData?.y?.bottom) {
+    if(optionsData?.y && (optionsData.y.top !== undefined || optionsData.y.bottom !== undefined)) {
       active.value.options.y = {
         ...active.value.options.y,
         ...optionsData.y
@@ -209,6 +251,9 @@ export const useModal = () => {
 
       return
     }
+
+    if(optionsData?.detach?.y)
+      return
 
     if(!active.value.element)
       return
@@ -225,6 +270,9 @@ export const useModal = () => {
   }
 
   const setupAlignY = (optionsData: Options | null = null) => {
+    if(optionsData?.detach?.y)
+      return
+
     if(optionsData?.align?.y) {
       active.value.options.align.y = optionsData.align.y
       return
@@ -249,6 +297,9 @@ export const useModal = () => {
   }
 
   const setupAlignX = (optionsData: Options | null = null) => {
+    if(optionsData?.detach?.x)
+      return
+
     if(optionsData?.align?.x) {
       active.value.options.align.x = optionsData.align.x
       return

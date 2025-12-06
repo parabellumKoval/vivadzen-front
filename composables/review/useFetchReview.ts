@@ -3,26 +3,20 @@ import {useReviewStore} from '~/store/review'
 export const useFetchReview = () => {
 
   const getReviewsAmount = (type: string) => {
-    let typeValue = null;
+    const query: Record<string, any> = {
+    }
 
     switch(type) {
       case 'products':
-        typeValue = String.raw`Backpack\Store\app\Models\Product`;
+        query.reviewable_type = String.raw`Backpack\Store\app\Models\Catalog`;
         break;
       case 'shop':
-        typeValue = null
+        query.reviewable_type = null
         break;
     }
 
-    const query = {
-      reviewable_type: typeValue,
-      count: 1
-    }
-
-    return useAsyncData('reviews-amount', () => useReviewStore().getAll(query, false)).then(({data, error}) => {
-      if(data?.value?.meta?.total) {
-        return data.value.meta.total
-      }
+    return useAsyncData('reviews-amount-'+type, () => useReviewStore().amount(query)).then(({data}) => {
+      return data
     })
   }
 

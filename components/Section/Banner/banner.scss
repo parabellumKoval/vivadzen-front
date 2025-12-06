@@ -1,13 +1,126 @@
 .banners{
   &-wrapper {
-    height: calc(100vh - 150px);
+    position: relative;
+    height: auto;
+    margin-top: 15px;
     border-radius: 50px;
-    overflow: hidden;
-    margin-top: 20px;
+    z-index: 1;
 
     @include desktop {
-      height: 945px;
+      height: 600px;
       margin-top: 30px;
     }
+
+    @include ld {
+      height: 900px;
+    }
+  }
+}
+
+.banner-carousel {
+  height: 100%;
+
+  :deep(.snap-carousel__viewport) {
+    height: 100%;
+  }
+
+  :deep(.snap-slide) {
+    height: 100%;
+
+    @include mobile {
+      height: calc(100vh - 100px);
+    }
+  }
+}
+
+
+.con {
+  --container-width: 2160px;
+  --container-padding: 40px;
+  --sidebar-width: 400px;
+
+  @include desktop {
+  --container-width: 2160px;
+  --container-padding: 70px;
+  --sidebar-width: 400px;
+  }
+
+  :deep(.snap-carousel__viewport) {
+    padding-inline: calc((100vw - var(--container-width) + var(--container-padding)) / 2);
+    scroll-padding-inline: calc((100vw - var(--container-width) + var(--container-padding)) / 2);
+  }
+
+  :deep(.slide) {
+    width: calc(100% - var(--sidebar-width));
+  }
+
+  &-wrapper {
+    position: relative;
+
+    &:after, &:before {
+      @include ld {
+        content:'';
+        position: absolute;
+        top: 0;
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+
+      }
+    }
+
+    &:after {
+      width: 40%;
+      right: 0;
+      background: linear-gradient(to right, rgba(255, 247, 236, 0) 0%, #FFF7EC 80%);
+    }
+
+    &:before {
+      width: 10%;
+      left: 0;
+      background: linear-gradient(to right, #FFF7EC, transparent);
+    }
+  }
+
+  &-carousel {
+    width: 100%;
+  }
+
+  :deep(.snap-carousel__controls) {
+    margin-top: -40px;
+
+    @include desktop {
+      margin-top: 20px;
+    }
+
+    .snap-carousel__arrow {
+      @include mobile {
+        opacity: 0;
+      }
+    }
+  }
+
+  &:after,
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 10%;
+    pointer-events: none;
+    z-index: 2;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &:after {
+    right: 0;
+    background: linear-gradient(to right, rgba(255, 247, 236, 0) 0%, #FFF7EC 100%);  
+  }
+  &:before {
+    left: 0;
+    background: linear-gradient(to right, #FFF7EC, transparent);
   }
 }

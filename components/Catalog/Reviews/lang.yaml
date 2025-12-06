@@ -1,12 +1,24 @@
 ru:
   review: Отзывы о
+  button:
+    view_all_reviews: "Все отзывы о товарах"
 uk:
   review: Відгуки про
+  button:
+    view_all_reviews: "Усі відгуки про товари"
 de:
   review: Bewertungen zu
+  button:
+    view_all_reviews: "Alle Produktbewertungen"
 es:
   review: Reseñas de
+  button:
+    view_all_reviews: "Todas las reseñas de productos"
 cs:
   review: Recenze o
+  button:
+    view_all_reviews: "Všechny recenze na produkty"
 en:
   review: Reviews of
+  button:
+    view_all_reviews: "All product reviews"

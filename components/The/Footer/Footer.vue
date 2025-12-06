@@ -1,9 +1,12 @@
 <script setup>
 import { useFeedbackStore } from '~~/store/feedback';
+import { useCategoryStore } from '~/store/category'
 
-const {t} = useI18n()
+const {t, locale} = useI18n()
 const {get} = useSettings()
 const {vendors} = useDelivery()
+const categoryStore = useCategoryStore()
+const { region } = useRegion()
 
 const sub = ref({
   type: 'subscription',
@@ -27,6 +30,13 @@ const deliveries = computed(() => {
   return vendors.value || []
 })
 
+
+useAsyncData('main-categories-'+locale.value+'-'+region.value, () =>
+  categoryStore.listMainCached()
+)
+const categories = computed(() =>  {
+  return categoryStore.mainList
+})
 
 // METHODS
 const resetSub = () => {
@@ -76,10 +86,9 @@ const subHandler = () => {
 <template>
   <footer class="footer">
     <div class="company">
-      <div class="company-container full-container">
-        <div class="brand">
+      <div class="company-logo-container full-container">
           <nuxt-img
-            src = "/images/company-white.png"
+            src = "/images/company-white-color.png"
             :provider = "useImg().provider"
             width="200"
             height="58"
@@ -89,6 +98,42 @@ const subHandler = () => {
             fit="outside"
             class="brand-logo"
           />
+          <div class="company-logo-container-categories">
+
+            <div class="category-wrapper">
+              <template v-for="category in categories" :key="category.id">
+                <NuxtLink
+                  :to="$regionPath('/' + category.slug)"
+                  :aria-label="category.name"
+                  clickable
+                  class="category"
+                >
+                  <nuxt-img
+                    v-if="category?.image?.src"
+                    :src = "category.image.src"
+                    :alt = "category.image.alt || category.name"
+                    :title = "category.image.title || category.name"
+                    :class="category.image.size"
+                    width="200"
+                    height="200"
+                    sizes = "mobile:50vw tablet:270px desktop:270px"
+                    format = "avif"
+                    quality = "60"
+                    fit="outside"
+                    :placeholder="useImg().noImage"
+                    class="category-image"
+                    provider="ipx"
+                  >
+                  </nuxt-img>
+                  <div class="category-name">{{ category.name }}</div>
+                </NuxtLink>
+              </template>
+            </div>
+          </div>
+      </div>
+      <div class="company-container full-container">
+        <div class="brand">
+          <div class="footer-label">Vivadzen.com</div>
           <div class="brand-desc" v-html="get('site.common.description')"></div>
         </div>
 
@@ -113,6 +158,7 @@ const subHandler = () => {
         </div>
 
         <div class="address">
+          <div class="footer-label">{{ t('label.address') }}</div>
           <div class="address-item">
             <IconCSS name="iconoir:map" class="address-icon"></IconCSS>
             <a href="/" class="address-link">{{ t('meta.address') }}</a>
@@ -129,8 +175,8 @@ const subHandler = () => {
     <div class="nav">
       <div class="nav-container full-container">
         <div class="sub">
-          <div class="sub-title">{{ t('label.sub_title') }}</div>
-          <div class="footer-label">{{ t('label.sub_desc') }}</div>
+          <div class="footer-label">{{ t('label.sub_title') }}</div>
+          <div class="sub-title">{{ t('label.sub_desc') }}</div>
 
           <div class="sub-form">
             <form-text

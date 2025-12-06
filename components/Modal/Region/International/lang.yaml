@@ -1,0 +1,30 @@
+ru:
+  title: Выбор страны доставки
+  notice: Вы находитесь на междунарожной версии сайте, для совершения покупок выберите вашу страну доставки
+  regionTitle: Выберите регион
+  regionCurrent: Текущий регион
+uk:
+  title: Вибір країни доставки
+  notice: Ви користуєтеся міжнародною версією сайту, щоб оформити покупку, оберіть країну доставки
+  regionTitle: Оберіть регіон
+  regionCurrent: Поточний регіон
+en:
+  title: Choose delivery country
+  notice: You are browsing the international version of the site. Select your delivery country to make purchases
+  regionTitle: Choose region
+  regionCurrent: Current region
+es:
+  title: Elige el país de entrega
+  notice: Estás navegando la versión internacional del sitio. Selecciona tu país de entrega para realizar compras
+  regionTitle: Elige región
+  regionCurrent: Región actual
+de:
+  title: Lieferland wählen
+  notice: Sie befinden sich auf der internationalen Version der Website. Wählen Sie Ihr Lieferland, um Einkäufe zu tätigen
+  regionTitle: Region wählen
+  regionCurrent: Aktuelle Region
+cs:
+  title: Vyberte zemi doručení
+  notice: Nacházíte se na mezinárodní verzi webu. Pro nákup si vyberte svou doručovací zemi
+  regionTitle: Vyberte region
+  regionCurrent: Aktuální region

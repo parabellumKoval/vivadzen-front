@@ -5,6 +5,14 @@ const props = defineProps({
   item: {
     type: Object,
     required: true
+  },
+  operationDescription: {
+    type: String,
+    default: ''
+  },
+  operationLabel: {
+    type: String,
+    default: ''
   }
 })
 
@@ -12,6 +20,18 @@ const props = defineProps({
 const operationDetails = computed(() => props.item.operation_details || {})
 const reference = computed(() => props.item.reference || {})
 const meta = computed(() => props.item.meta || {})
+
+const descriptionToShow = computed(() => {
+  if (props.operationDescription) {
+    return props.operationDescription
+  }
+
+  if (props.operationLabel) {
+    return props.operationLabel
+  }
+
+  return operationDetails.value.description || '–'
+})
 </script>
 
 <template>
@@ -20,7 +40,7 @@ const meta = computed(() => props.item.meta || {})
       <h4 class="section-title">{{ t('wallet.operation_info') }}</h4>
       <div class="detail-item">
         <span class="label">{{ t('wallet.description') }}:</span>
-        <span class="value">{{ operationDetails.description || '–' }}</span>
+        <span class="value">{{ descriptionToShow }}</span>
       </div>
       <div class="detail-item" v-if="meta.paid !== undefined">
         <span class="label">{{ t('wallet.payment_status') }}:</span>

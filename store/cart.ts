@@ -154,6 +154,11 @@ export const useCartStore = defineStore('cartStore', {
       this.promocodeData = data
     },
 
+    clearBonusUsage() {
+      this.orderState.bonus = null
+      this.orderState.bonusInFiat = null
+    },
+
     setDeliveryFields(fields: Partial<typeof this.orderState.delivery>) {
       // Создаем новый объект где все поля null
       const resetDelivery = Object.keys(this.orderState.delivery).reduce((acc, key) => {
@@ -372,6 +377,10 @@ export const useCartStore = defineStore('cartStore', {
 
       // Auth or Data
       this.orderState.provider = isAuthenticated.value? 'auth': 'data'
+
+      if(this.orderState.provider === 'data') {
+        this.clearBonusUsage()
+      }
 
       // Clear other user fields
       // if(this.orderState.provider === 'auth') {

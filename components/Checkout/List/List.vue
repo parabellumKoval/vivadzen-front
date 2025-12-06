@@ -75,29 +75,31 @@ const pending = computed(() => dataSource.pending.value)
 </style>
 
 <template>
-  <div v-if="!pending && lists?.length" class="list-wrapper">
-    <div v-for="list in lists">
-      <template v-if="list.items?.length">
-        <div class="title-secondary">{{ list.title }}</div>
-        <SnapCarousel
-          mode = 'page'
-          :items="list.items"
-          :loop="true"
-          :show-arrows="true"
-          :show-dots="true"
-          :items-per-page="itemsPerPage"
-        >
-          <template #item="{ item }">
-            <ProductCardCheckoutSmall :item="item" />
-          </template>
-          <template #prev>
-            <IconCSS name="mynaui:chevron-left" size="24"></IconCSS>
-          </template>
-          <template #next>
-            <IconCSS name="mynaui:chevron-right" size="24"></IconCSS>
-          </template>
-        </SnapCarousel>
-      </template>
+  <Transition name="fadeIn">
+    <div v-if="!pending && lists?.length" class="list-wrapper">
+      <div v-for="list in lists">
+        <template v-if="list.items?.length">
+          <div class="title-secondary">{{ list.title }}</div>
+          <SnapCarousel
+            mode = 'page'
+            :items="list.items"
+            :loop="true"
+            :show-arrows="true"
+            :show-dots="true"
+            :items-per-page="itemsPerPage"
+          >
+            <template #item="{ item }">
+              <ProductCardCheckoutSmall :item="item" />
+            </template>
+            <template #prev>
+              <IconCSS name="mynaui:chevron-left" size="24"></IconCSS>
+            </template>
+            <template #next>
+              <IconCSS name="mynaui:chevron-right" size="24"></IconCSS>
+            </template>
+          </SnapCarousel>
+        </template>
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>

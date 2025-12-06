@@ -1,52 +1,50 @@
 <script setup>
-const initialSortSelectedIndex = ref(0)
-const sort = ref({order_by: 'created_at', order_dir: 'desc'})
 const emit = defineEmits(['update'])
-const {options: useSortOptions} = useSort()
 const {sorting: initSorting} = useFilter()
 
 const props = defineProps({
   sortings: {
     type: Array,
-    default: null
+    default: () => []
   },
 })
 
-const sortingOptions = computed(() => {
-  if(props.sortings) {
-    return props.sortings
-  }else {
-    return useSortOptions.value
-  }
-})
+const sortingOptions = computed(() => props.sortings ?? [])
 
-const setInitialState = () => {
-  if(initSorting.value) {
-    const index = sortingOptions.value.findIndex((srt) => {
-      return srt.by === initSorting.value.order_by && srt.dir === initSorting.value.order_dir
-    })
+const sortSelectedIndex = ref(0)
+const isSyncingSelection = ref(false)
 
-    if(index !== -1) {
-      initialSortSelectedIndex.value = index
-    }
-  }
+const setIndexWithActiveSorting = () => {
+  const { order_by, order_dir } = initSorting.value
+  const index = sortingOptions.value.findIndex((option) => {
+    return option.by === order_by && option.dir === order_dir
+  })
+
+  sortSelectedIndex.value = index !== -1 ? index : 0
 }
 
-setInitialState()
-
-const sortSelectedIndex = ref(initialSortSelectedIndex);
-
-watch(sortSelectedIndex, (v) => {
-  if(sortingOptions.value[v]) {
-    sort.value = {
-      order_by: sortingOptions.value[v].by,
-      order_dir: sortingOptions.value[v].dir
-    }
-
-    emit('update', sort.value)
-  }
+watch([
+  sortingOptions,
+  initSorting,
+], () => {
+  isSyncingSelection.value = true
+  setIndexWithActiveSorting()
+  isSyncingSelection.value = false
 }, {
-  immediate: false
+  immediate: true
+})
+
+watch(sortSelectedIndex, (value) => {
+  if (isSyncingSelection.value) return
+
+  const selectedOption = sortingOptions.value[value]
+
+  if (!selectedOption) return
+
+  emit('update', {
+    order_by: selectedOption.by ?? null,
+    order_dir: selectedOption.dir ?? null,
+  })
 })
 </script>
 

@@ -9,7 +9,7 @@ const currentRegion = computed(() => {
 // METHODS
 // HANDLERS
 const openModalHandler = (event) => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Region/Region.vue'))
+  const component = defineAsyncComponent(() => import('~/components/Modal/Region/International/International.vue'))
   useModal().open(component, null, null)
 }
 

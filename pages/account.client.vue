@@ -2,13 +2,25 @@
 const {t} = useI18n()
 const { $regionPath } = useNuxtApp();
 const route = useRoute()
-const { logout } = useAuth()
+const { user, token, init, me, logout } = useAuth()
 
 definePageMeta({
   bg: '#eee6dd'
 });
 
 const props = defineProps({})
+
+await init()
+
+watch(
+  [() => user.value, () => token.value],
+  ([currentUser, currentToken]) => {
+    if (!currentUser && currentToken) {
+      me(true).catch(() => {})
+    }
+  },
+  { immediate: true }
+)
 
 const isMenuOpen = ref(false)
 
@@ -78,17 +90,15 @@ const menus = computed(() => {
         link: '/account/settings'
       },{
         id: 7,
-        title: t('button.logout'),
-        icon: 'iconoir:log-out',
-        callback: logoutConfirmHandler
-      }
-    ],[
-      {
-        id: 7,
         title: t('title.account.support'),
         slug: 'support',
         icon: 'iconoir:headset-help',
         link: '/account/support'
+      },{
+        id: 8,
+        title: t('button.logout'),
+        icon: 'iconoir:log-out',
+        callback: logoutConfirmHandler
       }
     ]
   ]
@@ -161,12 +171,9 @@ onBeforeUnmount(() => {
 
         <div class="profile-wrapper">
           <account-card></account-card>
-          <button v-if="$device.isMobile" @click="openMenuHandler" class="more-btn">
-            <IconCSS name="iconoir:more-vert" class="more-btn-icon"></IconCSS>
-          </button>
         </div>
 
-        <div v-if="!$device.isMobile || isMenuOpen" class="menu-wrapper">
+        <div class="menu-wrapper">
           <ul v-for="(menu, index) in menus" :key="index" class="menu-ul">
             <li v-for="item in menu" :key="item.id" :class="{active: item.slug === activeMenuItem}" class="menu-li">
               <button @click="clickMenuHandler(item)" class="menu-link">

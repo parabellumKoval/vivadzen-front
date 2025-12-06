@@ -36,14 +36,32 @@
   &-info {
     width: 100%;
     margin: 30px auto 0 auto;
-    border-radius: 4px;
-    // background: $color-7;
-    line-height: 160%;
+    display: grid;
+    gap: 16px;
     text-align: center;
+
     @include desktop {
-      padding: 20px;
-      width: 360px;
+      width: 420px;
     }
+
+    &-reward {
+      width: 100%;
+    }
+
+    &-note {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      font-size: 14px;
+      line-height: 150%;
+
+      @include desktop {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
     .more-link {
       color: $color-green;
     }

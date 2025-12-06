@@ -16,7 +16,7 @@ const { scrollToAnchor } = useAnchorScroll({
 })
 
 const {t} = useI18n()
-const { user, isAuthenticated, init } = useAuth()
+const { user, token, isAuthenticated, init, me } = useAuth()
 const {fetchCartProducts, isFieldRequired} = useCartStore()
 await init()
 const breadcrumbs = [
@@ -192,15 +192,29 @@ watch(() => authType.value, (v) => {
   errors.value.user = {}
 })
 
-watch(() => user.value, (v) => {
-  if(v) {
+const ensureAuthUser = () => {
+  if(user.value && user.value.id) {
     setUserData()
     // useCartStore().setUser(user.value)
   }
+}
+
+watch(() => user.value, () => {
+  ensureAuthUser()
 }, {
   deep: true,
   immediate: true
 })
+
+watch(
+  [() => user.value, () => token.value],
+  ([currentUser, currentToken]) => {
+    if (!currentUser && currentToken) {
+      me(true).catch(() => {})
+    }
+  },
+  { immediate: true }
+)
 
 
 await useAsyncData('cart-products', async () => await fetchCartProducts())

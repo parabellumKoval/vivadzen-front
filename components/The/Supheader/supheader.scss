@@ -3,19 +3,24 @@
   align-items: center;
   height: initial;
   // background: linear-gradient(90deg, #427CD2 0%, #C6D242 100%);
-  background: $color-dark-2;
+  background: linear-gradient(90deg, #ff8400 0%, #73c56f 100%);
+  // background: $color-dark-2;
   @include desktop {
     height: 50px;
   }
 }
 .inner {
   display: grid;
-  grid-template-columns: min-content min-content 1fr min-content;
+  grid-template-columns: 1fr;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   color: #FFFFFF;
   font-size: 14px;
+
+  @include desktop {
+    grid-template-columns: min-content min-content 1fr min-content;
+  }
 }
 .content {
   display: none;
@@ -25,6 +30,7 @@
     text-align: center;
     overflow-x: auto;
     line-height: 145%;
+    font-weight: 600;
     white-space: nowrap;
   }
 }
@@ -52,9 +58,14 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  grid-column-gap: 10px;
+  grid-column-gap: 3px;
   height: 50px;
   color: #FFFFFF;
+  font-weight: 600;
+
+  @include desktop {
+    grid-column-gap: 10px;
+  }
 }
 
 .phone-btn {
@@ -77,7 +88,11 @@
 
 .region-btn {
   display: grid;
-  grid-template-columns: min-content min-content 50px;
+  grid-template-columns: min-content min-content 1fr;
+
+  @include desktop {
+    grid-template-columns: min-content min-content 50px;
+  }
   &-locale {
     display: flex;
     text-transform: uppercase;

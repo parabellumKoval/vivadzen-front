@@ -1,12 +1,28 @@
-title1: "1. If you purchased a product of inadequate quality:"
-title2: "2. If you purchased a quality product but it didn’t suit you."
-desc1: According to Article 8 of the Law of Ukraine, if significant defects caused by the manufacturer are discovered during the warranty period, the customer has the right to exchange the product or receive a refund.
-desc2: "A significant defect, as defined in Clause 12, Article 1 of the Law of Ukraine “On Consumer Protection,” is a flaw that makes it impossible or unacceptable to use the product as intended, arises due to the manufacturer, reappears after being fixed for reasons beyond the customer’s control, and meets at least one of the following criteria:"
-list1: "<li>it cannot be eliminated;</li><li>repair takes longer than fourteen calendar days;</li><li>it makes the product substantially different from the agreed terms.</li>"
-desc3: "If a quality check is needed, the product may be sent to an authorized service center. According to Clause 4, Article 17 of the Law of Ukraine “On Consumer Protection,” the examination is organized within three days of receiving written consent from the customer. If the examination shows that defects appeared after the item was handed over, due to improper use, storage, or transport, the customer’s claim is not satisfied and the customer covers the examination costs."
-desc4: "A customer’s request to exchange an item must be fulfilled immediately if the item is in stock, or within two months if it is not. If the request cannot be fulfilled within the established period, the customer may choose to exchange the defective item for another product of equal quality with appropriate price adjustments or claim a refund."
-desc5: "Under Article 9 of the Law of Ukraine “On Consumer Protection,” the customer has the right to exchange a quality product within 14 days if it doesn’t suit them by shape, size, style, color, or purpose—provided it hasn’t been used and retains its appearance, consumer properties, seals, factory packaging, and purchase documents."
-desc6: "If the desired item is not available at the time of exchange, the customer may buy any other product, receive a refund equal to the purchase price, or exchange the item for the same product once it is back in stock. When issuing refunds, the customer receives the price paid at the time of purchase."
-desc7: "If a customer ordered delivery, refuses the package, and does not pick it up because they decided they no longer want the goods, the shipping and return costs are deducted from the refund."
-desc8: "The customer is entitled to a refund if there is evidence of manufacturing defects confirmed by an independent authorized service center report on the condition of the product at the moment of handover."
-desc9: "Returns and exchanges for orders shipped by the Vivadzen online store to any Ukrainian city are processed via reverse shipping through delivery services such as Nova Poshta."
+text: |
+  <h2>Withdrawal from the Contract</h2>
+  <ol>
+    <li>A customer who concluded a purchase contract outside their business activity as a consumer has the right to withdraw from the contract.</li>
+    <li>The withdrawal period is 14 days from the day the goods are received.</li>
+    <li>The customer cannot withdraw from the purchase contract if:
+      <ul>
+        <li>the provision of services began with their prior express consent before the withdrawal period ended and the seller informed them that they would lose the right to withdraw;</li>
+        <li>the goods or services depend on financial market fluctuations beyond the seller’s control during the withdrawal period;</li>
+        <li>alcoholic beverages are supplied that can be delivered after a 30-day period and whose price depends on financial market fluctuations beyond the seller’s control;</li>
+        <li>goods were made to the customer’s specifications or clearly personalized;</li>
+        <li>perishable goods are delivered, or goods that, after delivery, were irreversibly mixed with other products;</li>
+        <li>sealed goods are delivered that are not suitable for return for health protection or hygiene reasons and were unsealed by the customer;</li>
+        <li>audio or video recordings or computer software are delivered with damaged original packaging;</li>
+        <li>newspapers, periodicals, or magazines are delivered;</li>
+        <li>digital content not supplied on a tangible medium is delivered with the customer’s express consent before the withdrawal period expires and after being informed that the right to withdraw is lost;</li>
+        <li>other cases covered by Article 1837 of the Civil Code apply.</li>
+      </ul>
+    </li>
+    <li>To meet the withdrawal deadline, the customer must send a notice of withdrawal before the period expires.</li>
+    <li>To withdraw from the purchase contract, the customer may use the form provided by the seller and send it to the email or postal address specified in these Terms; the seller must confirm receipt without delay.</li>
+    <li>A customer who withdraws from the contract must return the goods to the seller within 14 days of withdrawal and bears the cost of returning the goods, even if the goods cannot be returned by ordinary post due to their nature.</li>
+    <li>If the customer withdraws from the contract, the seller must refund all received payments, including delivery costs, without undue delay and no later than 14 days after being informed of the withdrawal, using the same payment method, unless the customer agrees to another method without extra fees.</li>
+    <li>If the customer chose a delivery method more expensive than the least expensive option offered by the seller, the seller reimburses delivery costs only up to the amount of the cheapest option.</li>
+    <li>The seller is not obliged to refund the customer before receiving the goods back or before the customer proves that the goods were sent back.</li>
+    <li>The customer must return the goods undamaged, unworn, clean, and, if possible, in the original packaging; the seller may offset any claim for damage to the goods against the refund.</li>
+    <li>The seller may withdraw from the purchase contract if the goods are out of stock, unavailable, or if the manufacturer, importer, or supplier has stopped production or import; the seller must immediately inform the customer and refund all payments, including delivery costs, within 14 days using the same method or another agreed method.</li>
+  </ol>

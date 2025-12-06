@@ -7,6 +7,7 @@ export const useImg = () => {
   const noImage = useRuntimeConfig().public.noimage
   const noImageGray = useRuntimeConfig().public.noimagegray
   const provider = useRuntimeConfig().public.staticImageProvider
+  const noImageTransparent = useRuntimeConfig().public.noimageTransparent
 
 
   const folderSrc = (src: string, folder: string) => {
@@ -38,6 +39,7 @@ export const useImg = () => {
   }
 
   return {
+    noImageTransparent: noImageTransparent,
     noImage: noImage,
     noImageGray: noImageGray,
     provider: provider,

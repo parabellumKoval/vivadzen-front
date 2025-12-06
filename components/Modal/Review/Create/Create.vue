@@ -4,6 +4,12 @@ import { useReviewStore } from '~~/store/review';
 const { t } = useI18n()
 const { user: authUser, displayName, avatar, isAuthenticated} = useAuth()
 
+const TAB_PRODUCT = 'product'
+const TAB_STORE = 'store'
+
+const REVIEW_TYPE_TEXT = 'text'
+const REVIEW_TYPE_VIDEO = 'video'
+
 const review = ref({
   provider: 'data',
   owner: {
@@ -17,35 +23,54 @@ const review = ref({
   advantages: null,
   text: null,
   reviewable_id: null,
-  reviewable_type: null
+  reviewable_type: null,
+  is_video: false,
+  video_url: null
 })
 
 const errors = ref(null)
-const tab = ref(100)
 
-// COMPUTEDS
 const product = computed(() => {
   return useModal().active.data
 })
 
+const tab = ref(product.value ? TAB_PRODUCT : TAB_STORE)
 
 const tabs = computed(() => {
-  return [
-    {
-      id: 1,
+  const items = []
+
+  if (product.value) {
+    items.push({
+      id: TAB_PRODUCT,
       name: t('tab_product')
-    },{
-      id: 2,
-      name: t('tab_djini')
-    }
-  ]
+    })
+  }
+
+  items.push({
+    id: TAB_STORE,
+    name: t('tab_company')
+  })
+
+  return items
 })
 
+const isProductTab = computed(() => tab.value === TAB_PRODUCT)
+const isStoreTab = computed(() => tab.value === TAB_STORE)
+const reviewType = computed({
+  get: () => (review.value.is_video ? REVIEW_TYPE_VIDEO : REVIEW_TYPE_TEXT),
+  set: (value) => {
+    review.value.is_video = value === REVIEW_TYPE_VIDEO
+  }
+})
+const isVideoReview = computed(() => reviewType.value === REVIEW_TYPE_VIDEO)
+const shouldShowSocialLinkField = computed(() => !isVideoReview.value)
+
 const ratingTitle = computed(() => {
-  if(tab.value === 0)
+  if (isProductTab.value)
     return t('set_rating')
-  else if(tab.value === 1)
+  else if (isStoreTab.value)
     return t('set_rating_shop')
+  return ''
 })
 
 // HANDLER
@@ -56,13 +81,25 @@ const resetReview = () => {
   review.value.reviewable_id = null
   review.value.reviewable_type = null
   review.value.link = null
+  review.value.video_url = null
+  review.value.is_video = false
+  review.value.rating = 5
 }
 
 const sendHandler = async () => {
   let data = {...review.value}
+
+  if(data.is_video) {
+    data.text = null
+    data.advantages = null
+    data.flaws = null
+    data.link = null
+  }else {
+    data.video_url = null
+  }
+
   await useReviewStore().create(data).then(({data, error}) => {
 
-    console.log('sendHandler', data, error)
     if(data.value) {
       resetReview()
 
@@ -79,7 +116,6 @@ const sendHandler = async () => {
       throw error.value
 
   }).catch((e) => {
-    console.error('sendHandler', e)
     useNoty().setNoty({
       title: t('noty.review.fail_title'),
       content: t('noty.review.fail'),
@@ -105,17 +141,13 @@ const clearNameError = () => {
   }
 }
 
-const setActiveTab = () => {
-  if(!product.value) {
-    tab.value = 1
-  }else {
-    tab.value = 0
-  }
+const setDefaultTab = () => {
+  tab.value = product.value ? TAB_PRODUCT : TAB_STORE
 }
 
 const setProductData = () => {
   review.value.reviewable_id = product.value?.id || null
-  review.value.reviewable_type = product.value?.id? String.raw`App\Models\Product`: null
+  review.value.reviewable_type = product.value?.id? String.raw`Backpack\Store\app\Models\Catalog`: null
 }
 
 const clearProductData = () => {
@@ -136,16 +168,23 @@ const setUserData = () => {
 
 // WATCH
 watch(() => tab.value, (v) => {
-  if(v === 0) {
+  if(v === TAB_PRODUCT && product.value) {
     setProductData()
-  }else if(v === 1) {
+  }else {
     clearProductData()
   }
+
 }, {
   immediate: true
 })
 
-setActiveTab()
+watch(product, (value) => {
+  if(!value && tab.value === TAB_PRODUCT) {
+    tab.value = TAB_STORE
+  }
+})
+
+setDefaultTab()
 
 watch(authUser, () => setUserData(), { immediate: true })
 </script>
@@ -157,15 +196,23 @@ watch(authUser, () => setUserData(), { immediate: true })
   <modal-wrapper :title="t('new_review')">
     <div class="modal-wrapper">
 
-      <simple-tabs v-if="product" v-model="tab" :values="tabs" value="name" class="tab-wrapper"></simple-tabs>
+      <simple-tabs
+        v-model="tab"
+        :values="tabs"
+        value="name"
+        value-key="id"
+        class="tab-wrapper"
+      ></simple-tabs>
 
       <transition name="fade-in">
         <product-card-small
-          v-if="tab === 0"
+          v-if="isProductTab && product"
           :item="product"
           class="product-wrapper"
         ></product-card-small>
       </transition>
+
+      <review-reward class="modal-review-reward" />
 
       <div class="form-wrapper">
 
@@ -174,6 +221,26 @@ watch(authUser, () => setUserData(), { immediate: true })
           <div class="rate-forms">
             <form-amount v-model="review.rating" :min="1" :max="5"></form-amount>
             <simple-stars :amount="review.rating" :size="20" mobile="medium"></simple-stars>
+          </div>
+        </div>
+
+        <div class="review-type">
+          <div class="form-label">{{ t('review_type_label') }}</div>
+          <div class="review-type-toggle">
+            <button
+              type="button"
+              :class="{ active: reviewType === REVIEW_TYPE_TEXT }"
+              @click="reviewType = REVIEW_TYPE_TEXT"
+            >
+              {{ t('review_type_text') }}
+            </button>
+            <button
+              type="button"
+              :class="{ active: reviewType === REVIEW_TYPE_VIDEO }"
+              @click="reviewType = REVIEW_TYPE_VIDEO"
+            >
+              {{ t('review_type_video') }}
+            </button>
           </div>
         </div>
 
@@ -187,7 +254,7 @@ watch(authUser, () => setUserData(), { immediate: true })
           ></form-text>
         </div>
 
-        <div>
+        <div v-if="!isVideoReview">
           <div class="form-label">{{ t('form.review') }}</div>
           <form-textarea
             v-model="review.text"
@@ -198,7 +265,37 @@ watch(authUser, () => setUserData(), { immediate: true })
         </div>
 
         <transition name="fade-in">
-          <div v-if="tab === 1">
+          <div v-if="isVideoReview">
+            <div class="form-label">{{ t('video_link_label') }}</div>
+            <form-text
+              v-model="review.video_url"
+              :error="errors?.video_url"
+              @input="clearError('video_url')"
+              :placeholder="t('video_link_placeholder')"
+            ></form-text>
+
+            <div class="form-hint">
+              <ul class="form-list">
+                <li>{{ t('video_link_desc_1') }}</li>
+                <li>{{ t('video_link_desc_2') }}</li>
+                <li>
+                  {{ t('video_link_desc_reward_prefix') }}
+                  <review-reward
+                    class="form-reward-inline"
+                    variant="inline"
+                    :kinds="['video']"
+                    :show-title="false"
+                    :hide-labels="true"
+                  />
+                  {{ t('video_link_desc_reward_suffix') }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </transition>
+
+        <transition name="fade-in">
+          <div v-if="shouldShowSocialLinkField">
             <div class="form-label">{{ t('w_link') }}</div>
             <form-text
               v-model="review.link"
@@ -209,15 +306,26 @@ watch(authUser, () => setUserData(), { immediate: true })
 
             <div class="form-hint">
               <ul class="form-list">
-                <li>{{ t('link_desc_1') }}</li>
-                <li>{{ t('link_desc_2') }}</li>
+                <li>{{ t('link_desc_supported') }}</li>
+                <li>{{ t('link_desc_requirement') }}</li>
+                <li>
+                  {{ t('link_desc_2_prefix') }}
+                  <review-reward
+                    class="form-reward-inline"
+                    variant="inline"
+                    :kinds="['text']"
+                    :show-title="false"
+                    :hide-labels="true"
+                  />
+                  {{ t('link_desc_2_suffix') }}
+                </li>
               </ul>
             </div>
           </div>
         </transition>
 
         <transition name="fade-in">
-          <div v-if="tab === 0">
+          <div v-if="isProductTab && !isVideoReview">
             <div class="form-label">{{ t('w_advantages') }}</div>
             <form-textarea
               v-model="review.advantages"
@@ -229,7 +337,7 @@ watch(authUser, () => setUserData(), { immediate: true })
         </transition>
 
         <transition name="fade-in">
-          <div v-if="tab === 0">
+          <div v-if="isProductTab && !isVideoReview">
             <div class="form-label">{{ t('w_flaws') }}</div>
             <form-textarea
               v-model="review.flaws"

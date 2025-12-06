@@ -14,7 +14,7 @@ items:
   qa4:
     id: 4
     q: When will I receive my order?
-    a: Orders are shipped with Nova Poshta at the customer’s expense unless the product page states otherwise. Delivery usually takes 2–3 days.
+    a: Delivery timelines depend on the carrier you select at checkout and are shown next to every available method.
   qa5:
     id: 5
     q: Can the total order cost change?
@@ -22,28 +22,20 @@ items:
   qa6:
     id: 6
     q: How do I pay for my order?
-    a: Cash on delivery at a Nova Poshta branch, or cashless payments to a Visa, MasterCard, or company bank account.
+    a: Payment methods appear automatically after you choose a delivery option and depend on your current region.
   qa7:
     id: 7
     q: How can I return an item that doesn’t fit or has defects?
-    a: "<p>Under Article 9 of the Law of Ukraine “On Consumer Protection,” customers can exchange a product within 14 days if it doesn’t suit them by color, size, or shape, or cannot be used as intended—provided it hasn’t been used and the product looks new, retains consumer properties, factory packaging, seals, and purchase documents. If the needed product is not available at the time of exchange, the customer may:</p>
-        <ul><li>purchase any other product in our store;</li>
-            <li>receive a refund equal to the purchase price;</li>
-            <li>exchange the item for the same model once it is back in stock;</li>
-        </ul>
-        <p>During refunds, the customer is reimbursed based on the price paid at the time of purchase.</p>"
+    a: "<p>EU customers may withdraw from the purchase within 14 days of receiving the goods in accordance with our Return Policy. The product must be unused, in its original condition, and accompanied by proof of purchase. The right of withdrawal does not apply to personalised goods, perishable items, hygienically sealed goods that were opened, or other exceptions listed in the policy.</p>
+        <p>Send us a notice of withdrawal (email or the contact form) and return the parcel within 14 days. Return shipping is paid by the customer. Once we receive the goods or proof of dispatch, we refund all payments (up to the cheapest delivery option) within 14 days using the original payment method.</p>"
   qa8:
     id: 8
     q: Where and how can I exchange or return an item?
-    a: "<p>Send the product back via Nova Poshta. Please note that the Cabinet of Ministers of Ukraine approved a list of high-quality goods that cannot be exchanged or returned (Resolution No. 172 of March 19, 1994). This list includes:</p>
-        <ul><li>food, medicines, and hygiene products;</li>
-            <li>non-food items such as toothbrushes; combs and massage brushes; baby products (diapers, pacifiers, feeding bottles, etc.);</li>
-            <li>manicure and pedicure tools (scissors, nail files, etc.).</li>
-        </ul>"
+    a: Contact our manager or visit the pickup point so we can advise which available carrier to use for the exchange.
   qa9:
     id: 9
     q: Where do you ship orders?
-    a: Across Ukraine, except Crimea and certain areas of the Donetsk and Luhansk regions.
+    a: We ship via the delivery partners available in your region; the list updates automatically on the website.
   qa10:
     id: 10
     q: How can I find the right item in such a large catalog?
@@ -54,4 +46,4 @@ items:
   qa11:
     id: 11
     q: How can I track my parcel if it’s shipped by mail?
-    a: After shipping, you will receive an SMS or Viber message with the Nova Poshta tracking number. Track the parcel at https://novaposhta.ua/
+    a: After we hand the parcel to the carrier, we send you a tracking number. Follow it on the chosen carrier’s website or app.

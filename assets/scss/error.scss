@@ -3,9 +3,14 @@
 }
 .status {
   font-weight: 700;
-  font-size: 300px;
+  font-size: 120px;
   line-height: 135%;
-  color: $color-3;
+  color: $color-border;
+
+  @include desktop {
+    font-size: 300px;
+    line-height: 135%;
+  }
 }
 .text {
 }

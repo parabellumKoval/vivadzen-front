@@ -1,6 +1,8 @@
 <script setup>
 const {t} = useI18n()
+const route = useRoute()
 const {user} = useAuth()
+const noty = useNoty()
 const isModalActive = ref(false)
 // COMPUTEDS
 const affiliateLevels = computed(() => {
@@ -10,6 +12,7 @@ const affiliateLevels = computed(() => {
     '🥉' + ' ' + t('level3', {percent: '3'}),
   ]
 })
+const isProductPage = computed(() => route.meta.pageType === 'product')
 // METHODS
 const link = computed(() => {
   // Используем Nuxt composables для получения URL
@@ -27,8 +30,42 @@ const link = computed(() => {
   
   return `${baseUrl}${route.fullPath}?ref=${user.value?.referral_code || 'your_code'}`
 })
+
 const toggleModal = () => {
   isModalActive.value = !isModalActive.value
+}
+
+const copyAffiliateLink = async () => {
+  const linkValue = link.value
+  if (!linkValue) {
+    return
+  }
+
+  const writeToClipboard = async () => {
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(linkValue)
+      return
+    }
+
+    const textarea = document.createElement('textarea')
+    textarea.value = linkValue
+    textarea.setAttribute('readonly', '')
+    textarea.style.position = 'fixed'
+    textarea.style.opacity = '0'
+    document.body.appendChild(textarea)
+    textarea.focus()
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
+  }
+
+  try {
+    await writeToClipboard()
+    noty.setNoty({content: t('copy_noty')})
+    isModalActive.value = false
+  } catch (error) {
+    console.error('Failed to copy affiliate link', error)
+  }
 }
 // HANDLERS
 // WATCHERS
@@ -43,17 +80,17 @@ const toggleModal = () => {
       <div v-if="isModalActive" class="modal-backdrop" @click.self="toggleModal">
         <div class="modal">
           <div class="modal-header">
-            <div class="modal-header-title">Share a link to this page</div>
-            <div class="modal-header-desc">to receive awards</div>
+            <div class="modal-header-title">{{ t('share_title') }}</div>
+            <div class="modal-header-desc">{{ t('share_desc') }}</div>
           </div>
           <div class="modal-content">
-            <div class="modal-subtitle">Earn money from every purchase in your affiliate network forever</div>
+            <div class="modal-subtitle">{{ t('earn_subtitle') }}</div>
             <ul class="modal-content-ul">
-              <li>💰 Get paid for every sale made through your link</li>
-              <li>📈 Track your earnings in real-time</li>
-              <li>💳 Receive monthly payouts directly to your account</li>
+              <li>{{ t('benefit_1') }}</li>
+              <li>{{ t('benefit_2') }}</li>
+              <li>{{ t('benefit_3') }}</li>
             </ul>
-            <div class="modal-subtitle">Create a three-tier system</div>
+            <div class="modal-subtitle">{{ t('tier_system_subtitle') }}</div>
             <ul class="modal-content-levels">
               <li v-for="(level, index) in affiliateLevels" :key="index" class="modal-content-levels-li">
                 <wrapper-html :string="level" :wrappers="['<b>', '<b class=\'orange\'>']" />
@@ -62,17 +99,23 @@ const toggleModal = () => {
           </div>
           <div class="modal-form">
             
-            <div class="modal-subtitle">Affiliate link to this page</div>
+            <div class="modal-subtitle">{{ t('affiliate_link_subtitle') }}</div>
             <form-link
               :model-value="link"
               readonly
             />
 
-            <button class="button orange modal-button full">Copy your referral link</button>
+            <button
+              type="button"
+              class="button orange modal-button full"
+              @click="copyAffiliateLink"
+            >
+              {{ t('copy_button') }}
+            </button>
           </div>
         </div>
       </div>
-      <div v-else  class="affiliate">
+      <div v-else :class="{'up': isProductPage}"  class="affiliate">
 
       <button  @click="toggleModal" class="affiliate-button">
           <!-- <nuxt-img

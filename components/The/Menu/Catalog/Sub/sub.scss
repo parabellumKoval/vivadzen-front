@@ -1,15 +1,16 @@
 .sub {
   &-inner {
     display: block;
-    padding: 0 0 20px 0;
+    padding: 20px 0;
     @include desktop {
       columns: 3;
+      padding: 0 0 20px 0;
     }
   }
   &-item {
     display: block;
     margin: 0;
-    padding: 10px 10px 10px 20px;
+    padding: 10px 20px;
     text-transform: uppercase;
     line-height: 130%;
     font-size: 16px;
@@ -20,6 +21,10 @@
     }
     &:first-of-type {
       font-weight: 500;
+    }
+
+    &.bold {
+      font-weight: 600;
     }
   }
 }

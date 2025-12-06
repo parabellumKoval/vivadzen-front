@@ -52,22 +52,5 @@ onMounted(() => {
     <div class="search-inner" clickable>
       <lazy-the-header-search-modal></lazy-the-header-search-modal>
     </div>
-    <!-- <div class="search-inner" clickable>
-      <IconCSS name="iconoir:search" size="20px" class="search-input-icon"></IconCSS>
-      <input
-        v-model="search"
-        @focus="focusHandler"
-        @blur="blurHandler"
-        :placeholder="t('placeholder')"
-        class="search-input"
-      />
-    </div>
-
-    <transition name="opacity">
-      <lazy-the-header-search-modal
-        v-if="true"
-        :search-input="search"
-      ></lazy-the-header-search-modal>
-    </transition> -->
   </div>
 </template>

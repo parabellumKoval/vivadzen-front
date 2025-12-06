@@ -1,0 +1,29 @@
+en:
+  guidebook: Guidebook
+  no_articles: No articles available.
+  all_guidebooks: All guidebooks
+
+ru:
+  guidebook: Справочник
+  no_articles: Статьи отсутствуют.
+  all_guidebooks: Все справочники
+
+uk:
+  guidebook: Довідник
+  no_articles: Статті відсутні.
+  all_guidebooks: Усі довідники
+
+cs:
+  guidebook: Průvodce
+  no_articles: Nejsou k dispozici žádné články.
+  all_guidebooks: Všechny průvodce
+
+de:
+  guidebook: Ratgeber
+  no_articles: Keine Artikel verfügbar.
+  all_guidebooks: Alle Ratgeber
+
+es:
+  guidebook: Guía
+  no_articles: No hay artículos disponibles.
+  all_guidebooks: Todas las guías

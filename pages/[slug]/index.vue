@@ -10,6 +10,8 @@ import PageProductSkeleton from '~/components/Page/Product/Skeleton/Skeleton.vue
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
+const {locale} = useI18n()
+const {region} = useRegion()
 
 const isServer = process.server
 const slugParam = route.params.slug
@@ -43,27 +45,47 @@ const {
   pending: productPending,
   error: productError
 } = await useAsyncData(
-  'product-' + slug,
+  'product-' + slug + '-' + region.value + '-' + locale.value,
   async () => {
+    // Ваша логика получения данных
     if (isCategory.value) return null
-    if (!slug) {
-      throw createError({ statusCode: 404, message: 'Product Not Found' })
-    }
+    
+    // Пример упрощенной логики
     const response = await useProductStore().show(slug)
     const data = response.data.value
-
-    if (data) {
-      return data
-    } else {
+    
+    // Если данных нет или ошибка - просто кидаем throw
+    // useAsyncData поймает это и положит в productError
+    if (response.error.value || !data) {
       throw createError({ statusCode: 404, message: 'Product Not Found' })
     }
+
+    return data
   },
   {
     lazy: !isServer,
-    server: true,
+    server: true
   }
 )
 
+// 1. Обработка для СЕРВЕРА (ssr)
+if (productError.value) {
+  throw createError({ ...productError.value, fatal: true })
+}
+
+// 2. Обработка для КЛИЕНТА (lazy loading)
+// Т.к. при lazy код идет дальше не дожидаясь ответа, нужно следить за ошибкой
+if (process.client) {
+  watch(productError, (err) => {
+    if (err) {
+      showError({ 
+        statusCode: err.statusCode || 404, 
+        statusMessage: 'Product Not Found', 
+        fatal: true 
+      })
+    }
+  })
+}
 </script>
 
 <!-- <style src='' lang='scss' scoped></style> -->

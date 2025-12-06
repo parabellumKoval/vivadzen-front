@@ -1,18 +1,132 @@
 ru:
   no_account: У вас нет аккаунта?
   enter_with: Войти с помощью
+  hero:
+    title: "Ваши привилегии уже ждут:"
+    cta: Войдите
+  benefits:
+    discount:
+      title: Персональная скидка
+      description: Получите свою персональную скидку!
+    referral:
+      title: Реферальная сеть
+      description: Постройте трёхуровневую реферальную сеть!
+    reviews:
+      title: Баллы за отзывы
+      description: Получайте Viva Points за каждый ценный отзыв о товаре!
+    bonus:
+      title: Бонусные платежи
+      description: Оплачивайте заказы с помощью Viva Points!
+    cashout:
+      title: Вывод вознаграждений
+      description: Конвертируйте Viva Points в реальные фиатные деньги!
 uk:
   no_account: У вас немає облікового запису?
   enter_with: Увійти за допомогою
+  hero:
+    title: "Ваші переваги вже чекають:"
+    cta: Увійдіть
+  benefits:
+    discount:
+      title: Персональна знижка
+      description: Отримайте свою персональну знижку!
+    referral:
+      title: Реферальна мережа
+      description: Побудуйте трирівневу реферальну мережу!
+    reviews:
+      title: Бали за відгуки
+      description: Отримуйте Viva Points за кожен цінний відгук!
+    bonus:
+      title: Бонусні платежі
+      description: Сплачуйте замовлення за допомогою Viva Points!
+    cashout:
+      title: Виведення винагород
+      description: Конвертуйте Viva Points у справжню фіатну валюту!
 de:
   no_account: Sie haben kein Konto?
   enter_with: Anmelden mit
+  hero:
+    title: "Ihre Vorteile warten:"
+    cta: Anmelden
+  benefits:
+    discount:
+      title: Persönlicher Rabatt
+      description: Sichern Sie sich Ihren persönlichen Rabatt!
+    referral:
+      title: Empfehlungsnetzwerk
+      description: Bauen Sie ein dreistufiges Empfehlungsnetzwerk auf!
+    reviews:
+      title: Punkte für Bewertungen
+      description: Sammeln Sie Viva Points für jede wertvolle Produktbewertung!
+    bonus:
+      title: Bonuszahlungen
+      description: Bezahlen Sie Ihre Bestellungen mit Viva Points!
+    cashout:
+      title: Prämien auszahlen
+      description: Wandeln Sie Ihre Viva Points in echtes Fiat-Geld um!
 es:
   no_account: ¿No tiene una cuenta?
   enter_with: Iniciar sesión con
+  hero:
+    title: "Tus beneficios te esperan:"
+    cta: Inicia sesión
+  benefits:
+    discount:
+      title: Descuento personal
+      description: ¡Activa tu descuento personal!
+    referral:
+      title: Red de referidos
+      description: ¡Construye una red de referidos de 3 niveles!
+    reviews:
+      title: Puntos por reseñas
+      description: ¡Gana Viva Points por cada reseña valiosa!
+    bonus:
+      title: Pagos con bonos
+      description: ¡Paga tus pedidos usando Viva Points!
+    cashout:
+      title: Retiro de recompensas
+      description: ¡Convierte tus Viva Points en dinero fiduciario real!
 cs:
   no_account: Nemáte účet?
   enter_with: Přihlásit se pomocí
+  hero:
+    title: "Vaše výhody čekají:"
+    cta: Přihlaste se
+  benefits:
+    discount:
+      title: Osobní sleva
+      description: Získejte svou osobní slevu!
+    referral:
+      title: Partnerská síť
+      description: Vybudujte tříúrovňovou partnerskou síť!
+    reviews:
+      title: Body za recenze
+      description: Získávejte Viva Points za každou hodnotnou recenzi produktu!
+    bonus:
+      title: Bonusové platby
+      description: Plaťte své objednávky pomocí Viva Points!
+    cashout:
+      title: Výplata odměn
+      description: Převeďte Viva Points na skutečné fiat peníze!
 en:
   no_account: Don't have an account?
   enter_with: Sign in with
+  hero:
+    title: "Your Benefits Await:"
+    cta: Sign In
+  benefits:
+    discount:
+      title: Personal Discount
+      description: Unlock your personal discount!
+    referral:
+      title: Referral Network
+      description: Build a 3-tier referral network!
+    reviews:
+      title: Points for Reviews
+      description: Get Viva Points for every valuable product review!
+    bonus:
+      title: Bonus Payments
+      description: Pay for your orders using Viva Points!
+    cashout:
+      title: Cash Out Rewards
+      description: Convert your Viva Points into real fiat currency!

@@ -11,6 +11,9 @@ const { t } = useI18n()
       <!-- MENU -->
       <the-header-menu class="menu"></the-header-menu>
 
+      <!-- SEARCH BTN MOBILE -->
+      <the-header-search-btn v-if="$device.isMobile"></the-header-search-btn>
+
       <!-- LOGO -->
       <NuxtLink :to="$regionPath('/')" class="logo" clickable>
         <nuxt-img
@@ -31,12 +34,6 @@ const { t } = useI18n()
       <the-header-search v-if="!$device.isMobile" class="search"></the-header-search>
 
       <div class="blank"></div>
-
-      <!-- SEARCH BTN -->
-      <button class="header-btn search-btn" type="button" clickable>
-        <IconCSS name="iconoir:search" size="30px" class="icon"></IconCSS>
-        <span class="hint">{{ t('search') }}</span>
-      </button> 
 
       <!-- USER -->
       <the-header-profile class="profile"></the-header-profile>

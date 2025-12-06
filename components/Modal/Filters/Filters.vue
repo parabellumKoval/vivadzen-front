@@ -47,7 +47,7 @@ const applyHandler = () => {
         <div class="label">
           {{ t('label.show') }} {{ t('label.products', {products: productsLength}) }}
         </div>
-        <button @click="applyHandler" class="button blue apply-btn">
+        <button @click="applyHandler" class="button primary apply-btn">
           {{ t('button.apply') }}
           <template v-if="filtersLength">
             {{ ` (${filtersLength})` }}

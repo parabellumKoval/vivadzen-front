@@ -15,6 +15,10 @@ const props = defineProps({
   amount: {
     type: Number,
     default: 0
+  },
+  hideReplies: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -59,14 +63,14 @@ const updateCurrentHandler = (v) => {
 
 const createReviewHandler = () => {
   if(isAuthenticated.value) {
-    useModal().open(resolveComponent('ModalReviewCreate'), productMicro.value, null, {width: {min: 420, max: 420}})
+    useModal().open(resolveComponent('ModalReviewCreate'), productMicro.value, null)
   }else{
     // useNoty().setNoty({
     //   content: t('noty.review.need_login'),
     //   type: 'warning'
     // }, 7000)
     
-    useModal().open(resolveComponent('ModalAuthSocial'), null, null, {width: {min: 420, max: 420}})
+    useModal().open(resolveComponent('ModalAuthSocial'), null, null)
   }
 }
 
@@ -83,22 +87,36 @@ defineExpose({
 
     <div class="review-form">
       <div class="review-form-title">{{ t('reviews') }}</div>
+      
+      <review-reward :showTitle="false" class="review-form-reward" />
+
+    </div>
+
+    <div class="review-bar">
+      <div v-if="product.rating" class="rating">
+        <div class="rating-amount">{{ product.rating }}</div>
+        <div class="rating-desc">
+          <simple-stars :amount="product.rating" mobile="medium"></simple-stars>
+          <div class="rating-label">{{ t('messages.rates_reviews', {rates: ratingCount, reviews: reviewsCount }) }}</div>
+        </div>
+      </div>
+
       <button @click="createReviewHandler" class="button color-violet wide large-icon inline-icon">
         <IconCSS name="iconoir:message-text" class="icon"></IconCSS>
         <span>{{ t('messages.leave_review') }}</span>
       </button>
     </div>
 
-    <div v-if="product.rating" class="rating">
-      <div class="rating-amount">{{ product.rating }}</div>
-      <div class="rating-desc">
-        <simple-stars :amount="product.rating" mobile="medium"></simple-stars>
-        <div class="rating-label">{{ t('messages.rates_reviews', {rates: ratingCount, reviews: reviewsCount }) }}</div>
-      </div>
-    </div>
+
     
     <div v-if="reviewItems?.length" class="review-grid">
-      <review-card-full v-for="review in reviewItems" :key="review.id" :item="review" class="review-card"></review-card-full>
+      <review-card-full
+        v-for="review in reviewItems"
+        :key="review.id"
+        :item="review"
+        :hide-replies="hideReplies"
+        class="review-card"
+      ></review-card-full>
     </div>
     <div v-else class="no-reviews">
       {{ t('no_reviews') }}

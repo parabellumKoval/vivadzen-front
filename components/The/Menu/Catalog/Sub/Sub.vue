@@ -19,6 +19,7 @@ const props = defineProps({
         <NuxtLink
           :to="$regionPath('/' + category.slug)"
           :aria-label="category.name"
+          :class="{bold: category.isCommon}" 
           clickable
           class="sub-item link"
         >

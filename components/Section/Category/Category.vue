@@ -1,18 +1,24 @@
 <script setup>
 import { useCategoryStore } from '~/store/category'
-const {t} = useI18n()
+const categoryStore = useCategoryStore()
+const { locale } = useI18n()
+const {region, regionAlias} = useRegion()
+const re = useRegion()
 
+// console.log('MC-'+locale.value+'-'+regionAlias.value)
 
-//
-const categories = computed(() => {
-  const allCategories = useCategoryStore().list
-  return allCategories.filter(category => {
-    if (category.extras?.on_main === '1') return true
-    else return false
-  })
+// useAsyncData(() => {
+//   console.log('REFETCH main-categories-'+locale.value+'-'+regionAlias.value)
+//   return categoryStore.listMainCached()
+// })
+const categories = computed(() =>  {
+  return categoryStore.mainList
 })
 
-
+// watch(locale, () => {
+//   console.log('WATCH main-categories-'+locale.value+'-'+regionAlias.value)
+//   // categoryStore.listMainCached(true)
+// })
 </script>
 
 <style src="./category.scss" lang="scss" scoped></style>
@@ -36,6 +42,7 @@ const categories = computed(() => {
                 :alt = "category.image.alt || category.name"
                 :title = "category.image.title || category.name"
                 :class="category.image.size"
+                :style="category?.extras?.image_size ? { width: category.extras.image_size + '%' } : {}"
                 width="200"
                 height="200"
                 sizes = "mobile:50vw tablet:360px desktop:360px"

@@ -30,13 +30,13 @@
     grid-column-start: 2;
     white-space: nowrap;
     color: $color-3;
+    
     @include desktop {
       grid-column-start: initial;
     }
 
     &.amount {
-      color: $color-dark;
-      font-weight: 500;
+      // color: $color-dark;
     }
   }
 }

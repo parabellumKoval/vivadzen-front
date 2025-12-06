@@ -1,21 +1,27 @@
-.catalog {
+.sub-outer {
   position: relative;
-  height: initial;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  width: 100%;
   width: calc(100% + 40px);
-  overflow-y: scroll;
   margin: -20px;
+
+  @include desktop {
+    width: calc(100% + 40px);
+    margin: -20px;
+  }
+}
+.catalog {
+  overflow-y: scroll;
+  height: 100%;
 }
 .sub {
   &-header {
-    position: sticky;
-    top: 0;
-    left: 0;
     display: grid;
     grid-template-columns: repeat(2, 40px) 1fr;
     align-items: center;
     padding: 10px 50px 10px 0;
-    margin: 0 0 20px 0;
-    width: calc(100% + 5px);
+    width: 100%;
     background: $color-bg;
     border-bottom: 1px solid $color-border;
     @include desktop {
@@ -31,9 +37,9 @@
   }
   &-title {
     text-transform: uppercase;
-    margin-left: 15px;
-    font-size: 14px;
-    font-weight: 600;
+    margin-left: 5px;
+    font-size: 16px;
+    font-weight: 700;
   }
 }
 

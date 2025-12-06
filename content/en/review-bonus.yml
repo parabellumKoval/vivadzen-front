@@ -1,0 +1,19 @@
+title: "Earn Viva points for a valuable review"
+items:
+  - type: cta
+    text: "Leave a review about a product or the store and earn Viva points on Vivadzen.com"
+  - type: text
+    text: "Go to the product page you want to review and choose the format — text or video"
+  - type: text
+    text: "You can also post a text or video review about the store in general right on this page"
+  - type: text
+    text: "To receive a reward for a text review, attach a link to your social media profile"
+  - type: highlight
+    before: "After moderation your review appears on Vivadzen,"
+    highlight: "the bonus lands instantly on your Viva balance"
+    after: " — use it to pay for an order or withdraw it to your card"
+  - type: manual
+    text: "about the Vivadzen bonus program."
+    button:
+      label: "Learn more"
+      link: "/vivapoints"

@@ -56,8 +56,12 @@ watch(inputField, (val) => {
   }
 })
 
+const setFocus = () => {
+  inputField.value?.focus()
+}
+
 //
-defineExpose({blurHandler})
+defineExpose({blurHandler, setFocus})
 </script>
 
 <style src='./search.scss' lang='scss' scoped></style>
@@ -66,7 +70,7 @@ defineExpose({blurHandler})
 <template>
   <div :class="{active: inFocus, 'no-close-btn': !isCloseBtn}" class="search">
     <div class="search-inner" type="button" clickable>
-      <IconCSS v-if="!$device.isMobile" name="iconoir:search" size="20px" class="search-input-icon"></IconCSS>
+      <IconCSS name="iconoir:search" size="20px" class="search-input-icon"></IconCSS>
       <input
         ref="inputField"
         :value="props.modelValue"

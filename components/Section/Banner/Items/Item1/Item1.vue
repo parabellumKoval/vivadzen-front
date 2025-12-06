@@ -22,9 +22,7 @@ const showAuthHandler = () => {
     navigateTo($regionPath('/account/network/common'))
   } else {
     const component = defineAsyncComponent(() => import('~/components/Modal/Auth/Social/Social.vue'))
-    useModal().open(component, null, null, {width: {
-      min: 420, max: 420
-    }})
+    useModal().open(component, null, null)
   }
 }
 </script>
@@ -46,7 +44,7 @@ const showAuthHandler = () => {
         </div>
         <p class="banner-desc">{{ t('ancientWisdom') }}</p>
         <div class="banner-btns">
-          <a href="/catalog" class="button primary banner-btn">{{ t('shopNow') }}</a>
+          <a href="/catalog" class="button promo banner-btn">{{ t('shopNow') }}</a>
           <button @click="showAuthHandler" class="banner-btn-text">{{ t('joinCommunity') }}</button>
         </div>
       </div>

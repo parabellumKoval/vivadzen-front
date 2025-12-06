@@ -5,8 +5,10 @@ const {loadCatalog, setFiltersAndCount, catalogQuery, setMode, loadMore} = useCa
 
 const isServer = process.server
 
-const {t} = useI18n()
+const {t, locale} = useI18n()
 const route = useRoute()
+const {region} = useRegion()
+const categoryStore = useCategoryStore()
 
 // Attributes
 const breadcrumbs = ref([])
@@ -15,6 +17,33 @@ const breadcrumbs = ref([])
 const slug = computed(() => {
   return route.path.substring(route.path.lastIndexOf('/') + 1) || null 
 })
+
+const catalogCategories = computed(() => categoryStore.list || [])
+
+const findCategoryInTree = (nodes, targetSlug, parent = null) => {
+  if (!Array.isArray(nodes) || !targetSlug) {
+    return null
+  }
+
+  for (const node of nodes) {
+    if (!node) {
+      continue
+    }
+
+    if (node.slug === targetSlug) {
+      return {node, parent}
+    }
+
+    if (Array.isArray(node.children) && node.children.length) {
+      const found = findCategoryInTree(node.children, targetSlug, node)
+      if (found) {
+        return found
+      }
+    }
+  }
+
+  return null
+}
 
 
 // METHODS
@@ -63,12 +92,12 @@ const {
   pending: categoryPending,
   error: categoryError,
 } = await useAsyncData(
-  'category-' + slug.value,
+  'category-' + slug.value + '-' + region.value + '-' + locale.value,
   async () => {
-    const response = await useCategoryStore().showCached(slug.value)
+    const response = await categoryStore.showCached(slug.value)
     const data = response.data
 
-    // console.log('useAsyncData Category data:', data)
+    console.log('category-' + slug.value + '-' + region.value + '-' + locale.value, data)
 
     if (data) {
       return data
@@ -81,6 +110,49 @@ const {
     server: true,
   }
 )
+
+const displayCategories = computed(() => {
+  const currentCategory = category.value?.category
+  const directChildren = Array.isArray(currentCategory?.children) ? currentCategory.children : []
+  if (directChildren.length) {
+    return directChildren
+  }
+
+  const allCategories = catalogCategories.value
+  if (!allCategories?.length) {
+    return []
+  }
+
+  const lookupSlug = currentCategory?.slug || slug.value
+  const found = lookupSlug ? findCategoryInTree(allCategories, lookupSlug) : null
+
+  if (Array.isArray(found?.node?.children) && found.node.children.length) {
+    return found.node.children
+  }
+
+  if (Array.isArray(found?.parent?.children) && found.parent.children.length) {
+    return found.parent.children
+  }
+
+  return allCategories
+})
+
+const categoriesBackLink = computed(() => {
+  const currentSlug = category.value?.category?.slug || slug.value
+  if (!currentSlug || currentSlug === 'catalog') {
+    return null
+  }
+
+  const allCategories = catalogCategories.value
+  if (allCategories?.length) {
+    const found = findCategoryInTree(allCategories, currentSlug)
+    if (found?.parent?.slug) {
+      return `/${found.parent.slug}`
+    }
+  }
+
+  return '/catalog'
+})
 
 const currentPageNumber = computed(() => {
   const metaPage = catalog.value?.products?.meta?.current_page ?? 1;
@@ -107,28 +179,43 @@ const setSeo = (v) => {
   })
 }
 
-const setCrumbs = (v) => {
-  breadcrumbs.value = []
-  let cat = v
-
-  // categories tree
-  while(cat) {
-    breadcrumbs.value.unshift({
-      name: cat?.name,
-      item: `/${cat?.slug}`     
-    })
-
-    cat = cat.parent
+const extractCategoryTrail = (category) => {
+  if (!category) {
+    return []
   }
 
-  breadcrumbs.value.unshift({
-    name: t('title.home'),
-    item: '/'
-  })
-    
+  if (Array.isArray(category.parent) && category.parent.length) {
+    return [...category.parent]
+      .reverse()
+      .map((node) => ({
+        name: node?.name || '',
+        slug: node?.slug || ''
+      }))
+      .filter((node) => node.slug)
+  }
+}
+
+const setCrumbs = (v) => {
+  const categoryTrail = (extractCategoryTrail(v) || []).map((node) => ({
+    name: node.name,
+    item: `/${node.slug}`
+  }))
+
+  breadcrumbs.value = [
+    {
+      name: t('title.home'),
+      item: '/'
+    },
+    {
+      name: t('title.catalog'),
+      item: '/catalog'
+    },
+    ...categoryTrail
+  ]
 }
 
 watch(() => category.value?.category, (v) => {
+  console.log('category changed:', v)
   if(v) {
     setCrumbs(v)
     setSeo(v)
@@ -171,8 +258,14 @@ setMode('INITIAL')
       {{ title }}
     </template>
 
-    <template #header>
-      <lazy-catalog-categories v-if="category?.category?.children?.length" :categories="category.category.children" class="full-container"></lazy-catalog-categories>
+    <template #header="{ stuck }">
+      <lazy-catalog-categories
+        v-if="displayCategories.length"
+        :categories="displayCategories"
+        :stuck="stuck"
+        :back-link="categoriesBackLink"
+        class="full-container"
+      ></lazy-catalog-categories>
     </template>
     
     <template v-if="!categoryPending" #footer>

@@ -3,9 +3,9 @@ const props = defineProps({
   item: {
     type: Object
   },
-  type: {
-    type: String,
-    default: 'mini'
+  hideReplies: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -19,7 +19,6 @@ const props = defineProps({
       <product-card-micro :item="item.product"></product-card-micro>
     </div>
     <div class="devide"></div>
-    <review-card-mini v-if="type === 'mini'" :item="item" class="review-mini"></review-card-mini>
-    <review-card-full v-else-if="type === 'full'" :item="item" class="review-mini"></review-card-full>
+    <review-card-full :item="item" :hide-replies="hideReplies" class="review-mini"></review-card-full>
   </div>
 </template>

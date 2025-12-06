@@ -9,9 +9,7 @@ const showAuthHandler = () => {
     navigateTo($regionPath('/account/network/common'))
   } else {
     const component = defineAsyncComponent(() => import('~/components/Modal/Auth/Social/Social.vue'))
-    useModal().open(component, null, null, {width: {
-      min: 420, max: 420
-    }})
+    useModal().open(component, null, null)
   }
 }
 </script>
@@ -21,7 +19,7 @@ const showAuthHandler = () => {
 
 <template>
   <div>
-    <button v-if="isAuthenticated && user" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
+    <button v-if="isAuthenticated && user" @click="showAuthHandler" type="button" class="header-btn" clickable>
       <ClientOnly>
         <nuxt-img
           :src="avatar"
@@ -36,9 +34,11 @@ const showAuthHandler = () => {
         />
       </ClientOnly>
     </button>
-
     <button v-if="!isAuthenticated" @click="showAuthHandler" class="header-btn profile-btn" type="button" clickable>
-      <IconCSS name="mynaui:user" size="34px" class="icon"></IconCSS>
+      <div class="profile-btn-content">
+        <!-- <IconCSS name="mynaui:user" class="icon"></IconCSS> -->
+        <IconCSS name="ci:user-02" class="icon"></IconCSS>
+      </div>
     </button>
   </div>
 </template>

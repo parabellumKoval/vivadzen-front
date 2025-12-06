@@ -39,8 +39,8 @@
     top: 50%;
     left: 15px;
     transform: translateY(-50%);
-    z-index: 3;
-    color: $color-3;
+    z-index: 1000;
+    color: $color-1;
   }
   &-input {
     position: relative;
@@ -51,6 +51,7 @@
     padding: 0 15px 0 45px;
     border-radius: $radius;
     z-index: 2;
+    font-size: 16px;
     &::placeholder {
       color: $color-3;
     }

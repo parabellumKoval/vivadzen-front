@@ -21,6 +21,9 @@ title:
   sales: Акции
   news: Новости
   reviews: Отзывы
+  vivapoints: VivaPoints
+  vivapoints_and_rewards: VivaPoints и вознаграждения
+  affiliate_system: Партнерская программа
   agreement: Договор публичной оферты
   returns: Условия возврата товара
   checkout_payment: Оплата заказа
@@ -29,6 +32,7 @@ title:
   checkout_complete_failed: Ошибка при оформлении заказа
   policy: Политика конфиденциальности
   terms: Пользовательское соглашение
+  certificates: Сертификаты
   remove_userdata: Удаления пользовательских данных
   withdrawal:  Вывод средств
   account: 
@@ -81,6 +85,7 @@ label:
   our_address: Наш адрес
   product_code: Код товара
   contact_phones: Контактные телефоны
+  address: Наш адрес
   our_socials: Наши соц.сети
   sub_title: Подписывайтесь на скидки!
   sub_desc: Рассылаем подписчикам промокоды и бонусы каждую неделю.
@@ -103,6 +108,7 @@ messages:
   products_found: Найдено {amount} товаров
   no_results: Нет результатов
   empty_cart: В корзине нет товаров
+  cart_item_unavailable: Товар недоступен в вашем регионе
   leave_review: Оставить отзыв
   delivery_price: Стоимость доставки
   delivery_vendor_price: По тарифам перевозчика
@@ -119,6 +125,8 @@ messages:
   personal_discount: Персональная скидка
   chose_delivery_country: Выберите страну доставки
   chose_delivery: Выберите способ доставки, чтобы увидеть доступные способы оплаты
+  select_region_delivery_notice: Чтобы увидеть все доступные способы доставки и подробную информацию, сначала выберите страну доставки
+  select_region_payment_notice: Чтобы увидеть все доступные способы оплаты и подробную информацию, сначала выберите страну доставки
 
 button:
   collapse: Свернуть
@@ -403,3 +411,59 @@ wallet:
   withdrawal_request: Запрос на вывод
   order: Заказ
   no_details_available: Детали недоступны
+  type_labels:
+    credit: Пополнение
+    debit: Списание
+    hold: Блокировка
+    capture: Подтверждение
+    release: Разблокировка
+  operations:
+    credit:
+      referral_reward: Вознаграждение по реферальной программе
+      review_reward: Вознаграждение за отзыв
+      order_reward: Вознаграждение за заказ
+      bonus: Бонусное начисление
+      refund: Возврат средств
+      default: Пополнение счета
+    debit:
+      withdrawal: Вывод средств
+      order: Оплата заказа
+      fee: Комиссия
+      default: Списание со счета
+    hold:
+      withdrawal: Блокировка средств для вывода
+      order: Блокировка средств для заказа
+      default: Блокировка средств
+    capture:
+      withdrawal: Подтверждение вывода средств
+      order: Подтверждение оплаты заказа
+      default: Подтверждение операции
+    release:
+      withdrawal: Разблокировка средств (отмена вывода)
+      order: Разблокировка средств (отмена заказа)
+      default: Разблокировка средств
+  triggers:
+    review_published: Опубликованный отзыв
+    store_order_paid: Оплаченный заказ
+    referral_signup: Регистрация реферала
+    referral_purchase: Покупка реферала
+    unknown: Другое событие
+
+affiliate:
+  defaults:
+    ttl: '30 дней'
+  cta:
+    register_button: 'Зарегистрироваться'
+    register_prompt: 'Зарегистрируйтесь'
+  account:
+    label: 'Личный Кабинет'
+  form:
+    code_placeholder: 'ВАШ_КОД'
+  withdrawal:
+    rules_label: 'Бонусная система и Вывод средств'
+  link:
+    regular_label: 'Обычная ссылка'
+    referral_label: 'Партнерская ссылка'
+  media:
+    link_preview_alt: 'Превью партнерской ссылки'
+    ttl_image_alt: 'Иллюстрация правила первого клика'

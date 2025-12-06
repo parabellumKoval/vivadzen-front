@@ -1,0 +1,19 @@
+title: "Consigue Viva puntos por una reseña valiosa"
+items:
+  - type: cta
+    text: "Deja una reseña sobre un producto o la tienda y gana Viva puntos en Vivadzen.com"
+  - type: text
+    text: "Abre la página del producto que quieres reseñar y elige el formato — texto o vídeo"
+  - type: text
+    text: "También puedes publicar aquí mismo una reseña en texto o vídeo sobre la tienda en general"
+  - type: text
+    text: "Para recibir la recompensa por una reseña en texto, añade un enlace a tu perfil en redes sociales"
+  - type: highlight
+    before: "Tras la moderación la reseña aparece en Vivadzen,"
+    highlight: "el bono llega al instante a tu saldo Viva"
+    after: " — úsalo para pagar un pedido o retirarlo a tu tarjeta"
+  - type: manual
+    text: "sobre el programa de bonificaciones de Vivadzen."
+    button:
+      label: "Más información"
+      link: "/vivapoints"

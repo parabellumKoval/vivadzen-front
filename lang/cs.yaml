@@ -21,6 +21,9 @@ title:
   sales: Akce
   news: Novinky
   reviews: Recenze
+  vivapoints: VivaPoints
+  vivapoints_and_rewards: VivaPoints a odměny
+  affiliate_system: Partnerský program
   agreement: Smlouva veřejné nabídky
   returns: Podmínky vrácení zboží
   checkout_payment: Platba objednávky
@@ -29,6 +32,7 @@ title:
   checkout_complete_failed: Chyba při vytváření objednávky
   policy: Zásady ochrany osobních údajů
   terms: Podmínky použití
+  certificates: Certifikáty
   remove_userdata: Smazání uživatelských údajů
   withdrawal: Výběr
   account:
@@ -101,6 +105,7 @@ messages:
   products_found: Nalezeno {amount} produktů
   no_results: Žádné výsledky
   empty_cart: Košík je prázdný
+  cart_item_unavailable: Produkt není ve vašem regionu dostupný
   leave_review: Zanechat recenzi
   delivery_price: Cena dopravy
   delivery_vendor_price: Dle tarifů dopravce
@@ -117,6 +122,8 @@ messages:
   personal_discount: Osobní sleva
   chose_delivery_country: Vyberte zemi doručení
   chose_delivery: Zvolte způsob doručení pro zobrazení dostupných platebních metod
+  select_region_delivery_notice: Abyste viděli všechny dostupné způsoby doručení a podrobné informace, nejprve vyberte zemi doručení
+  select_region_payment_notice: Abyste viděli všechny dostupné platební metody a podrobné informace, nejprve vyberte zemi doručení
 
 button:
   collapse: Sbalit
@@ -400,3 +407,59 @@ wallet:
   withdrawal_request: Žádost o výběr
   order: Objednávka
   no_details_available: Podrobnosti nejsou k dispozici
+  type_labels:
+    credit: Připsání
+    debit: Odepsání
+    hold: Blokace
+    capture: Potvrzení
+    release: Odblokování
+  operations:
+    credit:
+      referral_reward: Odměna za partnerský program
+      review_reward: Odměna za recenzi
+      order_reward: Odměna za objednávku
+      bonus: Bonusní připsání
+      refund: Vrácení peněz
+      default: Dobití účtu
+    debit:
+      withdrawal: Výběr prostředků
+      order: Platba objednávky
+      fee: Poplatek
+      default: Odepsání z účtu
+    hold:
+      withdrawal: Blokace na výběr
+      order: Blokace na objednávku
+      default: Blokace prostředků
+    capture:
+      withdrawal: Potvrzení výběru
+      order: Potvrzení platby objednávky
+      default: Potvrzení operace
+    release:
+      withdrawal: Odblokování výběru
+      order: Odblokování objednávky
+      default: Odblokování prostředků
+  triggers:
+    review_published: Zveřejněná recenze
+    store_order_paid: Zaplacená objednávka
+    referral_signup: Registrace doporučení
+    referral_purchase: Nákup doporučeného
+    unknown: Jiná událost
+
+affiliate:
+  defaults:
+    ttl: '30 dní'
+  cta:
+    register_button: 'Registrovat se'
+    register_prompt: 'Zaregistrujte se'
+  account:
+    label: 'Osobní účet'
+  form:
+    code_placeholder: 'VÁŠ_KÓD'
+  withdrawal:
+    rules_label: 'Bonusový systém a výběry'
+  link:
+    regular_label: 'Běžný odkaz'
+    referral_label: 'Partnerský odkaz'
+  media:
+    link_preview_alt: 'Náhled partnerského odkazu'
+    ttl_image_alt: 'Ilustrace pravidla prvního kliknutí'

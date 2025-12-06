@@ -1,6 +1,8 @@
 import {useReferralBridge} from '~/modules/auth-bridge/runtime/composables/useReferralBridge'
 import {useRegion} from '~/modules/regions/runtime/composables/useRegion'
 
+let logoutInProgress = false
+
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig()
   const token = useCookie<string | null>('auth_token', {
@@ -46,9 +48,13 @@ export default defineNuxtPlugin((nuxtApp) => {
       options.headers = h
     },
     onResponseError({ response }) {
-      if (response.status === 401) {
+      if (response.status === 401 && token.value && !logoutInProgress) {
         const { logout } = useAuth()
+        logoutInProgress = true
         logout() // централизованный выход
+          .finally(() => {
+            logoutInProgress = false
+          })
       }
     },
   })

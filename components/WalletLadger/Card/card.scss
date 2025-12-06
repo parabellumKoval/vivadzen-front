@@ -73,3 +73,9 @@
     }
   }
 }
+
+.date-column {
+  :deep(.value) {
+    font-size: 0.8rem;
+  }
+}

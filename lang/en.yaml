@@ -21,6 +21,9 @@ title:
   sales: Promotions
   news: News
   reviews: Reviews
+  vivapoints: VivaPoints
+  vivapoints_and_rewards: VivaPoints and rewards
+  affiliate_system: Affiliate program
   agreement: Public offer agreement
   returns: Return policy
   checkout_payment: Order payment
@@ -29,6 +32,7 @@ title:
   checkout_complete_failed: Error while placing the order
   policy: Privacy policy
   terms: Terms of use
+  certificates: Certificates
   remove_userdata: Deleting user data
   withdrawal: Withdrawal
   account:
@@ -101,6 +105,7 @@ messages:
   products_found: Found {amount} products
   no_results: No results
   empty_cart: Your cart is empty
+  cart_item_unavailable: Product unavailable in your region
   leave_review: Leave a review
   delivery_price: Delivery cost
   delivery_vendor_price: According to the carrier rates
@@ -117,6 +122,8 @@ messages:
   personal_discount: Personal discount
   chose_delivery_country: Select a delivery country
   chose_delivery: Choose a delivery method to see available payment methods
+  select_region_delivery_notice: To view every available delivery option and read the details, please select your delivery country first
+  select_region_payment_notice: To view every available payment option and read the details, please select your delivery country first
 
 button:
   collapse: Collapse
@@ -400,3 +407,59 @@ wallet:
   withdrawal_request: Withdrawal Request
   order: Order
   no_details_available: No details available
+  type_labels:
+    credit: Credit
+    debit: Debit
+    hold: Hold
+    capture: Capture
+    release: Release
+  operations:
+    credit:
+      referral_reward: Referral program reward
+      review_reward: Review reward
+      order_reward: Order reward
+      bonus: Bonus credit
+      refund: Refund
+      default: Account top-up
+    debit:
+      withdrawal: Withdrawal
+      order: Order payment
+      fee: Service fee
+      default: Debit
+    hold:
+      withdrawal: Withdrawal hold
+      order: Order hold
+      default: Funds hold
+    capture:
+      withdrawal: Withdrawal confirmation
+      order: Order confirmation
+      default: Operation confirmation
+    release:
+      withdrawal: Withdrawal release
+      order: Order release
+      default: Funds release
+  triggers:
+    review_published: Published review
+    store_order_paid: Paid store order
+    referral_signup: Referral registration
+    referral_purchase: Referral purchase
+    unknown: Other event
+
+affiliate:
+  defaults:
+    ttl: '30 days'
+  cta:
+    register_button: 'Sign up'
+    register_prompt: 'Sign up'
+  account:
+    label: 'Account'
+  form:
+    code_placeholder: 'YOUR_CODE'
+  withdrawal:
+    rules_label: 'Bonus system and withdrawals'
+  link:
+    regular_label: 'Regular link'
+    referral_label: 'Referral link'
+  media:
+    link_preview_alt: 'Affiliate link preview'
+    ttl_image_alt: 'TTL rule illustration'

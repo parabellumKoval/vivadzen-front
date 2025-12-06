@@ -1,6 +1,23 @@
 <script setup>
-const {t} = useI18n()
+import { useCategoryStore } from '~/store/category'
 
+const {t, locale} = useI18n()
+const { region } = useRegion()
+const categoryStore = useCategoryStore()
+
+await useAsyncData('main-categories-sidebar-'+locale.value+'-'+region.value, () =>
+  categoryStore.listMainCached()
+)
+
+const categories = computed(() => categoryStore.mainList)
+
+const { data: mobileArticlesData } = await useAsyncData('homepage-main-articles-mobile-'+locale.value+'-'+region.value, () =>
+  useFetcherData('homepage-main-articles')
+)
+
+const mobileArticles = computed(() => {
+  return mobileArticlesData.value?.data || {}
+})
 
 const slidersQuery = computed(() => {
   return {}
@@ -26,7 +43,9 @@ setSeo()
 
 <template>
   <DelayHydration>
-    <section-banner></section-banner>
+    <Transition name="block-from-top" appear>
+      <section-banner></section-banner>
+    </Transition>
 
     <section-category></section-category>
 
@@ -42,19 +61,29 @@ setSeo()
       <lazy-section-referral></lazy-section-referral>
     </div>
 
-    <div class="container home-section-margin">
+    <div class="container home-section-margin home-section-margin--viva">
       <lazy-section-viva></lazy-section-viva>
     </div>
+    <!-- <div class="home-section-viva">
+      <lazy-section-viva></lazy-section-viva>
+    </div> -->
 
     <!-- <div class="container">
       <section-review></section-review>
       <lazy-section-adv></lazy-section-adv>
     </div> -->
     
-    <div class="container">
+    <!-- <div class="container">
       <lazy-section-article></lazy-section-article>
+    </div> -->
+
+    <div v-if="$device.isMobile" class="home-section-margin">
+      <SectionAboutSidebar
+        :categories="categories"
+        :articles-by-tag="mobileArticles"
+        :guidebooks-link="$regionPath('/blog')"
+      />
     </div>
-    
 
     <!-- <div class="container">
       <section-seo></section-seo>

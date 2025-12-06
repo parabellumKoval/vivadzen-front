@@ -1,0 +1,105 @@
+.sidebar {
+  display: grid;
+  grid-template-rows: min-content min-content 1fr min-content;
+  gap: 20px;
+  height: 88vh;
+  width: calc(100vw - 30px);
+  border-radius: 50px;
+  background: rgba(255, 219, 169, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 3;
+  padding: 40px;
+  margin: 30px 15px;
+  line-height: normal;
+
+  @include desktop {
+    position: absolute;
+    top: 0;
+    right: 35px;
+    height: 100%;
+    width: var(--sidebar-width, 400px);
+    margin: 0;
+    padding: 40px;
+    gap: 30px;
+  }
+
+  @include ld {
+    right: calc((100vw - var(--container-width, 2160px) + var(--container-padding, 70px)) / 2);
+  }
+
+  &-title {
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 100%;
+  }
+
+  &-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin: 0 -40px;
+    padding: 0 40px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include desktop {
+      gap: 12px;
+    }
+  }
+
+  &-tab {
+    flex: 0 0 auto;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+
+    &.is-active {
+      background: $color-1;
+      color: #fff;
+      border-color: transparent;
+    }
+  }
+
+  &-content {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    gap: 10px;
+    height: 100%;
+    overflow: hidden;
+    transform: translateY(-5px);
+
+    &-label {
+      color: $color-3;
+    }
+  }
+
+  &-articles {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: min-content;
+    gap: 15px;
+    height: 100%;
+
+    &-wrapper {
+      height: 100%;
+      overflow-y: auto;
+      @include scrollbar;
+
+    }
+  }
+
+  &-btn {
+    width: 100%;
+  }
+}

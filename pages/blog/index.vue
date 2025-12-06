@@ -2,6 +2,8 @@
 import {useArticleStore} from '~/store/article'
 
 const {t} = useI18n()
+const { locale } = useI18n()
+const { region } = useRegion()
 
 const breadcrumbs = [
   {
@@ -55,7 +57,9 @@ const loadmoreHandler = async () => {
 }
 
 // WATCHERS
-await useAsyncData('get-articles', () => useArticleStore().index({per_page: 12})).then(({data, error}) => {
+await useAsyncData('get-articles-'+locale.value+'-'+region.value, () => useArticleStore().index({per_page: 12})).then(({data, error}) => {
+  console.log('data AR', data.value)
+  console.log('error AR', error.value)
   if(data.value) {
     articles.value = data.value.data
     articlesMeta.value = data.value.meta
@@ -77,9 +81,10 @@ setSeo()
 
       <div class="title-common">{{ t('title.blog') }}</div>
 
-      <div v-if="articles" class="articles-wrapper">
+      <div v-if="articles?.length" class="articles-wrapper">
         <article-card v-for="(article, index) in articles" :key="article.id" :index="index" :item="article"></article-card>
       </div>
+      <div v-else class="no-articles">{{ t('messages.no_results') }}</div>
 
       <div v-if="articlesMeta && articlesMeta.current_page !== articlesMeta.last_page" @click="loadmoreHandler" class="load-more-wrapper">
         <button :class="{loading: isLoading}" class="button secondary can-loading">

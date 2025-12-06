@@ -1,6 +1,101 @@
-ru:
+en:
   title: Your [[--AFFILIATE--]] link
   desc: For Viva Points mining
   level1: Level [[--one--]] – [[--{percent}%--]]
   level2: Level [[--two--]] – [[--{percent}%--]]
   level3: Level [[--three--]] – [[--{percent}%--]]
+  share_title: Share a link to this page
+  share_desc: to receive awards
+  earn_subtitle: Earn money from every purchase in your affiliate network forever
+  benefit_1: 💰 Get paid for every sale made through your link
+  benefit_2: 📈 Track your earnings in real-time
+  benefit_3: 💳 Receive monthly payouts directly to your account
+  tier_system_subtitle: Create a three-tier system
+  affiliate_link_subtitle: Affiliate link to this page
+  copy_button: Copy your referral link
+  copy_noty: Affiliate link copied to clipboard
+
+ru:
+  title: Ваша [[--ПАРТНЕРСКАЯ--]] ссылка
+  desc: Для майнинга Viva Points
+  level1: Уровень [[--один--]] – [[--{percent}%--]]
+  level2: Уровень [[--два--]] – [[--{percent}%--]]
+  level3: Уровень [[--три--]] – [[--{percent}%--]]
+  share_title: Поделитесь ссылкой на эту страницу
+  share_desc: чтобы получить награды
+  earn_subtitle: Зарабатывайте с каждой покупки в вашей партнерской сети навсегда
+  benefit_1: 💰 Получайте оплату за каждую продажу по вашей ссылке
+  benefit_2: 📈 Отслеживайте свои доходы в реальном времени
+  benefit_3: 💳 Получайте ежемесячные выплаты прямо на ваш счет
+  tier_system_subtitle: Создайте трехуровневую систему
+  affiliate_link_subtitle: Партнерская ссылка на эту страницу
+  copy_button: Скопировать вашу реферальную ссылку
+  copy_noty: Партнерская ссылка скопирована
+
+uk:
+  title: Ваше [[--ПАРТНЕРСЬКЕ--]] посилання
+  desc: Для майнінгу Viva Points
+  level1: Рівень [[--один--]] – [[--{percent}%--]]
+  level2: Рівень [[--два--]] – [[--{percent}%--]]
+  level3: Рівень [[--три--]] – [[--{percent}%--]]
+  share_title: Поділіться посиланням на цю сторінку
+  share_desc: щоб отримати нагороди
+  earn_subtitle: Заробляйте з кожної покупки у вашій партнерській мережі назавжди
+  benefit_1: 💰 Отримуйте оплату за кожен продаж за вашим посиланням
+  benefit_2: 📈 Відстежуйте свої доходи в реальному часі
+  benefit_3: 💳 Отримуйте щомісячні виплати прямо на ваш рахунок
+  tier_system_subtitle: Створіть трирівневу систему
+  affiliate_link_subtitle: Партнерське посилання на цю сторінку
+  copy_button: Скопіювати ваше реферальне посилання
+  copy_noty: Партнерське посилання скопійовано
+
+es:
+  title: Tu enlace de [[--AFILIADO--]]
+  desc: Para minería de Viva Points
+  level1: Nivel [[--uno--]] – [[--{percent}%--]]
+  level2: Nivel [[--dos--]] – [[--{percent}%--]]
+  level3: Nivel [[--tres--]] – [[--{percent}%--]]
+  share_title: Comparte un enlace a esta página
+  share_desc: para recibir recompensas
+  earn_subtitle: Gana dinero de cada compra en tu red de afiliados para siempre
+  benefit_1: 💰 Recibe pagos por cada venta realizada a través de tu enlace
+  benefit_2: 📈 Rastrea tus ganancias en tiempo real
+  benefit_3: 💳 Recibe pagos mensuales directamente en tu cuenta
+  tier_system_subtitle: Crea un sistema de tres niveles
+  affiliate_link_subtitle: Enlace de afiliado a esta página
+  copy_button: Copiar tu enlace de referencia
+  copy_noty: Enlace de afiliado copiado
+
+de:
+  title: Dein [[--PARTNER--]]-Link
+  desc: Für Viva Points Mining
+  level1: Level [[--eins--]] – [[--{percent}%--]]
+  level2: Level [[--zwei--]] – [[--{percent}%--]]
+  level3: Level [[--drei--]] – [[--{percent}%--]]
+  share_title: Teile einen Link zu dieser Seite
+  share_desc: um Belohnungen zu erhalten
+  earn_subtitle: Verdiene für immer Geld an jedem Kauf in deinem Partnernetzwerk
+  benefit_1: 💰 Werde für jeden Verkauf über deinen Link bezahlt
+  benefit_2: 📈 Verfolge deine Einnahmen in Echtzeit
+  benefit_3: 💳 Erhalte monatliche Auszahlungen direkt auf dein Konto
+  tier_system_subtitle: Erstelle ein dreistufiges System
+  affiliate_link_subtitle: Partnerlink zu dieser Seite
+  copy_button: Kopiere deinen Empfehlungslink
+  copy_noty: Affiliate-Link wurde kopiert
+
+cs:
+  title: Váš [[--PARTNERSKÝ--]] odkaz
+  desc: Pro těžbu Viva Points
+  level1: Úroveň [[--jedna--]] – [[--{percent}%--]]
+  level2: Úroveň [[--dvě--]] – [[--{percent}%--]]
+  level3: Úroveň [[--tři--]] – [[--{percent}%--]]
+  share_title: Sdílejte odkaz na tuto stránku
+  share_desc: pro získání odměn
+  earn_subtitle: Vydělávejte peníze z každého nákupu ve vaší partnerské síti navždy
+  benefit_1: 💰 Získejte zaplaceno za každý prodej uskutečněný přes váš odkaz
+  benefit_2: 📈 Sledujte své výdělky v reálném čase
+  benefit_3: 💳 Dostávejte měsíční výplaty přímo na váš účet
+  tier_system_subtitle: Vytvořte tříúrovňový systém
+  affiliate_link_subtitle: Partnerský odkaz na tuto stránku
+  copy_button: Zkopírovat váš doporučující odkaz
+  copy_noty: Partnerský odkaz byl zkopírován

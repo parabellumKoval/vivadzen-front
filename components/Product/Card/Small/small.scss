@@ -42,8 +42,10 @@
     -webkit-box-orient: vertical;
     font-size: 12px;
     line-height: 140%;
+    text-transform: uppercase;
+    font-weight: 700;
     @include desktop {
-      font-size: 16px;
+      font-size: 14px;
       -webkit-line-clamp: 2;
     }
   }

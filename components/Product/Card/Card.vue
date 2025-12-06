@@ -17,6 +17,7 @@ const {isComparison, toComparisonHandler} = useComparison(props.item.id)
 const {isFavorite, toFavoriteHandler} = useFavorite(props.item.id)
 const {photos, stock, label} = useCard(props.item)
 const {toCartHandler} = useCart(props.item)
+const {ensureRegionSelected} = useRegionPurchaseGuard()
 
 
 // Inject
@@ -64,8 +65,16 @@ const setGoogleEventHandler = () => {
 }
 
 const openChoseModificationModalHandler = (event) => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Modification/Modification.vue'))
-  useModal().open(component, props.item, null)
+  ensureRegionSelected(() => {
+    const component = defineAsyncComponent(() => import('~/components/Modal/Modification/Modification.vue'))
+    useModal().open(component, props.item, null)
+  })
+}
+
+const addToCartHandler = () => {
+  ensureRegionSelected(() => {
+    toCartHandler(1)
+  })
 }
 </script>
 
@@ -126,16 +135,11 @@ const openChoseModificationModalHandler = (event) => {
       ></nuxt-img>
     </NuxtLink>
     
-    <div  v-if="reviewsCount" class="reviews">
-      <lazy-simple-stars v-if="item?.rating" :amount="item.rating" class="rating"></lazy-simple-stars>
-      
-      <button v-if="reviewsCount" @click="toReviewsHandler" class="reviews-btn">
-        {{ t('label.reviews', {reviews: reviewsCount}, reviewsCount) }}
-      </button>
-      <button v-else @click="toReviewsHandler" class="reviews-btn">
-        <IconCSS name="iconoir:message" size="16"></IconCSS>
-        {{ t('button.leave_review') }}
-      </button>
+    <div class="reviews">
+      <lazy-simple-stars  :amount="item.rating" class="rating"></lazy-simple-stars>
+      <div v-if="reviewsCount > 0" class="reviews-count">
+        ({{ t('label.reviews', {reviews: reviewsCount}) }})
+      </div>
     </div>
 
     <div class="name-wrapper">
@@ -153,11 +157,11 @@ const openChoseModificationModalHandler = (event) => {
     <lazy-product-available :in-stock="item.inStock" class="amount"></lazy-product-available>
 
     <div class="sale">
-      <lazy-product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency"></lazy-product-price>
+      <lazy-product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency" ></lazy-product-price>
       <button v-if="hasModifications" @click="openChoseModificationModalHandler" type="button" class="button primary small buy-btn">
         <IconCSS name="mynaui:plus-solid" class="buy-btn-icon"></IconCSS>
       </button>
-      <button v-else @click="() => toCartHandler(1)" type="button" class="button primary small buy-btn">
+      <button v-else @click="addToCartHandler" type="button" class="button primary small buy-btn">
         <IconCSS name="mynaui:cart" class="buy-btn-icon"></IconCSS>
       </button>
     </div>

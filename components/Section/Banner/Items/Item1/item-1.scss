@@ -4,6 +4,12 @@
   justify-content: center;
   height: 100%;
   background: $color-bg-2;
+  border-radius: 50px;
+  margin: 0 15px;
+
+  @include desktop {
+    margin: 0;
+  }
 
   &-media {
     &-img {
@@ -23,8 +29,12 @@
     @include desktop {
       grid-template-columns: 1fr 1.3fr;
       grid-template-rows: initial;
-      gap:200px;
+      gap:80px;
       max-width: 1600px;
+    }
+
+    @include ld {
+      gap:200px;
     }
   }
 
@@ -32,8 +42,9 @@
     display: grid;
     grid-auto-flow: row;
     gap: 20px;
-    padding: 0 40px 0 40px;
+    padding: 0 30px;
     text-align: center;
+    transform: translateY(30px);
 
     @include desktop {
       gap: 50px;
@@ -44,7 +55,11 @@
   &-title {
     font-weight: 900;
     color: $color-primary;
-    line-height: 110%;
+    line-height: 100%;
+
+    @include desktop {
+      line-height: 110%;
+    }
 
     &-1 {
       // font-size: 60px;
@@ -65,7 +80,11 @@
 
     &-1,
     &-2 {
+      font-size: 0.9em;
       @include desktop {
+        font-size: 1.5em;
+      }
+      @include ld {
         font-size: 2em;
       }
     }
@@ -93,19 +112,29 @@
     }
   }
 
-  &-btn-text {
-    justify-self: center;
-    height: min-content;
-    padding: 4px 0;
-    text-transform: uppercase;
-    font-weight: 600;
-    white-space: nowrap;
-    border-bottom: 2px solid;
-    width: min-content;
-
+  &-btn {
+    max-width: 300px;
+    margin: 0 auto;
 
     @include desktop {
-      justify-self: initial;
+      max-width: initial;
+    }
+    &-text {
+      justify-self: center;
+      height: min-content;
+      padding: 4px 0;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 12px;
+      white-space: nowrap;
+      border-bottom: 2px solid;
+      width: min-content;
+
+
+      @include desktop {
+        justify-self: initial;
+        font-size: 16px;
+      }
     }
   }
 }

@@ -21,7 +21,7 @@ const props = defineProps({
     :to="$regionPath('/blog/' + item.slug)"
     class="article"
   >
-      <!-- <nuxt-img
+      <nuxt-img
         :src = "item.image?.src"
         :alt = "item.image?.alt || item.name"
         :title = "item.image?.title || item.name"
@@ -35,11 +35,13 @@ const props = defineProps({
         fit = "outside"
         :placeholder="useImg().noImage"
         class = "article-image"
-      /> -->
-    <div class="article-title">{{ item.title }}</div>
-    <div class="article-time">
-      <IconCSS name="iconoir:clock" class="icon"></IconCSS>
-      <span v-if="item.time" class="label">{{ parseFloat(item.time).toFixed(0) }} {{ t('label.min_read') }}</span>
-    </div>
+      />
+      <div class="article-content">
+        <div class="article-title">{{ item.title }}</div>
+        <div class="article-time">
+          <IconCSS name="iconoir:clock" class="icon"></IconCSS>
+          <span v-if="item.time" class="label">{{ parseFloat(item.time).toFixed(0) }} {{ t('label.min_read') }}</span>
+        </div>
+      </div>
   </NuxtLink>
 </template>

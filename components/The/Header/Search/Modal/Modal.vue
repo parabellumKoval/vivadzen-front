@@ -30,6 +30,10 @@ const history = computed(() => {
   return useSearchStore().getHistory
 })
 
+const isShow = computed(() => {
+  return isOpen.value && (products.value?.length || history.value?.length || searchInput.value.length)
+})
+
 // METHODS
 const search = async (search) => {
   timeout.value = null
@@ -86,10 +90,6 @@ const goSearchPageHandler = (val) => {
   navigateTo($regionPath('/search?q=' + query))
 }
 
-// const blurHandler  = () => {
-//   isOpen.value = false
-// }
-
 // WATCH
 watch(() => searchInput.value, (v) => {
   if(!v?.length) {
@@ -105,6 +105,53 @@ watch(() => searchInput.value, (v) => {
   deep: true,
   immediate: true
 })
+
+// Хранилище для сохранения текущей позиции прокрутки
+let scrollPosition = 0;
+
+const disableScroll = () => {
+  if (process.client) {
+    // 1. Сохраняем текущую позицию прокрутки
+    scrollPosition = window.pageYOffset;
+    
+    // 2. Добавляем класс, который "фиксирует" body
+    document.body.classList.add('modal-open-ios');
+    
+    // 3. Смещаем body вверх на сохраненную позицию, чтобы избежать "прыжка"
+    document.body.style.top = `-${scrollPosition}px`;
+  }
+};
+
+const enableScroll = () => {
+  if (process.client) {
+    // 1. Убираем фиксирующие стили
+    document.body.classList.remove('modal-open-ios');
+    document.body.style.top = '';
+    
+    // 2. Восстанавливаем сохраненную позицию прокрутки
+    window.scrollTo(0, scrollPosition);
+  }
+};
+
+
+watch(() => isOpen.value, (newVal) => {
+  if (newVal) {
+    disableScroll();
+  } else {
+    enableScroll();
+  }
+}, { immediate: true });
+
+onMounted(() => {
+  nextTick(() => {
+    simpleSearchRef.value?.setFocus()
+  })
+})
+
+onUnmounted(() => {
+  // На случай, если компонент будет удален, когда модалка открыта
+  enableScroll();
+});
 </script>
 
 <style src="./modal.scss" lang="scss" scoped />
@@ -124,7 +171,7 @@ watch(() => searchInput.value, (v) => {
       ref="simpleSearchRef"
     ></simple-search>
 
-    <div v-if="isOpen" class="livesearch">
+    <div v-if="isShow" class="livesearch">
 
       <transition name="fade-in">
         <div
@@ -204,6 +251,6 @@ watch(() => searchInput.value, (v) => {
       </div>
 
     </div>
-    <div v-if="isOpen" class="livesearch-bg" @click="closeHandler"></div>
+    <div class="livesearch-bg" @click="closeHandler"></div>
   </div>
 </template>

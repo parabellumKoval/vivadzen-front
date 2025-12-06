@@ -15,6 +15,7 @@ const {$regionPath} = useNuxtApp();
 
 const {photos, stock, label} = useCard(props.item)
 const {toCartHandler} = useCart(props.item)
+const {ensureRegionSelected} = useRegionPurchaseGuard()
 
 
 // COMPUTEDS
@@ -38,8 +39,16 @@ const reviewsCount = computed(() => {
 // HANDLERS
 
 const openChoseModificationModalHandler = (event) => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Modification/Modification.vue'))
-  useModal().open(component, props.item, null)
+  ensureRegionSelected(() => {
+    const component = defineAsyncComponent(() => import('~/components/Modal/Modification/Modification.vue'))
+    useModal().open(component, props.item, null)
+  })
+}
+
+const addToCartHandler = () => {
+  ensureRegionSelected(() => {
+    toCartHandler(1)
+  })
 }
 </script>
 
@@ -74,13 +83,7 @@ const openChoseModificationModalHandler = (event) => {
     </NuxtLink>
     
     <div class="reviews">
-      <lazy-simple-stars v-if="item?.rating" :amount="item.rating" class="rating"></lazy-simple-stars>
-      
-      <button v-if="reviewsCount" @click="toReviewsHandler" class="reviews-btn">
-        {{ t('label.reviews', {reviews: reviewsCount}, reviewsCount) }}
-      </button>
-      <button v-else class="reviews-btn">
-      </button>
+      <lazy-simple-stars :amount="item.rating" class="rating"></lazy-simple-stars>
     </div>
 
     <div class="name-wrapper">
@@ -100,7 +103,7 @@ const openChoseModificationModalHandler = (event) => {
       <button v-if="hasModifications" @click="openChoseModificationModalHandler" type="button" class="button primary small buy-btn">
         <IconCSS name="mynaui:plus-solid" class="buy-btn-icon"></IconCSS>
       </button>
-      <button v-else @click="() => toCartHandler(1)" type="button" class="button primary small buy-btn">
+      <button v-else @click="addToCartHandler" type="button" class="button primary small buy-btn">
         <IconCSS name="mynaui:cart" class="buy-btn-icon"></IconCSS>
       </button>
     </div>

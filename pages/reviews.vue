@@ -27,10 +27,10 @@ const tabs = computed(() => {
   return [
     {
       id: 1,
-      name: t('review_shop') + ` <span class="budge green">${amounts.value.shop || 0}</span>`
+      name: t('review_shop') + ` <span class="budge orange">${amounts.value.shop || 0}</span>`
     },{
       id: 2,
-      name: t('review_product') + ` <span class="budge green">${amounts.value.products || 0}</span>`
+      name: t('review_product') + ` <span class="budge orange">${amounts.value.products || 0}</span>`
     }
   ]
 })
@@ -42,14 +42,14 @@ const setAmountHandler = (v) => {
 
 const reviewHandler = () => {
   if(isAuthenticated.value) {
-    useModal().open(resolveComponent('ModalReviewCreate'), null, null, {width: {min: 420, max: 420}})
+    useModal().open(resolveComponent('ModalReviewCreate'), null, null)
   }else{
     useNoty().setNoty({
       content: t('noty.review.need_login'),
       type: 'warning'
     }, 7000)
     
-    useModal().open(resolveComponent('ModalAuthSocial'), null, null, {width: {min: 420, max: 420}})
+    useModal().open(resolveComponent('ModalAuthSocial'), null, null)
   }
 }
 
@@ -115,6 +115,8 @@ useSeo().setPageSeo(t('review_shop'))
               <span>{{ t('messages.leave_review') }}</span>
             </button>
           </div>
+
+          <review-reward class="review-form-reward" />
 
           <div class="info-wrapper">
             <review-bonus></review-bonus>

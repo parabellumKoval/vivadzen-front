@@ -14,7 +14,7 @@ items:
   qa4:
     id: 4
     q: ¿Cuándo recibiré mi pedido?
-    a: Los pedidos se envían con Nova Poshta a cargo del cliente, salvo que en la página del producto se indique lo contrario. La entrega suele tardar 2–3 días.
+    a: Los plazos dependen del transportista que elijas y se muestran junto a cada método disponible en la página.
   qa5:
     id: 5
     q: ¿Puede cambiar el costo total del pedido?
@@ -22,28 +22,20 @@ items:
   qa6:
     id: 6
     q: ¿Cómo puedo pagar el pedido?
-    a: Contra reembolso en una sucursal de Nova Poshta o pago sin efectivo a una tarjeta Visa/MasterCard o a la cuenta bancaria de la empresa.
+    a: Los métodos de pago aparecen automáticamente tras elegir la entrega y dependen de tu región activa.
   qa7:
     id: 7
     q: ¿Cómo devuelvo un producto que no me sirve o tiene defectos?
-    a: "<p>Según el artículo 9 de la Ley de Ucrania “Sobre la protección de los derechos del consumidor”, el cliente puede cambiar un producto en 14 días si no le conviene por color, talla, forma o no puede usarse según su propósito, siempre que no se haya utilizado y conserve su aspecto, propiedades, empaque de fábrica, sellos y comprobantes. Si en el momento del cambio no hay un producto idéntico, el cliente puede:</p>
-        <ul><li>comprar cualquier otro artículo en nuestra tienda;</li>
-            <li>recibir el reembolso del precio pagado;</li>
-            <li>cambiarlo por el mismo producto cuando vuelva a ingresar;</li>
-        </ul>
-        <p>En una devolución, se reembolsa el precio pagado el día de la compra.</p>"
+    a: "<p>Como consumidor en la UE puedes desistir de la compra en un plazo de 14 días desde la recepción del pedido según nuestra Política de Devoluciones. El producto debe estar sin usar, en su estado original y con el comprobante de compra. El derecho de desistimiento no se aplica a artículos personalizados, productos perecederos ni artículos sellados por motivos de higiene que hayan sido abiertos, además de otras excepciones mencionadas en la política.</p>
+        <p>Envíanos un aviso de desistimiento (por correo electrónico o mediante el formulario de contacto) y devuelve el paquete en un máximo de 14 días. Los gastos de devolución corren a cargo del cliente. Una vez recibamos la mercancía o una prueba de envío, reembolsamos todos los pagos (hasta el coste del método de envío más económico) en un plazo de 14 días utilizando el mismo método de pago.</p>"
   qa8:
     id: 8
     q: ¿Dónde y cómo puedo realizar un cambio o devolución?
-    a: "<p>Envía el artículo de vuelta a través de Nova Poshta. Ten en cuenta que el Gobierno de Ucrania aprobó una lista de productos de calidad que no se pueden cambiar ni devolver (Resolución Nº 172 del 19 de marzo de 1994). Incluye:</p>
-        <ul><li>alimentos, medicamentos y productos de higiene;</li>
-            <li>productos no alimentarios como cepillos de dientes, peines y cepillos de masaje; productos para bebés (pañales, chupetes, biberones, etc.);</li>
-            <li>herramientas para manicura y pedicura (tijeras, limas, etc.).</li>
-        </ul>"
+    a: Ponte en contacto con nuestro asesor o visita el punto de recogida para que podamos indicarte qué transportista usar para el cambio o devolución.
   qa9:
     id: 9
     q: ¿A qué lugares envían pedidos?
-    a: A todo el territorio de Ucrania, excepto Crimea y algunas zonas de las regiones de Donetsk y Luhansk.
+    a: Enviamos pedidos mediante los transportistas disponibles en tu región, por lo que la lista de destinos se actualiza automáticamente en la web.
   qa10:
     id: 10
     q: ¿Cómo encuentro el producto adecuado en un catálogo tan grande?
@@ -54,4 +46,4 @@ items:
   qa11:
     id: 11
     q: ¿Cómo rastreo mi paquete si lo recibo por correo?
-    a: Después del envío recibirás un SMS o mensaje por Viber con el número de seguimiento de Nova Poshta. Sigue el paquete en https://novaposhta.ua/
+    a: Cuando el pedido se despacha te enviamos un número de seguimiento; consulta el estado en la web o app del transportista seleccionado.

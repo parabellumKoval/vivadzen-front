@@ -5,9 +5,10 @@ const props = defineProps({
   },
 })
 
-const {t} = useI18n()
+const {t, locale} = useI18n()
+const { region } = useRegion()
 
-const {data} = await useAsyncData('homepage-main-lists', () => useFetcherData('homepage-main-lists'))
+const {data} = await useAsyncData('homepage-main-lists-'+locale.value+'-'+region.value, () => useFetcherData('homepage-main-lists'))
 
 const lists = ref([])
 const pending = ref(true)

@@ -1,7 +1,8 @@
 <script setup>
 import {useCategoryStore} from '~/store/category'
 
-const {t} = useI18n()
+const {t, locale} = useI18n()
+const {region} = useRegion()
 
 const setCrumbs = () => {
   breadcrumbs.value = [
@@ -16,6 +17,7 @@ const setCrumbs = () => {
 }
 const {loadCatalog, setFiltersAndCount, loadMore, catalogQuery, setMode} = useCatalog()
 
+const categoryStore = useCategoryStore()
 
 // REFS
 const isServer = process.server
@@ -23,7 +25,7 @@ const breadcrumbs = ref([])
 
 // COMPUTEDS
 const categories = computed(() => {
-  return useCategoryStore().list
+  return categoryStore.list
 })
 
 // METHODS
@@ -36,7 +38,7 @@ const {
   error: catalogError,
   refresh
 } = await useAsyncData(
-  'product-catalog',
+  'product-catalog-' + region.value + '-' + locale.value,
   async () => {
     const response = await loadCatalog();
 
@@ -110,8 +112,8 @@ setMode('INITIAL')
       {{ title }}
     </template>
 
-    <template #header>
-      <lazy-catalog-categories :categories="categories"  class="full-container"></lazy-catalog-categories>
+    <template #header="{ stuck }">
+      <lazy-catalog-categories :categories="categories" :stuck="stuck" class="full-container"></lazy-catalog-categories>
     </template>
   </NuxtLayout>
 </template>

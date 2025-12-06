@@ -11,11 +11,16 @@ export const useCategoryStore = defineStore('categoryStore', {
       data: [] as Category[],
       meta: null as Record<string, any> | null
     },
+    mainState: {
+      data: [] as Category[],
+      meta: null as Record<string, any> | null
+    },
     categoryState: null as Category | null,
   }),
   
   getters: {
     list: (state) => state.allState.data,
+    mainList: (state) => state.mainState.data,
     category: (state) => state.categoryState,
   },
 
@@ -26,7 +31,7 @@ export const useCategoryStore = defineStore('categoryStore', {
         runtimeConfig.public?.categoryModule?.listRoutePath || '/api/_categories/list'
 
       const locale = useNuxtApp().$i18n.locale
-      const regionAlias = useRegion().region.value
+      const regionAlias = useRegion().regionAlias.value
 
       const headers: Record<string, string> = {
         Accept: 'application/json'
@@ -65,6 +70,45 @@ export const useCategoryStore = defineStore('categoryStore', {
       }
     },
 
+    async listMainCached(force = false) {
+      const runtimeConfig = useRuntimeConfig()
+      const routePath =
+        runtimeConfig.public?.categoryModule?.mainListRoutePath || '/api/_categories/main'
+
+      const locale = useNuxtApp().$i18n.locale
+      const regionAlias = useRegion().regionAlias.value
+
+      const headers: Record<string, string> = {
+        Accept: 'application/json'
+      }
+
+      const localeValue = locale?.value || locale
+      if (typeof localeValue === 'string' && localeValue.length) {
+        headers['Accept-Language'] = localeValue
+      }
+
+      const regionValue = regionAlias?.value || regionAlias
+      if (typeof regionValue === 'string' && regionValue.length) {
+        headers['X-Region'] = regionValue
+      }
+
+      const params = force ? { force: '1' } : undefined
+
+      try {
+        const data = await $fetch(routePath, {
+          headers,
+          query: params
+        })
+
+        this.mainState.data = data?.data ?? data ?? []
+        this.mainState.meta = data?.meta ?? null
+
+        return data
+      } catch (error) {
+        throw error
+      }
+    },
+
     async show(slug: string) {
       const url = `${useRuntimeConfig().public.apiBase}/category/${slug}`
 
@@ -86,7 +130,7 @@ export const useCategoryStore = defineStore('categoryStore', {
         : `${template}/${encodeURIComponent(slug)}`
 
       const locale = useNuxtApp().$i18n.locale
-      const regionAlias = useRegion().region.value
+      const regionAlias = useRegion().regionAlias.value
 
       const headers: Record<string, string> = {
         Accept: 'application/json'

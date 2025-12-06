@@ -1,29 +1,30 @@
-// .title {
-//   display: grid;
-//   grid-template-columns: 1fr;
-//   grid-gap: 20px;
-//   align-items: baseline;
-//   @include desktop {
-//     grid-template-columns: 1fr min-content;
-//     grid-gap: 60px;
-//   }
+
+// :global(.affiliate) {
+//   bottom: 70px !important;
+//   right: 15px !important;
 // }
+
+
 .name {
+  text-transform: uppercase;
   margin-bottom: 0;
   grid-column-start: 1;
   grid-column-end: 3;
+  order:2;
   @include desktop {
     grid-column-start: 1;
     grid-column-end: 2;
+    order: initial;
   }
 }
 .code {
-  display: grid;
-  grid-gap: 5px;
-  justify-content: flex-end;
-  white-space: nowrap;
-  grid-column-start: 2;
+  display: none;
   @include desktop {
+    display: grid;
+    grid-gap: 5px;
+    justify-content: flex-end;
+    white-space: nowrap;
+    grid-column-start: 2;
     grid-auto-flow: column;
   }
   .label {
@@ -42,14 +43,14 @@
 .header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
+  row-gap: 15px;
   align-items: center;
   width: 100%;
-  margin: 0 0 20px 0;
   @include desktop {
     // grid-template-columns: repeat(3, min-content) 1fr;
     grid-template-columns: 1fr min-content;
-    grid-gap: 35px;
+    column-gap: 35px;
+    row-gap: 15px;
     align-items: baseline;
     margin: 0 0 30px 0;
   }
@@ -66,14 +67,16 @@
   }
   &-reviews {
     display: grid;
-    grid-template-columns: min-content;
-    grid-gap: 5px;
+    grid-auto-flow: column;
+    gap: 15px;
     grid-column-start: 1;
-    grid-row-start: 2;    
+    grid-row-start: initial;    
+    order:1;
     @include desktop {
       grid-template-columns: repeat(3, min-content);
-      grid-gap: 30px;
+      gap: 30px;
       align-items: center;
+      order: initial;
     }
     &-btn {
       &.disable {
@@ -85,6 +88,16 @@
     }
   }
 }
+.header-reviews-reward {
+  margin-top: 15px;
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 420px;
+
+  @include desktop {
+    margin-top: 0;
+  }
+}
 .rating-label {
   white-space: nowrap;
   font-size: 12px;
@@ -94,25 +107,82 @@
   }
 }
 .tab {
-  &-wrapper {
+  &-row {
     position: sticky;
     top: 60px;
-    left: 0;
-    z-index: 90;
+    z-index: 12;
+    display: flex;
+    align-items: stretch;
+    width: calc(100% + 30px);
+    margin: 0 -15px;
+    background-color: $color-0;
+    order: 0;
+
     @include desktop {
+      position: sticky;
       top: 80px;
+      width: 100%;
+      margin: 0;
+      background: transparent;
+      grid-column-start: 1;
+      grid-column-end: 3;
     }
   }
+
+  &-back-slot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    z-index: 13;
+    background-color: transparent;
+
+    @include desktop {
+      display: none;
+    }
+  }
+
+  &-wrapper {
+    padding: 0 0 0 40px;
+    // position: static;
+    // width: 100%;
+    // margin: 0;
+    // order: 0;
+    // flex: 1;
+    // min-width: 0;
+
+    // @include desktop {
+    //   position: sticky;
+    //   top: 80px;
+    //   padding: 0;
+    //   grid-column-start: 1;
+    //   grid-column-end: 3;
+    //   order: initial;
+    //   margin: 0;
+    //   flex: none;
+    // }
+  }
+
   &-title {
-    margin-bottom: 30px;
-    font-size: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
     line-height: 120%;
-    // text-transform: uppercase;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    @include desktop {
+      margin-bottom: 30px;
+    }
   }
 }
 .gallery-wrapper {
   width: 100vw;
-  margin: -20px -15px 10px -15px;
+  margin: 0 -15px 10px -15px;
   @include desktop {
     width: 100%;
     margin: 0;
@@ -122,22 +192,63 @@
   display: grid;
   align-items: stretch;
   grid-template-columns: 100%;
-  margin: 30px 0 30px 0;
+  margin: 0 0 30px 0;
+
   @include desktop {
     grid-template-columns: 50% calc(50% - 30px);
     margin: 30px 0 80px 0;
     grid-gap: 30px;
   }
+
+  &-main {
+    margin-top: 20px;
+    @include desktop {
+      margin-top: 0;
+    }
+  }
+
   &-box {
     margin: 0 0 60px 0;
     @include desktop {
       margin: 0 0 80px 0;
     }
   }
+
+  &-header {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0 0 0;
+    order: 2;
+    @include desktop {
+      order: initial;
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
+    &-breadcrumbs {
+      order: 2;
+
+      @include desktop {
+        order: initial;
+      }
+
+      :deep(.item) {
+        &:last-child {
+          display: none;
+        }
+        &:nth-last-child(2) {
+          &:before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
   &-modifications {
     width: 100%;
     margin-left: auto;
-    padding: 30px 0 15px 0;
+    padding: 15px 0;
     order: 3;
     transition: width $speed;
     @include desktop {
@@ -215,6 +326,9 @@
   }
   &-html {
     order: 5;
+    :deep(.more-btn) {
+      margin-top: 0 !important;
+    }
   }
   &-delivery {
     order: 6;

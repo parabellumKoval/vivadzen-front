@@ -21,6 +21,9 @@ title:
   sales: Aktionen
   news: Neuigkeiten
   reviews: Bewertungen
+  vivapoints: VivaPoints
+  vivapoints_and_rewards: VivaPoints und Prämien
+  affiliate_system: Partnerprogramm
   agreement: Vertrag des öffentlichen Angebots
   returns: Rückgabebedingungen
   checkout_payment: Bestellzahlung
@@ -29,6 +32,7 @@ title:
   checkout_complete_failed: Fehler bei der Bestellung
   policy: Datenschutzrichtlinie
   terms: Nutzungsbedingungen
+  certificates: Zertifikate
   remove_userdata: Nutzerdaten löschen
   withdrawal: Auszahlung
   account:
@@ -101,6 +105,7 @@ messages:
   products_found: "{amount} Produkte gefunden"
   no_results: Keine Ergebnisse
   empty_cart: Ihr Warenkorb ist leer
+  cart_item_unavailable: Produkt in Ihrer Region nicht verfügbar
   leave_review: Bewertung hinterlassen
   delivery_price: Lieferkosten
   delivery_vendor_price: Nach Tarifen des Versanddienstes
@@ -117,6 +122,8 @@ messages:
   personal_discount: Persönlicher Rabatt
   chose_delivery_country: Lieferland auswählen
   chose_delivery: Wählen Sie eine Liefermethode, um verfügbare Zahlungsmethoden zu sehen
+  select_region_delivery_notice: Um alle verfügbaren Liefermethoden zu sehen und Details zu lesen, wählen Sie zuerst Ihr Lieferland aus
+  select_region_payment_notice: Um alle verfügbaren Zahlungsmethoden zu sehen und Details zu lesen, wählen Sie zuerst Ihr Lieferland aus
 
 button:
   collapse: Einklappen
@@ -400,3 +407,59 @@ wallet:
   withdrawal_request: Auszahlungsantrag
   order: Bestellung
   no_details_available: Keine Details verfügbar
+  type_labels:
+    credit: Gutschrift
+    debit: Belastung
+    hold: Blockierung
+    capture: Bestätigung
+    release: Freigabe
+  operations:
+    credit:
+      referral_reward: Prämie für das Empfehlungsprogramm
+      review_reward: Prämie für Bewertung
+      order_reward: Prämie für Bestellung
+      bonus: Bonusgutschrift
+      refund: Rückerstattung
+      default: Kontoaufladung
+    debit:
+      withdrawal: Auszahlung
+      order: Bestellzahlung
+      fee: Gebühr
+      default: Belastung
+    hold:
+      withdrawal: Blockierung für Auszahlung
+      order: Blockierung für Bestellung
+      default: Blockierung von Mitteln
+    capture:
+      withdrawal: Bestätigung der Auszahlung
+      order: Bestätigung der Bestellung
+      default: Bestätigung der Operation
+    release:
+      withdrawal: Freigabe der Auszahlung
+      order: Freigabe der Bestellung
+      default: Freigabe von Mitteln
+  triggers:
+    review_published: Veröffentlichte Bewertung
+    store_order_paid: Bezahlte Bestellung
+    referral_signup: Registrierung eines Referrals
+    referral_purchase: Einkauf des Referrals
+    unknown: Anderes Ereignis
+
+affiliate:
+  defaults:
+    ttl: '30 Tage'
+  cta:
+    register_button: 'Registrieren'
+    register_prompt: 'Registrieren Sie sich'
+  account:
+    label: 'Persönliches Konto'
+  form:
+    code_placeholder: 'IHR_CODE'
+  withdrawal:
+    rules_label: 'Bonussystem und Auszahlungen'
+  link:
+    regular_label: 'Normaler Link'
+    referral_label: 'Partnerlink'
+  media:
+    link_preview_alt: 'Vorschau des Partnerlinks'
+    ttl_image_alt: 'Illustration der First-Click-Regel'

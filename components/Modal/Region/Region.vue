@@ -58,19 +58,6 @@ const handleRegionHover = (code: string | null) => {
 const getRegionLink = (code: string) => regionStore.currentUrl(code)
 const getLocaleLink = (code: string) => regionStore.currentUrl(null, code)
 
-
-
-
-
-
-// Пример: список стран (обычно прилетит из API)
-const countries = [
-  { id: 'DE', name: 'Germany' },
-  { id: 'FR', name: 'France' },
-  { id: 'IT', name: 'Italy' },
-  { id: 'ES', name: 'Spain' },
-]
-
 const selected = ref<{ id: string | null; name: string | null }>({ id: null, name: null })
 
 // Подсветка из списка (наведение мышью на элемент списка)
@@ -84,9 +71,13 @@ const activeIds = ref<string[]>([regionStore.region.value])  // Германия
 const activeNames = ref<string[]>([])    // либо по name
 
 function handleCountryClick(payload: { id: string | null; name: string | null }) {
-  selected.value = { id: payload.id, name: payload.name }
-
-  console.log('Country clicked:', payload)
+  const key = payload.id?.toLowerCase() || ''
+  
+  if(regionStore.regions.includes(key)) {
+    navigateTo(getRegionLink(key))
+    // console.log(key, getRegionLink(key));
+    // selected.value = { id: key, name: payload.name }
+  }
 }
 </script>
 
@@ -104,8 +95,6 @@ function handleCountryClick(payload: { id: string | null; name: string | null })
           :active-ids="activeIds"
           :hover-ids="hoverIds"
           @country-click="handleCountryClick"
-          @country-hover="handleCountryClick"
-          @country-leave="() => { /* скрыть тултип */ }"
         />
         <p class="regions__hint">{{ t('mapHint') }}</p>
       </div>

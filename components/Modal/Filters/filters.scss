@@ -19,8 +19,8 @@
   padding: 20px 15px;
   overflow: hidden;
   z-index: 4;
-  border-top: 1px solid $color-6;
-  border-bottom: 3px solid $color-6;
+  border-top: 1px solid $color-border;
+  border-bottom: 3px solid $color-border;
   background: $color-8;
 }
 .buttons {
@@ -29,7 +29,7 @@
   bottom: 0;
   left: 0;
   transform: translateX(-15px);
-  border-top: 3px solid $color-6;
+  border-top: 3px solid $color-border;
   padding: 15px 30px;
   z-index: 100;
   background: $color-8;

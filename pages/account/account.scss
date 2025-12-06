@@ -47,36 +47,23 @@
   }
 }
 .aside {
-  position: sticky;
-  top: 60px;
   order: 1;
   height: min-content;
   width: 100vw;
-  padding: 10px 0 10px 10px;
+  padding: 10px 10px 0 10px;
   overflow: hidden;
   z-index: 100;
-  background: $color-11;
-  border-top: 1px solid $color-8;
-  color: $color-8;
+  color: $color-0;
+
   @include desktop {
+    position: sticky;
+    top: 60px;
     width: 100%;
     padding: 30px 30px 15px 30px;
+    border: 3px solid $color-8;
     border-radius: $radius;
-    border-top: 0;
     z-index: 1;
-  }
-}
-.more-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 60px;
-  margin: -10px 0;
-  border-left: 1px solid $color-11;
-  &-icon {
-    font-size: 24px;
-    color: $color-4;
+    background: $color-8;
   }
 }
 .profile-wrapper {
@@ -90,18 +77,37 @@
 }
 .menu {
   &-wrapper {
-    margin: 15px 0 0 0;
+    margin: 0 -10px;
+
+    @include desktop {
+      margin: 15px 0 0 0;
+    }
   }
   &-ul {
     display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100px;
+    overflow-y: auto;
     grid-gap: 5px;
-    padding: 15px 0;
+    padding: 15px 10px;
     border-bottom: 1px solid $color-2;
     &:last-child {
       border-bottom: 0;
     }
+
+    @include desktop {
+      grid-auto-flow: row;
+      grid-auto-columns: initial;
+    }
   }
   &-li {
+    background-color: $color-8;
+    border-radius: $radius;
+    aspect-ratio: 1/1;
+
+    @include desktop {
+      aspect-ratio: initial;
+    }
     &.active {
       .menu-link {
         // background: $color-2;
@@ -112,21 +118,35 @@
   &-link {
     width: 100%;
     display: grid;
-    grid-template-columns: 20px 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 10px;
     align-items: center;
-    padding: 10px 15px;
+    padding: 15px;
     border-radius: $radius;
-    color: $color-8;
     transition: background $speed;
     text-align: left;
+    @include desktop {
+      grid-template-columns: 30px 1fr;
+      padding: 10px 0;
+    }
+
     &:hover {
-      background: $color-2;
+      @include desktop {
+        color: $color-green !important;
+      }
     }
   }
   &-icon {
-    font-size: 20px;
+    font-size: 30px;
   }
   &-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    @include desktop {
+      font-size: 14px;
+      text-transform: none;
+    }
   }
 }

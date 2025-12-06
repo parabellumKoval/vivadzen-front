@@ -1,15 +1,16 @@
-<script setup>
-  const props = defineProps({
-    crumbs: {
-      type: Array
-    }
-  })
+<script setup lang="ts">
+import type { Crumb } from '~/composables/useCrumbs'
+import { applyCrumbDefaults } from '~/composables/useCrumbs'
 
-  useSchemaOrg([
-    defineBreadcrumb({
-      itemListElement: props.crumbs
-    }),
-  ])
+const props = defineProps<{ crumbs: Crumb[] }>()
+
+const crumbs = computed(() => applyCrumbDefaults(props.crumbs ?? []))
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: props.crumbs
+  }),
+])
 </script>
 
 <style src="./breadcrumbs.scss" lang="sass" scoped />
@@ -19,21 +20,33 @@
     <ul class="list" scrollable>
       <li
         v-for="(crumb, index) in crumbs"
-        :key="crumb"
+        :key="`${crumb.item}-${index}`"
         class="item"
         scrollable
       >
         <NuxtLink
           v-if="index + 1 !== crumbs.length"
-          :to="crumb.item"
+          :to="$regionPath(crumb.item)"
           :prefetch="false"
           clickable
           scrollable
           class="breadcrumbs__link link"
         >
-          {{ crumb.name }}
+          <template v-if="$device.isMobile && crumb.icon">
+            <IconCSS :name="crumb.icon" class="breadcrumbs__icon" />
+          </template>
+          <template v-else>
+            {{ crumb.name }}
+          </template>
         </NuxtLink>
-        <span v-else class="breadcrumbs__link">{{ crumb.name }}</span>
+        <span v-else class="breadcrumbs__link">
+          <template v-if="$device.isMobile && crumb.icon">
+            <IconCSS :name="crumb.icon" class="breadcrumbs__icon" />
+          </template>
+          <template v-else>
+            {{ crumb.name }}
+          </template>
+        </span>
       </li>
     </ul>
   </section>

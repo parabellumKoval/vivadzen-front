@@ -19,16 +19,16 @@ const mods = computed(() => {
 
 <template>
   <div class="mod-wrapper">
-    <div class="mod-label">{{ t('select') }}:</div>
+    <div class="mod-label">{{ t('select') }}</div>
     <div class="mod-items">
       <NuxtLink
         v-for="mod in mods"
         :key="mod.id"
         :to="$regionPath('/' + mod.slug)"
         class="mod-item"
-        :class="{'not-in-stock': mod.inStock === 0}"
+        :class="{'not-in-stock': mod.inStock <= 0}"
       >
-        <IconCSS v-if="mod.inStock === 0" name="solar:forbidden-circle-linear" class="mod-item-icon"></IconCSS>
+        <IconCSS v-if="mod.inStock <= 0" name="solar:forbidden-circle-linear" class="mod-item-icon"></IconCSS>
         <span>{{ mod.short_name || mod.name }}</span>
       </NuxtLink>
     </div>

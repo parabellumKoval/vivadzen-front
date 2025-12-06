@@ -41,6 +41,7 @@ defineExpose({
       :meta="meta"
       :product="product"
       :amount="amount"
+      :hide-replies="true"
       @update:current="(v) => emit('loadReviewsHandler', v)"
       ref="reviewsComponentRef"
     ></lazy-product-reviews>

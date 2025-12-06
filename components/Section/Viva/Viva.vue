@@ -24,6 +24,9 @@ const img = useImg()
 <template>
   <section class="vp" aria-labelledby="vp-title">
     <div class="vp__intro">
+
+      <div class = "vp__intro-bg" style="background-image: url('/images/coins-rain.png');"></div>
+
       <div class="vp__coin">
         <nuxt-img
           :src="IMG.coin"
@@ -34,40 +37,48 @@ const img = useImg()
           quality="80"
           loading="lazy"
           fit="outside"
-          :placeholder="img.noImage"
+          :placeholder="img.noImageTransparent"
           class="vp__coin-img"
         />
       </div>
 
-      <div>
+      <div class="vp__sub">
         <h2 id="vp-title" class="vp__title">{{ t('viva.title') }}</h2>
         <p class="vp__desc">{{ t('viva.lead') }}</p>
       </div>
 
-      <div class="vp__rate">
-        <span class="vp__rate-num">1</span>
-        <nuxt-img
-          :src="IMG.rate"
-          width="60"
-          height="60"
-          sizes="mobile:70px"
-          format="avif"
-          quality="60"
-          loading="lazy"
-          fit="outside"
-        />
-        <IconCSS name="guidance:currency-exchange" class="vp__rate-swap" />
-        <nuxt-img
-          :src="IMG.czk"
-          width="60"
-          height="60"
-          sizes="mobile:70px"
-          format="avif"
-          quality="60"
-          loading="lazy"
-          fit="outside"
-        />
-        <span class="vp__rate-num">1</span>
+      <div class="vp__box">
+        <div class="vp__rate">
+          <span class="vp__rate-num vp__rate-num--1">Viva-point</span>
+          <nuxt-img
+            :src="IMG.rate"
+            width="60"
+            height="60"
+            sizes="mobile:70px"
+            format="avif"
+            quality="60"
+            loading="lazy"
+            fit="outside"
+            class="vp__rate-img vp__rate-img--1"
+          />
+          <IconCSS name="guidance:currency-exchange" class="vp__rate-swap" />
+          <nuxt-img
+            :src="IMG.czk"
+            width="60"
+            height="60"
+            sizes="mobile:70px"
+            format="avif"
+            quality="60"
+            loading="lazy"
+            fit="outside"
+            class="vp__rate-img vp__rate-img--2"
+          />
+          <span class="vp__rate-num vp__rate-num--2">Czech crown</span>
+        </div>
+        <NuxtLink :to="$regionPath('/vivapoints')" class="button full vp__intro-btn">
+          <IconCSS name="ci:info" class="icon"/>
+          <span>{{ t('viva.cta') }}</span>
+        </NuxtLink>
       </div>
     </div>
 

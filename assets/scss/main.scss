@@ -83,6 +83,15 @@ body {
     scroll-snap-type: none;
     max-height: initial;
   }
+
+  &.modal-open-ios {
+    /* Фиксирует body, что отключает прокрутку */
+    position: fixed;
+    /* Занимает всю область просмотра */
+    width: 100%; 
+    /* Важно для iOS, чтобы избежать прокрутки содержимого за модальным окном */
+    overflow-y: hidden;
+  }
 }
 
 .bold {
@@ -111,7 +120,7 @@ h6 {
   min-width: 320px;
   margin: 0 auto;
   width: 100%;
-  overflow-x: hidden;
+  // overflow-x: hidden;
   @include tablet {
     padding: 0 35px;
     overflow-x: initial;
@@ -172,12 +181,12 @@ img {
   &-common {
     font-family: var(--font-display);
     margin-bottom: 20px;
-    font-size: 20px;
+    font-size: 36px;
     line-height: 115%;
     font-weight: 900;
     color: $color-1;
+
     @include desktop {
-      margin-bottom: 30px;
       line-height: 145%;
       font-size: 44px;
     }
@@ -213,12 +222,29 @@ img {
     text-align: center;
   }
 }
+
+.secondary-section {
+  margin-top: 30px;
+  @include tablet {
+    margin-top: 40px;
+  }
+  @include desktop {
+    margin-top: 60px;
+  }
+  @include ld {
+    margin-top: 80px;
+  }
+}
+
 .main-section {
   margin-top: 50px;
   @include tablet {
     margin-top: 65px;
   }
   @include desktop {
+    margin-top: 80px;
+  }
+  @include ld {
     margin-top: 160px;
   }
 
@@ -231,6 +257,11 @@ img {
     text-align: center;
 
     @include desktop {
+      margin-bottom: 30px;
+      font-size: 36px;
+    }
+
+    @include ld {
       margin-bottom: 50px;
       font-size: 58px;
     }
@@ -245,8 +276,28 @@ img {
   margin-bottom: 60px;
 
   @include desktop {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+
+  @include ld {
     margin-top: 160px;
     margin-bottom: 160px;
+  }
+
+  &--viva {
+    @include mobile {
+      margin-top: -30px;
+      margin-bottom: -30px;
+    }
+  }
+}
+
+.home-section-viva {
+  margin-bottom: -50px;
+
+  @include desktop {
+    margin-bottom: -160px;
   }
 }
 // FORM

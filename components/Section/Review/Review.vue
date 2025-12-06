@@ -60,14 +60,14 @@ const moreInfoHandler = () => {
 
 const reviewHandler = () => {
   if(isAuthenticated.value) {
-    useModal().open(resolveComponent('ModalReviewCreate'), null, null, {width: {min: 420, max: 420}})
+    useModal().open(resolveComponent('ModalReviewCreate'), null, null)
   }else{
     useNoty().setNoty({
       content: t('noty.review.need_login'),
       type: 'warning'
     }, 7000)
     
-    useModal().open(resolveComponent('ModalAuthSocial'), null, null, {width: {min: 420, max: 420}})
+    useModal().open(resolveComponent('ModalAuthSocial'), null, null)
   }
 }
 
@@ -157,8 +157,11 @@ watch(shopReviews, (value) => {
     </div>
 
     <div class="feedback-info">
-      <span class="feedback-info-text">🎁 {{ t('messages.review_gift') }}</span>
-      &nbsp;<button @click="moreInfoHandler" class="more-link">{{ t('label.thorough') }}...</button>
+      <review-reward class="feedback-info-reward" />
+      <div class="feedback-info-note">
+        <span class="feedback-info-text">🎁 {{ t('messages.review_gift') }}</span>
+        <button @click="moreInfoHandler" class="more-link">{{ t('label.thorough') }}...</button>
+      </div>
     </div>
 
     <div class="footer-wrapper">

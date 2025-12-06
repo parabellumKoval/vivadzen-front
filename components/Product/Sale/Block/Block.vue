@@ -10,6 +10,7 @@ const props = defineProps({
 
 const amount = ref(1)
 const {toCartHandler} = useCart(props.product)
+const {ensureRegionSelected} = useRegionPurchaseGuard()
 
 // COMPUTEDS
 const total = computed(() => {
@@ -19,13 +20,17 @@ const total = computed(() => {
 
 // HANDLERS
 const addToCartHandler = () => {
-  const count = amount.value
-  toCartHandler(count)
-  amount.value = 1
+  ensureRegionSelected(() => {
+    const count = amount.value
+    toCartHandler(count)
+    amount.value = 1
+  })
 }
 
 const oneClickHandler = () => {
-  useModal().open(resolveComponent('Modal1Click'), props.product, null, {width: {min: 420, max: 420}})
+  ensureRegionSelected(() => {
+    useModal().open(resolveComponent('Modal1Click'), props.product, null, {width: {min: 420, max: 420}})
+  })
 }
 </script>
 
@@ -59,7 +64,7 @@ const oneClickHandler = () => {
       </div>
       <transition name="fade-in">
         <div v-if="amount > 1" class="total-price">
-          <span>Итого стоимость за {{ amount }}шт:</span>
+          <span>{{ t('total_cost_for') }} {{ amount }}{{ t('pcs') }}:</span>
           <simple-price :value="total" class="total-price-value"></simple-price>
         </div>
       </transition>
@@ -70,7 +75,7 @@ const oneClickHandler = () => {
       <button @click="addToCartHandler" class="button primary sell-btn-cart">{{ $t('button.to_cart') }}</button>
       
       <button @click="oneClickHandler" class="button color-primary inline-icon sell-btn-one">
-        <IconCSS name="iconoir:flash" class="icon"></IconCSS>
+        <IconCSS name="streamline:flash-1-remix" class="icon"></IconCSS>
         <span>{{ $t('button.1_click_buy') }}</span>
       </button>
     </div>

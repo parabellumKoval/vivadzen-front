@@ -21,6 +21,9 @@ title:
   sales: Promociones
   news: Noticias
   reviews: Reseñas
+  vivapoints: VivaPoints
+  vivapoints_and_rewards: VivaPoints y recompensas
+  affiliate_system: Programa de afiliados
   agreement: Acuerdo de oferta pública
   returns: Política de devoluciones
   checkout_payment: Pago del pedido
@@ -29,6 +32,7 @@ title:
   checkout_complete_failed: Error al realizar el pedido
   policy: Política de privacidad
   terms: Términos de uso
+  certificates: Certificados
   remove_userdata: Eliminación de datos del usuario
   withdrawal: Retiro
   account:
@@ -101,6 +105,7 @@ messages:
   products_found: Se encontraron {amount} productos
   no_results: Sin resultados
   empty_cart: El carrito está vacío
+  cart_item_unavailable: Producto no disponible en tu región
   leave_review: Dejar reseña
   delivery_price: Costo de envío
   delivery_vendor_price: Según tarifas del transportista
@@ -117,6 +122,8 @@ messages:
   personal_discount: Descuento personal
   chose_delivery_country: Selecciona el país de entrega
   chose_delivery: Elige un método de envío para ver los métodos de pago disponibles
+  select_region_delivery_notice: Para ver todos los métodos de entrega disponibles y leer la información detallada, primero selecciona tu país de entrega
+  select_region_payment_notice: Para ver todos los métodos de pago disponibles y leer la información detallada, primero selecciona tu país de entrega
 
 button:
   collapse: Contraer
@@ -400,3 +407,59 @@ wallet:
   withdrawal_request: Solicitud de retiro
   order: Pedido
   no_details_available: No hay detalles disponibles
+  type_labels:
+    credit: Abono
+    debit: Débito
+    hold: Bloqueo
+    capture: Confirmación
+    release: Desbloqueo
+  operations:
+    credit:
+      referral_reward: Recompensa del programa de referidos
+      review_reward: Recompensa por reseña
+      order_reward: Recompensa por pedido
+      bonus: Abono de bonificación
+      refund: Reembolso
+      default: Recarga de cuenta
+    debit:
+      withdrawal: Retiro de fondos
+      order: Pago del pedido
+      fee: Comisión
+      default: Cargo
+    hold:
+      withdrawal: Bloqueo para retiro
+      order: Bloqueo para pedido
+      default: Bloqueo de fondos
+    capture:
+      withdrawal: Confirmación de retiro
+      order: Confirmación de pago de pedido
+      default: Confirmación de operación
+    release:
+      withdrawal: Liberación de retiro
+      order: Liberación de pedido
+      default: Liberación de fondos
+  triggers:
+    review_published: Reseña publicada
+    store_order_paid: Pedido pagado
+    referral_signup: Registro de referido
+    referral_purchase: Compra del referido
+    unknown: Otro evento
+
+affiliate:
+  defaults:
+    ttl: '30 días'
+  cta:
+    register_button: 'Registrarse'
+    register_prompt: 'Regístrate'
+  account:
+    label: 'Cuenta personal'
+  form:
+    code_placeholder: 'TU_CÓDIGO'
+  withdrawal:
+    rules_label: 'Sistema de bonificaciones y retiros'
+  link:
+    regular_label: 'Enlace normal'
+    referral_label: 'Enlace de afiliado'
+  media:
+    link_preview_alt: 'Vista previa del enlace de afiliado'
+    ttl_image_alt: 'Ilustración de la regla del primer clic'

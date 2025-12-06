@@ -13,14 +13,11 @@ const reviews = ref([])
 const reviewsMeta = ref({})
 
 
-const getReviewQuery = () => {
-  return {
-    per_page: 12,
-    reviewable_type: null,
-  }
-}
+const getReviewQuery = () => ({
+  per_page: 12,
+})
 
-const {data: shopReviews} = await useLazyAsyncData('shop-reviews-page', () => useReviewStore().getAll(getReviewQuery()))
+const {data: shopReviews} = await useLazyAsyncData('shop-reviews-page', () => useReviewStore().get(getReviewQuery()))
 
 watch(shopReviews, (v) => {
   if(v) {
@@ -61,12 +58,12 @@ const updatePageHandler = async (page) => {
 <template>
   <div class="review-wrapper">
     <div class="review-grid">
-      <review-card-personal
+      <review-card-full
         v-for="review in reviews"
         :key="review.id"
         :item="review"
         class="shop-review-card"
-      ></review-card-personal>
+      ></review-card-full>
     </div>
     <simple-pagination
       v-if="reviewsMeta.last_page > 1"

@@ -4,17 +4,19 @@
   width: 100%;
   height: 60px;
   background: $color-bg;
-  z-index: 100;
+  border-bottom: 1px solid $color-border;
+  z-index: 200;
   @include tablet {
     padding: 0 15px;
     height: 80px;
   }
   @include desktop {
+    border-bottom: 0;
     padding: 0 35px;
   }
   &-container {
     display: grid;
-    grid-template-columns: 60px 1fr 60px 60px;
+    grid-template-columns: 50px 50px 1fr 50px 50px;
     align-items: center;
     @include tablet {
       grid-template-columns: 200px 1fr 80px 80px 80px 80px 80px;
@@ -28,7 +30,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
+  justify-self: center;
+  width: 120px;
   &-img {
     width: auto;
     height: auto;
@@ -40,8 +43,9 @@
     order: 1;
   }
   @include desktop {
-  width: 100%;
+    width: 100%;
     justify-content: flex-start;
+    justify-self: initial;
   }
 }
 :deep(.header-btn) {
@@ -91,6 +95,7 @@
 .menu {
   @include tablet {
     order: 3;
+    border-right: 0;
   }
 }
 .catalog {
@@ -111,7 +116,6 @@
   }
 }
 .search-btn {
-  display: none;
   @include tablet {
     display: flex;
     order: 5;

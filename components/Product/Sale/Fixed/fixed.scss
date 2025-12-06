@@ -36,10 +36,36 @@
   //     background: color.scale($color-red, $lightness: 85%);
   //   }
   // }
+  .content {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .name {
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 700;
+  }
+
+  .modification {
+    color: $color-3;
+
+  }
 
   .buy-btn {
-    padding: 0 10px;
-    min-width: 80px;
+    padding: 0;
+    width: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    .icon {
+      position: relative;
+      left: 0;
+      font-size: 22px;
+    }
   }
   .price-block {
     display: grid;

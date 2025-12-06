@@ -7,12 +7,15 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   z-index: 10;
+  background: $color-0;
+
   @include desktop {
-    padding: 0 30px;
-    width: calc(100% + 40px);
+    padding: 0 15px;
+    width: calc(100% + 30px);
+    background: $color-bg;
   }
   &-container {
-    max-width: 2090px;
+    max-width: 2130px;
     width: 100%;
     margin: 0 auto;
   }
@@ -36,18 +39,25 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 50px;
+  height: 40px;
   padding: 0 15px;
   white-space: nowrap;
   cursor: pointer;
   line-height: 120%;
   font-size: 14px;
-  color: $color-2;
+  text-transform: uppercase;
+  font-weight: 600;
   border-bottom: 2px solid transparent;
   transition: color $speed, border $speed;
+  color: $color-bg;
+
   @include desktop {
+    height: 50px;
     font-size: 16px;
+    text-transform: none;
+    color: initial;
   }
+
   &:hover {
     color: $color-primary;
   }  
@@ -62,8 +72,12 @@
     transition: width 0.4s;
   }
   &.active {
-    color: $color-0;
-    border-bottom: 2px solid;
+    color: $color-orange;
+    border-bottom: 4px solid $color-orange;
+
+    @include desktop {
+      color: $color-0;
+    }
   }
   &.disabled {
     opacity: 0.6;
@@ -73,15 +87,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
+    min-width: 18px;
+    height: 18px;
     margin-left: 5px;
-    font-size: 14px;
+    padding: 0 4px;
+    font-size: 12px;
+    line-height: 0;
     border-radius: $radius;
-    &.green {
+    transform: translateY(-1px);
+    &.orange {
       color: $color-8;
-      background: $color-green;
+      background: $color-orange;
     }
   }
 }

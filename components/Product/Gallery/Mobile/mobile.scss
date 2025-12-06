@@ -12,7 +12,7 @@
     position: relative;
     width: 50px;
     height: 50px;
-    border: 1px solid $color-5;
+    border: 1px solid $color-border;
     border-radius: $radius;
     &:after {
       content: '';
@@ -36,6 +36,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: $radius;
+    background-color: $color-bg-2;
   }
 }
 .gallery {
@@ -63,8 +64,9 @@
     height: 320px;
     width: auto;
     max-width: 80vw;
-    object-fit: contain;
-    border-radius: $radius;
+    object-fit: cover;
+    border-radius: $radiusBtn;
+    background-color: $color-bg-2;
   }
   &.full {
     .main-image {
