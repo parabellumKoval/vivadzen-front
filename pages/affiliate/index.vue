@@ -173,7 +173,7 @@ useSeo().setPageSeo(t('title.affiliate_system'))
               :src="pageData.hero.image"
               width="640"
               height="929"
-              sizes = "mobile:100vw tablet:500px desktop:600px"
+              sizes = "mobile:80vw tablet:500px desktop:600px"
               format = "avif"
               quality = "60"
               loading = "lazy"
@@ -282,12 +282,17 @@ useSeo().setPageSeo(t('title.affiliate_system'))
             </div>
           </div>
           <div class="affiliate-link__media">
-            <img
-              v-if="pageData.link.image"
+            <nuxt-img
+              v-if="pageData?.link?.image"
               :src="pageData.link.image"
-              :alt="t('affiliate.media.link_preview_alt')"
-              loading="lazy"
-            >
+              width="945"
+              height="800"
+              sizes = "mobile:80vw tablet:500px desktop:1000px"
+              format = "avif"
+              quality = "60"
+              loading = "lazy"
+              fit="outside"
+            ></nuxt-img>
           </div>
         </div>
       </div>
@@ -297,12 +302,17 @@ useSeo().setPageSeo(t('title.affiliate_system'))
       <div class="container">
         <div class="affiliate-ttl">
           <div class="affiliate-ttl__media">
-            <img
-              v-if="pageData.ttl.image"
+            <nuxt-img
+              v-if="pageData?.ttl?.image"
               :src="pageData.ttl.image"
-              :alt="t('affiliate.media.ttl_image_alt')"
-              loading="lazy"
-            >
+              width="673"
+              height="800"
+              sizes = "mobile:80vw tablet:500px desktop:1000px"
+              format = "avif"
+              quality = "60"
+              loading = "lazy"
+              fit="outside"
+            ></nuxt-img>
           </div>
           <div class="affiliate-ttl__content">
             <div class="affiliate-control">
