@@ -50,7 +50,7 @@ const categories = computed(() =>  {
                 quality = "60"
                 loading = "lazy"
                 fit="outside"
-                :placeholder="useImg().noImage"
+                :placeholder="useImg().noImageTransparent"
                 class="category-image"
                 provider="ipx"
               >

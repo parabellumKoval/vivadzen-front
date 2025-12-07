@@ -1,8 +1,12 @@
 .warehouse {
   display: grid;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 15px;
+
+  @include desktop {
+    grid-template-columns: min-content 1fr;
+  }
 
   &-point {
     display: block;

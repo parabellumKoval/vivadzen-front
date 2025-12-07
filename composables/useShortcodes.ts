@@ -9,14 +9,13 @@ function normalizeKey(raw: string): string {
   return trimmed.replace(/^\[/, '').replace(/\]$/, '')
 }
 
-// ====== ВСТАВЬТЕ СВОЮ СИНХРОННУЮ ЛОГИКУ НИЖЕ ======
-
 // TODO: синхронный геттер настроек (например, из уже прогретого кеша/стора)
 function settingsGetSync(path: string): unknown {
   
   const p = normalizeKey(path)
 
-  return useSettings().get(p)
+  const { get } = useSettings()
+  return get(p)
 }
 
 // TODO: карта base-переменных (значение или функция без async)
@@ -31,8 +30,9 @@ const extraResolvers: Record<string, ResolverSync> = {
   // env: (key) => useRuntimeConfig().public[normalizeKey(key)],
 }
 
-// ====== КОНЕЦ СЕКЦИИ ДЛЯ ВАШЕЙ ЛОГИКИ ======
 
+
+const REGISTRY_KEY = '__shortcodeRegistry__'
 
 function makeRegistry(): Map<string, ResolverSync> {
   const reg = new Map<string, ResolverSync>()
@@ -64,7 +64,11 @@ function resolveTokenSync(registry: Map<string, ResolverSync>, ns: string, rawKe
 }
 
 export function useShortcodes() {
-  const registry = useState<Map<string, ResolverSync>>('shortcode-registry-sync', makeRegistry)
+  const nuxtApp = useNuxtApp() as Record<string, any>
+  if (!nuxtApp[REGISTRY_KEY]) {
+    nuxtApp[REGISTRY_KEY] = makeRegistry()
+  }
+  const registry = nuxtApp[REGISTRY_KEY] as Map<string, ResolverSync>
 
   function render(input: string): string {
     if (!input || typeof input !== 'string') return input as string
@@ -82,7 +86,7 @@ export function useShortcodes() {
 
     const resolved = new Map<string, string>()
     for (const [full, { ns, key }] of unique.entries()) {
-      const out = resolveTokenSync(registry.value, ns, key)
+      const out = resolveTokenSync(registry, ns, key)
       resolved.set(full, out)
     }
 
@@ -99,7 +103,7 @@ export function useShortcodes() {
 
   // Оставил для удобства, можно удалить.
   function register(namespace: string, resolver: ResolverSync) {
-    registry.value.set(namespace, resolver)
+    registry.set(namespace, resolver)
   }
 
   return { render, register }

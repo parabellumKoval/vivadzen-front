@@ -116,11 +116,11 @@ const subHandler = () => {
                     :class="category.image.size"
                     width="200"
                     height="200"
-                    sizes = "mobile:50vw tablet:270px desktop:270px"
+                    sizes = "mobile:130px tablet:270px desktop:270px"
                     format = "avif"
                     quality = "60"
                     fit="outside"
-                    :placeholder="useImg().noImage"
+                    :placeholder="useImg().noImageTransparent"
                     class="category-image"
                     provider="ipx"
                   >

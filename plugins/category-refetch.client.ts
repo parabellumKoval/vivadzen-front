@@ -7,14 +7,14 @@ export default defineNuxtPlugin(() => {
   }
 
   const locale = useNuxtApp().$i18n.locale
-  const regionAlias = useRegion().regionAlias.value
+  const regionAlias = useRegion().regionAlias
   const categoryStore = useCategoryStore()
 
   const refetchCategories = async () => {
     try {
       await Promise.all([
-        categoryStore.listCached(null, true, true),
-        categoryStore.listMainCached(true),
+        categoryStore.listCached(null, true, false),
+        categoryStore.listMainCached(false),
       ])
     } catch (error) {
       console.error('[category-refetch] Failed to refetch categories', error)

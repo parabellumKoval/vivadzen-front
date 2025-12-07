@@ -14,5 +14,9 @@
     .text {
       white-space: nowrap;
     }
+
+    &:hover {
+      background: rgba($color-primary, 0.8);
+    }
   }
 }

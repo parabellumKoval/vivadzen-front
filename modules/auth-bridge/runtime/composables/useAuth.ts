@@ -254,7 +254,22 @@ export function useAuth() {
       user.value.fullname
     return candidate || ''
   })
-  const avatar = computed(() => user.value?.photo || user.value?.avatar || user.value?.avatar_url || null)
+  const normalizeAvatarSource = (value: any): string | null => {
+    if (typeof value !== 'string') {
+      return null
+    }
+    const trimmed = value.trim()
+    return trimmed.length ? trimmed : null
+  }
+
+  const avatar = computed(() => {
+    const candidates = [
+      normalizeAvatarSource(user.value?.photo),
+      normalizeAvatarSource(user.value?.avatar),
+      normalizeAvatarSource(user.value?.avatar_url),
+    ]
+    return candidates.find((value): value is string => Boolean(value)) ?? null
+  })
 
   const orderable = computed(() => {
     if (!user.value?.id) {

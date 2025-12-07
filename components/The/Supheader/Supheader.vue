@@ -3,7 +3,7 @@
   const isShow = ref(true)
 
   const {regionsMeta, region} = useRegion()
-  const {get} = useSettings()
+  const {get, all} = useSettings()
 
   const close = () => {
     isShow.value = false

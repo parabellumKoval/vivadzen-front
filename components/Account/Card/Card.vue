@@ -1,5 +1,8 @@
 <script setup>
 const { user, avatar, displayName } = useAuth()
+
+const avatarFallback = '/images/avatars/no.png'
+const { currentSrc: accountAvatarSrc, onError: handleAccountAvatarError } = useImageFallback(avatar, avatarFallback)
 // COMPUTEDS
 const name = computed(() => {
   if (displayName.value) return displayName.value
@@ -18,7 +21,7 @@ const name = computed(() => {
 <template>
   <div v-if="user" class="profile">
     <nuxt-img
-      :src = "avatar"
+      :src = "accountAvatarSrc"
       :provider = "useImg().provider"
       width="70"
       height="70"
@@ -29,6 +32,7 @@ const name = computed(() => {
       fit="outside"
       class="profile-image"
       placeholder="/images/avatars/no.png"
+      @error="handleAccountAvatarError"
     >
     </nuxt-img>
     <div class="profile-data">

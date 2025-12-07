@@ -3,6 +3,9 @@ const { t } = useI18n()
 const { $regionPath } = useNuxtApp();
 const { user, isAuthenticated, avatar } = useAuth()
 
+const avatarFallback = '/images/avatars/no.png'
+const { currentSrc: headerAvatarSrc, onError: handleHeaderAvatarError } = useImageFallback(avatar, avatarFallback)
+
 // COMPUTED
 const showAuthHandler = () => {
   if(isAuthenticated.value && user.value) {
@@ -22,7 +25,7 @@ const showAuthHandler = () => {
     <button v-if="isAuthenticated && user" @click="showAuthHandler" type="button" class="header-btn" clickable>
       <ClientOnly>
         <nuxt-img
-          :src="avatar"
+          :src="headerAvatarSrc"
           :provider = "useImg().provider"
           width="50"
           height="50"
@@ -31,6 +34,7 @@ const showAuthHandler = () => {
           quality = "80"
           class = "avatar-image"
           placeholder="/images/avatars/no.png"
+          @error="handleHeaderAvatarError"
         />
       </ClientOnly>
     </button>

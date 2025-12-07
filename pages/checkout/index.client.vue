@@ -149,8 +149,16 @@ const scrollToErrorHandler = () => {
 
 // WATCH
 watch(() => order.value.delivery.settlement, (v) => {
-  order.value.delivery.warehouse = null
-  order.value.delivery.street = null
+  const delivery = order.value?.delivery
+  if (!delivery) return
+
+  // Packeta widget sets settlement and warehouse simultaneously, do not wipe it afterwards
+  if (delivery.method === 'packeta_warehouse') {
+    return
+  }
+
+  delivery.warehouse = null
+  delivery.street = null
 })
 
 // Change delivery method

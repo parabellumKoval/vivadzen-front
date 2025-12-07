@@ -3,6 +3,9 @@ const { $regionPath } = useNuxtApp();
 const {t} = useI18n()
 const { user: authUser, isAuthenticated: isLoggedIn, avatar: authAvatar } = useAuth()
 
+const avatarFallback = '/images/avatars/no.png'
+const { currentSrc: menuAvatarSrc, onError: handleMenuAvatarError } = useImageFallback(authAvatar, avatarFallback)
+
 // COMPUTEDS
 const menu = computed(() => {
   return {
@@ -41,7 +44,7 @@ const loginHandler = () => {
           <template v-if="isLoggedIn && authUser" >
             <button @click="goToAccount" class="avatar" type="button" clickable>
               <nuxt-img
-                :src="authAvatar"
+                :src="menuAvatarSrc"
                 width="50"
                 height="50"
                 sizes = "mobile:30px tablet:30px desktop:30px"
@@ -49,6 +52,7 @@ const loginHandler = () => {
                 fit = "cover"
                 quality = "100"
                 class = "avatar-image"
+                @error="handleMenuAvatarError"
               />
             </button>
             <button @click="goToAccount" class="mm-header-btn">{{ authUser.email }}</button>

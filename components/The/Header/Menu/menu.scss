@@ -24,6 +24,11 @@
     margin: 0 auto 0 0;
     justify-content: initial;
     text-transform: uppercase;
+    transition: color 0.3s;
+
+    &:hover {
+      color: $color-primary;
+    }
   }
 
   @include desktop {

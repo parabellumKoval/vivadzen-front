@@ -59,9 +59,15 @@
   &-extrabox {
     :deep(.list-wrapper) {
       margin: 0 -30px -30px -30px;
-      padding: 30px;
+      padding: 30px 15px;
+      width: 100vw;
       border-top: 1px solid $color-border;
       border-radius: 0 0 $radius $radius;
+
+      @include desktop {
+        padding: 30px;
+        width: auto;
+      }
     }
   }
 
