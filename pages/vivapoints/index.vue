@@ -235,9 +235,9 @@ useSeo().setPageSeo(t('title.vivapoints'))
           <div class="hero-image-wrapper">
             <nuxt-img
               src="/images/vivacoin-1.png"
-              width="640"
-              height="929"
-              sizes = "mobile:100vw tablet:500px desktop:600px"
+              width="2090"
+              height="751"
+              sizes = "mobile:100vw tablet:500px desktop:1100px"
               format = "avif"
               quality = "60"
               loading = "lazy"
