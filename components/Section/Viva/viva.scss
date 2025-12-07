@@ -33,6 +33,7 @@
     padding: 40px;
     background-color: $color-orange;
     border-radius: 50px;
+    margin: 0 15px;
 
     @include desktop {
       grid-template-columns: initial;
@@ -40,6 +41,7 @@
       gap: 30px;
       height: 100%;
       text-align: center;
+      margin: 0;
     }
 
     @include ld {
