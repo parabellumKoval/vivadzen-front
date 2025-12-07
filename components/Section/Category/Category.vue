@@ -45,7 +45,7 @@ const categories = computed(() =>  {
                 :style="category?.extras?.image_size ? { width: category.extras.image_size + '%' } : {}"
                 width="200"
                 height="200"
-                sizes = "mobile:50vw tablet:360px desktop:360px"
+                sizes = "mobile:200px tablet:360px desktop:360px"
                 format = "avif"
                 quality = "60"
                 loading = "lazy"

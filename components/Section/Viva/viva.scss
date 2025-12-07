@@ -12,15 +12,14 @@
   @include desktop {
     margin: initial;
     grid-template-columns: 1fr 3fr;
-    gap: 40px;
+    gap: 15px;
     border-radius: 0;
     // padding: 15px;
     // background: $color-bg-2;
   }
 
   @include ld {
-    // padding: 90px 50px 100px 50px;
-
+    gap: 40px;
   }
 
   &__intro {
@@ -34,18 +33,18 @@
     padding: 40px;
     background-color: $color-orange;
     border-radius: 50px;
-    margin: 0 15px;
 
     @include desktop {
       grid-template-columns: initial;
-      padding: 40px 70px;
+      padding: 20px 20px;
       gap: 30px;
       height: 100%;
       text-align: center;
     }
 
     @include ld {
-
+      padding: 40px 70px;
+      margin: 0 15px;
     }
 
     &-btn {
@@ -65,8 +64,18 @@
       cursor: pointer;
 
       @include desktop {
+        flex-direction: row;
         font-size: 16px;
+        aspect-ratio: initial;
+        padding: 10px;
       }
+
+      @include ld {
+        flex-direction: column;
+        aspect-ratio: 1/1;
+        padding: 0;
+      }
+
       &:hover {
         background-color: rgba($color-8, 0.3);
       }
@@ -95,6 +104,14 @@
     display: grid;
     gap: 10px;
     grid-template-columns: repeat(2, 50%);
+
+    @include desktop {
+      grid-template-columns: 1fr;
+    }
+
+    @include ld {
+      grid-template-columns: repeat(2, 50%);
+    }
   }
   &__sub {
     position: relative;
@@ -110,9 +127,12 @@
     place-items: center;
     align-self: flex-start;
 
-
     @include desktop {
       align-self: initial;
+      height: 150px;
+    }
+    @include ld {
+      height: 220px;
     }
 
     &-img {
@@ -170,18 +190,55 @@
     @include desktop {
       grid-column-start: initial;
       grid-column-end: initial;
+      gap: 10px;
+      padding: 0 15px;
+      aspect-ratio: initial;
+    }
+
+    @include ld {
+      aspect-ratio: 1/1;
       gap: 20px;
+      padding: 0 40px;
     }
 
     &-img {
       position: absolute;
+
+      @include desktop {
+        position: relative;
+      }
+
+      @include ld {
+        position: absolute;
+      }
+
       &--1 {
         top: 15px;
         left: 15px;
+
+        @include desktop {
+          top: 0;
+          left: 0;
+        }
+
+        @include ld {
+          top: 15px;
+          left: 15px;
+        }
       }
       &--2 {
         bottom: 15px;
         right: 15px;
+
+        @include desktop {
+          bottom: 0;
+          right: 0;
+        }
+
+        @include ld {
+          bottom: 15px;
+          right: 15px;
+        }
       }
     }
     &-num {
@@ -192,6 +249,12 @@
       text-transform: uppercase;
 
       @include desktop {
+        position: relative;
+        font-size: 10px;
+      }
+
+      @include ld {
+        position: absolute;
         font-size: 14px;
       }
 
@@ -202,8 +265,15 @@
         text-align: right;
 
         @include desktop {
+          top: 0;
+          right: 0;
+          transform: translateY(0);
+        }
+
+        @include ld {
           top: 40px;
           right: 25px;
+          transform: translateY(-50%);
         }
       }
 
@@ -214,8 +284,14 @@
         text-align: left;
 
         @include desktop {
+          bottom: 0;
+          left: 0;
+          transform: translateY(0);
+        }
+        @include ld {
           bottom: 40px;
           left: 25px;
+          transform: translateY(50%);
         }
       }
     }
@@ -248,11 +324,16 @@
     z-index: 10;
 
     @include desktop {
-      column-gap: 40px;
+      column-gap: 15px;
       row-gap: 30px;
       grid-template-columns: repeat(4, 1fr);
       overflow-y: initial;
       width: initial;
+      padding: 0;
+    }
+
+    @include ld {
+      column-gap: 40px;
     }
   }
 
@@ -284,7 +365,6 @@
   &__card {
     position: relative;
     border-radius: 50px;
-    padding: 40px;
     padding: 10px 0 10px 0;
     overflow: hidden;
     display: grid;
@@ -296,11 +376,17 @@
 
     @include desktop {
       order:initial;
-      min-height: 640px;
+      min-height: 480px;
       grid-template-rows:  initial;
-      padding: 40px;
+      padding: 40px 15px;
       width: initial;
     }
+
+    @include ld {
+      padding: 40px;
+      min-height: 640px;
+    }
+
     &--green { 
       // background: $color-green; 
       // border: 5px solid $color-green;

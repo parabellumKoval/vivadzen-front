@@ -1,8 +1,6 @@
 <template>
   <NuxtLayout>
     <NuxtLoadingIndicator />
-    <Transition name="page-tr">
-      <NuxtPage />
-    </Transition>
+    <NuxtPage />
   </NuxtLayout>
 </template>

@@ -7,7 +7,7 @@
     z-index: 1;
 
     @include desktop {
-      height: 600px;
+      height: auto;
       margin-top: 30px;
     }
 
@@ -35,6 +35,7 @@
 
 
 .con {
+  position: relative;
   --container-width: 2160px;
   --container-padding: 40px;
   --sidebar-width: 400px;
@@ -102,16 +103,14 @@
 
   &:after,
   &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 10%;
-    pointer-events: none;
-    z-index: 2;
-
-    @include mobile {
-      display: none;
+    @include ld {
+      content: "";
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 10%;
+      pointer-events: none;
+      z-index: 2;
     }
   }
 

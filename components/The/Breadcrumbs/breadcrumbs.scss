@@ -33,7 +33,10 @@
       white-space: wrap;
     }
     &:hover {
-      color: #ACDA53;
+
+      @include desktop {
+        color: $color-green;
+      }
     }
     &::before {
       content: " > ";
