@@ -10,10 +10,25 @@ const errors = ref({
   password: null
 })
 
+const resetErrors = () => {
+  errors.value.email = null
+  errors.value.password = null
+}
+
+const applyErrors = (payload) => {
+  if (!payload || typeof payload !== 'object') return
+  Object.entries(payload).forEach(([key, messages]) => {
+    if (Object.prototype.hasOwnProperty.call(errors.value, key) && Array.isArray(messages) && messages.length) {
+      errors.value[key] = messages[0]
+    }
+  })
+}
+
 // METHODS
 
 // HANDLERS
 const saveHandler = async () => {
+  resetErrors()
   isLoading.value = true
   try {
     await requestEmailChange({ email: email.value, password: password.value })
@@ -22,8 +37,13 @@ const saveHandler = async () => {
       type: 'success'
     })
   } catch (error) {
+    const data = error?.data || {}
+    if (data?.errors) {
+      applyErrors(data.errors)
+    }
+
     useNoty().setNoty({
-      content: t('noty.update.fail'),
+      content: (typeof data?.message === 'string' && data.message) || t('noty.update.fail'),
       type: 'error'
     })
   } finally {
@@ -45,6 +65,7 @@ const saveHandler = async () => {
           v-model="email"
           :placeholder="$t('form.email')"
           :error="errors?.email"
+          @input="() => errors.email = null"
           required
           class="form-component"
         >
@@ -53,6 +74,7 @@ const saveHandler = async () => {
           v-model="password"
           :placeholder="$t('form.password')"
           :error="errors?.password"
+          @input="() => errors.password = null"
           required
           class="form-component"  
         >

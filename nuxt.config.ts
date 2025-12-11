@@ -350,7 +350,7 @@ export default defineNuxtConfig({
     defaults: {
       mode: 'page',         // 'page' | 'item'
       loop: true,
-      gap: 16,
+      gap: { mobile: 10, tablet: 10, desktop: 15, ld: 15, xld: 15 },
       showArrows: true,
       showDots: true,
       snapStop: 'normal',
@@ -496,7 +496,7 @@ export default defineNuxtConfig({
   robots: {
     autoI18n: false,
     disableNuxtContentIntegration: true,
-    disallow: ['/_ipx', '/.well-known']
+    disallow: ['/_ipx', '/.well-known', '/*?*gclid=*']
   },
 
   sitemap: {
@@ -565,7 +565,7 @@ export default defineNuxtConfig({
       '/delivery': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/contacts': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       // '/faq': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
-      '/faq': { swr: true },
+      '/faq': { isr: 60 * 30 },
       '/payment': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/guarantees': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },
       '/terms': { prerender: true, headers: { 'Cache-Control': 'max-age=31536000, immutable' } },

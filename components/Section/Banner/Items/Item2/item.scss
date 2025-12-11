@@ -9,6 +9,11 @@
   margin: 0 15px;
 
   @include desktop {
+    margin: 0 35px;
+    padding: 0 0px;
+  }
+
+  @include ld {
     margin: 0;
     padding: 0 200px;
   }
@@ -23,6 +28,7 @@
     overflow: hidden;
     &-img {
       object-fit: cover;
+      object-position: center right;
       width: 100%;
       height: 100%;
       max-width: initial;
@@ -40,11 +46,12 @@
     z-index: 1;
 
     @include desktop {
-      max-width: 50%;
+      max-width: 60%;
       align-items: center;
     }
 
     @include ld {
+      max-width: 50%;
       gap:200px;
     }
   }
@@ -58,6 +65,11 @@
     transform: translateY(30px);
 
     @include desktop {
+      gap: 20px;
+      text-align: left;
+    }
+
+    @include ld {
       gap: 50px;
       text-align: left;
     }

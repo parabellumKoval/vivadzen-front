@@ -27,7 +27,9 @@ type Options = {
   detach?: {
     x?: boolean,
     y?: boolean
-  }
+  },
+  closeOnBackdrop?: boolean,
+  closeOnRouteChange?: boolean
 }
 
 type Modal = "signInSocial" | "signInEmail" | "logInEmail" | "passwordNew" | "emailNew" | "passwordReset" | "modalMobileAccount" | "modalMobileApp" | "modalMobileMenu" | "modalMobileTableSettings" | "modalMobileTableView" | "modalMobileTableSort" | "modalMobileTableBulks" | "modalMobileTablePerpage" | "modalMobileTableActions" | "modalLangSwitcher" | "modalMobileMessageForm" | "modalMobileNote" | "ModalMobileFilters"
@@ -70,7 +72,9 @@ export const useModal = () => {
     detach: {
       x: false,
       y: false
-    }
+    },
+    closeOnBackdrop: true,
+    closeOnRouteChange: true
   } as Options})
   
   // const options = useState('options', () => {return {} as Options})
@@ -170,6 +174,8 @@ export const useModal = () => {
     active.value.options.margin.y = optionsData?.margin?.y ?? 0
     active.value.options.width.min = optionsData?.width?.min ?? 'initial'
     active.value.options.width.max = optionsData?.width?.max ?? 'initial'
+    active.value.options.closeOnBackdrop = optionsData?.closeOnBackdrop ?? true
+    active.value.options.closeOnRouteChange = optionsData?.closeOnRouteChange ?? true
 
     // console.log('setupOptions', active.value.options)
   }

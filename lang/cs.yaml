@@ -125,6 +125,12 @@ messages:
   select_region_delivery_notice: Abyste viděli všechny dostupné způsoby doručení a podrobné informace, nejprve vyberte zemi doručení
   select_region_payment_notice: Abyste viděli všechny dostupné platební metody a podrobné informace, nejprve vyberte zemi doručení
 
+age_gate:
+  title: Potvrzení věku
+  description: Potvrďte prosím, že vám je alespoň 18 let, abyste mohli pokračovat na Vivadzen.
+  confirm: Ano, je mi 18+
+  decline: Ne
+
 button:
   collapse: Sbalit
   expand: Rozbalit

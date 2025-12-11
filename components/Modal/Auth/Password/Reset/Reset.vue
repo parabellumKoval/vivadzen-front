@@ -7,7 +7,19 @@
   const throttleTimer = ref(0)
   const throttleTimerId = ref(null)
 
-  const errors = ref({})
+  const errors = ref({ email: null })
+
+  const resetErrors = () => {
+    errors.value.email = null
+  }
+
+  const applyErrors = (payload) => {
+    if (!payload || typeof payload !== 'object') return
+    const messages = payload.email
+    if (Array.isArray(messages) && messages.length) {
+      errors.value.email = messages[0]
+    }
+  }
 
   // COMPUTED
 
@@ -34,7 +46,7 @@
   }
 
   const sendHandler = async () => {
-  
+    resetErrors()
     if (!email.value) {
       return
     }
@@ -48,6 +60,9 @@
       })
     } catch (err) {
       const data = err?.data || {}
+      if (data?.errors) {
+        applyErrors(data.errors)
+      }
       const message =
         (typeof data?.message === 'string' && data.message) ||
         t('noty.update.fail')
@@ -76,7 +91,8 @@
         <form-text
           v-model="email"
           :placeholder="$t('form.email')"
-          :errors="errors.email"
+          :error="errors?.email"
+          @input="() => errors.email = null"
           class="form-component"
         >
         </form-text>

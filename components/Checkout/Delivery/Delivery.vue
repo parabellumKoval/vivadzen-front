@@ -61,6 +61,7 @@ const deliveryMethod = computed({
     <form-tabs
       v-model="order.delivery.method"
       :items="deliveryMethods"
+      :error="errors?.delivery?.method"
       class="form-tabs"
     ></form-tabs>
     <transition name="fade-in">

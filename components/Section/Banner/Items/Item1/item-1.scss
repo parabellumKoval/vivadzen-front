@@ -8,6 +8,10 @@
   margin: 0 15px;
 
   @include desktop {
+    margin: 0 35px;
+  }
+
+  @include ld {
     margin: 0;
   }
 
@@ -48,9 +52,13 @@
     transform: translateY(30px);
 
     @include desktop {
-      gap: 50px;
       align-self: initial;
       text-align: left;
+      transform: translateY(0);
+    }
+
+    @include ld  {
+      gap: 50px;
     }
   }
 

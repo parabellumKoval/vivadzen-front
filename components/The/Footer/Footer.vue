@@ -174,20 +174,24 @@ const subHandler = () => {
 
     <div class="nav">
       <div class="nav-container full-container">
-        <div class="sub">
-          <div class="footer-label">{{ t('label.sub_title') }}</div>
-          <div class="sub-title">{{ t('label.sub_desc') }}</div>
+        <div class="left-side">
+          <div class="sub">
+            <div class="footer-label">{{ t('label.sub_title') }}</div>
+            <div class="sub-title">{{ t('label.sub_desc') }}</div>
 
-          <div class="sub-form">
-            <form-text
-              v-model="sub.email"
-              :error="errors?.email"
-              @input="() => errors.email = null"
-              :placeholder="t('form.enter.email')"
-              class="sub-input"
-            ></form-text>
-            <button @click="subHandler" class="button primary sub-btn">{{ t('button.sub') }}</button>
+            <div class="sub-form">
+              <form-text
+                v-model="sub.email"
+                :error="errors?.email"
+                @input="() => errors.email = null"
+                :placeholder="t('form.enter.email')"
+                class="sub-input"
+              ></form-text>
+              <button @click="subHandler" class="button promo sub-btn">{{ t('button.sub') }}</button>
+            </div>
           </div>
+
+          <the-footer-region></the-footer-region>
         </div>
 
         <hr class="footer-hr nav-hr" />

@@ -63,37 +63,41 @@ const setSeo = () => {
 // HANDLERS
 // WATCHERS
 watch(() => html.value, (v) => {
-  if(v) {
-    // clear headers
-    tableOfContents.value = []
-    
-    const headers = v.querySelectorAll('h2, h3')
-    
-    headers.forEach((item, i) => {
-      const index = i + 1
-      const id = 'header-' + index
-      const tagName = item.tagName
-      const headerText = item.innerText || item.textContent
-      
-      if(headerText) {
-        tableOfContents.value.push({
-          id: id,
-          title: headerText,
-          tag: tagName
-        })
-      }
+  const container = v?.$el ?? v
 
-      item.setAttribute("id", id);
-    })
+  if(!container || typeof container.querySelectorAll !== 'function') {
+    return
   }
+
+  // clear headers
+  tableOfContents.value = []
+  
+  const headers = container.querySelectorAll('h2, h3')
+  
+  headers.forEach((item, i) => {
+    const index = i + 1
+    const id = 'header-' + index
+    const tagName = item.tagName
+    const headerText = item.innerText || item.textContent
+    
+    if(headerText) {
+      tableOfContents.value.push({
+        id: id,
+        title: headerText,
+        tag: tagName
+      })
+    }
+
+    item.setAttribute("id", id);
+  })
 }, {
   immediate: true
 })
 
 
 await useAsyncData('get-article-' + slug.value, () => useArticleStore().show(slug.value)).then(({data, error}) => {
-  if(data.value) {
-    article.value = data.value
+  if(data.value.data) {
+    article.value = data.value.data
     setCrumbs()
   }
 })
@@ -136,12 +140,12 @@ setSeo()
           <div class="article-header">
             
             <nuxt-img
-              :src = "article.image.src"
-              :alt = "article.image.alt || article.name"
-              :title = "article.image.title || article.name"
+              :src = "article.image?.src"
+              :alt = "article.image?.alt || article.name"
+              :title = "article.image?.title || article.name"
               width="800"
               height="400"
-              sizes = "mobile:100vw tablet:100vw desktop:800px xl:1400px"
+              sizes = "mobile:100vw tablet:100vw desktop:800px xl:1500px"
               format = "webp"
               quality = "60"
               loading = "lazy"
@@ -149,7 +153,8 @@ setSeo()
               class="article-image"
             />
           </div>
-          <div class="article-text rich-text" ref="html" v-html="article.content"></div>
+          <!-- <div class="article-text rich-text" ref="html" v-html="article.content"></div> -->
+          <slice-area  :slices="article.content_slices" ref="html"  class="article-text"></slice-area>
         </div>
         
         <div class="article-aside">

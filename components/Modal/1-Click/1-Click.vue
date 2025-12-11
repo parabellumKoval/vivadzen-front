@@ -8,10 +8,43 @@ const form = ref({
   text: null
 })
 
-const errors = ref({
+const initialErrorsState = () => ({
   phone: null,
   text: null
 })
+
+const errors = ref(initialErrorsState())
+
+const normalizeFieldErrors = (value) => {
+  if (Array.isArray(value)) {
+    return value.length ? value : null
+  }
+
+  if (typeof value === 'string' && value.length) {
+    return value
+  }
+
+  return null
+}
+
+const extractValidationBag = (error) => {
+  if (!error || typeof error !== 'object') return null
+  if (error.errors && typeof error.errors === 'object') return error.errors
+  if (error.options && typeof error.options === 'object') return error.options
+  return error
+}
+
+const applyErrors = (error) => {
+  const bag = extractValidationBag(error)
+  const next = initialErrorsState()
+
+  if (bag) {
+    next.phone = normalizeFieldErrors(bag.phone)
+    next.text = normalizeFieldErrors(bag.text)
+  }
+
+  errors.value = next
+}
 
 // COMPUTEDS
 const product = computed(() => {
@@ -25,8 +58,7 @@ const resetForm = () => {
 }
 
 const resetErrors = () => {
-  errors.value.phone = null
-  errors.value.text = null
+  errors.value = initialErrorsState()
 }
 
 const getFormData = () => {
@@ -42,7 +74,7 @@ const buyHandler = () => {
 
   useFeedbackStore().create(formData).then(({data, error}) => {
 
-    if(data) {
+    if(data.value) {
       useNoty().setNoty({
         title: t('noty.1_click.title'),
         content: t('noty.1_click.sent'),
@@ -54,8 +86,8 @@ const buyHandler = () => {
       useModal().close()
     }
 
-    if(error) {
-      throw error
+    if(error.value) {
+      throw error.value
     }
 
   }).catch((e) => {
@@ -66,7 +98,7 @@ const buyHandler = () => {
       type: 'error'
     }, 5000)
 
-    errors.value = e
+    applyErrors(e?.data || e)
   })
 
 }

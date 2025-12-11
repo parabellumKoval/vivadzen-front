@@ -125,6 +125,12 @@ messages:
   select_region_delivery_notice: To view every available delivery option and read the details, please select your delivery country first
   select_region_payment_notice: To view every available payment option and read the details, please select your delivery country first
 
+age_gate:
+  title: Age confirmation
+  description: Please confirm you are at least 18 years old to continue on Vivadzen.
+  confirm: Yes, I'm 18+
+  decline: No, take me away
+
 button:
   collapse: Collapse
   expand: Expand

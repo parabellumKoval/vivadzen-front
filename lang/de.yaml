@@ -125,6 +125,12 @@ messages:
   select_region_delivery_notice: Um alle verfügbaren Liefermethoden zu sehen und Details zu lesen, wählen Sie zuerst Ihr Lieferland aus
   select_region_payment_notice: Um alle verfügbaren Zahlungsmethoden zu sehen und Details zu lesen, wählen Sie zuerst Ihr Lieferland aus
 
+age_gate:
+  title: Altersbestätigung
+  description: Bitte bestätigen Sie, dass Sie mindestens 18 Jahre alt sind, um Vivadzen weiter zu nutzen.
+  confirm: Ja, ich bin 18+
+  decline: Nein
+
 button:
   collapse: Einklappen
   expand: Ausklappen

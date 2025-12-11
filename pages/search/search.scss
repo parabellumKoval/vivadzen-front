@@ -1,7 +1,11 @@
 @use './assets/scss/rich-text' as *;
 
 .title-search {
-  color: $color-green;
+  color: $color-orange;
+
+  @include desktop {
+    
+  }
 }
 .simple-search {
   background: $color-7;

@@ -57,7 +57,7 @@ const getSize = (line) => sizeMap[locale.value]?.[line] ?? '100px'
         src="/images/banners/banner-2.png"
         width="2200"
         height="1000"
-        sizes = "mobile:100vw tablet:2200px"
+        sizes = "tablet:1920px desktop:2200px"
         format = "avif"
         quality = "60"
         fit="outside"

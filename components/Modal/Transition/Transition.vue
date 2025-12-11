@@ -42,6 +42,9 @@ const getPxValue = (v) => {
 }
 
 const closeHandler = () => {
+  if(useModal().active?.options?.closeOnBackdrop === false)
+    return
+
   useModal().close()
 }
 </script>

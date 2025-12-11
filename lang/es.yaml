@@ -125,6 +125,12 @@ messages:
   select_region_delivery_notice: Para ver todos los métodos de entrega disponibles y leer la información detallada, primero selecciona tu país de entrega
   select_region_payment_notice: Para ver todos los métodos de pago disponibles y leer la información detallada, primero selecciona tu país de entrega
 
+age_gate:
+  title: Confirmación de edad
+  description: Confirma que tienes al menos 18 años para continuar en Vivadzen.
+  confirm: Sí, tengo 18+
+  decline: No
+
 button:
   collapse: Contraer
   expand: Expandir

@@ -30,6 +30,24 @@ const review = ref({
 
 const errors = ref(null)
 
+const extractValidationErrors = (error) => {
+  const payload = error?.data || error
+
+  if (!payload || typeof payload !== 'object') {
+    return null
+  }
+
+  if (payload.options && typeof payload.options === 'object') {
+    return payload.options
+  }
+
+  if (payload.errors && typeof payload.errors === 'object') {
+    return payload.errors
+  }
+
+  return null
+}
+
 const product = computed(() => {
   return useModal().active.data
 })
@@ -102,6 +120,7 @@ const sendHandler = async () => {
 
     if(data.value) {
       resetReview()
+      errors.value = null
 
       useNoty().setNoty({
         title: t('noty.review.success_title'),
@@ -122,9 +141,7 @@ const sendHandler = async () => {
       type: 'error'
     }, 7000)
 
-    if(e.options) {
-      errors.value = e.options
-    }
+    errors.value = extractValidationErrors(e)
   })
 }
 

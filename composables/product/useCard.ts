@@ -23,21 +23,25 @@ export const useCard = (product: Product) => {
     }
   })
 
+  const mainPhoto = computed(() => {
+    return photos.value?.[0]
+  })
+
   const photoAlt = computed(() => {
-    return product.image?.alt || product.name
+    return product.image?.alt || mainPhoto.value?.alt || product.name
   })
 
   const photoTitle = computed(() => {
-    return product.image?.title || product.name
+    return product.image?.title || mainPhoto.value?.title || product.name
   })
 
   const photoSize = computed(() => {
-    return product.image?.size || ''
+    return product.image?.size || mainPhoto.value?.size || ''
   })
 
   const photo = computed(() => {
     // return useImg().product(product.image)
-    return product.image?.src
+    return product.image?.src || mainPhoto.value?.src || useImg().noImage
   })
 
   const stock = computed(() => {

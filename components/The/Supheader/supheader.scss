@@ -2,11 +2,50 @@
   display: flex;
   align-items: center;
   height: initial;
-  // background: linear-gradient(90deg, #427CD2 0%, #C6D242 100%);
   background: linear-gradient(90deg, #ff8400 0%, #73c56f 100%);
-  // background: $color-dark-2;
+  width: 100vw;
+  overflow: hidden;
   @include desktop {
     height: 50px;
+  }
+
+  &-btn {
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    column-gap: 5px;
+    height: 50px;
+    color: $color-8;
+    font-weight: 600;
+    transition: opacity 0.3s;
+    padding: 0 30px;
+
+    @include desktop {
+      column-gap: 10px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &-delim {
+    height: 25px;
+    width: 1px;
+    background: rgba($color-8, 0.3);
+  }
+
+  &-region-block {
+    :deep(.supheader-delim) {
+      background-color: rgba($color-8, 0.5);
+    }
+    :deep(.unit-info-label) {
+      color: rgba($color-8, 0.5);
+    }
+    :deep(.unit-info-value),
+    :deep(.icon) {
+      color: $color-8;
+    }
   }
 }
 .inner {
@@ -19,7 +58,7 @@
   font-size: 14px;
 
   @include desktop {
-    grid-template-columns: min-content min-content 1fr min-content;
+    grid-template-columns: min-content 1fr min-content;
   }
 }
 .content {
@@ -34,42 +73,9 @@
     white-space: nowrap;
   }
 }
-.close-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: $radius;
-  border: 1px solid $color-5;
-  .icon {
-    color: $color-8;
-  }
-  &:hover {
-    background: rgba($color-8, 0.1);
-  }
-}
 
-.supheader-btn-borders {
-  border-left: 1px solid rgba($color-8, 0.1);
-  border-right: 1px solid rgba($color-8, 0.1);
-}
-.supheader-btn {
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  grid-column-gap: 3px;
-  height: 50px;
-  color: #FFFFFF;
-  font-weight: 600;
-
-  @include desktop {
-    grid-column-gap: 10px;
-  }
-}
 
 .phone-btn {
-  display: none;
   @include desktop {
     display: grid;
     grid-template-columns: min-content 1fr;
@@ -79,34 +85,22 @@
 }
 
 .contacts-btn {
-  display: none;
   @include desktop {
     display: flex;
     padding: 0 30px 0 30px;
   }
 }
 
-.region-btn {
+.contacts-block {
   display: grid;
-  grid-template-columns: min-content min-content 1fr;
+  align-items: center;
+  grid-template-columns: repeat(3, min-content);
+}
+
+.contacts-block {
+  display: none;
 
   @include desktop {
-    grid-template-columns: min-content min-content 50px;
+    display: grid;
   }
-  &-locale {
-    display: flex;
-    text-transform: uppercase;
-  }
-}
-
-.region-unit {
-  display: grid;
-  grid-template-columns: 24px min-content;
-  padding: 0 20px 0 10px;
-}
-
-.region-label {
-  display: grid;
-  grid-template-columns: 24px min-content;
-  padding: 0 10px 0 20px;
 }

@@ -1,24 +1,18 @@
 ru:
-  all_contacts: Все контакты
   delivery_country: Страна доставки
   interface_language: Язык интерфейса
 uk:
-  all_contacts: Усі контакти
   delivery_country: Країна доставки
   interface_language: Мова інтерфейсу
 de:
-  all_contacts: Alle Kontakte
   delivery_country: Lieferland
   interface_language: Oberflächensprache
 es:
-  all_contacts: Todos los contactos
   delivery_country: País de entrega
   interface_language: Idioma de interfaz
 cs:
-  all_contacts: Všechny kontakty
   delivery_country: Země doručení
   interface_language: Jazyk rozhraní
 en:
-  all_contacts: All contacts
   delivery_country: Delivery country
   interface_language: Interface language

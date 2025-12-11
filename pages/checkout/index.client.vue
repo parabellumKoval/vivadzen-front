@@ -29,7 +29,6 @@ const breadcrumbs = [
   }
 ]
 
-const isCheckoutListActive = ref(false)
 const errorHtml = ref(null)
 const authType = ref('new')
 
@@ -191,7 +190,7 @@ watch(() => order.value.payment.method, (v) => {
   }
   useGoogleEvent().setEvent('АddPaymentInfo', {products: products.value, total: total.value, payment: payment })
   
-  errors.value.delivery = {}
+  errors.value.payment = {}
 }, {
   immediate: true
 })
@@ -271,8 +270,8 @@ useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: tot
               </div>
             </template>
 
-            <div v-show="isCheckoutListActive" class="checkout-extrabox" >
-              <lazy-checkout-list @isActive="(v) => isCheckoutListActive = v"></lazy-checkout-list>
+            <div class="checkout-extrabox">
+              <lazy-checkout-list></lazy-checkout-list>
             </div>
           </div>
 

@@ -55,6 +55,7 @@ const paymentMethod = computed({
     <form-tabs
       v-model="paymentMethod"
       :items="paymentMethods"
+      :error="errors?.payment?.method"
       class="form-tabs"
     ></form-tabs>
     <transition name="fade-in">

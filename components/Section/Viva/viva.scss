@@ -7,15 +7,12 @@
   gap: 30px;
   overflow: hidden;
   margin: 0 -15px 50px -15px;
-  // background: $color-8;
 
   @include desktop {
     margin: initial;
     grid-template-columns: 1fr 3fr;
     gap: 15px;
     border-radius: 0;
-    // padding: 15px;
-    // background: $color-bg-2;
   }
 
   @include ld {
@@ -159,6 +156,10 @@
     font-weight: 900;
 
     @include desktop {
+      font-size: 42px;
+    }
+
+    @include ld {
       font-size: 64px;
     }
   }
