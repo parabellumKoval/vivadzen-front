@@ -1,6 +1,8 @@
-import type { RegionAliases, RegionDefinitions, RegionMeta } from '../types'
+import type { RegionAliases, RegionDefinitions, RegionLocales, RegionMeta } from '../types'
 
 export const DEFAULT_FALLBACK_REGION = 'global'
+
+const normalizeLocaleCode = (value: string | undefined | null) => String(value || '').trim().toLowerCase()
 
 export const normalizeRegionDefinitions = (definitions?: RegionDefinitions): RegionDefinitions => {
   if (!definitions) return {}
@@ -77,6 +79,41 @@ export const normalizeRegionAliases = (
     }
 
     acc[regionCode] = alias
+    return acc
+  }, {})
+}
+
+export const normalizeLocalesByRegion = (
+  definitions: RegionDefinitions,
+  matrix: RegionLocales | undefined,
+  availableLocales: string[]
+): RegionLocales => {
+  const allowed = new Set(availableLocales.map(normalizeLocaleCode).filter(Boolean))
+  const fallbackList = allowed.size ? Array.from(allowed) : []
+
+  return Object.entries(definitions).reduce<RegionLocales>((acc, [rawCode, meta]) => {
+    const regionCode = normalizeLocaleCode(rawCode)
+    if (!regionCode) return acc
+
+    const configured = Array.isArray(matrix?.[regionCode])
+      ? matrix?.[regionCode]
+      : []
+
+    const normalizedConfigured = (configured || [])
+      .map(normalizeLocaleCode)
+      .filter((locale) => locale && (!allowed.size || allowed.has(locale)))
+
+    const baseList = normalizedConfigured.length
+      ? normalizedConfigured
+      : fallbackList
+
+    const defaultLocale = normalizeLocaleCode(meta.locale)
+    const merged = Array.from(new Set([defaultLocale, ...baseList].filter(Boolean)))
+
+    acc[regionCode] = merged.length
+      ? merged
+      : (defaultLocale ? [defaultLocale] : (fallbackList[0] ? [fallbackList[0]] : ['en']))
+
     return acc
   }, {})
 }

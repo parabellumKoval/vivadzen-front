@@ -18,13 +18,19 @@
     .main-input {
       border: 2px solid rgba($color-red, 0.85);
     }
+    &:after {
+      display: none;
+    }
+    .right {
+      display: none;
+    }
   }
   &.required {
     &:after {
       content: "*";
       position: absolute;
       top: 50%;
-      right: 20px;
+      right: 15px;
       transform: translateY(calc(-50% + 4px));
       color: $color-red;
     }

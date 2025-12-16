@@ -43,6 +43,7 @@ title:
     settings: Nastavení
     support: Podpora
     favorite: Oblíbené produkty
+    transactions: Transakce
 
 meta:
   address: Na Bojisti 1471/22, 120 00 Nove Mesto, Praha 2, Cesko
@@ -84,6 +85,7 @@ label:
   our_address: Naše adresa
   product_code: Kód produktu
   contact_phones: Kontaktní telefony
+  address: Naše adresa
   our_socials: Naše sociální sítě
   sub_title: Přihlaste se k odběru slev!
   sub_desc: Každý týden posíláme předplatitelům promo kódy a bonusy.
@@ -105,6 +107,7 @@ messages:
   products_found: Nalezeno {amount} produktů
   no_results: Žádné výsledky
   empty_cart: Košík je prázdný
+  in_your_cart: 'V košíku {products} produkt'
   cart_item_unavailable: Produkt není ve vašem regionu dostupný
   leave_review: Zanechat recenzi
   delivery_price: Cena dopravy
@@ -124,6 +127,10 @@ messages:
   chose_delivery: Zvolte způsob doručení pro zobrazení dostupných platebních metod
   select_region_delivery_notice: Abyste viděli všechny dostupné způsoby doručení a podrobné informace, nejprve vyberte zemi doručení
   select_region_payment_notice: Abyste viděli všechny dostupné platební metody a podrobné informace, nejprve vyberte zemi doručení
+  email_verification_required: Na vaši e-mailovou adresu byl odeslán potvrzovací odkaz. Prosím, ověřte svou e-mailovou adresu, abyste aktivovali svůj účet.
+
+message:
+  email_verification_required: Na vaši e-mailovou adresu byl odeslán potvrzovací odkaz. Prosím, ověřte svou e-mailovou adresu, abyste aktivovali svůj účet.
 
 age_gate:
   title: Potvrzení věku
@@ -138,6 +145,7 @@ button:
   logout_system: Odhlásit se
   yes: Ano
   no: Ne
+  ok: OK
   enter: Přihlásit se
   register: Registrovat se
   pay: Pokračovat k platbě
@@ -283,6 +291,7 @@ noty:
     sent: Brzy vás kontaktujeme ohledně detailů objednávky 😎
     fail: Objednávku se nepodařilo vytvořit 😔
   subscription:
+    sent_title: Odběr potvrzen
     sent: Úspěšně jste se přihlásili k odběru 😉
     fail: Přihlášení k odběru se nezdařilo 😔
   feedback:

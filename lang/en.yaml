@@ -43,6 +43,7 @@ title:
     settings: Settings
     support: Support
     favorite: Favorite products
+    transactions: Transactions
 
 meta:
   address: Na Bojisti 1471/22, 120 00 Nove Mesto, Prague 2, Czechia
@@ -84,6 +85,7 @@ label:
   our_address: Our address
   product_code: Product code
   contact_phones: Contact phone numbers
+  address: Our address
   our_socials: Our social networks
   sub_title: Subscribe for discounts!
   sub_desc: We email subscribers promo codes and bonuses every week.
@@ -105,6 +107,7 @@ messages:
   products_found: Found {amount} products
   no_results: No results
   empty_cart: Your cart is empty
+  in_your_cart: 'In your cart {products} product'
   cart_item_unavailable: Product unavailable in your region
   leave_review: Leave a review
   delivery_price: Delivery cost
@@ -124,6 +127,10 @@ messages:
   chose_delivery: Choose a delivery method to see available payment methods
   select_region_delivery_notice: To view every available delivery option and read the details, please select your delivery country first
   select_region_payment_notice: To view every available payment option and read the details, please select your delivery country first
+  email_verification_required: A confirmation link has been sent to your email. Please verify your email address to activate your account.
+
+message:
+  email_verification_required: A confirmation link has been sent to your email. Please verify your email address to activate your account.
 
 age_gate:
   title: Age confirmation
@@ -138,6 +145,7 @@ button:
   logout_system: Log out
   yes: Yes
   no: No
+  ok: OK
   enter: Sign in
   register: Sign up
   pay: Proceed to payment
@@ -283,6 +291,7 @@ noty:
     sent: We will contact you shortly to clarify the order details 😎
     fail: The order was not placed 😔
   subscription:
+    sent_title: Subscription confirmed
     sent: You have successfully subscribed 😉
     fail: Subscription failed 😔
   feedback:

@@ -2,19 +2,21 @@ import { computed } from 'vue'
 import { useRuntimeConfig, useState, useNuxtApp } from '#imports'
 import type { RegionMetaWithCode, RegionsRuntimeConfig } from '../../module'
 
+const normalize = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
+
 export const useRegion = () => {
   const runtimeConfig = useRuntimeConfig()
   const moduleConfig = (runtimeConfig.public?.regionsModule || {}) as Partial<RegionsRuntimeConfig>
 
   const { $i18n } = useNuxtApp() as any
-  const {availableLocales} = $i18n
+  const { availableLocales } = $i18n
 
   const regionsMeta = moduleConfig.regionsMeta || {}
-  const fallbackRegion = String(
+  const fallbackRegion = normalize(
     moduleConfig.fallbackRegion ||
     Object.keys(regionsMeta)[0] ||
     'global'
-  ).trim().toLowerCase()
+  )
 
   const regions = moduleConfig.regions?.length
     ? moduleConfig.regions
@@ -24,8 +26,10 @@ export const useRegion = () => {
     ? moduleConfig.locales
     : Array.from(new Set(Object.values(regionsMeta).map((meta) => meta.locale))))
 
+  const localesByRegion = moduleConfig.localesByRegion || {}
+
   const regionAliases = Object.entries(moduleConfig.regionAliases || {}).reduce<Record<string, string>>((acc, [code, alias]) => {
-    const normalizedCode = String(code || '').trim().toLowerCase()
+    const normalizedCode = normalize(code)
     const normalizedAlias = String(alias || '').trim()
     if (!normalizedCode || !normalizedAlias) {
       return acc
@@ -51,7 +55,7 @@ export const useRegion = () => {
     ? moduleConfig.currencyByRegion!
     : Object.entries(regionsMeta).reduce<Record<string, string>>((acc, [, meta]) => {
       if (meta.locale && meta.currency) {
-        acc[meta.locale] = meta.currency
+        acc[normalize(meta.locale)] = meta.currency
       }
       return acc
     }, {})
@@ -62,10 +66,36 @@ export const useRegion = () => {
 
   const region = useState<string>('region', () => fallbackRegion)
 
-  const getDefaultLocaleFor = (regionCode: string | undefined) => {
-    if (!regionCode) return locales[0] || 'en'
-    return regionsMeta[regionCode]?.locale || locales[0] || 'en'
+  const getLocalesForRegion = (regionCode: string | null | undefined) => {
+    const normalizedRegion = normalize(regionCode)
+    const bucket = localesByRegion[normalizedRegion]
+    const normalizedLocales = (bucket && bucket.length ? bucket : locales || [])
+      .map(normalize)
+      .filter(Boolean)
+
+    if (normalizedLocales.length) {
+      return Array.from(new Set(normalizedLocales))
+    }
+
+    const metaDefault = regionsMeta[normalizedRegion]?.locale
+    if (metaDefault) {
+      return [normalize(metaDefault)]
+    }
+
+    return ['en']
   }
+
+  const getDefaultLocaleFor = (regionCode: string | null | undefined) => {
+    const normalizedRegion = normalize(regionCode)
+    const allowed = getLocalesForRegion(normalizedRegion)
+    const metaDefault = normalize(regionsMeta[normalizedRegion]?.locale)
+    if (metaDefault && allowed.includes(metaDefault)) {
+      return metaDefault
+    }
+    return allowed[0] || 'en'
+  }
+
+  const regionLocales = computed(() => getLocalesForRegion(region.value))
 
   const currency = computed(() => {
     return regionsMeta[region.value]?.currency ||
@@ -89,8 +119,7 @@ export const useRegion = () => {
     const currentPath = window.location.pathname
     const segments = currentPath.split('/').filter(Boolean)
 
-    const regionSet = new Set([fallbackRegion, ...regions].map((code) => code.toLowerCase()))
-    const localeSet = new Set(locales.map((code) => code.toLowerCase()))
+    const regionSet = new Set([fallbackRegion, ...regions].map((code) => normalize(code)).filter(Boolean))
 
     const firstSegment = segments[0]?.toLowerCase() || ''
     const hasRegionSegment = Boolean(firstSegment && regionSet.has(firstSegment))
@@ -98,8 +127,9 @@ export const useRegion = () => {
     const currentRegion = explicitRegion || fallbackRegion
 
     const localeIndex = hasRegionSegment ? 1 : 0
+    const regionLocaleSet = new Set(getLocalesForRegion(currentRegion))
     const potentialLocale = segments[localeIndex]?.toLowerCase() || ''
-    const hasLocaleSegment = hasRegionSegment && Boolean(potentialLocale && localeSet.has(potentialLocale))
+    const hasLocaleSegment = hasRegionSegment && Boolean(potentialLocale && regionLocaleSet.has(potentialLocale))
     const explicitLocale = hasLocaleSegment ? potentialLocale : null
 
     const restStartIndex = (hasRegionSegment ? 1 : 0) + (hasLocaleSegment ? 1 : 0)
@@ -119,20 +149,21 @@ export const useRegion = () => {
         : fallbackRegion
     }
 
+    const targetLocaleSet = new Set(getLocalesForRegion(targetRegion))
     const normalizedNextLocale = normalizeCandidate(nextLocale || undefined)
 
     let targetLocale = getDefaultLocaleFor(targetRegion)
 
-    if (normalizedNextLocale && localeSet.has(normalizedNextLocale)) {
+    if (normalizedNextLocale && targetLocaleSet.has(normalizedNextLocale)) {
       targetLocale = normalizedNextLocale
     } else if (!normalizedNextLocale && nextLocale === null) {
-      if (hasLocaleSegment && explicitLocale && localeSet.has(explicitLocale)) {
+      if (hasLocaleSegment && explicitLocale && targetLocaleSet.has(explicitLocale)) {
         targetLocale = explicitLocale
       }
     }
 
     const defaultLocale = getDefaultLocaleFor(targetRegion)
-    const includeLocaleSegment = targetLocale !== defaultLocale
+    const includeLocaleSegment = targetLocale !== defaultLocale && targetLocaleSet.has(targetLocale)
     const isFallbackRegion = targetRegion === fallbackRegion
 
     const finalSegments: string[] = []
@@ -154,7 +185,7 @@ export const useRegion = () => {
   }
 
   const setRegion = (value: string) => {
-    const normalized = String(value || '').trim().toLowerCase()
+    const normalized = normalize(value)
     region.value = normalized || fallbackRegion
   }
 
@@ -166,6 +197,10 @@ export const useRegion = () => {
     currency,
     regions,
     locales,
+    localesByRegion,
+    regionLocales,
+    getLocalesForRegion,
+    getDefaultLocaleFor,
     localeByRegion,
     fallbackRegion,
     fallbackCurrency,

@@ -31,6 +31,8 @@ export const useCatalog = () => {
   const {getQueryParams} = useFilter()
 
   const route = useRoute()
+  const catalogMeta = useState<any>('catalogMetaState', () => null)
+  const catalogPending = useState<boolean>('catalogPendingState', () => false)
 
 
   // Типы режимов запроса
@@ -99,11 +101,23 @@ export const useCatalog = () => {
     );
   })
 
+  const setCatalogMeta = (meta: any) => {
+    catalogMeta.value = meta || null
+  }
+
   const loadCatalog  = async (queryToUse: Object = {}): Promise<Catalog> => {
     const productStore = useProductStore();
-    const response = await productStore.catalog({...query.value, ...queryToUse})
+    catalogPending.value = true
 
-    return response.data.value
+    try {
+      const response = await productStore.catalog({...query.value, ...queryToUse})
+      const data = response.data.value
+      setCatalogMeta(data?.products?.meta)
+
+      return data
+    } finally {
+      catalogPending.value = false
+    }
   }
 
   const loadMore = async (
@@ -146,6 +160,8 @@ export const useCatalog = () => {
       filters: response?.filters || catalog.filters,
     };
 
+    setCatalogMeta(mergedCatalog.products?.meta)
+
     return mergedCatalog;
   };
 
@@ -158,5 +174,7 @@ export const useCatalog = () => {
     loadCatalog,
     loadMore,
     catalogQuery: query,
+    catalogMeta,
+    pending: catalogPending
   }
 }

@@ -7,10 +7,9 @@
   display: flex;
   gap: 15px;
   align-items: center;
-  margin: -20px -20px 0 -20px;
-  width: calc(100vw - 25px);
-  height: 90px;
-  padding: 20px 50px 20px 15px;
+  margin: -20px -20px 25px -20px;
+  width: calc(100% + 40px);
+  padding: 10px 50px 10px 20px;
   border-bottom: 1px solid $color-border;
   &-btn {
     display: flex;
@@ -31,16 +30,18 @@
   }
 }
 .line {
-  width: calc(100vw - 25px);
+  width: calc(100% + 40px);
   height: 1px;
   margin: 0 -20px;
   background: $color-border;
 }
 .mm {
+  width: 100%;
+
   &-content {
     display: grid;
     grid-gap: 30px;
-    padding: 0 0 30px 0;
+    padding: 0 0 10px 0;
     @include desktop {
       padding: 0;
       width: calc(100% + 30px);

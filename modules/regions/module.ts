@@ -11,7 +11,8 @@ export default defineNuxtModule<RegionsModuleOptions>({
   },
   defaults: {
     regions: {},
-    fallbackRegion: DEFAULT_FALLBACK_REGION
+    fallbackRegion: DEFAULT_FALLBACK_REGION,
+    localesByRegion: {}
   },
   setup (options, nuxt) {
     const resolver = createResolver(import.meta.url)

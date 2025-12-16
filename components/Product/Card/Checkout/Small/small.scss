@@ -3,14 +3,17 @@
 .card {
   position: relative;
   display: grid;
-  grid-auto-rows: auto;
+  grid-template-columns: 65px 1fr;
   grid-gap: 5px;
   width: 100%;
   @include tablet {
     grid-gap: 10px;
+    grid-template-columns: initial;
+    grid-auto-rows: auto;
   }
   @include desktop {
   }
+  
   &:hover {
     .hover {
       opacity: 1;
@@ -59,17 +62,18 @@
   }
 }
 .name {
-  display: block;
+  display: -webkit-box;
   width: 100%;
-  height: 19px;
+  height: 32px;
   max-height: 50px;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
   line-height: 110%;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
   transition: 0.3s max-height;
   overflow: hidden;
   
@@ -79,6 +83,7 @@
     position: absolute;
     max-height: 45px;
     font-size: 12px;
+    text-align: center;
     overflow: initial;
     height: 100%;
   }
@@ -142,38 +147,37 @@
 }
 .reviews {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   grid-gap: 10px;
-  &.between {
-    @include desktop {
-      justify-content: space-between;
-    }
+  font-size: 10px;
+  margin: 0 0 -5px 0;
+
+  @include desktop {
+    justify-content: center;
+    margin: 0;
+    font-size: 14px;
   }
-  &-btn {
-    max-width: 70%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    color: $color-3;
-    font-size: 12px;
-    @include tablet {
-      font-size: 14px;
-    }
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .sale {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: row;
   gap: 5px;
   font-size: 10px;
+  // grid-column-start: 1;
+  // grid-column-end: 3;
   @include tablet {
+  grid-column-start: initial;
+  grid-column-end: initial;
   }
   @include desktop {
     grid-column-gap: 25px;

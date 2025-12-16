@@ -1,4 +1,7 @@
 <script setup>
+import { ref, computed, watch } from 'vue';
+import { DEFAULT_PHONE_MASKS } from './phone.config';
+
 const props = defineProps({
   modelValue: {
     type: String,
@@ -6,7 +9,7 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: '+38 (0XX) XXX-XX-XX'
+    default: ''
   },
   required: {
     type: Boolean,
@@ -27,147 +30,175 @@ const props = defineProps({
   type: {
     type: String,
     default: 'tel'
+  },
+  region: {
+    type: String,
+    default: 'ua'
+  },
+  masks: {
+    type: Object,
+    default: () => ({})
   }
 });
 
-const emit = defineEmits(['update:modelValue', 'focused', 'blured']);
+const emit = defineEmits(['update:modelValue', 'input', 'focused', 'blured']);
 
-// const phone = ref('');
 const onFocus = ref(false);
+const rawDigits = ref('');
+const rawValue = ref('');
 
-// COMPUTED
-const placeholderDinamic = computed(() => {
-  if(onFocus.value) {
-    return '+38 (0XX) XXX-XX-XX';
-  }else {
-    return props.placeholder;
-  }
-})
-const phone = computed({
-  get: () => props.modelValue,
-  set: (value) => {
-    if (props.isDisabled || props.readonly) return;
-    emit('update:modelValue', value);
-  }
+const masksMap = computed(() => {
+  return {
+    ...DEFAULT_PHONE_MASKS,
+    ...(props.masks || {})
+  };
 });
 
-// HANDLERS
-const keydownHandler = (event) => {
-  console.log('keydownHandler', event);
-  const key = event.key
-  let originValue = event.target.value
-  let value = '';
+const normalizedRegion = computed(() => {
+  return String(props.region || 'ua').trim().toLowerCase();
+});
 
-  const isInitKey = ['+', '3', '8', '0'].includes(key)
+const currentMask = computed(() => {
+  return masksMap.value[normalizedRegion.value] ||
+    masksMap.value.ua ||
+    Object.values(masksMap.value)[0] ||
+    null;
+});
 
-  if(key === 'Backspace') {
-    value = originValue.slice(0, -1);
+const defaultPlaceholder = computed(() => {
+  return currentMask.value?.placeholder || currentMask.value?.mask || '';
+});
 
-    if(originValue.length <= 6) {
-      phone.value = '';
-      return
-    }
+const placeholderDinamic = computed(() => {
+  return onFocus.value
+    ? defaultPlaceholder.value
+    : (props.placeholder || defaultPlaceholder.value);
+});
 
-    if (originValue.length === 10) {
-      phone.value = value.slice(0, -2);
-      event.preventDefault()
-    }else if (originValue.length === 14 || value.length === 16) {
-      phone.value = value.slice(0, -1);
-      event.preventDefault()
-    }
+const inputMaxLength = computed(() => {
+  return currentMask.value?.mask?.length || 19;
+});
 
-  }else if(/[\d]/.test(key)) {
-    value = originValue + key
-
-    if (originValue.length === 7) {
-      phone.value = value  + ') '
-      event.preventDefault()
-    }else if(originValue.length === 12 || originValue.length === 15) {
-      phone.value = value + '-'
-      event.preventDefault()
-    }
-  }else {
-    event.preventDefault()
-  }
-
-  if(!value.startsWith('+38 (0')) {
-    phone.value = '+38 (0';
-    if(isInitKey) event.preventDefault()
-  }
-
-  if(value.length >= 20) {
-    event.preventDefault()
-  }
+function countMaskDigits(mask) {
+  return (mask || '')
+    .split('')
+    .filter((char) => char === '#')
+    .length;
 }
 
+function normalizeDigits(value, maskConfig, { skipStrip } = {}) {
+  const digits = (value || '').replace(/\D/g, '');
 
-const changeHandler = (event) => {
-  // if (props.isDisabled || props.readonly) return;
-  console.log('changeHandler', event);
+  if (!maskConfig) {
+    return digits;
+  }
 
-  const value = event.target.value;
-  phone.value = value;
-  // const raw = value.replace(/\D/g, '');
-  // // console.log('changeHandler', value, raw);
-  // // emit('update:modelValue', value);
-};
+  const dialDigits = (maskConfig.dialCode || '').replace(/\D/g, '');
+  let next = digits;
 
-const focusHandler = () => {
+  if (!skipStrip && dialDigits && next.startsWith(dialDigits)) {
+    next = next.slice(dialDigits.length);
+  }
+
+  const limit = Number(maskConfig.maxDigits) || countMaskDigits(maskConfig.mask);
+  return limit ? next.slice(0, limit) : next;
+}
+
+function applyMask(digits, mask) {
+  if (!digits) return '';
+  if (!mask) return digits;
+
+  let result = '';
+  let index = 0;
+
+  for (const char of mask) {
+    if (char === '#') {
+      if (index >= digits.length) break;
+      result += digits[index++];
+    } else {
+      result += char;
+    }
+  }
+
+  return result.replace(/[\s\-\(\)]+$/, '');
+}
+
+function syncFromDigits(value, options = {}) {
+  const digits = normalizeDigits(value, currentMask.value, options);
+  rawDigits.value = digits;
+  rawValue.value = applyMask(digits, currentMask.value?.mask);
+}
+
+function handleInput(e) {
+  const digits = e.target.value.replace(/\D/g, '');
+  syncFromDigits(digits);
+  emit('update:modelValue', rawValue.value);
+  emit('input', rawValue.value);
+}
+
+function focusHandler() {
   if (props.isDisabled || props.readonly) return;
-
   onFocus.value = true;
-};
+  emit('focused');
+}
 
-const blurHandler = () => {
+function blurHandler() {
   onFocus.value = false;
-};
+  emit('blured');
+}
 
-// if (props.modelValue) {
-//   phone.value = JSON.parse(JSON.stringify(props.modelValue));
-// } else {
-//   phone.value = '';
-// }
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    if (newValue === rawValue.value) return;
+    syncFromDigits(newValue);
+  }
+);
+
+watch(
+  currentMask,
+  () => {
+    syncFromDigits(rawDigits.value, { skipStrip: true });
+    if (rawValue.value || rawDigits.value) {
+      emit('update:modelValue', rawValue.value);
+    }
+  }
+);
+
+syncFromDigits(props.modelValue);
 </script>
+
 
 <style src="./phone.scss" lang="sass" scoped />
 
 <template>
-  <form-text
-    :model-value="phone"
-    @keydown="(event) => keydownHandler(event)"
-    @keyup="(event) => changeHandler(event)"
-    @focused="focusHandler"
-    @blured="blurHandler"
-    :placeholder="placeholderDinamic"
-    :required="required"
-    :error="error"
-    :is-disabled="isDisabled"
-  ></form-text>
-  <!-- <div
+
+  <div
     :class="{
       error: error && error.length,
-      disabled: isDisabled
+      disabled: isDisabled,
+      required: required
     }"
     class="input__wrapper"
   >
     <input
-      :value="phone"
-      :id="id"
-      @keydown="onKeydown"
-      @keyup="changeHandler"
+      :type="type"
+      :value="rawValue"
+      :placeholder="placeholderDinamic"
+      :required="required"
+      :readonly="readonly"
+      :disabled="isDisabled"
+      @input="handleInput"
       @focus="focusHandler"
       @blur="blurHandler"
-      :placeholder="placeholderDinamic"
-      :readonly="readonly"
-      :type="type"
+      :maxlength="inputMaxLength"
       class="main-input"
-    >
+    />
 
     <div class="right">
       <slot name="right"></slot>
     </div>
     
     <form-error :error="error"></form-error>
-
-  </div> -->
+  </div>
 </template>

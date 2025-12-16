@@ -80,7 +80,7 @@
   line-height: 140%;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  transition: .3s ease max-height;
+  transition: all .3s;
   overflow: hidden;
   z-index: 1;
   &:hover {
@@ -107,8 +107,8 @@
       &:hover {
         overflow: visible;
         .name {
-          // color: $color-green;
-          text-decoration: underline;
+          color: $color-green;
+          // text-decoration: underline;
           height: auto;
           max-height: 200px;
           -webkit-line-clamp: 5;

@@ -19,6 +19,16 @@
       border: 2px solid rgba($color-red, 0.85);
     }
   }
+  &.required {
+    &:after {
+      content: "*";
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(calc(-50% + 4px));
+      color: $color-red;
+    }
+  }
 }
 .main-input {
   position: relative;

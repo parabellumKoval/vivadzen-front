@@ -26,5 +26,9 @@ export default defineEventHandler(async (event) => {
     event
   })
 
+  if (payload == null) {
+    throw createError({ statusCode: 404, statusMessage: 'Category not found' })
+  }
+
   return payload
 })

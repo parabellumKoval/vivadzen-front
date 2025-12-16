@@ -24,6 +24,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['close'])
+
 const margin = 25
 
 // COMPUTEDS
@@ -67,8 +69,10 @@ const getPxValue = (v) => {
 
 // HANDLERS
 const closeHandler = () => {
-  if(props.canClose)
+  if(props.canClose) {
+    emit('close')
     useModal().close()
+  }
 }
 // Хранилище для сохранения текущей позиции прокрутки
 let scrollPosition = 0;

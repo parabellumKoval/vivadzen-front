@@ -70,17 +70,32 @@ const submitHandler = async () => {
 
   isLoading.value = true
   try {
-    await register({
+    const result = await register({
       email: auth.value.email,
       password: auth.value.password,
     })
 
-    useNoty().setNoty({
-      content: t('noty.auth.email.confirmation.sent'),
-      type: 'success'
-    }, 10000)
-
-    useModal().close()
+    // Check if email verification is required
+    if (result?.requiresEmailVerification) {
+      // Close the register modal first
+      useModal().close()
+      
+      // Then show info modal about email verification
+      setTimeout(() => {
+        useInfoModal().open({
+          title: t('noty.auth.email.confirmation.sent'),
+          message: t('message.email_verification_required'),
+          type: 'warning',
+          buttonText: t('button.ok')
+        })
+      }, 300)
+    } else {
+      useNoty().setNoty({
+        content: t('noty.auth.email.confirmation.sent'),
+        type: 'success'
+      }, 10000)
+      useModal().close()
+    }
   } catch (err) {
     const data = err?.data || {}
     if (data?.errors) applyErrors(data.errors)

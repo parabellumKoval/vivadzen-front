@@ -70,17 +70,24 @@ defineExpose({blurHandler, setFocus})
 <template>
   <div :class="{active: inFocus, 'no-close-btn': !isCloseBtn}" class="search">
     <div class="search-inner" type="button" clickable>
-      <IconCSS name="iconoir:search" size="20px" class="search-input-icon"></IconCSS>
-      <input
-        ref="inputField"
-        :value="props.modelValue"
-        @input="updateHandler"
-        @focus="focusHandler"
-        @blur="blurHandler"
-        @keyup.enter="goToSearchPage"
-        :placeholder="t('title.search')"
-        class="search-input"
-      />
+      <div class="search-input-wrapper">
+        <IconCSS name="iconoir:search" size="20px" class="search-input-icon"></IconCSS>
+        <input
+          ref="inputField"
+          :value="props.modelValue"
+          @input="updateHandler"
+          @focus="focusHandler"
+          @blur="blurHandler"
+          @keyup.enter="goToSearchPage"
+          :placeholder="t('title.search')"
+          class="search-input"
+        />
+      
+        <div class="right-slot">
+          <slot name="right"></slot>
+        </div>
+      </div>
+
       <button @click="closeHandler" v-if="$device.isMobile && isCloseBtn" class="search-close">
         <IconCSS name="iconoir:cancel"  class="search-close-icon"></IconCSS>
       </button>

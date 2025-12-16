@@ -109,7 +109,7 @@ const removeAllHandler = () => {
 <style src="./selected.scss" lang="scss" scoped></style>
 
 <template>
-  <div class="filter-wrapper">
+  <div v-if="selected.length" class="filter-wrapper">
     <div class="filter-label">{{ t('label.active_filters') }}:</div>
     <div class="filter-list">
       <button @click="removeAllHandler" class="button small light filter-remove-all-btn" button>{{ t('button.reset_all') }}</button>

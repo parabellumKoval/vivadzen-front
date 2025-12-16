@@ -1,6 +1,7 @@
 .catalog-btn {
   display: none;
   @include tablet {
+    padding: 0 20px;
     display: grid;
     align-items: center;
     justify-content: center;

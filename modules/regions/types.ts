@@ -7,12 +7,14 @@ export interface RegionMeta {
 
 export type RegionDefinitions = Record<string, RegionMeta>
 export type RegionAliases = Record<string, string>
+export type RegionLocales = Record<string, string[]>
 
 export interface RegionsModuleOptions {
   regions?: RegionDefinitions
   regionAliases?: RegionAliases
   fallbackRegion?: string
   fallbackCurrency?: string
+  localesByRegion?: RegionLocales
 }
 
 export interface RegionMetaWithCode extends RegionMeta {
@@ -23,6 +25,7 @@ export interface RegionsRuntimeConfig {
   regions: string[]
   regionAliases: RegionAliases
   locales: string[]
+  localesByRegion: RegionLocales
   fallbackRegion: string
   fallbackCurrency: string
   regionsMeta: Record<string, RegionMeta>

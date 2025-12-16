@@ -312,13 +312,13 @@ useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: tot
                 :placeholder="t('form.lastname')"
                 :required="isFieldRequired('user.children.last_name')"
               ></form-text>
-              <form-phone
+              <form-phone-region
                 v-model="order.user.phone"
                 :error="errors?.user?.phone"
                 @input="() => errors?.user?.phone && (errors.user.phone = null)"
                 :placeholder="t('form.phone')"
                 :required="isFieldRequired('user.children.phone')"
-              ></form-phone>
+              ></form-phone-region>
               <form-text
                 v-model="order.user.email"
                 :error="errors?.user?.email"

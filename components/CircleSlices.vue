@@ -196,9 +196,7 @@ const segmentsData = computed(() => {
     display: block;
   }
 
-  &__group {
-    // тут можно при желании добавить общие трансформации
-  }
+  &__group {}
 
   &__inner-line,
   &__outer-line {

@@ -6,6 +6,7 @@ const { user: authUser, displayName, avatar, isAuthenticated} = useAuth()
 
 const TAB_PRODUCT = 'product'
 const TAB_STORE = 'store'
+const PRODUCT_REVIEW_TYPE = String.raw`App\Models\Product`
 
 const REVIEW_TYPE_TEXT = 'text'
 const REVIEW_TYPE_VIDEO = 'video'
@@ -163,8 +164,10 @@ const setDefaultTab = () => {
 }
 
 const setProductData = () => {
-  review.value.reviewable_id = product.value?.id || null
-  review.value.reviewable_type = product.value?.id? String.raw`Backpack\Store\app\Models\Catalog`: null
+  const reviewableId = product.value?.group_id || product.value?.id || product.value?.parent_id || null
+
+  review.value.reviewable_id = reviewableId
+  review.value.reviewable_type = reviewableId ? PRODUCT_REVIEW_TYPE : null
 }
 
 const clearProductData = () => {

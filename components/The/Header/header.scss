@@ -14,15 +14,18 @@
     border-bottom: 0;
     padding: 0 35px;
   }
+
   &-container {
     display: grid;
     grid-template-columns: 50px 50px 1fr 50px 50px;
     align-items: center;
     @include tablet {
-      grid-template-columns: 200px 1fr 80px 80px 80px 80px 80px;
+      grid-template-columns: 200px 1fr min-content 80px 80px 50px 50px;
+      gap: 15px;
     }
     @include desktop {
-      grid-template-columns: 200px 230px 80px 1fr 380px 80px 80px;
+      grid-template-columns: 200px min-content min-content 1fr 380px min-content min-content;
+      gap: 20px;
     }
   }
 }
@@ -36,7 +39,7 @@
     width: auto;
     height: auto;
     @include tablet {
-      width: 180px;
+      width: 100%
     }
   }
   @include tablet {
@@ -104,9 +107,6 @@
     display: flex;
     order: 2;
   }
-  @include desktop {
-    margin-right: 15px;
-  }
 }
 .blank {
   display: none;
@@ -137,6 +137,5 @@
   @include desktop {
     display: grid;
     order: 5;
-    padding: 0 15px 0 0;
   }
 }

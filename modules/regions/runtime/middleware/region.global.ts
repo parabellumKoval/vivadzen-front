@@ -1,6 +1,8 @@
 import { navigateTo, useRuntimeConfig, useRequestEvent, useRegion } from '#imports'
 import type { RegionsRuntimeConfig } from '../../module'
 
+const normalize = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
+
 export default defineNuxtRouteMiddleware(async (to) => {
   const { $i18n } = useNuxtApp()
   const runtimeConfig = useRuntimeConfig()
@@ -10,28 +12,42 @@ export default defineNuxtRouteMiddleware(async (to) => {
     runtimeConfig.regionsModule ||
     {}) as Partial<RegionsRuntimeConfig>
 
-  const fallbackRegion = String(
+  const fallbackRegion = normalize(
     store.fallbackRegion ||
     moduleConfig.fallbackRegion ||
     'global'
-  ).trim().toLowerCase()
+  )
   const regions = (store.regions.length ? store.regions : (moduleConfig.regions || []))
-    .map((code) => String(code || '').trim().toLowerCase())
+    .map((code) => normalize(code))
     .filter(Boolean)
   const locales = (store.locales.length ? store.locales : (moduleConfig.locales || []))
-    .map((code) => String(code || '').trim().toLowerCase())
+    .map((code) => normalize(code))
     .filter(Boolean)
+  const localesByRegion = Object.keys(store.localesByRegion || {}).length
+    ? store.localesByRegion
+    : (moduleConfig.localesByRegion || {})
   const regionsMeta = Object.keys(store.regionsMeta || {}).length
     ? store.regionsMeta
     : (moduleConfig.regionsMeta || {})
 
-  const getDefaultLocaleFor = (region: string | undefined) => {
-    if (!region) return locales[0] || 'en'
-    return regionsMeta[region]?.locale || locales[0] || 'en'
-  }
+  const getLocalesForRegion = store.getLocalesForRegion || ((region?: string | null) => {
+    const key = normalize(region)
+    const bucket = localesByRegion[key]
+    const normalized = (bucket && bucket.length ? bucket : locales).map((value) => normalize(value)).filter(Boolean)
+    return normalized.length ? Array.from(new Set(normalized)) : locales
+  })
 
-  const regionSet = new Set([fallbackRegion, ...regions].map((code) => code.toLowerCase()))
-  const localeSet = new Set(locales.map((code) => code.toLowerCase()))
+  const getDefaultLocaleFor = store.getDefaultLocaleFor || ((region?: string) => {
+    const key = normalize(region)
+    const allowed = getLocalesForRegion(key)
+    const metaLocale = normalize(regionsMeta[key]?.locale)
+    if (metaLocale && allowed.includes(metaLocale)) {
+      return metaLocale
+    }
+    return allowed[0] || 'en'
+  })
+
+  const regionSet = new Set([fallbackRegion, ...regions].map((code) => normalize(code)))
 
   const ensureLocale = async (locale: string) => {
     const maybePromise = $i18n?.setLocale?.(locale)
@@ -54,12 +70,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const parts = to.path.split('/').filter(Boolean)
   const [segment1, segment2] = parts
 
-  const normalizedRegion = (segment1 || '').toLowerCase()
+  const normalizedRegion = normalize(segment1)
   const isRegion = regionSet.has(normalizedRegion)
   const region = isRegion ? normalizedRegion : fallbackRegion
 
-  const normalizedLocale = (segment2 || '').toLowerCase()
-  const isLocale = localeSet.has(normalizedLocale)
+  const regionLocaleSet = new Set(getLocalesForRegion(region))
+  const normalizedLocale = normalize(segment2)
+  const isLocale = isRegion && regionLocaleSet.has(normalizedLocale)
 
   const targetLocale = isLocale
     ? normalizedLocale

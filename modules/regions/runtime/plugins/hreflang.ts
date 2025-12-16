@@ -1,9 +1,8 @@
-import { computed } from 'vue'
-import { useHead, useRoute, useRuntimeConfig } from '#imports'
+import { computed, watch } from 'vue'
+import { useHead, useRoute, useRuntimeConfig, useState } from '#imports'
 import { useRegion } from '../composables/useRegion'
+import { useHreflang } from '../composables/useHreflang'
 import type { RegionsRuntimeConfig } from '../../module'
-
-type LocaleConfigEntry = string | { code?: string; iso?: string }
 
 const normalizeBaseUrl = (value: any): string => {
   const raw = value?.site?.url ||
@@ -15,40 +14,6 @@ const normalizeBaseUrl = (value: any): string => {
   return typeof raw === 'string'
     ? raw.replace(/\/+$/, '')
     : ''
-}
-
-const extractI18nLocales = (source: any): Record<string, string> => {
-  const entries = source?.value ?? source
-  if (!Array.isArray(entries)) {
-    return {}
-  }
-
-  return entries.reduce<Record<string, string>>((acc, entry: LocaleConfigEntry) => {
-    if (!entry) return acc
-
-    if (typeof entry === 'string') {
-      const code = entry.trim().toLowerCase()
-      if (code) {
-        acc[code] = entry
-      }
-      return acc
-    }
-
-    if (typeof entry === 'object') {
-      const code = String(entry.code || '').trim().toLowerCase()
-      if (!code) {
-        return acc
-      }
-
-      const iso = typeof entry.iso === 'string' && entry.iso.trim()
-        ? entry.iso
-        : entry.code
-
-      acc[code] = String(iso || code)
-    }
-
-    return acc
-  }, {})
 }
 
 const buildQueryString = (query: Record<string, unknown>): string => {
@@ -74,39 +39,9 @@ const buildQueryString = (query: Record<string, unknown>): string => {
   return serialized ? `?${serialized}` : ''
 }
 
-const stripPrefixedSegments = (
-  path: string,
-  regionSet: Set<string>,
-  localeSet: Set<string>,
-  fallbackRegion: string,
-  getDefaultLocaleFor: (region: string) => string
-): string => {
-  if (!path || path === '/') return '/'
-
-  const segments = path.split('/').filter(Boolean)
-  if (!segments.length) return '/'
-
-  const normalizedSegments = segments.map((segment) => segment.trim()).filter(Boolean)
-  const first = (normalizedSegments[0] || '').toLowerCase()
-  let startIndex = 0
-
-  if (regionSet.has(first)) {
-    startIndex = 1
-    const localeCandidate = (normalizedSegments[1] || '').toLowerCase()
-    const shouldTrimLocale = Boolean(
-      localeCandidate &&
-      localeSet.has(localeCandidate) &&
-      (first !== fallbackRegion || localeCandidate !== getDefaultLocaleFor(first))
-    )
-
-    if (shouldTrimLocale) {
-      startIndex = 2
-    }
-  }
-
-  const tail = normalizedSegments.slice(startIndex)
-  return tail.length ? `/${tail.join('/')}` : '/'
-}
+const normalizeRegion = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
+const normalizeLocale = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
+const extractLanguage = (value: string | null | undefined) => String(value || '').split(/[-_]/)[0]?.toLowerCase() || ''
 
 const buildLocalizedPath = (
   basePath: string,
@@ -116,12 +51,13 @@ const buildLocalizedPath = (
   getDefaultLocaleFor: (region: string) => string
 ): string => {
   const cleanBase = (basePath || '/').replace(/^\/+/, '').replace(/\/+$/, '')
-  const normalizedRegion = String(targetRegion || '').trim().toLowerCase()
-  const normalizedLocale = (targetLocale || '').trim().toLowerCase()
+  const normalizedRegion = normalizeRegion(targetRegion)
+  const normalizedFallback = normalizeRegion(fallbackRegion)
+  const normalizedLocale = normalizeLocale(targetLocale)
   const defaultLocale = getDefaultLocaleFor(normalizedRegion)
   const segments: string[] = []
 
-  if (normalizedRegion && normalizedRegion !== fallbackRegion) {
+  if (normalizedRegion && normalizedRegion !== normalizedFallback) {
     segments.push(normalizedRegion)
     if (normalizedLocale && normalizedLocale !== defaultLocale) {
       segments.push(normalizedLocale)
@@ -134,8 +70,7 @@ const buildLocalizedPath = (
     segments.push(cleanBase)
   }
 
-  const path = segments.length ? `/${segments.join('/')}` : '/'
-  return path
+  return segments.length ? `/${segments.join('/')}` : '/'
 }
 
 const formatHref = (baseUrl: string, path: string, suffix: string) => {
@@ -147,21 +82,35 @@ const formatHref = (baseUrl: string, path: string, suffix: string) => {
   return `${baseUrl}${normalizedPath}${suffix}`
 }
 
-export default defineNuxtPlugin((nuxtApp) => {
+const formatHreflang = (locale: string, region: string, fallbackRegion: string) => {
+  const lang = extractLanguage(locale)
+  const normalizedRegion = normalizeRegion(region)
+  const normalizedFallback = normalizeRegion(fallbackRegion)
+  if (!lang) return ''
+
+  if (!normalizedRegion || normalizedRegion === normalizedFallback) {
+    return lang
+  }
+
+  return `${lang}-${normalizedRegion.toUpperCase()}`
+}
+
+export default defineNuxtPlugin(() => {
   const route = useRoute()
   const runtimeConfig = useRuntimeConfig()
   const regionStore = useRegion()
-  const i18n = (nuxtApp as any)?.$i18n
+  const { allowedRegions } = useHreflang()
+  const allowedRegionsState = allowedRegions ?? useState<string[] | null>('hreflang-allowed-regions', () => null)
 
   const moduleConfig = (runtimeConfig.public?.regionsModule ||
     runtimeConfig.regionsModule ||
     {}) as Partial<RegionsRuntimeConfig>
 
-  const fallbackRegion = computed(() => {
-    return String(regionStore.fallbackRegion || moduleConfig.fallbackRegion || 'global')
-      .trim()
-      .toLowerCase()
-  })
+  const fallbackRegion = computed(() => normalizeRegion(
+    regionStore.fallbackRegion ||
+    moduleConfig.fallbackRegion ||
+    'global'
+  ))
 
   const regionsMeta = computed(() => {
     return Object.keys(regionStore.regionsMeta || {}).length
@@ -169,58 +118,91 @@ export default defineNuxtPlugin((nuxtApp) => {
       : (moduleConfig.regionsMeta || {})
   })
 
-  const availableLocales = computed(() => {
-    const source = regionStore.locales?.length
-      ? regionStore.locales
-      : (moduleConfig.locales || [])
-
-    const normalized = source
-      .map((code) => String(code || '').trim().toLowerCase())
-      .filter(Boolean)
-
-    if (normalized.length) {
-      return normalized
+  const localesByRegion = computed(() => {
+    if (regionStore.localesByRegion && Object.keys(regionStore.localesByRegion).length) {
+      return regionStore.localesByRegion
     }
-
-    return ['en']
+    return moduleConfig.localesByRegion || {}
   })
 
-  const localeRegionMap = computed(() => {
-    return Object.keys(regionStore.localeByRegion || {}).length
-      ? regionStore.localeByRegion
-      : (moduleConfig.localeByRegion || {})
+  const allLocales = computed(() => {
+    const merged = [
+      ...(regionStore.locales || []),
+      ...(moduleConfig.locales || [])
+    ]
+      .map(normalizeLocale)
+      .filter(Boolean)
+
+    return Array.from(new Set(merged))
   })
 
   const availableRegions = computed(() => {
-    const definedRegions = regionStore.regions?.length
-      ? regionStore.regions
-      : (moduleConfig.regions || [])
-
-    const combined = [fallbackRegion.value, ...definedRegions]
-      .map((code) => String(code || '').trim().toLowerCase())
+    const defined = Object.keys(localesByRegion.value || {})
+    const combined = [fallbackRegion.value, ...defined]
+      .map(normalizeRegion)
       .filter(Boolean)
 
     return Array.from(new Set(combined))
   })
 
-  const regionSet = computed(() => new Set(availableRegions.value))
-  const localeSet = computed(() => new Set(availableLocales.value))
+  const getLocalesForRegion = (region: string | null | undefined) => {
+    const key = normalizeRegion(region)
+    const bucket = localesByRegion.value?.[key] || []
+    const normalized = (bucket.length ? bucket : allLocales.value)
+      .map(normalizeLocale)
+      .filter(Boolean)
 
-  const getDefaultLocaleFor = (region: string) => {
-    const normalized = String(region || '').trim().toLowerCase()
-    return regionsMeta.value?.[normalized]?.locale || availableLocales.value[0] || 'en'
+    if (normalized.length) {
+      return Array.from(new Set(normalized))
+    }
+
+    const metaDefault = regionsMeta.value?.[key]?.locale
+    if (metaDefault) {
+      return [normalizeLocale(metaDefault)]
+    }
+
+    return []
   }
 
-  const i18nLocales = computed(() => extractI18nLocales(i18n?.locales))
+  const getDefaultLocaleFor = (region: string | null | undefined) => {
+    const key = normalizeRegion(region)
+    const allowed = getLocalesForRegion(key)
+    const metaDefault = normalizeLocale(regionsMeta.value?.[key]?.locale)
+    if (metaDefault && allowed.includes(metaDefault)) {
+      return metaDefault
+    }
+    return allowed[0] || allLocales.value[0] || 'en'
+  }
+
+  const regionLocaleSets = computed(() => {
+    return availableRegions.value.reduce<Record<string, Set<string>>>((acc, code) => {
+      acc[code] = new Set(getLocalesForRegion(code))
+      return acc
+    }, {})
+  })
 
   const basePath = computed(() => {
-    return stripPrefixedSegments(
-      route.path || '/',
-      regionSet.value,
-      localeSet.value,
-      fallbackRegion.value,
-      getDefaultLocaleFor
-    )
+    const path = route.path || '/'
+    if (!path || path === '/') return '/'
+
+    const segments = path.split('/').filter(Boolean)
+    if (!segments.length) return '/'
+
+    const normalizedSegments = segments.map((segment) => segment.trim()).filter(Boolean)
+    const first = normalizeRegion(normalizedSegments[0])
+    let startIndex = 0
+
+    if (first && availableRegions.value.includes(first)) {
+      startIndex = 1
+      const localeCandidate = normalizeLocale(normalizedSegments[1])
+      const localeSet = regionLocaleSets.value[first] || new Set<string>()
+      if (localeCandidate && localeSet.has(localeCandidate)) {
+        startIndex = 2
+      }
+    }
+
+    const tail = normalizedSegments.slice(startIndex)
+    return tail.length ? `/${tail.join('/')}` : '/'
   })
 
   const suffix = computed(() => {
@@ -231,59 +213,103 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const baseUrl = computed(() => normalizeBaseUrl(runtimeConfig.public || {}))
 
+  const filteredRegions = computed(() => {
+    const filter = allowedRegionsState.value?.map(normalizeRegion).filter(Boolean)
+    if (!filter || !filter.length) {
+      return availableRegions.value
+    }
+
+    const allowedSet = new Set(filter)
+    const fallback = fallbackRegion.value
+
+    return availableRegions.value.filter((code) => code === fallback || allowedSet.has(code))
+  })
+
+  if (process.client) {
+    watch(
+      () => route.fullPath,
+      () => { allowedRegionsState.value = null }
+    )
+  }
+
   const hreflangLinks = computed(() => {
-    const entries: Array<{ id: string; rel: string; href: string; hreflang: string }> = []
+    const entries: Array<{ id: string; rel: 'alternate'; href: string; hreflang: string }> = []
     const seen = new Set<string>()
-    const localeEntries = availableLocales.value
     const suffixValue = suffix.value
     const baseUrlValue = baseUrl.value
     const basePathValue = basePath.value
-
-    for (const localeCode of localeEntries) {
-      const regionCode = String(localeRegionMap.value?.[localeCode] || fallbackRegion.value).toLowerCase()
-      if (!regionSet.value.has(regionCode)) {
-        continue
-      }
-
-      const href = formatHref(
-        baseUrlValue,
-        buildLocalizedPath(
-          basePathValue,
-          regionCode,
-          localeCode,
-          fallbackRegion.value,
-          getDefaultLocaleFor
-        ),
-        suffixValue
-      )
-
-      const hreflang = (i18nLocales.value[localeCode] || localeCode).toLowerCase()
-      if (!hreflang || seen.has(hreflang)) {
-        continue
-      }
-
-      seen.add(hreflang)
-      entries.push({
-        id: `regions-hreflang-${hreflang}`,
-        rel: 'alternate',
-        hreflang,
-        href
-      })
-    }
+    const fallback = fallbackRegion.value
 
     const defaultHref = formatHref(
       baseUrlValue,
       buildLocalizedPath(
         basePathValue,
-        fallbackRegion.value,
-        getDefaultLocaleFor(fallbackRegion.value),
-        fallbackRegion.value,
+        fallback,
+        getDefaultLocaleFor(fallback),
+        fallback,
         getDefaultLocaleFor
       ),
       suffixValue
     )
 
-    if (!entries.some((entry) => entry.hreflang === 'x-default')) {
+    for (const regionCode of filteredRegions.value) {
+      const locales = getLocalesForRegion(regionCode)
+      if (!locales.length) continue
+
+      const defaultLocale = getDefaultLocaleFor(regionCode)
+
+      for (const localeCode of locales) {
+        const hreflang = formatHreflang(localeCode, regionCode, fallback)
+        if (!hreflang || seen.has(hreflang)) {
+          continue
+        }
+
+        const href = formatHref(
+          baseUrlValue,
+          buildLocalizedPath(
+            basePathValue,
+            regionCode,
+            localeCode,
+            fallback,
+            getDefaultLocaleFor
+          ),
+          suffixValue
+        )
+
+        entries.push({
+          id: `regions-hreflang-${hreflang}`,
+          rel: 'alternate',
+          hreflang,
+          href
+        })
+        seen.add(hreflang)
+      }
+
+      if (!locales.includes(defaultLocale)) {
+        const hreflang = formatHreflang(defaultLocale, regionCode, fallback)
+        if (hreflang && !seen.has(hreflang)) {
+          entries.push({
+            id: `regions-hreflang-${hreflang}`,
+            rel: 'alternate',
+            hreflang,
+            href: formatHref(
+              baseUrlValue,
+              buildLocalizedPath(
+                basePathValue,
+                regionCode,
+                defaultLocale,
+                fallback,
+                getDefaultLocaleFor
+              ),
+              suffixValue
+            )
+          })
+          seen.add(hreflang)
+        }
+      }
+    }
+
+    if (!seen.has('x-default')) {
       entries.push({
         id: 'regions-hreflang-x-default',
         rel: 'alternate',

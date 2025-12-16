@@ -408,6 +408,13 @@ export default defineNuxtConfig({
     regionAliases: {
       global: 'zz'
     },
+    localesByRegion: {
+      global: ['en', 'de', 'es', 'ru', 'uk'],
+      ua: ['uk', 'ru'],
+      cz: ['cs', 'en', 'ru', 'uk'],
+      de: ['de', 'en', 'ru', 'uk'],
+      es: ['es', 'en', 'ru', 'uk']
+    },
     fallbackRegion: 'global',
     fallbackCurrency: 'USD'
   },

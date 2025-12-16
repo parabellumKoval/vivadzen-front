@@ -7,6 +7,7 @@ ru:
   all: Все результаты поиска
   displayed: Отображается
   searched: Всего найдено
+  try_search: Попробуйте найти интересующий вас товар
 uk:
   search: Пошук
   find: Знайти
@@ -14,6 +15,7 @@ uk:
   no_res: Пошук не дав результатів, спробуйте змінити запит.
   search_history: Історія пошуку
   all: Всі результати пошуку
+  try_search: Спробуйте знайти цікавий вам товар
 de:
   search: Suche
   find: Finden
@@ -21,6 +23,7 @@ de:
   no_res: Keine Ergebnisse gefunden, versuchen Sie die Anfrage zu ändern.
   search_history: Suchverlauf
   all: Alle Suchergebnisse
+  try_search: Versuchen Sie, das gesuchte Produkt zu finden
 es:
   search: Búsqueda
   find: Buscar
@@ -28,6 +31,7 @@ es:
   no_res: La búsqueda no dio resultados, pruebe a cambiar la consulta.
   search_history: Historial de búsqueda
   all: Todos los resultados de búsqueda
+  try_search: Intenta encontrar el producto que te interesa
 cs:
   search: Hledání
   find: Hledat
@@ -35,6 +39,7 @@ cs:
   no_res: Vyhledávání nepřineslo výsledky, zkuste upravit dotaz.
   search_history: Historie hledání
   all: Všechny výsledky hledání
+  try_search: Zkuste najít zajímavý produkt
 en:
   search: Search
   find: Find
@@ -42,3 +47,4 @@ en:
   no_res: No results found, try changing the query.
   search_history: Search history
   all: All search results
+  try_search: Try to find the product you're interested in

@@ -14,8 +14,11 @@ const props = defineProps({
   }
 })
 
+const { setHreflangRegions, clearHreflangRegions } = useHreflang()
 const {t} = useI18n()
 const route = useRoute()
+const runtimeConfig = useRuntimeConfig()
+const { $regionPath } = useNuxtApp()
 route.meta.pageType = 'product'
 
 const breadcrumbs = ref([])
@@ -24,8 +27,6 @@ const reviewsMeta = ref({})
 const isReviewsLoading = ref(false)
 const tab = ref(1)
 const reviewsComponentRef = ref(null)
-
-console.log('product', props.product)
 
 const {setSchema} = useSchema()
 // Content HTML ref
@@ -56,6 +57,40 @@ const simularQuery = computed(() => {
 const slug = computed(() => {
   return route.params.slug
 })
+
+const disableBaseCanonical = computed(() => Boolean(props.product?.seo?.disable_base_canonical))
+
+const baseModificationSlug = computed(() => props.product?.base_modification_slug || null)
+
+const buildCanonicalUrl = (targetSlug) => {
+  const cleanSlug = String(targetSlug || '').replace(/^\/+/, '')
+  const path = cleanSlug ? `/${cleanSlug}` : (route.path || '/')
+
+  if (typeof $regionPath === 'function') {
+    const candidate = $regionPath(path, { absolute: true })
+    if (candidate) {
+      return candidate
+    }
+  }
+
+  const baseUrl = runtimeConfig.public?.site?.url || runtimeConfig.public?.siteUrl || runtimeConfig.public?.frontendUrl || ''
+  const normalizedBase = typeof baseUrl === 'string'? baseUrl.replace(/\/+$/, ''): ''
+
+  return normalizedBase? `${normalizedBase}${path}`: path
+}
+
+const canonicalSlug = computed(() => {
+  const baseSlug = baseModificationSlug.value
+  const currentSlug = props.product?.slug || slug.value
+
+  if (disableBaseCanonical.value || !baseSlug) {
+    return currentSlug
+  }
+
+  return baseSlug
+})
+
+const canonicalUrl = computed(() => buildCanonicalUrl(canonicalSlug.value))
 
 const isSpecsIsset = computed(() => {
   if(!props.product.specs)
@@ -91,11 +126,13 @@ const allAttrs = computed(() => {
 })
 
 const reviewQuery = computed(() => {
-  const type = String.raw`Backpack\Store\app\Models\Catalog`;
+  const type = String.raw`App\Models\Product`;
+  const id = props.product?.group_id || props.product?.id || null;
 
   return {
     per_page: 6,
-    reviewable_slug: slug.value,
+    reviewable_id: id,
+    reviewable_slug: baseModificationSlug.value || slug.value,
     reviewable_type: type
   }
 })
@@ -198,14 +235,31 @@ const scrollToContent = () => {
 }
 
 const setSeo = () => {
+  const canonical = canonicalUrl.value
+
+  const meta = [
+    {
+      name: 'description',
+      content: props.product?.seo?.meta_description || t('seo_desc_template', {product: props.product?.name})
+    },
+  ]
+
+  if (canonical) {
+    meta.push({
+      property: 'og:url',
+      content: canonical
+    })
+  }
+
   useHead({
     title: props.product?.seo?.meta_title || t('seo_title_template', {product: props.product?.name}),
-    meta: [
+    meta,
+    link: canonical ? [
       {
-        name: 'description',
-        content: props.product?.seo?.meta_description || t('seo_desc_template', {product: props.product?.name})
-      },
-    ],
+        rel: 'canonical',
+        href: canonical
+      }
+    ]: [],
   })
 }
 
@@ -269,6 +323,16 @@ await useAsyncData('product-reviews-'+slug.value, () => useReviewStore().getAll(
 })
 
 // WATCHERS
+watch(() => props.product?.available_regions, (regions) => {
+  if (Array.isArray(regions) && regions.length) {
+    setHreflangRegions(regions)
+  } else {
+    setHreflangRegions(null)
+  }
+}, {
+  immediate: true
+})
+
 onServerPrefetch(() => {
   setSchema(props.product, reviews.value)
 })
@@ -283,7 +347,7 @@ onBeforeMount(() => {
 })
 
 onBeforeUnmount(() => {
-  ////
+  clearHreflangRegions()
   useTransport().setData({mobileSearch: true})
 })
 </script>

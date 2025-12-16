@@ -52,6 +52,8 @@ setSeo()
     <lazy-section-lists-main :query="slidersQuery" class="home-section-margin"></lazy-section-lists-main>
 
     <lazy-section-about class="home-section-margin"></lazy-section-about>
+
+    <!-- <lazy-section-benefits class="home-section-margin"></lazy-section-benefits> -->
     
     <div class="container home-section-margin">
       <lazy-section-review-video></lazy-section-review-video>
@@ -64,18 +66,6 @@ setSeo()
     <div class="container home-section-margin home-section-margin--viva">
       <lazy-section-viva></lazy-section-viva>
     </div>
-    <!-- <div class="home-section-viva">
-      <lazy-section-viva></lazy-section-viva>
-    </div> -->
-
-    <!-- <div class="container">
-      <section-review></section-review>
-      <lazy-section-adv></lazy-section-adv>
-    </div> -->
-    
-    <!-- <div class="container">
-      <lazy-section-article></lazy-section-article>
-    </div> -->
 
     <div v-if="$device.isMobile" class="home-section-margin">
       <SectionAboutSidebar

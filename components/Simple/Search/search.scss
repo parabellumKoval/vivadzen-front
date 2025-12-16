@@ -101,5 +101,18 @@
       top: 14px;
       margin: 0 0 0 auto;
     }
+
+    &-wrapper {
+      position: relative;
+    height: 100%;
+    }
   }
+}
+
+.right-slot {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 99;
 }

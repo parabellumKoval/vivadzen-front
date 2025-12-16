@@ -190,7 +190,7 @@ watch(authUser, (v) => {
       <div class="settings-grid">
         <form-text v-model="user.first_name" :placeholder="t('form.firstname')"></form-text>
         <form-text v-model="user.last_name" :placeholder="t('form.lastname')"></form-text>
-        <form-text v-model="user.phone" :placeholder="t('form.phone')"></form-text>
+        <form-phone-region v-model="user.phone" :placeholder="t('form.phone')"></form-phone-region>
         <form-text v-model="user.email" :placeholder="t('form.email')"></form-text>
       </div>
       <button
@@ -203,7 +203,7 @@ watch(authUser, (v) => {
       <div class="settings-label">{{ t('payment_data') }}</div>
       <div class="settings-grid">
         <form-text v-model="billing.email" :placeholder="t('address_fields.email')"></form-text>
-        <form-text v-model="billing.phone" :placeholder="t('address_fields.phone')"></form-text>
+        <form-phone-region v-model="billing.phone" :placeholder="t('address_fields.phone')"></form-phone-region>
         <form-text v-model="billing.address_1" :placeholder="t('address_fields.address_1')"></form-text>
         <form-text v-model="billing.postcode" :placeholder="t('address_fields.postcode')"></form-text>
         <form-text v-model="billing.city" :placeholder="t('address_fields.city')"></form-text>
@@ -220,7 +220,7 @@ watch(authUser, (v) => {
       <div class="settings-label">{{ t('delivery_data') }}</div>
       <div class="settings-grid">
         <form-text v-model="shipping.email" :placeholder="t('address_fields.email')"></form-text>
-        <form-text v-model="shipping.phone" :placeholder="t('address_fields.phone')"></form-text>
+        <form-phone-region v-model="shipping.phone" :placeholder="t('address_fields.phone')"></form-phone-region>
         <form-text v-model="shipping.address_1" :placeholder="t('address_fields.address_1')"></form-text>
         <form-text v-model="shipping.postcode" :placeholder="t('address_fields.postcode')"></form-text>
         <form-text v-model="shipping.city" :placeholder="t('address_fields.city')"></form-text>

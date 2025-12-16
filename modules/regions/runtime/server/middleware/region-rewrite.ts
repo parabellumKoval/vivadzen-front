@@ -2,7 +2,7 @@ import type { H3Event } from 'h3'
 import { defineEventHandler, useRuntimeConfig } from '#imports'
 import type { RegionsRuntimeConfig } from '../../../module'
 
-const normalize = (value: string | undefined | null) => (value || '').toLowerCase()
+const normalize = (value: string | undefined | null) => String(value || '').trim().toLowerCase()
 
 const setContextRegion = (event: H3Event, region: string, maybeLocale: string | null) => {
   event.context.region = region
@@ -19,7 +19,7 @@ export default defineEventHandler((event) => {
     runtimeConfig.public?.regionsModule ||
     {}) as Partial<RegionsRuntimeConfig>
 
-  const fallbackRegion = moduleConfig.fallbackRegion || 'global'
+  const fallbackRegion = normalize(moduleConfig.fallbackRegion || 'global')
   const regionsMeta = moduleConfig.regionsMeta || {}
   const regions = moduleConfig.regions?.length
     ? moduleConfig.regions
@@ -29,36 +29,44 @@ export default defineEventHandler((event) => {
     ? moduleConfig.locales
     : Array.from(new Set(Object.values(regionsMeta).map((meta) => meta.locale)))
 
+  const localesByRegion = moduleConfig.localesByRegion || {}
+
+  const regionSet = new Set([fallbackRegion, ...regions].map((code) => normalize(code)))
+
+  const getLocalesForRegion = (regionCode: string) => {
+    const key = normalize(regionCode)
+    const bucket = localesByRegion[key]
+    const normalized = (bucket && bucket.length ? bucket : locales)
+      .map((locale) => normalize(locale))
+      .filter(Boolean)
+    return normalized.length ? Array.from(new Set(normalized)) : []
+  }
+
   const original = event.node.req.url || '/'
-  const match = original.match(/^\/([^/]+)(?:\/([^/]+))?(\/.*)?$/)
+  const segments = original.split('/').filter(Boolean)
 
-  if (!match) {
+  const regionCandidate = normalize(segments[0])
+  if (!regionCandidate || !regionSet.has(regionCandidate)) {
     event.context.region = fallbackRegion
     return
   }
 
-  const [, rawRegion, rawLocale, restRaw] = match
-  const regionSet = new Set([fallbackRegion, ...regions].map((code) => code.toLowerCase()))
-  const localeSet = new Set(locales.map((code) => code.toLowerCase()))
+  const regionLocaleSet = new Set(getLocalesForRegion(regionCandidate))
+  const localeCandidate = normalize(segments[1])
+  const isLocale = Boolean(localeCandidate && regionLocaleSet.has(localeCandidate))
 
-  const region = normalize(rawRegion)
-  const maybeLocale = normalize(rawLocale) || null
-  const rest = restRaw || '/'
+  const restSegments = segments.slice(1 + (isLocale ? 1 : 0))
+  const restPath = restSegments.length ? `/${restSegments.join('/')}` : '/'
 
-  if (!regionSet.has(region)) {
-    event.context.region = fallbackRegion
-    return
-  }
-
-  if (maybeLocale && localeSet.has(maybeLocale)) {
-    setContextRegion(event, region, maybeLocale)
-  } else {
-    setContextRegion(event, region, null)
-  }
-
-  event.node.req.url = rest || '/'
+  setContextRegion(event, regionCandidate, isLocale ? localeCandidate : null)
+  event.node.req.url = restPath
 
   if (process.dev) {
-    console.log('[regions-module] rewrite', { original, rewritten: rest, region, maybeLocale })
+    console.log('[regions-module] rewrite', {
+      original,
+      rewritten: restPath,
+      region: regionCandidate,
+      locale: isLocale ? localeCandidate : null
+    })
   }
 })

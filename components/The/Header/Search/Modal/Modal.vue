@@ -19,6 +19,8 @@ const searchInput = ref('')
 
 const timeout = ref(null)
 const isLoading = ref(false)
+const isShowLoading = ref(false)
+const loadingTimeout = ref(null)
 
 const isOpen = ref(false)
 
@@ -34,9 +36,16 @@ const isShow = computed(() => {
   return isOpen.value && (products.value?.length || history.value?.length || searchInput.value.length)
 })
 
+// Флаг, указывающий был ли хотя бы один поиск совершён
+const wasSearched = computed(() => {
+  return isLoading.value || isShowLoading.value || (searchInput.value.length && (products.value?.length || (!products.value?.length && !timeout.value)))
+})
+
 // METHODS
 const search = async (search) => {
   timeout.value = null
+  clearTimeout(loadingTimeout.value)
+  isShowLoading.value = false
 
   const params = {
     q: search
@@ -49,6 +58,11 @@ const search = async (search) => {
   }
 
   isLoading.value = true
+
+  // Показываем индикатор загрузки только если поиск длится более 500ms
+  loadingTimeout.value = setTimeout(() => {
+    isShowLoading.value = true
+  }, 500)
 
   await useAsyncData('livesearch-' + params.q, () => useSearchStore().livesearch(params)).then(({data, error}) => {
     // console.log('livesearch data', data)
@@ -66,6 +80,8 @@ const search = async (search) => {
     // }
   }).finally(() => {
     isLoading.value = false
+    clearTimeout(loadingTimeout.value)
+    isShowLoading.value = false
   })
 }
 
@@ -169,38 +185,49 @@ onUnmounted(() => {
       @close="closeHandler"
       class="simple-search"
       ref="simpleSearchRef"
-    ></simple-search>
+    >
+      <template v-slot:right>
+        <div v-if="timeout" class="typing">
+          <div class="dot">•</div>
+          <div class="dot">•</div>
+          <div class="dot">•</div>
+        </div>
+      </template>
+    </simple-search>
 
     <div v-if="isShow" class="livesearch">
 
+
       <transition name="fade-in">
-        <div
-          v-if="isLoading"
-          class="livesearch-box message-box"
-        >
-          {{ t('searching') }}...
-        </div>
       </transition>
 
-      <div v-if="timeout" class="typing">
-        <div class="dot">•</div>
-        <div class="dot">•</div>
-        <div class="dot">•</div>
+      <div class="message-box">
+        <transition name="fade-in">
+          <div
+            v-if="isShowLoading"
+            class=" livesearch-label"
+          >
+            {{ t('searching') }}...
+          </div>
+          <div
+            v-else-if="!wasSearched"
+            class="livesearch-label"
+          >
+            {{ t('try_search') }}
+          </div>
+          <div
+            v-else-if="!timeout && !isLoading && searchInput?.length && !categories?.length && !products?.length"
+            class="livesearch-label"
+          >
+            {{ t('no_res') }}
+          </div>
+          <div v-else class="livesearch-label">
+            {{ t('displayed') }} {{ t('label.products', {products: products?.length}) }}. {{ t('searched') }} {{ t('label.products', {products: meta?.total}) }}.
+          </div>
+        </transition>
       </div>
 
-      <transition name="fade-in">
-        <div
-          v-if="!timeout && !isLoading && searchInput?.length && !categories?.length && !products?.length"
-          class="livesearch-box message-box"
-        >
-          {{ t('no_res') }}
-        </div>
-      </transition>
-
       <div v-if="products?.length" class="livesearch-box">
-        <div class="livesearch-label">
-          {{ t('displayed') }} {{ t('label.products', {products: products?.length}) }}. {{ t('searched') }} {{ t('label.products', {products: meta?.total}) }}.
-        </div>
 
         <div v-if="meta?.total > products?.length" @click="closeHandler" class="all-results-btn">
           <NuxtLink :to="$regionPath('/search?q=' + searchInput)" class="all-results-btn-link">

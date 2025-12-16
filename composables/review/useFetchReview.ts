@@ -8,7 +8,7 @@ export const useFetchReview = () => {
 
     switch(type) {
       case 'products':
-        query.reviewable_type = String.raw`Backpack\Store\app\Models\Catalog`;
+        query.reviewable_type = String.raw`App\Models\Product`;
         break;
       case 'shop':
         query.reviewable_type = null

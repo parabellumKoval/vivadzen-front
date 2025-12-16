@@ -1,8 +1,10 @@
 <script setup>
 import {useArticleStore} from '~/store/article'
 
-const {t} = useI18n()
+const {t, locale} = useI18n()
+const {region} = useRegion()
 const route = useRoute()
+const { $regionPath } = useNuxtApp()
 
 const html = ref(null)
 
@@ -20,11 +22,48 @@ const { scrollToAnchor } = useAnchorScroll({
     }
   },
 })
+const { setHreflangRegions, clearHreflangRegions } = useHreflang()
 
 // COMPUTEDS
 const slug = computed(() => {
   return route.params.blog
 })
+
+const getBlogRedirectPath = () => (typeof $regionPath === 'function' ? $regionPath('/blog') : '/blog')
+
+const redirectToBlogList = async () => {
+  const target = getBlogRedirectPath()
+  if (process.server) {
+    return await navigateTo(target, { redirectCode: 302 })
+  }
+
+  return navigateTo(target, { replace: true })
+}
+
+const handleArticleError = async (err) => {
+  if (!err) {
+    return
+  }
+
+  const statusCode = err.statusCode || err.status || err?.response?.status || 404
+
+  if (statusCode === 404) {
+    await redirectToBlogList()
+    return
+  }
+
+  const payload = {
+    statusCode,
+    statusMessage: err.statusMessage || err.message || 'Article Not Found',
+    fatal: true
+  }
+
+  if (process.server) {
+    throw createError(payload)
+  }
+
+  showError(payload)
+}
 
 // METHODS
 const setCrumbs = () => {
@@ -94,16 +133,49 @@ watch(() => html.value, (v) => {
   immediate: true
 })
 
-
-await useAsyncData('get-article-' + slug.value, () => useArticleStore().show(slug.value)).then(({data, error}) => {
-  if(data.value.data) {
-    article.value = data.value.data
-    setCrumbs()
+watch(() => article.value?.available_regions, (regions) => {
+  if (Array.isArray(regions) && regions.length) {
+    setHreflangRegions(regions)
+  } else {
+    setHreflangRegions(null)
   }
+}, {
+  immediate: true
 })
+
+
+const {
+  data: articleResponse,
+  error: articleError
+} = await useAsyncData('get-article-' + slug.value + '-' + region.value + '-' + locale.value, () => useArticleStore().show(slug.value))
+
+if (articleResponse.value?.data) {
+  article.value = articleResponse.value.data
+  setCrumbs()
+}
+
+if (!articleResponse.value?.data && !articleError.value) {
+  await handleArticleError({ statusCode: 404, statusMessage: 'Article Not Found' })
+}
+
+if (articleError.value) {
+  await handleArticleError(articleError.value)
+}
+
+if (process.client) {
+  watch(articleError, async (err) => {
+    if (err) {
+      await handleArticleError(err)
+    }
+  })
+}
 
 //
 setSeo()
+
+onBeforeUnmount(() => {
+  clearHreflangRegions()
+})
 </script>
 
 <style src='./article.scss' lang='scss' scoped></style>

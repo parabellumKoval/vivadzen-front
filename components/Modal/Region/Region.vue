@@ -18,13 +18,19 @@ const router = useRouter()
 const hoveredRegion = ref<string | null>(null)
 
 const currentRegionCode = computed(() => regionStore.region.value)
+const allowedLocaleCodes = computed(() => new Set(regionStore.getLocalesForRegion(currentRegionCode.value)))
 
 const languageOptions = computed(() => {
   const entries = Array.isArray(locales.value)
     ? (locales.value as LocaleEntry[])
     : []
 
-  return entries.map((entry) => ({
+  const allowed = allowedLocaleCodes.value
+  const filtered = allowed.size
+    ? entries.filter((entry) => allowed.has(entry.code))
+    : entries
+
+  return filtered.map((entry) => ({
     ...entry,
     isActive: entry.code === locale.value
   }))

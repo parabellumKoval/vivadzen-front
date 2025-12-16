@@ -12,6 +12,7 @@ const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
 const {locale} = useI18n()
 const {region} = useRegion()
+const { $regionPath } = useNuxtApp()
 
 const isServer = process.server
 const slugParam = route.params.slug
@@ -38,6 +39,41 @@ const isCategory = computed(() => {
   if (!slug || typeof slug !== 'string') return false
   return (categorySlugs.value || []).includes(slug)
 })
+
+const getCatalogRedirectPath = () => (typeof $regionPath === 'function' ? $regionPath('/catalog') : '/catalog')
+
+const redirectToCatalog = async () => {
+  const target = getCatalogRedirectPath()
+  if (process.server) {
+    return await navigateTo(target, { redirectCode: 302 })
+  }
+  return navigateTo(target, { replace: true })
+}
+
+const handleProductError = async (err) => {
+  if (!err) {
+    return
+  }
+
+  const statusCode = err.statusCode || err.status || err?.response?.status || 404
+
+  if (statusCode === 404) {
+    await redirectToCatalog()
+    return
+  }
+
+  const payload = {
+    statusCode,
+    statusMessage: err.statusMessage || err.message || 'Product Not Found',
+    fatal: true
+  }
+
+  if (process.server) {
+    throw createError(payload)
+  }
+
+  showError(payload)
+}
 
 // Product loader
 const {
@@ -70,19 +106,15 @@ const {
 
 // 1. Обработка для СЕРВЕРА (ssr)
 if (productError.value) {
-  throw createError({ ...productError.value, fatal: true })
+  await handleProductError(productError.value)
 }
 
 // 2. Обработка для КЛИЕНТА (lazy loading)
 // Т.к. при lazy код идет дальше не дожидаясь ответа, нужно следить за ошибкой
 if (process.client) {
-  watch(productError, (err) => {
+  watch(productError, async (err) => {
     if (err) {
-      showError({ 
-        statusCode: err.statusCode || 404, 
-        statusMessage: 'Product Not Found', 
-        fatal: true 
-      })
+      await handleProductError(err)
     }
   })
 }

@@ -9,6 +9,8 @@ const {t, locale} = useI18n()
 const route = useRoute()
 const {region} = useRegion()
 const categoryStore = useCategoryStore()
+const { setHreflangRegions, clearHreflangRegions } = useHreflang()
+const { $regionPath } = useNuxtApp()
 
 // Attributes
 const breadcrumbs = ref([])
@@ -102,7 +104,8 @@ const {
     if (data) {
       return data
     }
-    else throw createError({ statusCode: 404, message: 'Category Not Found' })
+
+    throw createError({ statusCode: 404, statusMessage: 'Category Not Found', fatal: true })
 
   },
   {
@@ -110,6 +113,51 @@ const {
     server: true,
   }
 )
+
+const getCatalogRedirectPath = () => (typeof $regionPath === 'function' ? $regionPath('/catalog') : '/catalog')
+
+const redirectToCatalog = async () => {
+  const target = getCatalogRedirectPath()
+  if (process.server) {
+    return await navigateTo(target, { redirectCode: 302 })
+  }
+  return navigateTo(target, { replace: true })
+}
+
+const propagateCategoryError = async (err) => {
+  if (!err) {
+    return
+  }
+
+  const statusCode = err.statusCode || err.status || err?.response?.status || 404
+
+  if (statusCode === 404) {
+    await redirectToCatalog()
+    return
+  }
+
+  const payload = {
+    statusCode,
+    statusMessage: err.statusMessage || err.message || 'Category Not Found',
+    fatal: true
+  }
+
+  if (process.server) {
+    throw createError(payload)
+  }
+
+  showError(payload)
+}
+
+await propagateCategoryError(categoryError.value)
+
+if (process.client) {
+  watch(categoryError, async (err) => {
+    if (err) {
+      await propagateCategoryError(err)
+    }
+  })
+}
 
 const displayCategories = computed(() => {
   const currentCategory = category.value?.category
@@ -223,6 +271,20 @@ watch(() => category.value?.category, (v) => {
 }, {
     immediate: true,
     deep: true
+})
+
+watch(() => category.value?.category?.available_regions, (regions) => {
+  if (Array.isArray(regions) && regions.length) {
+    setHreflangRegions(regions)
+  } else {
+    setHreflangRegions(null)
+  }
+}, {
+  immediate: true
+})
+
+onBeforeUnmount(() => {
+  clearHreflangRegions()
 })
 
 setMode('INITIAL')

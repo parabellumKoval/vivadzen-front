@@ -2,6 +2,8 @@ import { useRuntimeConfig } from '#imports'
 import { useRegion } from '../composables/useRegion'
 import type { RegionsRuntimeConfig } from '../../module'
 
+const normalize = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
+
 export default defineNuxtPlugin((nuxtApp) => {
   const i18n = (nuxtApp as any).$i18n
   const regionStore = useRegion()
@@ -13,36 +15,48 @@ export default defineNuxtPlugin((nuxtApp) => {
   const regionsMeta = Object.keys(regionStore.regionsMeta || {}).length
     ? regionStore.regionsMeta
     : (moduleConfig.regionsMeta || {})
-  const fallbackRegion = String(
+
+  const fallbackRegion = normalize(
     moduleConfig.fallbackRegion ||
     regionStore.fallbackRegion ||
     'global'
-  ).trim().toLowerCase()
+  )
+
   const locales = (regionStore.locales.length
     ? regionStore.locales
     : (moduleConfig.locales || [])
-  ).map((code) => String(code || '').trim().toLowerCase()).filter(Boolean)
+  ).map((code) => normalize(code)).filter(Boolean)
 
-  const getDefaultLocaleFor = (region: string | undefined) => {
-    if (!region) return locales[0] || 'en'
-    return regionsMeta[region]?.locale || locales[0] || 'en'
-  }
+  const getLocalesForRegion = regionStore.getLocalesForRegion || ((regionCode?: string | null) => {
+    const key = normalize(regionCode)
+    const bucket = moduleConfig.localesByRegion?.[key] || []
+    const normalized = (bucket.length ? bucket : locales).map((locale) => normalize(locale)).filter(Boolean)
+    return normalized.length ? Array.from(new Set(normalized)) : locales
+  })
+
+  const getDefaultLocaleFor = regionStore.getDefaultLocaleFor || ((region: string | undefined) => {
+    const key = normalize(region)
+    const allowed = getLocalesForRegion(key)
+    return regionsMeta[key]?.locale || allowed[0] || 'en'
+  })
 
   const regionPath = (path: string, opts: { absolute?: boolean } = {}) => {
     const cleanPath = path.replace(/^\//, '')
-    const locale = (i18n?.locale?.value || '').toLowerCase()
-    const region = (regionStore.region.value || fallbackRegion).toLowerCase()
+    const region = normalize(regionStore.region.value || fallbackRegion)
+    const locale = normalize(i18n?.locale?.value)
+    const allowedLocales = new Set(getLocalesForRegion(region))
+    const targetLocale = locale && allowedLocales.has(locale) ? locale : getDefaultLocaleFor(region)
     const defaultLocale = getDefaultLocaleFor(region)
 
     const segments: string[] = []
 
     if (region !== fallbackRegion) {
       segments.push(region)
-      if (locale && locale !== defaultLocale) {
-        segments.push(locale)
+      if (targetLocale && targetLocale !== defaultLocale) {
+        segments.push(targetLocale)
       }
-    } else if (locale && locale !== defaultLocale) {
-      segments.push(region, locale)
+    } else if (targetLocale && targetLocale !== defaultLocale) {
+      segments.push(region, targetLocale)
     }
 
     if (cleanPath) {

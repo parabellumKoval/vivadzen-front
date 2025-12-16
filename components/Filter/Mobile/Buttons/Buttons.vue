@@ -54,7 +54,7 @@ watch([
 
 const openFiltersHandler = () => {
   const component = defineAsyncComponent(() => import('~/components/Modal/Filters/Filters.vue'))
-  useModal().open(component, props.data, null)
+  useModal().open(component, props.data, null, { closeOnRouteChange: false })
 }
 
 watch(sortSelectedIndex, (value) => {

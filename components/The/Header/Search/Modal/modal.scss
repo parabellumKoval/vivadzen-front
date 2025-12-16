@@ -43,8 +43,17 @@
   }
 }
 .message-box {
-  color: $color-4;
-  line-height: 135%;
+  min-height: 16px;
+  // color: $color-4;
+  // line-height: 135%;
+  margin: 0 0 -20px 0;
+
+  @include desktop {
+    margin: 0 0 -30px 0;
+  }
+  .livesearch-label {
+    margin: 0;
+  }
 }
 // .simple-search {
 //   position: fixed;
@@ -122,7 +131,7 @@
     }
   }
   &-label {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 14px;
     color: $color-3;
   }

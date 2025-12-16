@@ -20,6 +20,7 @@ const dragging = ref(null)
 const internalValue = ref([...props.modelValue])
 const inputMin = ref(internalValue.value[0])
 const inputMax = ref(internalValue.value[1])
+const nonPassiveEvent = {passive: false}
 
 watch(() => props.modelValue, (val) => {
   internalValue.value = [...val]
@@ -55,9 +56,17 @@ let sliderRect = null
 
 function startDrag(type, event) {
   dragging.value = type
-  sliderRect = slider.value.getBoundingClientRect()
-  window.addEventListener('mousemove', onMouseMove)
+  sliderRect = slider.value?.getBoundingClientRect() || null
+
+  if (event?.preventDefault) {
+    event.preventDefault()
+  }
+
+  window.addEventListener('mousemove', onPointerMove)
   window.addEventListener('mouseup', stopDrag)
+  window.addEventListener('touchmove', onPointerMove, nonPassiveEvent)
+  window.addEventListener('touchend', stopDrag)
+  window.addEventListener('touchcancel', stopDrag)
 }
 
 function snapToStep(val) {
@@ -66,9 +75,27 @@ function snapToStep(val) {
   return Math.round((val - base) / step) * step + base
 }
 
-function onMouseMove(e) {
+function getClientX(event) {
+  if (event?.touches?.length) {
+    return event.touches[0].clientX
+  }
+
+  if (event?.changedTouches?.length) {
+    return event.changedTouches[0].clientX
+  }
+
+  return event?.clientX ?? 0
+}
+
+function onPointerMove(event) {
   if (!sliderRect || !dragging.value) return
-  const x = e.clientX - sliderRect.left
+
+  if (event?.preventDefault) {
+    event.preventDefault()
+  }
+
+  const clientX = getClientX(event)
+  const x = clientX - sliderRect.left
   const percent = x / sliderRect.width
   let rawVal = props.min + percent * (props.max - props.min)
   let clamped = Math.min(Math.max(rawVal, props.min), props.max)
@@ -85,9 +112,16 @@ function onMouseMove(e) {
 
 function stopDrag() {
   dragging.value = null
-  window.removeEventListener('mousemove', onMouseMove)
+  window.removeEventListener('mousemove', onPointerMove)
   window.removeEventListener('mouseup', stopDrag)
+  window.removeEventListener('touchmove', onPointerMove, nonPassiveEvent)
+  window.removeEventListener('touchend', stopDrag)
+  window.removeEventListener('touchcancel', stopDrag)
 }
+
+onBeforeUnmount(() => {
+  stopDrag()
+})
 
 function onInputChange(type) {
   const minVal = snapToStep(inputMin.value)
@@ -141,11 +175,13 @@ function onInputChange(type) {
         class="thumb left-thumb"
         :style="{ left: `${leftPercent}%` }"
         @mousedown.prevent="startDrag('min', $event)"
+        @touchstart.prevent="startDrag('min', $event)"
       ></div>
       <div
         class="thumb right-thumb"
         :style="{ left: `${rightPercent}%` }"
         @mousedown.prevent="startDrag('max', $event)"
+        @touchstart.prevent="startDrag('max', $event)"
       ></div>
     </div>
   </div>

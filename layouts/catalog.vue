@@ -78,6 +78,7 @@ const filtersData = computed(() => {
   return {
     'filters': props.filters,
     'meta': props.filtersMeta,
+    'productsMeta': props.productsMeta,
   }
 })
 

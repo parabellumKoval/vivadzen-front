@@ -36,7 +36,7 @@ await useAsyncData('cart-products', async () => await fetchCartProducts())
       <div class="body" scrollable>
         <div class="body-inner">
           <div v-if="products.length">
-            <div class="body-label">{{ t('label.in_your_cart') + ' ' + t('label.products', { products: products.length }) }} </div>
+            <div class="body-label">{{ t('messages.in_your_cart', { products: products.length }) }}</div>
             <transition-group name="fade-in">
               <product-card-checkout
                 v-for="product in products"
@@ -53,7 +53,8 @@ await useAsyncData('cart-products', async () => await fetchCartProducts())
           </div>
         </div>
 
-        <lazy-checkout-list :items-per-page="{mobile: 3, tablet: 6}" class="body-lists"></lazy-checkout-list>
+        
+        <lazy-checkout-list :items-per-page="{mobile: 2, tablet: 6}" class="body-lists"></lazy-checkout-list>
         
       </div>
 

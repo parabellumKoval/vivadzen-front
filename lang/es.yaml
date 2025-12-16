@@ -43,6 +43,7 @@ title:
     settings: Configuración
     support: Soporte
     favorite: Productos favoritos
+    transactions: Transacciones
 
 meta:
   address: Na Bojisti 1471/22, 120 00 Nove Mesto, Praga 2, Chequia
@@ -84,6 +85,7 @@ label:
   our_address: Nuestra dirección
   product_code: Código del producto
   contact_phones: Teléfonos de contacto
+  address: Nuestra dirección
   our_socials: Nuestras redes sociales
   sub_title: ¡Suscríbete para descuentos!
   sub_desc: Enviamos a los suscriptores cupones y bonos cada semana.
@@ -105,6 +107,7 @@ messages:
   products_found: Se encontraron {amount} productos
   no_results: Sin resultados
   empty_cart: El carrito está vacío
+  in_your_cart: 'En tu carrito {products} producto'
   cart_item_unavailable: Producto no disponible en tu región
   leave_review: Dejar reseña
   delivery_price: Costo de envío
@@ -124,6 +127,10 @@ messages:
   chose_delivery: Elige un método de envío para ver los métodos de pago disponibles
   select_region_delivery_notice: Para ver todos los métodos de entrega disponibles y leer la información detallada, primero selecciona tu país de entrega
   select_region_payment_notice: Para ver todos los métodos de pago disponibles y leer la información detallada, primero selecciona tu país de entrega
+  email_verification_required: Se ha enviado un enlace de confirmación a tu correo electrónico. Por favor, verifica tu dirección de correo electrónico para activar tu cuenta.
+
+message:
+  email_verification_required: Se ha enviado un enlace de confirmación a tu correo electrónico. Por favor, verifica tu dirección de correo electrónico para activar tu cuenta.
 
 age_gate:
   title: Confirmación de edad
@@ -138,6 +145,7 @@ button:
   logout_system: Cerrar sesión
   yes: Sí
   no: No
+  ok: OK
   enter: Iniciar sesión
   register: Registrarse
   pay: Proceder al pago
@@ -283,6 +291,7 @@ noty:
     sent: Nos pondremos en contacto pronto para aclarar los detalles del pedido 😎
     fail: No se realizó el pedido 😔
   subscription:
+    sent_title: Suscripción confirmada
     sent: Suscripción realizada con éxito 😉
     fail: La suscripción no se completó 😔
   feedback:

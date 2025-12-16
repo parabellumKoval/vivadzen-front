@@ -11,6 +11,7 @@ import {
   buildCurrencyByLocaleMap,
   buildLocaleByRegionMap,
   computeRegionCodes,
+  normalizeLocalesByRegion,
   normalizeRegionAliases,
   normalizeRegionDefinitions
 } from './region-definitions'
@@ -79,29 +80,32 @@ export const resolveRuntimeConfig = (nuxt: Nuxt, options: RegionsModuleOptions):
   const i18nLocales = extractLocaleCodesFromI18n(nuxt)
   const definitionLocales = collectLocalesFromDefinitions(regionMeta)
 
-  // let locales = i18nLocales.length
-  //   ? definitionLocales.filter((locale) => i18nLocales.includes(locale))
-  //   : definitionLocales
-  let locales = i18nLocales
-
-  if (!locales.length) {
-    locales = definitionLocales.length ? definitionLocales : i18nLocales
-  }
+  const availableLocales = i18nLocales.length ? i18nLocales : definitionLocales
 
   const fallbackLocale = regionMeta[fallbackRegion]?.locale ||
     regionMeta[DEFAULT_FALLBACK_REGION]?.locale ||
-    locales[0] ||
+    availableLocales[0] ||
     'en'
 
-  if (!locales.includes(fallbackLocale)) {
-    locales.push(fallbackLocale)
+  const localesByRegion = normalizeLocalesByRegion(
+    regionMeta,
+    options.localesByRegion,
+    availableLocales.length ? availableLocales : (fallbackLocale ? [fallbackLocale] : ['en'])
+  )
+
+  const localesSet = new Set<string>()
+  const pushLocale = (value?: string) => {
+    if (!value) return
+    localesSet.add(value.toLowerCase())
   }
 
-  locales = Array.from(new Set(locales))
+  Object.values(localesByRegion).forEach((list) => list.forEach(pushLocale))
+  availableLocales.forEach(pushLocale)
+  pushLocale(fallbackLocale)
 
-  if (!locales.length) {
-    locales = [fallbackLocale || 'en']
-  }
+  const locales = Array.from(localesSet).length
+    ? Array.from(localesSet)
+    : [fallbackLocale || 'en']
 
   const fallbackCurrency = regionMeta[fallbackRegion]?.currency || 'USD'
   const regionsMetaArray: RegionMetaWithCode[] = Object.entries(regionMeta).map(([code, meta]) => ({
@@ -113,6 +117,7 @@ export const resolveRuntimeConfig = (nuxt: Nuxt, options: RegionsModuleOptions):
     regions,
     regionAliases,
     locales,
+    localesByRegion,
     fallbackRegion,
     fallbackCurrency,
     regionsMeta: regionMeta,

@@ -53,10 +53,16 @@ const subHandler = () => {
   useFeedbackStore().create(sub.value).then(({data, error}) => {
 
     if(data.value) {
-      useNoty().setNoty({
-        content: t('noty.subscription.sent'),
-        type: 'success'
-      }, 5000)
+      // useNoty().setNoty({
+      //   content: t('noty.subscription.sent'),
+      //   type: 'success'
+      // }, 5000)
+      useInfoModal().open({
+        title: t('noty.subscription.sent_title'),
+        message: t('noty.subscription.sent'),
+        type: 'success',
+        buttonText: t('button.ok')
+      })
 
       resetSub()
       resetErrors()

@@ -52,7 +52,7 @@
     column-gap: 35px;
     row-gap: 15px;
     align-items: baseline;
-    margin: 0 0 30px 0;
+    margin: 0;
   }
   .right {
     display: none;
@@ -156,16 +156,9 @@
     // flex: 1;
     // min-width: 0;
 
-    // @include desktop {
-    //   position: sticky;
-    //   top: 80px;
-    //   padding: 0;
-    //   grid-column-start: 1;
-    //   grid-column-end: 3;
-    //   order: initial;
-    //   margin: 0;
-    //   flex: none;
-    // }
+    @include desktop {
+      padding: 0;
+    }
   }
 
   &-title {
@@ -196,7 +189,7 @@
 
   @include desktop {
     grid-template-columns: 50% calc(50% - 30px);
-    margin: 30px 0 80px 0;
+    margin: 0 0 80px 0;
     grid-gap: 30px;
   }
 

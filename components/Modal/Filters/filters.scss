@@ -1,7 +1,9 @@
 .filters {
-  width: calc(100vw - 5px);
-  margin: 0 -15px;
+  margin: 0 -10px;
+  width: calc(100% + 20px);
   padding-bottom: 80px;
+  overflow: hidden;
+
   &.pending {
     opacity: 0.5;
     pointer-events: none;
@@ -10,34 +12,43 @@
     }
   }
 }
-.selected-wrapper {
-  position: sticky;
-  top: -20px;
-  left: 0;
-  width: calc(100vw - 5px);
-  margin: 0 -15px 10px -15px;
-  padding: 20px 15px;
-  overflow: hidden;
-  z-index: 4;
-  border-top: 1px solid $color-border;
-  border-bottom: 3px solid $color-border;
-  background: $color-8;
+.selected {
+  &-outer {
+    width: calc(100%);
+    margin: 0;
+    padding: 0 15px;
+    // overflow: hidden;
+  }
+
+  &-wrapper {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: calc(100% + 30px);
+    margin: 0 0 10px -15px;
+    padding: 20px 15px;
+    overflow: hidden;
+    z-index: 4;
+    border-top: 1px solid $color-border;
+    border-bottom: 3px solid $color-border;
+    background: $color-8;
+  }
 }
 .buttons {
   position: fixed;
-  width: calc(100% + 30px);
+  width: 100%;
   bottom: 0;
-  left: 0;
+  left: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
   transform: translateX(-15px);
   border-top: 3px solid $color-border;
-  padding: 15px 30px;
+  padding: 5px 15px;
   z-index: 100;
   background: $color-8;
   overflow: hidden;
   .apply-btn {
     width: 100%;
-  }
-  .label {
-    margin-bottom: 5px;
   }
 }

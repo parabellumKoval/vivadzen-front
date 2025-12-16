@@ -12,7 +12,7 @@ const props = defineProps({
   },
   itemsPerPage: {
     type: Object,
-    default: {mobile: 3, tablet: 6, desktop: 8, ld: 10, xld: 12}
+    default: {mobile: 2, tablet: 6, desktop: 8, ld: 10, xld: 12}
   }
 })
 
@@ -56,26 +56,11 @@ const pending = computed(() => dataSource.pending.value)
 </script>
 
 <style src="~/assets/scss/snap-nav.scss" lang="scss" scoped></style>
-<style lang="scss" scoped>
-  .list-wrapper {
-      background-color: $color-bg-3;
-  }
-  .title-secondary {
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 15px;
-  }
-  :deep(.snap-carousel__controls) {
-    grid-template-columns: 1fr;
-    margin-top: 15px;
-  }
-  :deep(.snap-carousel__arrow) {
-    display: none;
-  }
+<style src="./list.scss" lang="scss" scoped>
 </style>
 
 <template>
-  <Transition name="fadeIn">
+  <!-- !pending && lists?.length -->
     <div v-if="!pending && lists?.length" class="list-wrapper">
       <div v-for="list in lists">
         <template v-if="list.items?.length">
@@ -101,5 +86,10 @@ const pending = computed(() => dataSource.pending.value)
         </template>
       </div>
     </div>
-  </Transition>
+    <div v-else-if="pending"  class="list-wrapper">
+      <div class="skeleton-title"></div>
+      <div class="skeleton-grid">
+        <ProductCardCheckoutSmallSkeleton  v-for="i in 2" :key="i" />
+      </div>
+    </div>
 </template>

@@ -161,8 +161,17 @@ export function useAuth() {
         body: payload,
       })
       const nextUser = extractUser(response)
-      setSession(nextUser, (response as any)?.token)
-      return nextUser
+      const requiresEmailVerification = !nextUser?.email_verified_at
+      
+      // Only set session if email is verified or verification is not required
+      if (!requiresEmailVerification) {
+        setSession(nextUser, (response as any)?.token)
+      }
+      
+      return {
+        user: nextUser,
+        requiresEmailVerification
+      }
     } finally {
       pending.value = false
     }

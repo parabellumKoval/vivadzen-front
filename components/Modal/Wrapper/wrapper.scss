@@ -6,22 +6,56 @@
     transform: initial;
     left: initial;
   }
+
+  // Типы модалок с разными цветами
+  &.success {
+    .modal-inner {
+      border-top: 3px solid $color-success;
+    }
+    .title {
+      color: $color-success;
+    }
+  }
+
+  &.error {
+    .modal-inner {
+      border-top: 3px solid $color-error;
+    }
+    .title {
+      color: $color-error;
+    }
+  }
+
+  &.warning {
+    .modal-inner {
+      border-top: 3px solid $color-warning;
+    }
+    .title {
+      color: $color-warning;
+    }
+  }
+
   &.full {
     .modal-inner {
-      width: 100vw;
-      height: 100vh;
-      max-height: 100vh;
-      margin: 0 -10px;
-      padding: 20px 15px;
-      border-radius: 0;
+      // width: 100vw;
+      // height: 100vh;
+      // max-height: 100vh;
+      // margin: 0 -10px;
+      // padding: 20px 15px;
+      // border-radius: 0;
+      padding: 0;
     }
-    .modal-slot {
-      max-height: 100%;
-      height: calc(100% - 55px);
+
+    .title {
+      padding: 20px 15px 0 15px;
     }
-    .close-btn {
-      right: 0;
-    }
+    // .modal-slot {
+    //   max-height: 100%;
+    //   height: calc(100% - 55px);
+    // }
+    // .close-btn {
+    //   right: 0;
+    // }
   }
 }
 .modal{

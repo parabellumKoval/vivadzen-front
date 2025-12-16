@@ -36,10 +36,13 @@ const loadmoreHandler = () => {}
 </script>
 
 <style src='./referrals.scss' lang='scss' scoped></style>
+<style src='./../account-page.scss' lang='scss' scoped></style>
 <!-- <i18n src='' lang='yaml'></i18n> -->
 
 <template>
-  <div>
+  <div class="account-page">
+    <div class="title-secondary">{{ t('title.account.transactions') }}</div>
+
     <simple-table v-if="isInitLoading || (list?.length && !isInitLoading)">
       <template v-if="!isInitLoading">
         <wallet-ladger-card

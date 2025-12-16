@@ -23,7 +23,7 @@ const reviewHandler = () => {
 const {data: reviewsData} = await useAsyncData('homepage-video-reviews', () => useFetcherData('homepage-video-reviews'))
 
 watch(reviewsData, (value) => {
-  if(value.data?.data) {
+  if(value?.data?.data) {
     reviews.value = value.data.data ?? []
   }
 }, { immediate: true })

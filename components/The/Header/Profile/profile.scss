@@ -1,5 +1,12 @@
 .avatar-image {
   border-radius: $radius;
+  max-width: initial;
+  width: 40px;
+  height: auto;
+
+  @include desktop {
+    width: 50px;
+  }
 }
 
 .icon {

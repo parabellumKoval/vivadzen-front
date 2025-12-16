@@ -5,11 +5,31 @@ export const useFilterItem = (filterId: string) => {
 
   const {activeFilters, pushToActiveFilters} = useFilter()
 
-  const {removeQueryParam, addOrUpdateQueryParams } = useLazyComposable(
+  const {removeQueryParam, addOrUpdateQueryParams, loadComposable } = useLazyComposable(
     'useQuerySingleton',
     ['removeQueryParam', 'addOrUpdateQueryParams']
   );
 
+  let queryComposablePromise: Promise<void> | null = null
+  const ensureQueryComposableReady = async () => {
+    if (typeof removeQueryParam.value === 'function' && typeof addOrUpdateQueryParams.value === 'function') {
+      return
+    }
+
+    if (!process.client) {
+      return
+    }
+
+    if (!queryComposablePromise) {
+      queryComposablePromise = loadComposable()
+    }
+
+    try {
+      await queryComposablePromise
+    } finally {
+      queryComposablePromise = null
+    }
+  }
 
   // const { useQuerySingleton } = await import('~/composables/lazy/catalog/useQuerySingleton.ts');
   // COMPUTEDS
@@ -92,11 +112,19 @@ export const useFilterItem = (filterId: string) => {
       } else {
         filter.values.splice(findIndex, 1)
         removeFilterFromUrl(stringData)
+
+        // remove whole filter if nothing selected
+        if (!filter.values.length) {
+          const filterIndex = activeFilters.value.findIndex(item => item.id === filterId)
+          if (filterIndex !== -1) {
+            activeFilters.value.splice(filterIndex, 1)
+          }
+        }
       } 
     }
   }
 
-  const removeFilterFromUrl = (data: any, id: string | null = null) => {
+  const removeFilterFromUrl = async (data: any, id: string | null = null) => {
     const key = id ?? filterId
     let query = null
 
@@ -116,10 +144,17 @@ export const useFilterItem = (filterId: string) => {
       }
     }
 
+    await ensureQueryComposableReady()
+
+    if (typeof removeQueryParam.value !== 'function') {
+      console.warn('removeQueryParam is not ready yet')
+      return
+    }
+
     removeQueryParam.value(query)
   }
 
-  const addFilterToUrl = (data: any) => {
+  const addFilterToUrl = async (data: any) => {
     let query = null
     if(Number.isInteger(filterId)) {
 
@@ -142,6 +177,13 @@ export const useFilterItem = (filterId: string) => {
     }
 
     
+    await ensureQueryComposableReady()
+
+    if (typeof addOrUpdateQueryParams.value !== 'function') {
+      console.warn('addOrUpdateQueryParams is not ready yet')
+      return
+    }
+
     addOrUpdateQueryParams.value(query)
   }
 

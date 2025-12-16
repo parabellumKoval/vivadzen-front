@@ -82,30 +82,28 @@ const addToCartHandler = () => {
       ></nuxt-img>
     </NuxtLink>
     
-    <div class="reviews">
-      <lazy-simple-stars :amount="item.rating" class="rating"></lazy-simple-stars>
-    </div>
+    <div class="content">
 
-    <div class="name-wrapper">
-      <NuxtLink
-        :to="$regionPath(`/${item.slug}`)"
-        class="name"
-        clickable
-        :prefetch="false"
-        @click="setGoogleEventHandler"
-      >
-        {{ item.name }}
-      </NuxtLink>
-    </div>
+      <div class="reviews">
+        <lazy-simple-stars :amount="item.rating" class="rating"></lazy-simple-stars>
+      </div>
 
-    <div class="sale">
-      <lazy-product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency"></lazy-product-price>
-      <button v-if="hasModifications" @click="openChoseModificationModalHandler" type="button" class="button primary small buy-btn">
-        <IconCSS name="mynaui:plus-solid" class="buy-btn-icon"></IconCSS>
-      </button>
-      <button v-else @click="addToCartHandler" type="button" class="button primary small buy-btn">
-        <IconCSS name="mynaui:cart" class="buy-btn-icon"></IconCSS>
-      </button>
+      <div class="name-wrapper">
+        <NuxtLink
+          :to="$regionPath(`/${item.slug}`)"
+          class="name"
+          clickable
+          :prefetch="false"
+          @click="setGoogleEventHandler"
+        >
+          {{ item.name }}
+        </NuxtLink>
+      </div>
+
+      <div class="sale">
+        <lazy-product-price :price="item.price" :old-price="item.oldPrice" :currency-code="item.currency"></lazy-product-price>
+      </div>
+
     </div>
 
   </div>

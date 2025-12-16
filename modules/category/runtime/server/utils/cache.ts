@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
 import { ofetch } from 'ofetch'
+import type { FetchError } from 'ofetch'
 import { joinURL } from 'ufo'
 import { getHeader, type H3Event } from 'h3'
 import { useRuntimeConfig, useStorage } from '#imports'
@@ -37,7 +38,7 @@ interface SlugsCacheEntry {
 }
 
 interface ContextualCategoryEntry<T = unknown> {
-  payload: T
+  payload: T | null
   fetchedAt: number
 }
 
@@ -65,6 +66,20 @@ const FALLBACK_LIST_ENDPOINT = '/category'
 const FALLBACK_MAIN_LIST_ENDPOINT = '/category/main'
 
 const now = () => Date.now()
+
+function isNotFoundError(error: unknown) {
+  if (!error || typeof error !== 'object') {
+    return false
+  }
+
+  const fetchError = error as FetchError & {
+    statusCode?: number
+    status?: number
+  }
+
+  const status = fetchError.statusCode ?? fetchError.status ?? fetchError.response?.status
+  return status === 404
+}
 
 function storage() {
   const storageInstance = useStorage(STORAGE_NAMESPACE)
@@ -434,6 +449,15 @@ async function fetchAndStoreCategory(slug: string): Promise<CategoryDetailsCache
           const payload = await fetchCategoryDetailsForContext(slug, context)
           perContext[context.key] = { payload, fetchedAt: now() }
         } catch (error) {
+          if (isNotFoundError(error)) {
+            console.warn(
+              '[category-module] Category is missing for context, storing null payload',
+              { slug, context }
+            )
+            perContext[context.key] = { payload: null, fetchedAt: now() }
+            continue
+          }
+
           console.error(
             '[category-module] Failed to fetch category details',
             { slug, context },
