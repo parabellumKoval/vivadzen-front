@@ -242,7 +242,7 @@ export default defineNuxtConfig({
         },
 
         bunny: {
-          baseURL: "https://vivadzen.b-cdn.net",
+          // baseURL: "https://vivadzen.b-cdn.net",
         },
 
         ipx: {
