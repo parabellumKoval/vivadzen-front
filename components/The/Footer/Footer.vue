@@ -167,7 +167,7 @@ const subHandler = () => {
           <div class="footer-label">{{ t('label.address') }}</div>
           <div class="address-item">
             <IconCSS name="iconoir:map" class="address-icon"></IconCSS>
-            <a href="/" class="address-link">{{ t('meta.address') }}</a>
+            <a href="/" class="address-link">{{ useContacts().address }}</a>
           </div>
           <div class="address-item">
             <IconCSS name="iconoir:mail" class="address-icon"></IconCSS>
