@@ -55,12 +55,13 @@ const backHandler = () => {
           width="40"
           height="40"
           sizes = "mobile:60px tablet:60px desktop:60px"
-          format = "avif"
+          format = "webp"
           quality = "60"
           loading = "lazy"
           fit="outside"
           :placeholder="useImg().noImage"
           class="category-image"
+          provider="bunny"
         >
         </nuxt-img>
         <div class="sub-title">{{ selectedCategory.name }}</div>

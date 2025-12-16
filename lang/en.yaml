@@ -185,6 +185,7 @@ form:
     reply: Write your reply
     invoice_qr: QR code to pay the invoice
     invoice_pdf: You can download the invoice
+    use_qr_or_invoice: Use QR code or invoice to pay the order
   full_name: Full name
   firstname: First name
   name: Name

@@ -185,6 +185,7 @@ form:
     reply: Napište odpověď
     invoice_qr: QR kód pro platbu faktury
     invoice_pdf: Můžete si stáhnout fakturu
+    use_qr_or_invoice: Použijte QR kód nebo fakturu k zaplacení objednávky
   full_name: Celé jméno
   firstname: Jméno
   name: Jméno

@@ -186,6 +186,7 @@ form:
     reply: Напишите ваш ответ
     invoice_qr: Qr-code для оплаты счета 
     invoice_pdf: Вы можете скачать счет-фактуру
+    use_qr_or_invoice: Используйте QR-код или счет-фактуру для оплаты заказа
   full_name: Полное имя
   firstname: Имя
   name: Имя

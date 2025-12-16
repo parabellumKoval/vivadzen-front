@@ -185,6 +185,7 @@ form:
     reply: Antwort schreiben
     invoice_qr: QR-Code zur Rechnungszahlung
     invoice_pdf: Sie können die Rechnung herunterladen
+    use_qr_or_invoice: Verwenden Sie den QR-Code oder die Rechnung um die Bestellung zu bezahlen
   full_name: Vollständiger Name
   firstname: Vorname
   name: Name

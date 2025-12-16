@@ -8,6 +8,7 @@ ru:
   payment: 'Оплата'
   total: 'Итого'
   user: 'Получатель'
+  use_qr_or_invoice: 'Используйте QR-код или счет-фактуру для оплаты заказа'
 uk:
   number: 'Номер замовлення'
   status: 'Статус'
@@ -18,6 +19,7 @@ uk:
   payment: 'Оплата'
   total: 'Разом'
   user: 'Одержувач'
+  use_qr_or_invoice: 'Використовуйте QR-код або рахунок для оплати замовлення'
 de:
   number: 'Bestellnummer'
   status: 'Status'
@@ -28,6 +30,7 @@ de:
   payment: 'Zahlung'
   total: 'Gesamt'
   user: 'Empfänger'
+  use_qr_or_invoice: 'Verwenden Sie den QR-Code oder die Rechnung um die Bestellung zu bezahlen'
 es:
   number: 'Número de pedido'
   status: 'Estado'
@@ -38,6 +41,7 @@ es:
   payment: 'Pago'
   total: 'Total'
   user: 'Destinatario'
+  use_qr_or_invoice: 'Usa el código QR o la factura para pagar el pedido'
 cs:
   number: 'Číslo objednávky'
   status: 'Stav'
@@ -48,6 +52,7 @@ cs:
   payment: 'Platba'
   total: 'Celkem'
   user: 'Příjemce'
+  use_qr_or_invoice: 'Použijte QR kód nebo fakturu k zaplacení objednávky'
 en:
   number: 'Order number'
   status: 'Status'
@@ -58,3 +63,4 @@ en:
   payment: 'Payment'
   total: 'Total'
   user: 'Recipient'
+  use_qr_or_invoice: 'Use QR code or invoice to pay the order'

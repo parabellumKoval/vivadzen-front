@@ -75,6 +75,7 @@ const hoverEventHandler = (index) => {
           fit="outside"
           :placeholder="useImg().noImage"
           class="category-image"
+          provider="bunny"
         >
         </nuxt-img>
         <div class="category-name">{{ category.name }}</div>

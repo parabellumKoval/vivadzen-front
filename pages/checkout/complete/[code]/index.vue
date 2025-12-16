@@ -176,7 +176,7 @@ useCartStore().$reset()
                 <div class="value success">{{ t('pay_status.' + order.payStatus) }}</div>
               </div>
               <div v-if="payment.method === 'bank_transfer'" class="cell">
-                  <div class="text">Используйте QR-код или счет-фактуру для оплаты заказа</div>
+                  <div class="text">{{ t('use_qr_or_invoice') }}</div>
                   <div class="label">{{ t('form.enter.invoice_qr') }}</div>
                   <div class="value">
                     <img :src="order.invoiceQrUrl" />
