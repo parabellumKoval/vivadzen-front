@@ -46,7 +46,7 @@ const categories = computed(() =>  {
                 width="200"
                 height="200"
                 sizes = "mobile:200px tablet:360px desktop:360px"
-                format = "avif"
+                format = "webp"
                 quality = "60"
                 loading = "lazy"
                 fit="outside"

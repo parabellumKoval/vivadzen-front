@@ -51,6 +51,7 @@ const props = defineProps({
           fit="outside"
           :placeholder="useImg().noImageTransparent"
           class="category-image"
+          provider="bunny"
         />
       </div>
       <div class="category-name">

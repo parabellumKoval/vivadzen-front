@@ -33,11 +33,12 @@ const getTag = (category) => {
           width="500"
           height="500"
           sizes = "mobile:400px tablet:500px desktop:600px"
-          format = "avif"
+          format = "webp"
           quality = "60"
           loading = "lazy"
           fit="outside"
           class="category-image"
+          provider="bunny"
         ></nuxt-img>
       </div>
 
