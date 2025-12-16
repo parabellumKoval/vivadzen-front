@@ -116,8 +116,10 @@
   &-desc {
     font-size: 16px;
     line-height: 130%;
+    color: $color-8;
 
     @include desktop {
+      width: 70%;
       font-size: 28px;
     }
   }

@@ -52,7 +52,7 @@ const categories = computed(() =>  {
                 fit="outside"
                 :placeholder="useImg().noImageTransparent"
                 class="category-image"
-                provider="ipx"
+                provider="bunny"
               >
               </nuxt-img>
             </div>

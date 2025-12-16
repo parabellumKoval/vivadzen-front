@@ -35,8 +35,12 @@
     @include desktop {
       grid-auto-flow: column;
       grid-auto-columns: 1fr;
-      gap: 50px;
+      gap: 30px;
       margin-top: 90px;
+    }
+
+    @include ld {
+      gap: 50px;
     }
   }
 
