@@ -501,6 +501,7 @@ export default defineNuxtConfig({
   },
 
   robots: {
+    indexable: false,
     autoI18n: false,
     disableNuxtContentIntegration: true,
     disallow: ['/_ipx', '/.well-known', '/*?*gclid=*']
