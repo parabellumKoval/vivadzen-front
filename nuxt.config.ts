@@ -501,10 +501,10 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    indexable: false,
+    blockNonSeoBots: true,
     autoI18n: false,
     disableNuxtContentIntegration: true,
-    disallow: ['/_ipx', '/.well-known', '/*?*gclid=*']
+    disallow: ['/', '/_ipx', '/.well-known', '/*?*gclid=*']
   },
 
   sitemap: {
