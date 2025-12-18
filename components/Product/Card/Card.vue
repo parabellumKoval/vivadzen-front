@@ -131,7 +131,9 @@ const addToCartHandler = () => {
         :loading = "index > 0? 'lazy': loading"
         fit="outside"
         :placeholder="useImg().noImage"
+        format = "webp"
         class="image"
+        provider="bunny"
       ></nuxt-img>
     </NuxtLink>
     

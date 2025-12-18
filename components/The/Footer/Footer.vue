@@ -123,12 +123,12 @@ const subHandler = () => {
                     width="200"
                     height="200"
                     sizes = "mobile:130px tablet:270px desktop:270px"
-                    format = "avif"
+                    format = "webp"
                     quality = "60"
                     fit="outside"
                     :placeholder="useImg().noImageTransparent"
                     class="category-image"
-                    provider="ipx"
+                    provider="bunny"
                   >
                   </nuxt-img>
                   <div class="category-name">{{ category.name }}</div>
