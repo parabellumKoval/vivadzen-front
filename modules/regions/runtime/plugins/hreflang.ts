@@ -39,11 +39,11 @@ const buildQueryString = (query: Record<string, unknown>): string => {
   return serialized ? `?${serialized}` : ''
 }
 
-const normalizeRegion = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
-const normalizeLocale = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
+const normalizeHreflangRegion = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
+const normalizeHreflangLocale = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
 const extractLanguage = (value: string | null | undefined) => String(value || '').split(/[-_]/)[0]?.toLowerCase() || ''
 
-const buildLocalizedPath = (
+const buildHreflangPath = (
   basePath: string,
   targetRegion: string,
   targetLocale: string | null,
@@ -51,9 +51,9 @@ const buildLocalizedPath = (
   getDefaultLocaleFor: (region: string) => string
 ): string => {
   const cleanBase = (basePath || '/').replace(/^\/+/, '').replace(/\/+$/, '')
-  const normalizedRegion = normalizeRegion(targetRegion)
-  const normalizedFallback = normalizeRegion(fallbackRegion)
-  const normalizedLocale = normalizeLocale(targetLocale)
+  const normalizedRegion = normalizeHreflangRegion(targetRegion)
+  const normalizedFallback = normalizeHreflangRegion(fallbackRegion)
+  const normalizedLocale = normalizeHreflangLocale(targetLocale)
   const defaultLocale = getDefaultLocaleFor(normalizedRegion)
   const segments: string[] = []
 
@@ -84,8 +84,8 @@ const formatHref = (baseUrl: string, path: string, suffix: string) => {
 
 const formatHreflang = (locale: string, region: string, fallbackRegion: string) => {
   const lang = extractLanguage(locale)
-  const normalizedRegion = normalizeRegion(region)
-  const normalizedFallback = normalizeRegion(fallbackRegion)
+  const normalizedRegion = normalizeHreflangRegion(region)
+  const normalizedFallback = normalizeHreflangRegion(fallbackRegion)
   if (!lang) return ''
 
   if (!normalizedRegion || normalizedRegion === normalizedFallback) {
@@ -106,7 +106,7 @@ export default defineNuxtPlugin(() => {
     runtimeConfig.regionsModule ||
     {}) as Partial<RegionsRuntimeConfig>
 
-  const fallbackRegion = computed(() => normalizeRegion(
+  const fallbackRegion = computed(() => normalizeHreflangRegion(
     regionStore.fallbackRegion ||
     moduleConfig.fallbackRegion ||
     'global'
@@ -130,7 +130,7 @@ export default defineNuxtPlugin(() => {
       ...(regionStore.locales || []),
       ...(moduleConfig.locales || [])
     ]
-      .map(normalizeLocale)
+      .map(normalizeHreflangLocale)
       .filter(Boolean)
 
     return Array.from(new Set(merged))
@@ -139,17 +139,17 @@ export default defineNuxtPlugin(() => {
   const availableRegions = computed(() => {
     const defined = Object.keys(localesByRegion.value || {})
     const combined = [fallbackRegion.value, ...defined]
-      .map(normalizeRegion)
+      .map(normalizeHreflangRegion)
       .filter(Boolean)
 
     return Array.from(new Set(combined))
   })
 
   const getLocalesForRegion = (region: string | null | undefined) => {
-    const key = normalizeRegion(region)
+    const key = normalizeHreflangRegion(region)
     const bucket = localesByRegion.value?.[key] || []
     const normalized = (bucket.length ? bucket : allLocales.value)
-      .map(normalizeLocale)
+      .map(normalizeHreflangLocale)
       .filter(Boolean)
 
     if (normalized.length) {
@@ -158,16 +158,16 @@ export default defineNuxtPlugin(() => {
 
     const metaDefault = regionsMeta.value?.[key]?.locale
     if (metaDefault) {
-      return [normalizeLocale(metaDefault)]
+      return [normalizeHreflangLocale(metaDefault)]
     }
 
     return []
   }
 
   const getDefaultLocaleFor = (region: string | null | undefined) => {
-    const key = normalizeRegion(region)
+    const key = normalizeHreflangRegion(region)
     const allowed = getLocalesForRegion(key)
-    const metaDefault = normalizeLocale(regionsMeta.value?.[key]?.locale)
+    const metaDefault = normalizeHreflangLocale(regionsMeta.value?.[key]?.locale)
     if (metaDefault && allowed.includes(metaDefault)) {
       return metaDefault
     }
@@ -189,12 +189,12 @@ export default defineNuxtPlugin(() => {
     if (!segments.length) return '/'
 
     const normalizedSegments = segments.map((segment) => segment.trim()).filter(Boolean)
-    const first = normalizeRegion(normalizedSegments[0])
+    const first = normalizeHreflangRegion(normalizedSegments[0])
     let startIndex = 0
 
     if (first && availableRegions.value.includes(first)) {
       startIndex = 1
-      const localeCandidate = normalizeLocale(normalizedSegments[1])
+      const localeCandidate = normalizeHreflangLocale(normalizedSegments[1])
       const localeSet = regionLocaleSets.value[first] || new Set<string>()
       if (localeCandidate && localeSet.has(localeCandidate)) {
         startIndex = 2
@@ -214,7 +214,7 @@ export default defineNuxtPlugin(() => {
   const baseUrl = computed(() => normalizeBaseUrl(runtimeConfig.public || {}))
 
   const filteredRegions = computed(() => {
-    const filter = allowedRegionsState.value?.map(normalizeRegion).filter(Boolean)
+    const filter = allowedRegionsState.value?.map(normalizeHreflangRegion).filter(Boolean)
     if (!filter || !filter.length) {
       return availableRegions.value
     }
@@ -242,7 +242,7 @@ export default defineNuxtPlugin(() => {
 
     const defaultHref = formatHref(
       baseUrlValue,
-      buildLocalizedPath(
+      buildHreflangPath(
         basePathValue,
         fallback,
         getDefaultLocaleFor(fallback),
@@ -266,7 +266,7 @@ export default defineNuxtPlugin(() => {
 
         const href = formatHref(
           baseUrlValue,
-          buildLocalizedPath(
+          buildHreflangPath(
             basePathValue,
             regionCode,
             localeCode,
@@ -294,7 +294,7 @@ export default defineNuxtPlugin(() => {
             hreflang,
             href: formatHref(
               baseUrlValue,
-              buildLocalizedPath(
+              buildHreflangPath(
                 basePathValue,
                 regionCode,
                 defaultLocale,

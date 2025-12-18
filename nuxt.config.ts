@@ -1,6 +1,7 @@
 // import dynamicRoutes from './helpers/dynamicRoutes'
 // import fetchCategories from './helpers/fetchCategories'
 import path from 'path'
+import { REGIONS_MODULE_OPTIONS, buildSitemapsOptions } from './utils/sitemap'
 
 const HOST = process.env.HOST_IP || 'localhost'
 const SITE_URL = process.env.SITE_URL || `http://${HOST}:3000`
@@ -397,27 +398,7 @@ export default defineNuxtConfig({
     refreshRoutePath: '/api/_converter/refresh',
   },
 
-  regionsModule: {
-    regions: {
-      global: { name: 'Global', locale: 'en', currency: 'USD', flagClass: 'emojione:globe-showing-europe-africa'},
-      ua: { name: 'Ukraine', locale: 'uk', currency: 'UAH', flagClass: 'emojione:flag-for-ukraine'},
-      cz: { name: 'Czechia', locale: 'cs', currency: 'CZK', flagClass: 'emojione:flag-for-czechia'},
-      de: { name: 'Germany', locale: 'de', currency: 'EUR', flagClass: 'emojione:flag-for-germany'},
-      es: { name: 'Spain', locale: 'es', currency: 'EUR', flagClass: 'emojione:flag-for-spain'}
-    },
-    regionAliases: {
-      global: 'zz'
-    },
-    localesByRegion: {
-      global: ['en', 'de', 'es', 'ru', 'uk'],
-      ua: ['uk', 'ru'],
-      cz: ['cs', 'en', 'ru', 'uk'],
-      de: ['de', 'en', 'ru', 'uk'],
-      es: ['es', 'en', 'ru', 'uk']
-    },
-    fallbackRegion: 'global',
-    fallbackCurrency: 'USD'
-  },
+  regionsModule: REGIONS_MODULE_OPTIONS,
 
   site: {
     indexable: true,
@@ -509,6 +490,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     enabled: true,
+    siteUrl: SITE_URL,
     cacheMaxAgeSeconds: 3600,
 
     exclude: [
@@ -524,13 +506,7 @@ export default defineNuxtConfig({
       lastmod: new Date().toISOString(),
     },
 
-    sources: [
-      API_SERVER_URL + '/sitemap/categories',
-      API_SERVER_URL + '/sitemap/regions',
-      API_SERVER_URL + '/sitemap/products',
-      API_SERVER_URL + '/sitemap/brands',
-      API_SERVER_URL + '/sitemap/articles'
-    ]
+    sitemaps: buildSitemapsOptions(REGIONS_MODULE_OPTIONS)
   },
 
   schemaOrg: {
