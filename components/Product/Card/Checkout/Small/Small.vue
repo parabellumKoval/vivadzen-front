@@ -74,6 +74,8 @@ const addToCartHandler = () => {
         width="290"
         height="260"
         sizes = "mobile:180px tablet:230px desktop:300px"
+        format = "webp"
+        provider = "bunny"
         quality = "50"
         :loading = "index > 0? 'lazy': loading"
         fit="outside"

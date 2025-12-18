@@ -59,6 +59,7 @@ const showAuthHandler = () => {
           fit="outside"
           class="banner-media-img"
           fetchpriority="high"
+          :provider = "useImg().provider"
         ></nuxt-img>
       </div>
     </div>

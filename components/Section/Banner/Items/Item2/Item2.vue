@@ -51,6 +51,7 @@ const getSize = (line) => sizeMap[locale.value]?.[line] ?? '100px'
         fit="outside"
         loading = "lazy"
         class="banner-media-img"
+        :provider = "useImg().provider"
       ></nuxt-img>
       <nuxt-img
         v-else
@@ -63,6 +64,7 @@ const getSize = (line) => sizeMap[locale.value]?.[line] ?? '100px'
         fit="outside"
         loading = "lazy"
         class="banner-media-img"
+        :provider = "useImg().provider"
       ></nuxt-img>
     </div>
   </div>

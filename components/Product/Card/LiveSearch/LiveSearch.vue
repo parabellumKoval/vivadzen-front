@@ -23,6 +23,7 @@ const props = defineProps({
         height="105"
         sizes = "mobile:207px tablet:207px desktop:207px"
         format = "webp"
+        provider = "bunny"
         quality = "60"
         loading = "lazy"
         fit="outside"
