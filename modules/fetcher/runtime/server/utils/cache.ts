@@ -83,6 +83,32 @@ function storage() {
   return useStorage(STORAGE_NAMESPACE)
 }
 
+// Local hot cache stored in memory per server instance to skip Upstash round-trips.
+const localCache = new Map<string, ContextCacheEntry>()
+
+function buildLocalCacheKey(endpointKey: string, context: FetcherNormalizedContext) {
+  return `${endpointKey}::${context.key}`
+}
+
+function readLocalCacheEntry(
+  cacheKey: string,
+  endpoint: FetcherResolvedEndpoint
+): ContextCacheEntry | null {
+  const cached = localCache.get(cacheKey)
+  if (!cached) {
+    return null
+  }
+  if (!isFresh(cached, endpoint)) {
+    localCache.delete(cacheKey)
+    return null
+  }
+  return cached
+}
+
+function writeLocalCacheEntry(cacheKey: string, entry: ContextCacheEntry) {
+  localCache.set(cacheKey, entry)
+}
+
 function normalizeLookupPath(path: string) {
   if (!path) {
     return '/'
@@ -320,6 +346,7 @@ async function refreshContext(
   }
   entry.contexts[normalizedContext.key] = contextEntry
   await writeCacheEntry(key, entry)
+  writeLocalCacheEntry(buildLocalCacheKey(key, normalizedContext), contextEntry)
   return contextEntry
 }
 
@@ -333,10 +360,21 @@ export async function getFetcherPayload<T = unknown>(
     throw new Error(`fetcherModule: endpoint "${key}" is not registered`)
   }
 
+  const normalized = normalizeContextForEndpoint(endpoint, contextInput)
+  const localKey = buildLocalCacheKey(key, normalized)
+  const cachedLocal = readLocalCacheEntry(localKey, endpoint)
+  if (cachedLocal) {
+    return {
+      key,
+      context: normalized,
+      payload: cachedLocal.payload as T,
+      fetchedAt: cachedLocal.fetchedAt
+    }
+  }
+
   const config = runtimeConfig()
   const contexts = collectEndpointContexts(endpoint, config)
   const entry = await ensureCacheEntry(key, endpoint, contexts)
-  const normalized = normalizeContextForEndpoint(endpoint, contextInput)
   const existing = entry.contexts[normalized.key]
 
   const shouldRefresh = options.forceRefresh === true || !isFresh(existing, endpoint)
@@ -344,6 +382,8 @@ export async function getFetcherPayload<T = unknown>(
   const contextEntry = shouldRefresh
     ? await refreshContext(key, endpoint, normalized, entry)
     : (existing as ContextCacheEntry)
+
+  writeLocalCacheEntry(localKey, contextEntry)
 
   return {
     key,

@@ -2,7 +2,7 @@
   position: relative;
   display: grid;
   gap: 15px;
-  width: 100vw;
+  width: calc(100% + 30px);
   color: $color-2;
   background-color: $color-8;
   padding: 25px 15px;

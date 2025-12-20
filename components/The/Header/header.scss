@@ -8,11 +8,11 @@
   z-index: 200;
   @include tablet {
     padding: 0 15px;
-    height: 80px;
   }
   @include desktop {
     border-bottom: 0;
     padding: 0 35px;
+    height: 80px;
   }
 
   &-container {
@@ -59,7 +59,7 @@
   flex-direction: column;
   height: 60px;
   width: 100%;
-  @include tablet {
+  @include desktop {
     height: 80px;
   }
 }

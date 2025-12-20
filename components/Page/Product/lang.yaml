@@ -3,15 +3,15 @@ ru:
   guarantee: Гарантия качества
   attrs: Характеристики товара
   all_attrs: Все характеристики
-  seo_title_template: "{product} | VivaDzen - Магазин високоякісних товарів з усього світу"
-  seo_desc_template: "{product} | VivaDzen - Магазин високоякісних товарів з усього світу"
+  seo_title_template: "{product} - VivaDzen - Магазин високоякісних товарів з усього світу"
+  seo_desc_template: "{product} - VivaDzen - Магазин високоякісних товарів з усього світу"
 uk:
   simular: Схожі товари
   guarantee: Гарантія якості
   attrs: Характеристики товару
   all_attrs: Всі характеристики
-  seo_title_template: "{product} | VivaDzen - Магазин високоякісних товарів з усього світу"
-  seo_desc_template: "{product} | VivaDzen - Магазин високоякісних товарів з усього світу"
+  seo_title_template: "{product} - VivaDzen - Магазин високоякісних товарів з усього світу"
+  seo_desc_template: "{product} - VivaDzen - Магазин високоякісних товарів з усього світу"
 de:
   simular: Ähnliche Produkte
   guarantee: Qualitätsgarantie
@@ -24,19 +24,19 @@ es:
   guarantee: Garantía de calidad
   attrs: Características del producto
   all_attrs: Todas las características
-  seo_title_template: "{product} | VivaDzen Tienda de kratom premium | Calidad garantizada"
-  seo_desc_template: "{product} | VivaDzen Tienda de kratom premium | Calidad garantizada"
+  seo_title_template: "{product} - VivaDzen Tienda de kratom premium - Calidad garantizada"
+  seo_desc_template: "{product} - VivaDzen Tienda de kratom premium - Calidad garantizada"
 cs:
   simular: Podobné produkty
   guarantee: Záruka kvality
   attrs: Vlastnosti produktu
   all_attrs: Všechny vlastnosti
-  seo_title_template: "{product} | VivaDzen – Špičkový obchod s kratomem"
-  seo_desc_template: "{product} | VivaDzen – Špičkový obchod s kratomem"
+  seo_title_template: "{product} - VivaDzen – Špičkový obchod s kratomem"
+  seo_desc_template: "{product} - VivaDzen – Špičkový obchod s kratomem"
 en:
   simular: Similar products
   guarantee: Quality guarantee
   attrs: Product specifications
   all_attrs: All specifications
-  seo_title_template: "{product} | Viva Dzen - High Quality Kratom Online Shop"
-  seo_desc_template: "{product} | Viva Dzen - High Quality Kratom Online Shop"
+  seo_title_template: "{product} - Viva Dzen - High Quality Kratom Online Shop"
+  seo_desc_template: "{product} - Viva Dzen - High Quality Kratom Online Shop"
