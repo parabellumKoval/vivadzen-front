@@ -4,7 +4,7 @@ import path from 'path'
 import { REGIONS_MODULE_OPTIONS, buildSitemapsOptions } from './utils/sitemap'
 
 const HOST = process.env.HOST_IP || 'localhost'
-const SITE_URL = process.env.SITE_URL || `http://${HOST}:3000`
+const SITE_URL = process.env.SITE_URL || (process.env.NODE_ENV === 'production' ? `https://${HOST}` : `http://${HOST}:3000`)
 const SERVER_URL = process.env.SERVER_URL || `http://${HOST}:8000`
 const API_SERVER_URL = process.env.API_SERVER_URL || `${SERVER_URL}/api`
 const DOMAIN = process.env.DOMAIN || `${HOST}:8000`
@@ -587,5 +587,5 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2025-12-07',
+  compatibilityDate: '2025-12-20',
 })
