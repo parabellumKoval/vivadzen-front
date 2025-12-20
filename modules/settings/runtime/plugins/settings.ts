@@ -115,7 +115,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   if (process.client) {
-    let initialized = false
     let lastKey: string | null = null
 
     watch(
@@ -126,16 +125,12 @@ export default defineNuxtPlugin((nuxtApp) => {
         const key = variantKey(region, locale)
         const missingEntry = !hasExactVariant(region, locale)
 
-        if (!initialized) {
-          initialized = true
+        if (!missingEntry) {
           lastKey = key
-          if (missingEntry) {
-            void fetchVariant(region, locale)
-          }
           return
         }
 
-        if (!missingEntry && key === lastKey) {
+        if (key === lastKey) {
           return
         }
 
