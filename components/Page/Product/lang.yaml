@@ -3,40 +3,40 @@ ru:
   guarantee: Гарантия качества
   attrs: Характеристики товара
   all_attrs: Все характеристики
-  seo_title_template: "{product} купить в Украине, Днепре - выгодная цена в интернет-магазине Vivadzen"
-  seo_desc_template: "{product} купить в интернет-магазине Vivadzen ✅ Для заказа звоните по ☎ +420 605 00 47 47. Доставка по всей Украине и Днепру. ⏩ Гарантия. Отзывы покупателей."
+  seo_title_template: "{product} | VivaDzen - Магазин високоякісних товарів з усього світу"
+  seo_desc_template: "{product} | VivaDzen - Магазин високоякісних товарів з усього світу"
 uk:
   simular: Схожі товари
   guarantee: Гарантія якості
   attrs: Характеристики товару
   all_attrs: Всі характеристики
-  seo_title_template: "{product} купити в Україні, Дніпрі - вигідна ціна в інтернет-магазині Vivadzen"
-  seo_desc_template: "{product} купити в інтернет-магазині Vivadzen ✅ Для замовлення телефонуйте за ☎ +420 605 00 47 47. Доставка по всій Україні та Дніпру. ⏩ Гарантія. Відгуки покупців."
+  seo_title_template: "{product} | VivaDzen - Магазин високоякісних товарів з усього світу"
+  seo_desc_template: "{product} | VivaDzen - Магазин високоякісних товарів з усього світу"
 de:
   simular: Ähnliche Produkte
   guarantee: Qualitätsgarantie
   attrs: Produkteigenschaften
   all_attrs: Alle Eigenschaften
-  seo_title_template: "{product} in der Ukraine, Dnipro kaufen – günstiger Preis im Vivadzen-Onlineshop"
-  seo_desc_template: "{product} im Vivadzen-Onlineshop kaufen ✅ Für eine Bestellung rufen Sie ☎ +420 605 00 47 47 an. Lieferung in die gesamte Ukraine und nach Dnipro. ⏩ Garantie. Kundenbewertungen."
+  seo_title_template: "{product}"
+  seo_desc_template: "{product}"
 es:
   simular: Productos similares
   guarantee: Garantía de calidad
   attrs: Características del producto
   all_attrs: Todas las características
-  seo_title_template: "{product} comprar en Ucrania, Dnipro - precio ventajoso en la tienda online Vivadzen"
-  seo_desc_template: "{product} comprar en la tienda online Vivadzen ✅ Para hacer un pedido llame al ☎ +420 605 00 47 47. Entrega en toda Ucrania y en Dnipro. ⏩ Garantía. Opiniones de clientes."
+  seo_title_template: "{product} | VivaDzen Tienda de kratom premium | Calidad garantizada"
+  seo_desc_template: "{product} | VivaDzen Tienda de kratom premium | Calidad garantizada"
 cs:
   simular: Podobné produkty
   guarantee: Záruka kvality
   attrs: Vlastnosti produktu
   all_attrs: Všechny vlastnosti
-  seo_title_template: "{product} koupit na Ukrajině, v Dnipru – výhodná cena v internetovém obchodě Vivadzen"
-  seo_desc_template: "{product} koupit v internetovém obchodě Vivadzen ✅ Objednávejte na ☎ +420 605 00 47 47. Doručení po celé Ukrajině i v Dnipru. ⏩ Záruka. Hodnocení zákazníků."
+  seo_title_template: "{product} | VivaDzen – Špičkový obchod s kratomem"
+  seo_desc_template: "{product} | VivaDzen – Špičkový obchod s kratomem"
 en:
   simular: Similar products
   guarantee: Quality guarantee
   attrs: Product specifications
   all_attrs: All specifications
-  seo_title_template: "{product} buy in Ukraine, Dnipro – great price in the Vivadzen online store"
-  seo_desc_template: "{product} buy in the Vivadzen online store ✅ To order call ☎ +420 605 00 47 47. Delivery across Ukraine and in Dnipro. ⏩ Warranty. Customer reviews."
+  seo_title_template: "{product} | Viva Dzen - High Quality Kratom Online Shop"
+  seo_desc_template: "{product} | Viva Dzen - High Quality Kratom Online Shop"

@@ -1,0 +1,30 @@
+ru:
+  seo_title_template: "{category}"
+  seo_title_suffix: "VivaDzen - Магазин високоякісних товарів з усього світу"
+  seo_desc_template: "{category}"
+  seo_desc_suffix: "VivaDzen - Магазин високоякісних товарів з усього світу"
+uk:
+  seo_title_template: "{category}"
+  seo_title_suffix: "VivaDzen - Магазин високоякісних товарів з усього світу"
+  seo_desc_template: "{category}"
+  seo_desc_suffix: "VivaDzen - Магазин високоякісних товарів з усього світу"
+de:
+  seo_title_template: "{category}"
+  seo_title_suffix: "VivaDze"
+  seo_desc_template: "{category}"
+  seo_desc_suffix: "VivaDze"
+es:
+  seo_title_template: "{category}"
+  seo_title_suffix: "VivaDzen Tienda de kratom premium – Calidad garantizada"
+  seo_desc_template: "{category}"
+  seo_desc_suffix: "VivaDzen Tienda de kratom premium – Calidad garantizada"
+cs:
+  seo_title_template: "{category}"
+  seo_title_suffix: "VivaDzen – Špičkový obchod s kratomem"
+  seo_desc_template: "{category}"
+  seo_desc_suffix: "VivaDzen – Špičkový obchod s kratomem"
+en:
+  seo_title_template: "{category}"
+  seo_title_suffix: "Viva Dzen - High Quality Kratom Online Shop"
+  seo_desc_template: "{category}"
+  seo_desc_suffix: "Viva Dzen - High Quality Kratom Online Shop"

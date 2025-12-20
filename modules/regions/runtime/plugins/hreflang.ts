@@ -5,6 +5,7 @@ import { useHreflang } from '../composables/useHreflang'
 import type { RegionsRuntimeConfig } from '../../module'
 
 const normalizeBaseUrl = (value: any): string => {
+  console.log('normalizeBaseUrl', value)
   const raw = value?.site?.url ||
     value?.siteUrl ||
     value?.baseUrl ||

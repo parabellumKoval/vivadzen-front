@@ -215,13 +215,27 @@ const title = computed(() => {
 });
 
 
+const buildSeoValue = (templateKey, suffixKey, params) => {
+  const template = t(templateKey, params) || ''
+  const suffix = t(suffixKey) || ''
+  if (template && suffix) {
+    return `${template} | ${suffix}`
+  }
+  return template || suffix
+}
+
 const setSeo = (v) => {
+  const templateParams = { category: v?.name }
+  const defaultTitle = buildSeoValue('seo_title_template', 'seo_title_suffix', templateParams)
+  const defaultDescription = buildSeoValue('seo_desc_template', 'seo_desc_suffix', templateParams)
+  console.log('Setting SEO for category:', v, v?.seo?.meta_title, defaultTitle, defaultDescription)
+
   useHead({
-    title: v?.seo?.meta_title,
+    title: v?.seo?.meta_title || defaultTitle,
     meta: [
       {
         name: 'description',
-        content: v?.seo?.meta_description
+        content: v?.seo?.meta_description || defaultDescription
       },
     ],
   })
@@ -263,7 +277,6 @@ const setCrumbs = (v) => {
 }
 
 watch(() => category.value?.category, (v) => {
-  console.log('category changed:', v)
   if(v) {
     setCrumbs(v)
     setSeo(v)
@@ -291,6 +304,7 @@ setMode('INITIAL')
 </script>
 
 <style src="./category.scss" lang="scss" scoped></style>
+<i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
   <NuxtLayout

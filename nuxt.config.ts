@@ -37,7 +37,7 @@ export default defineNuxtConfig({
       noimagegray: '/images/noimagegray.png',
       noimageTransparent: '/images/noimage-transparent.png',
       staticImageProvider: process.env.STATIC_IMAGE_PROVIDER,
-      appVersion: '1.0.2',
+      appVersion: '1.0.3',
       i18n: {
         locales: ['uk', 'ru']
       }
