@@ -17,17 +17,22 @@ const selectedCategory = computed(() => {
 })
 
 const sub = computed(() => {
-  if(selectedIndex.value === null)
+  if (selectedIndex.value === null) {
     return []
-  else 
-    return [
-      {
-        id: selectedCategory?.value?.id,
-        name: t('label.all_products'),
-        slug: selectedCategory?.value?.slug
-      },
-      ...selectedCategory?.value?.children
-    ]
+  }
+
+  const children = Array.isArray(selectedCategory.value?.children)
+    ? selectedCategory.value?.children
+    : []
+
+  return [
+    {
+      id: selectedCategory?.value?.id,
+      name: t('label.all_products'),
+      slug: selectedCategory?.value?.slug
+    },
+    ...children
+  ]
 })
 
 
