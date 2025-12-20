@@ -6,19 +6,36 @@ const props = defineProps({
 })
 
 const {t, locale} = useI18n()
-const { region } = useRegion()
+const { regionAlias } = useRegion()
 
-const {data} = await useAsyncData('homepage-main-lists-'+locale.value+'-'+region.value, () => useFetcherData('homepage-main-lists'))
+const listsState = useState('fetcher-homepage-main-lists', () => null)
+const pending = useState('fetcher-homepage-main-lists-pending', () => true)
 
-const lists = ref([])
-const pending = ref(true)
+const fetchLists = async () => {
+  pending.value = true
+  listsState.value = await useFetcherData('homepage-main-lists')
+  pending.value = false
+}
 
-watch(data, (value) => {
-  if (value?.data) {
-    lists.value = value.data ?? []
-    pending.value = false
+if (process.server) {
+  await fetchLists()
+}
+
+watch([locale, regionAlias], () => {
+  if (!process.client) {
+    return
   }
-}, { immediate: true })
+  void fetchLists()
+})
+
+onMounted(() => {
+  if (!process.client || listsState.value) {
+    return
+  }
+  void fetchLists()
+})
+
+const lists = computed(() => listsState.value?.data ?? [])
 
 
 </script>

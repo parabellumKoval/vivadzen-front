@@ -1,8 +1,33 @@
 <script setup>
-const {t} = useI18n()
+const {t, locale} = useI18n()
+const { regionAlias } = useRegion()
 const props = defineProps({})
 const { isAuthenticated } = useAuth()
-const reviews = ref([])
+const reviewsState = useState('fetcher-homepage-video-reviews', () => null)
+
+const fetchReviews = async () => {
+  reviewsState.value = await useFetcherData('homepage-video-reviews')
+}
+
+if (process.server) {
+  await fetchReviews()
+}
+
+watch([locale, regionAlias], () => {
+  if (!process.client) {
+    return
+  }
+  void fetchReviews()
+})
+
+onMounted(() => {
+  if (!process.client || reviewsState.value) {
+    return
+  }
+  void fetchReviews()
+})
+
+const reviews = computed(() => reviewsState.value?.data?.data ?? [])
 // COMPUTEDS
 // METHODS
 // HANDLERS
@@ -20,13 +45,6 @@ const reviewHandler = () => {
 }
 
 // WATCHERS
-const {data: reviewsData} = await useAsyncData('homepage-video-reviews', () => useFetcherData('homepage-video-reviews'))
-
-watch(reviewsData, (value) => {
-  if(value?.data?.data) {
-    reviews.value = value.data.data ?? []
-  }
-}, { immediate: true })
 </script>
 
 <style src='./video.scss' lang='scss' scoped></style>

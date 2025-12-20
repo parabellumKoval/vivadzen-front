@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue'
 import { useCategoryStore } from '~/store/category'
 const timeout = ref(null)
 const articlesByTag = ref({})
@@ -8,10 +9,9 @@ const activeIndex = ref(0)
 //
 const categoryStore = useCategoryStore()
 const { locale } = useI18n()
-const { region } = useRegion()
+const { regionAlias } = useRegion()
 
-
-const { refresh: refreshMainCategories } = useAsyncData('main-categories-'+locale.value+'-'+region.value, () =>
+const { refresh: refreshMainCategories } = useAsyncData('main-categories-'+locale.value+'-'+(regionAlias.value ?? ''), () =>
   categoryStore.listMainCached()
 )
 
@@ -45,11 +45,32 @@ const slideChangedHandler = (newIndex) => {
   
 }
 
-const {data: dataArticles} = await useAsyncData('homepage-main-articles-'+locale.value+'-'+region.value, () => useFetcherData('homepage-main-articles'))
+const articlesState = useState('fetcher-homepage-main-articles', () => null)
 
-watch(dataArticles, (value) => {
+const fetchArticles = async () => {
+  articlesState.value = await useFetcherData('homepage-main-articles')
+}
 
-  if(value.data) {
+if (process.server) {
+  await fetchArticles()
+}
+
+watch([locale, regionAlias], () => {
+  if (!process.client) {
+    return
+  }
+  void fetchArticles()
+})
+
+onMounted(() => {
+  if (!process.client || articlesState.value) {
+    return
+  }
+  void fetchArticles()
+})
+
+watch(articlesState, (value) => {
+  if (value?.data) {
     articlesByTag.value = value.data
   }
 }, { immediate: true })
