@@ -24,6 +24,9 @@ const feedback = ref({
 const errors = ref(null)
 
 // COMPUTEDS
+const socials = computed(() => {
+  return useSocial().all
+})
 // METHODS
 const resetFeedback = () => {
   feedback.value.name = null
@@ -122,35 +125,16 @@ useSeo().setPageSeo(t('title.contacts'))
             <div class="contacts-label">{{ t('social') }}</div>
 
             <div class="social">
-              <a href="/" class="social-item instagram-bg">
-                <IconCSS name="iconoir:instagram" class="social-icon"></IconCSS>
-                <span class="social-text">Instagram</span>
-              </a>
-              <a href="/" class="social-item facebook-bg">
-                <IconCSS name="iconoir:facebook" class="social-icon"></IconCSS>
-                <span class="social-text">Facebook</span>
-              </a>
-              <a href="/" class="social-item tiktok-bg">
-                <IconCSS name="mingcute:tiktok-line" class="social-icon"></IconCSS>
-                <span class="social-text">Tiktok</span>
+              <a v-for="social in socials" :key="social.id" :href="social.link" :class="social.key + '-bg'" class="social-item">
+                <IconCSS :name="social.icon" class="social-icon"></IconCSS>
+                <span class="social-text">{{ social.name }}</span>
               </a>
             </div>
           </div>
 
         </div>
         
-        <div class="map-wrapper">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2645.7133162726823!2d35.04091241566039!3d48.462029879250544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dbe2e0a9bfa945%3A0xaaf5051d68c48350!2z0YPQuy4g0KLRgNC-0LjRhtC60LDRjywgMywg0JTQvdC40L_RgNC-LCDQlNC90LXQv9GA0L7Qv9C10YLRgNC-0LLRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwgNDkwMDA!5e0!3m2!1sru!2sua!4v1605093594459!5m2!1sru!2sua"
-            width="600"
-            height="600"
-            frameborder="0"
-            allowfullscreen="allowfullscreen"
-            aria-hidden="false"
-            tabindex="0"
-            class="map-iframe"
-          ></iframe>
-        </div>
+        <div class="map-wrapper" v-html="useContacts().map.value"></div>
 
         <div class="form-wrapper">
           <div class="form-label">👩‍💻 {{ t('questions') }}</div>
