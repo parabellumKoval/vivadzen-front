@@ -126,7 +126,7 @@ const addToCartHandler = () => {
         :title = "photo?.title"
         width="290"
         height="260"
-        sizes = "mobile:180px tablet:230px desktop:300px"
+        sizes = "mobile:180px tablet:230px desktop:350px"
         quality = "50"
         :loading = "index > 0? 'lazy': loading"
         fit="outside"

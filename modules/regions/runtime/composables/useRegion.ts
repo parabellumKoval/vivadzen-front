@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { useRuntimeConfig, useState, useNuxtApp } from '#imports'
+import { useRuntimeConfig, useState, useNuxtApp, useRequestEvent } from '#imports'
 import type { RegionMetaWithCode, RegionsRuntimeConfig } from '../../module'
 
 const normalize = (value: string | null | undefined) => String(value || '').trim().toLowerCase()
@@ -64,7 +64,24 @@ export const useRegion = () => {
     ? moduleConfig.regionsMetaArray
     : Object.entries(regionsMeta).map(([code, meta]) => ({ code, ...meta }))
 
-  const region = useState<string>('region', () => fallbackRegion)
+  const resolveInitialRegion = () => {
+    if (process.server) {
+      try {
+        const event = useRequestEvent()
+        const contextRegion = typeof event?.context?.region === 'string'
+          ? normalize(event.context.region)
+          : null
+        if (contextRegion) {
+          return contextRegion
+        }
+      } catch {
+        // ignore -- falls back below
+      }
+    }
+    return fallbackRegion
+  }
+
+  const region = useState<string>('region', resolveInitialRegion)
 
   const getLocalesForRegion = (regionCode: string | null | undefined) => {
     const normalizedRegion = normalize(regionCode)

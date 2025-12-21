@@ -160,6 +160,8 @@ const mouseOverHandler = (e) => {
           placeholder="/images/noimage.png"
           fit="outside"
           class="thumbnail-image"
+          provider="bunny"
+          format = "webp"
         >
         </nuxt-img> 
       </button>
@@ -177,6 +179,8 @@ const mouseOverHandler = (e) => {
         quality = "60"
         fit="outside"
         class="main-image"
+        provider="bunny"
+        format = "webp"
         :placeholder="useImg().noImage"
         @mousemove.passive="mouseOverHandler"
         @mouseenter="() => isZoom = true"

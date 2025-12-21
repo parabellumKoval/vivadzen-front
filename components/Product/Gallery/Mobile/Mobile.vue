@@ -55,12 +55,13 @@ const scrollToHandler = (index) => {
           :alt = "item.alt"
           :title = "item.title"
           sizes = "400px"
-          format = "avif"
           quality = "40"
           fit="outside"
           :placeholder="useImg().noImage"
           loading="lazy"
           class="thumbnail-image"
+          provider="bunny"
+          format = "webp"
         >
         </nuxt-img> 
       </button>
@@ -72,12 +73,13 @@ const scrollToHandler = (index) => {
           :alt = "image.alt"
           :title = "image.title"
           sizes = "400px"
-          format = "avif"
           quality = "40"
           fit="outside"
           :placeholder="useImg().noImage"
           :loading="index === 0? null: 'lazy'"
           class="main-image"
+          provider="bunny"
+          format = "webp"
           preload
         />
       </div>
