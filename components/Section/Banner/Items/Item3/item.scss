@@ -156,13 +156,16 @@ $c-dark: #2A3B47;
 .discount-sub {
   display: block;
   font-family: 'Nunito', sans-serif;
-  font-size: 3.5rem; // Крупный подзаголовок
+  font-size: 3.2rem; // Крупный подзаголовок
   font-weight: 800;
   color: $c-green;
   text-transform: uppercase;
   text-shadow: 2px 2px 0px #fff;
-  margin-top: -10px;
   transform: rotate(-2deg);
+
+  @include desktop {
+    margin-top: -10px;
+  }
 }
 
 // 3. Промокод
@@ -257,12 +260,16 @@ $c-dark: #2A3B47;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     
     &.snowflake-1 {
-      top: 20px;
+      top: 220px;
       right: -40px;
       font-size: 8rem; // Большая иконка
       // opacity: 0.4;
       color: $c-green;
       transform: rotate(15deg);
+
+      @include desktop {
+        top: 20px;
+      }
     }
     
     &.sparkle-1 {
