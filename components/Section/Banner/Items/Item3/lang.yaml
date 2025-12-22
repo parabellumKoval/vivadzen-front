@@ -1,0 +1,47 @@
+en:
+  use_promo: Use promo code at checkout
+  promo_code: happy2026
+  shop_btn: Shop Now
+  arc_text: Happy New 2026!
+  discount: '-10% OFF'
+  discount_sub: everything!
+
+uk:
+  use_promo: Використовуй промокод при оформленні
+  promo_code: happy2026
+  shop_btn: До покупок
+  arc_text: З Новим 2026!
+  discount: '-10% ЗНИЖКА'
+  discount_sub: на все!
+
+ru:
+  use_promo: Используй промокод в checkout
+  promo_code: happy2026
+  shop_btn: Перейти к покупкам
+  arc_text: С Новым 2026!
+  discount: '-10% СКИДКА'
+  discount_sub: на всё!
+
+de:
+  use_promo: Verwenden Sie den Aktionscode beim Checkout
+  promo_code: happy2026
+  shop_btn: Jetzt einkaufen
+  arc_text: Frohes Neues 2026!
+  discount: '-10% RABATT'
+  discount_sub: auf alles!
+
+es:
+  use_promo: Usa el código de promoción en el checkout
+  promo_code: happy2026
+  shop_btn: Comprar ahora
+  arc_text: ¡Feliz Año 2026!
+  discount: '-10% DESCUENTO'
+  discount_sub: ¡en todo!
+
+cs:
+  use_promo: Použijte promo kód při platbě
+  promo_code: happy2026
+  shop_btn: Nakupovat nyní
+  arc_text: Šťastný nový rok 2026!
+  discount: '-10% SLEVA'
+  discount_sub: na vše!

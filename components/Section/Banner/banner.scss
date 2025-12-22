@@ -103,7 +103,7 @@
 
   &:after,
   &:before {
-    @include ld {
+    @include xxld {
       content: "";
       position: absolute;
       top: 0;
