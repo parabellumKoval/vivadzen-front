@@ -5,6 +5,28 @@ type Category = {
   children: object[]
 };
 
+const resolveLocaleHeader = (regionStore: ReturnType<typeof useRegion>) => {
+  const locale = useNuxtApp().$i18n?.locale
+  let localeValue = locale?.value || locale
+
+  if (process.server) {
+    const event = useRequestEvent()
+    const forcedLocale =
+      typeof event?.context?.forcedLocale === 'string' ? event.context.forcedLocale : null
+
+    if (forcedLocale && forcedLocale.length) {
+      localeValue = forcedLocale
+    } else if (typeof regionStore?.getDefaultLocaleFor === 'function') {
+      const fallback = regionStore.getDefaultLocaleFor(regionStore.region.value)
+      if (fallback && fallback.length) {
+        localeValue = fallback
+      }
+    }
+  }
+
+  return typeof localeValue === 'string' && localeValue.length ? localeValue : null
+}
+
 export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({ 
     allState: {
@@ -30,14 +52,14 @@ export const useCategoryStore = defineStore('categoryStore', {
       const routePath =
         runtimeConfig.public?.categoryModule?.listRoutePath || '/api/_categories/list'
 
-      const locale = useNuxtApp().$i18n.locale
-      const regionAlias = useRegion().regionAlias.value
+      const regionStore = useRegion()
+      const localeValue = resolveLocaleHeader(regionStore)
+      const regionAlias = regionStore.regionAlias.value
 
       const headers: Record<string, string> = {
         Accept: 'application/json'
       }
 
-      const localeValue = locale?.value || locale
       if (typeof localeValue === 'string' && localeValue.length) {
         headers['Accept-Language'] = localeValue
       }
@@ -75,14 +97,14 @@ export const useCategoryStore = defineStore('categoryStore', {
       const routePath =
         runtimeConfig.public?.categoryModule?.mainListRoutePath || '/api/_categories/main'
 
-      const locale = useNuxtApp().$i18n.locale
-      const regionAlias = useRegion().regionAlias.value
+      const regionStore = useRegion()
+      const localeValue = resolveLocaleHeader(regionStore)
+      const regionAlias = regionStore.regionAlias.value
 
       const headers: Record<string, string> = {
         Accept: 'application/json'
       }
 
-      const localeValue = locale?.value || locale
       if (typeof localeValue === 'string' && localeValue.length) {
         headers['Accept-Language'] = localeValue
       }
@@ -129,14 +151,14 @@ export const useCategoryStore = defineStore('categoryStore', {
         ? template.replace(':slug', encodeURIComponent(slug))
         : `${template}/${encodeURIComponent(slug)}`
 
-      const locale = useNuxtApp().$i18n.locale
-      const regionAlias = useRegion().regionAlias.value
+      const regionStore = useRegion()
+      const localeValue = resolveLocaleHeader(regionStore)
+      const regionAlias = regionStore.regionAlias.value
 
       const headers: Record<string, string> = {
         Accept: 'application/json'
       }
 
-      const localeValue = locale?.value || locale
       if (typeof localeValue === 'string' && localeValue.length) {
         headers['Accept-Language'] = localeValue
       }
