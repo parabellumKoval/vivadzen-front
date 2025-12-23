@@ -297,8 +297,8 @@
   }
 
   .store-only-btn {
-    width: auto;
-    min-width: 130px;
+    width: 50px;
+    height: 34px;
     padding: 0 12px;
     display: inline-flex;
     align-items: center;
@@ -306,5 +306,14 @@
     column-gap: 8px;
     text-transform: none;
     white-space: nowrap;
+
+    @include desktop {
+      width: 60px;
+      height: 40px;
+    }
+
+    &-icon {
+      font-size: 20px;
+    }
   }
 }

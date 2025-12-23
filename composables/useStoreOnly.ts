@@ -4,11 +4,19 @@ type StoreOnlyTarget = Record<string, any> | null | undefined
 
 const resolveFlag = (value: StoreOnlyTarget): boolean => {
   if (!value) return false
-  return Boolean(
-    value.storeOnly ??
-    value.store_only ??
-    value.store_only_flag
-  )
+
+  const directFlag = value.storeOnly ?? value.store_only ?? value.store_only_flag
+  if (directFlag !== null && directFlag !== undefined) {
+    return Boolean(directFlag)
+  }
+
+  const mods = Array.isArray(value.modifications) ? value.modifications : []
+  if (!mods.length) return false
+
+  return mods.some((mod) => {
+    if (!mod || typeof mod !== 'object') return false
+    return Boolean(mod.storeOnly ?? mod.store_only ?? mod.store_only_flag)
+  })
 }
 
 export const useStoreOnly = (product?: MaybeRefOrGetter<StoreOnlyTarget>) => {

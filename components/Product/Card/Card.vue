@@ -78,6 +78,8 @@ const addToCartHandler = () => {
     toCartHandler(1)
   })
 }
+
+console.log('Card component loaded', props.item);
 </script>
 
 <style src="./card.scss" lang="scss" scoped />
@@ -180,8 +182,7 @@ const addToCartHandler = () => {
           type="button"
           class="button color-primary small buy-btn store-only-btn"
         >
-          <IconCSS name="ph:storefront" class="buy-btn-icon"></IconCSS>
-          <span>{{ $t('store_only.button') }}</span>
+          <IconCSS name="ci:map-pin" class="buy-btn-icon"></IconCSS>
         </button>
       </template>
     </div>

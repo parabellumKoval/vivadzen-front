@@ -13,8 +13,20 @@ export const useCart = (productData?: Product) => {
 
   const resolveStoreOnlyFlag = (target: any): boolean => {
     if (target && typeof target === 'object') {
-      return Boolean(target.storeOnly ?? target.store_only ?? target.store_only_flag)
+      const direct = target.storeOnly ?? target.store_only ?? target.store_only_flag
+      if (direct !== null && direct !== undefined) {
+        return Boolean(direct)
+      }
+
+      const mods = Array.isArray(target.modifications) ? target.modifications : []
+      if (mods.length) {
+        return mods.some((mod) => {
+          if (!mod || typeof mod !== 'object') return false
+          return Boolean(mod.storeOnly ?? mod.store_only ?? mod.store_only_flag)
+        })
+      }
     }
+
     return isStoreOnly.value
   }
 
