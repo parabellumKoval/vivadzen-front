@@ -402,7 +402,7 @@ export default defineNuxtConfig({
 
   site: {
     indexable: true,
-    url: 'https://new.vivadzen.com',
+    url: 'https://vivadzen.com',
     name: 'Vivadzen',
     description: 'Vivadzen desc',
   },
@@ -431,7 +431,7 @@ export default defineNuxtConfig({
   // },
   
   i18n: {
-    baseUrl: 'https://new.vivadzen.com',
+    baseUrl: 'https://vivadzen.com',
     defaultLocale: 'uk',
     lazy: true,
     strategy: 'no_prefix',
