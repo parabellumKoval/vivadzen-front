@@ -1,0 +1,53 @@
+.store-only-notice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba($color-primary, 0.08);
+  border: 1px solid rgba($color-primary, 0.24);
+
+  @include desktop {
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: $color-8;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-primary;
+    font-size: 22px;
+  }
+
+  &__title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $color-primary;
+  }
+
+  &__text {
+    color: $color-2;
+    line-height: 1.4;
+  }
+
+  &__btn {
+    width: 100%;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    @include desktop {
+      width: auto;
+      padding-left: 18px;
+      padding-right: 18px;
+      grid-column-start: initial;
+      grid-column-end: initial;
+    }
+  }
+}

@@ -70,7 +70,9 @@ await useAsyncData('cart-products', async () => await fetchCartProducts())
           <simple-price :value="useCartStore().total" class="price"></simple-price>
         </div>
 
-        <product-delivery-free :value="useCartStore().total" class="free-delivery"></product-delivery-free>
+        <div class="free-delivery">
+          <product-delivery-free :value="useCartStore().total"></product-delivery-free>
+        </div>
       </div>
     </div>
   </modal-wrapper>

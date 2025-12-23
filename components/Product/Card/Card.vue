@@ -1,4 +1,5 @@
 <script setup>
+import { useStoreOnly } from '~/composables/useStoreOnly'
 const props = defineProps({
   item: {
     type: Object,
@@ -18,6 +19,7 @@ const {isFavorite, toFavoriteHandler} = useFavorite(props.item.id)
 const {photos, stock, label} = useCard(props.item)
 const {toCartHandler} = useCart(props.item)
 const {ensureRegionSelected} = useRegionPurchaseGuard()
+const { isStoreOnly, openStoreOnlyModal } = useStoreOnly(props.item)
 
 
 // Inject
@@ -163,9 +165,25 @@ const addToCartHandler = () => {
       <button v-if="hasModifications" @click="openChoseModificationModalHandler" type="button" class="button primary small buy-btn">
         <IconCSS name="mynaui:plus-solid" class="buy-btn-icon"></IconCSS>
       </button>
-      <button v-else @click="addToCartHandler" type="button" class="button primary small buy-btn">
-        <IconCSS name="mynaui:cart" class="buy-btn-icon"></IconCSS>
-      </button>
+      <template v-else>
+        <button
+          v-if="!isStoreOnly"
+          @click="addToCartHandler"
+          type="button"
+          class="button primary small buy-btn"
+        >
+          <IconCSS name="mynaui:cart" class="buy-btn-icon"></IconCSS>
+        </button>
+        <button
+          v-else
+          @click="openStoreOnlyModal"
+          type="button"
+          class="button color-primary small buy-btn store-only-btn"
+        >
+          <IconCSS name="ph:storefront" class="buy-btn-icon"></IconCSS>
+          <span>{{ $t('store_only.button') }}</span>
+        </button>
+      </template>
     </div>
 
   </div>

@@ -5,7 +5,7 @@ const props = defineProps({})
 definePageMeta({
   crumb: {
     name: 'title.account.support',
-    item: '/'
+    item: '/account/support'
   },
   tab: 'support'
 });

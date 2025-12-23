@@ -1,5 +1,6 @@
 <script setup>
 import {useCart} from '~/composables/product/useCart.ts'
+import { useStoreOnly } from '~/composables/useStoreOnly'
 const {t} = useI18n()
 
 const props = defineProps({
@@ -11,6 +12,7 @@ const props = defineProps({
 const amount = ref(1)
 const {toCartHandler} = useCart(props.product)
 const {ensureRegionSelected} = useRegionPurchaseGuard()
+const { isStoreOnly, openStoreOnlyModal } = useStoreOnly(props.product)
 
 // COMPUTEDS
 const total = computed(() => {
@@ -31,6 +33,10 @@ const oneClickHandler = () => {
   ensureRegionSelected(() => {
     useModal().open(resolveComponent('Modal1Click'), props.product, null, {width: {min: 420, max: 420}})
   })
+}
+
+const openStoreOnlyHandler = () => {
+  openStoreOnlyModal(props.product)
 }
 </script>
 
@@ -71,13 +77,20 @@ const oneClickHandler = () => {
     </div>
 
     <div v-if="product.inStock" class="sell">
-
-      <button @click="addToCartHandler" class="button primary sell-btn-cart">{{ $t('button.to_cart') }}</button>
-      
-      <button @click="oneClickHandler" class="button color-primary inline-icon sell-btn-one">
-        <IconCSS name="streamline:flash-1-remix" class="icon"></IconCSS>
-        <span>{{ $t('button.1_click_buy') }}</span>
-      </button>
+      <template v-if="isStoreOnly">
+        <button @click="openStoreOnlyHandler" class="button color-primary inline-icon sell-btn-cart">
+          <IconCSS name="ci:map-pin" class="icon"></IconCSS>
+          <span>{{ $t('store_only.button') }}</span>
+        </button>
+      </template>
+      <template v-else>
+        <button @click="addToCartHandler" class="button primary sell-btn-cart">{{ $t('button.to_cart') }}</button>
+        
+        <button @click="oneClickHandler" class="button color-primary inline-icon sell-btn-one">
+          <IconCSS name="streamline:flash-1-remix" class="icon"></IconCSS>
+          <span>{{ $t('button.1_click_buy') }}</span>
+        </button>
+      </template>
     </div>
 
   </div>

@@ -44,6 +44,11 @@ title:
     support: Podpora
     favorite: Oblíbené produkty
     transactions: Transakce
+    network:
+      tabs:
+        common: 'Přehled'
+        referrals: 'Partnerská síť'
+        conditions: 'Podmínky programu'
 
 meta:
   address: Na Bojisti 1471/22, 120 00 Nove Mesto, Praha 2, Cesko
@@ -131,6 +136,16 @@ messages:
 
 message:
   email_verification_required: Na vaši e-mailovou adresu byl odeslán potvrzovací odkaz. Prosím, ověřte svou e-mailovou adresu, abyste aktivovali svůj účet.
+
+store_only:
+  title: Pouze v kamenné prodejně
+  description: Tento produkt je dostupný pouze v naší kamenné prodejně.
+  badge: Pouze v obchodě
+  map_title: Najdete nás na mapě
+  address_label: Adresa obchodu
+  address_fallback: Adresa se upřesňuje
+  button: Kde koupit
+  banner: Tento produkt lze koupit jen v naší kamenné prodejně.
 
 age_gate:
   title: Potvrzení věku

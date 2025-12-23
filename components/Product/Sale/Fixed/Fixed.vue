@@ -2,6 +2,7 @@
 import {useComparison} from '~/composables/product/useComparison.ts'
 import {useFavorite} from '~/composables/product/useFavorite.ts'
 import {useCart} from '~/composables/product/useCart.ts'
+import { useStoreOnly } from '~/composables/useStoreOnly'
 
 const props = defineProps({
   product: {
@@ -13,6 +14,7 @@ const {isComparison, toComparisonHandler} = useComparison(props.product.id)
 const {isFavorite, toFavoriteHandler} = useFavorite(props.product.id)
 const {toCartHandler} = useCart(props.product)
 const {ensureRegionSelected} = useRegionPurchaseGuard()
+const { isStoreOnly, openStoreOnlyModal } = useStoreOnly(props.product)
 
 // COMPUTEDS
 const favoriteIcon = computed(() => {
@@ -37,6 +39,10 @@ const buyHandler = () => {
   ensureRegionSelected(() => {
     toCartHandler(1)
   })
+}
+
+const openStoreOnlyHandler = () => {
+  openStoreOnlyModal(props.product)
 }
 </script>
 
@@ -79,9 +85,18 @@ const buyHandler = () => {
       <simple-price :value="product.price" class="price-base"></simple-price>
     </div>
 
-    <button v-if="product.inStock" @click="buyHandler" class="button primary buy-btn">
+    <button v-if="product.inStock && !isStoreOnly" @click="buyHandler" class="button primary buy-btn">
       <IconCSS name="ci:shopping-cart-01" class="icon"></IconCSS>
       <!-- {{ $t('button.buy') }} -->
+    </button>
+    <button
+      v-else-if="product.inStock"
+      @click="openStoreOnlyHandler"
+      class="button color-primary buy-btn store-only-btn"
+      :aria-label="$t('store_only.button')"
+      :title="$t('store_only.button')"
+    >
+      <IconCSS name="ci:map-pin" class="icon"></IconCSS>
     </button>
   </div>
 </template>

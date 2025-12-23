@@ -44,6 +44,11 @@ title:
     support: Підтримка
     favorite: Обрані товари
     transactions: Транзакції
+    network:
+      tabs:
+        common: 'Основне'
+        referrals: 'Партнерська мережа'
+        conditions: 'Умови програми'
 
 meta:
   address: Na Bojisti 1471/22, 120 00 Nove Mesto, Прага 2, Чехія
@@ -131,6 +136,16 @@ messages:
 
 message:
   email_verification_required: На вашу електронну пошту надіслано посилання для підтвердження. Будь ласка, підтвердіть свою адресу електронної пошти, щоб активувати свій обліковий запис.
+
+store_only:
+  title: Доступно лише в магазині
+  description: Цей товар можна придбати тільки у нашому офлайн-магазині.
+  badge: Лише в магазині
+  map_title: Ми на карті
+  address_label: Адреса магазину
+  address_fallback: Адресу уточнюємо
+  button: Де купити
+  banner: Товар доступний тільки для покупки в офлайн-магазині.
 
 age_gate:
   title: Підтвердження віку

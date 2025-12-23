@@ -85,6 +85,8 @@ declare global {
     amount?: number,
     inStock: number,
     code: string,
+    store_only?: boolean,
+    storeOnly?: boolean,
     composition?: string
   }
 

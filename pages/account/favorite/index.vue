@@ -15,7 +15,7 @@ const isLoading = ref(true)
 definePageMeta({
   crumb: {
     name: 'title.account.favorite',
-    item: '/'
+    item: '/account/favorite'
   },
   tab: 'favorite'
 });

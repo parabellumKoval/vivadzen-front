@@ -98,6 +98,14 @@
     margin-top: 0;
   }
 }
+
+.content-store-only {
+  margin: 12px 0 18px;
+
+  @include desktop {
+    margin: 0 0 18px;
+  }
+}
 .rating-label {
   white-space: nowrap;
   font-size: 12px;

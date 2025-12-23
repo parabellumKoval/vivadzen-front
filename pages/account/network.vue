@@ -6,7 +6,7 @@ const {t} = useI18n()
 definePageMeta({
   crumb: {
     name: 'title.account.referrals',
-    item: '/'
+    item: '/account/network/referrals'
   },
   tab: 'network'
 });
@@ -16,13 +16,15 @@ const tabs = computed(() => {
   return [
     {
       id: 1,
-      name: 'Основное'
-    },{
+      name: t('title.account.network.tabs.common')
+    },
+    {
       id: 2,
-      name: 'Партнерская сеть <span class="budge green">3</span>'
-    },{
+      name: `${t('title.account.network.tabs.referrals')} <span class="budge green">3</span>`
+    },
+    {
       id: 3,
-      name: 'Условия программы'
+      name: t('title.account.network.tabs.conditions')
     }
   ]
 })

@@ -67,6 +67,16 @@
       font-size: 22px;
     }
   }
+
+  .store-only-btn {
+    width: 60px;
+    height: 40px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: none;
+  }
   .price-block {
     display: grid;
     grid-auto-columns: min-content;

@@ -44,6 +44,11 @@ title:
     support: Soporte
     favorite: Productos favoritos
     transactions: Transacciones
+    network:
+      tabs:
+        common: 'Información general'
+        referrals: 'Red de afiliados'
+        conditions: 'Condiciones del programa'
 
 meta:
   address: Na Bojisti 1471/22, 120 00 Nove Mesto, Praga 2, Chequia
@@ -131,6 +136,16 @@ messages:
 
 message:
   email_verification_required: Se ha enviado un enlace de confirmación a tu correo electrónico. Por favor, verifica tu dirección de correo electrónico para activar tu cuenta.
+
+store_only:
+  title: Disponible solo en tienda
+  description: Este producto está disponible únicamente en nuestra tienda física.
+  badge: Solo en tienda
+  map_title: Estamos en el mapa
+  address_label: Dirección de la tienda
+  address_fallback: Dirección en actualización
+  button: Dónde comprar
+  banner: Este producto solo se puede comprar en nuestra tienda física.
 
 age_gate:
   title: Confirmación de edad

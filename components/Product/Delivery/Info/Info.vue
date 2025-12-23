@@ -33,11 +33,11 @@ const m = computed(() => {
     <template v-else>
       <product-methods :items="m" class="deliveries"></product-methods>
 
-      <ContentQuery path="delivery" :locale="locale" find="one">
+      <!-- <ContentQuery path="delivery" :locale="locale" find="one">
         <template #default="{ data }">
           <div v-html="data.info"></div>
         </template>
-      </ContentQuery>
+      </ContentQuery> -->
     </template>
   </div>
 </template>

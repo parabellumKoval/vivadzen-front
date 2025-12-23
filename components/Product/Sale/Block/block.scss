@@ -10,7 +10,7 @@
   grid-template-columns: 3fr 5fr;
   gap: 10px;
   @include desktop {
-    grid-template-columns: 2fr 3fr 4fr;
+    grid-template-columns: min-content 3fr 4fr;
     gap: 15px;
   }
   &-btn {

@@ -10,7 +10,7 @@ await init()
 definePageMeta({
   crumb: {
     name: 'title.account.orders',
-    item: '/'
+    item: '/account/orders'
   },
   tab: 'orders'
 });

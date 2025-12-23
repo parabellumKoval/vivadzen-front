@@ -132,6 +132,16 @@ messages:
 message:
   email_verification_required: Ein Bestätigungslink wurde an Ihre E-Mail gesendet. Bitte bestätigen Sie Ihre E-Mail-Adresse, um Ihr Konto zu aktivieren.
 
+store_only:
+  title: Nur im Laden erhältlich
+  description: Dieser Artikel ist ausschließlich in unserem Geschäft vor Ort erhältlich.
+  badge: Nur im Store
+  map_title: Wir auf der Karte
+  address_label: Adresse des Geschäfts
+  address_fallback: Adresse wird aktualisiert
+  button: Wo kaufen
+  banner: Dieser Artikel kann nur in unserem Ladengeschäft gekauft werden.
+
 age_gate:
   title: Altersbestätigung
   description: Bitte bestätigen Sie, dass Sie mindestens 18 Jahre alt sind, um Vivadzen weiter zu nutzen.

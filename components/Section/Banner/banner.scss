@@ -1,7 +1,7 @@
 .banners{
   &-wrapper {
     position: relative;
-    height: auto;
+    height: 90vh;
     margin-top: 15px;
     border-radius: 50px;
     z-index: 1;
@@ -88,7 +88,7 @@
   }
 
   :deep(.snap-carousel__controls) {
-    margin-top: -40px;
+    margin-top: -60px;
 
     @include desktop {
       margin-top: 20px;

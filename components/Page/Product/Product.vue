@@ -2,6 +2,7 @@
 // import {useSchema} from '~/composables/product/useSchema.ts'
 // import {useAuthStore} from '~/store/auth';
 import {useReviewStore} from '~/store/review'
+import { useStoreOnly } from '~/composables/useStoreOnly'
 
 const props = defineProps({
   product: {
@@ -27,6 +28,7 @@ const reviewsMeta = ref({})
 const isReviewsLoading = ref(false)
 const tab = ref(1)
 const reviewsComponentRef = ref(null)
+const { isStoreOnly, openStoreOnlyModal } = useStoreOnly(() => props.product)
 
 const {setSchema} = useSchema()
 // Content HTML ref
@@ -394,6 +396,14 @@ onBeforeUnmount(() => {
         </div>
 
       </div>
+
+      <transition name="fade-in">
+        <product-store-only-notice
+          v-if="isStoreOnly"
+          class="content-store-only"
+          @action="openStoreOnlyModal"
+        />
+      </transition>
       
       <div class="tab-row">
         <div v-if="$device.isMobile" class="tab-back-slot">

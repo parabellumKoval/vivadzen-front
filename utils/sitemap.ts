@@ -20,7 +20,7 @@ export const REGIONS_MODULE_OPTIONS: RegionsOptions = {
     global: 'zz'
   },
   localesByRegion: {
-    global: ['en', 'de', 'es', 'ru', 'uk'],
+    global: ['en', 'de', 'es', 'ru', 'uk','cs'],
     ua: ['uk', 'ru'],
     cz: ['cs', 'en', 'ru', 'uk'],
     de: ['de', 'en', 'ru', 'uk'],

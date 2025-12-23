@@ -57,7 +57,7 @@ const copyPromoCode = async () => {
         
         <path id="bigArc" d="M 25,150 Q 350,20 675,150" fill="transparent" />
         
-        <text class="arc-text">
+        <text :class="['arc-text', locale === 'cs' ? 'arc-text--cs' : null]">
           <textPath xlink:href="#bigArc" startOffset="50%" text-anchor="middle">
             {{ t('arc_text') }}
           </textPath>
@@ -86,7 +86,7 @@ const copyPromoCode = async () => {
     </div>
     <div class="banner-media">
       <nuxt-img
-        v-if="$device.isMobile"
+        v-if="$device.isMobile || $device.isTablet"
         src="/images/banners/banner5-mobile.jpg"
         width="1568"
         height="2607"

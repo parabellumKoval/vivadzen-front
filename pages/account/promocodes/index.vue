@@ -8,7 +8,7 @@ const {t} = useI18n()
 definePageMeta({
   crumb: {
     name: 'title.account.promocodes',
-    item: '/'
+    item: '/account/promocodes'
   },
   tab: 'promocodes'
 });
