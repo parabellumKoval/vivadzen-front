@@ -1,6 +1,10 @@
 export const useSocial = () => {
   const {get} = useSettings()
 
+  const hasLink = (link: unknown) => {
+    return typeof link === 'string' && link.trim().length > 0
+  }
+
   const messengers = computed(() =>  {
     return [
       {
@@ -22,7 +26,7 @@ export const useSocial = () => {
         name: 'Whatsapp',
         icon: 'ph:whatsapp-logo',
       }
-    ];
+    ].filter((item) => hasLink(item.link));
   });
 
   const networks = computed(() =>  {
@@ -33,8 +37,22 @@ export const useSocial = () => {
         key: 'instagram',
         name: 'Instagram',
         icon: 'iconoir:instagram',
+      },
+      {
+        id: 6,
+        link: get('site.contacts.social.facebook'),
+        key: 'facebook',
+        name: 'Facebook',
+        icon: 'iconoir:facebook',
+      },
+      {
+        id: 7,
+        link: get('site.contacts.social.youtube'),
+        key: 'youtube',
+        name: 'YouTube',
+        icon: 'iconoir:youtube',
       }
-    ];
+    ].filter((item) => hasLink(item.link));
   });
 
   const all = [

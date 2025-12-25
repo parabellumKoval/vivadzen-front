@@ -350,6 +350,14 @@ img {
     background: color.scale($color-instagram, $lightness: 20%);
   }
 }
+.youtube-bg {
+  background: $color-youtube;
+  color: $color-8;
+  transition: background $speed;
+  &:hover {
+    background: color.scale($color-youtube, $lightness: 20%);
+  }
+}
 .tiktok-bg {
   background: $color-tiktok;
   color: $color-8;
