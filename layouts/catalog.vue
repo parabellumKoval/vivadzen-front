@@ -260,7 +260,7 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <div :class="{'no-filters': noFilters}" class="content full-container">
+    <div :class="{'no-filters': noFilters}" class="content container">
       <!-- All filters -->
       <lazy-filter-list
         v-if="$device.isDesktop && filters && !noFilters"

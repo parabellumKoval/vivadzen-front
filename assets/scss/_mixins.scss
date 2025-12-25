@@ -28,10 +28,17 @@
   }
 }
 @mixin xxld {
-  @media (min-width: 2180px) {
+  @media (min-width: 2090px) {
     @content;
   }
 }
+
+@mixin inf {
+  @media (min-width: 2160px) {
+    @content;
+  }
+}
+
 //
 @mixin scrollbar {
   &::-webkit-scrollbar {

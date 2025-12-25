@@ -12,7 +12,7 @@ export const REGIONS_MODULE_OPTIONS: RegionsOptions = {
   regions: {
     global: { name: 'Global', locale: 'en', currency: 'USD', flagClass: 'emojione:globe-showing-europe-africa' },
     ua: { name: 'Ukraine', locale: 'uk', currency: 'UAH', flagClass: 'emojione:flag-for-ukraine' },
-    cz: { name: 'Czechia', locale: 'cs', currency: 'CZK', flagClass: 'emojione:flag-for-czechia' },
+    cz: { name: 'Czech Republic', locale: 'cs', currency: 'CZK', flagClass: 'emojione:flag-for-czechia' },
     de: { name: 'Germany', locale: 'de', currency: 'EUR', flagClass: 'emojione:flag-for-germany' },
     es: { name: 'Spain', locale: 'es', currency: 'EUR', flagClass: 'emojione:flag-for-spain' }
   },

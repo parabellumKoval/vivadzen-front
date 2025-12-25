@@ -105,7 +105,9 @@ export const useCartStore = defineStore('cartStore', {
       return v
     },
     finishTotal: (state) => {
-      const deliveryCost = state.deliveryPriceState?.amount || 0
+      const { get } = useSettings()
+      const includeDeliveryCost = !!get('shipping.add_to_order_enabled', false)
+      const deliveryCost = includeDeliveryCost ? (state.deliveryPriceState?.amount || 0) : 0
       const personalDiscount = useCartStore().personalDiscount
       return useCartStore().total - (state.orderState.bonusInFiat || 0) + deliveryCost - personalDiscount
     },

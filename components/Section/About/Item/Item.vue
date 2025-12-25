@@ -46,7 +46,7 @@ const getTag = (category) => {
         <p class="slide-eyebrow">{{ item.name }}</p>
 
         <div
-          class="slide-title font-alegreya"
+          class="slide-title"
           v-html="item.extras_trans?.caption"
         ></div>
 

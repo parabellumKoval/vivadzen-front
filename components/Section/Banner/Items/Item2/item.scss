@@ -17,6 +17,9 @@
     margin: 0 35px;
     padding: 0 200px;
   }
+  @include inf {
+    margin: 0;
+  }
 
   &-media {
     position: absolute;
@@ -79,6 +82,7 @@
     font-weight: 900;
     color: $color-primary;
     line-height: 100%;
+    font-family: var(--font-display);
 
     @include desktop {
       line-height: 110%;

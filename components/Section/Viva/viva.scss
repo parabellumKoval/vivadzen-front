@@ -154,13 +154,14 @@
     font-size: 36px;
     color: $color-8;
     font-weight: 900;
+    line-height: 1.1;
 
     @include desktop {
       font-size: 42px;
     }
 
     @include ld {
-      font-size: 64px;
+      font-size: 58px;
     }
   }
 

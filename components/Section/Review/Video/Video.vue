@@ -54,7 +54,7 @@ const reviewHandler = () => {
 <template>
   <section class="video-wrapper">
     <div class="video-info">
-      <div class="video-info-title font-alegreya">{{ t('title') }}<div class="orange">{{ t('no_filters') }}</div></div>
+      <div class="video-info-title">{{ t('title') }}<div class="orange">{{ t('no_filters') }}</div></div>
       <div class="video-info-desc">{{ t('description') }}</div>
       <review-reward class="video-info-reward" />
       

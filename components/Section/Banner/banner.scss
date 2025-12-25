@@ -103,7 +103,7 @@
 
   &:after,
   &:before {
-    @include xxld {
+    @include inf {
       content: "";
       position: absolute;
       top: 0;

@@ -26,7 +26,7 @@ const getSize = (line) => sizeMap[locale.value]?.[line] ?? '100px'
       <div class="banner-content">
         <div>
           <div :style="{ fontSize: getSize('line1') }">
-            <p class="banner-title banner-title-1 font-alegreya">
+            <p class="banner-title banner-title-1">
               {{ t('title') }} <span class="green">{{ t('titleAccent') }}</span>
             </p>
           </div>

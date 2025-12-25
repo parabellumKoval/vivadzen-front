@@ -196,8 +196,8 @@ export default defineNuxtConfig({
         Onest: {
           wght: [300, 400, 600, 900]
         },
-        'Alegreya Sans': {
-          wght: [400, 600, 900]
+        Nunito: {
+          wght: [900]
         },
       },
       display: 'swap',

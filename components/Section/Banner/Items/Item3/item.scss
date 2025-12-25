@@ -20,7 +20,11 @@
     height: 100%;
   }
 
-  @include xld {
+  // @include xld {
+  //   margin: 0;
+  // }
+
+  @include inf {
     margin: 0;
   }
 

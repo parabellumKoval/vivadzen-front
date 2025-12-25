@@ -35,13 +35,15 @@
     &-title {
       font-size: 36px;
       color: $color-primary;
+      line-height: 1.1;
       font-weight: 900;
+      font-family: var(--font-display);
 
       @include desktop {
         font-size: 36px;
       }
       @include ld {
-        font-size: 64px;
+        font-size: 58px;
       }
     }
 

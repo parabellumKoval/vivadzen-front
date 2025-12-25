@@ -5,12 +5,12 @@ const { user, isAuthenticated, avatar } = useAuth()
 
 // просто таблица: локаль → размер шрифта
 const sizeMap = {
-  en: { line1: '60px', line2: '50px' },
-  cs: { line1: '54px', line2: '55px' },
-  de: { line1: '48px', line2: '45px' },
+  en: { line1: '60px', line2: '48px' },
+  cs: { line1: '54px', line2: '51px' },
+  de: { line1: '48px', line2: '43px' },
   uk: { line1: '54px', line2: '62px' },
-  es: { line1: '60px', line2: '35px' },
-  ru: { line1: '40px', line2: '54px' },
+  es: { line1: '60px', line2: '33px' },
+  ru: { line1: '40px', line2: '52px' },
 }
 
 // fallback если языков станет больше
@@ -36,10 +36,10 @@ const showAuthHandler = () => {
       <div class="banner-content">
         <div>
           <div :style="{ fontSize: getSize('line1') }">
-            <p class="banner-title banner-title-1 font-alegreya">{{ t('harmonize') }}</p>
+            <p class="banner-title banner-title-1">{{ t('harmonize') }}</p>
           </div>
           <div :style="{ fontSize: getSize('line2') }">
-          <p class="banner-title banner-title-2 font-alegreya ">{{ t('bodySpirit') }}</p>
+          <p class="banner-title banner-title-2">{{ t('bodySpirit') }}</p>
           </div>
         </div>
         <p class="banner-desc">{{ t('ancientWisdom') }}</p>
@@ -58,7 +58,6 @@ const showAuthHandler = () => {
           quality = "60"
           fit="outside"
           class="banner-media-img"
-          fetchpriority="high"
           :provider = "useImg().provider"
         ></nuxt-img>
       </div>

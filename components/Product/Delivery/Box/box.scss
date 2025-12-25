@@ -53,5 +53,6 @@
   :deep(.country-value-label) {
     color: $color-dark;
     font-weight: 500;
+    white-space: nowrap;
   }
 }

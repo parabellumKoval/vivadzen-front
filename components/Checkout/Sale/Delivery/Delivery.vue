@@ -6,14 +6,20 @@ import { useCartStore } from '~/store/cart'
 const { t } = useI18n()
 const { currency, region } = useRegion()
 const converter = useConverter()
+const { get } = useSettings()
 
 const cartStore = useCartStore()
 const deliveryStore = useDeliveryStore()
 
 const { order } = storeToRefs(cartStore)
 const { deliveryPrice } = storeToRefs(deliveryStore)
+const isDeliveryCostEnabled = computed(() => !!get('shipping.add_to_order_enabled', false))
 
 const deliveryPayload = computed(() => {
+  if (!isDeliveryCostEnabled.value) {
+    return null
+  }
+
   const methodKey = order.value?.delivery?.method
   const destinationCountry = region.value
 
@@ -42,6 +48,8 @@ const deliveryPayload = computed(() => {
 const lastPayloadKey = ref<string | null>(null)
 
 const basePrice = computed(() => {
+  if (!isDeliveryCostEnabled.value) return null
+
   const quote = deliveryPrice.value
   if (!quote) return null
 
@@ -150,7 +158,7 @@ if (process.client) {
 
 <template>
   <ClientOnly>
-  <div class="sale-item">
+  <div v-if="isDeliveryCostEnabled" class="sale-item">
     <div class="sale-label">{{ t('messages.delivery_price') }}</div>
     <div class="sale-value">
       <simple-price

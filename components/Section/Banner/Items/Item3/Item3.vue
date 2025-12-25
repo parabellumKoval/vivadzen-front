@@ -96,6 +96,7 @@ const copyPromoCode = async () => {
         fit="outside"
         loading = "lazy"
         class="banner-media-img"
+        fetchpriority="high"
         :provider = "useImg().provider"
       ></nuxt-img>
       <nuxt-img
@@ -109,6 +110,7 @@ const copyPromoCode = async () => {
         fit="outside"
         loading = "lazy"
         class="banner-media-img"
+        fetchpriority="high"
         :provider = "useImg().provider"
       ></nuxt-img>
     </div>

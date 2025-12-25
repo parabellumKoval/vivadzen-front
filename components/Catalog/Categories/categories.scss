@@ -41,11 +41,15 @@
     }
 
     @include desktop {
-      padding: 0 0;
+      padding: 0 35px;
       grid-auto-columns: max-content;
       gap: 10px;
       margin: 20px auto;
       @include scrollbar-x;
+    }
+
+    @include xxld {
+      padding: 0;
     }
 
     &.is-stuck {
