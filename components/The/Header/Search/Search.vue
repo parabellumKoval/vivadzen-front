@@ -1,41 +1,68 @@
 <script setup>
+import { useSearchResultsStore } from '~/store/searchResults'
+
 const {t} = useI18n()
 const route = useRoute()
+const searchResultsStore = useSearchResultsStore()
+const emit = defineEmits(['open', 'close'])
 
-const searchInput = ref(null)
+const searchInput = ref('')
 const isActive = ref(false)
 
 const openSearchHandler = () => {
+  if (isActive.value)
+    return
+
   isActive.value = true
+  emit('open')
+  searchResultsStore.openStage1()
 }
 
-const blurHandler = () => {
-  // if(!useDevice().isMobile) {
-  //   isActive.value = false
-  // }
-}
+const closeSearchHandler = (fromStore = false) => {
+  if (!isActive.value)
+    return
 
-const closeHandler = () => {
   isActive.value = false
-}
+  emit('close')
+  searchInput.value = ''
 
-const setInput = (search) => {
-  searchInput.value = search
+  if (!fromStore)
+    searchResultsStore.close()
 }
 
 const goToSearchPage = async () => {
-  closeHandler()
+  const query = searchInput.value
+  closeSearchHandler()
 
   await navigateTo({
     path: '/search',
     query: {
-      q: searchInput.value
+      q: query
     }
   })
 }
 
-watch(() => route.fullPath, (v) => {
-  closeHandler()
+watch(() => searchInput.value, (value) => {
+  if (!isActive.value)
+    return
+
+  if (value) {
+    searchResultsStore.openStage2(value)
+  } else {
+    searchResultsStore.openStage1()
+  }
+})
+
+watch(() => searchResultsStore.isOpen, (value) => {
+  if (value && !isActive.value) {
+    openSearchHandler()
+  } else if (!value && isActive.value) {
+    closeSearchHandler(true)
+  }
+})
+
+watch(() => route.fullPath, () => {
+  closeSearchHandler()
 }, {
   immediate: true
 })
@@ -45,32 +72,16 @@ watch(() => route.fullPath, (v) => {
 
 <template>
   <div :class="{active: isActive && $device.isMobile}" class="search-wrapper">
-    <!-- <simple-search
-      v-model="searchInput"
-      @input:focus="focusHandler"
-      @input:blur="blurHandler"
-      @close="closeHandler"
-      @btn:click="goToSearchPage"
-      class="simple-search"
-    ></simple-search> -->
-
     <div class="simple-search">
       <IconCSS v-if="!$device.isMobile" name="mynaui:search" size="28px" class="simple-search-icon"></IconCSS>
       <input
+        v-model="searchInput"
         @click="openSearchHandler"
+        @focus="openSearchHandler"
+        @keyup.enter.prevent="goToSearchPage"
         :placeholder="t('title.search')"
         class="simple-search-input"
       />
     </div>
-
-    <transition name="fade-in">
-      <lazy-the-header-search-modal
-        v-if="isActive"
-        :search-input="searchInput"
-        @close="closeHandler"
-        @setInput="setInput"
-        class="search-modal"
-      ></lazy-the-header-search-modal>
-    </transition>
   </div>
 </template>

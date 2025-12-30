@@ -1,3 +1,10 @@
+regions:
+  global: Weltweit
+  ua: Ukraine
+  cz: Tschechische Republik
+  de: Deutschland
+  es: Spanien
+
 title:
   categories: Kategorien
   products: Produkte

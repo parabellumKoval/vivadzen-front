@@ -11,7 +11,7 @@ const regionMeta = computed(() => {
   return regionsMeta[region.value]
 })
 const openModalHandler = (event) => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Region/Region.vue'))
+  const component = defineAsyncComponent(() => import('~/components/Modal/Region/Region.client.vue'))
   useModal().open(component, null, null)
 }
 </script>
@@ -25,7 +25,7 @@ const openModalHandler = (event) => {
       <Icon :name="regionMeta.flagClass"  class="icon"></Icon>
       <div class="unit-info">
         <span class="unit-info-label">{{ t('delivery_country') }}</span>
-        <span class="unit-info-value">{{ regionMeta.name }}</span>
+        <span class="unit-info-value">{{ t(regionMeta.name) }}</span>
       </div>
     </div>
     <div class="supheader-delim"></div>

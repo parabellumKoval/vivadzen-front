@@ -1,4 +1,7 @@
 <script setup>
+import { onMounted, onUnmounted } from 'vue'
+import { useBodyScrollLock } from '~/composables/useBodyScrollLock'
+
 const props = defineProps({
   title: {
     type: String,
@@ -74,39 +77,16 @@ const closeHandler = () => {
     useModal().close()
   }
 }
-// Хранилище для сохранения текущей позиции прокрутки
-let scrollPosition = 0;
 
-const disableScroll = () => {
-  if (process.client) {
-    // 1. Сохраняем текущую позицию прокрутки
-    scrollPosition = window.pageYOffset;
-    
-    // 2. Добавляем класс, который "фиксирует" body
-    document.body.classList.add('modal-open-ios');
-    
-    // 3. Смещаем body вверх на сохраненную позицию, чтобы избежать "прыжка"
-    document.body.style.top = `-${scrollPosition}px`;
-  }
-};
+const { disableScroll, enableScroll } = useBodyScrollLock()
 
-const enableScroll = () => {
-  if (process.client) {
-    // 1. Убираем фиксирующие стили
-    document.body.classList.remove('modal-open-ios');
-    document.body.style.top = '';
-    
-    // 2. Восстанавливаем сохраненную позицию прокрутки
-    window.scrollTo(0, scrollPosition);
-  }
-};
-
-disableScroll();
+onMounted(() => {
+  disableScroll()
+})
 
 onUnmounted(() => {
-  // На случай, если компонент будет удален, когда модалка открыта
-  enableScroll();
-});
+  enableScroll()
+})
 </script>
 
 <style src="./wrapper.scss" lang="sass" scoped />

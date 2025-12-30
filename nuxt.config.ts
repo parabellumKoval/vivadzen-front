@@ -40,6 +40,17 @@ export default defineNuxtConfig({
       appVersion: '1.0.3',
       i18n: {
         locales: ['uk', 'ru']
+      },
+      notifications: {
+        driver: process.env.NOTIFICATIONS_DRIVER || 'pusher',
+        pollingIntervalMs: Number(process.env.NOTIFICATIONS_POLLING_MS || 5000),
+        pusher: {
+          key: process.env.PUSHER_APP_KEY,
+          host: process.env.PUSHER_HOST,
+          port: process.env.PUSHER_PORT,
+          cluster: process.env.PUSHER_APP_CLUSTER,
+          scheme: process.env.PUSHER_SCHEME || 'https',
+        }
       }
     }
   },
@@ -445,8 +456,7 @@ export default defineNuxtConfig({
         file: 'ru.yaml',
         name: 'Русский',
         shortName: 'Рус',
-      },
-      {
+      },{
         iso: 'uk-UA',
         code: 'uk',
         file: 'uk.yaml',
@@ -458,22 +468,26 @@ export default defineNuxtConfig({
         code: 'en',
         file: 'en.yaml',
         name: 'English',
+        shortName: 'Eng',
         isCatchallLocale: true
       },{
         iso: 'cs-CZ',
         code: 'cs',
         file: 'cs.yaml',
         name: 'Čeština',
-      }, {
+        shortName: 'Čes',
+      },{
         iso: 'de-DE',
         code: 'de',
         file: 'de.yaml',
         name: 'Deutsch',
+        shortName: 'Deu',
       },{
         iso: 'es-ES',
         code: 'es',
         file: 'es.yaml',
         name: 'Spain',
+        shortName: 'Esp',
       }
     ],
     experimental: {

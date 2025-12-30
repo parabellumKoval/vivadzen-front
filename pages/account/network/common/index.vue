@@ -50,7 +50,7 @@ const props = defineProps({})
 // METHODS
 // HANDLERS
 const openWithdrawalHandler = (event) => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Withdrawal/Withdrawal.vue'))
+  const component = defineAsyncComponent(() => import('~/components/Modal/Withdrawal/Withdrawal.client.vue'))
   useModal().open(component, null, null)
 }
 // WATCHERS

@@ -109,7 +109,7 @@ function handleCountryClick(payload: { id: string | null; name: string | null })
         <h3 class="regions__heading">{{ t('regionTitle') }}</h3>
         <p class="regions__current">
           {{ t('regionCurrent') }}
-          <span>{{ currentRegionName }}</span>
+          <span>{{ t(currentRegionName) }}</span>
         </p>
         <ul class="regions-list">
           <li
@@ -125,7 +125,7 @@ function handleCountryClick(payload: { id: string | null; name: string | null })
               :class="{'regions-link--active': region.isActive}"
             >
               <Icon :name="region.flagClass" size="24" class="icon"></Icon>
-              {{ region.name }}
+              {{ t(region.name) }}
             </NuxtLink>
           </li>
         </ul>

@@ -1,18 +1,22 @@
 <script setup>
+import { ref } from 'vue'
+
 const { t } = useI18n()
+const { isVisible } = useHeaderScroll()
+const isSearchOpen = ref(false)
+const openSearchHandler = () => {
+  isSearchOpen.value = true
+}
+const closeSearchHandler = () => {
+  isSearchOpen.value = false
+}
 </script>
 
 <style src="./header.scss" lang="scss" scoped />
 
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'header--hidden': !isVisible, 'header--search-open': isSearchOpen }">
     <div class="header-container full-container">
-      
-      <!-- MENU -->
-      <the-header-menu class="menu"></the-header-menu>
-
-      <!-- SEARCH BTN MOBILE -->
-      <the-header-search-btn v-if="$device.isMobile"></the-header-search-btn>
 
       <!-- LOGO -->
       <NuxtLink :to="$regionPath('/')" class="logo" clickable>
@@ -28,18 +32,25 @@ const { t } = useI18n()
       </NuxtLink>
 
       <!-- CATALOG -->
-      <the-header-catalog v-if="!$device.isMobile" class="catalog"></the-header-catalog>
+      <the-header-catalog class="catalog"></the-header-catalog>
 
-      <!-- SEARCH -->
-      <the-header-search v-if="!$device.isMobile" class="search"></the-header-search>
+      <!-- MENU -->
+      <the-header-menu class="menu"></the-header-menu>
 
       <div class="blank"></div>
+
+      <!-- SEARCH -->
+      <the-header-search
+        class="search"
+        @open="openSearchHandler"
+        @close="closeSearchHandler"
+      ></the-header-search>
 
       <!-- USER -->
       <the-header-profile class="profile"></the-header-profile>
 
-      <!-- SEARCH -->
-      <!-- <the-header-comparison v-if="$device.isMobile" class="comparison"></the-header-comparison> -->
+      <!-- NOTIFICATIONS -->
+      <the-header-notifications class="notifications"></the-header-notifications>
 
       <!-- CART -->
       <the-header-cart class="cart"></the-header-cart>

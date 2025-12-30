@@ -1,33 +1,19 @@
 <script setup>
-const {t, locale, localeProperties} = useI18n()
-const l = useI18n()
+const {t} = useI18n()
 const isShow = ref(true)
 
-const {regionsMeta, region} = useRegion()
-const {get, all} = useSettings()
-
-const close = () => {
-  isShow.value = false
-}
+const {get} = useSettings()
 
 const headerString = computed(() => {
   const data = get('site.common.supheader') || null
   return useShortcodes().render(data)
 })
 
-const regionMeta = computed(() => {
-  return regionsMeta[region.value]
-})
-
 const openContactsHandler = (event) => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Contacts/Contacts.vue'))
+  const component = defineAsyncComponent(() => import('~/components/Modal/Contacts/Contacts.client.vue'))
   useModal().open(component, null, null)
 }
 
-const openModalHandler = (event) => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Region/Region.vue'))
-  useModal().open(component, null, null)
-}
 </script>
 
 <style src="./supheader.scss" lang="scss" scoped />
@@ -54,7 +40,7 @@ const openModalHandler = (event) => {
           </div>
           
 
-          <the-footer-region class="supheader-region-block"></the-footer-region>
+          <the-footer-region v-if="!$device.isMobile" class="supheader-region-block"></the-footer-region>
 
         </div>
       <!-- </div> -->

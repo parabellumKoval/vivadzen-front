@@ -14,6 +14,9 @@ const { scrollToAnchor } = useAnchorScroll({
 const route = useRoute()
 const isLoadMorePending = ref(false)
 
+// Header scroll logic
+const { isVisible } = useHeaderScroll()
+
 const props = defineProps({
   title: {
     type: String,
@@ -231,7 +234,7 @@ onUnmounted(() => {
 
     <div ref="sentinel" class="sentinel"></div>
     <!-- SLOT HEADER HERE -->
-    <div :class="{ 'is-stuck': isStuck }" class="header-slot">
+    <div :class="{ 'is-stuck': isStuck, 'header-visible': isVisible }" class="header-slot" >
       <slot name="header" :stuck="isStuck"></slot>
     </div>
 

@@ -65,6 +65,13 @@ export default defineI18nConfig(() => {
           day: 'numeric',
           hour: 'numeric',
           minute: 'numeric'
+        },
+        notification: {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
         }
       },
       ru: {
@@ -79,6 +86,13 @@ export default defineI18nConfig(() => {
           day: 'numeric',
           hour: 'numeric',
           minute: 'numeric'
+        },
+        notification: {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
         }
       },
     },

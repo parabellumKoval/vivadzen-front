@@ -1,11 +1,6 @@
 <script setup>
-// import { useSchemaOrg, defineWebSite, defineWebPage } from '#imports'
-import { useAppPersistStore } from '~/store/appPersist'
-
-// const {regionAlias} = useRegion()
-// const {locale} = useI18n()
 const route = useRoute()
-const ageGateComponent = defineAsyncComponent(() => import('~/components/Modal/AgeGate/AgeGate.vue'))
+const ageGateComponent = defineAsyncComponent(() => import('~/components/Modal/AgeGate/AgeGate.client.vue'))
 const {isConfirmed: isAgeConfirmed, readFromStorage: readAgeConfirmation} = useAgeGate()
 const title = 'Vivadzen.com'
 
@@ -19,13 +14,6 @@ const head = useLocaleHead({
 const background = computed(() => {
   return route?.meta?.bg || '#FFF7EC'
 })
-
-// const isSearchMobile = computed(() => {
-//   const mobileSearch = useTransport().getData('mobileSearch')
-//   const isSearch = mobileSearch !== false
-
-//   return useDevice().isMobile && isSearch? true: false
-// })
 
 // HANDLERS
 // METHODS
@@ -99,11 +87,10 @@ onMounted(() => {
         </template>
       </Head>
       <Body :style="{background: background}">
-        <!-- <slot /> -->
-    
         <lazy-the-supheader></lazy-the-supheader>
 
-        <the-header></the-header>
+        <the-header v-if="!$device.isMobile"></the-header>
+        <the-header-mobile v-else></the-header-mobile>
         
         <!-- <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky> -->
 
@@ -120,11 +107,14 @@ onMounted(() => {
         <modal-transition :is-show="useModal().show" mode="out-in">
           <component :is="useModal().active.component"></component>
         </modal-transition>
+
+        <lazy-modal-search-results></lazy-modal-search-results>
         
-        <lazy-affiliate-link></lazy-affiliate-link>
+        <lazy-affiliate-link v-if="!$device.isMobile"></lazy-affiliate-link>
 
         <lazy-simple-clicker></lazy-simple-clicker>
         
+        <lazy-the-navbar v-if="$device.isMobile"></lazy-the-navbar>
       </Body>
     </Html>
   </div>

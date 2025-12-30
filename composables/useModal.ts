@@ -29,7 +29,9 @@ type Options = {
     y?: boolean
   },
   closeOnBackdrop?: boolean,
-  closeOnRouteChange?: boolean
+  closeOnRouteChange?: boolean,
+  _heightMinProvided?: boolean,
+  _heightMaxProvided?: boolean
 }
 
 type Modal = "signInSocial" | "signInEmail" | "logInEmail" | "passwordNew" | "emailNew" | "passwordReset" | "modalMobileAccount" | "modalMobileApp" | "modalMobileMenu" | "modalMobileTableSettings" | "modalMobileTableView" | "modalMobileTableSort" | "modalMobileTableBulks" | "modalMobileTablePerpage" | "modalMobileTableActions" | "modalLangSwitcher" | "modalMobileMessageForm" | "modalMobileNote" | "ModalMobileFilters"
@@ -74,7 +76,9 @@ export const useModal = () => {
       y: false
     },
     closeOnBackdrop: true,
-    closeOnRouteChange: true
+    closeOnRouteChange: true,
+    _heightMinProvided: false,
+    _heightMaxProvided: false
   } as Options})
   
   // const options = useState('options', () => {return {} as Options})
@@ -174,6 +178,10 @@ export const useModal = () => {
     active.value.options.margin.y = optionsData?.margin?.y ?? 0
     active.value.options.width.min = optionsData?.width?.min ?? 'initial'
     active.value.options.width.max = optionsData?.width?.max ?? 'initial'
+    active.value.options.height.min = optionsData?.height?.min ?? 'initial'
+    active.value.options.height.max = optionsData?.height?.max ?? 'initial'
+    active.value.options._heightMinProvided = optionsData?.height?.min !== undefined
+    active.value.options._heightMaxProvided = optionsData?.height?.max !== undefined
     active.value.options.closeOnBackdrop = optionsData?.closeOnBackdrop ?? true
     active.value.options.closeOnRouteChange = optionsData?.closeOnRouteChange ?? true
 
@@ -186,8 +194,30 @@ export const useModal = () => {
       return
     }
 
+    const hasCustomX = !!(optionsData?.x && (
+      (optionsData.x.left !== undefined && optionsData.x.left !== 'initial') ||
+      (optionsData.x.right !== undefined && optionsData.x.right !== 'initial')
+    ))
+
+    const hasCustomY = !!(optionsData?.y && (
+      (optionsData.y.top !== undefined && optionsData.y.top !== 'initial') ||
+      (optionsData.y.bottom !== undefined && optionsData.y.bottom !== 'initial')
+    ))
+
+    const buildTransform = (translateX: boolean, translateY: boolean) => {
+      const parts: string[] = []
+
+      if(translateX)
+        parts.push('translateX(50%)')
+
+      if(translateY)
+        parts.push('translateY(50%)')
+
+      active.value.options.transform = parts.length ? parts.join(' ') : 'initial'
+    }
+
     if(!hasTarget) {
-      active.value.options.transform = optionsDefault.value.transform
+      buildTransform(!hasCustomX, !hasCustomY)
       return
     }
 
@@ -195,21 +225,16 @@ export const useModal = () => {
     const detachY = !!optionsData?.detach?.y
 
     if(detachX || detachY) {
-      const transformParts = []
-
-      if(detachX)
-        transformParts.push('translateX(50%)')
-
-      if(detachY)
-        transformParts.push('translateY(50%)')
-
-      active.value.options.transform = transformParts.join(' ')
+      buildTransform(detachX && !hasCustomX, detachY && !hasCustomY)
     }else {
       active.value.options.transform = 'initial'
     }
   }
 
   const setupSizes = (optionsData: Options | null = null) => {
+    if(active.value.options._heightMaxProvided)
+      return
+
     const elementPositionY = active.value.options.y
     const innerHeight = window.innerHeight
 

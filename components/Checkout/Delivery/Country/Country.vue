@@ -26,7 +26,7 @@ const openModalHandler = (event) => {
     <div @click="openModalHandler" class="country-value">
       <template v-if="currentRegion">
         <Icon :name="currentRegion.flagClass" class="icon"></Icon>
-        <div class="country-value-label">{{ currentRegion.name }}</div>
+        <div class="country-value-label">{{ t(currentRegion.name) }}</div>
       </template>
       <template v-else>
         {{ t('label.select_country') }}

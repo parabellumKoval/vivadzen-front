@@ -1,0 +1,393 @@
+
+.notification-modal {
+  :deep(.modal-slot) {
+    display: block;
+  }
+  :deep(.modal-inner) {
+    background: $color-8;
+  }
+}
+.notification-shell {
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  @include scrollbar;
+
+  @include tablet {
+    min-height: auto;
+  }
+}
+
+.notification-list {
+  padding: 0 20px;
+  @include desktop {
+    padding: 0 30px;
+  }
+
+
+  &__load-more {
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+  }
+
+  &__header {
+    position: sticky;
+    padding: 20px;
+    top:0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    // margin: -20px -20px 0 -20px;
+    background: $color-8;
+    border-bottom: 1px solid $color-border;
+    z-index: 2;
+
+    @include desktop {
+      padding: 30px;
+      // margin: -30px -30px 0 -30px;
+    }
+  }
+
+  &__header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &__tab {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: transparent;
+    color: $color-3;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+
+    &.active {
+      background: $color-1;
+      color: $color-8;
+    }
+  }
+
+  &__empty {
+    display: grid;
+    place-items: center;
+    padding: 48px 16px;
+    margin: 30px 0 0 0;
+    color: $color-3;
+    gap: 10px;
+    border: 1px dashed $color-border;
+    border-radius: 16px;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    margin: 0 -20px;
+
+    @include desktop {
+      margin: 0 -30px;
+    }
+  }
+
+  &__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    padding: 15px;
+    text-align: left;
+    // border-radius: 16px;
+    border-bottom: 1px solid $color-border;
+    border-left: 3px solid $color-8;
+    transition: background 0.3s;
+    align-items: flex-start;
+
+    @include desktop {
+      padding: 20px 30px;
+    }
+
+    &:hover {
+      // transform: translateY(-2px);
+      background: $color-7;
+    }
+
+    &.is-unread {
+      // border-color: rgba(255, 155, 98, 0.45);
+      // border-color: $color-orange;
+      // box-shadow: 0 12px 28px rgba(255, 155, 98, 0.12);
+      // background: #fff;
+      background-color: $color-bg;
+    }
+
+    &.is-active {
+      outline: 2px solid rgba(255, 155, 98, 0.6);
+      outline-offset: 0;
+    }
+
+    .arrow {
+      // position: absolute;
+      // top: 20px;
+      // right: 20px;
+    }
+
+    .more {
+      display: inline;
+    }
+  }
+
+  &__content {
+    display: grid;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    .muted {
+      font-size: 12px;
+      color: $color-3;
+    }
+  }
+
+  &__date {
+    margin: 10px 0 0 0;
+    font-size: 12px;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: $color-0;
+  }
+
+  &__excerpt {
+    margin: 4px 0 0 0;
+    color: $color-0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+
+.notification-shell.show-details {
+  @include tablet {
+    .notification-list {
+      display: none;
+    }
+  }
+}
+
+
+.notification-details {
+  display: flex;
+  width: 100%;
+
+  &__inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    .back {
+      font-weight: 600;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    padding: 20px;
+    background-color: $color-8;
+    line-height: 1.2;
+
+    @include desktop {
+      padding: 30px;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .lead {
+      color: $color-3;
+    }
+
+    .content {
+
+    }
+  }
+}
+
+.heading h3 {
+  margin: 2px 0 0 0;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.actions .ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: transparent;
+  font-weight: 600;
+  color: $color-1;
+
+  &:hover {
+    border-color: rgba(255, 155, 98, 0.5);
+    color: $color-primary;
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  margin: 0 0 10px 0;
+  border-radius: 12px;
+  background: rgba(255, 155, 98, 0.14);
+  color: $color-primary;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.notification-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius;
+  // background: $color-6;
+  color: $color-2;
+
+  &[data-variant='info'] {
+    background-color: rgba($color-blue, 0.25);
+    .icon {color: $color-blue;}
+  }
+  &[data-variant='success'] {
+    background-color: rgba($color-green, 0.25);
+    .icon {color: $color-green;}
+  }
+  &[data-variant='warning'] {
+    background-color: rgba($color-orange, 0.25);
+    .icon {color: $color-orange;}
+  }
+  &[data-variant='error'] {
+    background-color: rgba($color-red, 0.25);
+    .icon {color: $color-red;}
+  }
+
+  &.emoji {
+    background: $color-8;
+    border: 1px solid $color-border;
+  }
+  
+}
+
+.emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.muted {
+  color: $color-3;
+}
+
+.markAll-btn {
+  max-width: min-content;
+  width: 40px;
+  height: 30px;
+  padding: 0 10px;
+  font-weight: 600;
+  font-size: 13px;
+  justify-content: flex-start;
+  transition: width 0.3s;
+
+  @include desktop {
+    &:hover {
+      width: 200px;
+    }
+  }
+}
+
+.cta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  &-link  {
+    display: inline-flex;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.07);
+    }
+  }
+}
+
+.notification-archive-btn {
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: $color-3;
+  transition: background 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.notification-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-action-btn {
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: initial;
+  height: initial;
+  color: $color-3;
+  transition: color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-primary;
+  }
+}

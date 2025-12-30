@@ -1,3 +1,10 @@
+regions:
+  global: Глобальный
+  ua: Украина
+  cz: Чешская Республика
+  de: Германия
+  es: Испания
+
 title:
   categories: Категории
   products: Товары

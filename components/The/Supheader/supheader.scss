@@ -4,6 +4,7 @@
   height: initial;
   background: linear-gradient(90deg, #ff8400 0%, #73c56f 100%);
   width: 100vw;
+  height: 40px;
   overflow: hidden;
   @include desktop {
     height: 50px;
@@ -62,15 +63,14 @@
   }
 }
 .content {
-  display: none;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  overflow-x: auto;
+  line-height: 145%;
+  font-weight: 600;
+  white-space: nowrap;
   @include desktop {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    overflow-x: auto;
-    line-height: 145%;
-    font-weight: 600;
-    white-space: nowrap;
   }
 }
 

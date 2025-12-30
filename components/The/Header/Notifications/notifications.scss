@@ -1,0 +1,66 @@
+
+  
+.notifications {
+  &-inner {
+    width: 100%;
+    border-right: 1px solid $color-border;
+
+    @include desktop {
+      border-right: 0;
+    }
+  }
+  &-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      color: $color-primary;
+      transform: translateY(-1px);
+    }
+
+    .label {
+      display: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      @include desktop {
+        display: inline-flex;
+      }
+    }
+
+    .icon {
+      font-size: 26px;
+
+      @include desktop {
+        font-size: 34px;
+      }
+    }
+  }
+}
+
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 30px;
+  min-width: 22px;
+  padding: 3px 6px;
+  border-radius: 10px;
+  background: $color-error;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(239, 68, 68, 0.35);
+
+
+  @include desktop {
+    top: 14px;
+    left: 17px;
+  }
+}

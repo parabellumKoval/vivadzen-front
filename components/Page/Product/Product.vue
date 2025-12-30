@@ -4,6 +4,9 @@
 import {useReviewStore} from '~/store/review'
 import { useStoreOnly } from '~/composables/useStoreOnly'
 
+// Header scroll logic
+const { isVisible } = useHeaderScroll()
+
 const props = defineProps({
   product: {
     type: Object,
@@ -405,7 +408,7 @@ onBeforeUnmount(() => {
         />
       </transition>
       
-      <div class="tab-row">
+      <div  :class="{'header-visible': isVisible }"  class="tab-row">
         <div v-if="$device.isMobile" class="tab-back-slot">
           <LazyProductTabBackButton :fallback="tabsBackLink"></LazyProductTabBackButton>
         </div>

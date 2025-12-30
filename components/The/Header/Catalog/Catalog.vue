@@ -3,7 +3,7 @@
 const { t } = useI18n()
 
 const openMenuHandler = (event) => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Catalog/Catalog.vue'))
+  const component = defineAsyncComponent(() => import('~/components/Modal/Catalog/Catalog.client.vue'))
   useModal().open(component, null, event.target.closest('[modalable]'), {
     width: {
       min: '1280px',

@@ -2,12 +2,14 @@
   &-wrapper {
     position: relative;
     height: 90vh;
+    max-height: 700px;
     margin-top: 15px;
     border-radius: 50px;
     z-index: 1;
 
     @include desktop {
       height: 750px;
+      max-height: initial;
       margin-top: 30px;
     }
 
@@ -27,9 +29,9 @@
   :deep(.snap-slide) {
     height: 100%;
 
-    @include mobile {
-      height: calc(100vh - 80px);
-    }
+    // @include mobile {
+    //   height: calc(100vh - 80px);
+    // }
   }
 }
 

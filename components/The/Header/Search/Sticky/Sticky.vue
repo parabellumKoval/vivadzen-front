@@ -1,9 +1,13 @@
 <script setup>
+import { useSearchResultsStore } from '~/store/searchResults'
+
 const {t} = useI18n()
 const lastScroll = ref(0)
 const isActive = ref(true)
 const isFocus = ref(false)
 const search = ref(null)
+const searchResultsStore = useSearchResultsStore()
+
 // COMPUTEDS
 // METHODS
 const scrollHandler = (e) => {
@@ -26,7 +30,17 @@ const scrollHandler = (e) => {
 const focusHandler = () => {
   isFocus.value = true
 }
+
 const blurHandler = () => {
+  isFocus.value = false
+}
+
+const openSearchHandler = () => {
+  searchResultsStore.openStage1()
+}
+
+const closeSearchHandler = () => {
+  searchResultsStore.close()
   isFocus.value = false
 }
 
@@ -49,8 +63,10 @@ onMounted(() => {
 
 <template>
   <div :class="[{hide: !isActive}, {focus: isFocus}]" class="search-wrapper">
-    <div class="search-inner" clickable>
-      <lazy-the-header-search-modal></lazy-the-header-search-modal>
+    <div class="search-inner" clickable @click="openSearchHandler">
+      <lazy-the-header-search-modal
+        @close="closeSearchHandler"
+      ></lazy-the-header-search-modal>
     </div>
   </div>
 </template>

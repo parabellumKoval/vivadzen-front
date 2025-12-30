@@ -1,0 +1,26 @@
+ru:
+  title: Уведомления
+  subtitle: Новые события и объявления
+  eyebrow: Центр уведомлений
+  markAll: Прочесть все
+  empty: Пока нет уведомлений
+  pinned: Закреплено
+  untitled: Без названия
+  noExcerpt: Содержимое скоро появится
+  back: Назад к списку
+  noDetails: Нет подробного описания
+  open: Открыть
+  variants:
+    info: Информация
+    success: Успех
+    warning: Важно
+    error: Ошибка
+  tabsActive: Новые и актуальные
+  tabsArchived: Архив
+  emptyActive: Пока нет новых уведомлений
+  emptyArchived: В архиве пока нет уведомлений
+  loadMore: Загрузить ещё
+  loading: Загрузка...
+  archive: Архивировать
+  unarchive: Вернуть из архива
+  markUnread: Отметить как непрочитанное

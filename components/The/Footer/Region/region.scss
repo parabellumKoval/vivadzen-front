@@ -2,15 +2,16 @@
   &-btn {
     align-items: center;
     justify-content: center;
-    white-space: nowrap;
     column-gap: 5px;
     height: 40px;
     color: $color-0;
     font-weight: 600;
     transition: opacity 0.3s;
-    padding: 0 30px;
+    margin: 0 30px;
+    min-width: 0;
 
     @include desktop {
+      white-space: nowrap;
       column-gap: 10px;
       height: 50px;
     }
@@ -30,25 +31,35 @@
 .region-block {
   display: grid;
   align-items: center;
-  grid-template-columns: repeat(3, min-content);
-}
-
-.region-block {
-  grid-template-columns: 1fr min-content 1fr;
+  grid-template-columns: minmax(0, 1fr) min-content minmax(0, 1fr);
+  width: 100%;
+  gap: 0;
 
   @include desktop {
     grid-template-columns: repeat(3, min-content);
+    gap: inherit;
   }
 }
 
 
 .region-unit {
-  display: grid;
-  grid-template-columns: 28px min-content;
-  // padding: 0 20px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow: hidden;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: 28px min-content;
+    width: auto;
+    overflow: visible;
+    gap: 10px;
+  }
 
   .icon {
     font-size: 24px;
+    flex-shrink: 0;
 
     @include desktop {
       font-size: 28px;
@@ -61,15 +72,19 @@
   flex-direction: column;
   text-align: left;
   gap: 0;
+  min-width: 0;
+  flex: 1;
 
   @include desktop {
     gap: 4px;
+    flex: none;
   }
 
   &-label {
     font-size: 10px;
     color: rgba($color-0,0.5);
     font-weight: 400;
+    white-space: nowrap;
 
     @include desktop {
       font-size: 12px;
@@ -79,9 +94,14 @@
   &-value {
     text-transform: uppercase;
     font-size: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: 0;
 
     @include desktop {
       font-size: 14px;
+      max-width: 80%;
     }
   }
 }

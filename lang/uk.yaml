@@ -1,3 +1,10 @@
+regions:
+  global: Глобальний
+  ua: Україна
+  cz: Чеська Республіка
+  de: Німеччина
+  es: Іспанія
+
 title:
   categories: Категорії
   products: Товари

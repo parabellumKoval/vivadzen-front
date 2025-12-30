@@ -1,3 +1,10 @@
+regions:
+  global: Celosvětově
+  ua: Ukrajina
+  cz: Česká republika
+  de: Německo
+  es: Španělsko
+
 title:
   categories: Kategorie
   products: Produkty
