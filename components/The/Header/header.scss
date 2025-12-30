@@ -43,7 +43,7 @@
 }
 
 .header--search-open {
-  position: relative;
+  // position: relative;
   z-index: 320;
   background: $color-bg;
 
@@ -85,7 +85,7 @@
       width: 100%
     }
   }
-  
+
   @include desktop {
     width: 100%;
     justify-content: flex-start;

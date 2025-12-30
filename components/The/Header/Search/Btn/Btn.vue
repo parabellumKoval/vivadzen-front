@@ -54,7 +54,6 @@ watch(() => searchInput.value, (v) => {
         type="text"
         class="search-input"
         :placeholder="t('placeholder')"
-       
       />
       <button
         v-if="isActive"

@@ -19,12 +19,12 @@ const props = defineProps({
     <div class="product-image-wrapper">
       <nuxt-img
         :src = "item.image?.src"
-        width="207"
-        height="105"
-        sizes = "mobile:207px tablet:207px desktop:207px"
+        width="200"
+        height="200"
+        sizes = "mobile:100px tablet:207px desktop:260px"
         format = "webp"
         provider = "bunny"
-        quality = "60"
+        quality = "80"
         loading = "lazy"
         fit="outside"
         class="product-image"

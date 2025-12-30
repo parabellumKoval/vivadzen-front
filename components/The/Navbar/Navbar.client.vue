@@ -25,18 +25,16 @@ const openSearchHandler = (v) => {
     <the-header-search-btn @open="openSearchHandler"></the-header-search-btn>
     <div class="cta">
       <button class="cta-button" @click="openAffiliateModal">
-        <!-- <IconCSS name="ci:link-break" class="icon"></IconCSS> -->
-         <!-- <Icon name="noto:wrapped-gift" class="icon"></Icon> -->
-          <nuxt-img
-            src = "/images/front-coin.png"
-            width = "50"
-            height = "50"
-            quality="80"
-            sizes="mobile:60px"
-            fit = "inside"
-            format = "webp"
-            class = "icon"
-          />
+        <nuxt-img
+          src = "/images/front-coin.png"
+          width = "50"
+          height = "50"
+          quality="80"
+          sizes="mobile:60px"
+          fit = "inside"
+          format = "webp"
+          class = "icon"
+        />
       </button>
     </div>
     <the-header-profile class="profile"></the-header-profile>

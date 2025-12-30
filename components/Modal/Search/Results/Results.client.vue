@@ -41,7 +41,7 @@ const containerStyle = computed(() => {
   if (!height) return undefined
 
   const mobileOffset = 90
-  const desktopOffset = 100
+  const desktopOffset = 200
   const mobileMaxHeight = Math.max(height - mobileOffset, 0)
   const desktopMaxHeight = Math.max(height - desktopOffset, 0)
 
