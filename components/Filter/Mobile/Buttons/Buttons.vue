@@ -53,7 +53,7 @@ watch([
 })
 
 const openFiltersHandler = () => {
-  const component = defineAsyncComponent(() => import('~/components/Modal/Filters/Filters.vue'))
+  const component = defineAsyncComponent(() => import('~/components/Modal/Filters/Filters.client.vue'))
   useModal().open(component, props.data, null, { closeOnRouteChange: false })
 }
 
