@@ -28,11 +28,31 @@ const closeHandler = () => {
 
 // WATCHERS
 watch(() => searchInput.value, (v) => {
+  if (!isActive.value) {
+    return
+  }
+
   if(v) {
     searchResultsStore.openStage2(v)
   } else {
     searchResultsStore.openStage1()
   }
+})
+
+watch(() => searchResultsStore.isOpen, (value) => {
+  if (value) {
+    return
+  }
+
+  if (isActive.value) {
+    isActive.value = false
+  }
+
+  if (searchInput.value) {
+    searchInput.value = null
+  }
+
+  emit('open', false)
 })
 </script>
 

@@ -551,10 +551,11 @@ export default defineNuxtConfig({
       }
     },
     routeRules: {
-      '/': {isr: 60 * 30},
-      '/reviews/**': {isr: 60 * 30},
-      '/blog': {isr: 60 * 30},
-      '/blog/**': {isr: 60 * 30},
+      
+      '/**': {isr: 60 * 120},
+      // '/reviews/**': {isr: 60 * 30},
+      // '/blog': {isr: 60 * 30},
+      // '/blog/**': {isr: 60 * 30},
       '/checkout': {ssr: false, static: false, swr: false, delayHydration: false},
       '/checkout/**': {ssr: false, static: false, swr: false, delayHydration: false},
       '/account/**': {ssr: false, static: false, swr: false, delayHydration: false},
