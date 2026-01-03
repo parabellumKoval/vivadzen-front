@@ -2,7 +2,7 @@
 const { isVisible } = useHeaderScroll()
 </script>
 
-<style src="./mobile.scss" lang="scss" scoped />
+<style src="./mobile-header.scss" lang="scss" scoped />
 
 <template>
   <header class="header" :class="{ 'header--hidden': !isVisible}">
