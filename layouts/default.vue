@@ -69,6 +69,8 @@ onMounted(() => {
   openAgeGate()
 })
 
+// useNoty().setTestNoty()
+
 </script>
 
 <style src="~/assets/scss/layout-default.scss" lang="scss" scoped />

@@ -10,6 +10,9 @@ const props = defineProps({
 const noties = computed(() => {
   return useNoty().noties.value
 })
+const notyCount = computed(() => {
+  return Object.keys(noties.value || {}).length
+})
 
 const closeHandler = (key) => {
   useNoty().removeNoty(key)
@@ -41,12 +44,12 @@ const getKey = (message) => {
           </div>
           <button @click="playHandler(key)" class="header-btn play-btn" type="button">
             <transition name="fade-in">
-              <IconCSS v-if="noty.intervalInstance" name="iconoir:pause" size="20px" class="icon"></IconCSS>
-              <IconCSS v-else name="iconoir:play" size="20px" class="icon"></IconCSS>
+              <IconCSS v-if="noty.intervalInstance" name="ci:pause" size="20px" class="icon"></IconCSS>
+              <IconCSS v-else name="ci:play" size="20px" class="icon"></IconCSS>
             </transition>
           </button>
           <button @click="closeHandler(key)" class="header-btn close-btn" type="button">
-            <IconCSS name="iconoir:xmark" size="20px" class="icon"></IconCSS>
+            <IconCSS name="ci:close-md" size="20px" class="icon"></IconCSS>
           </button>
         </div>
 
