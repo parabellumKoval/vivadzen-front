@@ -7,6 +7,9 @@ export default defineNuxtPlugin(() => {
   const { isAuthenticated, user, token } = useAuth()
   const runtime = useRuntimeConfig()
   const notificationsCfg = runtime.public.notifications || {}
+  const driver = String(notificationsCfg?.driver || 'pusher').toLowerCase()
+  const pollingInterval = notificationsCfg?.pollingIntervalMs ?? 5000
+  const isDisabled = ['disabled', 'off', 'none', 'false', '0'].includes(driver)
 
   let echo: Echo | null = null
 
@@ -38,10 +41,14 @@ export default defineNuxtPlugin(() => {
   }
 
   const connect = () => {
+    if (isDisabled) {
+      return
+    }
+
     const pusherKey = notificationsCfg?.pusher?.key
 
-    if (!pusherKey) {
-      store.startPolling(notificationsCfg?.pollingIntervalMs ?? 5000)
+    if (driver === 'polling' || !pusherKey) {
+      store.startPolling(pollingInterval)
       return
     }
 
@@ -81,7 +88,7 @@ export default defineNuxtPlugin(() => {
 
     subscribe()
 
-    store.startPolling(notificationsCfg?.pollingIntervalMs ?? 5000)
+    store.startPolling(pollingInterval)
   }
 
   watch(

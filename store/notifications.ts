@@ -288,6 +288,8 @@ export const useNotificationsStore = defineStore('notifications', {
 
         this[hasMoreKey] = hasMore
         this[pageKey] = currentPage
+      } catch (error) {
+        // Ignore server/network errors to keep UI stable.
       } finally {
         this[loadingKey] = false
       }

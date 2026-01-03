@@ -57,6 +57,7 @@ const showAuthHandler = () => {
           format = "avif"
           quality = "60"
           fit="outside"
+          loading = "lazy"
           class="banner-media-img"
           :provider = "useImg().provider"
         ></nuxt-img>

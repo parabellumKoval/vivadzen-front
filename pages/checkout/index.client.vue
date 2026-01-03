@@ -83,13 +83,7 @@ const userLastName = computed(() => {
 })
 
 const isUserNameRequired = computed(() => {
-  if(order.value.payment?.method === 'bank_transfer') {
-    return true
-  }
-
-  if(order.value.delivery?.method === 'packeta_address' || order.value.delivery?.method === 'packeta_warehouse') {
-    return true
-  }
+  return true
 })
 
 const auth = isAuthenticated
