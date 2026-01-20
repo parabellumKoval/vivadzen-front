@@ -1,0 +1,588 @@
+.center-image {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  pointer-events: none;
+  margin: 60px 0 0 0;
+  filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.8))
+          drop-shadow(0 0 80px rgba(255, 215, 0, 0.6))
+          drop-shadow(0 0 120px rgba(255, 215, 0, 0.4));
+}
+
+.region {
+  &-box {
+    position: absolute;
+    width: 300px;
+    top: 100px;
+    right: 20px;
+    // padding: 30px;
+    line-height: 100%;
+    color: $color-8;
+  }
+
+  &-title {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+  }
+
+  &-desc {
+    color: rgba($color-8, 0.5);
+  }
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 20px 0;
+
+    li {
+      padding: 10px 20px;
+      background-color: $color-0;
+      border-radius: 20px;
+    }
+  }
+}
+.circle-selection {
+  padding: 80px 0;
+  // background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  // background: linear-gradient(135deg, $color-3 0%, $color-bg-2 100%);
+  position: relative;
+  overflow: hidden;
+  background: url("/images/landing/bg-dark.png");
+  // background: url("/images/landing/pattern-dark.png");
+  // background-size: contain;
+  
+
+  // &--bg-1 {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   object-fit: contain;
+  // }
+
+  .container {
+    padding: 0 35px;
+    max-width: 1640px;
+    min-width: 320px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // gap: 60px;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+
+  &__left {
+    display: none;
+    flex: 0 0 40%;
+    
+    @media (max-width: 1024px) {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  &__title {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin: 0 0 30px 0;
+
+    .highlight {
+      color: #ff6b35;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff6b35, #f7931e);
+        border-radius: 2px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      font-size: 36px;
+    }
+  }
+
+  &__result {
+    margin-top: 40px;
+  }
+
+  .result-box {
+    background: white;
+    padding: 24px 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .result-label {
+    font-size: 14px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .result-text {
+    font-size: 20px;
+    color: #1a1a1a;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  &__right {
+    flex: 0 0 75%;
+    position: relative;
+    height: 900px;
+    
+    @media (max-width: 1024px) {
+      flex: 1;
+      width: 100%;
+      height: 600px;
+    }
+  }
+
+  .triangle-connector {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+
+    &__line {
+      stroke-dasharray: 15, 15;
+      animation: dash 20s linear infinite;
+    }
+
+    &__inner {
+      stroke-dasharray: 12, 12;
+      animation: dash 15s linear infinite reverse;
+    }
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 1000;
+    }
+  }
+
+  .wheel {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    cursor: pointer;
+    user-select: none;
+
+    @media (max-width: 768px) {
+      width: 300px;
+      height: 300px;
+    }
+
+    // Triangle positioning
+    &--top {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--bottom-left {
+      bottom: 0;
+      left: 10%;
+    }
+
+    &--bottom-right {
+      bottom: 0;
+      right: 10%;
+    }
+
+    &__container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__rotatable {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1; // Background layer for sectors
+    }
+
+    &__center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 190px;
+      height: 190px;
+      // background: white;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 15; // Above sectors
+
+      /* 1. Создаем эффект 4px бортика через border и background-clip */
+      /* Светлый блик снизу и темный сверху на бортике создают объем */
+      // border: 4px solid #ffffff;
+      // border-top-color: #a2a7ae;
+      // border-bottom-color: #ffffff;
+
+      /* 2. Фон: Радиальный градиент (светлый в центре, темнее к краям) */
+      // background: radial-gradient(
+      //   circle, 
+      //   $color-bg 0%,    /* Центр (светлый) */
+      //   $color-bg-2 70%,   /* Переход */
+      //   $color-dark 100%   /* Края (затемнение) */
+      // );
+
+      /* 3. Внутренние тени для эффекта «вдавленности» */
+      // box-shadow:
+      //   inset 2px 5px 10px rgba(0, 0, 0, 0.15),
+      //   inset -2px -5px 10px rgba(255, 255, 255, 0.7),
+      //   0px 2px 5px rgba(0, 0, 0, 0.05);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+
+
+      @media (max-width: 768px) {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    &__center-icon {
+      width: 190px;
+      height: 190px;
+      border-radius: 95px;
+      background: $color-orange;
+      font-size: 48px;
+      line-height: 100%;
+      margin-bottom: 4px;
+
+      @media (max-width: 768px) {
+        font-size: 36px;
+      }
+
+      &-img {
+        display: none;
+        width: 170px;
+        height: 170px;
+      }
+    }
+
+    &__center-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      @media (max-width: 768px) {
+        font-size: 11px;
+      }
+    }
+
+    &__sectors {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 130%;
+      height: 130%;
+      transform: translateX(-50%) translateY(-50%);
+      max-width: initial;
+      pointer-events: none;
+      object-fit: contain;
+    }
+
+    &__sector {
+      fill: transparent;
+      fill: rgba($color-8, 0.2);
+      // stroke: #fff;
+      stroke-width: 1;
+      transition: all 0.3s ease;
+
+      &--active {
+        // fill: transparent;
+        fill: rgba($color-8, 0.2);
+      }
+    }
+
+    &__item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-left: -60px;
+      margin-top: -60px;
+      transform-origin: 50% 50%;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100; // Above sectors and center
+      cursor: pointer;
+
+      @media (max-width: 768px) {
+        width: 65px;
+        height: 65px;
+        margin-left: -32.5px;
+        margin-top: -32.5px;
+      }
+    }
+
+    &__item-content {
+      width: 100%;
+      height: 100%;
+      // background: #fae0b2;
+      // background: 
+      //   url("/images/landing/pattern-circle.jpg");
+      //   background-size: cover;
+
+      // background-blend-mode: overlay; 
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      // box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: border-color 0.6s ease, box-shadow 0.6s ease;
+      // border: 4px solid #e9bf8b;
+      padding: 8px;
+      // box-shadow: 
+      //   inset 2px 5px 10px rgba(0, 0, 0, 0.15),
+      //   inset -2px -5px 10px rgba(255, 255, 255, 0.7),
+      //   0px 2px 5px rgba(0, 0, 0, 0.05);
+      transform: translateZ(0);
+      will-change: border-color, box-shadow;
+    }
+
+    &__item--active .wheel__item-content {
+      border-color: var(--item-color, #ff6b35);
+      // background-color: var(--item-color, #ff6b35);
+      box-shadow: 
+        0 0 30px 10px color-mix(in srgb, var(--item-color, #ff6b35) 20%, transparent),
+        0 0 60px 20px color-mix(in srgb, var(--item-color, #ff6b35) 10%, transparent),
+        0 0 90px 30px color-mix(in srgb, var(--item-color, #ff6b35) 5%, transparent);
+      // transform: scale(1.15);
+    }
+
+    &__item:hover {
+      // border-color: var(--item-color, #ff6b35);
+      // background-color: color-mix(in srgb, var(--item-color, #ff6b35) 100%, transparent);
+      box-shadow: 
+        0 0 25px 8px color-mix(in srgb, var(--item-color, #ff6b35) 10%, transparent),
+        0 0 50px 15px color-mix(in srgb, var(--item-color, #ff6b35) 5%, transparent);
+      // transform: scale(1.08);
+    }
+
+    &__item-icon {
+      font-size: 46px;
+      line-height: 100%;
+      margin-bottom: 4px;
+
+      @media (max-width: 768px) {
+        font-size: 22px;
+      }
+    }
+
+    &__item-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      line-height: 1.2;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (max-width: 768px) {
+        font-size: 9px;
+      }
+    }
+
+    &__item-arc-text {
+      position: absolute;
+      // bottom: -15px;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 80px;
+      overflow: visible;
+      pointer-events: none;
+
+      @media (max-width: 768px) {
+        width: 80px;
+        height: 60px;
+        bottom: -10px;
+      }
+    }
+
+    &__item-arc-label {
+      fill: rgba($color-8, 0.7);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+
+      @media (max-width: 768px) {
+        font-size: 8px;
+      }
+    }
+
+    &__item-img {
+      width: 125%;
+      height: 125%;
+      max-width: initial;
+      object-fit: contain;
+      border-radius: 50%;
+      margin: 3px 2px 0 0;
+    }
+
+    &__arrow {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 24px solid $color-green;
+      z-index: 20; // Above everything
+      // filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+
+      @media (max-width: 768px) {
+        border-left-width: 12px;
+        border-right-width: 12px;
+        border-top-width: 20px;
+      }
+    }
+  }
+}
+
+// // Animations
+// @keyframes pulse {
+//   0%, 100% {
+//     transform: scale(1.15);
+//   }
+//   50% {
+//     transform: scale(1.2);
+//   }
+// }
+
+// .wheel__item--active .wheel__item-content {
+//   animation: pulse 2s infinite;
+// }
+
+// Decorative leaves scattered around wheels
+.deco-leaf {
+  position: absolute;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+
+  &--1 {
+    width: 90px;
+    top: -40px;
+    left: 15%;
+    transform: rotate(-45deg);
+  }
+
+  &--2 {
+    width: 120px;
+    top: 0%;
+    right: -8%;
+    transform: rotate(95deg);
+  }
+
+  &--3 {
+    width: 150px;
+    top: 35%;
+    left: -60px;
+    transform: rotate(-125deg);
+  }
+
+  &--4 {
+    width: 110px;
+    bottom: 25%;
+    right: -40px;
+    transform: rotate(35deg);
+  }
+
+  &--5 {
+    width: 480px;
+    bottom: -150px;
+    left: -500px;
+    transform: rotate(-15deg);
+    filter: blur(10px);
+  }
+
+  &--6 {
+    width: 100px;
+    bottom: -5%;
+    right: 5%;
+    transform: rotate(45deg);
+  }
+
+  &--7 {
+    width: 130px;
+    top: 50%;
+    right: -70px;
+    transform: rotate(-15deg);
+  }
+
+  @media (max-width: 1024px) {
+    &--1 { width: 70px; top: -30px; left: 10%; }
+    &--2 { width: 90px; right: 5%; }
+    &--3 { width: 110px; left: -40px; }
+    &--4 { width: 80px; right: -30px; }
+    &--5 { width: 130px; bottom: -20px; }
+    &--6 { width: 75px; }
+    &--7 { width: 100px; right: -50px; }
+  }
+
+  @media (max-width: 768px) {
+    &--1 { width: 50px; top: -20px; left: 5%; }
+    &--2 { width: 65px; }
+    &--3 { width: 80px; left: -30px; }
+    &--4 { display: none; }
+    &--5 { width: 90px; }
+    &--6 { width: 55px; }
+    &--7 { display: none; }
+  }
+}

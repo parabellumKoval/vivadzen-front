@@ -23,16 +23,19 @@
   border-radius: $radiusBtn;
   font-size: 16px;
   font-weight: 500;
-  // text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
-  transition: transform $speed-fast, color $speed-fast .3s, border $speed-fast, background $speed-fast;
+  transition: transform .3s, color $speed-fast .3s, border $speed-fast, background $speed-fast;
   @include tablet {
     width: min-content;
   }
   @include desktop {
     height: 50px;
     font-size: 18px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
   }
   // &:before {
   //   content: '';
@@ -51,8 +54,12 @@
     width: 100%;
     max-width: 100%;
   }
-  &.lowcase {
-    text-transform: none;
+  &.bold {
+    font-weight: 700;
+  }
+  &.uppercase {
+    font-size: 14px;
+    text-transform: uppercase;
   }
   &.wide {
     padding: 0 45px;
@@ -93,6 +100,14 @@
     }
   }
 
+  &.alternate {
+    background: $color-orange;
+    color: #fff;
+    &:hover {
+      background: color.adjust($color-orange, $lightness: 10%);
+    }
+  }
+
   &.secondary {
     background: $color-border;
     color: $color-dark;
@@ -107,6 +122,11 @@
         background: $color-5;
       }
     }
+  }
+
+  &.color-secondary {
+    border: 2px solid $color-border;
+    color: $color-border;
   }
 
   &.color-primary {

@@ -1,0 +1,352 @@
+// Переменные проекта
+$color-bg-start: #FBF8F1;
+$color-bg-end: #F5EFE3;
+$color-text-main: #4A3728;
+$color-accent: #FF8A00;
+$color-green: #4CAF50;
+$color-white: #FFFFFF;
+
+.legal-market {
+  position: relative;
+  background: linear-gradient(165deg, $color-bg-start 0%, $color-bg-end 50%, darken($color-bg-end, 3%) 100%);
+  padding: 60px 0;
+  overflow: hidden;
+
+  @include tablet {
+    padding: 100px 0;
+  }
+
+  @include desktop {
+    padding: 120px 0;
+  }
+
+  &__bg-deco {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.4;
+    pointer-events: none;
+
+    &--1 {
+      width: 200px;
+      height: 200px;
+      top: -50px;
+      right: -50px;
+      transform: rotate(25deg);
+
+      @include tablet {
+        width: 300px;
+        height: 300px;
+        top: -80px;
+        right: 50px;
+      }
+
+      @include desktop {
+        width: 380px;
+        height: 380px;
+        right: 120px;
+      }
+    }
+
+    &--2 {
+      width: 180px;
+      height: 180px;
+      bottom: -40px;
+      left: -40px;
+      transform: rotate(-15deg);
+
+      @include tablet {
+        width: 280px;
+        height: 280px;
+        bottom: -60px;
+        left: 30px;
+      }
+
+      @include desktop {
+        width: 350px;
+        height: 350px;
+        left: 80px;
+      }
+    }
+
+    &--3 {
+      width: 900px;
+      bottom: -100px;
+      left: 50%;
+      transform: rotate(0) translateX(-50%);
+      opacity: 1;
+    }
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  padding: 0 20px;
+  max-width: 1200px;
+  min-width: 320px;
+  margin: 0 auto;
+  width: 100%;
+
+  @include tablet {
+    padding: 0 35px;
+  }
+}
+
+.legal-market__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.legal-market__title {
+  color: $color-text-main;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 24px;
+  max-width: 600px;
+
+  @include tablet {
+    font-size: 40px;
+    margin-bottom: 32px;
+  }
+
+  @include desktop {
+    font-size: 52px;
+    margin-bottom: 40px;
+  }
+
+  .orange {
+    color: $color-accent;
+  }
+}
+
+.legal-market__description {
+  color: $color-text-main;
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 800px;
+  margin-bottom: 48px;
+  opacity: 0.85;
+
+  @include tablet {
+    font-size: 18px;
+    margin-bottom: 60px;
+  }
+
+  @include desktop {
+    font-size: 20px;
+    margin-bottom: 72px;
+  }
+}
+
+.legal-market__features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+  max-width: 1100px;
+
+  @include tablet {
+    grid-template-columns: repeat(4, 350px);
+    grid-auto-rows: 350px;
+    gap: 24px;
+  }
+
+  @include desktop {
+    gap: 32px;
+  }
+}
+
+.legal-market__grid-item {
+  // Mobile: single column, show all items
+  
+  @include tablet {
+    // Row 1: positions 1, 2, 3 (with center image spanning 2 columns)
+    &--1 {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    
+    &--2 {
+      grid-column: 2 / 4;
+      grid-row: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    &--3 {
+      grid-column: 4;
+      grid-row: 1;
+    }
+    
+    // Row 2: positions 4, 5 (leave 6 empty), 7, 8
+    &--4 {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    
+    &--5 {
+      grid-column: 2;
+      grid-row: 2;
+    }
+    
+    // Position 6 is empty (column 3, row 2)
+    
+    &--7 {
+      grid-column: 3;
+      grid-row: 2;
+    }
+    
+    &--8 {
+      grid-column: 4;
+      grid-row: 2;
+    }
+  }
+}
+
+.legal-market__center-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legal-market__kratom-img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+
+  @include tablet {
+    width: 220px;
+    height: 220px;
+  }
+
+  @include desktop {
+    width: 260px;
+    height: 260px;
+  }
+}
+
+.glass-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 180px;
+  background: rgba($color-white, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba($color-white, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+
+  @include tablet {
+    border-radius: 20px;
+    min-height: 200px;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+  }
+
+  &__flag {
+    width: 120px;
+    object-fit: contain;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.feature-card {
+  position: relative;
+  background: $color-white;
+  border-radius: 16px;
+  padding: 32px 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @include tablet {
+    padding: 40px 28px;
+    border-radius: 20px;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    border: 2px solid transparent;
+    background: linear-gradient($color-white, $color-white) padding-box,
+                linear-gradient(135deg, $color-accent, lighten($color-accent, 15%)) border-box;
+    
+    @include tablet {
+      width: 72px;
+      height: 72px;
+      margin-bottom: 24px;
+    }
+
+    :deep(svg) {
+      color: $color-accent;
+    }
+  }
+
+  &--green {
+    .feature-card__icon {
+      background: linear-gradient($color-white, $color-white) padding-box,
+                  linear-gradient(135deg, $color-green, lighten($color-green, 15%)) border-box;
+
+      :deep(svg) {
+        color: $color-green;
+      }
+    }
+  }
+
+  &__title {
+    color: $color-text-main;
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 100%;
+
+    @include tablet {
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+  }
+
+  &__description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+
+    @include tablet {
+      font-size: 15px;
+    }
+  }
+}

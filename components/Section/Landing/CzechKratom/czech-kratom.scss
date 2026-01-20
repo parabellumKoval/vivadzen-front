@@ -1,0 +1,187 @@
+.czech-kratom {
+  position: relative;
+  padding: 6rem 2rem;
+  background-color: #000;
+
+  &__bg-image {
+    height: auto;
+    object-fit: cover;
+
+    &-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+
+      &:before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        bottom: 0;
+        background: rgba(#000, 0.8);
+        z-index: 1;
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        height: 700px;
+        width: 100%;
+        bottom: 0;
+        background: linear-gradient(to bottom, transparent, #000);
+        z-index: 2;
+      }
+    }
+  }
+
+  &__header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 10;
+  }
+
+  &__title {
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: $color-green;
+
+    @media (max-width: 768px) {
+      font-size: 1.875rem;
+    }
+  }
+
+  &__description {
+    font-size: 1.0625rem;
+    color: $color-6;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__grid {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    border-radius: 30px;
+    overflow: hidden;
+    z-index: 10;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    @media (max-width: 2000px) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__product {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #6b7280;
+    font-size: 1.0625rem;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__load-more {
+    min-width: 16rem;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      min-width: auto;
+    }
+  }
+}
+
+.czech-kratom-catalog {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    max-width: 64rem;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+  }
+
+  &__text {
+    flex: 1;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1f2937;
+    line-height: 1.3;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  &__description {
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+    }
+  }
+
+  &__button {
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+}

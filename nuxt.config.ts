@@ -158,7 +158,32 @@ export default defineNuxtConfig({
     resolve: { preserveSymlinks: false },
   },
 
-  modules: [['./modules/auth-bridge', {
+  svgo: {
+    defaultImport: 'component',
+    svgoConfig: {
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              removeViewBox: false,
+              cleanupIds: false,
+            },
+          },
+        },
+        {
+          name: 'removeAttrs',
+          params: {
+            attrs: [],
+          },
+        },
+      ],
+    },
+  },
+
+  modules: [
+    'nuxt-svgo',
+    ['./modules/auth-bridge', {
     tokenCookieName: 'auth_token',
     endpoints: {
       me: '/auth/me',

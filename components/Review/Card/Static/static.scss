@@ -1,0 +1,80 @@
+.review-card-static {
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 1rem;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 5px 15px rgba(15, 23, 42, 0.05);
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__name {
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  &__date {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  &__flag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border-radius: 999px;
+    padding: 0.25rem 0.6rem;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+  }
+
+  &__verified {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: #047857;
+  }
+
+  &__text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #1f2937;
+  }
+
+  &__adv {
+    background: #f7f8fa;
+    padding: 0.6rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+  }
+}

@@ -8,7 +8,6 @@ definePageMeta({
 const runtimeConfig = useRuntimeConfig()
 const {get, all} = useSettings()
 const {user} = useAuth()
-console.log('user', user)
 
 const balance = computed(() => {
   return user.value?.balance || 0

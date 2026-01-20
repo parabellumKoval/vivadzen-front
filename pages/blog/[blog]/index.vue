@@ -4,13 +4,11 @@ import {useArticleStore} from '~/store/article'
 const {t, locale} = useI18n()
 const {region} = useRegion()
 const route = useRoute()
-const { $regionPath } = useNuxtApp()
 
 const html = ref(null)
 
 const tableOfContents = ref([])
 const article = ref(null)
-const articles = ref([])
 
 const breadcrumbs = ref(null)
 
@@ -29,32 +27,19 @@ const slug = computed(() => {
   return route.params.blog
 })
 
-const getBlogRedirectPath = () => (typeof $regionPath === 'function' ? $regionPath('/blog') : '/blog')
-
-const redirectToBlogList = async () => {
-  const target = getBlogRedirectPath()
-  if (process.server) {
-    return await navigateTo(target, { redirectCode: 302 })
-  }
-
-  return navigateTo(target, { replace: true })
-}
-
 const handleArticleError = async (err) => {
   if (!err) {
     return
   }
 
-  const statusCode = err.statusCode || err.status || err?.response?.status || 404
-
-  if (statusCode === 404) {
-    await redirectToBlogList()
-    return
-  }
+  // FetchError from ofetch has statusCode directly, or in response.status
+  const statusCode = err.statusCode || err.status || err?.response?.status || err?.data?.statusCode || 404
+  const statusMessage = err.statusMessage || err.message || err?.data?.message || 'Article Not Found'
 
   const payload = {
     statusCode,
-    statusMessage: err.statusMessage || err.message || 'Article Not Found',
+    // Add [article] prefix to identify article errors in error.vue
+    statusMessage: `[article] ${statusMessage}`,
     fatal: true
   }
 

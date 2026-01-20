@@ -24,17 +24,60 @@ const formatNumber = (value: number | string) => {
   return value
 }
 
+// Resolve reward data from settings (same approach as ReviewReward component)
+const resolveReward = (kind: 'text' | 'video') => {
+  const baseKey = `profile.referrals.triggers.review.published.${kind}`
+  const settings = get(baseKey) || {}
+  const enabled = settings?.enabled ?? true
+  const amountSource = settings?.actor_award?.amount ?? get(`${baseKey}.actor_award.amount`)
+  const amount = Number(amountSource ?? 0)
+  const payoutCurrency = settings?.payout_currency ?? get(`${baseKey}.payout_currency`)
+
+  return {
+    kind,
+    enabled,
+    amount,
+    currency: payoutCurrency
+  }
+}
+
+// Get referral levels from settings (same approach as account-network-common)
+const referralLevels = computed(() => {
+  return get('profile.referrals.triggers.store.order_paid.levels') || []
+})
+
+// Calculate max referral percent from levels
+const referralMaxPercent = computed(() => {
+  const levels = referralLevels.value
+  if (!levels.length) return '10%'
+  const maxValue = Math.max(...levels.map((l: any) => Number(l?.value) || 0))
+  return `${maxValue}%`
+})
+
+// Format referral levels for display (e.g., "level1: 10%, level2: 5%")
+const referralLevelPercents = computed(() => {
+  const levels = referralLevels.value
+  const result: Record<string, string> = {}
+  levels.forEach((l: any, index: number) => {
+    result[`level${index + 1}`] = `${l?.value || 0}%`
+  })
+  return result
+})
+
+const videoReward = computed(() => resolveReward('video'))
+const textReward = computed(() => resolveReward('text'))
+
 const settingsValues = computed(() => ({
   registerLabel: get('profile.auth.cta.register', 'зарегистрируйтесь'),
   registerLink: get('profile.auth.links.register', '/auth/register'),
   accountLabel: get('profile.account.label', 'Личный Кабинет'),
   accountLink: get('profile.account.link', '/account'),
-  videoReward: Number(get('profile.reviews.reward.video.points', 500)),
-  textReward: Number(get('profile.reviews.reward.text.points', 200)),
-  referralMaxPercent: get('profile.referrals.reward.max_percent', '10%'),
-  referralLevel1: get('profile.referrals.reward.level1', '10%'),
-  referralLevel2: get('profile.referrals.reward.level2', '5%'),
-  referralLevel3: get('profile.referrals.reward.level3', '3%'),
+  videoReward: videoReward.value.amount,
+  textReward: textReward.value.amount,
+  referralMaxPercent: referralMaxPercent.value,
+  referralLevel1: referralLevelPercents.value.level1 || '10%',
+  referralLevel2: referralLevelPercents.value.level2 || '5%',
+  referralLevel3: referralLevelPercents.value.level3 || '3%',
   referralRulesLink: get('profile.referrals.rules.link', '/account/network'),
   referralRulesLabel: get('profile.referrals.rules.label', pageData?.earn?.methods?.find((m: any) => m.key === 'referral')?.link_label || 'Подробнее о правилах Реферальной программы'),
   moderationHours: get('profile.reviews.moderation.hours', 24),
@@ -52,19 +95,29 @@ const settingsValues = computed(() => ({
   ].filter(Boolean)
 }))
 
-const genericReplacements = computed(() => ({
-  register: settingsValues.value.registerLabel,
-  account: settingsValues.value.accountLabel,
-  hours: settingsValues.value.moderationHours,
-  rate: settingsValues.value.conversionRateLabel,
-  minWithdraw: formatNumber(settingsValues.value.minWithdraw),
-  processingDays: settingsValues.value.processingDays,
-  expirationDays: settingsValues.value.expirationDays,
-  maxPercent: settingsValues.value.maxPaymentPercent,
-  level1: settingsValues.value.referralLevel1,
-  level2: settingsValues.value.referralLevel2,
-  level3: settingsValues.value.referralLevel3
-}))
+const genericReplacements = computed(() => {
+  // Add dynamic referral level replacements
+  const levelReplacements: Record<string, string> = {}
+  referralLevels.value.forEach((l: any, index: number) => {
+    levelReplacements[`level${index + 1}`] = `${l?.value || 0}%`
+  })
+
+  return {
+    register: settingsValues.value.registerLabel,
+    account: settingsValues.value.accountLabel,
+    hours: settingsValues.value.moderationHours,
+    rate: settingsValues.value.conversionRateLabel,
+    minWithdraw: formatNumber(settingsValues.value.minWithdraw),
+    processingDays: settingsValues.value.processingDays,
+    expirationDays: settingsValues.value.expirationDays,
+    maxPercent: settingsValues.value.maxPaymentPercent,
+    // Fallback to default values if no levels configured
+    level1: levelReplacements.level1 || settingsValues.value.referralLevel1,
+    level2: levelReplacements.level2 || settingsValues.value.referralLevel2,
+    level3: levelReplacements.level3 || settingsValues.value.referralLevel3,
+    ...levelReplacements
+  }
+})
 
 const replaceTokens = (text?: string, extra: Record<string, string | number> = {}) => {
   if (!text) return ''
@@ -112,10 +165,10 @@ const earnMethods = computed(() => {
   return pageData.earn.methods.map((method: any) => {
     const extra: Record<string, string> = {}
     if (method.key === 'video') {
-      extra.amount = formatNumber(settingsValues.value.videoReward)
+      extra.amount = String(formatNumber(settingsValues.value.videoReward))
     }
     if (method.key === 'text') {
-      extra.amount = formatNumber(settingsValues.value.textReward)
+      extra.amount = String(formatNumber(settingsValues.value.textReward))
     }
     if (method.key === 'referral') {
       extra.maxPercent = settingsValues.value.referralMaxPercent

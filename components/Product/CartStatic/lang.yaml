@@ -1,0 +1,30 @@
+ru:
+  label:
+    available: "Доступно"
+    offline_store: "в offline store"
+  button_reviews: "Смотреть отзывы"
+uk:
+  label:
+    available: "Доступно"
+    offline_store: "в offline магазині"
+  button_reviews: "Переглянути відгуки"
+en:
+  label:
+    available: "Available"
+    offline_store: "in offline store"
+  button_reviews: "See reviews"
+de:
+  label:
+    available: "Verfügbar"
+    offline_store: "im Offline-Store"
+  button_reviews: "Bewertungen ansehen"
+es:
+  label:
+    available: "Disponible"
+    offline_store: "en tienda offline"
+  button_reviews: "Ver reseñas"
+cs:
+  label:
+    available: "Dostupné"
+    offline_store: "v offline obchodě"
+  button_reviews: "Zobrazit recenze"

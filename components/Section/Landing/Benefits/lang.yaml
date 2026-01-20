@@ -1,0 +1,107 @@
+ru:
+  title: "Почему Vivadzen — это больше, чем просто магазин"
+  subtitle: "Мы ценим живое сообщество. Рекомендации, партнерство и личные контакты у нас работают как онлайн, так и офлайн."
+  benefits:
+    referral:
+      title: "Реферальная программа"
+      description: "Офлайн- и онлайн-реферальная программа. Рекомендуйте магазин другим и получайте бонусы и преимущества."
+    communication:
+      title: "Живое общение"
+      description: "Индивидуальный подход. Задавайте вопросы, получайте честный совет и понимайте ассортимент."
+    price:
+      title: "Лучшие цены"
+      description: "Прямые поставки и социальная бизнес-модель позволяют нам поддерживать конкурентоспособные цены без ущерба для качества."
+    consultation:
+      title: "Консультации"
+      description: "Консультации, которые действительно помогут вам понять продукт. Мы с удовольствием ответим на все ваши вопросы."
+    selection:
+      title: "Широкий выбор"
+      description: "Различные сорта кратома: белые, зеленые, красные и золотые варианты. Порошок, измельченный лист или капсулы."
+    bonus:
+      title: "Бонусная система"
+      description: "Наша реферальная программа доступна для всех клиентов как онлайн, так и офлайн."
+  cta:
+    title: "Присоединяйтесь к нашей программе лояльности"
+    description: "Получайте преимущества и бонусы за рекомендации. Наши менеджеры с удовольствием ознакомят вас с подробностями."
+    button: "Узнать больше о программе"
+
+en:
+  title: "Why Vivadzen is more than just a store"
+  subtitle: "We value a living community. Recommendations, partnerships, and personal contacts work for us both online and offline."
+  benefits:
+    referral:
+      title: "Referral Program"
+      description: "Offline and online referral program. Recommend our store to others and receive bonuses and benefits."
+    communication:
+      title: "Live Communication"
+      description: "Individual approach. Ask questions, get honest advice, and understand our assortment."
+    price:
+      title: "Best Prices"
+      description: "Direct supplies and a social business model allow us to maintain competitive prices without compromising on quality."
+    consultation:
+      title: "Consultations"
+      description: "Consultations that really help you understand the product. We are happy to answer all your questions."
+    selection:
+      title: "Wide Selection"
+      description: "Various kratom varieties: white, green, red, and golden options. Powder, crushed leaf, or capsules."
+    bonus:
+      title: "Bonus System"
+      description: "Our referral program is available to all customers both online and offline."
+  cta:
+    title: "Join our loyalty program"
+    description: "Get benefits and bonuses for recommendations. Our managers will be happy to introduce you to the details."
+    button: "Learn more about the program"
+
+cs:
+  title: "Proč je Vivadzen více než jen obchod"
+  subtitle: "Ceníme si živé komunity. Doporučení, partnerství a osobní kontakty fungují u nás jak online, tak offline."
+  benefits:
+    referral:
+      title: "Referenční program"
+      description: "Offline a online referenční program. Doporučte náš obchod ostatním a získejte bonusy a výhody."
+    communication:
+      title: "Živá komunikace"
+      description: "Individuální přístup. Pokládejte otázky, získejte upřímný porad a pochopte naši nabídku."
+    price:
+      title: "Nejlepší ceny"
+      description: "Přímé dodávky a sociální obchodní model nám umožňují udržovat konkurenceschopné ceny bez ztráty kvality."
+    consultation:
+      title: "Konzultace"
+      description: "Konzultace, které vám skutečně pomohou pochopit produkt. Rádi odpovíme na všechny vaše otázky."
+    selection:
+      title: "Bohatý výběr"
+      description: "Různé odrůdy kratomu: bílé, zelené, červené a zlaté varianty. Prášek, smlskaný list nebo kapsle."
+    bonus:
+      title: "Bonusový systém"
+      description: "Náš referenční program je dostupný všem zákazníkům, jak online, tak offline."
+  cta:
+    title: "Přidejte se k našemu programu věrnosti"
+    description: "Získejte výhody a bonusy za doporučení. Naši manažeři se budou rádi podílet na podrobnostech."
+    button: "Zjistěte více o programu"
+
+uk:
+  title: "Чому Vivadzen — це більше, ніж просто магазин"
+  subtitle: "Ми цінуємо живу спільноту. Рекомендації, партнерство та особисті контакти працюють у нас як онлайн, так і офлайн."
+  benefits:
+    referral:
+      title: "Реферальна програма"
+      description: "Офлайн- та онлайн-реферальна програма. Рекомендуйте наш магазин іншим і отримуйте бонуси та переваги."
+    communication:
+      title: "Живе спілкування"
+      description: "Індивідуальний підхід. Задавайте питання, отримуйте чесну пораду та розумійте наш асортимент."
+    price:
+      title: "Найкращі ціни"
+      description: "Прямі поставки та соціальна бізнес-модель дозволяють нам підтримувати конкурентні ціни без шкоди якості."
+    consultation:
+      title: "Консультації"
+      description: "Консультації, що справді допоможуть вам зрозуміти продукт. Ми з задоволенням відповімо на всі ваші запитання."
+    selection:
+      title: "Широкий вибір"
+      description: "Різні сорти крейтому: білі, зелені, червоні та золоті варіанти. Порошок, подрібнене листя або капсули."
+    bonus:
+      title: "Бонусна система"
+      description: "Наша реферальна програма доступна всім клієнтам як онлайн, так і офлайн."
+  cta:
+    title: "Приєднайтесь до нашої програми лояльності"
+    description: "Отримуйте переваги та бонуси за рекомендації. Наші менеджери з задоволенням ознайомлять вас з подробицями."
+    button: "Дізнайтеся більше про програму"

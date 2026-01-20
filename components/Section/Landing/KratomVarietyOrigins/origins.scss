@@ -1,0 +1,222 @@
+.kratom-regions-section {
+  background: #f0e1ca;
+  padding: 100px 0;
+}
+
+.header-card {
+  position: relative;
+  flex-shrink: 0;
+  width: 500px;
+  border-radius: 30px;
+  padding: 50px;
+
+  &__title {
+    position: relative;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+    color: $color-text;
+    z-index: 2;
+  }
+
+  &__img {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 0 0 5px;
+    width: 120%;
+    max-width: initial;
+    // height: 530px;
+    height: 645px;
+    object-fit: cover;
+    object-position: center top;
+    // bottom: -50%;
+    bottom: -74%;
+  }
+}
+
+.origins-ribbon {
+  display: flex;
+  align-items: stretch;
+  gap: 30px;
+  // overflow: hidden;
+  border-radius: 30px;
+  padding: 30px;
+  position: relative;
+  flex-wrap: nowrap;
+  --overlap: 0px;
+}
+
+.origin-card {
+  position: relative;
+  // background: rgba(255, 255, 255, 1);
+  // border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 30px;
+  box-shadow: -20px 0 25px rgba(0, 0, 0, 0.07);
+  background: var(--bg-color);
+  // scroll-snap-align: start;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease, border-color 0.3s ease, margin 0.3s ease, background 0.3s ease;
+  z-index: 1;
+  cursor: pointer;
+  color: $color-text;
+
+  &.active {
+    background: $color-8;
+    box-shadow: none;
+
+    .origin-card__specs {
+      width: 300px;
+      opacity: 1;
+      padding: 30px;
+
+      .spec-pill {
+        display: flex;
+        width: 300px;
+      }
+    }
+
+    .origin-card__title {
+      color: #206556;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    height: 300px;
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__title {
+    position: relative;
+    margin: 0 0 20px 0;
+    left: 0;
+    width: 100%;
+    // padding: 0 24px;
+    text-align: left;
+    // letter-spacing: 5.5px;
+    line-height: 100%;
+    font-family: 'OneSt';
+    color: var(--color);
+    z-index: 2;
+    transition: color 0.3s ease;
+
+    .big {
+      font-size: 45px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 100%;
+    }
+
+    .same {
+      font-weight: 900;
+      line-height: 100%;
+      // color: rgba(#000, 0.4);
+      color: rgba(87, 74, 56, 0.8);
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+    overflow: hidden;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: 15px;
+    color: rgba($color-text, 0.65);
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  &__media {
+    border-radius: 30px;
+    width: 300px;
+    height: 300px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    > * {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 30px;
+    }
+
+    video {
+      display: block;
+    }
+  }
+
+
+  &__specs {
+    width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transition: width 0.6s ease, opacity 0.6s ease, padding 0.6s ease;
+    padding: 0;
+  }
+}
+
+.spec-pill {
+  width: 0;
+  display: none;
+  border-top: 1px solid rgba($color-text, 0.12);
+  padding: 15px 0;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  transition: width 0.3s ease;
+
+  &__label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba($color-text, 0.6);
+  }
+
+  &__value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $color-text;
+  }
+}
+
+.origins-ribbon.is-overflowing .origin-card + .origin-card {
+  margin-left: calc(var(--overlap) * -1);
+}
+
+.media-switch-enter-active,
+.media-switch-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.media-switch-enter-from,
+.media-switch-leave-to {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .origins-ribbon {
+    flex-wrap: nowrap;
+  }
+}

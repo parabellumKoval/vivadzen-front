@@ -1,0 +1,59 @@
+ru:
+  banner:
+    label: Лицензированный продавец в Чехии
+    title: Где купить кратом в Чехии?
+    description: Легальный и регулируемый рынок кратома в Чешской Республике. Прозрачность, качество и безопасность — наши главные приоритеты.
+    btn_shop: Наш магазин
+    btn_catalog: Ассортимент товаров
+    bg_alt: Фоновое изображение баннера
+    main_alt: Основное изображение баннера
+
+en:
+  banner:
+    label: Licensed seller in Czech Republic
+    title: Where to buy kratom in Czech Republic?
+    description: Legal and regulated kratom market in the Czech Republic. Transparency, quality and safety are our main priorities.
+    btn_shop: Our store
+    btn_catalog: Product assortment
+    bg_alt: Banner background image
+    main_alt: Banner main image
+
+cs:
+  banner:
+    label: Licencovaný prodejce v České republice
+    title: Kde koupit kratom v České republice?
+    description: Legální a regulovaný trh s kratomem v České republice. Transparentnost, kvalita a bezpečnost jsou naší hlavní prioritou.
+    btn_shop: Náš obchod
+    btn_catalog: Sortiment zboží
+    bg_alt: Obrázek na pozadí banneru
+    main_alt: Hlavní obrázek banneru
+
+de:
+  banner:
+    label: Lizenzierter Verkäufer in der Tschechischen Republik
+    title: Wo kann man Kratom in der Tschechischen Republik kaufen?
+    description: Legaler und regulierter Kratom-Markt in der Tschechischen Republik. Transparenz, Qualität und Sicherheit sind unsere Hauptprioritäten.
+    btn_shop: Unser Geschäft
+    btn_catalog: Produktauswahl
+    bg_alt: Bannerhintergrundbild
+    main_alt: Banner-Hauptbild
+
+es:
+  banner:
+    label: Vendedor autorizado en la República Checa
+    title: ¿Dónde comprar kratom en la República Checa?
+    description: Mercado legal y regulado de kratom en la República Checa. La transparencia, la calidad y la seguridad son nuestras principales prioridades.
+    btn_shop: Nuestra tienda
+    btn_catalog: Surtido de productos
+    bg_alt: Imagen de fondo del banner
+    main_alt: Imagen principal del banner
+
+uk:
+  banner:
+    label: Ліцензований продавець у Чеській Республіці
+    title: Де купити кратом у Чеській Республіці?
+    description: Легальний та регульований ринок кратому в Чеській Республіці. Прозорість, якість та безпека — наші головні пріоритети.
+    btn_shop: Наш магазин
+    btn_catalog: Асортимент товарів
+    bg_alt: Фонове зображення банера
+    main_alt: Основне зображення банера

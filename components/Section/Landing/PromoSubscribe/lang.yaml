@@ -1,0 +1,20 @@
+cs:
+  title: "Získejte -15% na první nákup v prodejně"
+  description: "Zadejte svůj e-mail a pošleme vám promo kód -15% na celý sortiment kratom. Při nákupu v prodejně ho sdělte prodejci."
+  placeholder: "Váš e-mail"
+  button: "Získat slevu"
+  success: "Super! Promo kód jsme odeslali na váš e-mail."
+
+en:
+  title: "Get -15% on your first in-store purchase"
+  description: "Enter your email and we'll send you a promo code for -15% off our entire kratom selection. Just mention the code to the seller when making your purchase."
+  placeholder: "Your email"
+  button: "Get discount"
+  success: "Great! We've sent the promo code to your email."
+
+ru:
+  title: "Получите -15% на первую покупку в магазине"
+  description: "Введите email и мы отправим вам промокод -15% на весь ассортимент кратома. Назовите промокод продавцу при покупке."
+  placeholder: "Ваш email"
+  button: "Получить скидку"
+  success: "Отлично! Промокод отправлен на ваш email."

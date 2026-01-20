@@ -1,0 +1,46 @@
+<svg viewBox="-20 -20 440 440" xmlns="http://www.w3.org/2000/svg">
+  <!-- Star-like kratom flower with pointed petals -->
+  <g fill="#E8DCC4">
+    <!-- 12 pointed petals -->
+    <polygon points="200,20 215,120 200,100 185,120" />
+    <polygon points="200,380 215,280 200,300 185,280" />
+    <polygon points="20,200 120,185 100,200 120,215" />
+    <polygon points="380,200 280,185 300,200 280,215" />
+    <!-- Diagonal petals -->
+    <polygon points="65,65 140,120 120,140 120,140" transform="rotate(0 200 200)" />
+    <polygon points="335,65 260,120 280,140 280,140" transform="rotate(0 200 200)" />
+    <polygon points="65,335 140,280 120,260" />
+    <polygon points="335,335 260,280 280,260" />
+    <!-- Additional mid petals -->
+    <ellipse cx="200" cy="50" rx="30" ry="60" />
+    <ellipse cx="200" cy="350" rx="30" ry="60" />
+    <ellipse cx="50" cy="200" rx="60" ry="30" />
+    <ellipse cx="350" cy="200" rx="60" ry="30" />
+    <!-- Diagonal ellipse petals -->
+    <ellipse cx="306" cy="94" rx="25" ry="55" transform="rotate(45 306 94)" />
+    <ellipse cx="94" cy="306" rx="25" ry="55" transform="rotate(45 94 306)" />
+    <ellipse cx="306" cy="306" rx="25" ry="55" transform="rotate(-45 306 306)" />
+    <ellipse cx="94" cy="94" rx="25" ry="55" transform="rotate(-45 94 94)" />
+  </g>
+  <!-- Inner cutouts for petal veins -->
+  <g fill="#FAF7F0">
+    <ellipse cx="200" cy="80" rx="8" ry="30" />
+    <ellipse cx="200" cy="320" rx="8" ry="30" />
+    <ellipse cx="80" cy="200" rx="30" ry="8" />
+    <ellipse cx="320" cy="200" rx="30" ry="8" />
+    <!-- Diagonal veins -->
+    <ellipse cx="280" cy="120" rx="6" ry="25" transform="rotate(45 280 120)" />
+    <ellipse cx="120" cy="280" rx="6" ry="25" transform="rotate(45 120 280)" />
+    <ellipse cx="280" cy="280" rx="6" ry="25" transform="rotate(-45 280 280)" />
+    <ellipse cx="120" cy="120" rx="6" ry="25" transform="rotate(-45 120 120)" />
+  </g>
+  <!-- Center -->
+  <circle cx="200" cy="200" r="45" fill="#E8DCC4" />
+  <circle cx="200" cy="200" r="30" fill="#FAF7F0" />
+  <!-- Inner ring of small circles -->
+  <circle cx="200" cy="175" r="5" fill="#E8DCC4" />
+  <circle cx="200" cy="225" r="5" fill="#E8DCC4" />
+  <circle cx="175" cy="200" r="5" fill="#E8DCC4" />
+  <circle cx="225" cy="200" r="5" fill="#E8DCC4" />
+  <circle cx="200" cy="200" r="10" fill="#E8DCC4" />
+</svg>

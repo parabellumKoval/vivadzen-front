@@ -1,0 +1,24 @@
+ru:
+  title: "Отзывы о товаре"
+  loading: "Загрузка отзывов..."
+  no_reviews: "Пока нет отзывов"
+uk:
+  title: "Відгуки про товар"
+  loading: "Завантаження відгуків..."
+  no_reviews: "Поки немає відгуків"
+en:
+  title: "Product reviews"
+  loading: "Loading reviews..."
+  no_reviews: "No reviews yet"
+de:
+  title: "Produktbewertungen"
+  loading: "Bewertungen werden geladen..."
+  no_reviews: "Noch keine Bewertungen"
+es:
+  title: "Reseñas del producto"
+  loading: "Cargando reseñas..."
+  no_reviews: "Aún no hay reseñas"
+cs:
+  title: "Recenze produktu"
+  loading: "Načítání recenzí..."
+  no_reviews: "Zatím žádné recenze"

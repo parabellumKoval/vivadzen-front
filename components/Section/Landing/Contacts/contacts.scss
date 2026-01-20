@@ -1,0 +1,290 @@
+.contacts-section {
+  padding: 6rem 2rem;
+  background-color: #ffffff;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  &__title {
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: #1f2937;
+
+    @media (max-width: 768px) {
+      font-size: 1.875rem;
+    }
+  }
+
+  &__description {
+    font-size: 1.0625rem;
+    color: #6b7280;
+    max-width: 48rem;
+    margin: 0 auto;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+    }
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  &__map-wrapper {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    aspect-ratio: 16 / 9;
+
+    @media (max-width: 1024px) {
+      order: 2;
+    }
+  }
+
+  &__map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    @media (max-width: 1024px) {
+      order: 1;
+    }
+  }
+}
+
+.contacts-info-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #f0fdfa 100%);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid #d1fae5;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #1f2937;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.contact-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+
+  &__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__value {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.5;
+  }
+
+  &--address {
+    .contact-item__icon {
+      background-color: #d1fae5;
+      color: #059669;
+    }
+
+    .contact-item__label {
+      color: #047857;
+    }
+  }
+
+  &--phone {
+    .contact-item__icon {
+      background-color: #dbeafe;
+      color: #0284c7;
+    }
+
+    .contact-item__label {
+      color: #0369a1;
+    }
+  }
+
+  &--email {
+    .contact-item__icon {
+      background-color: #e9d5ff;
+      color: #9333ea;
+    }
+
+    .contact-item__label {
+      color: #7e22ce;
+    }
+  }
+
+  &--schedule {
+    .contact-item__icon {
+      background-color: #fed7aa;
+      color: #b45309;
+    }
+
+    .contact-item__label {
+      color: #92400e;
+    }
+  }
+}
+
+.contacts-social-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #1f2937;
+  }
+
+  &__list {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: #ffffff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+    .social-link__icon {
+      transform: scale(1.1);
+    }
+
+    .social-link__text {
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  &__text {
+    position: absolute;
+    bottom: -1.5rem;
+    font-size: 0.625rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  &--telegram {
+    background: linear-gradient(135deg, #0088cc 0%, #0077b5 100%);
+
+    &:hover {
+      background: linear-gradient(135deg, #0077b5 0%, #0066a1 100%);
+    }
+  }
+
+  &--viber {
+    background: linear-gradient(135deg, #7d3c98 0%, #6b2f8a 100%);
+
+    &:hover {
+      background: linear-gradient(135deg, #6b2f8a 0%, #5a267c 100%);
+    }
+  }
+
+  &--whatsapp {
+    background: linear-gradient(135deg, #25d366 0%, #20c655 100%);
+
+    &:hover {
+      background: linear-gradient(135deg, #20c655 0%, #1bb34d 100%);
+    }
+  }
+
+  &--instagram {
+    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 100%);
+
+    &:hover {
+      background: linear-gradient(135deg, #dd2a7b 0%, #c2185b 100%);
+    }
+  }
+
+  &--facebook {
+    background: linear-gradient(135deg, #1877f2 0%, #0a66c2 100%);
+
+    &:hover {
+      background: linear-gradient(135deg, #0a66c2 0%, #054a99 100%);
+    }
+  }
+
+  &--youtube {
+    background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+
+    &:hover {
+      background: linear-gradient(135deg, #cc0000 0%, #990000 100%);
+    }
+  }
+}

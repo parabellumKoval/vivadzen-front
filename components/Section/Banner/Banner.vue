@@ -1,9 +1,13 @@
 <script setup>
-import SectionBannerItemsItem1 from '~/components/Section/Banner/Items/Item1/Item1.vue'
+// import SectionBannerItemsItem1 from '~/components/Section/Banner/Items/Item1/Item1.vue'
 import SectionBannerItemsItem2 from '~/components/Section/Banner/Items/Item2/Item2.vue'
-import SectionBannerItemsItem3 from '~/components/Section/Banner/Items/Item3/Item3.vue'
+// import SectionBannerItemsItem3 from '~/components/Section/Banner/Items/Item3/Item3.vue'
 
-const slides = [SectionBannerItemsItem3, SectionBannerItemsItem1, SectionBannerItemsItem2]
+const slides = [
+  // SectionBannerItemsItem3, 
+  SectionBannerItemsItem1, 
+  // SectionBannerItemsItem2
+]
 const hasMultipleSlides = slides.length > 1
 </script>
 

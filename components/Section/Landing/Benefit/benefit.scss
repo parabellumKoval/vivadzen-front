@@ -1,0 +1,223 @@
+.benefits-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%);
+
+  &__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  &__title {
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: #1f2937;
+
+    @media (max-width: 768px) {
+      font-size: 1.875rem;
+    }
+  }
+
+  &__description {
+    font-size: 1.0625rem;
+    color: #6b7280;
+    max-width: 48rem;
+    margin: 0 auto;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+.benefit-item {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: #d1fae5;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 0.75rem;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+
+    .benefit-item:hover & {
+      transform: scale(1.1);
+    }
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #1f2937;
+  }
+
+  &__description {
+    font-size: 0.9375rem;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  // Color variations
+  &--referral {
+    .benefit-item__icon {
+      background-color: #d1fae5;
+      color: #059669;
+    }
+
+    .benefit-item__title {
+      color: #047857;
+    }
+  }
+
+  &--communication {
+    .benefit-item__icon {
+      background-color: #fce7f3;
+      color: #be185d;
+    }
+
+    .benefit-item__title {
+      color: #9d174d;
+    }
+  }
+
+  &--price {
+    .benefit-item__icon {
+      background-color: #dbeafe;
+      color: #0284c7;
+    }
+
+    .benefit-item__title {
+      color: #0369a1;
+    }
+  }
+
+  &--consultation {
+    .benefit-item__icon {
+      background-color: #e9d5ff;
+      color: #9333ea;
+    }
+
+    .benefit-item__title {
+      color: #7e22ce;
+    }
+  }
+
+  &--selection {
+    .benefit-item__icon {
+      background-color: #fed7aa;
+      color: #b45309;
+    }
+
+    .benefit-item__title {
+      color: #92400e;
+    }
+  }
+
+  &--bonus {
+    .benefit-item__icon {
+      background-color: #ccfbf1;
+      color: #0d9488;
+    }
+
+    .benefit-item__title {
+      color: #115e59;
+    }
+  }
+}
+
+.benefits-cta {
+  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+  padding: 3rem 2rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  color: #ffffff;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #ffffff;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    max-width: 32rem;
+    margin-left: auto;
+    margin-right: auto;
+    color: #d1fae5;
+    line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.9375rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__button {
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    color: #10b981;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f0fdf4;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.9375rem;
+    }
+  }
+}

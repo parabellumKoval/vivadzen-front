@@ -17,8 +17,8 @@ export const useArticleStore = defineStore('articleStore', {
           return data.value
         }
 
-        if(error)
-          throw error
+        if(error.value)
+          throw error.value
       })
     },
 
@@ -30,8 +30,8 @@ export const useArticleStore = defineStore('articleStore', {
           return data.value
         }
 
-        if(error)
-          throw error
+        if(error.value)
+          throw error.value
       })
     },
   },
