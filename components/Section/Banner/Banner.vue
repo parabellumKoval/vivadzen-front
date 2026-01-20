@@ -1,6 +1,6 @@
 <script setup>
-// import SectionBannerItemsItem1 from '~/components/Section/Banner/Items/Item1/Item1.vue'
-import SectionBannerItemsItem2 from '~/components/Section/Banner/Items/Item2/Item2.vue'
+import SectionBannerItemsItem1 from '~/components/Section/Banner/Items/Item1/Item1.vue'
+// import SectionBannerItemsItem2 from '~/components/Section/Banner/Items/Item2/Item2.vue'
 // import SectionBannerItemsItem3 from '~/components/Section/Banner/Items/Item3/Item3.vue'
 
 const slides = [
