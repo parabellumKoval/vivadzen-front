@@ -124,7 +124,7 @@ const hoverHandler = (index) => {
 const originConfigs = [
   {
     key: 'maengda',
-    video: '/video/regions/Maengda.mp4',
+    video: '/video/regions/maengda.mp4',
     img: '/images/landing/regions/maengda.png',
     bgColor: '#fdf9d0',
     color: '#e39c0f'
