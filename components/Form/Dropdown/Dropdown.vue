@@ -40,6 +40,10 @@ const props = defineProps({
   required: {
     type: Boolean,
     default: false
+  },
+  showOnEmpty: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -51,7 +55,7 @@ const emit = defineEmits([
 const inputElement = ref(null)
 const isActive = ref(false)
 const selectedValue = ref(null)
-const inputLag = ref(false)
+const isEditing = ref(false)
 const listRef = ref()
 const ignoreElRef = ref()
 
@@ -64,7 +68,18 @@ const isListActive = computed(() => {
   //   return isActive.value
 })
 
+const isListVisible = computed(() => {
+  if (!isListActive.value) return false
+  const hasSearch = !!props.searchValue && props.searchValue.length > 0
+  if (hasSearch) return true
+  return props.showOnEmpty && props.values && props.values.length > 0
+})
+
 const searchOrModalValue = computed(() => {
+  if (isEditing.value) {
+    return props.searchValue || ''
+  }
+
   return props.modelValue || props.searchValue
 })
 
@@ -78,24 +93,33 @@ const getItemValue = (index) => {
 
 // HANDLERS
 const updateSearchValueHandler = (value) => {
-  clearTimeout(inputLag.value)
-  inputLag.value = setTimeout(() => {
-    emit('update:searchValue', value)
-  }, 500)
+  if (!props.isDisabled) {
+    isActive.value = true
+  }
+  isEditing.value = true
+  emit('update:searchValue', value)
 }
 
 const selectHandler = (index) => {
+  const selectedItem = props.values?.[index]
+
   if(props.listValue && props.listKey) {
-    emit('update:modelValue', props.values[index][props.listKey])
+    emit('update:modelValue', props.values[index][props.listKey], selectedItem)
   }else {
-    emit('update:modelValue', props.values[index])
+    emit('update:modelValue', props.values[index], selectedItem)
   }
 
+  isEditing.value = false
+  emit('update:searchValue', '')
   closeHandler()
 } 
 
 const blurHandler = () => {
-  setTimeout(() => {closeHandler()}, 100)
+  isEditing.value = false
+  setTimeout(() => {
+    closeHandler()
+    emit('update:searchValue', '')
+  }, 100)
 }
 
 const openHandler = () => {
@@ -142,14 +166,14 @@ watch(() => props.modelValue, (val) => {
     </form-text>
 
     <transition name="move-y">
-      <div v-if="isActive && searchValue?.length > 0" class="list-wrapper" scrollable ref="listRef">
+      <div v-if="isListVisible" class="list-wrapper" scrollable ref="listRef">
         <ul v-if="values && values.length" class="list">
           <li
             v-for="(item, index) in values"
             :key="index"
             class="item"
           >
-            <button @click="selectHandler(index)" clickable class="item-btn">{{ getItemValue(index) }}</button>
+            <button @mousedown.prevent="selectHandler(index)" clickable class="item-btn">{{ getItemValue(index) }}</button>
           </li>
         </ul>
         <div v-else class="no-results">

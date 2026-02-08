@@ -4,6 +4,8 @@ cs:
   placeholder: "Váš e-mail"
   button: "Získat slevu"
   success: "Super! Promo kód jsme odeslali na váš e-mail."
+  badge: "-15%"
+  image_alt: "Vivadzen promo box"
 
 en:
   title: "Get -15% on your first in-store purchase"
@@ -11,6 +13,8 @@ en:
   placeholder: "Your email"
   button: "Get discount"
   success: "Great! We've sent the promo code to your email."
+  badge: "-15%"
+  image_alt: "Vivadzen promo box"
 
 ru:
   title: "Получите -15% на первую покупку в магазине"
@@ -18,3 +22,14 @@ ru:
   placeholder: "Ваш email"
   button: "Получить скидку"
   success: "Отлично! Промокод отправлен на ваш email."
+  badge: "-15%"
+  image_alt: "Промо-бокс Vivadzen"
+
+uk:
+  title: "Отримайте -15% на першу покупку в магазині"
+  description: "Введіть email і ми надішлемо вам промокод -15% на весь асортимент кратому. Назвіть промокод продавцю під час покупки."
+  placeholder: "Ваш email"
+  button: "Отримати знижку"
+  success: "Чудово! Промокод надіслано на ваш email."
+  badge: "-15%"
+  image_alt: "Промо-бокс Vivadzen"

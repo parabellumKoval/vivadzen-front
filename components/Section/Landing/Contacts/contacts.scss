@@ -1,6 +1,15 @@
 .contacts-section {
-  padding: 6rem 2rem;
-  background-color: #ffffff;
+  position: relative;
+  padding: 100px 0;
+  z-index: 20;
+
+  @include mobile {
+    padding: 60px 0;
+  }
+
+  .container {
+    max-width: 1400px;
+  }
 
   &__header {
     text-align: center;
@@ -14,8 +23,8 @@
     line-height: 1.2;
     color: #1f2937;
 
-    @media (max-width: 768px) {
-      font-size: 1.875rem;
+    @include mobile {
+      font-size: 1.75rem;
     }
   }
 
@@ -26,51 +35,63 @@
     margin: 0 auto;
     line-height: 1.6;
 
-    @media (max-width: 768px) {
+    @include mobile {
       font-size: 0.9375rem;
     }
   }
+}
 
-  &__content {
+.photo {
+  &__wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 4rem;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 30px;
+    margin: 0 0 40px 0;
 
-    @media (max-width: 1024px) {
+    @include mobile {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 16px;
     }
   }
 
-  &__map-wrapper {
+  &__item {
+    border-radius: 30px;
+    object-fit: cover;
+
+    &--1 {
+      aspect-ratio: 2/1;
+    }
+
+    &--2,
+    &--3 {
+      aspect-ratio: 1/1;
+    }
+  }
+}
+
+.map {
+  width: 100%;
+  height: 500px;
+  border: none;
+
+  @include mobile {
+    height: 320px;
+  }
+
+  &-wrapper {
     position: relative;
-    border-radius: 1.5rem;
+    border-radius: 40px;
     overflow: hidden;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
-    aspect-ratio: 16 / 9;
+    margin: 0 -20px 0 -20px;
+    width: calc(100% + 40px);
+    border: 20px solid #fff7ed;
 
-    @media (max-width: 1024px) {
-      order: 2;
-    }
-  }
-
-  &__map {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  &__info {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    @media (max-width: 1024px) {
-      order: 1;
+    @include mobile {
+      border-width: 12px;
+      border-radius: 24px;
+      margin: 0;
+      width: 100%;
+      border: 0;
     }
   }
 }
@@ -81,17 +102,20 @@
   border-radius: 1rem;
   border: 1px solid #d1fae5;
 
-  &__title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: #1f2937;
-  }
-
   &__list {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 0 0 50px 0;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 32px;
+      gap: 20px;
+    }
   }
 }
 
@@ -172,119 +196,6 @@
 
     .contact-item__label {
       color: #92400e;
-    }
-  }
-}
-
-.contacts-social-card {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 1rem;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-
-  &__title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: #1f2937;
-  }
-
-  &__list {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-}
-
-.social-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.75rem;
-  color: #ffffff;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-
-    .social-link__icon {
-      transform: scale(1.1);
-    }
-
-    .social-link__text {
-      opacity: 1;
-    }
-  }
-
-  &__icon {
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
-  }
-
-  &__text {
-    position: absolute;
-    bottom: -1.5rem;
-    font-size: 0.625rem;
-    opacity: 0;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-  }
-
-  &--telegram {
-    background: linear-gradient(135deg, #0088cc 0%, #0077b5 100%);
-
-    &:hover {
-      background: linear-gradient(135deg, #0077b5 0%, #0066a1 100%);
-    }
-  }
-
-  &--viber {
-    background: linear-gradient(135deg, #7d3c98 0%, #6b2f8a 100%);
-
-    &:hover {
-      background: linear-gradient(135deg, #6b2f8a 0%, #5a267c 100%);
-    }
-  }
-
-  &--whatsapp {
-    background: linear-gradient(135deg, #25d366 0%, #20c655 100%);
-
-    &:hover {
-      background: linear-gradient(135deg, #20c655 0%, #1bb34d 100%);
-    }
-  }
-
-  &--instagram {
-    background: linear-gradient(135deg, #f58529 0%, #dd2a7b 100%);
-
-    &:hover {
-      background: linear-gradient(135deg, #dd2a7b 0%, #c2185b 100%);
-    }
-  }
-
-  &--facebook {
-    background: linear-gradient(135deg, #1877f2 0%, #0a66c2 100%);
-
-    &:hover {
-      background: linear-gradient(135deg, #0a66c2 0%, #054a99 100%);
-    }
-  }
-
-  &--youtube {
-    background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-
-    &:hover {
-      background: linear-gradient(135deg, #cc0000 0%, #990000 100%);
     }
   }
 }

@@ -1,0 +1,23 @@
+en:
+  subtitle: "Can't decide?"
+  title: "Try our Discovery Set — 5 premium varieties in one"
+  button: "Get Sample Set"
+  product_alt: "Product {id}"
+
+cs:
+  subtitle: "Nemůžete se rozhodnout?"
+  title: "Vyzkoušejte náš Discovery Set — 5 prémiových odrůd v jednom"
+  button: "Získat vzorový set"
+  product_alt: "Produkt {id}"
+
+ru:
+  subtitle: "Не хочешь выбирать?"
+  title: "Попробуй ознакомительный сет из 5 видов кратома"
+  button: "Получить сет"
+  product_alt: "Продукт {id}"
+
+uk:
+  subtitle: "Не хочеш обирати?"
+  title: "Спробуй ознайомчий сет із 5 видів кратому"
+  button: "Отримати сет"
+  product_alt: "Продукт {id}"

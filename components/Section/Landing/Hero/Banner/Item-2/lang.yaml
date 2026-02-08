@@ -1,89 +1,75 @@
 ru:
-  banner_item_2:
-    bg_alt: Фоновое изображение баннера Item-2
-    rating_text: Five Star Rating on Google
-    license_text: Лицензированный продавец в Чехии
-    title: Где купить кратом в Чехии?
-    description: Легальный и регулируемый рынок кратома в Чешской Республике. Прозрачность, качество и безопасность — наши главные приоритеты.
-    btn_catalog: Ассортимент товаров
-    btn_shop: Наш магазин
-    advantages_title: Что означает быть нашим клиентом
-    advantage_1: Прозрачное происхождение продуктов
-    advantage_2: Понятная документация и маркировка
-    advantage_3: Контроль качества на каждом этапе
-    advantage_4: Легальная, устойчивая бизнес-модель
-
-en:
-  banner_item_2:
-    bg_alt: Item-2 banner background image
-    rating_text: Five Star Rating on Google
-    license_text: Licensed seller in Czech Republic
-    title: Where to buy kratom in Czech Republic?
-    description: Legal and regulated kratom market in the Czech Republic. Transparency, quality and safety are our main priorities.
-    btn_catalog: Product assortment
-    btn_shop: Our store
-    advantages_title: What it means to be our customer
-    advantage_1: Transparent product origin
-    advantage_2: Clear documentation and labeling
-    advantage_3: Quality control at every stage
-    advantage_4: Legal, sustainable business model
-
-cs:
-  banner_item_2:
-    bg_alt: Obrázek na pozadí banneru Item-2
-    rating_text: Five Star Rating on Google
-    license_text: Licencovaný prodejce v České republice
-    title: Kde koupit kratom v České republice?
-    description: Legální a regulovaný trh s kratomem v České republice. Transparentnost, kvalita a bezpečnost jsou naší hlavní prioritou.
-    btn_catalog: Sortiment zboží
-    btn_shop: Náš obchod
-    advantages_title: Co znamená být naším zákazníkem
-    advantage_1: Transparentní původ produktů
-    advantage_2: Jasná dokumentace a značení
-    advantage_3: Kontrola kvality v každé fázi
-    advantage_4: Právní a udržitelný obchodní model
-
-de:
-  banner_item_2:
-    bg_alt: Item-2 Banner-Hintergrundbild
-    rating_text: Five Star Rating on Google
-    license_text: Lizenzierter Verkäufer in der Tschechischen Republik
-    title: Wo kann man Kratom in der Tschechischen Republik kaufen?
-    description: Legaler und regulierter Kratom-Markt in der Tschechischen Republik. Transparenz, Qualität und Sicherheit sind unsere Hauptprioritäten.
-    btn_catalog: Produktauswahl
-    btn_shop: Unser Geschäft
-    advantages_title: Was es bedeutet, unser Kunde zu sein
-    advantage_1: Transparente Produktherkunft
-    advantage_2: Klare Dokumentation und Kennzeichnung
-    advantage_3: Qualitätskontrolle in jeder Phase
-    advantage_4: Legales, nachhaltiges Geschäftsmodell
-
-es:
-  banner_item_2:
-    bg_alt: Imagen de fondo del banner Item-2
-    rating_text: Five Star Rating on Google
-    license_text: Vendedor autorizado en la República Checa
-    title: ¿Dónde comprar kratom en la República Checa?
-    description: Mercado legal y regulado de kratom en la República Checa. La transparencia, la calidad y la seguridad son nuestras principales prioridades.
-    btn_catalog: Surtido de productos
-    btn_shop: Nuestra tienda
-    advantages_title: Qué significa ser nuestro cliente
-    advantage_1: Origen transparente del producto
-    advantage_2: Documentación y etiquetado claro
-    advantage_3: Control de calidad en cada etapa
-    advantage_4: Modelo de negocio legal y sostenible
+  header:
+    logo_alt: "Логотип Vivadzen"
+    lang_label: "Выбор языка"
+  nav:
+    label: "Навигация по странице"
+    legal: "Легальный рынок"
+    colors: "Цвета кратома"
+    bonus: "Бонусы"
+    reviews: "Отзывы"
+    contacts: "Контакты"
+  license_logo_alt: "Логотип Vivadzen"
+  license_text: "Лицензированный продавец в Чехии"
+  rating_text: "Пять звезд на Google"
+  title: "Где купить кратом в Чехии?"
+  description: "Легальный и регулируемый рынок кратома в Чешской Республике. Прозрачность, качество и безопасность — наши главные приоритеты."
+  btn_catalog: "Ассортимент товаров"
+  btn_shop: "Наш магазин"
 
 uk:
-  banner_item_2:
-    bg_alt: Фонове зображення банера Item-2
-    rating_text: Five Star Rating on Google
-    license_text: Ліцензований продавець у Чеській Республіці
-    title: Де купити кратом у Чеській Республіці?
-    description: Легальний та регульований ринок кратому в Чеській Республіці. Прозорість, якість та безпека — наші головні пріоритети.
-    btn_catalog: Асортимент товарів
-    btn_shop: Наш магазин
-    advantages_title: Що означає бути нашим клієнтом
-    advantage_1: Прозоре походження продуктів
-    advantage_2: Зрозуміла документація та маркування
-    advantage_3: Контроль якості на кожному етапі
-    advantage_4: Законна, стійка бізнес-модель
+  header:
+    logo_alt: "Логотип Vivadzen"
+    lang_label: "Вибір мови"
+  nav:
+    label: "Навігація сторінкою"
+    legal: "Легальний ринок"
+    colors: "Кольори кратому"
+    bonus: "Бонуси"
+    reviews: "Відгуки"
+    contacts: "Контакти"
+  license_logo_alt: "Логотип Vivadzen"
+  license_text: "Ліцензований продавець у Чехії"
+  rating_text: "П’ять зірок на Google"
+  title: "Де купити кратом у Чехії?"
+  description: "Легальний і регульований ринок кратому в Чеській Республіці. Прозорість, якість та безпека — наші головні пріоритети."
+  btn_catalog: "Асортимент товарів"
+  btn_shop: "Наш магазин"
+
+en:
+  header:
+    logo_alt: "Vivadzen logo"
+    lang_label: "Language switcher"
+  nav:
+    label: "Page navigation"
+    legal: "Legal market"
+    colors: "Kratom colors"
+    bonus: "Bonuses"
+    reviews: "Reviews"
+    contacts: "Contacts"
+  license_logo_alt: "Vivadzen logo"
+  license_text: "Licensed seller in Czech Republic"
+  rating_text: "Five-star rating on Google"
+  title: "Where to buy kratom in Czech Republic?"
+  description: "Legal and regulated kratom market in the Czech Republic. Transparency, quality and safety are our main priorities."
+  btn_catalog: "Product assortment"
+  btn_shop: "Our store"
+
+cs:
+  header:
+    logo_alt: "Logo Vivadzen"
+    lang_label: "Přepínač jazyka"
+  nav:
+    label: "Navigace stránkou"
+    legal: "Legální trh"
+    colors: "Barvy kratomu"
+    bonus: "Bonusy"
+    reviews: "Recenze"
+    contacts: "Kontakty"
+  license_logo_alt: "Logo Vivadzen"
+  license_text: "Licencovaný prodejce v České republice"
+  rating_text: "Pětihvězdičkové hodnocení na Google"
+  title: "Kde koupit kratom v České republice?"
+  description: "Legální a regulovaný trh s kratomem v České republice. Transparentnost, kvalita a bezpečnost jsou naší hlavní prioritou."
+  btn_catalog: "Sortiment zboží"
+  btn_shop: "Náš obchod"

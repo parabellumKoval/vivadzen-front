@@ -1,0 +1,103 @@
+ru:
+  nav:
+    label: "Навигация по странице"
+    more: "Еще"
+    home: "Главная"
+    legal: "Кратом в Чехии"
+    timeline: "4 ключевые фичи Vivadzen"
+    kratom: "Премиум кратом"
+    colors: "Цвет кратома"
+    origins: "Регион кратома"
+    bonus: "Бонусная программа"
+    reviews: "Отзывы"
+    contacts: "Контакты"
+  lang:
+    label: "Выбор языка"
+  menu:
+    button: "Меню"
+    title: "Навигация"
+    close: "Закрыть"
+    contacts_title: "Контакты"
+  contacts:
+    phone: "Телефон"
+    email: "E-mail"
+    address: "Адрес"
+    schedule: "График"
+
+uk:
+  nav:
+    label: "Навігація сторінкою"
+    more: "Ще"
+    home: "Головна"
+    legal: "Кратом у Чехії"
+    timeline: "4 ключові фічі Vivadzen"
+    kratom: "Преміум кратом"
+    colors: "Колір кратому"
+    origins: "Регіон кратому"
+    bonus: "Бонусна програма"
+    reviews: "Відгуки"
+    contacts: "Контакти"
+  lang:
+    label: "Вибір мови"
+  menu:
+    button: "Меню"
+    title: "Навігація"
+    close: "Закрити"
+    contacts_title: "Контакти"
+  contacts:
+    phone: "Телефон"
+    email: "E-mail"
+    address: "Адреса"
+    schedule: "Графік"
+
+en:
+  nav:
+    label: "Page navigation"
+    more: "More"
+    home: "Home"
+    legal: "Kratom in Czechia"
+    timeline: "4 key Vivadzen features"
+    kratom: "Premium kratom"
+    colors: "Kratom colors"
+    origins: "Kratom regions"
+    bonus: "Bonus program"
+    reviews: "Reviews"
+    contacts: "Contacts"
+  lang:
+    label: "Language switcher"
+  menu:
+    button: "Menu"
+    title: "Navigation"
+    close: "Close"
+    contacts_title: "Contacts"
+  contacts:
+    phone: "Phone"
+    email: "Email"
+    address: "Address"
+    schedule: "Schedule"
+
+cs:
+  nav:
+    label: "Navigace stránkou"
+    more: "Více"
+    home: "Domů"
+    legal: "Kratom v Česku"
+    timeline: "4 klíčové funkce Vivadzen"
+    kratom: "Prémiový kratom"
+    colors: "Barvy kratomu"
+    origins: "Regiony kratomu"
+    bonus: "Bonusový program"
+    reviews: "Recenze"
+    contacts: "Kontakty"
+  lang:
+    label: "Přepínač jazyka"
+  menu:
+    button: "Menu"
+    title: "Navigace"
+    close: "Zavřít"
+    contacts_title: "Kontakty"
+  contacts:
+    phone: "Telefon"
+    email: "E-mail"
+    address: "Adresa"
+    schedule: "Otevírací doba"

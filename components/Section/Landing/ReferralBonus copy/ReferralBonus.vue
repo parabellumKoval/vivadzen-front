@@ -1,119 +1,113 @@
 <script setup>
+const { t } = useI18n()
 
-const items = [
+const itemConfigs = [
   {
-    title: 'Накопительная скидка до 10%',
-    description: 'Чем больше покупок, тем выше персональная скидка — все считается автоматически.',
-    image: '/images/landing/superman.png',
-    alt: 'Накопительная система скидок',
-    size: 'tall'
+    key: 'discounts',
+    image: '/images/landing/bonus/product.png',
+    size: 'tall',
+    bgColor: 'rgb(34 34 33)',
+    color: 'rgb(246 124 121)',
+    textColor: '#ffffff',
+    symbol: '%'
   },
   {
-    title: 'Еженедельные промокоды для вас и друзей',
-    description: 'Персональные коды, которыми удобно делиться — экономия с каждой посылкой.',
-    image: '/images/landing/kratom-cap.png',
-    alt: 'Еженедельные промокоды',
-    size: 'short'
+    key: 'affiliate',
+    image: '/images/landing/bonus/tree.png',
+    size: 'tall',
+    bgColor: 'rgb(193 231 222)',
+    color: 'rgb(145 207 0)',
+    symbol: '★'
   },
   {
-    title: 'Трехуровневая партнерская программа',
-    description: 'Создайте систему пассивного дохода и получайте процент с покупок вашей сети.',
-    image: '/images/landing/mock/2.png',
-    alt: 'Трехуровневая партнерская программа',
-    size: 'taller'
+    key: 'promocodes',
+    image: '/images/landing/bonus/letter.png',
+    size: 'tall',
+    bgColor: 'rgb(234 234 234)',
+    color: 'rgb(187 71 72)',
+    symbol: '#'
   },
   {
-    title: 'VivaPoints за активность в экосистеме',
-    description: 'Мы поощряем участие бонусными баллами, которые можно использовать в магазине.',
-    image: '/images/landing/stupa2.png',
-    alt: 'VivaPoints за активность',
-    size: 'mid'
+    key: 'vivapoints',
+    image: '/images/landing/bonus/bottle.png',
+    size: 'mid',
+    bgColor: '#faedc5',
+    color: '#57a56a',
+    symbol: 'V'
   }
 ]
+
+const items = computed(() =>
+  itemConfigs.map((item) => ({
+    ...item,
+    title: t(`items.${item.key}.title`),
+    description: t(`items.${item.key}.description`),
+    alt: t(`items.${item.key}.image_alt`)
+  }))
+)
 </script>
 
 <style src="./referral-bonus.scss" lang="scss" scoped></style>
+<i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
   <section class="bonus">
-    <nuxt-img
-      src="/images/landing/leaves-2.png"
-      alt="Трехуровенная партнерская программа"
-      loading="lazy"
-      class="bonus__decore-img-1"
-    />
     <div class="container">
       <div class="bonus-inner">
         <div class="bonus__header">
           <h2 class="bonus__title">
-            На Vivadzen вы найдете все виды бонусов и вознаграждений
+            {{ t('header.title') }}
           </h2>
           <p class="bonus__lead">
-            Мы ценим живое сообщество: рекомендации, партнерство и личные контакты
-            работают у нас как онлайн, так и офлайн.
+            {{ t('header.lead') }}
           </p>
-          <p class="bonus__lead">
-            Реферальная программа доступна каждому клиенту. Рекомендуйте магазин
-            заинтересованным людям и получайте преимущества и бонусы.
-          </p>
-          <div class="bonus__cta">
-            <span class="bonus__cta-note">
-              Менеджеры расскажут детали в магазине, а подключиться можно прямо здесь, на сайте.
-            </span>
-            <NuxtLink to="/account/network" class="button secondary">
-              Присоединиться
-            </NuxtLink>
+        </div>
+        <div class="bonus__right">
+          <div class="bonus__right-media">
+            <nuxt-img
+              src="/images/landing/box2.png"
+              :alt="t('header.image_alt')"
+              loading="lazy"
+              class="bonus__right-media-img"
+            />
           </div>
         </div>
-
-        
-        <div class="bonus__grid-track">
-          <div class="bonus__grid-wrapper">
-            <div class="bonus__grid">
-              <div class="bonus__item bonus__item--media">
-                <nuxt-img
-                  src="/images/landing/mock/4.png"
-                  alt="Трехуровенная партнерская программа"
-                  loading="lazy"
-                  class="bonus__item--media-img"
-                />
+      </div>
+      <div class="bonus__track">
+        <div class="bonus__track-inner">
+          <div class="bonus__track-grid">
+            <div
+              v-for="(item, index) in items"
+              :key="index"
+              class="bonus__track-item"
+              :class="`bonus__track-item--${item.size}`"
+              :style="{ backgroundColor: item.bgColor, color: item.textColor }"
+            >
+              <nuxt-img
+                :src="item.image"
+                :alt="item.alt"
+                loading="lazy"
+                class="bonus__track-image"
+              />
+              <h4 class="bonus__track-title">
+                {{ item.title }}
+              </h4>
+              <p class="bonus__track-description">
+                {{ item.description }}
+              </p>
+            </div>
+            <div class="bonus__track-item bonus__track-item--large">
+              <div class="bonus__track-join">
+                <h3 class="bonus__track-join-title">
+                  {{ t('join.title') }}
+                </h3>
+                <p class="bonus__track-join-description">
+                  {{ t('join.description') }}
+                </p>
+                <NuxtLink to="/account/network" class="button orange">
+                  {{ t('join.button') }}
+                </NuxtLink>
               </div>
-              <div
-                v-for="item in items"
-                :key="item.title"
-                class="bonus__item bonus__item--box"
-                :class="`bonus__item--${item.size}`"
-              >
-                <div class="bonus__media">
-                  <nuxt-img
-                    :src="item.image"
-                    :alt="item.alt"
-                    loading="lazy"
-                    class="bonus__media-img"
-                  />
-                </div>
-                <div class="bonus__content">
-                  <h3 class="bonus__item-title">{{ item.title }}</h3>
-                  <p class="bonus__item-text">{{ item.description }}</p>
-                </div>
-              </div>
-
-              <!-- <div class="bonus__item bonus__item--phone">
-                <div class="bonus__media">
-                  <nuxt-img
-                    src="/images/landing/mock/1.png"
-                    alt="Трехуровенная партнерская программа"
-                    loading="lazy"
-                    class="bonus__media-img"
-                  />
-                </div>
-                <div class="bonus__content">
-                  <h3 class="bonus__item-title">Трехуровенная партнерская программа</h3>
-                  <p class="bonus__item-text">
-                    Создайте систему пассивного дохода и получайте процент с покупок вашей сети.
-                  </p>
-                </div>
-              </div> -->
             </div>
           </div>
         </div>

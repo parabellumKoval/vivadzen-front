@@ -1,97 +1,122 @@
 <script setup>
+const { t } = useI18n()
 
-const items = [
+const itemConfigs = [
   {
-    title: 'Накопительная скидка до 10%',
-    description: 'Чем больше покупок, тем выше персональная скидка — все считается автоматически.',
-    image: '/images/landing/superman.png',
-    alt: 'Накопительная система скидок',
-    size: 'tall'
+    key: 'discounts',
+    image: '/images/landing/bonus/product.png',
+    size: 'tall',
+    bgColor: 'rgb(34 34 33)',
+    color: '#ec6c9a',
+    textColor: '#ffffff',
+    symbol: '%'
   },
   {
-    title: 'Еженедельные промокоды для вас и друзей',
-    description: 'Персональные коды, которыми удобно делиться — экономия с каждой посылкой.',
-    image: '/images/landing/kratom-cap.png',
-    alt: 'Еженедельные промокоды',
-    size: 'short'
+    key: 'affiliate',
+    image: '/images/landing/bonus/tree.png',
+    size: 'tall',
+    bgColor: 'rgb(193 231 222)',
+    color: '#1b876e',
+    symbol: '★'
   },
   {
-    title: 'Трехуровневая партнерская программа',
-    description: 'Создайте систему пассивного дохода и получайте процент с покупок вашей сети.',
-    image: '/images/landing/mock/2.png',
-    alt: 'Трехуровневая партнерская программа',
-    size: 'taller'
+    key: 'promocodes',
+    image: '/images/landing/bonus/letter.png',
+    size: 'tall',
+    bgColor: 'rgb(234 234 234)',
+    color: '#b64c49',
+    symbol: '#'
   },
   {
-    title: 'VivaPoints за активность в экосистеме',
-    description: 'Мы поощряем участие бонусными баллами, которые можно использовать в магазине.',
-    image: '/images/landing/stupa2.png',
-    alt: 'VivaPoints за активность',
-    size: 'mid'
+    key: 'vivapoints',
+    image: '/images/landing/bonus/bottle.png',
+    size: 'mid',
+    bgColor: '#faedc5',
+    color: '#b1711a',
+    symbol: 'V'
   }
 ]
+
+const items = computed(() =>
+  itemConfigs.map((item) => ({
+    ...item,
+    title: t(`items.${item.key}.title`),
+    description: t(`items.${item.key}.description`),
+    alt: t(`items.${item.key}.image_alt`)
+  }))
+)
 </script>
 
 <style src="./referral-bonus.scss" lang="scss" scoped></style>
+<i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
   <section class="bonus">
-    <div class="bonus-inner">
-      <div class="bonus__header">
-        <h2 class="bonus__title">
-          Получайте бонусы, рекомендуя Vivadzen
-        </h2>
-        <p class="bonus__lead">
-          Рекомендации и партнерство — часть нашей культуры. Приглашайте заинтересованных людей и получайте преимущества и бонусы.
-        </p>
-        <!-- <p class="bonus__lead">
-          Реферальная программа доступна каждому клиенту. Рекомендуйте магазин
-          заинтересованным людям и получайте преимущества и бонусы.
-        </p> -->
-        <div class="bonus__cta">
-          <span class="bonus__cta-note">
-            Менеджеры расскажут детали в магазине, а подключиться можно прямо здесь, на сайте.
-          </span>
-          <NuxtLink to="/account/network" class="button secondary">
-            Присоединиться
-          </NuxtLink>
+    <nuxt-img
+      src="/images/landing/bonus/bg2.png"
+      :alt="t('header.image_alt')"
+      loading="lazy"
+      class="bonus__bg"
+    />
+    <div class="container">
+      <div class="bonus-inner">
+        <div class="bonus__header">
+          <h2 class="bonus__title">
+            {{ t('header.title') }}
+          </h2>
+          <p class="bonus__lead">
+            {{ t('header.lead') }}
+          </p>
         </div>
+        <!-- <div class="bonus__right">
+          <div class="bonus__right-media">
+            <nuxt-img
+              src="/images/landing/box2.png"
+              :alt="t('header.image_alt')"
+              loading="lazy"
+              class="bonus__right-media-img"
+            />
+          </div>
+        </div> -->
       </div>
-      <div class="bonus__right">
-        <div>
-          
+      <div class="bonus__track">
+        <div class="bonus__track-inner">
+          <div class="bonus__track-grid">
+            <div
+              v-for="(item, index) in items"
+              :key="index"
+              class="bonus__track-item"
+              :class="`bonus__track-item--${item.size}`"
+              :style="{ backgroundColor: item.bgColor, color: item.textColor }"
+            >
+              <nuxt-img
+                :src="item.image"
+                :alt="item.alt"
+                loading="lazy"
+                class="bonus__track-image"
+              />
+              <h4 class="bonus__track-title" :style="{ color: item.color }">
+                {{ item.title }}
+              </h4>
+              <p class="bonus__track-description">
+                {{ item.description }}
+              </p>
+            </div>
+            <div class="bonus__track-item bonus__track-item--large">
+              <div class="bonus__track-join">
+                <h3 class="bonus__track-join-title">
+                  {{ t('join.title') }}
+                </h3>
+                <p class="bonus__track-join-description">
+                  {{ t('join.description') }}
+                </p>
+                <NuxtLink to="/account/network" class="button orange">
+                  {{ t('join.button') }}
+                </NuxtLink>
+              </div>
+            </div>
+          </div>
         </div>
-        <nuxt-img
-          src="/images/landing/photo-4.png"
-          alt="Трехуровенная партнерская программа"
-          loading="lazy"
-          class="bonus__bg"
-        />
-        <video
-          class="bonus__bg-video"
-          autoplay
-          loop
-          muted
-          playsinline
-          preload="metadata"
-        >
-          <source src="/video/offer2.mp4" type="video/mp4">
-        </video>
-        <!-- <video
-          class="bonus__bg-video-2"
-          autoplay
-          loop
-          muted
-          playsinline
-          preload="metadata"
-        >
-          <source src="/video/offer-right-2.mp4" type="video/mp4">
-        </video> -->
-      </div>
-    </div>
-    <div class="bonus__track">
-      <div class="bonus__track-inner">
-
       </div>
     </div>
   </section>

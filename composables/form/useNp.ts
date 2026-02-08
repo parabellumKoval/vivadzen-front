@@ -3,6 +3,8 @@ import type {Delivery} from '~/types/order';
 
 export const useNp = (query: Object) => {
 
+  const { locale } = useI18n()
+
   const settlement = useState('settlementState', () => {return {}})
   const warehouse = useState('warehouseState', () => {return {}})
   const street = useState('streetState', () => {return {}})
@@ -15,18 +17,30 @@ export const useNp = (query: Object) => {
   const isLoadingWarehouses = ref(false)
   const isLoadingStreets = ref(false)
 
+  const resolveLocalized = (item: Record<string, any>, key: string, fallbackKey: string | null = null) => {
+    const baseValue = item?.[key] ?? (fallbackKey ? item?.[fallbackKey] : null)
+    const ruValue = item?.[`${key}Ru`] ?? (fallbackKey ? item?.[`${fallbackKey}Ru`] : null)
+
+    return locale.value === 'ru' ? (ruValue ?? baseValue) : (baseValue ?? ruValue)
+  }
 
 
   // COMPUTED
   const settlements = computed(() => {
     return settlementsData.value && settlementsData.value.map((item) => {
+      const name = resolveLocalized(item, 'Description') || ''
+      const area = resolveLocalized(item, 'AreaDescription') || null
+      const region = resolveLocalized(item, 'RegionDescription', 'RegionsDescription') || null
+      const type = resolveLocalized(item, 'SettlementTypeDescription') || null
+      const value = area ? `${name} (${area})` : name
+
       return {
-        value: `${item.Description} (${item.AreaDescription})`,
-        settlement: item.Description,
+        value: value,
+        settlement: name,
         settlementRef: item.Ref,
-        area: item.AreaDescription,
-        region: item.RegionsDescription,
-        type: item.SettlementTypeDescription
+        area: area,
+        region: region,
+        type: type
       }
     })
   })
@@ -34,7 +48,7 @@ export const useNp = (query: Object) => {
   const warehouses = computed(() => {
     return warehousesData.value && warehousesData.value.map((item) => {
       return {
-        warehouse: item.Description,
+        warehouse: resolveLocalized(item, 'Description') || '',
         warehouseRef: item.Ref
       }
     })
@@ -84,10 +98,12 @@ export const useNp = (query: Object) => {
     })
   }
 
-  const getSettlements = async (search: string = null, ref: string = null) => {
+  const getSettlements = async (search: string = null, ref: string = null, options: { popular?: boolean } = {}) => {
     isLoadingSettlements.value = true
-    
-    await useNovaposhtaStore().getSettlements(search, ref).then((res) => {
+
+    const usePopular = options.popular ?? (!search && !ref)
+
+    await useNovaposhtaStore().getSettlements(search, ref, { popular: usePopular }).then((res) => {
       if(res.data && res.data.length){
         settlementsData.value = res.data
       }else {

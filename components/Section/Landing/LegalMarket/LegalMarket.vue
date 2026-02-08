@@ -1,74 +1,91 @@
 <script setup>
+const { t } = useI18n()
+
+const documentsModal = defineAsyncComponent(() =>
+  import('~/components/Section/Landing/DocumentsModal/DocumentsModal.client.vue')
+)
+
+const licenseDocuments = computed(() => [
+  { title: `${t('license_button')} 1`, src: '/pdf/file1.pdf' },
+  { title: `${t('license_button')} 2`, src: '/pdf/file2.pdf' }
+])
+
+const openLicenseModal = () => {
+  useModal().open(
+    documentsModal,
+    {
+      title: t('license_button'),
+      documents: licenseDocuments.value
+    },
+    null,
+    {
+      width: { min: 320, max: 1100 },
+      height: { min: 520, max: 900 }
+    }
+  )
+}
 </script>
 
 <style src="./legal-market.scss" lang="scss" scoped></style>
+<i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
   <section class="legal-wrapper">
-    
-    <!-- Czech flag at bottom -->
     <div class="legal-flag">
       <div class="legal-flag__top"></div>
       <div class="legal-flag__bottom"></div>
       <div class="legal-flag__triangle"></div>
     </div>
 
-    <!-- <nuxt-img
-      src="/images/landing/flag.png"
-      sizes="desktop: 400px"
-      class="flag-img"
-    /> -->
     <div class="container">
       <div class="legal-inner">
         <div class="legal-left">
           <h2 class="legal-left__title">
-            Легальный рынок кратома <br> — ваша <span class="orange">Безопасность</span>
+            {{ t('title') }} <br> — {{ t('title_suffix') }} <span class="orange">{{ t('title_highlight') }}</span>
           </h2>
           <p class="legal-left__description">
-            Чешская Республика ввела лицензирование продажи кратома — это 
-            значительный шаг к прозрачному и регулируемому рынку. Vivadzen 
-            полностью соответствует новым требованиям. Мы не адаптируемся в 
-            последнюю минуту, а с самого начала строили долгосрочный, легальный 
-            проект. Это защищает вас, наш бизнес и качество продукции.
+            {{ t('description') }}
           </p>
-          <button class="button secondary bold uppercase legal-left__button">
+          <button class="button secondary bold uppercase legal-left__button" type="button" @click="openLicenseModal">
             <IconCSS name="ix:eye-magnifying-glass" class="inline-icon" />
-            <span>Лицензия производителя</span>
+            <span>{{ t('license_button') }}</span>
           </button>
         </div>
 
         <div class="legal-right">
           <div class="legal-right__item legal-right__item--1">
-              <div class="legal-right__img-wrapper">
-                <nuxt-img
-                  src="/images/landing/logo.png"
-                  sizes="desktop: 400px"
-                  class="legal-right__img"
-                />
-              </div>
-              <h4 class="legal-right__title">Мы легально производим</h4>
-              <p class="legal-right__description">Полное соответствие законодательству Чехии.</p>
+            <div class="legal-right__img-wrapper">
+              <nuxt-img
+                src="/images/landing/logo.png"
+                sizes="desktop: 400px"
+                class="legal-right__img"
+                :alt="t('right.item1.image_alt')"
+              />
+            </div>
+            <h4 class="legal-right__title">{{ t('right.item1.title') }}</h4>
+            <p class="legal-right__description">{{ t('right.item1.description') }}</p>
           </div>
           <div class="legal-right__item legal-right__item--2">
-              <div class="legal-right__img-wrapper">
-                <nuxt-img
-                  src="/images/landing/botl.png"
-                  sizes="desktop: 400px"
-                  class="legal-right__img"
-                />
-                <svg class="legal-right__stamp" viewBox="0 0 300 300">
-                  <defs>
-                    <path id="circlePath2" d="M 150,150 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" />
-                  </defs>
-                  <text>
-                    <textPath class="legal-right__stamp-text" href="#circlePath2" startOffset="0%" textLength="471" lengthAdjust="spacing">
-                      LEGAL  CERTIFIED  EU  PRODUCT  ◆  LEGAL  CERTIFIED  EU  PRODUCT  ◆
-                    </textPath>
-                  </text>
-                </svg>
-              </div>
-              <h4 class="legal-right__title">Вы легально приобретаете</h4>
-              <p class="legal-right__description">Понятная документация и маркировка продуктов.</p>
+            <div class="legal-right__img-wrapper">
+              <nuxt-img
+                src="/images/landing/botl.png"
+                sizes="desktop: 400px"
+                class="legal-right__img"
+                :alt="t('right.item2.image_alt')"
+              />
+              <svg class="legal-right__stamp" viewBox="0 0 300 300">
+                <defs>
+                  <path id="circlePath2" d="M 150,150 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" />
+                </defs>
+                <text>
+                  <textPath class="legal-right__stamp-text" href="#circlePath2" startOffset="0%" textLength="471" lengthAdjust="spacing">
+                    {{ t('stamp_text') }}
+                  </textPath>
+                </text>
+              </svg>
+            </div>
+            <h4 class="legal-right__title">{{ t('right.item2.title') }}</h4>
+            <p class="legal-right__description">{{ t('right.item2.description') }}</p>
           </div>
         </div>
       </div>

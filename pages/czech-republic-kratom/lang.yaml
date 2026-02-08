@@ -1,0 +1,23 @@
+ru:
+  marquee:
+    items:
+      - "СЕЙЧАС 100% ЛЕГАЛЬНО"
+      - "ОФИЦИАЛЬНАЯ ЛИЦЕНЗИЯ"
+
+uk:
+  marquee:
+    items:
+      - "ЗАРАЗ 100% ЛЕГАЛЬНО"
+      - "ОФІЦІЙНА ЛІЦЕНЗІЯ"
+
+en:
+  marquee:
+    items:
+      - "NOW 100% LEGAL"
+      - "OFFICIAL LICENSE"
+
+cs:
+  marquee:
+    items:
+      - "NYNÍ 100% LEGÁLNÍ"
+      - "OFICIÁLNÍ LICENCE"

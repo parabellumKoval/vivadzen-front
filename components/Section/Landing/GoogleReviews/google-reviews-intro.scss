@@ -2,10 +2,6 @@
   position: relative;
   padding: 2.75rem 3rem;
   border-radius: 1.5rem;
-  // #f7ead6
-  // rgb(32 101 86)
-  // rgb(42 110 95);
-  // background: rgba(#f7ead6, 0.1);
   background: rgb(32 101 86);
   backdrop-filter: blur(12px);
   overflow: hidden;
@@ -37,14 +33,17 @@
   }
 
   &__media {
+    order: 2;
     display: flex;
     justify-content: center;
+
+    @include desktop {
+      order: auto;
+    }
   }
 
   &__image {
-    // transform: translateY(2.75rem);
     margin: -2.75rem 0;
-    // width: min(420px, 100%);
     width: auto;
     height: calc(100% + 5.5rem);
     object-fit: contain;
@@ -152,8 +151,9 @@
     }
   }
 
-  @media (max-width: 900px) {
-    padding: 2.5rem 2rem;
+  @include mobile {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2.5rem;
 
     &__inner {
       grid-template-columns: 1fr;
@@ -165,16 +165,9 @@
     }
 
     &__cta {
+      flex-direction: column;
       justify-content: center;
     }
   }
 
-  @media (max-width: 600px) {
-    padding: 2rem 1.5rem;
-    margin-bottom: 2.5rem;
-
-    &__cta {
-      flex-direction: column;
-    }
-  }
 }

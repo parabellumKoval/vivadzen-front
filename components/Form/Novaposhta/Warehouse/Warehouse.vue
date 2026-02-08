@@ -76,10 +76,12 @@ watch(() => settlement.value, (v) => {
 })
 
 // HANDLERS
-const updateModelValueHandler = (ref) => {
-  const searched = warehouses.value.find((item) => {
-    return item.warehouseRef === ref
-  })
+const updateModelValueHandler = (ref, selectedItem) => {
+  const searched = selectedItem?.warehouseRef
+    ? selectedItem
+    : warehouses.value.find((item) => {
+        return item.warehouseRef === ref
+      })
 
   if(!searched) {
     console.warn('Warehouse was not fond in the warehouses list')

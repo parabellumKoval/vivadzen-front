@@ -51,11 +51,13 @@ const updateStreet = (value) => {
 }
 
 // HANDLERS
-const updateModelValueHandler = (ref) => {
+const updateModelValueHandler = (ref, selectedItem) => {
 
-  const searched = streets.value.find((item) => {
-    return item.streetRef === ref
-  })
+  const searched = selectedItem?.streetRef
+    ? selectedItem
+    : streets.value.find((item) => {
+        return item.streetRef === ref
+      })
 
   if(!searched) {
     console.warn('Street was not fond in the streets list')

@@ -1,3 +1,15 @@
+<script setup>
+const contactsModal = defineAsyncComponent(() =>
+  import('~/components/Modal/Contacts/Contacts.client.vue')
+)
+
+const openContactsModal = () => {
+  useModal().open(contactsModal, null, null, {
+    width: { min: 320, max: 900 }
+  })
+}
+</script>
+
 <template>
   <div class="support">
     <nuxt-img
@@ -16,7 +28,9 @@
         Наши эксперты всегда готовы помочь вам подобрать идеальный сорт и цвет кратома,
         соответствующий вашим потребностям и предпочтениям.
       </p>
-      <nuxt-link to="/contact" class="button orange support__link">Связаться с нами</nuxt-link>
+      <button type="button" class="button orange support__link" @click="openContactsModal">
+        Связаться с нами
+      </button>
     </div>
   </div>
 </template>

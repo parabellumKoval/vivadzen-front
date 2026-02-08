@@ -1,0 +1,303 @@
+.bg {
+  position: absolute;
+  top: -25%;
+  left: 0;
+  width: 100%;
+  height: 150%;
+  object-fit: cover;
+}
+
+.bg-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sample-set {
+  position: relative;
+  background: #000;
+  padding: 3rem 0 0 0;
+  overflow: hidden;
+
+  &__container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  &__text {
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+
+    @include tablet {
+      font-size: 1rem;
+    }
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    max-width: 500px;
+
+    span {
+      color: #10b981;
+    }
+
+    @include tablet {
+      font-size: 1.75rem;
+    }
+
+    @include desktop {
+      font-size: 2rem;
+    }
+  }
+
+  &__circle-container {
+    position: relative;
+    width: 100%;
+    height: 225px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible;
+
+    @include tablet {
+      height: 275px;
+    }
+
+    @include desktop {
+      height: 350px;
+    }
+
+    @include ld {
+      height: 450px;
+    }
+  }
+
+  &__semicircle {
+    position: absolute;
+    bottom: -150px;
+    left: 50%;
+    transform: translateX(-50%) translateY(50%);
+    width: 450px;
+    height: 450px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    background: transparent;
+    pointer-events: none;
+    z-index: 1;
+
+    @include tablet {
+      width: 550px;
+      height: 550px;
+    }
+
+    @include desktop {
+      width: 700px;
+      height: 700px;
+    }
+
+    @include ld {
+      width: 900px;
+      height: 900px;
+      border-width: 3px;
+    }
+  }
+
+  &__products {
+    position: absolute;
+    bottom: -225px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 450px;
+    height: 225px;
+    z-index: 10;
+
+    @include tablet {
+      width: 550px;
+      height: 275px;
+      bottom: -275px;
+    }
+
+    @include desktop {
+      width: 700px;
+      height: 350px;
+      bottom: -350px;
+    }
+
+    @include ld {
+      width: 900px;
+      height: 450px;
+      bottom: -450px;
+    }
+  }
+
+  &__product {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform-origin: center bottom;
+    transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-225px);
+    transition: transform 0.3s ease, z-index 0s;
+    z-index: 2;
+
+    @include tablet {
+      transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-275px);
+    }
+
+    @include desktop {
+      transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-350px);
+    }
+
+    @include ld {
+      transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-450px);
+    }
+
+    &:nth-child(3) {
+      z-index: 5;
+    }
+
+    &:nth-child(2),
+    &:nth-child(4) {
+      z-index: 3;
+    }
+
+    &:nth-child(1),
+    &:nth-child(5) {
+      z-index: 2;
+    }
+
+    &:hover {
+      z-index: 10;
+      transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-228px);
+
+      @include tablet {
+        transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-278px);
+      }
+
+      @include desktop {
+        transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-352px);
+      }
+
+      @include ld {
+        transform: translateX(-50%) rotate(var(--angle, 0deg)) translateY(-452px);
+      }
+
+      .sample-set__product-img {
+        filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.5))
+          drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+      }
+    }
+  }
+
+  &__product-img {
+    width: 120px;
+    height: auto;
+    position: relative;
+    z-index: 1;
+    transform: rotate(calc(var(--angle, 0deg) * -1));
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45))
+      drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25));
+    transition: filter 0.3s ease, transform 0.3s ease;
+
+    @include tablet {
+      width: 180px;
+    }
+
+    @include desktop {
+      width: 240px;
+    }
+
+    @include ld {
+      width: 300px;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+
+    &:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    @include tablet {
+      font-size: 1rem;
+      padding: 0.875rem 2rem;
+      bottom: 60px;
+    }
+
+    @include desktop {
+      bottom: 80px;
+    }
+  }
+
+  &__decor {
+    position: absolute;
+    width: 800px;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+
+    @include tablet {
+      width: 150px;
+      height: 250px;
+    }
+
+    @include mobile {
+      display: none;
+    }
+
+    &--left {
+      height: 100%;
+      left: -200px;
+      bottom: -120px;
+      transform: rotate(180deg);
+    }
+
+    &--right {
+      height: 80%;
+      right: -200px;
+      top: -150px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}

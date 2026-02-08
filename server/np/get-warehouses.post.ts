@@ -1,18 +1,28 @@
+import { getHeader } from 'h3'
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   
-  return $fetch(`https://api.novaposhta.ua/v2.0/json/`, {
-    method: 'POST',
-    body: {
-      "apiKey": useRuntimeConfig().public.novaposhtaKey,
-      "modelName": "AddressGeneral",
-      "calledMethod": "getWarehouses",
-      "methodProperties": {
-        "Page" : "1",
-        "Limit" : "100",
-        "SettlementRef" : body?.city,
-        "FindByString": body?.find
-      }
-    }
+  const query: Record<string, string> = {}
+
+  if (body?.find) {
+    query.q = body.find
+  }
+
+  if (body?.settlementRef || body?.city) {
+    query.settlementRef = body?.settlementRef || body?.city
+  }
+
+  const headers: Record<string, string> = {}
+  const acceptLanguage = getHeader(event, 'accept-language')
+  const region = getHeader(event, 'x-region')
+
+  if (acceptLanguage) headers['accept-language'] = acceptLanguage
+  if (region) headers['x-region'] = region
+
+  return $fetch(`${useRuntimeConfig().public.apiBase}/np/warehouses`, {
+    method: 'GET',
+    query,
+    headers
   })
 })

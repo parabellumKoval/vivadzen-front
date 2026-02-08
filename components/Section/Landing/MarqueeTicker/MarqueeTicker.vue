@@ -2,7 +2,7 @@
 const props = defineProps({
   items: {
     type: Array,
-    default: () => ['NOW 100% LEGAL', 'OFFICIAL LICENSE']
+    default: () => []
   },
   speed: {
     type: Number,
@@ -10,7 +10,6 @@ const props = defineProps({
   }
 })
 
-// Duplicate items multiple times for seamless infinite loop
 const duplicatedItems = computed(() => {
   const repeats = 20
   return Array(repeats).fill(props.items).flat()

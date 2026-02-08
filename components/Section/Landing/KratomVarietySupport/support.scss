@@ -3,16 +3,21 @@
   min-width: 0;
   min-height: 200px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 30px;
   position: relative;
   background: rgb(32 101 86);
   overflow: hidden;
   border-radius: 30px;
   padding: 0 40px;
   isolation: isolate;
+
+  @include desktop {
+    flex-direction: row;
+    gap: 40px;
+  }
 
   &::before {
     content: '';
@@ -50,16 +55,24 @@
   }
 
   &__content {
-    padding: 40px 0;
+    padding: 40px 0 0 0;
     display: flex;
-    gap: 30px;
+    gap: 20px;
     flex-direction: column;
+    text-align: center;
+
+    @include desktop {
+      padding: 40px 0;
+      text-align: left;
+      gap: 30px;
+    }
   }
 
   &__title {
     font-size: 1.75rem;
     font-weight: 900;
     color: $color-8;
+    line-height: 1.1;
   }
 
   &__desc {

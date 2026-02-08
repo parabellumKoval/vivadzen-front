@@ -1,81 +1,208 @@
 .kratom-regions-section {
   background: #f0e1ca;
   padding: 100px 0;
+
+  @include mobile {
+    padding: 60px 0;
+  }
+}
+
+.bottom {
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 40px 0 0 0;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  &__text {
+    padding: 40px;
+    background: $color-8;
+    border-radius: 40px;
+
+    @include mobile {
+      padding: 24px;
+      border-radius: 24px;
+    }
+
+    &-title {
+      margin: 0 0 20px 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    &-desc {
+      line-height: 1.5;
+      color: rgba($color-text, 0.6);
+    }
+  }
 }
 
 .header-card {
   position: relative;
   flex-shrink: 0;
-  width: 500px;
-  border-radius: 30px;
-  padding: 50px;
+  margin: 0 auto 10px auto;
+  max-width: 800px;
+
+  @include desktop {
+    margin: 0 auto 50px auto;
+  }
+
+  @include ld {
+    width: 500px;
+    padding: 50px;
+    margin: 0;
+  }
 
   &__title {
     position: relative;
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 38px;
+    font-weight: 900;
     margin-bottom: 0.75rem;
     line-height: 1.2;
     color: $color-text;
     z-index: 2;
+
+    @include desktop {
+      font-size: 58px;
+    }
+
+    @include ld {
+      font-size: 2rem;
+      font-weight: 700;
+    }
   }
 
   &__img {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0 0 0 5px;
-    width: 120%;
-    max-width: initial;
-    // height: 530px;
-    height: 645px;
-    object-fit: cover;
-    object-position: center top;
-    // bottom: -50%;
-    bottom: -74%;
+    display: none;
+    @include xld {
+      display: block;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 0 0 5px;
+      width: 120%;
+      max-width: initial;
+      height: auto;
+      object-fit: cover;
+      object-position: center top;
+      top: 120px;
+    }
   }
 }
 
 .origins-ribbon {
-  display: flex;
-  align-items: stretch;
+  display: grid;
+  align-items: start;
+  grid-template-columns: 100%;
   gap: 30px;
-  // overflow: hidden;
   border-radius: 30px;
-  padding: 30px;
+  padding: 15px;
   position: relative;
-  flex-wrap: nowrap;
   --overlap: 0px;
+  overflow: hidden;
+
+  @include desktop {
+    padding: 30px;
+  }
+
+  @include xld {
+    grid-template-columns: 500px 1fr;
+    align-items: stretch;
+  }
+}
+
+.origins-ribbon__content {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.origins-ribbon__cards {
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  min-width: 0;
+  max-width: calc(100vw - 30px);
+
+  @include mobile {
+    gap: 20px;
+  }
+
+  @include desktop {
+    flex-direction: row;
+  }
 }
 
 .origin-card {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 30px;
   position: relative;
-  // background: rgba(255, 255, 255, 1);
-  // border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
-  padding: 30px;
+  padding: 15px;
   box-shadow: -20px 0 25px rgba(0, 0, 0, 0.07);
   background: var(--bg-color);
-  // scroll-snap-align: start;
   flex: 0 0 auto;
-  transition: transform 0.3s ease, border-color 0.3s ease, margin 0.3s ease, background 0.3s ease;
   z-index: 1;
   cursor: pointer;
   color: $color-text;
 
+  @include desktop {
+    display: block;
+    padding: 30px;
+    margin: 0;
+  }
+
   &.active {
+    flex-direction: column;
     background: $color-8;
     box-shadow: none;
+    padding: 20px 30px;
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+
+    @include desktop {
+      padding: 30px;
+    }
 
     .origin-card__specs {
-      width: 300px;
+      height: auto;
+      width: 100%;
       opacity: 1;
-      padding: 30px;
+      padding: 15px 0 0 0;
+      transition: width 0.6s ease, opacity 0.6s ease, padding 0.6s ease;
+
+      @include desktop {
+        padding: 30px 0 30px 30px;
+      }
 
       .spec-pill {
         display: flex;
-        width: 300px;
+        width: 100%;
+
+        @include desktop {
+          width: 200px;
+        }
+
+        @include xld {
+          width: 300px;
+        }
       }
+    }
+
+    .origin-card__media {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
     }
 
     .origin-card__title {
@@ -87,40 +214,52 @@
     display: flex;
     flex-direction: row;
     height: 300px;
-  }
+    width: auto;
 
-  &__meta {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    @include mobile {
+      flex-direction: column;
+      height: auto;
+    }
   }
 
   &__title {
     position: relative;
-    margin: 0 0 20px 0;
+    margin: 0;
     left: 0;
     width: 100%;
-    // padding: 0 24px;
     text-align: left;
-    // letter-spacing: 5.5px;
     line-height: 100%;
     font-family: 'OneSt';
     color: var(--color);
     z-index: 2;
     transition: color 0.3s ease;
 
+    @include desktop {
+      margin: 0 0 20px 0;
+    }
+
     .big {
       font-size: 45px;
       font-weight: 900;
       text-transform: uppercase;
       line-height: 100%;
+
+      @include mobile {
+        font-size: 28px;
+      }
     }
 
     .same {
+      margin-top: 5px;
+      display: block;
       font-weight: 900;
       line-height: 100%;
-      // color: rgba(#000, 0.4);
       color: rgba(87, 74, 56, 0.8);
+
+      @include desktop {
+        display: inline;
+        margin-top: 0;
+      }
     }
   }
 
@@ -139,23 +278,37 @@
     color: rgba($color-text, 0.65);
     line-height: 1.5;
     white-space: nowrap;
+
+    @include mobile {
+      white-space: normal;
+    }
   }
 
   &__media {
-    border-radius: 30px;
-    width: 300px;
-    height: 300px;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 
+    @include desktop {
+      width: 300px;
+      height: 300px;
+      border-radius: 30px;
+    }
+
     > * {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 30px;
+      border-radius: 20px;
+
+      @include desktop {
+        border-radius: 30px;
+      }
     }
 
     video {
@@ -163,17 +316,28 @@
     }
   }
 
-
   &__specs {
+    height: 0;
     width: 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     opacity: 0;
-    transition: width 0.6s ease, opacity 0.6s ease, padding 0.6s ease;
     padding: 0;
+
+    @include desktop {
+      height: auto;
+    }
   }
+}
+
+.origin-card:not(.active) .origin-card__specs,
+.origin-card:not(.active) .spec-pill {
+  transition: none;
+}
+
+.kratom-regions-section:not(.is-ready) .origin-card__specs {
+  transition: none;
 }
 
 .spec-pill {
@@ -200,8 +364,10 @@
   }
 }
 
-.origins-ribbon.is-overflowing .origin-card + .origin-card {
-  margin-left: calc(var(--overlap) * -1);
+.origins-ribbon__cards.is-overflowing .origin-card + .origin-card {
+  @include desktop {
+    margin-left: calc(var(--overlap) * -1);
+  }
 }
 
 .media-switch-enter-active,
@@ -213,10 +379,4 @@
 .media-switch-leave-to {
   opacity: 0;
   transform: scale(1.02);
-}
-
-@media (max-width: 768px) {
-  .origins-ribbon {
-    flex-wrap: nowrap;
-  }
 }

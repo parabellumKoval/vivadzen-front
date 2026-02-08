@@ -11,6 +11,10 @@ ru:
   owner_response: "Ответ владельца"
   cta_text: "Понравился наш сервис? Поделитесь своим опытом!"
   leave_review: "Оставить отзыв на Google"
+  company_logo_alt: "Логотип Vivadzen"
+  carousel_label: "Карусель отзывов Google"
+  reviewer_alt: "Автор отзыва"
+  drink_alt: "Напиток из кратома"
 
 en:
   title: "What Our Customers Say"
@@ -25,6 +29,10 @@ en:
   owner_response: "Owner's response"
   cta_text: "Enjoyed our service? Share your experience!"
   leave_review: "Leave a review on Google"
+  company_logo_alt: "Vivadzen logo"
+  carousel_label: "Google reviews carousel"
+  reviewer_alt: "Reviewer"
+  drink_alt: "Kratom drink"
 
 cs:
   title: "Co říkají naši zákazníci"
@@ -39,6 +47,10 @@ cs:
   owner_response: "Odpověď majitele"
   cta_text: "Líbila se vám naše služba? Podělte se o své zkušenosti!"
   leave_review: "Napsat recenzi na Google"
+  company_logo_alt: "Logo Vivadzen"
+  carousel_label: "Karusel recenzí Google"
+  reviewer_alt: "Recenzent"
+  drink_alt: "Kratomový nápoj"
 
 uk:
   title: "Відгуки наших клієнтів"
@@ -53,3 +65,7 @@ uk:
   owner_response: "Відповідь власника"
   cta_text: "Сподобався наш сервіс? Поділіться своїм досвідом!"
   leave_review: "Залишити відгук на Google"
+  company_logo_alt: "Логотип Vivadzen"
+  carousel_label: "Карусель відгуків Google"
+  reviewer_alt: "Автор відгуку"
+  drink_alt: "Напій з кратому"

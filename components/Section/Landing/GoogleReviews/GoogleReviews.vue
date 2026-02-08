@@ -5,11 +5,9 @@ import GoogleReviewsIntro from './GoogleReviewsIntro.vue'
 const { t } = useI18n()
 const googleReviewsStore = useGoogleReviewsStore()
 
-// REFS
 const isServer = process.server
 
-// LOAD REVIEWS
-const { 
+const {
   data: reviewsData,
   pending: reviewsPending,
 } = await useAsyncData(
@@ -23,13 +21,11 @@ const {
   }
 )
 
-// COMPUTEDS
 const reviews = computed(() => reviewsData.value?.reviews || [])
 const meta = computed(() => reviewsData.value?.meta || null)
 const averageRating = computed(() => meta.value?.avg_rating || 0)
 const totalReviews = computed(() => meta.value?.total || 0)
 
-// METHODS
 const formatDate = (dateString: string) => {
   if (!dateString) return ''
   const date = new Date(dateString)
@@ -66,10 +62,6 @@ const truncateComment = (comment: string, maxLength: number = 200): string => {
 
 <template>
   <section class="google-reviews">
-
-      <!-- <nuxt-img src="/images/landing/kratom-2-leaves-2.png" class="deco-leaf deco-leaf--1" />
-      <nuxt-img src="/images/landing/kratom-2-leaves.png" class="deco-leaf deco-leaf--2" />
-      <nuxt-img src="/images/landing/kratom-3-leaves.png" class="deco-leaf deco-leaf--3" /> -->
     <div class="container">
 
       <div class="google-reviews__header">
@@ -77,7 +69,7 @@ const truncateComment = (comment: string, maxLength: number = 200): string => {
           <div class="google-reviews__google-badge">
             <nuxt-img
               src="/images/company.png"
-              alt="Vivadzen"
+              :alt="t('company_logo_alt')"
               loading="lazy"
               class="google-reviews__company-logo"
             />
@@ -96,13 +88,11 @@ const truncateComment = (comment: string, maxLength: number = 200): string => {
         :rating="averageRating"
       />
 
-      <!-- Loading state -->
       <div v-if="reviewsPending" class="google-reviews__loading">
         <div class="google-reviews__loading-spinner"></div>
         <p>{{ t('loading') }}</p>
       </div>
 
-      <!-- Reviews carousel -->
       <div v-else-if="reviews.length" class="google-reviews__carousel-wrapper">
         <SnapCarousel
           :items="reviews"
@@ -112,7 +102,7 @@ const truncateComment = (comment: string, maxLength: number = 200): string => {
           :show-dots="true"
           mode="page"
           :loop="true"
-          aria-label="Google Reviews Carousel"
+          :aria-label="t('carousel_label')"
           class="google-reviews__carousel"
         >
           <template #item="{ item: review }">
@@ -122,7 +112,7 @@ const truncateComment = (comment: string, maxLength: number = 200): string => {
                   <img 
                     v-if="review.reviewer?.photo_url" 
                     :src="review.reviewer.photo_url" 
-                    :alt="review.reviewer?.name || 'Reviewer'"
+                    :alt="review.reviewer?.name || t('reviewer_alt')"
                     class="review-card__avatar-img"
                   />
                   <span v-else class="review-card__avatar-initials">
@@ -176,7 +166,6 @@ const truncateComment = (comment: string, maxLength: number = 200): string => {
         </SnapCarousel>
       </div>
 
-      <!-- Empty state -->
       <div v-else class="google-reviews__empty">
         <IconCSS name="ph:chat-circle-text" class="google-reviews__empty-icon" />
         <p>{{ t('no_reviews') }}</p>

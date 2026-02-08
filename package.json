@@ -12,6 +12,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@embedpdf/vue-pdf-viewer": "^2.4.0",
     "@nuxt/image": "^1.11.0",
     "@nuxtjs/device": "^3.0.0",
     "@nuxtjs/partytown": "^1.6.0",

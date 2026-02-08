@@ -1,21 +1,10 @@
-.deco-leaf {
-  position: absolute;
-
-  &--1 {
-    top: 40%;
-    right: 16%;
-    transform: rotate(-55deg);
-  }
-}
 .google-reviews {
   position: relative;
   padding: 130px 2rem;
   background: #f0e1ca;
-  // background: linear-gradient(135deg, #f0e1ca 0%, #ffdea9 100%);
-  // background: url('/images/landing/leaves-bg.png');
   overflow: hidden;
 
-  @media (max-width: 768px) {
+  @include mobile {
     padding: 3rem 1rem;
   }
 
@@ -26,7 +15,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    // background: linear-gradient(135deg, rgba(#f0e1ca, 0.5) 0%, #ffdea9 65%);
   }
 
   > .container {
@@ -34,6 +22,7 @@
     max-width: 1400px;
     margin: 0 auto;
     z-index: 10;
+    padding: 0;
   }
 
   &__header {
@@ -44,7 +33,7 @@
     margin-bottom: 3rem;
     flex-wrap: wrap;
 
-    @media (max-width: 768px) {
+    @include mobile {
       flex-direction: column;
       align-items: center;
       text-align: center;
@@ -59,10 +48,7 @@
   &__google-badge {
     display: inline-flex;
     align-items: center;
-    // padding: 0.5rem 1.25rem;
-    // background: white;
     border-radius: 2rem;
-    // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin-bottom: 1rem;
   }
 
@@ -78,7 +64,7 @@
     margin-bottom: 0.75rem;
     line-height: 1.2;
 
-    @media (max-width: 768px) {
+    @include mobile {
       font-size: 1.75rem;
     }
   }
@@ -88,7 +74,7 @@
     color: rgba($color-text, 0.6);
     line-height: 1.6;
 
-    @media (max-width: 768px) {
+    @include mobile {
       font-size: 0.9375rem;
     }
   }
@@ -130,12 +116,6 @@
     animation: spin 1s linear infinite;
   }
 
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
   &__empty {
     display: flex;
     flex-direction: column;
@@ -151,7 +131,12 @@
   }
 }
 
-// Review Card Styles
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .review-card {
   background: #ffffff;
   border-radius: 1rem;
@@ -234,11 +219,11 @@
 
   &__star {
     font-size: 1rem;
-    
+
     &.filled {
       color: $color-orange;
     }
-    
+
     &.empty {
       color: #e5e7eb;
     }

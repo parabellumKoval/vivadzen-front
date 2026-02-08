@@ -11,11 +11,13 @@ const products = [
   { id: 5, img: '/images/landing/product.png', angle: 45, glowColor: '255, 140, 0' },       // Orange - крайний правый
 ]
 
-import { ref, onMounted, onBeforeUnmount, type ComponentPublicInstance } from 'vue'
+import { ref, onMounted, onBeforeUnmount, type ComponentPublicInstance, defineAsyncComponent } from 'vue'
 
 const leftDecor = ref<HTMLElement | ComponentPublicInstance | null>(null)
 const rightDecor = ref<HTMLElement | ComponentPublicInstance | null>(null)
 const sectionRef = ref<HTMLElement | null>(null)
+const modal = useModal()
+const SampleSetModal = defineAsyncComponent(() => import('./SampleSetModal.vue'))
 
 const getEl = (target: HTMLElement | ComponentPublicInstance | null) => {
   if (!target) {
@@ -52,6 +54,19 @@ onBeforeUnmount(() => {
     sectionRef.value.removeEventListener('mousemove', handleParallax);
   }
 });
+
+const openSampleSetModal = () => {
+  modal.open(SampleSetModal, null, null, {
+    width: {
+      min: 320,
+      max: 520
+    },
+    height: {
+      min: 'auto',
+      max: '85vh'
+    }
+  })
+}
 </script>
 
 <style src="./sample-set.scss" lang="scss" scoped></style>
@@ -112,7 +127,7 @@ onBeforeUnmount(() => {
         </div>
 
         <!-- Кнопка внутри круга -->
-        <button class="sample-set__button">
+        <button class="sample-set__button" type="button" @click="openSampleSetModal">
           {{ t('button') }}
         </button>
       </div>

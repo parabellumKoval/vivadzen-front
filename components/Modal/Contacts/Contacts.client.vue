@@ -14,6 +14,12 @@ const socials = computed(() => {
   <modal-wrapper :title="t('title.contacts')">
     <div class="contacts">
       <div>
+        <div class="social">
+          <a v-for="social in socials" :key="social.id" :href="social.link" :class="social.key + '-bg'" class="button social-btn contacts-btn">
+            <IconCSS :name="social.icon" class="icon"></IconCSS>
+            <span class="text">{{ social.name }}</span>
+          </a>
+        </div>
         <div class="phones">
           <a href="/" class="button color-dark contacts-btn">
             <IconCSS name="iconoir:phone" class="icon"></IconCSS>
@@ -22,12 +28,6 @@ const socials = computed(() => {
           <a href="/" class="button color-dark contacts-btn email-btn">
             <IconCSS name="iconoir:mail-opened" class="icon"></IconCSS>
             <span class="text">{{ useContacts().email }}</span>
-          </a>
-        </div>
-        <div class="social">
-          <a v-for="social in socials" :key="social.id" :href="social.link" :class="social.key + '-bg'" class="button social-btn contacts-btn">
-            <IconCSS :name="social.icon" class="icon"></IconCSS>
-            <span class="text">{{ social.name }}</span>
           </a>
         </div>
       </div>

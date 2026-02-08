@@ -27,7 +27,7 @@ const emit = defineEmits([
   'update:ref'
 ])
 
-const search = ref(null)
+const search = ref('')
 
 // COMPUTEDS
 const settlementString = computed(() => {
@@ -44,10 +44,12 @@ const settlementString = computed(() => {
 })
 
 // METHODS
-const updateModelValue = (v) => {
-  const searched = settlements.value.find((item) => {
-    return item.settlementRef === v
-  })
+const updateModelValue = (v, selectedItem) => {
+  const searched = selectedItem?.settlementRef
+    ? selectedItem
+    : settlements.value.find((item) => {
+        return item.settlementRef === v
+      })
 
   if(!searched) {
     console.warn('Settlement was not fond in the settlements list')
@@ -71,6 +73,8 @@ const updateModelValue = (v) => {
 
 watch(search, (val) => {
   getSettlements(val)
+}, {
+  immediate: true
 })
 
 watch(() => props.modelValue.settlementRef, (v) => {
@@ -104,6 +108,7 @@ watch(() => props.modelValue.settlementRef, (v) => {
       :values = "settlements"
       :placeholder="$t('form.delivery.settlement')"
       :min-symbols="1"
+      :show-on-empty="true"
       list-value="value"
       list-key="settlementRef"
       :error="error"

@@ -1,38 +1,34 @@
 <script setup>
-const {t} = useI18n()
-const props = defineProps({})
-// COMPUTEDS
-// METHODS
-// HANDLERS
-// WATCHERS
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'landing'
 })
+
+const marqueeItems = computed(() => [
+  t('marquee.items.0'),
+  t('marquee.items.1')
+])
 </script>
 
-<!-- <style src='' lang='scss' scoped></style> -->
-<!-- <i18n src='' lang='yaml'></i18n> -->
+<i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <div>
-    <section-landing-hero-banner /> 
-    <section-landing-marquee-ticker :items="['NOW 100% LEGAL', 'OFFICIAL LICENSE']" />
-    <section-landing-legal-market />
-    <section-landing-four-premium-properties />
-    <section-landing-promo-subscribe />
-    <section-landing-kratom /> 
-    <section-landing-hero-text /> 
-    <section-landing-kratom-variety /> 
+  <div class="czech-kratom-page">
 
-    <section-landing-kratom-variety-origins />
-    <!-- <section-landing-circle-selection /> -->
-    <!-- <section-landing-choice /> -->
-    <section-landing-sample-set />
-    <section-landing-referral-bonus />
-    <!-- <section-landing-benefit />  -->
-    <section-landing-google-reviews />
-    <!-- <section-landing-czech-kratom /> -->
-    <section-landing-welcome />
-    <section-landing-contacts />
+    <section-landing-hero-header />
+    <section-landing-hero-banner id="home" />
+    <section-landing-marquee-ticker id="ticker" :items="marqueeItems" />
+    <section-landing-legal-market id="legal" />
+    <section-landing-timeline-section id="timeline" />
+    <section-landing-promo-subscribe id="promo" />
+    <section-landing-kratom id="kratom" />
+    <section-landing-kratom-variety id="colors" />
+    <section-landing-kratom-variety-origins id="origins" />
+    <section-landing-sample-set id="sample" />
+    <section-landing-referral-bonus id="bonus" />
+    <section-landing-google-reviews id="reviews" />
+    <section-landing-contacts id="contacts" />
+    <section-landing-welcome id="welcome" />
   </div>
 </template>

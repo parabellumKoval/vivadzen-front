@@ -28,7 +28,6 @@ export default defineNuxtConfig({
       },
       siteUrl: SITE_URL,
       frontendUrl: SITE_URL,
-      novaposhtaKey: process.env.NOVAPOSHTA_KEY,
       serverBase: SERVER_URL,
       apiBase: API_SERVER_URL,
       instagramToken: process.env.INSTAGRAM_TOKEN,
@@ -38,6 +37,9 @@ export default defineNuxtConfig({
       noimageTransparent: '/images/noimage-transparent.png',
       staticImageProvider: process.env.STATIC_IMAGE_PROVIDER,
       appVersion: '1.0.3',
+      landingPromoSubscribe: {
+        feedbackType: process.env.LANDING_PROMO_FEEDBACK_TYPE || 'landing_kratom_local_sale',
+      },
       i18n: {
         locales: ['uk', 'ru']
       },

@@ -31,7 +31,7 @@ const getStarClass = (rating: number, index: number): string => {
       <div class="google-reviews-intro__media">
         <nuxt-img
           src="/images/landing/drink.png"
-          alt="Kratom drink"
+          :alt="t('drink_alt')"
           loading="lazy"
           class="google-reviews-intro__image"
         />
