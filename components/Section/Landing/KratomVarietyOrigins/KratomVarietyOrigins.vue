@@ -124,7 +124,7 @@ const hoverHandler = (index) => {
 const originConfigs = [
   {
     key: 'maengda',
-    video: '/video/regions/maengda.mp4',
+    video: '/video/regions/Maengda.mp4',
     img: '/images/landing/regions/maengda.png',
     bgColor: '#fdf9d0',
     color: '#e39c0f'
@@ -145,14 +145,14 @@ const originConfigs = [
   },
   {
     key: 'borneo',
-    video: '/video/regions/borneo3.mp4',
+    video: '/video/regions/Borneo3.mp4',
     img: '/images/landing/regions/borneo2.png',
     bgColor: '#bde6eb',
     color: '#0f5880'
   },
   {
     key: 'sumatra',
-    video: '/video/regions/sumatra.mp4',
+    video: '/video/regions/Sumatra.mp4',
     img: '/images/landing/regions/sumatra2.png',
     bgColor: '#fcd0b3',
     color: '#d34b1e'
