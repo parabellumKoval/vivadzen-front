@@ -1,4 +1,5 @@
 <script setup>
+import WrapperHtml from '@/modules/wrapperHtml/components/WrapperHtml.vue'
 const { t } = useI18n()
 
 const activeIndex = ref(0)
@@ -185,8 +186,10 @@ const origins = computed(() =>
   <section class="kratom-regions-section" :class="{ 'is-ready': isReady }">
     <div class="origins-ribbon">
       <div class="header-card">
-        <h3 class="header-card__title">{{ t('header.title') }}</h3>
-        <nuxt-img
+        <h3 class="header-card__title">
+          <WrapperHtml :string="t('header.title')" :wrappers="['<span class=\'orange\'>']" />
+        </h3>
+        <!-- <nuxt-img
           src="/images/landing/product.png"
           :alt="t('header.image_alt')"
           width="506"
@@ -195,7 +198,7 @@ const origins = computed(() =>
           fit="cover"
           sizes="mobile: 100vw tablet: 550px desktop: 550px"
           class="header-card__img"
-        />
+        /> -->
       </div>
       <div class="origins-ribbon__content">
         <div

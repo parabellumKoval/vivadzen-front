@@ -32,3 +32,4 @@ const marqueeItems = computed(() => [
     <section-landing-welcome id="welcome" />
   </div>
 </template>
+ 

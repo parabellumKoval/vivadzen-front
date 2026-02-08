@@ -110,7 +110,7 @@ const items = computed(() =>
                 <p class="bonus__track-join-description">
                   {{ t('join.description') }}
                 </p>
-                <NuxtLink to="/account/network" class="button orange">
+                <NuxtLink :to="$regionPath('/affiliate')" class="button orange">
                   {{ t('join.button') }}
                 </NuxtLink>
               </div>

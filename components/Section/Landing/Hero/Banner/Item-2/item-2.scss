@@ -243,23 +243,25 @@
 
 .more {
   &__wrapper {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    color: $color-8;
-    width: 200px;
-    margin: 0 auto;
-    z-index: 20;
-    animation: scroll 3s infinite;
+    display: none;
+    
+    @include desktop {
+      display: block;
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      color: $color-8;
+      width: 200px;
+      margin: 0 auto;
+      z-index: 20;
+      animation: scroll 3s infinite;
 
-    @include mobile {
-      bottom: 24px;
     }
   }
 

@@ -1,7 +1,6 @@
 <script setup>
 const { t, locale, locales } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
-const { getLocalesForRegion } = useRegion()
+const regionStore = useRegion()
 const contacts = useContacts()
 
 const headerRef = ref(null)
@@ -23,7 +22,9 @@ const localeIconMap = {
   uk: 'emojione:flag-for-ukraine'
 }
 
-const allowedLocales = computed(() => getLocalesForRegion('cz'))
+const currentRegionCode = computed(() => regionStore.region.value)
+const allowedLocales = computed(() => regionStore.getLocalesForRegion(currentRegionCode.value))
+const getLocaleLink = (code) => regionStore.currentUrl(null, code)
 
 const languageLinks = computed(() => {
   const items = Array.isArray(locales.value) ? locales.value : []
@@ -35,7 +36,7 @@ const languageLinks = computed(() => {
       code: item.code,
       shortName: item.shortName || item.code?.toUpperCase?.() || item.code,
       name: item.name || item.code,
-      link: switchLocalePath(item.code) || '/',
+      link: getLocaleLink(item.code),
       icon: localeIconMap[item.code] || 'hugeicons:language-skill',
       isActive: item.code === locale.value
     }))
@@ -98,19 +99,6 @@ const updateNavLayout = () => {
     const moreWidth = navMoreMeasureRef.value
       ? navMoreMeasureRef.value.getBoundingClientRect().width
       : 0
-    console.log('[hero-header] nav layout', {
-      headerWidth,
-      containerWidth,
-      langWidth,
-      menuWidth,
-      gap,
-      moreWidth,
-      reserveGap,
-      availableWidth,
-      widths,
-      items: items.map((item) => item.id)
-    })
-
     const ordered = items
       .map((item, index) => ({ item, index }))
       .sort((a, b) => {
@@ -194,6 +182,15 @@ const toggleMore = () => {
   isMoreOpen.value = !isMoreOpen.value
 }
 
+const switchLanguage = (code) => {
+  const newLocale = getLocaleLink(code)
+  if (!newLocale) return
+  isLangOpen.value = false
+  isMoreOpen.value = false
+  closeMenu()
+  navigateTo(newLocale)
+}
+
 const handleNavClick = (link, options = {}) => {
   if (options.closeMore !== false) {
     isMoreOpen.value = false
@@ -247,7 +244,7 @@ const contactItems = computed(() => {
       label: t('contacts.schedule'),
       value: contacts.schedule.value,
       href: null,
-      icon: 'mynaui:clock'
+      icon: 'mynaui:clock-4'
     }
   ].filter((item) => item.value)
 })
@@ -397,19 +394,19 @@ watch(isMenuOpen, (value) => {
       </button>
 
       <div v-if="isLangOpen" class="lang-switcher__menu" role="menu" @click.stop>
-        <NuxtLink
+        <button
           v-for="item in languageLinks"
           :key="item.code"
-          :to="item.link"
+          type="button"
           class="lang-switcher__item"
           :class="{ 'is-active': item.isActive }"
           :aria-label="item.name"
-          @click="isLangOpen = false"
+          @click="switchLanguage(item.code)"
         >
           <IconCSS :name="item.icon" class="lang-switcher__item-icon" />
           <span class="lang-switcher__item-text">{{ item.name }}</span>
           <span class="lang-switcher__item-short">{{ item.shortName }}</span>
-        </NuxtLink>
+        </button>
       </div>
     </div>
 

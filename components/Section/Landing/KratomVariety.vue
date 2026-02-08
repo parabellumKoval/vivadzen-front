@@ -95,7 +95,7 @@ const colors = computed(() =>
     <div class="kratom-matrix-hero">
       <div class="pixel-pattern"></div>
       <div class="kratom-matrix-hero__content">
-        <h1 class="kratom-matrix-hero__title">{{ t('matrix.title') }}</h1>
+        <h3 class="kratom-matrix-hero__title">{{ t('matrix.title') }}</h3>
         <p class="kratom-matrix-hero__desc">{{ t('matrix.subtitle') }}</p>
       </div>
       <div class="gradient"></div>

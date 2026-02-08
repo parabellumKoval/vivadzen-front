@@ -239,9 +239,7 @@
 @include mobile {
   .contacts-menu {
     &__wrapper {
-      flex-direction: column;
       gap: 32px;
-      align-items: center;
       text-align: center;
     }
 

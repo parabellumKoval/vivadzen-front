@@ -160,7 +160,7 @@ const openCertificatesModal = () => {
     </div>
 
     <div class="footer">
-      <div class="footer__title">{{ t('footer.title') }}</div>
+      <h3 class="footer__title">{{ t('footer.title') }}</h3>
       <div class="footer__desc">{{ t('footer.description') }}</div>
     </div>
 
