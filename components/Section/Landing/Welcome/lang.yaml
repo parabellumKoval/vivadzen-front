@@ -17,6 +17,9 @@ ru:
     certificates: "Сертификаты продавца"
     labs: "Лабораторные тесты"
     store: "Интернет-магазин Vivadzen"
+  modal_titles:
+    certificates: "Сертификаты"
+    licenses: "Лицензии производителя"
 
 uk:
   desc: "до нашого шалено крутого магазину кратому Vivadzen!"
@@ -37,6 +40,9 @@ uk:
     certificates: "Сертифікати продавця"
     labs: "Лабораторні тести"
     store: "Інтернет-магазин Vivadzen"
+  modal_titles:
+    certificates: "Сертифікати"
+    licenses: "Ліцензії виробника"
 
 en:
   desc: "to our insane Vivadzen kratom store!"
@@ -57,6 +63,9 @@ en:
     certificates: "Seller certificates"
     labs: "Laboratory tests"
     store: "Vivadzen online store"
+  modal_titles:
+    certificates: "Certificates"
+    licenses: "Manufacturer licenses"
 
 cs:
   desc: "do našeho šíleného obchodu s kratomem Vivadzen!"
@@ -77,3 +86,6 @@ cs:
     certificates: "Certifikáty prodejce"
     labs: "Laboratorní testy"
     store: "Online obchod Vivadzen"
+  modal_titles:
+    certificates: "Certifikáty"
+    licenses: "Licencí výrobce"

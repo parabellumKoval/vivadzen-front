@@ -93,11 +93,20 @@ const updateNavLayout = () => {
       return el ? el.getBoundingClientRect().width : 0
     })
 
+    const containerWidth = container.clientWidth
+    const header = headerRef.value
+    const langEl = langRef.value || header?.querySelector?.('.hero-header__lang') || null
+    const menuEl = menuRef.value || header?.querySelector?.('.hero-header__menu') || null
+    const headerWidth = header ? header.getBoundingClientRect().width : containerWidth
+    const langTarget = langEl?.querySelector?.('.lang-switcher') || langEl
+    const menuTarget = menuEl
+    const langWidth = langTarget ? (langTarget.getBoundingClientRect().width || langTarget.scrollWidth || 0) : 0
+    const menuWidth = menuTarget ? (menuTarget.getBoundingClientRect().width || menuTarget.scrollWidth || 0) : 0
+    const safetyGap = 24
+    const reserveGap = 28
+    const availableWidth = Math.max(0, headerWidth - langWidth - menuWidth - safetyGap * 2 - reserveGap)
     const styles = window.getComputedStyle(container)
     const gap = Number.parseFloat(styles.columnGap || styles.gap || '0') || 0
-    const paddingLeft = Number.parseFloat(styles.paddingLeft || '0') || 0
-    const paddingRight = Number.parseFloat(styles.paddingRight || '0') || 0
-    const availableWidth = Math.max(0, container.clientWidth - paddingLeft - paddingRight)
     const moreWidth = navMoreMeasureRef.value
       ? navMoreMeasureRef.value.getBoundingClientRect().width
       : 0
@@ -349,17 +358,11 @@ watch(isMenuOpen, (value) => {
         <button
           type="button"
           class="hero-header__menu-btn"
-          :class="{ 'is-open': isMenuOpen }"
           @click="toggleMenu"
-          :aria-label="isMenuOpen ? t('menu.close') : t('menu.button')"
-          :aria-expanded="isMenuOpen"
+          :aria-label="t('menu.button')"
         >
-          <span class="hero-header__menu-burger" aria-hidden="true">
-            <span class="hero-header__menu-line hero-header__menu-line--top"></span>
-            <span class="hero-header__menu-line hero-header__menu-line--middle"></span>
-            <span class="hero-header__menu-line hero-header__menu-line--bottom"></span>
-          </span>
-          <span class="hero-header__menu-text">{{ isMenuOpen ? 'CLOSE' : t('menu.button') }}</span>
+          <IconCSS name="iconoir:menu" class="hero-header__menu-icon" />
+          <span>{{ t('menu.button') }}</span>
         </button>
       </div>
 
@@ -430,6 +433,11 @@ watch(isMenuOpen, (value) => {
           :aria-expanded="isLangOpen"
           @click="toggleLang"
         >
+          <IconCSS
+            v-if="activeLanguage"
+            :name="activeLanguage.icon"
+            class="lang-switcher__icon"
+          />
           <span class="lang-switcher__label">{{ activeLanguage?.shortName }}</span>
           <IconCSS name="iconoir:nav-arrow-down" class="lang-switcher__chevron" />
         </button>
@@ -444,6 +452,7 @@ watch(isMenuOpen, (value) => {
             :aria-label="item.name"
             @click="switchLanguage(item.code)"
           >
+            <IconCSS :name="item.icon" class="lang-switcher__item-icon" />
             <span class="lang-switcher__item-text">{{ item.name }}</span>
             <span class="lang-switcher__item-short">{{ item.shortName }}</span>
           </button>
@@ -453,51 +462,57 @@ watch(isMenuOpen, (value) => {
       <div class="hero-mobile-menu" :class="{ 'is-open': isMenuOpen }">
         <div class="hero-mobile-menu__backdrop" @click="closeMenu"></div>
         <div class="hero-mobile-menu__panel">
-          <div class="hero-mobile-menu__content">
-            <nav class="hero-mobile-menu__nav" :aria-label="t('nav.label')">
-              <a
-                v-for="item in navItems"
+          <div class="hero-mobile-menu__header">
+            <div class="hero-mobile-menu__title">{{ t('menu.title') }}</div>
+            <button type="button" class="hero-mobile-menu__close" @click="closeMenu">
+              <IconCSS name="iconoir:xmark" class="hero-mobile-menu__close-icon" />
+              <span>{{ t('menu.close') }}</span>
+            </button>
+          </div>
+
+          <nav class="hero-mobile-menu__nav" :aria-label="t('nav.label')">
+            <a
+              v-for="item in navItems"
+              :key="item.id"
+              :href="item.link"
+              class="hero-mobile-menu__link"
+              @click.prevent="handleNavClick(item.link)"
+            >
+              {{ item.title }}
+            </a>
+          </nav>
+
+          <div class="hero-mobile-menu__info">
+            <div class="hero-mobile-menu__info-title">{{ t('info.title') }}</div>
+            <div class="hero-mobile-menu__info-list">
+              <button
+                v-for="item in infoItems"
                 :key="item.id"
-                :href="item.link"
-                class="hero-mobile-menu__link"
-                @click.prevent="handleNavClick(item.link)"
+                type="button"
+                class="hero-mobile-menu__info-link"
+                @click="handleInfoClick(item.action)"
               >
                 {{ item.title }}
-              </a>
-            </nav>
-
-            <div class="hero-mobile-menu__info">
-              <div class="hero-mobile-menu__info-title">{{ t('info.title') }}</div>
-              <div class="hero-mobile-menu__info-list">
-                <button
-                  v-for="item in infoItems"
-                  :key="item.id"
-                  type="button"
-                  class="hero-mobile-menu__info-link"
-                  @click="handleInfoClick(item.action)"
-                >
-                  {{ item.title }}
-                </button>
-              </div>
+              </button>
             </div>
+          </div>
 
-            <div class="hero-mobile-menu__contacts">
-              <div class="hero-mobile-menu__contacts-title">{{ t('menu.contacts_title') }}</div>
-              <div class="hero-mobile-menu__contacts-list">
-                <component
-                  :is="item.href ? 'a' : 'div'"
-                  v-for="item in contactItems"
-                  :key="item.id"
-                  class="hero-mobile-menu__contact"
-                  :href="item.href"
-                >
-                  <IconCSS :name="item.icon" class="hero-mobile-menu__contact-icon" />
-                  <div class="hero-mobile-menu__contact-text">
-                    <span class="hero-mobile-menu__contact-label">{{ item.label }}</span>
-                    <span class="hero-mobile-menu__contact-value">{{ item.value }}</span>
-                  </div>
-                </component>
-              </div>
+          <div class="hero-mobile-menu__contacts">
+            <div class="hero-mobile-menu__contacts-title">{{ t('menu.contacts_title') }}</div>
+            <div class="hero-mobile-menu__contacts-list">
+              <component
+                :is="item.href ? 'a' : 'div'"
+                v-for="item in contactItems"
+                :key="item.id"
+                class="hero-mobile-menu__contact"
+                :href="item.href"
+              >
+                <IconCSS :name="item.icon" class="hero-mobile-menu__contact-icon" />
+                <div class="hero-mobile-menu__contact-text">
+                  <span class="hero-mobile-menu__contact-label">{{ item.label }}</span>
+                  <span class="hero-mobile-menu__contact-value">{{ item.value }}</span>
+                </div>
+              </component>
             </div>
           </div>
         </div>

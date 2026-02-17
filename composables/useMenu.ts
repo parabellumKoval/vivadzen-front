@@ -53,6 +53,11 @@ export const useMenu = () => {
         title: t('title.affiliate_system')
       },
       {
+        id: 22,
+        link: '/czech-republic-kratom',
+        title: t('title.czech-republic-kratom')
+      },
+      {
         id: 3,
         link: '/reviews/products',
         title: t('title.reviews')

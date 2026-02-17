@@ -1,33 +1,11 @@
 <script setup>
 const { t } = useI18n()
-
-const documentsModal = defineAsyncComponent(() =>
-  import('~/components/Section/Landing/DocumentsModal/DocumentsModal.client.vue')
-)
-
-const licenseDocuments = computed(() => [
-  { title: `${t('license_button')} 1`, src: '/pdf/file1.pdf' },
-  { title: `${t('license_button')} 2`, src: '/pdf/file2.pdf' }
-])
-
-const openLicenseModal = () => {
-  useModal().open(
-    documentsModal,
-    {
-      title: t('license_button'),
-      documents: licenseDocuments.value
-    },
-    null,
-    {
-      width: { min: 320, max: 1100 },
-      height: { min: 520, max: 900 }
-    }
-  )
-}
+const { openLicenseModal } = useDocumentsModal()
 </script>
 
 <style src="./legal-market.scss" lang="scss" scoped></style>
 <i18n src="./lang.yaml" lang="yaml"></i18n>
+<i18n src="./../lang.yaml" lang="yaml"></i18n>
 
 <template>
   <section class="legal-wrapper">

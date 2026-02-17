@@ -5,6 +5,8 @@ import Vivus from 'vivus'
 
 const { t } = useI18n()
 const socials = computed(() => useSocial().all)
+const { openLicenseModal, openCertificatesModal } = useDocumentsModal()
+const { $regionPath } = useNuxtApp()
 
 const sectionRef = ref(null)
 const videoRef = ref(null)
@@ -153,10 +155,20 @@ const nav = computed(() => [
   { link: '#contacts', title: t('nav.contacts') }
 ])
 
+const handleInfoLink = (action) => {
+  if (action === 'certificates') {
+    openCertificatesModal()
+  } else if (action === 'licenses') {
+    openLicenseModal()
+  } else if (action === 'store') {
+    navigateTo($regionPath('/'))
+  }
+}
+
 const info = computed(() => [
-  { link: '#timeline', title: t('info.certificates') },
-  { link: '#legal', title: t('info.labs') },
-  { link: '#promo', title: t('info.store') }
+  { action: 'certificates', title: t('info.certificates') },
+  { action: 'licenses', title: t('info.labs') },
+  { action: 'store', title: t('info.store') }
 ])
 </script>
 
@@ -216,8 +228,8 @@ const info = computed(() => [
         <div>
           <div class="contacts-menu__title">{{ t('info.title') }}</div>
           <ul class="contacts-menu__list">
-            <li v-for="li in info" :key="li.link" class="contacts-menu__li">
-              <a :href="li.link" @click.prevent="scrollToSection(li.link)">{{ li.title }}</a>
+            <li v-for="li in info" :key="li.action" class="contacts-menu__li">
+              <a href="#" @click.prevent="handleInfoLink(li.action)">{{ li.title }}</a>
             </li>
           </ul>
         </div>

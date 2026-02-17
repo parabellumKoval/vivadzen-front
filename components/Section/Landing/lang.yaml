@@ -1,5 +1,8 @@
 ru:
   kratom_word: "кратом"
+  modal_titles:
+    certificates: "Сертификаты"
+    licenses: "Лицензии"
   matrix:
     title: "KRATOM"
     subtitle: "ПРОДВИНУТАЯ БОТАНИЧЕСКАЯ ФОРМУЛА"
@@ -84,6 +87,9 @@ ru:
 
 uk:
   kratom_word: "кратом"
+  modal_titles:
+    certificates: "Сертифікати"
+    licenses: "Ліцензії"
   matrix:
     title: "KRATOM"
     subtitle: "ПРОГРЕСИВНА БОТАНІЧНА ФОРМУЛА"
@@ -168,6 +174,9 @@ uk:
 
 en:
   kratom_word: "kratom"
+  modal_titles:
+    certificates: "Certificates"
+    licenses: "Licenses"
   matrix:
     title: "KRATOM"
     subtitle: "ADVANCED BOTANICAL FORMULA"
@@ -252,6 +261,9 @@ en:
 
 cs:
   kratom_word: "kratom"
+  modal_titles:
+    certificates: "Certifikáty"
+    licenses: "Licence"
   matrix:
     title: "KRATOM"
     subtitle: "POKROČILÁ BOTANICKÁ FORMULE"

@@ -1,34 +1,11 @@
 <script setup>
 const { t } = useI18n()
-
-const documentsModal = defineAsyncComponent(() =>
-  import('~/components/Section/Landing/DocumentsModal/DocumentsModal.client.vue')
-)
-
-const certificateDocuments = computed(() => [
-  { title: `${t('steps.safety.button')} 1`, src: '/pdf/file1.pdf' },
-  { title: `${t('steps.safety.button')} 2`, src: '/pdf/file2.pdf' },
-  { title: `${t('steps.safety.button')} 3`, src: '/pdf/file3.pdf' }
-])
-
-const openCertificatesModal = () => {
-  useModal().open(
-    documentsModal,
-    {
-      title: t('steps.safety.button'),
-      documents: certificateDocuments.value
-    },
-    null,
-    {
-      width: { min: 320, max: 1100 },
-      height: { min: 520, max: 900 }
-    }
-  )
-}
+const { openCertificatesModal } = useDocumentsModal()
 </script>
 
 <style src="./timeline-section.scss" lang="scss" scoped></style>
 <i18n src="./lang.yaml" lang="yaml"></i18n>
+<i18n src="./../lang.yaml" lang="yaml"></i18n>
 
 <template>
   <section class="timeline-section">

@@ -125,13 +125,10 @@
     margin: 15px 0;
     text-align: center;
 
-    @include desktop {
-      text-align: left;
-    }
-
     .big {
       text-transform: uppercase;
       font-size: 30px;
+      padding: 0 5px 0 0;
     }
 
     .same {
