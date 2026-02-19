@@ -1,3 +1,8 @@
+vivapoints:
+  hero:
+    metric_video: Видеоотзыв
+    metric_text: Текстовый отзыв
+    metric_referral: Реферальная сеть
 regions:
   global: Глобальный
   ua: Украина
@@ -100,6 +105,9 @@ label:
   contact_phones: Контактные телефоны
   address: Наш адрес
   our_socials: Наши соц.сети
+  messengers: Поддержка
+  social_networks: Соц. сети
+  messengers_consultation_hint: Наши мессенджеры для консультаций и уточнения информации по заказам
   sub_title: Подписывайтесь на скидки!
   sub_desc: Рассылаем подписчикам промокоды и бонусы каждую неделю.
   min_read: мин. чтения

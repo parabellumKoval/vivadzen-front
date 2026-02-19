@@ -5,7 +5,7 @@
     overflow: hidden;
 
     @include desktop {
-      padding: 100px 120px 150px 0;
+      padding: 100px 120px 100px 0;
     }
 
     .container {
@@ -221,8 +221,9 @@
 
       &-text {
         fill: #000;
-        font-size: 11px;
+        font-size: var(--stamp-font-size, 11px);
         font-weight: 700;
+        letter-spacing: 0.2px;
         text-transform: uppercase;
         font-family: Arial, sans-serif;
       }

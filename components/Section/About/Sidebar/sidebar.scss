@@ -23,7 +23,7 @@
     gap: 30px;
   }
 
-  @include ld {
+  @include xld {
     right: calc((100vw - var(--container-width, 2160px) + var(--container-padding, 70px)) / 2);
   }
 

@@ -57,6 +57,27 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  &__groups {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 420px;
+
+    @include desktop {
+      gap: 50px;
+    }
+  }
+
+  &__group-label {
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba($color-8, 0.65);
+  }
 }
 
 .social-link {
@@ -152,12 +173,13 @@
 }
 
 .welcome-section {
+  --welcome-section-pad-y: 100px;
   --reveal-inset: 50%;
   --reveal-radius: 50%;
   width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
-  padding: 100px 0;
+  min-height: calc(100vh + (2 * var(--welcome-section-pad-y)));
+  min-height: calc(100svh + (2 * var(--welcome-section-pad-y)));
+  padding: var(--welcome-section-pad-y) 0;
   box-sizing: border-box;
   position: relative;
   background-color: #000;
@@ -266,7 +288,7 @@
   }
 
   .welcome-section {
-    padding: 60px 0;
+    --welcome-section-pad-y: 60px;
 
     &__desc {
       letter-spacing: 0.25em;

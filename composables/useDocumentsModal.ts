@@ -14,17 +14,22 @@ export const useDocumentsModal = () => {
    * PDF файлы для сертификатов (безопасность - из TimelineSection)
    */
   const certificateDocuments = computed(() => [
-    { title: `${t('modal_titles.certificates')} 1`, src: '/pdf/file1.pdf' },
-    { title: `${t('modal_titles.certificates')} 2`, src: '/pdf/file2.pdf' },
-    { title: `${t('modal_titles.certificates')} 3`, src: '/pdf/file3.pdf' }
+    { title: `${t('modal_titles.certificates')} 1`, src: '/pdf/green.pdf' },
+    { title: `${t('modal_titles.certificates')} 1`, src: '/pdf/green2.pdf' },
+    { title: `${t('modal_titles.certificates')} 1`, src: '/pdf/green3.PDF' },
+
+    { title: `${t('modal_titles.certificates')} 2`, src: '/pdf/white.pdf' },
+    { title: `${t('modal_titles.certificates')} 2`, src: '/pdf/white2.pdf' },
+
+    { title: `${t('modal_titles.certificates')} 3`, src: '/pdf/red.PDF' },
+    { title: `${t('modal_titles.certificates')} 3`, src: '/pdf/red2.pdf' }
   ])
 
   /**
    * PDF файлы для лицензий (правовые документы - из LegalMarket)
    */
   const licenseDocuments = computed(() => [
-    { title: `${t('modal_titles.licenses')} 1`, src: '/pdf/file1.pdf' },
-    { title: `${t('modal_titles.licenses')} 2`, src: '/pdf/file2.pdf' }
+    { title: `${t('modal_titles.licenses')} 1`, src: '/pdf/vivadzen.pdf' },
   ])
 
   /**

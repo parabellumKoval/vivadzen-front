@@ -100,6 +100,9 @@ label:
   contact_phones: Teléfonos de contacto
   address: Nuestra dirección
   our_socials: Nuestras redes sociales
+  messengers: Soporte
+  social_networks: Redes sociales
+  messengers_consultation_hint: Nuestros mensajeros para consultas y aclaración de información sobre pedidos
   sub_title: ¡Suscríbete para descuentos!
   sub_desc: Enviamos a los suscriptores cupones y bonos cada semana.
   min_read: min de lectura

@@ -1,6 +1,20 @@
 <script setup>
 const { t } = useI18n()
 const { openLicenseModal } = useDocumentsModal()
+
+const STAMP_RADIUS = 82
+const stampText = computed(() => String(t('stamp_text') || ''))
+const stampPathD = computed(
+  () => `M 150,150 m -${STAMP_RADIUS},0 a ${STAMP_RADIUS},${STAMP_RADIUS} 0 1,1 ${STAMP_RADIUS * 2},0 a ${STAMP_RADIUS},${STAMP_RADIUS} 0 1,1 -${STAMP_RADIUS * 2},0`
+)
+const stampTextLength = computed(() => Math.round(2 * Math.PI * STAMP_RADIUS))
+const stampFontSize = computed(() => {
+  const length = stampText.value.length
+
+  if (length >= 90) return '8px'
+  if (length >= 75) return '9px'
+  return '11px'
+})
 </script>
 
 <style src="./legal-market.scss" lang="scss" scoped></style>
@@ -53,11 +67,18 @@ const { openLicenseModal } = useDocumentsModal()
               />
               <svg class="legal-right__stamp" viewBox="0 0 300 300">
                 <defs>
-                  <path id="circlePath2" d="M 150,150 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" />
+                  <path id="circlePath2" :d="stampPathD" />
                 </defs>
                 <text>
-                  <textPath class="legal-right__stamp-text" href="#circlePath2" startOffset="0%" textLength="471" lengthAdjust="spacing">
-                    {{ t('stamp_text') }}
+                  <textPath
+                    class="legal-right__stamp-text"
+                    href="#circlePath2"
+                    startOffset="0%"
+                    :textLength="stampTextLength"
+                    lengthAdjust="spacingAndGlyphs"
+                    :style="{ '--stamp-font-size': stampFontSize }"
+                  >
+                    {{ stampText }}
                   </textPath>
                 </text>
               </svg>

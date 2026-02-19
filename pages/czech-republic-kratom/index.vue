@@ -206,15 +206,19 @@ onBeforeUnmount(() => {
   :deep(.page-reveal-section > * > *) {
     --reveal-x: 0px;
     --reveal-y: 30px;
-    --reveal-scale: 0.97;
+    --reveal-scale: 0.87;
     --reveal-rotate: 0deg;
     opacity: 0;
     filter: blur(12px);
-    transform: translate3d(var(--reveal-x), var(--reveal-y), 0) scale(var(--reveal-scale)) rotate(var(--reveal-rotate));
+    translate: var(--reveal-x) var(--reveal-y);
+    scale: var(--reveal-scale);
+    rotate: var(--reveal-rotate);
     transition:
       opacity 0.72s cubic-bezier(0.2, 0.9, 0.32, 1),
       filter 0.72s cubic-bezier(0.2, 0.9, 0.32, 1),
-      transform 0.82s cubic-bezier(0.2, 0.9, 0.32, 1);
+      translate 0.82s cubic-bezier(0.2, 0.9, 0.32, 1),
+      scale 0.82s cubic-bezier(0.2, 0.9, 0.32, 1),
+      rotate 0.82s cubic-bezier(0.2, 0.9, 0.32, 1);
     transition-delay: 0.06s;
   }
 
@@ -265,7 +269,9 @@ onBeforeUnmount(() => {
   :deep(.page-reveal-section.page-reveal--assembled > * > *) {
     opacity: 1;
     filter: blur(0);
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    translate: 0 0;
+    scale: 1;
+    rotate: 0deg;
   }
 }
 
@@ -281,7 +287,9 @@ onBeforeUnmount(() => {
     :deep(.page-reveal-section > * > *) {
       opacity: 1;
       filter: none;
-      transform: none;
+      translate: 0 0;
+      scale: 1;
+      rotate: 0deg;
       transition: none;
     }
   }

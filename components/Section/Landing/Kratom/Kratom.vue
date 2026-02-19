@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import KratomFlowerCream from './KratomFlowerCream.svg'
+import WrapperHtml from '@/modules/wrapperHtml/components/WrapperHtml.vue'
 
 const { t } = useI18n()
 
@@ -54,9 +55,7 @@ const benefits = computed(() => [
   <section class="kratom-section">
     <div class="container">
       <h2 class="kratom-hero__title">
-        {{ t('hero.title_line1') }} <br>
-        {{ t('hero.title_line2') }} <br>
-        <span class="orange">{{ t('hero.title_highlight') }}</span>
+        <WrapperHtml :string="t('hero.title')" :wrappers="['<span class=\'orange\'>']" />
       </h2>
       <div class="kratom-hero">
         <div class="kratom-hero__product">

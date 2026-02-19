@@ -1,4 +1,6 @@
 <script setup>
+const { t } = useI18n()
+
 const contactsModal = defineAsyncComponent(() =>
   import('~/components/Modal/Contacts/Contacts.client.vue')
 )
@@ -23,16 +25,17 @@ const openContactsModal = () => {
       class="support__img"
     />
     <div class="support__content">
-      <h3 class="support__title">Нужна помощь с выбором?</h3>
+      <h3 class="support__title">{{ t('title') }}</h3>
       <p class="support__desc">
-        Наши эксперты всегда готовы помочь вам подобрать идеальный сорт и цвет кратома,
-        соответствующий вашим потребностям и предпочтениям.
+        {{ t('description') }}
       </p>
       <button type="button" class="button orange support__link" @click="openContactsModal">
-        Связаться с нами
+        {{ t('button') }}
       </button>
     </div>
   </div>
 </template>
 
 <style src="./support.scss" lang="scss" scoped></style>
+
+<i18n src="./lang.yaml" lang="yaml"></i18n>

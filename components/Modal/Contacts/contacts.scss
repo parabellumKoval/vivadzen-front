@@ -34,15 +34,24 @@
     font-weight: 500;
     font-size: 14px;
     text-transform: uppercase;
+    color: $color-dark-2;
   }
-  
-  :deep(iframe) {
+
+  &-container {
+    border: 10px solid $color-border;
+    border-radius: 30px;
+    overflow: hidden;
+    object-fit: cover;
+    height: 340px;
+  }
+
+  &-container :deep(iframe) {
     width: 100%;
-    height: 340px !important;
-    margin-bottom: 40px;
+    height: 100%;
+    margin: 0;
+    display: block;
     @include desktop {
-      margin-bottom: 0;
-      width: 410px;
+      width: 100%;
     }
   }
 }
@@ -51,6 +60,26 @@
 }
 .social {
   margin: 0 0 40px 0;
+  &-group {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &-group-title {
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: $color-dark-2;
+    text-transform: uppercase;
+  }
+  &-group-hint {
+    margin-bottom: 12px;
+    line-height: 140%;
+    color: $color-dark-2;
+    font-size: 13px;
+  }
 }
 .email {
   &-btn {

@@ -92,6 +92,19 @@
   }
 }
 .social {
+  &-group {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &-label {
+    margin-bottom: 8px;
+    color: $color-4;
+    font-size: 13px;
+    font-weight: 500;
+  }
   &-items {
     display: grid;
     grid-auto-flow: column;

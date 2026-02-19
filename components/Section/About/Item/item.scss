@@ -17,7 +17,8 @@
   }
 
   @include ld {
-    padding: 0 150px 0 0;
+    // padding: 0 150px 0 0;
+    padding: 0 70px;
     align-items: center;
   }
 
@@ -37,7 +38,7 @@
       gap: 0;
     }
 
-    @include ld {
+    @include xld {
       gap: 64px;
     }
   }

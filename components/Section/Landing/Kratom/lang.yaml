@@ -1,8 +1,6 @@
 ru:
   hero:
-    title_line1: "Настоящий премиум"
-    title_line2: "кратом"
-    title_highlight: "умнее"
+    title: "Премиальный кратом для [[--твоего ресурса--]]"
     pack_alt: "Пачка Vivadzen Kratom"
     cup_alt: "Чай из кратома"
   callouts:
@@ -30,9 +28,7 @@ ru:
 
 uk:
   hero:
-    title_line1: "Справжній преміум"
-    title_line2: "кратом"
-    title_highlight: "розумніше"
+    title: "Преміальний кратом для [[--твого ресурсу--]]"
     pack_alt: "Пакування Vivadzen Kratom"
     cup_alt: "Чай з кратому"
   callouts:
@@ -60,9 +56,7 @@ uk:
 
 en:
   hero:
-    title_line1: "Real Premium"
-    title_line2: "Kratom Made"
-    title_highlight: "Smarter"
+    title: "Premium kratom for [[--your well-being--]]"
     pack_alt: "Vivadzen Kratom pack"
     cup_alt: "Kratom tea"
   callouts:
@@ -90,9 +84,7 @@ en:
 
 cs:
   hero:
-    title_line1: "Skutečně prémiový"
-    title_line2: "kratom"
-    title_highlight: "chytřeji"
+    title: "Prémiový kratom pro tvůj [[--vnitřní balanc--]]"
     pack_alt: "Balení Vivadzen Kratom"
     cup_alt: "Kratomový čaj"
   callouts:

@@ -72,7 +72,7 @@ export const useFilter = () => {
       }
 
       return resp
-    }, {orderBy: 'created_at', orderDir: 'desc'})
+    }, {orderBy: null, orderDir: null})
 
     return {
       'order_by': orderBy,

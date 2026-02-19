@@ -52,7 +52,6 @@ const activeLanguage = computed(() => {
 })
 
 const navItems = computed(() => [
-  { id: 'home', link: '#home', title: t('nav.home'), priority: 10 },
   { id: 'legal', link: '#legal', title: t('nav.legal'), priority: 20 },
   { id: 'timeline', link: '#timeline', title: t('nav.timeline'), priority: 30 },
   { id: 'kratom', link: '#kratom', title: t('nav.kratom'), priority: 40 },
@@ -224,6 +223,10 @@ const handleInfoClick = (action) => {
   })
 }
 
+const handleLogoClick = () => {
+  handleNavClick('#home')
+}
+
 const phoneLink = computed(() => {
   const value = String(contacts.phone.value || '')
   if (!value) return null
@@ -337,6 +340,11 @@ watch(isMenuOpen, (value) => {
         sizes="mobile: 160px"
         class="hero-header__logo"
         :alt="t('logo_alt')"
+        role="button"
+        tabindex="0"
+        @click="handleLogoClick"
+        @keydown.enter.prevent="handleLogoClick"
+        @keydown.space.prevent="handleLogoClick"
       />
       <nuxt-img
         v-else
@@ -344,6 +352,11 @@ watch(isMenuOpen, (value) => {
         sizes="mobile: 240px"
         class="hero-header__logo"
         :alt="t('logo_alt')"
+        role="button"
+        tabindex="0"
+        @click="handleLogoClick"
+        @keydown.enter.prevent="handleLogoClick"
+        @keydown.space.prevent="handleLogoClick"
       />
       <div ref="menuRef" class="hero-header__menu">
         <button

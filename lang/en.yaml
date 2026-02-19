@@ -1,3 +1,8 @@
+vivapoints:
+  hero:
+    metric_video: Video review
+    metric_text: Text review
+    metric_referral: Referral network
 regions:
   global: Global
   ua: Ukraine
@@ -100,6 +105,9 @@ label:
   contact_phones: Contact phone numbers
   address: Our address
   our_socials: Our social networks
+  messengers: Support
+  social_networks: Social networks
+  messengers_consultation_hint: Our messengers for consultations and order details
   sub_title: Subscribe for discounts!
   sub_desc: We email subscribers promo codes and bonuses every week.
   min_read: min read

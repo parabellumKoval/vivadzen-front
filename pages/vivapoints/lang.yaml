@@ -1,0 +1,66 @@
+ru:
+  hero:
+    metric_video: Видеоотзыв
+    metric_text: Текстовый отзыв
+    metric_referral: Реферальная сеть
+    metric_referral_prefix: до
+  settings:
+    register: зарегистрируйтесь
+    account: Личный Кабинет
+    referral_rules_label: Подробнее о правилах Реферальной программы
+    conversion_rate_label: 1 CZK (Чешская крона)
+en:
+  hero:
+    metric_video: Video review
+    metric_text: Text review
+    metric_referral: Referral network
+    metric_referral_prefix: up to
+  settings:
+    register: register
+    account: Account
+    referral_rules_label: More about the Referral Program rules
+    conversion_rate_label: 1 CZK (Czech koruna)
+cs:
+  hero:
+    metric_video: Video recenze
+    metric_text: Textová recenze
+    metric_referral: Partnerská síť
+    metric_referral_prefix: až
+  settings:
+    register: zaregistrujte se
+    account: Osobní účet
+    referral_rules_label: Více o pravidlech partnerského programu
+    conversion_rate_label: 1 CZK (česká koruna)
+uk:
+  hero:
+    metric_video: Відеовідгук
+    metric_text: Текстовий відгук
+    metric_referral: Партнерська мережа
+    metric_referral_prefix: до
+  settings:
+    register: зареєструйтесь
+    account: Особистий кабінет
+    referral_rules_label: Детальніше про правила Партнерської програми
+    conversion_rate_label: 1 CZK (чеська крона)
+de:
+  hero:
+    metric_video: Video-Bewertung
+    metric_text: Textbewertung
+    metric_referral: Partnernetzwerk
+    metric_referral_prefix: bis zu
+  settings:
+    register: registrieren
+    account: Benutzerkonto
+    referral_rules_label: Mehr zu den Regeln des Partnerprogramms
+    conversion_rate_label: 1 CZK (Tschechische Krone)
+es:
+  hero:
+    metric_video: Reseña en video
+    metric_text: Reseña de texto
+    metric_referral: Red de referidos
+    metric_referral_prefix: hasta
+  settings:
+    register: regístrate
+    account: Cuenta personal
+    referral_rules_label: Más sobre las reglas del Programa de Referidos
+    conversion_rate_label: 1 CZK (corona checa)

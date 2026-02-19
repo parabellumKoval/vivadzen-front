@@ -1,9 +1,6 @@
 <script setup>
 const {t} = useI18n()
-
-const socials = computed(() => {
-  return useSocial().all
-})
+const { messengers, networks } = useSocial()
 
 </script>
 
@@ -15,10 +12,21 @@ const socials = computed(() => {
     <div class="contacts">
       <div>
         <div class="social">
-          <a v-for="social in socials" :key="social.id" :href="social.link" :class="social.key + '-bg'" class="button social-btn contacts-btn">
-            <IconCSS :name="social.icon" class="icon"></IconCSS>
-            <span class="text">{{ social.name }}</span>
-          </a>
+          <div v-if="messengers.length" class="social-group">
+            <div class="social-group-title">{{ t('label.messengers') }}</div>
+            <div class="social-group-hint">{{ t('label.messengers_consultation_hint') }}</div>
+            <a v-for="messenger in messengers" :key="messenger.id" :href="messenger.link" :class="messenger.key + '-bg'" class="button social-btn contacts-btn">
+              <IconCSS :name="messenger.icon" class="icon"></IconCSS>
+              <span class="text">{{ messenger.name }}</span>
+            </a>
+          </div>
+          <div v-if="networks.length" class="social-group">
+            <div class="social-group-title">{{ t('label.social_networks') }}</div>
+            <a v-for="network in networks" :key="network.id" :href="network.link" :class="network.key + '-bg'" class="button social-btn contacts-btn">
+              <IconCSS :name="network.icon" class="icon"></IconCSS>
+              <span class="text">{{ network.name }}</span>
+            </a>
+          </div>
         </div>
         <div class="phones">
           <a href="/" class="button color-dark contacts-btn">
@@ -34,7 +42,7 @@ const socials = computed(() => {
       <div class="divide"></div>
       <div class="map">
         <div class="map-title">{{ useContacts().address }}</div>
-        <div v-html="useContacts().map.value"></div>
+        <div class="map-container" v-html="useContacts().map.value"></div>
       </div>
     </div>
   </modal-wrapper>

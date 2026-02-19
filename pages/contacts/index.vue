@@ -22,11 +22,8 @@ const feedback = ref({
 })
 
 const errors = ref(null)
+const { messengers, networks } = useSocial()
 
-// COMPUTEDS
-const socials = computed(() => {
-  return useSocial().all
-})
 // METHODS
 const resetFeedback = () => {
   feedback.value.name = null
@@ -122,13 +119,28 @@ useSeo().setPageSeo(t('title.contacts'))
           </div>
 
           <div class="contacts-block">
-            <div class="contacts-label">{{ t('social') }}</div>
+            <!-- <div class="contacts-label">{{ t('label.our_socials') }}</div> -->
 
-            <div class="social">
-              <a v-for="social in socials" :key="social.id" :href="social.link" :class="social.key + '-bg'" class="social-item">
-                <IconCSS :name="social.icon" class="social-icon"></IconCSS>
-                <span class="social-text">{{ social.name }}</span>
-              </a>
+            <div class="social-groups">
+              <div v-if="messengers.length" class="social-group">
+                <div class="contacts-label social-group-label">{{ t('label.messengers') }}</div>
+                <div class="contacts-label social-group-hint">{{ t('label.messengers_consultation_hint') }}</div>
+                <div class="social">
+                  <a v-for="messenger in messengers" :key="messenger.id" :href="messenger.link" :class="messenger.key + '-bg'" class="social-item">
+                    <IconCSS :name="messenger.icon" class="social-icon"></IconCSS>
+                    <span class="social-text">{{ messenger.name }}</span>
+                  </a>
+                </div>
+              </div>
+              <div v-if="networks.length" class="social-group">
+                <div class="contacts-label social-group-label">{{ t('label.social_networks') }}</div>
+                <div class="social">
+                  <a v-for="network in networks" :key="network.id" :href="network.link" :class="network.key + '-bg'" class="social-item">
+                    <IconCSS :name="network.icon" class="social-icon"></IconCSS>
+                    <span class="social-text">{{ network.name }}</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 

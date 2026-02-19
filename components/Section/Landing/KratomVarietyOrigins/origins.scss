@@ -12,12 +12,15 @@
     display: grid;
     grid-template-columns: 1fr 3fr;
     gap: 40px;
-    max-width: 1400px;
     margin: 40px 0 0 0;
 
     @include mobile {
       grid-template-columns: 1fr;
       gap: 24px;
+    }
+
+    @include xxld {
+      max-width: 1400px;
     }
   }
 
@@ -55,9 +58,15 @@
   }
 
   @include ld {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  @include xld {
     width: 500px;
     padding: 50px;
-    margin: 0;
+    text-align: left;
   }
 
   &__title {
@@ -109,7 +118,7 @@
   overflow: hidden;
 
   @include desktop {
-    padding: 30px;
+    padding: 0 30px;
   }
 
   @include xld {

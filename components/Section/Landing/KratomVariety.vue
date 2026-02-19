@@ -1,5 +1,5 @@
 <script setup>
-const { t } = useI18n()
+const { t, te } = useI18n()
 
 const baseModifications = [
   { weight: 100, price: 490 },
@@ -76,6 +76,7 @@ const colors = computed(() =>
   colorConfigs.map((item) => ({
     ...item,
     name: t(`colors.${item.key}.name`),
+    effectsName: te(`colors.${item.key}.effects_name`) ? t(`colors.${item.key}.effects_name`) : t(`colors.${item.key}.name`),
     title: t(`colors.${item.key}.title`),
     desc: t(`colors.${item.key}.desc`),
     modifications: modifications.value,
@@ -86,6 +87,8 @@ const colors = computed(() =>
     }))
   }))
 )
+
+const effectsProduct = computed(() => (te('effects_product') ? t('effects_product') : t('kratom_word')))
 </script>
 
 <i18n src="./lang.yaml" lang="yaml"></i18n>
@@ -126,7 +129,7 @@ const colors = computed(() =>
               <div class="color-effects-section__lists">
                 <div class="color-item__effects">
                   <div :style="{ color: color.color }" class="effect-item__name">
-                    {{ t('effects_title', { color: color.name, product: t('kratom_word') }) }}
+                    {{ t('effects_title', { color: color.effectsName, product: effectsProduct }) }}
                   </div>
                   <ul class="effects-list">
                     <li v-for="effect in color.effects" :key="effect.label" class="effect-item">
@@ -161,7 +164,7 @@ const colors = computed(() =>
           <div class="color-effects-section__lists">
             <div v-for="color in colors" :key="`${color.key}-effects`" class="color-item__effects">
               <div :style="{ color: color.color }" class="effect-item__name">
-                {{ t('effects_title', { color: color.name, product: t('kratom_word') }) }}
+                {{ t('effects_title', { color: color.effectsName, product: effectsProduct }) }}
               </div>
               <ul class="effects-list">
                 <li v-for="effect in color.effects" :key="effect.label" class="effect-item">

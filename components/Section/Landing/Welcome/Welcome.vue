@@ -4,7 +4,7 @@
 import Vivus from 'vivus'
 
 const { t } = useI18n()
-const socials = computed(() => useSocial().all)
+const { messengers, networks } = useSocial()
 const { openLicenseModal, openCertificatesModal } = useDocumentsModal()
 const { $regionPath } = useNuxtApp()
 
@@ -78,9 +78,8 @@ const updateRevealProgress = () => {
   wasOutOfView = false
 
   const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0))
-  let progress = rect.height > 0
-    ? Math.min(1, Math.max(0, visibleHeight / rect.height))
-    : 0
+  const revealHeight = Math.max(1, Math.min(rect.height, viewportHeight))
+  let progress = Math.min(1, Math.max(0, visibleHeight / revealHeight))
 
   if (isLockedOpen) {
     progress = 1
@@ -199,19 +198,41 @@ const info = computed(() => [
 
       <div class="contacts-social-card">
         <div class="contacts-social-card__title">{{ t('social') }}</div>
-        <div class="contacts-social-card__list">
-          <a
-            v-for="social in socials"
-            :key="social.id"
-            :href="social.link"
-            :aria-label="social.name"
-            class="social-link"
-            :class="'social-link--' + social.key"
-            target="_blank"
-          >
-            <IconCSS :name="social.icon" class="social-link__icon" />
-            <span class="social-link__text">{{ social.name }}</span>
-          </a>
+        <div class="contacts-social-card__groups">
+          <div v-if="messengers.length" class="contacts-social-card__group">
+            <div class="contacts-social-card__group-label">{{ t('label.messengers') }}</div>
+            <div class="contacts-social-card__list">
+              <a
+                v-for="messenger in messengers"
+                :key="messenger.id"
+                :href="messenger.link"
+                :aria-label="messenger.name"
+                class="social-link"
+                :class="'social-link--' + messenger.key"
+                target="_blank"
+              >
+                <IconCSS :name="messenger.icon" class="social-link__icon" />
+                <span class="social-link__text">{{ messenger.name }}</span>
+              </a>
+            </div>
+          </div>
+          <div v-if="networks.length" class="contacts-social-card__group">
+            <div class="contacts-social-card__group-label">{{ t('label.social_networks') }}</div>
+            <div class="contacts-social-card__list">
+              <a
+                v-for="network in networks"
+                :key="network.id"
+                :href="network.link"
+                :aria-label="network.name"
+                class="social-link"
+                :class="'social-link--' + network.key"
+                target="_blank"
+              >
+                <IconCSS :name="network.icon" class="social-link__icon" />
+                <span class="social-link__text">{{ network.name }}</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       

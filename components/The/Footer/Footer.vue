@@ -7,6 +7,7 @@ const {get} = useSettings()
 const {vendors} = useDelivery()
 const categoryStore = useCategoryStore()
 const { region } = useRegion()
+const { messengers, networks } = useSocial()
 
 const sub = ref({
   type: 'subscription',
@@ -149,17 +150,37 @@ const subHandler = () => {
         </div>
 
         <div class="social">
-          <div class="footer-label">{{ t('label.our_socials') }}</div>
-          <div class="social-items">
-            <a
-              v-for="network in useSocial().all"
-              :key="network?.key"
-              :href="network?.link"
-              :class="network?.key + '-bg'"
-              class="social-item"
-            >
-              <IconCSS :name="network?.icon" class="social-icon"></IconCSS>
-            </a>
+          <div class="footer-label">{{ t('label.messengers') }}</div>
+          <div v-if="messengers.length" class="social-group">
+            <div class="social-items">
+              <a
+                v-for="messenger in messengers"
+                :key="messenger?.key"
+                :href="messenger?.link"
+                :class="messenger?.key + '-bg'"
+                class="social-item"
+              >
+                <IconCSS :name="messenger?.icon" class="social-icon"></IconCSS>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="social">
+          <div class="footer-label">{{ t('label.social_networks') }}</div>
+          
+          <div v-if="networks.length" class="social-group">
+            <div class="social-items">
+              <a
+                v-for="network in networks"
+                :key="network?.key"
+                :href="network?.link"
+                :class="network?.key + '-bg'"
+                class="social-item"
+              >
+                <IconCSS :name="network?.icon" class="social-icon"></IconCSS>
+              </a>
+            </div>
           </div>
         </div>
 

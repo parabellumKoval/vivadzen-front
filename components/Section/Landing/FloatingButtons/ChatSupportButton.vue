@@ -1,11 +1,7 @@
 <script setup>
 const { t } = useI18n()
-const social = useSocial()
-
-const socials = computed(() => [
-  ...social.messengers.value,
-  ...social.networks.value
-])
+const { messengers, networks } = useSocial()
+const hasSocialLinks = computed(() => messengers.value.length > 0 || networks.value.length > 0)
 const isModalOpen = ref(false)
 const isWinkActive = ref(false)
 
@@ -77,28 +73,36 @@ ru:
   modal:
     title: "Онлайн-консультация"
     desc: "Вы можете проконсультироваться на любую тему онлайн, связавшись с оператором."
-    empty: "Ссылки на мессенджеры временно недоступны."
+    messengers: "Мессенджеры"
+    social_networks: "Соц. сети"
+    empty: "Ссылки временно недоступны."
 
 uk:
   button_aria: "Відкрити онлайн-чат"
   modal:
     title: "Онлайн-консультація"
     desc: "Ви можете проконсультуватися на будь-яку тему онлайн, зв’язавшись з оператором."
-    empty: "Посилання на месенджери тимчасово недоступні."
+    messengers: "Месенджери"
+    social_networks: "Соцмережі"
+    empty: "Посилання тимчасово недоступні."
 
 en:
   button_aria: "Open online chat"
   modal:
     title: "Online consultation"
     desc: "You can get advice online on any topic by contacting an operator."
-    empty: "Messenger links are temporarily unavailable."
+    messengers: "Messengers"
+    social_networks: "Social networks"
+    empty: "Links are temporarily unavailable."
 
 cs:
   button_aria: "Otevřít online chat"
   modal:
     title: "Online konzultace"
     desc: "Můžete se online poradit na jakékoli téma po kontaktování operátora."
-    empty: "Odkazy na messengery jsou dočasně nedostupné."
+    messengers: "Messengery"
+    social_networks: "Sociální sítě"
+    empty: "Odkazy jsou dočasně nedostupné."
 </i18n>
 
 <template>
@@ -135,19 +139,42 @@ cs:
         <div class="chat-support-modal__title">{{ t('modal.title') }}</div>
         <p class="chat-support-modal__desc">{{ t('modal.desc') }}</p>
 
-        <div v-if="socials.length" class="chat-support-modal__socials">
-          <a
-            v-for="social in socials"
-            :key="social.id"
-            :href="social.link"
-            class="chat-support-modal__social-link"
-            :class="'chat-support-modal__social-link--' + social.key"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <IconCSS :name="social.icon" class="chat-support-modal__social-icon" />
-            <span>{{ social.name }}</span>
-          </a>
+        <div v-if="hasSocialLinks" class="chat-support-modal__social-groups">
+          <div v-if="messengers.length" class="chat-support-modal__social-group">
+            <div class="chat-support-modal__social-group-title">{{ t('modal.messengers') }}</div>
+            <div class="chat-support-modal__socials">
+              <a
+                v-for="messenger in messengers"
+                :key="messenger.id"
+                :href="messenger.link"
+                class="chat-support-modal__social-link"
+                :class="'chat-support-modal__social-link--' + messenger.key"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <IconCSS :name="messenger.icon" class="chat-support-modal__social-icon" />
+                <span>{{ messenger.name }}</span>
+              </a>
+            </div>
+          </div>
+
+          <div v-if="networks.length" class="chat-support-modal__social-group">
+            <div class="chat-support-modal__social-group-title">{{ t('modal.social_networks') }}</div>
+            <div class="chat-support-modal__socials">
+              <a
+                v-for="network in networks"
+                :key="network.id"
+                :href="network.link"
+                class="chat-support-modal__social-link"
+                :class="'chat-support-modal__social-link--' + network.key"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <IconCSS :name="network.icon" class="chat-support-modal__social-icon" />
+                <span>{{ network.name }}</span>
+              </a>
+            </div>
+          </div>
         </div>
 
         <div v-else class="chat-support-modal__empty">
@@ -280,6 +307,20 @@ cs:
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
+}
+
+.chat-support-modal__social-groups {
+  display: grid;
+  gap: 12px;
+}
+
+.chat-support-modal__social-group-title {
+  margin-bottom: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(24, 24, 24, 0.55);
 }
 
 .chat-support-modal__social-link {

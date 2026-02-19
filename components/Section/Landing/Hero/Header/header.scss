@@ -75,16 +75,24 @@
     grid-column: 2;
     justify-self: start;
     object-fit: contain;
+    cursor: pointer;
     transition: all 0.6s;
     order: 2;
+    opacity: 0;
+    transform: translateY(-100%);
+    outline: none;
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.9);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
 
     @include desktop {
       order: 1;
       width: 180px;
       height: 56px;
       grid-column: auto;
-      opacity: 0;
-      transform: translateY(-100%);
     }
   }
 
@@ -295,8 +303,8 @@
     @include desktop {
       grid-column: auto;
       justify-self: end;
-      opacity: 0;
-      transform: translateY(-100%);
+      // opacity: 1;
+      // transform: translateY(-100%);
     }
   }
 
@@ -459,10 +467,10 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    padding: 92px 22px 34px;
+    padding: 92px 40px 34px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 40px;
     overflow-y: auto;
     opacity: 0;
     transition: opacity 0.22s ease;
@@ -525,7 +533,6 @@
   }
 
   &__contacts {
-    margin-top: auto;
     padding-top: 18px;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
@@ -555,7 +562,8 @@
   }
 
   &__contact-icon {
-    font-size: 18px;
+    font-size: 22px;
+    flex-shrink: 0;
   }
 
   &__contact-text {
@@ -574,6 +582,7 @@
   &__contact-value {
     font-size: 14px;
     font-weight: 600;
+    line-height: 1.4;
   }
 
   @include desktop {

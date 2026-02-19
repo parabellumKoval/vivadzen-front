@@ -37,8 +37,17 @@
 }
 .map {
   &-wrapper {
-    border-radius: $radius;
-    border: 3px solid $color-6;
+    border: 10px solid $color-border;
+    border-radius: 30px;
+    overflow: hidden;
+    object-fit: cover;
+    min-height: 320px;
+  }
+
+  &-wrapper :deep(iframe) {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
   &-iframe {
     width: 100%;
@@ -74,6 +83,19 @@
 .social {
   display: flex;
   flex-wrap: wrap;
+  &-groups {
+    display: grid;
+    grid-gap: 15px;
+  }
+  &-group-label {
+    margin-bottom: 10px;
+    color: $color-dark-2;
+  }
+  &-group-hint {
+    margin-bottom: 12px;
+    line-height: 140%;
+    color: $color-dark-2;
+  }
   &-item  {
     display: grid;
     grid-template-columns: repeat(2, min-content);

@@ -1,16 +1,24 @@
 <script setup>
 const { t } = useI18n()
 
-const scrollToContacts = () => {
+const scrollToSection = (id) => {
   if (process.server) return
-  const element = document.getElementById('contacts')
+  const element = document.getElementById(id)
   if (!element) return
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   element.scrollIntoView({
     behavior: prefersReducedMotion ? 'auto' : 'smooth',
     block: 'start'
   })
-  window.history.replaceState(null, '', '#contacts')
+  window.history.replaceState(null, '', `#${id}`)
+}
+
+const scrollToKratomVariety = () => {
+  scrollToSection('colors')
+}
+
+const scrollToContacts = () => {
+  scrollToSection('contacts')
 }
 </script>
 
@@ -66,7 +74,7 @@ const scrollToContacts = () => {
         </p>
 
         <div class="hero-banner-item-2__buttons">
-          <button type="button" class="button promo">
+          <button type="button" class="button promo" @click="scrollToKratomVariety">
             {{ t('btn_catalog') }}
           </button>
           <button type="button" class="button color-secondary" @click="scrollToContacts">

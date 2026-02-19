@@ -68,9 +68,9 @@ const videoReward = computed(() => resolveReward('video'))
 const textReward = computed(() => resolveReward('text'))
 
 const settingsValues = computed(() => ({
-  registerLabel: get('profile.auth.cta.register', 'зарегистрируйтесь'),
+  registerLabel: get('profile.auth.cta.register', t('settings.register')),
   registerLink: get('profile.auth.links.register', '/auth/register'),
-  accountLabel: get('profile.account.label', 'Личный Кабинет'),
+  accountLabel: get('profile.account.label', t('settings.account')),
   accountLink: get('profile.account.link', '/account'),
   videoReward: videoReward.value.amount,
   textReward: textReward.value.amount,
@@ -79,9 +79,9 @@ const settingsValues = computed(() => ({
   referralLevel2: referralLevelPercents.value.level2 || '5%',
   referralLevel3: referralLevelPercents.value.level3 || '3%',
   referralRulesLink: get('profile.referrals.rules.link', '/account/network'),
-  referralRulesLabel: get('profile.referrals.rules.label', pageData?.earn?.methods?.find((m: any) => m.key === 'referral')?.link_label || 'Подробнее о правилах Реферальной программы'),
+  referralRulesLabel: get('profile.referrals.rules.label', pageData?.earn?.methods?.find((m: any) => m.key === 'referral')?.link_label || t('settings.referral_rules_label')),
   moderationHours: get('profile.reviews.moderation.hours', 24),
-  conversionRateLabel: get('profile.points.rate.cz_label', '1 CZK (Чешская крона)'),
+  conversionRateLabel: get('profile.points.rate.cz_label', t('settings.conversion_rate_label')),
   maxPaymentPercent: get('profile.points.checkout.max_percent', '100%'),
   minWithdraw: Number(get('profile.points.withdrawal.min', 500)),
   processingDays: get('profile.points.withdrawal.processing_days', 7),
@@ -144,18 +144,18 @@ const heroMetrics = computed(() => {
   return [
     {
       icon: 'hugeicons:play-circle-02',
-      label: 'Видеоотзыв',
+      label: t('hero.metric_video'),
       value: `+${formatNumber(settingsValues.value.videoReward)} ${pointsLabel}`
     },
     {
       icon: 'hugeicons:edit-02',
-      label: 'Текстовый отзыв',
+      label: t('hero.metric_text'),
       value: `+${formatNumber(settingsValues.value.textReward)} ${pointsLabel}`
     },
     {
       icon: 'solar:users-group-two-rounded-linear',
-      label: 'Реферальная сеть',
-      value: `до ${settingsValues.value.referralMaxPercent}`
+      label: t('hero.metric_referral'),
+      value: `${t('hero.metric_referral_prefix')} ${settingsValues.value.referralMaxPercent}`
     }
   ]
 })
@@ -244,6 +244,7 @@ useSeo().setPageSeo(t('title.vivapoints'))
 </script>
 
 <style src='./vivapoints.scss' lang='scss' scoped></style>
+<i18n src="./lang.yaml" lang="yaml" ></i18n>
 
 <template>
   <div class="vivapoints-page">
@@ -299,6 +300,16 @@ useSeo().setPageSeo(t('title.vivapoints'))
             ></nuxt-img>
           </div>
         </div>
+      </div>
+      <div class="vivapoints-hero__video-wrapper">
+        <video
+          src="/video/vivapoints.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          class="vivapoints-hero__video"
+        ></video>
       </div>
     </section>
 
