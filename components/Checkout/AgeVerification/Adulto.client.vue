@@ -15,17 +15,60 @@ const { t } = useI18n()
 const containerId = `adulto-verification-${Math.random().toString(36).slice(2, 10)}`
 const isLoading = ref(false)
 const widgetError = ref<string | null>(null)
+const scriptId = 'adulto-widget-script'
+const scriptLoadTimeoutMs = 15000
 
 let adultoScriptPromise: Promise<void> | null = null
 
 const getAdultoApi = () => (window as typeof window & { Adulto?: any }).Adulto
+const isAdultoApiReady = () => {
+  const adultoApi = getAdultoApi()
+  return Boolean(adultoApi && typeof adultoApi.createVerificationWidget === 'function')
+}
+const getKeyPreview = (key: string) => {
+  if (!key) {
+    return ''
+  }
+
+  if (key.length <= 4) {
+    return key
+  }
+
+  return `${key.slice(0, 4)}...`
+}
+
+const logAdultoDebug = (stage: string, error?: unknown, extra: Record<string, unknown> = {}) => {
+  if (!process.client) {
+    return
+  }
+
+  const script = document.getElementById(scriptId) as HTMLScriptElement | null
+  const errorMessage = error instanceof Error ? error.message : String(error || '')
+  const key = String(props.publicKey || '').trim()
+  const payload = {
+    stage,
+    error: errorMessage,
+    href: window.location.href,
+    host: window.location.host,
+    isLocalhost: ['localhost', '127.0.0.1'].includes(window.location.hostname),
+    publicKeyProvided: key.length > 0,
+    publicKeyPreview: getKeyPreview(key),
+    scriptSrc: script?.src || null,
+    scriptState: script?.dataset?.adultoState || null,
+    hasAdultoObject: Boolean(getAdultoApi()),
+    adultoApiReady: isAdultoApiReady(),
+    ...extra,
+  }
+
+  console.error('[ADULTO] Widget debug', payload)
+}
 
 const loadScript = async (publicKey: string) => {
   if (!process.client) {
     return
   }
 
-  if (getAdultoApi()) {
+  if (isAdultoApiReady()) {
     return
   }
 
@@ -34,23 +77,101 @@ const loadScript = async (publicKey: string) => {
   }
 
   adultoScriptPromise = new Promise<void>((resolve, reject) => {
-    const scriptId = 'adulto-widget-script'
     const existing = document.getElementById(scriptId) as HTMLScriptElement | null
+    let settled = false
+
+    const finish = (callback: () => void) => {
+      if (settled) {
+        return
+      }
+
+      settled = true
+      callback()
+    }
+
+    const resolveWhenReady = () => {
+      finish(() => {
+        if (isAdultoApiReady()) {
+          resolve()
+          return
+        }
+
+        logAdultoDebug('api_unavailable_after_script_load', 'ADULTO script loaded but API is unavailable.')
+        reject(new Error('ADULTO script loaded but API is unavailable.'))
+      })
+    }
+
+    const rejectWith = (message: string, stage: string, extra: Record<string, unknown> = {}) => {
+      logAdultoDebug(stage, message, extra)
+      finish(() => reject(new Error(message)))
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      rejectWith('Timed out while loading ADULTO script.', 'script_timeout', { timeoutMs: scriptLoadTimeoutMs })
+    }, scriptLoadTimeoutMs)
+
+    const clearTimeoutIfSettled = () => {
+      if (settled) {
+        window.clearTimeout(timeoutId)
+      }
+    }
 
     if (existing) {
-      existing.addEventListener('load', () => resolve(), { once: true })
-      existing.addEventListener('error', () => reject(new Error('Failed to load ADULTO script.')), { once: true })
+      const existingState = existing.dataset.adultoState
+
+      if (existingState === 'loaded') {
+        resolveWhenReady()
+        clearTimeoutIfSettled()
+        return
+      }
+
+      if (existingState === 'error') {
+        rejectWith('Failed to load ADULTO script.', 'existing_script_state_error')
+        clearTimeoutIfSettled()
+        return
+      }
+
+      existing.addEventListener(
+        'load',
+        () => {
+          existing.dataset.adultoState = 'loaded'
+          resolveWhenReady()
+          clearTimeoutIfSettled()
+        },
+        { once: true }
+      )
+      existing.addEventListener(
+        'error',
+        () => {
+          existing.dataset.adultoState = 'error'
+          rejectWith('Failed to load ADULTO script.', 'existing_script_onerror')
+          clearTimeoutIfSettled()
+        },
+        { once: true }
+      )
       return
     }
 
     const script = document.createElement('script')
     script.id = scriptId
     script.async = true
+    script.dataset.adultoState = 'loading'
     script.src = `https://adulto.cz/embed.js?key=${encodeURIComponent(publicKey)}`
-    script.onload = () => resolve()
-    script.onerror = () => reject(new Error('Failed to load ADULTO script.'))
+    script.onload = () => {
+      script.dataset.adultoState = 'loaded'
+      resolveWhenReady()
+      clearTimeoutIfSettled()
+    }
+    script.onerror = () => {
+      script.dataset.adultoState = 'error'
+      rejectWith('Failed to load ADULTO script.', 'script_onerror')
+      clearTimeoutIfSettled()
+    }
 
     document.head.appendChild(script)
+  }).catch((error) => {
+    adultoScriptPromise = null
+    throw error
   })
 
   return adultoScriptPromise
@@ -95,12 +216,15 @@ const initWidget = async () => {
       onError: (error: unknown) => {
         const message = t('verification_failed')
         widgetError.value = message
+        logAdultoDebug('widget_onerror_callback', error)
         emit('error', message + (error ? ` (${String(error)})` : ''))
       },
     })
   } catch (error) {
     widgetError.value = t('widget_load_failed')
-    emit('error', widgetError.value)
+    logAdultoDebug('init_widget_failed', error, { containerId })
+    const details = error instanceof Error ? error.message : String(error)
+    emit('error', `${widgetError.value} (${details})`)
   } finally {
     isLoading.value = false
   }
