@@ -14,7 +14,6 @@ export default {
 
   methods: {
     changeHandler(v) {
-      console.log(v.target.value)
       this.$emit('update:modelValue', v.target.value)
     }
   }

@@ -58,8 +58,6 @@ const loadmoreHandler = async () => {
 
 // WATCHERS
 await useAsyncData('get-articles-'+locale.value+'-'+region.value, () => useArticleStore().index({per_page: 12})).then(({data, error}) => {
-  console.log('data AR', data.value)
-  console.log('error AR', error.value)
   if(data.value) {
     articles.value = data.value.data
     articlesMeta.value = data.value.meta

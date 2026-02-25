@@ -80,7 +80,6 @@ const { data: priceData, refresh: refreshPrice } = await useAsyncData(
 )
 
 watch(priceData, (newPrice) => {
-  console.log('Delivery price updated:', newPrice)
 }, { immediate: true })
 
 // onMounted(() => {

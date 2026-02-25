@@ -24,7 +24,6 @@ const {wallet} = useAuth()
 const walletData = await wallet()
 
 const list = computed(() => {
-  console.log('walletData', walletData, JSON.stringify(walletData.data));
   return walletData.data || []
 })
 

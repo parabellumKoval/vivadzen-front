@@ -15,8 +15,6 @@ const vClickable = {
     vClickable.timer = setTimeout(() => {
       el.classList.remove('clickable--effect')
     }, 600)
-
-    console.log('event', event)
   },
 
   mounted: (el, binding, vnode, prevVnode) => {

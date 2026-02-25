@@ -3,7 +3,6 @@ import Slider from '@vueform/slider'
 const value = ref(0)
 
 const changeHandler = (v) => {
-  console.log('v', v)
 }
 </script>
 

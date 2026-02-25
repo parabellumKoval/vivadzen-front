@@ -12,9 +12,6 @@ export const useMonoStore = defineStore('monoStore', {
 
       return await useApiFetch(url, {...data}, 'POST')
         .then(({data, error}) => {
-
-          console.log('mono', data)
-
           if(data) {
             return data
           }

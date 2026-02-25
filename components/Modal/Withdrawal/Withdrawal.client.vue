@@ -93,7 +93,6 @@ const createHandler = () => {
     setDefaultValue()
     await me(true)
   }).catch((e) => {
-    console.log('e', e)
     errors.value = e?.extras
     useNoty().setNoty({
       title: t('noty.withdrawal.fail_title'),

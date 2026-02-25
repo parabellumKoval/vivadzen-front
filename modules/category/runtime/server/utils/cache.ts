@@ -83,11 +83,6 @@ function isNotFoundError(error: unknown) {
 
 function storage() {
   const storageInstance = useStorage(STORAGE_NAMESPACE)
-  console.log('[category-cache] Storage driver info:', {
-    namespace: STORAGE_NAMESPACE,
-    hasUpstash: !!process.env.UPSTASH_REDIS_REST_URL,
-    driver: process.env.UPSTASH_REDIS_REST_URL ? 'upstash' : 'memory'
-  })
   return storageInstance
 }
 
@@ -171,40 +166,19 @@ function isFresh(entryTimestamp: number | undefined, ttlMs: number, enableTtl: b
 
 async function readSlugsEntry(): Promise<SlugsCacheEntry | null> {
   const entry = await storage().getItem<SlugsCacheEntry>(SLUGS_STORAGE_KEY)
-  console.log('[category-cache] Reading slugs entry from cache', { 
-    found: !!entry,
-    aggregatedCount: entry?.aggregated.length,
-    fetchedAt: entry?.fetchedAt,
-    age: entry ? Math.round((Date.now() - entry.fetchedAt) / 1000) + 's' : 'N/A'
-  })
   return entry
 }
 
 async function writeSlugsEntry(entry: SlugsCacheEntry) {
-  console.log('[category-cache] Writing slugs entry to cache', { 
-    aggregatedCount: entry.aggregated.length,
-    contextSignature: entry.contextSignature 
-  })
   await storage().setItem(SLUGS_STORAGE_KEY, entry)
 }
 
 async function readCategoryEntry(slug: string): Promise<CategoryDetailsCacheEntry | null> {
   const entry = await storage().getItem<CategoryDetailsCacheEntry>(detailsStorageKey(slug))
-  console.log('[category-cache] Reading category entry from cache', { 
-    slug,
-    found: !!entry,
-    fetchedAt: entry?.fetchedAt,
-    age: entry ? Math.round((Date.now() - entry.fetchedAt) / 1000) + 's' : 'N/A'
-  })
   return entry
 }
 
 async function writeCategoryEntry(slug: string, entry: CategoryDetailsCacheEntry) {
-  console.log('[category-cache] Writing category entry to cache', { 
-    slug,
-    contextSignature: entry.contextSignature,
-    contextsCount: Object.keys(entry.perContext).length
-  })
   await storage().setItem(detailsStorageKey(slug), entry)
 }
 

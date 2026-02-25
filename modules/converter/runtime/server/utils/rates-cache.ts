@@ -143,7 +143,6 @@ const isFresh = (entry: CacheEntry | null, ttlMs: number) => {
 let inflight: Promise<CacheEntry> | null = null
 
 async function fetchAndStore(): Promise<CacheEntry> {
-  console.log('fetchAndStore', inflight, resolveRemoteUrl())
   if (!inflight) {
     const request = (async () => {
       // Проверяем, можем ли мы делать запрос
@@ -177,7 +176,6 @@ async function fetchAndStore(): Promise<CacheEntry> {
 }
 
 export async function getRatesSWR(force = false): Promise<CacheEntry> {
-  console.log('getRatesSWR')
   if (force) {
     return await fetchAndStore()
   }

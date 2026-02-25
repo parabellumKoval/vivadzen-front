@@ -61,12 +61,4 @@ export default defineEventHandler((event) => {
   setContextRegion(event, regionCandidate, isLocale ? localeCandidate : null)
   event.node.req.url = restPath
 
-  if (process.dev) {
-    console.log('[regions-module] rewrite', {
-      original,
-      rewritten: restPath,
-      region: regionCandidate,
-      locale: isLocale ? localeCandidate : null
-    })
-  }
 })

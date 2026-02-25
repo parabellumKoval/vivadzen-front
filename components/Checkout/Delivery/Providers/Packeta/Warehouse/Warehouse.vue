@@ -15,7 +15,6 @@ async function choose () {
 }
 
 const setDeliveryDataToOrder = (data) => {
-  console.log('Selected warehouse point:', data)
   setDeliveryFields({
     method: 'packeta_warehouse',
     region: data.country,

@@ -98,9 +98,6 @@ const {
   async () => {
     const response = await categoryStore.showCached(slug.value)
     const data = response.data
-
-    console.log('category-' + slug.value + '-' + region.value + '-' + locale.value, data)
-
     if (data) {
       return data
     }
@@ -228,8 +225,6 @@ const setSeo = (v) => {
   const templateParams = { category: v?.name }
   const defaultTitle = buildSeoValue('seo_title_template', 'seo_title_suffix', templateParams)
   const defaultDescription = buildSeoValue('seo_desc_template', 'seo_desc_suffix', templateParams)
-  console.log('Setting SEO for category:', v, v?.seo?.meta_title, defaultTitle, defaultDescription)
-
   useHead({
     title: v?.seo?.meta_title || defaultTitle,
     meta: [

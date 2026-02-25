@@ -13,9 +13,6 @@ useAsyncData(`landing-online-store-categories-${locale.value}-${region.value}`, 
 )
 
 const categories = computed(() => categoryStore.mainList || [])
-
-console.log('Online Store Categories:', categories.value)
-
 const brandDescription = computed(() => get('site.common.description') || t('description_fallback'))
 
 const mainSiteBaseUrl = computed(() => {

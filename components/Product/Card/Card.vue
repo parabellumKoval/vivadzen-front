@@ -78,8 +78,6 @@ const addToCartHandler = () => {
     toCartHandler(1)
   })
 }
-
-console.log('Card component loaded', props.item);
 </script>
 
 <style src="./card.scss" lang="scss" scoped />

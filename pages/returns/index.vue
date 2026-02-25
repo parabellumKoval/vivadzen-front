@@ -11,8 +11,6 @@ const breadcrumbs = [
     item: '/returns'
   }
 ]
-
-console.log('data returns', data)
 // COMPUTEDS
 // METHODS
 // HANDLERS

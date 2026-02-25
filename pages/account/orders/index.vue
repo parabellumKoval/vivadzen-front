@@ -54,7 +54,6 @@ const getOrders = async (data) => {
 useAsyncData('get-orders', () => getOrders({
   ...orderable.value,
 })).then(({data, error}) => {
-  console.log('data', data)
   isInitLoading.value = true
 
   if(data?.value) {

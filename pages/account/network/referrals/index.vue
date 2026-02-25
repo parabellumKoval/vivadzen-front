@@ -22,8 +22,6 @@ const {referrals} = useAuth()
 // })
 
 const referralsData = await referrals()
-console.log('referralsList', referralsData.data)
-
 const list = computed(() => {
   return referralsData.data || []
 })

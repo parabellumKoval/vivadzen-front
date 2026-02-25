@@ -11,12 +11,8 @@ export default defineEventHandler(async (event) => {
     
     // Записываем тестовые данные
     await storage.setItem('test:cache-check', testData)
-    console.log('[cache-test] Written to cache:', testData)
-    
     // Читаем данные обратно
     const readData = await storage.getItem('test:cache-check')
-    console.log('[cache-test] Read from cache:', readData)
-    
     // Проверяем настройки storage
     const hasUpstash = !!process.env.UPSTASH_REDIS_REST_URL
     const driver = hasUpstash ? 'upstash' : 'memory'

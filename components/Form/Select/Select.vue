@@ -43,7 +43,6 @@ const emit = defineEmits([
 const currentValue = computed(() => {
   const value = findValueByKey(props.modelValue)
   const valueSting = value? value: t('please_select')
-  console.log('currentValue', value, valueSting)
   return valueSting
 })
 

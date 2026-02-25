@@ -18,8 +18,6 @@ const value = ref([thisFilter.value?.values?.min || props.meta?.min || props.met
 const timeout = ref(null)
 const fixValue = ref(false)
 const preventUpdate = ref(false)
-
-console.log('limits', limits.value, props.meta, props.filter)
 // HANDLERS
 const changeHandler = (v) => {}
 

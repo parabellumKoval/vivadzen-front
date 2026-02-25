@@ -9,8 +9,6 @@ const props = defineProps({
     default: 'article'
   }
 })
-
-console.log('Html slice props', props.html, props.tag)
 const tagName = computed(() => props.tag || 'article')
 const htmlContent = computed(() => props.html || '')
 </script>
