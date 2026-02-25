@@ -20,11 +20,13 @@ const widgetError = ref<string | null>(null)
 const scriptId = 'adulto-widget-script'
 const scriptLoadTimeoutMs = 15000
 const fallbackRenderTimeoutMs = 5000
+const containerWaitTimeoutMs = 3000
 const isMounted = ref(false)
 
 let adultoScriptPromise: Promise<void> | null = null
 let uidObserver: MutationObserver | null = null
 let initRunId = 0
+const publicKeyForDom = computed(() => String(props.publicKey || '').trim())
 
 const getAdultoApi = () => (window as typeof window & { Adulto?: any }).Adulto
 const isAdultoApiReady = () => {
@@ -125,6 +127,39 @@ const syncUidFromDom = () => {
   }
 }
 
+const getTargetElement = () => {
+  return (containerRef.value || document.getElementById(containerId)) as HTMLElement | null
+}
+
+const waitForContainerElement = async () => {
+  const startedAt = Date.now()
+
+  while (Date.now() - startedAt < containerWaitTimeoutMs) {
+    const targetElement = getTargetElement()
+    if (targetElement) {
+      return targetElement
+    }
+
+    await nextTick()
+    await new Promise((resolve) => window.setTimeout(resolve, 50))
+  }
+
+  return getTargetElement()
+}
+
+const ensureFallbackMarkup = (targetElement: HTMLElement, publicKey: string) => {
+  let widgetRoot = targetElement.querySelector('.adulto-cz') as HTMLElement | null
+
+  if (!widgetRoot) {
+    widgetRoot = document.createElement('div')
+    widgetRoot.className = 'adulto-cz'
+    targetElement.appendChild(widgetRoot)
+  }
+
+  widgetRoot.setAttribute('data-sitekey', publicKey)
+  return widgetRoot
+}
+
 const hasUidInDom = () => {
   const selectors = [
     'input[name="adultocz-uid"]',
@@ -139,7 +174,7 @@ const hasUidInDom = () => {
 }
 
 const hasRenderedWidgetInContainer = () => {
-  const targetElement = containerRef.value || document.getElementById(containerId)
+  const targetElement = getTargetElement()
   if (!targetElement) {
     return false
   }
@@ -172,7 +207,7 @@ const waitForFallbackRender = async () => {
 
 const mountDomWidgetFallback = async (targetElement: HTMLElement, publicKey: string) => {
   cleanupUidObserver()
-  targetElement.innerHTML = `<div class="adulto-cz" data-sitekey="${publicKey}"></div>`
+  ensureFallbackMarkup(targetElement, publicKey)
 
   await nextTick()
   syncUidFromDom()
@@ -315,7 +350,7 @@ const initWidget = async () => {
     return
   }
 
-  const publicKey = String(props.publicKey || '').trim()
+  const publicKey = publicKeyForDom.value
   if (!publicKey) {
     widgetError.value = t('unavailable')
     logAdultoDebug('public_key_missing')
@@ -325,13 +360,20 @@ const initWidget = async () => {
   isLoading.value = true
 
   try {
-    const targetElement = containerRef.value || document.getElementById(containerId)
+    const targetElement = await waitForContainerElement()
     if (!targetElement) {
-      logAdultoDebug('container_missing_skip', '', { containerId })
+      const details = `ADULTO container was not found in ${containerWaitTimeoutMs}ms.`
+      widgetError.value = t('widget_load_failed')
+      logAdultoDebug('container_missing_skip', details, { containerId })
+      emit('error', `${widgetError.value} (${details})`)
       return
     }
 
-    targetElement.innerHTML = ''
+    logAdultoDebug('container_ready', '', {
+      containerId,
+      hasFallbackDiv: Boolean(targetElement.querySelector('.adulto-cz')),
+    })
+
     await mountDomWidgetFallback(targetElement, publicKey)
 
     const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null
@@ -505,7 +547,9 @@ en:
     <p class="adulto-verification__description">{{ t('description') }}</p>
 
     <form class="adulto-verification__form" @submit.prevent>
-      <div :id="containerId" ref="containerRef"></div>
+      <div :id="containerId" ref="containerRef">
+        <div class="adulto-cz" :data-sitekey="publicKeyForDom"></div>
+      </div>
     </form>
 
     <div v-if="isLoading" class="adulto-verification__status">
