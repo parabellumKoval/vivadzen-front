@@ -10,6 +10,9 @@ const PRODUCT_REVIEW_TYPE = String.raw`App\Models\Product`
 
 const REVIEW_TYPE_TEXT = 'text'
 const REVIEW_TYPE_VIDEO = 'video'
+const REVIEW_TYPE_PHOTO = 'photo'
+const MAX_PHOTO_COUNT = 5
+const MAX_PHOTO_FILE_SIZE_MB = 12
 
 const review = ref({
   provider: 'data',
@@ -25,11 +28,14 @@ const review = ref({
   text: null,
   reviewable_id: null,
   reviewable_type: null,
+  review_type: REVIEW_TYPE_TEXT,
   is_video: false,
-  video_url: null
+  video_url: null,
+  photo_gallery: []
 })
 
 const errors = ref(null)
+const photoInputRef = ref(null)
 
 const extractValidationErrors = (error) => {
   const payload = error?.data || error
@@ -76,13 +82,26 @@ const tabs = computed(() => {
 const isProductTab = computed(() => tab.value === TAB_PRODUCT)
 const isStoreTab = computed(() => tab.value === TAB_STORE)
 const reviewType = computed({
-  get: () => (review.value.is_video ? REVIEW_TYPE_VIDEO : REVIEW_TYPE_TEXT),
+  get: () => review.value.review_type || (review.value.is_video ? REVIEW_TYPE_VIDEO : REVIEW_TYPE_TEXT),
   set: (value) => {
+    review.value.review_type = value
     review.value.is_video = value === REVIEW_TYPE_VIDEO
   }
 })
 const isVideoReview = computed(() => reviewType.value === REVIEW_TYPE_VIDEO)
-const shouldShowSocialLinkField = computed(() => !isVideoReview.value)
+const isPhotoReview = computed(() => reviewType.value === REVIEW_TYPE_PHOTO)
+const shouldShowSocialLinkField = computed(() => reviewType.value === REVIEW_TYPE_TEXT)
+const photoGalleryError = computed(() => {
+  const rootError = errors.value?.photo_gallery
+  if (Array.isArray(rootError) && rootError.length) {
+    return rootError[0]
+  }
+  if (typeof rootError === 'string') {
+    return rootError
+  }
+
+  return errors.value?.['photo_gallery.0.src']?.[0] || null
+})
 
 const ratingTitle = computed(() => {
   if (isProductTab.value)
@@ -102,19 +121,28 @@ const resetReview = () => {
   review.value.link = null
   review.value.video_url = null
   review.value.is_video = false
+  review.value.review_type = REVIEW_TYPE_TEXT
+  review.value.photo_gallery = []
   review.value.rating = 5
 }
 
 const sendHandler = async () => {
   let data = {...review.value}
 
-  if(data.is_video) {
+  if(data.review_type === REVIEW_TYPE_VIDEO) {
     data.text = null
     data.advantages = null
     data.flaws = null
     data.link = null
+    data.photo_gallery = []
+  }else if (data.review_type === REVIEW_TYPE_PHOTO) {
+    data.link = null
+    data.video_url = null
+    data.is_video = false
   }else {
     data.video_url = null
+    data.photo_gallery = []
+    data.is_video = false
   }
 
   await useReviewStore().create(data).then(({data, error}) => {
@@ -156,6 +184,86 @@ const clearError = (key) => {
 const clearNameError = () => {
   if(errors.value && errors.value['owner'] && errors.value['owner']['name']) {
     errors.value['owner']['name'] = null
+  }
+}
+
+const clearPhotoErrors = () => {
+  if (!errors.value) {
+    return
+  }
+
+  errors.value.photo_gallery = null
+  errors.value['photo_gallery.0.src'] = null
+}
+
+const toDataUrl = (file) => {
+  return new Promise((resolve) => {
+    if (!file?.type?.startsWith('image/')) {
+      resolve(null)
+      return
+    }
+
+    if (file.size > MAX_PHOTO_FILE_SIZE_MB * 1024 * 1024) {
+      useNoty().setNoty({
+        content: t('photo_file_too_large', { max: MAX_PHOTO_FILE_SIZE_MB }),
+        type: 'warning'
+      }, 5000)
+      resolve(null)
+      return
+    }
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      resolve({
+        src: String(reader.result || ''),
+        alt: file.name || null,
+        title: null,
+        size: 'cover'
+      })
+    }
+    reader.onerror = () => resolve(null)
+    reader.readAsDataURL(file)
+  })
+}
+
+const openPhotoPicker = () => {
+  photoInputRef.value?.click()
+}
+
+const removePhoto = (index) => {
+  review.value.photo_gallery.splice(index, 1)
+}
+
+const onPhotoInputChange = async (event) => {
+  const files = Array.from(event?.target?.files || [])
+  event.target.value = ''
+
+  if (!files.length) {
+    return
+  }
+
+  const slotsLeft = Math.max(0, MAX_PHOTO_COUNT - review.value.photo_gallery.length)
+  if (slotsLeft === 0) {
+    useNoty().setNoty({
+      content: t('photo_limit_reached', { max: MAX_PHOTO_COUNT }),
+      type: 'warning'
+    }, 4000)
+    return
+  }
+
+  if (files.length > slotsLeft) {
+    useNoty().setNoty({
+      content: t('photo_limit_partial', { max: MAX_PHOTO_COUNT }),
+      type: 'warning'
+    }, 4000)
+  }
+
+  const prepared = await Promise.all(files.slice(0, slotsLeft).map(toDataUrl))
+  const validItems = prepared.filter(Boolean)
+
+  if (validItems.length) {
+    clearPhotoErrors()
+    review.value.photo_gallery.push(...validItems)
   }
 }
 
@@ -261,6 +369,13 @@ watch(authUser, () => setUserData(), { immediate: true })
             >
               {{ t('review_type_video') }}
             </button>
+            <button
+              type="button"
+              :class="{ active: reviewType === REVIEW_TYPE_PHOTO }"
+              @click="reviewType = REVIEW_TYPE_PHOTO"
+            >
+              {{ t('review_type_photo') }}
+            </button>
           </div>
         </div>
 
@@ -283,6 +398,62 @@ watch(authUser, () => setUserData(), { immediate: true })
             :placeholder="t('form.enter.review')"
           ></form-textarea>
         </div>
+
+        <transition name="fade-in">
+          <div v-if="isPhotoReview">
+            <div class="form-label">{{ t('photo_label') }}</div>
+            <input
+              ref="photoInputRef"
+              type="file"
+              accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+              multiple
+              class="photo-input"
+              @change="onPhotoInputChange"
+            />
+            <button type="button" class="button secondary lowcase photo-add-button" @click="openPhotoPicker">
+              <IconCSS name="hugeicons:image-02" class="inline-icon"></IconCSS>
+              <span>{{ t('photo_add') }} ({{ review.photo_gallery.length }}/{{ MAX_PHOTO_COUNT }})</span>
+            </button>
+
+            <div v-if="photoGalleryError" class="photo-error">{{ photoGalleryError }}</div>
+
+            <div v-if="review.photo_gallery.length" class="photo-grid">
+              <div v-for="(photo, index) in review.photo_gallery" :key="photo.src + index" class="photo-item">
+                <nuxt-img
+                  :provider="useImg().provider"
+                  :src="photo.src"
+                  width="180"
+                  height="180"
+                  sizes="mobile:140px tablet:160px desktop:180px"
+                  quality="70"
+                  loading="lazy"
+                  fit="cover"
+                  :placeholder="useImg().noImage"
+                  class="photo-preview"
+                ></nuxt-img>
+                <button type="button" class="photo-remove" @click="removePhoto(index)">×</button>
+              </div>
+            </div>
+
+            <div class="form-hint">
+              <ul class="form-list">
+                <li>{{ t('photo_desc_1') }}</li>
+                <li>{{ t('photo_desc_2') }}</li>
+                <li>
+                  {{ t('photo_desc_reward_prefix') }}
+                  <review-reward
+                    class="form-reward-inline"
+                    variant="inline"
+                    :kinds="['photo']"
+                    :show-title="false"
+                    :hide-labels="true"
+                  />
+                  {{ t('photo_desc_reward_suffix') }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </transition>
 
         <transition name="fade-in">
           <div v-if="isVideoReview">

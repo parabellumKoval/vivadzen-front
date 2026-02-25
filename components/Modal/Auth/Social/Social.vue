@@ -4,6 +4,8 @@ import { useAppPersistStore } from '~/store/appPersist';
 const { t } = useI18n()
 const { socialSignIn } = useAuth()
 const route = useRoute()
+const { name: pointsName } = usePoints()
+const tp = (key) => t(key, { pointsName: pointsName.value })
 
 // HANDLERS
 const regHandler = () => {
@@ -49,34 +51,34 @@ const facebookHandler = async () => {
 
       <div class="content-right">
         <div class="content-title">
-          {{ t('hero.title') }}
-          <span class="orange">{{ t('hero.cta') }}</span>
+          {{ tp('hero.title') }}
+          <span class="orange">{{ tp('hero.cta') }}</span>
         </div>
         <ul class="benefits-list">
           <li>
             <IconCSS name="hugeicons:discount-01" class="icon"></IconCSS>
-            <div class="benefits-title">{{ t('benefits.discount.title') }}</div>
-            <div class="benefits-description">{{ t('benefits.discount.description') }}</div>
+            <div class="benefits-title">{{ tp('benefits.discount.title') }}</div>
+            <div class="benefits-description">{{ tp('benefits.discount.description') }}</div>
           </li>
           <li>
             <IconCSS name="hugeicons:user-multiple-03" class="icon"></IconCSS>
-            <div class="benefits-title">{{ t('benefits.referral.title') }}</div>
-            <div class="benefits-description">{{ t('benefits.referral.description') }}</div>
+            <div class="benefits-title">{{ tp('benefits.referral.title') }}</div>
+            <div class="benefits-description">{{ tp('benefits.referral.description') }}</div>
           </li>
           <li>
             <IconCSS name="hugeicons:comment-03" class="icon"></IconCSS>
-            <div class="benefits-title">{{ t('benefits.reviews.title') }}</div>
-            <div class="benefits-description">{{ t('benefits.reviews.description') }}</div>
+            <div class="benefits-title">{{ tp('benefits.reviews.title') }}</div>
+            <div class="benefits-description">{{ tp('benefits.reviews.description') }}</div>
           </li>
           <li>
             <IconCSS name="hugeicons:shopping-cart-check-02" class="icon"></IconCSS>
-            <div class="benefits-title">{{ t('benefits.bonus.title') }}</div>
-            <div class="benefits-description">{{ t('benefits.bonus.description') }}</div>
+            <div class="benefits-title">{{ tp('benefits.bonus.title') }}</div>
+            <div class="benefits-description">{{ tp('benefits.bonus.description') }}</div>
           </li>
           <li>
             <IconCSS name="hugeicons:wallet-done-02" class="icon"></IconCSS>
-            <div class="benefits-title">{{ t('benefits.cashout.title') }}</div>
-            <div class="benefits-description">{{ t('benefits.cashout.description') }}</div>
+            <div class="benefits-title">{{ tp('benefits.cashout.title') }}</div>
+            <div class="benefits-description">{{ tp('benefits.cashout.description') }}</div>
           </li>
         </ul>
         <div class="buttons">

@@ -3,6 +3,7 @@ const { t, locale } = useI18n()
 const { $regionPath } = useNuxtApp()
 const { user, isAuthenticated } = useAuth()
 const { get } = useSettings()
+const { name: pointsName } = usePoints()
 
 const pageData = await queryContent('affiliate').locale(locale.value).findOne()
 
@@ -35,6 +36,7 @@ const settingsValues = computed(() => ({
 }))
 
 const replacements = computed(() => ({
+  pointsName: pointsName.value,
   level1: settingsValues.value.level1,
   level2: settingsValues.value.level2,
   level3: settingsValues.value.level3,
@@ -61,7 +63,13 @@ const heroStats = computed(() => {
   }))
 })
 
-const heroHighlights = computed(() => pageData?.hero?.highlights || [])
+const heroHighlights = computed(() => {
+  if (!pageData?.hero?.highlights) return []
+  return pageData.hero.highlights.map((highlight: any) => ({
+    ...highlight,
+    label: formatText(highlight.label)
+  }))
+})
 
 const levelCards = computed(() => {
   if (!pageData?.levels?.cards) return []
@@ -138,12 +146,12 @@ useSeo().setPageSeo(t('title.affiliate_system'))
         <the-breadcrumbs :crumbs="breadcrumbs" class="affiliate-hero__breadcrumbs" />
         <div class="affiliate-hero__inner">
           <div class="affiliate-hero__content">
-            <p class="affiliate-hero__eyebrow">{{ pageData?.hero?.eyebrow }}</p>
+            <p class="affiliate-hero__eyebrow">{{ formatText(pageData?.hero?.eyebrow) }}</p>
             <h1 class="affiliate-hero__title">
-              {{ pageData?.hero?.title || t('title.affiliate_system') }}
+              {{ formatText(pageData?.hero?.title) || t('title.affiliate_system') }}
             </h1>
             <p class="affiliate-hero__description">
-              {{ pageData?.hero?.description }}
+              {{ formatText(pageData?.hero?.description) }}
             </p>
             <div v-if="heroStats.length" class="affiliate-hero__stats">
               <div v-for="stat in heroStats" :key="stat.label" class="affiliate-hero__stat">
@@ -159,11 +167,11 @@ useSeo().setPageSeo(t('title.affiliate_system'))
             </div>
             <div class="affiliate-hero__actions">
               <NuxtLink :to="settingsValues.referralProgramLink" class="affiliate-hero__btn affiliate-hero__btn--primary">
-                <span>{{ pageData?.hero?.cta?.primary?.label || ctaBlock?.button?.label }}</span>
+                <span>{{ formatText(pageData?.hero?.cta?.primary?.label) || ctaBlock?.button?.label }}</span>
                 <IconCSS name="iconoir:arrow-tr" />
               </NuxtLink>
               <NuxtLink :to="settingsValues.withdrawalRulesLink" class="affiliate-hero__btn affiliate-hero__btn--ghost">
-                {{ pageData?.hero?.cta?.secondary?.label }}
+                {{ formatText(pageData?.hero?.cta?.secondary?.label) }}
               </NuxtLink>
             </div>
           </div>
@@ -188,8 +196,8 @@ useSeo().setPageSeo(t('title.affiliate_system'))
     <section v-if="pageData?.levels" class="affiliate-section">
       <div class="container">
         <div class="affiliate-section__head">
-          <p class="affiliate-section__eyebrow">{{ pageData.levels.title }}</p>
-          <h2 class="affiliate-section__title">{{ pageData.levels.subtitle }}</h2>
+          <p class="affiliate-section__eyebrow">{{ formatText(pageData.levels.title) }}</p>
+          <h2 class="affiliate-section__title">{{ formatText(pageData.levels.subtitle) }}</h2>
         </div>
         <div class="affiliate-levels">
           <article v-for="card in levelCards" :key="card.label" class="affiliate-level">
@@ -210,8 +218,8 @@ useSeo().setPageSeo(t('title.affiliate_system'))
     <section v-if="pageData?.algo" class="affiliate-section affiliate-section--muted">
       <div class="container">
         <div class="affiliate-section__head">
-          <p class="affiliate-section__eyebrow">{{ pageData.algo.title }}</p>
-          <h2 class="affiliate-section__title">{{ pageData.algo.intro }}</h2>
+          <p class="affiliate-section__eyebrow">{{ formatText(pageData.algo.title) }}</p>
+          <h2 class="affiliate-section__title">{{ formatText(pageData.algo.intro) }}</h2>
         </div>
         <div class="affiliate-grid">
           <article v-for="card in algoCards" :key="card.title" class="affiliate-card">
@@ -235,7 +243,7 @@ useSeo().setPageSeo(t('title.affiliate_system'))
             <IconCSS name="solar:verified-check-linear" />
           </div>
           <div>
-            <p class="affiliate-quote__title">{{ pageData.algo.quote.title }}</p>
+            <p class="affiliate-quote__title">{{ formatText(pageData.algo.quote.title) }}</p>
             <p class="affiliate-quote__text">{{ formatText(pageData.algo.quote.text) }}</p>
           </div>
         </blockquote>
@@ -246,15 +254,15 @@ useSeo().setPageSeo(t('title.affiliate_system'))
       <div class="container">
         <div class="affiliate-link__inner">
           <div class="affiliate-link__content">
-            <p class="affiliate-section__eyebrow">{{ pageData.link.title }}</p>
-            <h2 class="affiliate-section__title">{{ pageData.link.subtitle }}</h2>
+            <p class="affiliate-section__eyebrow">{{ formatText(pageData.link.title) }}</p>
+            <h2 class="affiliate-section__title">{{ formatText(pageData.link.subtitle) }}</h2>
             <ol class="affiliate-steps">
               <li v-for="(step, index) in linkSteps" :key="index">{{ step }}</li>
             </ol>
             <div class="affiliate-sample">
               <p class="affiliate-sample__label">{{ t('affiliate.link.regular_label') }}:</p>
               <div class="affiliate-sample__code">
-                <code>{{ pageData.link.example?.base }}</code>
+                <code>{{ formatText(pageData.link.example?.base) }}</code>
               </div>
               <p class="affiliate-sample__label">{{ t('affiliate.link.referral_label') }}:</p>
               <div class="affiliate-sample__code affiliate-sample__code--accent">
@@ -316,7 +324,7 @@ useSeo().setPageSeo(t('title.affiliate_system'))
           </div>
           <div class="affiliate-ttl__content">
             <div class="affiliate-control">
-              <p class="affiliate-section__eyebrow">{{ pageData.ttl.title }}</p>
+              <p class="affiliate-section__eyebrow">{{ formatText(pageData.ttl.title) }}</p>
               <h2 class="affiliate-section__title">{{ formatText(pageData.ttl.description) }}</h2>
               <ul class="affiliate-list affiliate-list--column">
                 <li v-for="bullet in ttlBullets" :key="bullet">
@@ -327,8 +335,8 @@ useSeo().setPageSeo(t('title.affiliate_system'))
             </div>
 
             <div v-if="pageData?.control && controlCards.length" class="affiliate-control">
-              <p class="affiliate-section__eyebrow">{{ pageData.control.title }}</p>
-              <h3 class="affiliate-section__title affiliate-control__title">{{ pageData.control.intro }}</h3>
+              <p class="affiliate-section__eyebrow">{{ formatText(pageData.control.title) }}</p>
+              <h3 class="affiliate-section__title affiliate-control__title">{{ formatText(pageData.control.intro) }}</h3>
               <div class="affiliate-control__grid affiliate-grid affiliate-grid--wide">
                 <article v-for="card in controlCards" :key="card.title" class="affiliate-card affiliate-card--lined">
                   <div class="affiliate-card__icon">
@@ -349,8 +357,8 @@ useSeo().setPageSeo(t('title.affiliate_system'))
     <section v-if="pageData?.payout" class="affiliate-section affiliate-section--accent">
       <div class="container">
         <div class="affiliate-section__head">
-          <p class="affiliate-section__eyebrow">{{ pageData.payout.title }}</p>
-          <h2 class="affiliate-section__title">{{ pageData.payout.intro }}</h2>
+          <p class="affiliate-section__eyebrow">{{ formatText(pageData.payout.title) }}</p>
+          <h2 class="affiliate-section__title">{{ formatText(pageData.payout.intro) }}</h2>
         </div>
         <div class="affiliate-options">
           <article v-for="option in payoutOptions" :key="option.title" class="affiliate-option">

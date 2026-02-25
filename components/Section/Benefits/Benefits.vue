@@ -1,6 +1,7 @@
 <script setup>
 const {t} = useI18n()
 const props = defineProps({})
+const { name: pointsName } = usePoints()
 // COMPUTEDS
 // METHODS
 // HANDLERS
@@ -60,15 +61,15 @@ const props = defineProps({})
                 <p class="benefit-description">Využijte naše promo kódy a získejte další slevy na své oblíbené produkty</p>
             </div>
 
-            <!-- Benefit 4: Vivapoints for Reviews -->
+            <!-- Benefit 4: Points for Reviews -->
             <div class="benefit-card">
                 <div class="benefit-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                     </svg>
                 </div>
-                <h3 class="benefit-title">Vivapoints za recenze</h3>
-                <p class="benefit-description">Napište recenzi produktu a získejte vivapoints, které můžete využít při příštím nákupu</p>
+                <h3 class="benefit-title">{{ pointsName }} za recenze</h3>
+                <p class="benefit-description">Napište recenzi produktu a získejte {{ pointsName }}, které můžete využít při příštím nákupu</p>
             </div>
 
             <!-- Benefit 5: Referral System -->
@@ -107,7 +108,7 @@ const props = defineProps({})
                     </svg>
                 </div>
                 <h3 class="benefit-title">Výběr na kartu</h3>
-                <p class="benefit-description">Vivapoints můžete jednoduše vybrat přímo na svou platební kartu</p>
+                <p class="benefit-description">{{ pointsName }} můžete jednoduše vybrat přímo na svou platební kartu</p>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 en:
   title: Your [[--AFFILIATE--]] link
-  desc: For Viva Points mining
+  desc: For {pointsName} mining
   level1: Level [[--one--]] – [[--{percent}%--]]
   level2: Level [[--two--]] – [[--{percent}%--]]
   level3: Level [[--three--]] – [[--{percent}%--]]
@@ -17,7 +17,7 @@ en:
 
 ru:
   title: Ваша [[--ПАРТНЕРСКАЯ--]] ссылка
-  desc: Для майнинга Viva Points
+  desc: Для майнинга {pointsName}
   level1: Уровень [[--один--]] – [[--{percent}%--]]
   level2: Уровень [[--два--]] – [[--{percent}%--]]
   level3: Уровень [[--три--]] – [[--{percent}%--]]
@@ -34,7 +34,7 @@ ru:
 
 uk:
   title: Ваше [[--ПАРТНЕРСЬКЕ--]] посилання
-  desc: Для майнінгу Viva Points
+  desc: Для майнінгу {pointsName}
   level1: Рівень [[--один--]] – [[--{percent}%--]]
   level2: Рівень [[--два--]] – [[--{percent}%--]]
   level3: Рівень [[--три--]] – [[--{percent}%--]]
@@ -51,7 +51,7 @@ uk:
 
 es:
   title: Tu enlace de [[--AFILIADO--]]
-  desc: Para minería de Viva Points
+  desc: Para minería de {pointsName}
   level1: Nivel [[--uno--]] – [[--{percent}%--]]
   level2: Nivel [[--dos--]] – [[--{percent}%--]]
   level3: Nivel [[--tres--]] – [[--{percent}%--]]
@@ -68,7 +68,7 @@ es:
 
 de:
   title: Dein [[--PARTNER--]]-Link
-  desc: Für Viva Points Mining
+  desc: Für {pointsName} Mining
   level1: Level [[--eins--]] – [[--{percent}%--]]
   level2: Level [[--zwei--]] – [[--{percent}%--]]
   level3: Level [[--drei--]] – [[--{percent}%--]]
@@ -85,7 +85,7 @@ de:
 
 cs:
   title: Váš [[--PARTNERSKÝ--]] odkaz
-  desc: Pro těžbu Viva Points
+  desc: Pro těžbu {pointsName}
   level1: Úroveň [[--jedna--]] – [[--{percent}%--]]
   level2: Úroveň [[--dvě--]] – [[--{percent}%--]]
   level3: Úroveň [[--tři--]] – [[--{percent}%--]]

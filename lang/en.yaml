@@ -33,8 +33,8 @@ title:
   sales: Promotions
   news: News
   reviews: Reviews
-  vivapoints: VivaPoints
-  vivapoints_and_rewards: VivaPoints and rewards
+  vivapoints: "{pointsName}"
+  vivapoints_and_rewards: "{pointsName} and rewards"
   affiliate_system: Affiliate program
   czech-republic-kratom: Buy kratom in Czech Republic
   agreement: Public offer agreement
@@ -149,6 +149,8 @@ messages:
   select_region_delivery_notice: To view every available delivery option and read the details, please select your delivery country first
   select_region_payment_notice: To view every available payment option and read the details, please select your delivery country first
   email_verification_required: A confirmation link has been sent to your email. Please verify your email address to activate your account.
+  verify_age_before_order: Complete ADULTO.cz age verification before placing the order.
+  adulto_unavailable: ADULTO.cz is temporarily unavailable. Please try again later.
 
 message:
   email_verification_required: A confirmation link has been sent to your email. Please verify your email address to activate your account.
@@ -168,6 +170,10 @@ age_gate:
   description: Please confirm you are at least 18 years old to continue on Vivadzen.
   confirm: Yes, I'm 18+
   decline: No, take me away
+
+age_verification:
+  badge: 18+ sale
+  product_banner: This product can be purchased in the Czech Republic only after ADULTO.cz age verification during checkout.
 
 button:
   collapse: Collapse

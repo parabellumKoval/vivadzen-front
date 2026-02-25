@@ -69,11 +69,13 @@ const resolveReward = (kind) => {
 
 const textReward = computed(() => resolveReward('text'))
 const videoReward = computed(() => resolveReward('video'))
+const photoReward = computed(() => resolveReward('photo'))
 
 const description = computed(() => t('description', {
   textReward: formatAmount(textReward.value.amount),
   videoReward: formatAmount(videoReward.value.amount),
-  currency: textReward.value.currency || videoReward.value.currency || resolve('points')
+  photoReward: formatAmount(photoReward.value.amount),
+  currency: textReward.value.currency || videoReward.value.currency || photoReward.value.currency || resolve('points')
 }))
 // COMPUTEDS
 // METHODS

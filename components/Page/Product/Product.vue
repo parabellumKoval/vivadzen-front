@@ -19,6 +19,7 @@ const props = defineProps({
 })
 
 const { setHreflangRegions, clearHreflangRegions } = useHreflang()
+const { region } = useRegion()
 const {t} = useI18n()
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
@@ -203,6 +204,14 @@ const tabs = computed(() => {
   // }
 
   return list
+})
+
+const requiresAgeVerification = computed(() => {
+  return Boolean(props.product?.requiresAgeVerification ?? props.product?.requires_age_verification)
+})
+
+const shouldShowAgeVerificationNotice = computed(() => {
+  return String(region.value || '').toLowerCase() === 'cz' && requiresAgeVerification.value
 })
 
 // HANDLERS
@@ -405,6 +414,13 @@ onBeforeUnmount(() => {
           v-if="isStoreOnly"
           class="content-store-only"
           @action="openStoreOnlyModal"
+        />
+      </transition>
+
+      <transition name="fade-in">
+        <product-age-verification-notice
+          v-if="shouldShowAgeVerificationNotice"
+          class="content-age-verification"
         />
       </transition>
       

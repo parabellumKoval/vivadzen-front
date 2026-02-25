@@ -5,7 +5,7 @@ ru:
   w_advantages: Опишите достоинства товара
   w_flaws: Опишите недостатки товара
   w_link: Ссылка на вашу соц сеть
-  link: Например https://facebook.com/my_account
+  link: "Например https://facebook.com/my_account"
   link_desc_supported: "Поддерживаемые соцсети: Facebook, Instagram, TikTok, Twitter (X)."
   link_desc_requirement: Вознаграждение за текстовый отзыв начислим только если прикрепите ссылку.
   link_desc_2_prefix: После модерации текстового отзыва мы начислим
@@ -17,8 +17,18 @@ ru:
   review_type_label: Формат отзыва
   review_type_text: Текстовый отзыв
   review_type_video: Видео-отзыв
+  review_type_photo: Фото-отзыв
+  photo_label: Фотографии
+  photo_add: Добавить фото
+  photo_desc_1: "Прикрепите от 1 до 5 фотографий к отзыву. Поддерживаемые форматы: JPG, JPEG, PNG, WEBP. Максимальный размер одного изображения — 12 МБ."
+  photo_desc_2: Наличие упаковки товара в кадре (хотя бы на одном фото) приветствуется.
+  photo_desc_reward_prefix: За фото-отзыв мы начислим
+  photo_desc_reward_suffix: после публикации на ваш личный счёт.
+  photo_file_too_large: "Файл слишком большой. Максимум {max} МБ."
+  photo_limit_reached: "Можно прикрепить не более {max} фото."
+  photo_limit_partial: "Лишние файлы не добавлены. Лимит: {max} фото."
   video_link_label: Ссылка на видео
-  video_link_placeholder: Например https://youtu.be/dQw4w9WgXcQ
+  video_link_placeholder: "Например https://youtu.be/dQw4w9WgXcQ"
   video_link_desc_1: Упомяните в кадре, что пользуетесь магазином Vivadzen.
   video_link_desc_2: Если делитесь мнением о товаре — покажите покупку на видео.
   video_link_desc_reward_prefix: За видео-отзыв мы начислим
@@ -30,7 +40,7 @@ uk:
   w_advantages: Опишіть переваги товару
   w_flaws: Опишіть недоліки товару
   w_link: Посилання на вашу соцмережу
-  link: Наприклад https://facebook.com/my_account
+  link: "Наприклад https://facebook.com/my_account"
   link_desc_supported: "Підтримувані соцмережі: Facebook, Instagram, TikTok, Twitter (X)."
   link_desc_requirement: Нараховуємо винагороду за текстовий відгук лише якщо додано посилання.
   link_desc_2_prefix: Після модерації текстового відгуку ми нарахуємо
@@ -42,8 +52,18 @@ uk:
   review_type_label: Формат відгуку
   review_type_text: Текстовий відгук
   review_type_video: Відео-відгук
+  review_type_photo: Фото-відгук
+  photo_label: Фотографії
+  photo_add: Додати фото
+  photo_desc_1: "Додайте від 1 до 5 фотографій до відгуку. Підтримувані формати: JPG, JPEG, PNG, WEBP. Максимальний розмір одного зображення — 12 МБ."
+  photo_desc_2: Наявність упаковки товару в кадрі (хоча б на одному фото) вітається.
+  photo_desc_reward_prefix: За фото-відгук ми нарахуємо
+  photo_desc_reward_suffix: після публікації на ваш особистий рахунок.
+  photo_file_too_large: "Файл завеликий. Максимум {max} МБ."
+  photo_limit_reached: "Можна прикріпити не більше {max} фото."
+  photo_limit_partial: "Зайві файли не додано. Ліміт: {max} фото."
   video_link_label: Посилання на відео
-  video_link_placeholder: Наприклад https://youtu.be/dQw4w9WgXcQ
+  video_link_placeholder: "Наприклад https://youtu.be/dQw4w9WgXcQ"
   video_link_desc_1: Згадайте у відео, що купуєте у Vivadzen.
   video_link_desc_2: Якщо розповідаєте про товар — покажіть покупку у кадрі.
   video_link_desc_reward_prefix: За відео-відгук ми нарахуємо
@@ -55,7 +75,7 @@ de:
   w_advantages: Beschreiben Sie die Vorteile des Produkts
   w_flaws: Beschreiben Sie die Nachteile des Produkts
   w_link: Link zu Ihrem sozialen Netzwerk
-  link: Zum Beispiel https://facebook.com/my_account
+  link: "Zum Beispiel https://facebook.com/my_account"
   link_desc_supported: "Unterstützte Netzwerke: Facebook, Instagram, TikTok, Twitter (X)."
   link_desc_requirement: Wir vergeben Belohnungen für Textbewertungen nur, wenn ein Link hinzugefügt wird.
   link_desc_2_prefix: Nach der Moderation Ihrer Textbewertung schreiben wir
@@ -67,8 +87,18 @@ de:
   review_type_label: Bewertungsformat
   review_type_text: Textbewertung
   review_type_video: Video-Bewertung
+  review_type_photo: Fotobewertung
+  photo_label: Fotos
+  photo_add: Fotos hinzufügen
+  photo_desc_1: "Fügen Sie Ihrer Bewertung 1 bis 5 Fotos hinzu. Unterstützte Formate: JPG, JPEG, PNG, WEBP. Maximale Größe pro Bild: 12 MB."
+  photo_desc_2: Eine Produktverpackung im Bild (mindestens auf einem Foto) ist willkommen.
+  photo_desc_reward_prefix: Für eine Fotobewertung schreiben wir
+  photo_desc_reward_suffix: nach Veröffentlichung auf Ihrem Konto gut.
+  photo_file_too_large: "Datei ist zu groß. Maximum {max} MB."
+  photo_limit_reached: "Sie können maximal {max} Fotos anhängen."
+  photo_limit_partial: "Zusätzliche Dateien wurden übersprungen. Limit: {max} Fotos."
   video_link_label: Videolink
-  video_link_placeholder: z. B. https://youtu.be/dQw4w9WgXcQ
+  video_link_placeholder: "z. B. https://youtu.be/dQw4w9WgXcQ"
   video_link_desc_1: Erwähnen Sie im Video, dass Sie bei Vivadzen einkaufen.
   video_link_desc_2: Wenn Sie ein Produkt bewerten, zeigen Sie den gekauften Artikel.
   video_link_desc_reward_prefix: Für eine Videobewertung schreiben wir
@@ -80,7 +110,7 @@ es:
   w_advantages: Describa las ventajas del producto
   w_flaws: Describa las desventajas del producto
   w_link: Enlace a tu red social
-  link: Por ejemplo https://facebook.com/my_account
+  link: "Por ejemplo https://facebook.com/my_account"
   link_desc_supported: "Redes compatibles: Facebook, Instagram, TikTok, Twitter (X)."
   link_desc_requirement: Solo abonamos la recompensa por reseñas en texto si adjuntas un enlace.
   link_desc_2_prefix: Tras la moderación de tu reseña en texto abonaremos
@@ -92,8 +122,18 @@ es:
   review_type_label: Formato de reseña
   review_type_text: Reseña en texto
   review_type_video: Reseña en video
+  review_type_photo: Reseña con fotos
+  photo_label: Fotografías
+  photo_add: Añadir fotos
+  photo_desc_1: "Adjunta de 1 a 5 fotos a tu reseña. Formatos compatibles: JPG, JPEG, PNG, WEBP. Tamaño máximo por imagen: 12 MB."
+  photo_desc_2: Se agradece que el empaque del producto aparezca en al menos una foto.
+  photo_desc_reward_prefix: Por una reseña con fotos abonaremos
+  photo_desc_reward_suffix: tras la publicación en tu cuenta personal.
+  photo_file_too_large: "El archivo es demasiado grande. Máximo {max} MB."
+  photo_limit_reached: "Puedes adjuntar hasta {max} fotos."
+  photo_limit_partial: "Se omitieron archivos extra. Límite: {max} fotos."
   video_link_label: Enlace al video
-  video_link_placeholder: Por ejemplo https://youtu.be/dQw4w9WgXcQ
+  video_link_placeholder: "Por ejemplo https://youtu.be/dQw4w9WgXcQ"
   video_link_desc_1: Menciona en el video que compras en Vivadzen.
   video_link_desc_2: Si reseñas un producto, muestra el artículo que adquiriste.
   video_link_desc_reward_prefix: Por la reseña en video abonaremos
@@ -105,7 +145,7 @@ cs:
   w_advantages: Popište přednosti produktu
   w_flaws: Popište nedostatky produktu
   w_link: Odkaz na vaši sociální síť
-  link: Například https://facebook.com/my_account
+  link: "Například https://facebook.com/my_account"
   link_desc_supported: "Podporované sítě: Facebook, Instagram, TikTok, Twitter (X)."
   link_desc_requirement: Odměnu za textovou recenzi připisujeme jen tehdy, když přiložíte odkaz.
   link_desc_2_prefix: Po schválení textové recenze vám připíšeme
@@ -117,8 +157,18 @@ cs:
   review_type_label: Formát recenze
   review_type_text: Textová recenze
   review_type_video: Video recenze
+  review_type_photo: Foto recenze
+  photo_label: Fotografie
+  photo_add: Přidat fotografie
+  photo_desc_1: "Přiložte ke své recenzi 1 až 5 fotografií. Podporované formáty: JPG, JPEG, PNG, WEBP. Maximální velikost jednoho obrázku je 12 MB."
+  photo_desc_2: Přítomnost obalu produktu v záběru (alespoň na jedné fotografii) je vítána.
+  photo_desc_reward_prefix: Za foto recenzi připíšeme
+  photo_desc_reward_suffix: po publikaci na váš účet.
+  photo_file_too_large: "Soubor je příliš velký. Maximum {max} MB."
+  photo_limit_reached: "Lze přiložit nejvýše {max} fotografií."
+  photo_limit_partial: "Nadbytečné soubory byly přeskočeny. Limit: {max} fotografií."
   video_link_label: Odkaz na video
-  video_link_placeholder: Například https://youtu.be/dQw4w9WgXcQ
+  video_link_placeholder: "Například https://youtu.be/dQw4w9WgXcQ"
   video_link_desc_1: Ve videu zmiňte, že nakupujete na Vivadzen.
   video_link_desc_2: Pokud hodnotíte produkt, ukažte zakoupené zboží.
   video_link_desc_reward_prefix: Za video recenzi připíšeme
@@ -130,7 +180,7 @@ en:
   w_advantages: Describe the product advantages
   w_flaws: Describe the product drawbacks
   w_link: Link to your social profile
-  link: For example https://facebook.com/my_account
+  link: "For example https://facebook.com/my_account"
   link_desc_supported: "Supported networks: Facebook, Instagram, TikTok, Twitter (X)."
   link_desc_requirement: Text review rewards are issued only when a link is attached.
   link_desc_2_prefix: After we moderate your text review we will credit
@@ -142,8 +192,18 @@ en:
   review_type_label: Review format
   review_type_text: Text review
   review_type_video: Video review
+  review_type_photo: Photo review
+  photo_label: Photos
+  photo_add: Add photos
+  photo_desc_1: "Attach 1 to 5 photos to your review. Supported formats: JPG, JPEG, PNG, WEBP. Maximum size per image: 12 MB."
+  photo_desc_2: Having the product packaging in frame (at least in one photo) is welcome.
+  photo_desc_reward_prefix: A photo review grants
+  photo_desc_reward_suffix: after publication straight to your balance.
+  photo_file_too_large: "File is too large. Maximum {max} MB."
+  photo_limit_reached: "You can attach up to {max} photos."
+  photo_limit_partial: "Extra files were skipped. Limit: {max} photos."
   video_link_label: Video link
-  video_link_placeholder: For example https://youtu.be/dQw4w9WgXcQ
+  video_link_placeholder: "For example https://youtu.be/dQw4w9WgXcQ"
   video_link_desc_1: Mention in the video that you shop with Vivadzen.
   video_link_desc_2: If you review a product, try to show the item on camera.
   video_link_desc_reward_prefix: A video review grants

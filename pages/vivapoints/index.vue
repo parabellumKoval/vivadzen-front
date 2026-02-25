@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { t, locale } = useI18n()
 const { get } = useSettings()
-const { name: pointsName, resolve: resolvePointLabel } = usePoints()
+const { name: pointsName, resolve: resolvePointLabel, replaceInText } = usePoints()
 
 const pageData = await queryContent('vivapoints').locale(locale.value).findOne()
 
@@ -11,7 +11,7 @@ const breadcrumbs = [
     item: '/'
   },
   {
-    name: t('title.vivapoints'),
+    name: t('title.vivapoints', { pointsName: pointsName.value }),
     item: '/vivapoints'
   }
 ]
@@ -25,7 +25,7 @@ const formatNumber = (value: number | string) => {
 }
 
 // Resolve reward data from settings (same approach as ReviewReward component)
-const resolveReward = (kind: 'text' | 'video') => {
+const resolveReward = (kind: 'text' | 'video' | 'photo') => {
   const baseKey = `profile.referrals.triggers.review.published.${kind}`
   const settings = get(baseKey) || {}
   const enabled = settings?.enabled ?? true
@@ -66,6 +66,7 @@ const referralLevelPercents = computed(() => {
 
 const videoReward = computed(() => resolveReward('video'))
 const textReward = computed(() => resolveReward('text'))
+const photoReward = computed(() => resolveReward('photo'))
 
 const settingsValues = computed(() => ({
   registerLabel: get('profile.auth.cta.register', t('settings.register')),
@@ -74,6 +75,7 @@ const settingsValues = computed(() => ({
   accountLink: get('profile.account.link', '/account'),
   videoReward: videoReward.value.amount,
   textReward: textReward.value.amount,
+  photoReward: photoReward.value.amount,
   referralMaxPercent: referralMaxPercent.value,
   referralLevel1: referralLevelPercents.value.level1 || '10%',
   referralLevel2: referralLevelPercents.value.level2 || '5%',
@@ -103,6 +105,7 @@ const genericReplacements = computed(() => {
   })
 
   return {
+    pointsName: pointsName.value,
     register: settingsValues.value.registerLabel,
     account: settingsValues.value.accountLabel,
     hours: settingsValues.value.moderationHours,
@@ -127,7 +130,7 @@ const replaceTokens = (text?: string, extra: Record<string, string | number> = {
 }
 
 const heroNoteSegments = computed(() => {
-  const note = pageData?.hero?.note || ''
+  const note = replaceInText(pageData?.hero?.note || '')
   const [beforeRegister, afterRegister = ''] = note.split('{register}')
   const [between, afterAccount = ''] = afterRegister.split('{account}')
   return {
@@ -140,12 +143,17 @@ const heroNoteSegments = computed(() => {
 const heroHighlights = computed(() => pageData?.hero?.highlights || [])
 
 const heroMetrics = computed(() => {
-  const pointsLabel = resolvePointLabel('points') || pointsName.value || 'VivaPoints'
+  const pointsLabel = resolvePointLabel('points') || pointsName.value || 'Points'
   return [
     {
       icon: 'hugeicons:play-circle-02',
       label: t('hero.metric_video'),
       value: `+${formatNumber(settingsValues.value.videoReward)} ${pointsLabel}`
+    },
+    {
+      icon: 'hugeicons:image-02',
+      label: t('hero.metric_photo'),
+      value: `+${formatNumber(settingsValues.value.photoReward)} ${pointsLabel}`
     },
     {
       icon: 'hugeicons:edit-02',
@@ -160,6 +168,13 @@ const heroMetrics = computed(() => {
   ]
 })
 
+const earnMethodImages: Record<string, string> = {
+  video: '/images/vivacoin-2.jpg',
+  photo: '/images/vivacoin-2.jpg',
+  text: '/images/vivacoin-3.jpg',
+  referral: '/images/vivacoin-4.jpg'
+}
+
 const earnMethods = computed(() => {
   if (!pageData?.earn?.methods?.length) return []
   return pageData.earn.methods.map((method: any) => {
@@ -170,11 +185,15 @@ const earnMethods = computed(() => {
     if (method.key === 'text') {
       extra.amount = String(formatNumber(settingsValues.value.textReward))
     }
+    if (method.key === 'photo') {
+      extra.amount = String(formatNumber(settingsValues.value.photoReward))
+    }
     if (method.key === 'referral') {
       extra.maxPercent = settingsValues.value.referralMaxPercent
     }
     return {
       ...method,
+      image: earnMethodImages[method.key] || '',
       title: replaceTokens(method.title, extra),
       description: replaceTokens(method.description, extra),
       steps: method.steps?.map((step: string) => replaceTokens(step, extra)) || [],
@@ -223,7 +242,7 @@ const payOption = computed(() => {
 
 const exchangeBlock = computed(() => ({
   title: pageData?.exchange?.title,
-  intro: pageData?.exchange?.intro,
+  intro: replaceTokens(pageData?.exchange?.intro),
   rateLabel: pageData?.exchange?.rate_label,
   rate: replaceTokens(pageData?.exchange?.rate),
   currenciesLabel: pageData?.exchange?.currencies_label,
@@ -234,13 +253,26 @@ const faqItems = computed(() => {
   if (!pageData?.faq?.list?.length) return []
   return pageData.faq.list.map((item: any) => ({
     ...item,
+    question: replaceTokens(item.question),
     answer: replaceTokens(item.answer)
   }))
 })
 
-const ctaBlock = computed(() => pageData?.cta || pageData?.hero?.cta)
+const ctaBlock = computed(() => {
+  const block = pageData?.cta || pageData?.hero?.cta
+  if (!block) return null
+  return {
+    ...block,
+    title: replaceTokens(block.title),
+    text: replaceTokens(block.text),
+    button: {
+      ...block.button,
+      label: replaceTokens(block.button?.label)
+    }
+  }
+})
 
-useSeo().setPageSeo(t('title.vivapoints'))
+useSeo().setPageSeo(t('title.vivapoints', { pointsName: pointsName.value }))
 </script>
 
 <style src='./vivapoints.scss' lang='scss' scoped></style>
@@ -255,11 +287,11 @@ useSeo().setPageSeo(t('title.vivapoints'))
           <div class="vivapoints-hero__text">
             <p class="vivapoints-hero__eyebrow">{{ pointsName }}</p>
             <h1 class="vivapoints-hero__title">
-              <span v-html="pageData?.hero?.title"></span>
-              <span v-html="pageData?.hero?.subtitle" class="sub"></span>
+              <span v-html="replaceTokens(pageData?.hero?.title)"></span>
+              <span v-html="replaceTokens(pageData?.hero?.subtitle)" class="sub"></span>
             </h1>
             <p class="vivapoints-hero__lead">
-              {{ pageData?.hero?.lead }}
+              {{ replaceTokens(pageData?.hero?.lead) }}
             </p>
 
           
@@ -276,7 +308,7 @@ useSeo().setPageSeo(t('title.vivapoints'))
               <div class="vivapoints-hero__panel-card">
                 <div class="vivapoints-hero__panel-title">{{ exchangeBlock.rateLabel }}</div>
                 <div class="vivapoints-hero__panel-value">{{ exchangeBlock.rate }}</div>
-                <p class="vivapoints-hero__panel-note">{{ pageData?.exchange?.intro }}</p>
+                <p class="vivapoints-hero__panel-note">{{ exchangeBlock.intro }}</p>
               </div>
             </div>
 
@@ -326,12 +358,12 @@ useSeo().setPageSeo(t('title.vivapoints'))
 
             <div class="vivapoints-begin__header">
               <p class="vivapoints-begin__eyebrow">{{ resolvePointLabel('points') }}</p>
-              <h2>{{ pageData?.earn?.title }}</h2>
-              <p>{{ pageData?.earn?.subtitle }}</p>
+              <h2>{{ replaceTokens(pageData?.earn?.title) }}</h2>
+              <p>{{ replaceTokens(pageData?.earn?.subtitle) }}</p>
             </div>
 
             <p class="vivapoints-begin__description">
-              {{ pageData?.hero?.description }}
+              {{ replaceTokens(pageData?.hero?.description) }}
             </p>
             <p class="vivapoints-begin__note">
               <span>{{ heroNoteSegments.beforeRegister }}</span>
@@ -347,7 +379,7 @@ useSeo().setPageSeo(t('title.vivapoints'))
             <ul class="vivapoints-begin__highlights">
               <li v-for="item in heroHighlights" :key="item" class="vivapoints-begin__highlight">
                 <IconCSS :name="item.icon" class="vivapoints-begin__highlight-icon" />
-                <span>{{ item.label }}</span>
+                <span>{{ replaceTokens(item.label) }}</span>
               </li>
             </ul>
           </article>
@@ -465,7 +497,7 @@ useSeo().setPageSeo(t('title.vivapoints'))
           <article>
             <div  class="vivapoints-begin__header">
               <h2>{{ pageData?.usage?.title }}</h2>
-              <p>{{ pageData?.usage?.intro }}</p>
+              <p>{{ replaceTokens(pageData?.usage?.intro) }}</p>
             </div>
           </article>
           <article v-if="payOption" class="vivapoints-card vivapoints-card--outline">

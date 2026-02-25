@@ -1,5 +1,5 @@
 hero:
-  eyebrow: "VivaPoints Affiliate"
+  eyebrow: "{pointsName} Affiliate"
   title: "Programa de afiliados de Vivadzen: gana con recomendaciones"
   description: "Convierte la confianza de tu audiencia en ingresos constantes. Tú compartes productos de calidad y nosotros acreditamos puntos por cada compra hasta el tercer nivel de tu red."
   image: '/images/af-2.png'
@@ -12,7 +12,7 @@ hero:
       value: "{level3}"
   highlights:
     - icon: 'solar:money-bag-linear'
-      label: "Ingreso pasivo en VivaPoints"
+      label: "Ingreso pasivo en {pointsName}"
     - icon: 'solar:users-group-two-rounded-linear'
       label: "Profundidad de red — 3 niveles"
     - icon: 'solar:shield-minimalistic-linear'
@@ -42,7 +42,7 @@ levels:
       percent: "{level3}"
       description: "La red crece y tú obtienes un ingreso realmente pasivo por desarrollar la comunidad alrededor de la marca."
 algo:
-  title: "Cómo se acreditan los VivaPoints"
+  title: "Cómo se acreditan los {pointsName}"
   intro: "Registramos con detalle el flujo del dinero para que el socio vea estadísticas transparentes."
   cards:
     - icon: 'solar:cart-linear'
@@ -53,7 +53,7 @@ algo:
         - "Los descuentos y bonificaciones ya están incluidos."
     - icon: 'solar:dollar-bold-duotone'
       title: "Conversión de divisas"
-      description: "Los pedidos pueden pagarse en CZK, EUR, USD o UAH: el sistema registra el pago local, calcula tu porcentaje y lo convierte al instante en VivaPoints."
+      description: "Los pedidos pueden pagarse en CZK, EUR, USD o UAH: el sistema registra el pago local, calcula tu porcentaje y lo convierte al instante en {pointsName}."
       bullets:
         - "Los puntos se almacenan en una única cuenta de bonos."
         - "La conversión usa el tipo de cambio vigente en el sitio."
@@ -102,7 +102,7 @@ control:
       text: "Te avisamos cuando aparece un nuevo socio o cuando llegan bonos por un pedido completado."
 payout:
   title: "Retiros y uso de puntos"
-  intro: "VivaPoints son dinero real que puedes gastar o retirar."
+  intro: "{pointsName} son dinero real que puedes gastar o retirar."
   options:
     - icon: 'solar:cart-check-linear'
       title: "Paga tus compras"
@@ -112,6 +112,6 @@ payout:
       text: "Envía los puntos a una tarjeta bancaria o a una billetera cripto. Las reglas detalladas están descritas en la sección '{withdraw}'."
 cta:
   title: "Empieza a ampliar tu red hoy mismo"
-  text: "Copia el enlace en tu cuenta, envíalo a un amigo o publícalo en redes: los primeros VivaPoints llegarán justo después de un pedido completado."
+  text: "Copia el enlace en tu cuenta, envíalo a un amigo o publícalo en redes: los primeros {pointsName} llegarán justo después de un pedido completado."
   button:
     label: "Abrir el panel de afiliados"

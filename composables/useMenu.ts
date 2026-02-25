@@ -1,5 +1,6 @@
 export const useMenu = () => {
   const {t} = useI18n({useScope: 'global'})
+  const { name: pointsName } = usePoints()
 
   const customer = computed(() => {
     return [
@@ -45,7 +46,7 @@ export const useMenu = () => {
       {
         id: 2,
         link: '/vivapoints',
-        title: t('title.vivapoints_and_rewards')
+        title: t('title.vivapoints_and_rewards', { pointsName: pointsName.value })
       },
       {
         id: 21,

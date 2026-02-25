@@ -21,7 +21,7 @@ en:
       text: "Second-level users invite more people, building your third level. Receive ongoing commissions from all their purchases. The larger and more active the network, the greater your passive earnings."
     cta:
       title: "Join Now"
-      text: "Sign up to start growing your own community — thousands are already building thriving networks and earning passive income with Viva Points!"
+      text: "Sign up to start growing your own community — thousands are already building thriving networks and earning passive income with {pointsName}!"
       button: "Sign up to start"
       infoText: "Learn more about the referral system"
       infoLink: "Program terms"
@@ -49,7 +49,7 @@ cs:
       text: "Uživatelé druhé úrovně zvou další lidi a staví třetí úroveň. Průběžné provize z jejich nákupů. Čím větší a aktivnější síť, tím vyšší pasivní příjem."
     cta:
       title: "Přidejte se nyní"
-      text: "Zaregistrujte se a začněte budovat svou komunitu — tisíce uživatelů už rostou a vydělávají pasivní příjem s Viva Points!"
+      text: "Zaregistrujte se a začněte budovat svou komunitu — tisíce uživatelů už rostou a vydělávají pasivní příjem s {pointsName}!"
       button: "Zaregistrovat se"
       infoText: "Více o doporučovacím systému"
       infoLink: "Podmínky programu"
@@ -77,7 +77,7 @@ uk:
       text: "Користувачі другого рівня приводять нових — утворюється третій рівень. Постійні комісії з їхніх покупок. Чим більша й активніша мережа, тим вищий пасивний дохід."
     cta:
       title: "Приєднуйтесь зараз"
-      text: "Зареєструйтесь і почніть розвивати власну спільноту — тисячі вже будують мережі та отримують пасивний дохід із Viva Points!"
+      text: "Зареєструйтесь і почніть розвивати власну спільноту — тисячі вже будують мережі та отримують пасивний дохід із {pointsName}!"
       button: "Почати реєстрацію"
       infoText: "Докладніше про реферальну систему"
       infoLink: "Умови програми"
@@ -105,7 +105,7 @@ de:
       text: "Nutzer der zweiten Ebene laden weitere Menschen ein und bauen Ihre dritte Ebene auf. Laufende Provisionen aus deren Einkäufen. Je größer und aktiver das Netzwerk, desto höher das passive Einkommen."
     cta:
       title: "Jetzt beitreten"
-      text: "Registrieren Sie sich und bauen Sie Ihre Community auf — Tausende wachsen bereits und verdienen passives Einkommen mit Viva Points!"
+      text: "Registrieren Sie sich und bauen Sie Ihre Community auf — Tausende wachsen bereits und verdienen passives Einkommen mit {pointsName}!"
       button: "Registrieren"
       infoText: "Mehr über das Empfehlungssystem"
       infoLink: "Programmbedingungen"
@@ -133,7 +133,7 @@ es:
       text: "Los usuarios del segundo nivel invitan a más personas y crean tu tercer nivel. Comisiones continuas por sus compras. Cuanto más grande y activa la red, mayores serán tus ingresos pasivos."
     cta:
       title: "Únete ahora"
-      text: "Regístrate y empieza a hacer crecer tu comunidad — miles ya están construyendo redes prósperas y ganando ingresos pasivos con Viva Points."
+      text: "Regístrate y empieza a hacer crecer tu comunidad — miles ya están construyendo redes prósperas y ganando ingresos pasivos con {pointsName}."
       button: "Regístrate"
       infoText: "Más información sobre el sistema de referidos"
       infoLink: "Términos del programa"
@@ -160,7 +160,7 @@ ru:
       text: "Пользователи второго уровня приводят новых людей и строят третий уровень. Получайте постоянные комиссии с их покупок. Чем больше и активнее сеть, тем выше пассивный доход."
     cta:
       title: "Присоединиться"
-      text: "Зарегистрируйтесь и начните развивать свою комьюнити — тысячи уже строят сети и получают пассивный доход с Viva Points!"
+      text: "Зарегистрируйтесь и начните развивать свою комьюнити — тысячи уже строят сети и получают пассивный доход с {pointsName}!"
       button: "Начать регистрацию"
       infoText: "Подробнее о реферальной системе"
       infoLink: "Условия программы"

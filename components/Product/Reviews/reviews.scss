@@ -64,6 +64,12 @@
     }
     &-reward {
       width: 100%;
+
+      @include desktop {
+        :deep(.review-reward__list) {
+          flex-direction: row;
+        }
+      }
     }
   }
   &-grid {

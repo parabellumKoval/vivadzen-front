@@ -1,10 +1,20 @@
 <script setup>
 const {locale, t} = useI18n()
+const { replaceInText } = usePoints()
 
 const reviewBonus = await queryContent('review-bonus').locale(locale.value).findOne()
 
-const bonusTitle = reviewBonus?.title
-const steps = reviewBonus?.items ?? []
+const bonusTitle = computed(() => replaceInText(reviewBonus?.title))
+const steps = computed(() => {
+  return (reviewBonus?.items ?? []).map((item) => ({
+    ...item,
+    text: replaceInText(item.text),
+    before: replaceInText(item.before),
+    highlight: replaceInText(item.highlight),
+    after: replaceInText(item.after),
+    button: item.button ? { ...item.button, label: replaceInText(item.button.label) } : item.button
+  }))
+})
 </script>
 
 <style src='./bonus.scss' lang='scss' scoped></style>

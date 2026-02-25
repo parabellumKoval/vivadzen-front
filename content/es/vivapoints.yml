@@ -1,11 +1,11 @@
 hero:
   title: "Programa de fidelidad de Vivadzen"
-  subtitle: "Gana <b class='orange'>VivaPoints</b>"
+  subtitle: "Gana <b class='orange'>{pointsName}</b>"
   lead: "Bienvenido al mundo de ventajas de Vivadzen. Valoramos tu opinión y estamos listos para pagar dinero real por ella."
-  description: "VivaPoints son mucho más que descuentos: es una moneda interna completa que puedes usar en nuevas compras o retirar a tu tarjeta bancaria o monedero cripto."
+  description: "{pointsName} son mucho más que descuentos: es una moneda interna completa que puedes usar en nuevas compras o retirar a tu tarjeta bancaria o monedero cripto."
   note: "Importante: el programa de bonificación está disponible solo para usuarios conectados. Para empezar a acumular puntos, {register} o entra en tu {account}."
   highlights:
-    - label: "Reseñas en video y texto"
+    - label: "Reseñas en video, foto y texto"
       icon: "hugeicons:ai-generative"
     - label: "Red de referidos multinivel"
       icon: "hugeicons:user-group"
@@ -16,11 +16,10 @@ hero:
     to: "/account"
 
 earn:
-  title: "¿Cómo ganar VivaPoints?"
+  title: "¿Cómo ganar {pointsName}?"
   subtitle: "Ofrecemos formas sencillas y transparentes de conseguir bonos. Elige la opción que prefieras y mira cómo crece tu saldo."
   methods:
     - key: video
-      image: '/images/vivacoin-2.jpg'
       icon: "hugeicons:play-circle-02"
       title: "Reseña en video - <div class='orange'>{amount} puntos</div>"
       description: "La opción más rentable. Muestra el producto en acción o cuenta tu experiencia de compra."
@@ -28,8 +27,15 @@ earn:
         - "Graba un video mostrando un artículo comprado con nosotros o comparte tu experiencia con <b>Vivadzen</b>."
         - "Sube el video a <b>YouTube</b>."
         - "Ve a la ficha del producto y deja una reseña con el enlace al video."
+    - key: photo
+      icon: "hugeicons:image-02"
+      title: "Reseña con fotos - <div class='orange'>{amount} puntos</div>"
+      description: "Adjunta fotos claras del producto o del unboxing a tu reseña."
+      steps:
+        - "Haz hasta 5 fotos del producto, del paquete o del resultado de uso."
+        - "Abre la página del producto o de reseñas de la tienda y elige el formato 'reseña con fotos'."
+        - "Adjunta las fotos, añade un comentario opcional y envía la reseña a moderación."
     - key: text
-      image: '/images/vivacoin-3.jpg'
       icon: "hugeicons:edit-02"
       title: "Reseña escrita - <div class='orange'>{amount} puntos</div>"
       description: "¿Te gusta escribir? Deja un comentario detallado en la página del producto."
@@ -47,7 +53,6 @@ earn:
         - label: "Twitter (X)"
           icon: "hugeicons:new-twitter-rectangle"
     - key: referral
-      image: '/images/vivacoin-4.jpg'
       icon: "solar:users-group-two-rounded-linear"
       title: "Programa de referidos - <div class='orange'>hasta {maxPercent} de los pedidos de tus amigos</div>"
       description: "Crea una fuente de ingresos pasivos con nuestro sistema de invitaciones de tres niveles. Recibe puntos por las compras de tus amigos y de su red."
@@ -73,9 +78,9 @@ moderation:
 
 exchange:
   title: "Tipo de cambio y divisas"
-  intro: "Tu esfuerzo tiene un valor real. Vinculamos VivaPoints a una moneda estable para facilitar los cálculos."
+  intro: "Tu esfuerzo tiene un valor real. Vinculamos {pointsName} a una moneda estable para facilitar los cálculos."
   rate_label: "Tasa de conversión:"
-  rate: "1 VivaPoint = {rate}"
+  rate: "1 {pointsName} = {rate}"
   currencies_label: "Puedes retirar puntos en el equivalente de otras divisas según la tasa vigente del sitio:"
   currencies:
     - label: "Euro (EUR)"
@@ -91,7 +96,7 @@ exchange:
 
 usage:
   title: "¿Cómo usar los puntos?"
-  intro: "Tienes dos caminos para gestionar tus VivaPoints. Tú decides en todo momento."
+  intro: "Tienes dos caminos para gestionar tus {pointsName}. Tú decides en todo momento."
   options:
     - key: pay
       icon: "solar:cart-check-outline"
@@ -117,11 +122,11 @@ faq:
   title: "Preguntas frecuentes"
   list:
     - question: "¿Los puntos caducan?"
-      answer: "No, VivaPoints no caducan. No reiniciamos el saldo aunque pases un tiempo sin usar el programa."
+      answer: "No, {pointsName} no caducan. No reiniciamos el saldo aunque pases un tiempo sin usar el programa."
     - question: "¿Puedo combinar puntos y cupones?"
-      answer: "Sí, VivaPoints se combinan con otras promociones y códigos de descuento."
+      answer: "Sí, {pointsName} se combinan con otras promociones y códigos de descuento."
     - question: "¿Necesito una cuenta para participar?"
-      answer: "Sí, el programa es solo para usuarios conectados: {register} o entra a tu {account} para empezar a sumar VivaPoints."
+      answer: "Sí, el programa es solo para usuarios conectados: {register} o entra a tu {account} para empezar a sumar {pointsName}."
     - question: "¿Cuántos niveles tiene el programa de referidos y qué porcentajes ofrece?"
       answer: "Hay tres niveles: las invitaciones directas traen {level1}, el segundo nivel {level2} y el tercero {level3}. Los abonos se generan automáticamente tras el pago del invitado."
     - question: "¿Cuándo acreditan los puntos por reseñas o referidos?"
@@ -136,14 +141,14 @@ faq:
       answer: "El monto queda retenido temporalmente y no se puede usar hasta que el equipo de pagos complete la revisión y transferencia."
     - question: "¿Puedo cancelar una solicitud de retiro?"
       answer: "Sí, mientras el estado no sea 'pagado', puedes cancelarla en {account}; los puntos retenidos volverán al instante a tu saldo disponible."
-    - question: "¿En qué divisas puedo retirar VivaPoints?"
+    - question: "¿En qué divisas puedo retirar {pointsName}?"
       answer: "Aceptamos retiros en EUR, USD, UAH, CZK y criptomonedas populares como USDT según la tasa actual."
     - question: "¿Cómo se registran todos los movimientos?"
       answer: "Cada acción se guarda en el Wallet Ledger: puedes ver el iniciador, el tipo de operación (credit/debit/hold/release) y el pedido o solicitud relacionada."
 
 cta:
   title: "¿Listo para empezar?"
-  text: "Entra al catálogo, elige tu producto favorito o comparte tu enlace de referido y consigue tus primeros VivaPoints hoy mismo."
+  text: "Entra al catálogo, elige tu producto favorito o comparte tu enlace de referido y consigue tus primeros {pointsName} hoy mismo."
   button:
     label: "Ir a Mi cuenta"
     to: "/account"

@@ -8,6 +8,9 @@ ru:
     video:
       label: За видео-отзыв
       note: Загрузите видеообзор на YouTube и прикрепите ссылку для VIP-вознаграждения.
+    photo:
+      label: За фото-отзыв
+      note: Прикрепите фотографии к вашему отзыву. Наличие упаковки в кадре (хотя бы на одном фото) приветствуется.
 uk:
   title: Винагороди за відгуки
   empty: Актуальні бонуси за відгуки з’являться тут зовсім скоро.
@@ -18,6 +21,9 @@ uk:
     video:
       label: За відео-відгук
       note: Завантажте відеоогляд на YouTube та прикріпіть посилання для VIP-винагороди.
+    photo:
+      label: За фото-відгук
+      note: Додайте фотографії до вашого відгуку. Наявність упаковки в кадрі (хоча б на одному фото) вітається.
 de:
   title: Prämien für Ihre Bewertungen
   empty: Bald zeigen wir Ihnen hier die verfügbaren Bewertungsprämien.
@@ -28,6 +34,9 @@ de:
     video:
       label: Für eine Videobewertung
       note: Laden Sie Ihre Videobewertung auf YouTube hoch und fügen Sie den Link für die VIP-Prämie hinzu.
+    photo:
+      label: Für eine Fotobewertung
+      note: Fügen Sie Ihrer Bewertung Fotos hinzu. Eine Produktverpackung im Bild (mindestens auf einem Foto) ist willkommen.
 es:
   title: Recompensas por tus reseñas
   empty: Muy pronto mostraremos aquí los bonos disponibles por reseñas.
@@ -38,6 +47,9 @@ es:
     video:
       label: Por una reseña en video
       note: Sube una reseña en video a YouTube y adjunta el enlace para la recompensa VIP.
+    photo:
+      label: Por una reseña con fotos
+      note: Adjunta fotos a tu reseña. Se agradece que el empaque del producto aparezca en al menos una foto.
 cs:
   title: Odměny za vaše recenze
   empty: Již brzy zde zobrazíme dostupné bonusy za recenze.
@@ -48,6 +60,9 @@ cs:
     video:
       label: Za video recenzi
       note: Nahrajte video recenzi na YouTube a připojte odkaz pro VIP odměnu.
+    photo:
+      label: Za foto recenzi
+      note: Přiložte ke své recenzi fotografie. Přítomnost obalu produktu v záběru (alespoň na jedné fotografii) je vítána.
 en:
   title: Rewards for your reviews
   empty: Rewards will show up here as soon as they are configured.
@@ -58,3 +73,6 @@ en:
     video:
       label: Video review bonus
       note: Upload a video review to YouTube and attach the link for the VIP reward.
+    photo:
+      label: Photo review bonus
+      note: Attach photos to your review. Having the product packaging in frame (at least in one photo) is welcome.

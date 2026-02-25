@@ -28,8 +28,8 @@ title:
   sales: Aktionen
   news: Neuigkeiten
   reviews: Bewertungen
-  vivapoints: VivaPoints
-  vivapoints_and_rewards: VivaPoints und Prämien
+  vivapoints: "{pointsName}"
+  vivapoints_and_rewards: "{pointsName} und Prämien"
   affiliate_system: Partnerprogramm
   czech-republic-kratom: Kratom in der Tschechischen Republik kaufen
   agreement: Vertrag des öffentlichen Angebots
@@ -158,6 +158,10 @@ age_gate:
   description: Bitte bestätigen Sie, dass Sie mindestens 18 Jahre alt sind, um Vivadzen weiter zu nutzen.
   confirm: Ja, ich bin 18+
   decline: Nein
+
+age_verification:
+  badge: Verkauf 18+
+  product_banner: Dieses Produkt kann in Tschechien nur nach ADULTO.cz-Altersverifizierung während des Checkouts gekauft werden.
 
 button:
   collapse: Einklappen

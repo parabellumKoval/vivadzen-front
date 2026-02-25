@@ -1,6 +1,7 @@
 ru:
   hero:
     metric_video: Видеоотзыв
+    metric_photo: Фотоотзыв
     metric_text: Текстовый отзыв
     metric_referral: Реферальная сеть
     metric_referral_prefix: до
@@ -12,6 +13,7 @@ ru:
 en:
   hero:
     metric_video: Video review
+    metric_photo: Photo review
     metric_text: Text review
     metric_referral: Referral network
     metric_referral_prefix: up to
@@ -23,6 +25,7 @@ en:
 cs:
   hero:
     metric_video: Video recenze
+    metric_photo: Foto recenze
     metric_text: Textová recenze
     metric_referral: Partnerská síť
     metric_referral_prefix: až
@@ -34,6 +37,7 @@ cs:
 uk:
   hero:
     metric_video: Відеовідгук
+    metric_photo: Фото-відгук
     metric_text: Текстовий відгук
     metric_referral: Партнерська мережа
     metric_referral_prefix: до
@@ -45,6 +49,7 @@ uk:
 de:
   hero:
     metric_video: Video-Bewertung
+    metric_photo: Foto-Bewertung
     metric_text: Textbewertung
     metric_referral: Partnernetzwerk
     metric_referral_prefix: bis zu
@@ -56,6 +61,7 @@ de:
 es:
   hero:
     metric_video: Reseña en video
+    metric_photo: Reseña con fotos
     metric_text: Reseña de texto
     metric_referral: Red de referidos
     metric_referral_prefix: hasta

@@ -1,6 +1,7 @@
 <script setup>
+const { name: pointsName } = usePoints()
 
-const items = [
+const items = computed(() => [
   {
     title: 'Накопительная скидка до 10%',
     description: 'Чем больше покупок, тем выше персональная скидка — все считается автоматически.',
@@ -23,13 +24,13 @@ const items = [
     size: 'taller'
   },
   {
-    title: 'VivaPoints за активность в экосистеме',
+    title: `${pointsName.value} за активность в экосистеме`,
     description: 'Мы поощряем участие бонусными баллами, которые можно использовать в магазине.',
     image: '/images/landing/stupa2.png',
-    alt: 'VivaPoints за активность',
+    alt: `${pointsName.value} за активность`,
     size: 'mid'
   }
-]
+])
 </script>
 
 <style src="./referral-bonus.scss" lang="scss" scoped></style>

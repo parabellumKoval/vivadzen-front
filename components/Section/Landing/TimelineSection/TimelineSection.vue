@@ -1,6 +1,8 @@
 <script setup>
 const { t } = useI18n()
 const { openCertificatesModal } = useDocumentsModal()
+const { name: pointsName } = usePoints()
+const tp = (key) => t(key, { pointsName: pointsName.value })
 </script>
 
 <style src="./timeline-section.scss" lang="scss" scoped></style>
@@ -13,10 +15,10 @@ const { openCertificatesModal } = useDocumentsModal()
       <div class="header__container">
         <div class="header">
           <h2 class="header__title">
-            <span class="orange">{{ t('header.title_brand') }}</span> — {{ t('header.title_text') }}
+            <span class="orange">{{ tp('header.title_brand') }}</span> — {{ tp('header.title_text') }}
           </h2>
           <p class="header__description">
-            {{ t('header.description') }}
+            {{ tp('header.description') }}
           </p>
         </div>
       </div>
@@ -34,16 +36,16 @@ const { openCertificatesModal } = useDocumentsModal()
               />
             </div>
             <div class="text">
-              <h4>{{ t('steps.origin.title') }}</h4>
-              <p>{{ t('steps.origin.description') }}</p>
+              <h4>{{ tp('steps.origin.title') }}</h4>
+              <p>{{ tp('steps.origin.description') }}</p>
               <div class="props__list">
                 <div class="props__item">
                   <img src="./mit-2.svg" class="props__svg-icon" alt="" />
-                  <div class="props__title">{{ t('steps.origin.props.mitragynine') }}</div>
+                  <div class="props__title">{{ tp('steps.origin.props.mitragynine') }}</div>
                 </div>
                 <div class="props__item">
                   <img src="./fert.svg" class="props__svg-icon" alt="" />
-                  <div class="props__title">{{ t('steps.origin.props.fertilizers') }}</div>
+                  <div class="props__title">{{ tp('steps.origin.props.fertilizers') }}</div>
                 </div>
               </div>
             </div>
@@ -62,14 +64,14 @@ const { openCertificatesModal } = useDocumentsModal()
               />
             </div>
             <div class="text">
-              <h4>{{ t('steps.safety.title') }}</h4>
+              <h4>{{ tp('steps.safety.title') }}</h4>
               <p>
-                {{ t('steps.safety.description_prefix') }}
-                <span class="highlight">{{ t('steps.safety.description_highlight') }}</span>
-                {{ t('steps.safety.description_suffix') }}
+                {{ tp('steps.safety.description_prefix') }}
+                <span class="highlight">{{ tp('steps.safety.description_highlight') }}</span>
+                {{ tp('steps.safety.description_suffix') }}
               </p>
               <button class="button props__button" type="button" @click="openCertificatesModal">
-                {{ t('steps.safety.button') }}
+                {{ tp('steps.safety.button') }}
               </button>
             </div>
           </div>
@@ -87,13 +89,13 @@ const { openCertificatesModal } = useDocumentsModal()
               />
             </div>
             <div class="text">
-              <h4>{{ t('steps.standards.title') }}</h4>
+              <h4>{{ tp('steps.standards.title') }}</h4>
               <p>
-                {{ t('steps.standards.description_prefix') }}
-                <span class="highlight">{{ t('steps.standards.highlight_europe') }}</span>
-                {{ t('steps.standards.description_middle') }}
-                <span class="highlight">{{ t('steps.standards.highlight_packs') }}</span>
-                {{ t('steps.standards.description_suffix') }}
+                {{ tp('steps.standards.description_prefix') }}
+                <span class="highlight">{{ tp('steps.standards.highlight_europe') }}</span>
+                {{ tp('steps.standards.description_middle') }}
+                <span class="highlight">{{ tp('steps.standards.highlight_packs') }}</span>
+                {{ tp('steps.standards.description_suffix') }}
               </p>
             </div>
           </div>
@@ -111,23 +113,23 @@ const { openCertificatesModal } = useDocumentsModal()
               />
             </div>
             <div class="text">
-              <h4>{{ t('steps.ecosystem.title') }}</h4>
+              <h4>{{ tp('steps.ecosystem.title') }}</h4>
               <p>
-                <span class="highlight">{{ t('steps.ecosystem.highlight_brand') }}</span>
-                {{ t('steps.ecosystem.description_prefix') }}
-                <span class="highlight">{{ t('steps.ecosystem.highlight_czech') }}</span>
-                {{ t('steps.ecosystem.description_middle') }}
-                <span class="highlight">{{ t('steps.ecosystem.highlight_eu') }}</span>
-                {{ t('steps.ecosystem.description_suffix') }}
+                <span class="highlight">{{ tp('steps.ecosystem.highlight_brand') }}</span>
+                {{ tp('steps.ecosystem.description_prefix') }}
+                <span class="highlight">{{ tp('steps.ecosystem.highlight_czech') }}</span>
+                {{ tp('steps.ecosystem.description_middle') }}
+                <span class="highlight">{{ tp('steps.ecosystem.highlight_eu') }}</span>
+                {{ tp('steps.ecosystem.description_suffix') }}
               </p>
               <div class="props__list">
                 <div class="props__item">
                   <img src="./viva.svg" class="props__svg-icon" alt="" />
-                  <div class="props__title">{{ t('steps.ecosystem.props.vivapoints') }}</div>
+                  <div class="props__title">{{ tp('steps.ecosystem.props.vivapoints') }}</div>
                 </div>
                 <div class="props__item">
                   <img src="./partner.svg" class="props__svg-icon" alt="" />
-                  <div class="props__title">{{ t('steps.ecosystem.props.partner') }}</div>
+                  <div class="props__title">{{ tp('steps.ecosystem.props.partner') }}</div>
                 </div>
               </div>
             </div>
@@ -137,8 +139,8 @@ const { openCertificatesModal } = useDocumentsModal()
     </div>
 
     <div class="footer">
-      <h3 class="footer__title">{{ t('footer.title') }}</h3>
-      <div class="footer__desc">{{ t('footer.description') }}</div>
+      <h3 class="footer__title">{{ tp('footer.title') }}</h3>
+      <div class="footer__desc">{{ tp('footer.description') }}</div>
     </div>
 
     <div class="flare-base flare-top-left-wrapper">

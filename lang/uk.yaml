@@ -28,8 +28,8 @@ title:
   sales: Акції
   news: Новини
   reviews: Відгуки
-  vivapoints: VivaPoints
-  vivapoints_and_rewards: VivaPoints та винагороди
+  vivapoints: "{pointsName}"
+  vivapoints_and_rewards: "{pointsName} та винагороди"
   affiliate_system: Партнерська програма
   czech-republic-kratom: Купити кратом в Чеській республіці
   agreement: Договір публічної оферти
@@ -144,6 +144,8 @@ messages:
   select_region_delivery_notice: Щоб побачити всі доступні способи доставки та детальну інформацію, спочатку оберіть країну доставки
   select_region_payment_notice: Щоб побачити всі доступні способи оплати та детальну інформацію, спочатку оберіть країну доставки
   email_verification_required: На вашу електронну пошту надіслано посилання для підтвердження. Будь ласка, підтвердіть свою адресу електронної пошти, щоб активувати свій обліковий запис.
+  verify_age_before_order: Підтвердіть вік через ADULTO.cz перед оформленням замовлення.
+  adulto_unavailable: Сервіс ADULTO.cz тимчасово недоступний. Спробуйте пізніше.
 
 message:
   email_verification_required: На вашу електронну пошту надіслано посилання для підтвердження. Будь ласка, підтвердіть свою адресу електронної пошти, щоб активувати свій обліковий запис.
@@ -163,6 +165,10 @@ age_gate:
   description: Підтвердіть, що вам виповнилося 18 років, щоб продовжити користуватися Vivadzen.
   confirm: Так, мені 18+
   decline: Ні
+
+age_verification:
+  badge: Продаж 18+
+  product_banner: Цей товар у Чехії можна придбати лише після підтвердження віку через ADULTO.cz на етапі оформлення замовлення.
 
 button:
   collapse: Згорнути

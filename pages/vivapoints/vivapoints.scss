@@ -287,9 +287,16 @@
   &-begin {
     padding-right: 0;
 
-    @include xld {
-      padding-right: 120px;
+    @include desktop {
+      grid-column-start: 1;
+      grid-column-end: 5;
     }
+
+    @include xld {
+      grid-column-start: initial;
+      grid-column-end: initial;
+    }
+
     &__header {
       h2 {
         margin: 10px 0;
@@ -385,12 +392,12 @@
     }
     
     @include desktop {
-      grid-template-columns: 1fr repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
     }
 
-    @include ld {
-      grid-template-columns: 2fr repeat(3, 1fr);
+    @include xld {
+      grid-template-columns: 1fr repeat(4, 1fr);
       gap: 45px;
     }
 

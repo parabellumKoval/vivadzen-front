@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const { t } = useI18n()
+const { name: pointsName } = usePoints()
+const tp = (key: string) => t(key, { pointsName: pointsName.value })
 
 // Здесь подставь свои пути к картинкам
 // примеры: /images/viva/coin.png, /images/viva/p1.png, ...
@@ -43,13 +45,13 @@ const img = useImg()
       </div>
 
       <div class="vp__sub">
-        <h2 id="vp-title" class="vp__title">{{ t('viva.title') }}</h2>
-        <p class="vp__desc">{{ t('viva.lead') }}</p>
+        <h2 id="vp-title" class="vp__title">{{ tp('viva.title') }}</h2>
+        <p class="vp__desc">{{ tp('viva.lead') }}</p>
       </div>
 
       <div class="vp__box">
         <div class="vp__rate">
-          <span class="vp__rate-num vp__rate-num--1">Viva-point</span>
+          <span class="vp__rate-num vp__rate-num--1">{{ pointsName }}</span>
           <nuxt-img
             :src="IMG.rate"
             width="60"
@@ -77,14 +79,14 @@ const img = useImg()
         </div>
         <NuxtLink :to="$regionPath('/vivapoints')" class="button full vp__intro-btn">
           <IconCSS name="ci:info" class="icon"/>
-          <span>{{ t('viva.cta') }}</span>
+          <span>{{ tp('viva.cta') }}</span>
         </NuxtLink>
       </div>
     </div>
 
     <div class="vp__grid">
-      <div class="vp__h vp__h--left">{{ t('viva.hEarn') }}</div>
-      <div class="vp__h vp__h--right">{{ t('viva.hSpend') }}</div>
+      <div class="vp__h vp__h--left">{{ tp('viva.hEarn') }}</div>
+      <div class="vp__h vp__h--right">{{ tp('viva.hSpend') }}</div>
 
       <!-- Earn 1 -->
       <article class="vp__card vp__card--green" data-step="1">
@@ -100,7 +102,7 @@ const img = useImg()
             fit="outside"
           />
         </div>
-        <p class="vp__text">{{ t('viva.earn1') }}</p>
+        <p class="vp__text">{{ tp('viva.earn1') }}</p>
       </article>
 
       <!-- Earn 2 -->
@@ -117,7 +119,7 @@ const img = useImg()
             fit="outside"
           />
         </div>
-        <p class="vp__text">{{ t('viva.earn2') }}</p>
+        <p class="vp__text">{{ tp('viva.earn2') }}</p>
       </article>
 
       <!-- Spend 3 -->
@@ -134,7 +136,7 @@ const img = useImg()
             fit="outside"
           />
         </div>
-        <p class="vp__text">{{ t('viva.spend3') }}</p>
+        <p class="vp__text">{{ tp('viva.spend3') }}</p>
       </article>
 
       <!-- Spend 4 -->
@@ -151,7 +153,7 @@ const img = useImg()
             fit="outside"
           />
         </div>
-        <p class="vp__text">{{ t('viva.spend4') }}</p>
+        <p class="vp__text">{{ tp('viva.spend4') }}</p>
       </article>
     </div>
   </section>

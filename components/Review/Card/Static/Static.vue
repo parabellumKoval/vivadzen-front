@@ -22,6 +22,24 @@ const flagIcon = computed(() => getFlagIcon(props.item?.country))
 const isVerified = computed(() => props.item?.extras?.verified_purchase === '1')
 const ratingAmount = computed(() => props.item?.rating || 0)
 const formattedName = computed(() => props.item?.owner?.name || 'Incognito')
+const reviewPhotos = computed(() => {
+  const list = Array.isArray(props.item?.photos) ? props.item.photos : []
+
+  return list
+    .map((photo) => {
+      const src = photo?.url || photo?.src || photo?.path || null
+      if (!src) {
+        return null
+      }
+
+      return {
+        src,
+        alt: photo?.alt || photo?.title || 'Review photo',
+      }
+    })
+    .filter(Boolean)
+})
+const hasPhotos = computed(() => reviewPhotos.value.length > 0)
 </script>
 
 <style src="./static.scss" lang="scss" scoped></style>
@@ -46,6 +64,28 @@ const formattedName = computed(() => props.item?.owner?.name || 'Incognito')
     <div v-if="isVerified" class="review-card-static__verified">
       <IconCSS name="iconoir:user-cart" class="verified-icon"></IconCSS>
       <span>{{ t('verified_purchase') }}</span>
+    </div>
+
+    <div v-if="hasPhotos" class="review-card-static__photos">
+      <div
+        v-for="(photo, index) in reviewPhotos"
+        :key="photo.src + '-' + index"
+        class="review-card-static__photo-item"
+      >
+        <nuxt-img
+          :provider="useImg().provider"
+          :src="photo.src"
+          width="400"
+          height="300"
+          sizes="mobile:180px tablet:220px desktop:260px"
+          quality="70"
+          loading="lazy"
+          fit="cover"
+          class="review-card-static__photo"
+          :alt="photo.alt"
+          :placeholder="useImg().noImage"
+        ></nuxt-img>
+      </div>
     </div>
 
     <div class="review-card-static__text">

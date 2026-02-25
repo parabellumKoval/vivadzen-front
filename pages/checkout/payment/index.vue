@@ -5,6 +5,9 @@ import {useCartStore} from '~/store/cart'
 import {useLiqpayStore} from '~/store/liqpay'
 import {useMonoStore} from '~/store/mono'
 const { orderable } = useAuth()
+const { $regionPath } = useNuxtApp()
+const { region } = useRegion()
+const { get: getSetting } = useSettings()
 
 definePageMeta({
   bg: '#eee'
@@ -50,6 +53,20 @@ const form = ref({
   signature: null,
 })
 
+const ageVerificationRequired = computed(() => {
+  const enabled = Boolean(getSetting('store.age_verification.adulto.enabled', false))
+  const isCzechRegion = String(region.value || '').toLowerCase() === 'cz'
+  const hasAgeRestrictedProducts = useCartStore().cart.some((product) => {
+    return Boolean(product?.requiresAgeVerification || product?.requires_age_verification)
+  })
+
+  return enabled && isCzechRegion && hasAgeRestrictedProducts
+})
+
+const ageVerificationReady = computed(() => {
+  return String(useCartStore().order?.age_verification_uid || '').trim().length > 0
+})
+
 // COMPUTED
 // WATCH
 watch(formElement, (v) => {
@@ -89,7 +106,27 @@ const getMonoUrl = async() => {
 
 
 // HANDLERS
+const ensureAgeVerifiedOrRedirect = () => {
+  if (!ageVerificationRequired.value || ageVerificationReady.value) {
+    return true
+  }
+
+  useNoty().setNoty({
+    title: t('error.error'),
+    content: t('messages.verify_age_before_order'),
+    type: 'error'
+  }, 7000)
+
+  navigateTo($regionPath('/checkout'))
+
+  return false
+}
+
 const submitHandler = (v) => {
+  if (!ensureAgeVerifiedOrRedirect()) {
+    return
+  }
+
   isLoading.value = true
   useCartStore().createOrder(orderable.value).then(async (response) => {
     if(response.code) {
@@ -108,6 +145,10 @@ const submitHandler = (v) => {
     isLoading.value = false
   })
 }
+
+onMounted(() => {
+  ensureAgeVerifiedOrRedirect()
+})
 
 </script>
 

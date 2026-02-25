@@ -1,5 +1,5 @@
 <script setup lang="ts">
-type RewardKind = 'text' | 'video'
+type RewardKind = 'text' | 'video' | 'photo'
 
 type Variant = 'card' | 'inline'
 
@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<{
   showTitle?: boolean
   hideLabels?: boolean
 }>(), {
-  kinds: () => ['text', 'video'],
+  kinds: () => ['text', 'photo', 'video'],
   variant: 'card',
   showTitle: true,
   hideLabels: false
@@ -21,7 +21,8 @@ const { resolve } = usePoints()
 
 const iconMap: Record<RewardKind, string> = {
   text: 'hugeicons:edit-02',
-  video: 'hugeicons:play-circle-02'
+  video: 'hugeicons:play-circle-02',
+  photo: 'hugeicons:image-02'
 }
 
 const normalizeCurrency = (value?: string | number | null) => {
@@ -66,7 +67,7 @@ const resolveReward = (kind: RewardKind) => {
 }
 
 const allRewards = computed(() => {
-  return (['text', 'video'] as RewardKind[]).map(resolveReward)
+  return (['text', 'photo', 'video'] as RewardKind[]).map(resolveReward)
 })
 
 const visibleRewards = computed(() => {

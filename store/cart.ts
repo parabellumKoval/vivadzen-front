@@ -51,6 +51,7 @@ export const useCartStore = defineStore('cartStore', {
       promocode: null,
       bonus: null,
       bonusInFiat: null,
+      age_verification_uid: null,
       provider: 'data'
     },
     

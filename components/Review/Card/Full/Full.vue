@@ -53,6 +53,24 @@ const videoMeta = computed(() => {
 })
 
 const hasVideo = computed(() => Boolean(videoMeta.value))
+const reviewPhotos = computed(() => {
+  const list = Array.isArray(props.item?.photos) ? props.item.photos : []
+
+  return list
+    .map((photo) => {
+      const src = photo?.url || photo?.src || photo?.path || null
+      if (!src) {
+        return null
+      }
+
+      return {
+        src,
+        alt: photo?.alt || photo?.title || 'Review photo',
+      }
+    })
+    .filter(Boolean)
+})
+const hasPhotos = computed(() => reviewPhotos.value.length > 0)
 
 const {
   iframeSrc: videoIframeSrc,
@@ -198,7 +216,29 @@ setLikes()
         <div v-if="videoMeta?.title" class="full-video-title">{{ videoMeta.title }}</div>
       </div>
 
-      <div class="content">
+      <div v-if="hasPhotos" class="full-photos">
+        <div
+          v-for="(photo, index) in reviewPhotos"
+          :key="photo.src + '-' + index"
+          class="full-photos-item"
+        >
+          <nuxt-img
+            :provider="useImg().provider"
+            :src="photo.src"
+            width="600"
+            height="450"
+            sizes="mobile:220px tablet:280px desktop:320px"
+            quality="70"
+            loading="lazy"
+            fit="cover"
+            class="full-photos-image"
+            :alt="photo.alt"
+            :placeholder="useImg().noImage"
+          ></nuxt-img>
+        </div>
+      </div>
+
+      <div v-if="parentName || item.text" class="content">
         <span v-if="parentName" class="parent">
           <IconCSS name="iconoir:reply" size="14" class="parent-icon"></IconCSS>
           <span class="parent-name">{{ parentName }}</span>

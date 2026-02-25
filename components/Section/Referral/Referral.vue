@@ -2,6 +2,8 @@
 const { t } = useI18n()
 const { $regionPath } = useNuxtApp();
 const { user, isAuthenticated, avatar } = useAuth()
+const { name: pointsName } = usePoints()
+const tp = (key: string) => t(key, { pointsName: pointsName.value })
 
 const avatars = ref([
   '/images/ref/avatars/av-1.png',
@@ -28,11 +30,11 @@ const showAuthHandler = () => {
 
     <header class="refgrow__header">
       <h2 class="refgrow__title">
-        {{ t('refGrow.title') }}
+        {{ tp('refGrow.title') }}
       </h2>
       <p class="refgrow__subtitle">
-        <span class="orange">{{ t('refGrow.subtitleAccent') }}</span>
-        {{ t('refGrow.subtitleRest') }}
+        <span class="orange">{{ tp('refGrow.subtitleAccent') }}</span>
+        {{ tp('refGrow.subtitleRest') }}
       </p>
     </header>
 
@@ -81,12 +83,12 @@ const showAuthHandler = () => {
         </div>
 
         <h3 class="refgrow__col-title refgrow__col-content">
-          <wrapper-html :string="t('refGrow.col1.title')" :wrappers="['<b class=\'orange\'>']" />
+          <wrapper-html :string="tp('refGrow.col1.title')" :wrappers="['<b class=\'orange\'>']" />
         </h3>
-        <p class="refgrow__col-kicker refgrow__col-content">{{ t('refGrow.col1.kicker') }}</p>
+        <p class="refgrow__col-kicker refgrow__col-content">{{ tp('refGrow.col1.kicker') }}</p>
         <p class="refgrow__col-text refgrow__col-content">
-          <span class="refgrow__level">{{ t('refGrow.levels.level1') }}</span> 
-          {{ t('refGrow.col1.text') }}
+          <span class="refgrow__level">{{ tp('refGrow.levels.level1') }}</span> 
+          {{ tp('refGrow.col1.text') }}
         </p>
       </div>
 
@@ -133,12 +135,12 @@ const showAuthHandler = () => {
         </div>
 
         <h3 class="refgrow__col-title refgrow__col-content">
-          <wrapper-html :string="t('refGrow.col2.title')" :wrappers="['<b class=\'orange\'>']" />
+          <wrapper-html :string="tp('refGrow.col2.title')" :wrappers="['<b class=\'orange\'>']" />
          </h3>
-        <p class="refgrow__col-kicker refgrow__col-content">{{ t('refGrow.col2.kicker') }}</p>
+        <p class="refgrow__col-kicker refgrow__col-content">{{ tp('refGrow.col2.kicker') }}</p>
         <p class="refgrow__col-text refgrow__col-content">
-          <span class="refgrow__level">{{ t('refGrow.levels.level2') }}</span>
-          {{ t('refGrow.col2.text') }}
+          <span class="refgrow__level">{{ tp('refGrow.levels.level2') }}</span>
+          {{ tp('refGrow.col2.text') }}
         </p>
       </div>
 
@@ -185,21 +187,21 @@ const showAuthHandler = () => {
         </div>
 
         <h3 class="refgrow__col-title refgrow__col-content">
-          <wrapper-html :string="t('refGrow.col3.title')" :wrappers="['<b class=\'orange\'>']" />
+          <wrapper-html :string="tp('refGrow.col3.title')" :wrappers="['<b class=\'orange\'>']" />
         </h3>
-        <p class="refgrow__col-kicker refgrow__col-content">{{ t('refGrow.col3.kicker') }}</p>
+        <p class="refgrow__col-kicker refgrow__col-content">{{ tp('refGrow.col3.kicker') }}</p>
         <p class="refgrow__col-text refgrow__col-content">
-          <span class="refgrow__level">{{ t('refGrow.levels.level3') }}</span> 
-          {{ t('refGrow.col3.text') }}
+          <span class="refgrow__level">{{ tp('refGrow.levels.level3') }}</span> 
+          {{ tp('refGrow.col3.text') }}
         </p>
       </div>
 
       <!-- CTA карточка -->
       <div class="refgrow__cta-wrapper">
         <aside class="refgrow__cta" aria-label="Join">
-          <h3 class="refgrow__cta-title">{{ t('refGrow.cta.title') }}</h3>
+          <h3 class="refgrow__cta-title">{{ tp('refGrow.cta.title') }}</h3>
           <p class="refgrow__cta-text">
-            {{ t('refGrow.cta.text') }}
+            {{ tp('refGrow.cta.text') }}
           </p>
 
           <ul v-if="avatars?.length" class="refgrow__avatars" aria-hidden="true">
@@ -219,12 +221,12 @@ const showAuthHandler = () => {
           </ul>
 
           <button @click="showAuthHandler" class="refgrow__cta-btn button color-orange" type="button">
-            {{ t('refGrow.cta.button') }}
+            {{ tp('refGrow.cta.button') }}
           </button>
         </aside>
         <div class="refgrow__cta-info">
-          <div class="refgrow__cta-info-text">{{ t('refGrow.cta.infoText') }}</div>
-          <NuxtLink :to="$regionPath('/affiliate')" class="button promo full">{{ t('refGrow.cta.infoLink') }}</NuxtLink>
+          <div class="refgrow__cta-info-text">{{ tp('refGrow.cta.infoText') }}</div>
+          <NuxtLink :to="$regionPath('/affiliate')" class="button promo full">{{ tp('refGrow.cta.infoLink') }}</NuxtLink>
         </div>
       </div>
     </div>

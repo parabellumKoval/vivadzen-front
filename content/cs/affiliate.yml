@@ -1,5 +1,5 @@
 hero:
-  eyebrow: "VivaPoints Affiliate"
+  eyebrow: "{pointsName} Affiliate"
   title: "Partnerský program Vivadzen: vydělávejte doporučeními"
   description: "Proměňte důvěru své komunity ve stabilní příjem. Vy sdílíte kvalitní produkty a my připisujeme body za každý nákup až do třetí úrovně vaší sítě."
   image: '/images/af-2.png'
@@ -12,7 +12,7 @@ hero:
       value: "{level3}"
   highlights:
     - icon: 'solar:money-bag-linear'
-      label: "Pasivní příjem ve VivaPoints"
+      label: "Pasivní příjem ve {pointsName}"
     - icon: 'solar:users-group-two-rounded-linear'
       label: "Hloubka sítě – 3 úrovně"
     - icon: 'solar:shield-minimalistic-linear'
@@ -42,7 +42,7 @@ levels:
       percent: "{level3}"
       description: "Síť se rozrůstá a vy získáváte skutečně pasivní příjem za budování komunity kolem značky."
 algo:
-  title: "Jak se připisují VivaPoints"
+  title: "Jak se připisují {pointsName}"
   intro: "Detailně zaznamenáváme tok peněz, aby partner viděl transparentní statistiky."
   cards:
     - icon: 'solar:cart-linear'
@@ -53,7 +53,7 @@ algo:
         - "Slevy a čerpání bonusů jsou již započítány."
     - icon: 'solar:dollar-bold-duotone'
       title: "Přepočet měn"
-      description: "Nákupy mohou probíhat v CZK, EUR, USD nebo UAH – systém zaznamená místní platbu, vypočítá váš podíl a okamžitě jej převede na VivaPoints."
+      description: "Nákupy mohou probíhat v CZK, EUR, USD nebo UAH – systém zaznamená místní platbu, vypočítá váš podíl a okamžitě jej převede na {pointsName}."
       bullets:
         - "Body se ukládají na jeden bonusový účet."
         - "Přepočet probíhá podle aktuálního kurzu na webu."
@@ -102,7 +102,7 @@ control:
       text: "Dáme vám vědět, když se objeví nový partner nebo když dorazí bonusy za dokončenou objednávku."
 payout:
   title: "Výběry a využití bodů"
-  intro: "VivaPoints jsou skutečné peníze, které můžete utratit nebo vybrat."
+  intro: "{pointsName} jsou skutečné peníze, které můžete utratit nebo vybrat."
   options:
     - icon: 'solar:cart-check-linear'
       title: "Platba nákupů"
@@ -112,6 +112,6 @@ payout:
       text: "Vyberte body na platební kartu nebo kryptopeněženku. Podrobnosti najdete v sekci '{withdraw}'."
 cta:
   title: "Začněte rozšiřovat síť už dnes"
-  text: "Zkopírujte odkaz v účtu, pošlete ho příteli nebo zveřejněte na sociálních sítích – první VivaPoints dorazí hned po dokončené objednávce."
+  text: "Zkopírujte odkaz v účtu, pošlete ho příteli nebo zveřejněte na sociálních sítích – první {pointsName} dorazí hned po dokončené objednávce."
   button:
     label: "Otevřít partnerský panel"

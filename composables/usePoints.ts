@@ -5,15 +5,22 @@ export const usePoints = () => {
     return get('profile.points.name') || 'Points'
   })
 
+  const replaceInText = (value?: string | null) => {
+    if (!value) return ''
+    return value.replaceAll('{pointsName}', String(name.value))
+  }
+
   const resolve = (value: string) => {
-    if (['point', 'points'].includes(value?.toLowerCase())) {
+    const resolved = replaceInText(value)
+    if (['point', 'points'].includes(resolved?.toLowerCase())) {
       return name.value
     }
-    return value
+    return resolved
   }
 
   return {
     name,
-    resolve
+    resolve,
+    replaceInText
   }
 }

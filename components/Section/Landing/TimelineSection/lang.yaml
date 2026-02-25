@@ -32,7 +32,7 @@ ru:
       highlight_eu: "ЕС"
       description_suffix: "и объединяет персональные финансовые привилегии и инструменты для развития сообщества."
       props:
-        vivapoints: "Накапливай Vivapoints — оплачивай заказы или выводи"
+        vivapoints: "Накапливай {pointsName} — оплачивай заказы или выводи"
         partner: "Профессиональная партнерская программа"
   footer:
     title: "VIVADZEN"
@@ -72,7 +72,7 @@ uk:
       highlight_eu: "ЄС"
       description_suffix: "і поєднує персональні фінансові привілеї з інструментами для розвитку спільноти."
       props:
-        vivapoints: "Накопичуйте Vivapoints — оплачуйте замовлення або виводьте"
+        vivapoints: "Накопичуйте {pointsName} — оплачуйте замовлення або виводьте"
         partner: "Професійна партнерська програма"
   footer:
     title: "VIVADZEN"
@@ -112,7 +112,7 @@ en:
       highlight_eu: "the EU"
       description_suffix: "and combines personal financial perks with tools for community growth."
       props:
-        vivapoints: "Accumulate Vivapoints — pay for orders or cash out"
+        vivapoints: "Accumulate {pointsName} — pay for orders or cash out"
         partner: "Professional partner program"
   footer:
     title: "VIVADZEN"
@@ -152,7 +152,7 @@ cs:
       highlight_eu: "EU"
       description_suffix: "a spojuje osobní finanční výhody s nástroji pro rozvoj komunity."
       props:
-        vivapoints: "Sbírejte Vivapoints — plaťte objednávky nebo vybírejte"
+        vivapoints: "Sbírejte {pointsName} — plaťte objednávky nebo vybírejte"
         partner: "Profesionální partnerský program"
   footer:
     title: "VIVADZEN"

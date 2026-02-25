@@ -42,6 +42,16 @@
     width: 100%;
     background: $color-border;
   }
+
+  &-age-verification {
+    display: grid;
+    gap: 8px;
+  }
+
+  &-age-verification__error {
+    color: #b53c3c;
+    font-size: 13px;
+  }
 }
 
 // .free-delivery-box {

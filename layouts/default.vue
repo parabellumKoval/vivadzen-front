@@ -1,7 +1,5 @@
 <script setup>
 const route = useRoute()
-const ageGateComponent = defineAsyncComponent(() => import('~/components/Modal/AgeGate/AgeGate.client.vue'))
-const {isConfirmed: isAgeConfirmed, readFromStorage: readAgeConfirmation} = useAgeGate()
 const title = 'Vivadzen.com'
 
 const head = useLocaleHead({
@@ -36,38 +34,6 @@ useSchemaOrg([
   }),
   defineWebPage(),
 ])
-
-const openAgeGate = () => {
-  if(!process.client)
-    return
-
-  const alreadyConfirmed = isAgeConfirmed.value || readAgeConfirmation()
-
-  if(alreadyConfirmed)
-    return
-
-  useModal().open(ageGateComponent, null, null, {
-    y: {
-      top: 'initial',
-      bottom: 30
-    },
-    x: {
-      right: '50%',
-      left: 'initial'
-    },
-    transform: 'translateX(50%) translateY(0)',
-    width: {
-      min: 'initial',
-      max: 620
-    },
-    closeOnBackdrop: false,
-    closeOnRouteChange: false
-  })
-}
-
-onMounted(() => {
-  openAgeGate()
-})
 
 // useNoty().setTestNoty()
 

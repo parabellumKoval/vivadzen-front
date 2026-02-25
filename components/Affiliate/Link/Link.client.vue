@@ -1,5 +1,7 @@
 <script setup>
 const {t} = useI18n()
+const { name: pointsName } = usePoints()
+const tp = (key) => t(key, { pointsName: pointsName.value })
 const route = useRoute()
 
 // COMPUTEDS
@@ -32,8 +34,8 @@ const openAffiliateModal = () => {
           class="affiliate-img"
         />
         <div class="affiliate-text">
-          <div class="affiliate-title"><wrapper-html :string="t('title')" :wrappers="['<span class=\'orange bold\'>']" /></div>
-          <div class="affiliate-desc">{{ t('desc') }}</div>
+          <div class="affiliate-title"><wrapper-html :string="tp('title')" :wrappers="['<span class=\'orange bold\'>']" /></div>
+          <div class="affiliate-desc">{{ tp('desc') }}</div>
         </div>
       </button>
   </div>

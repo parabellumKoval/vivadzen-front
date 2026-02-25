@@ -1,5 +1,5 @@
 hero:
-  eyebrow: "VivaPoints Affiliate"
+  eyebrow: "{pointsName} Affiliate"
   title: "Vivadzen affiliate programme: earn from recommendations"
   description: "Turn your audience's trust into steady income. You share quality products – we credit points for every purchase up to the third level of your network."
   image: '/images/af-2.png'
@@ -12,7 +12,7 @@ hero:
       value: "{level3}"
   highlights:
     - icon: 'solar:money-bag-linear'
-      label: "Passive VivaPoints income"
+      label: "Passive {pointsName} income"
     - icon: 'solar:users-group-two-rounded-linear'
       label: "Network depth — 3 tiers"
     - icon: 'solar:shield-minimalistic-linear'
@@ -42,7 +42,7 @@ levels:
       percent: "{level3}"
       description: "The network expands while you get true passive profit for growing the community around the brand."
 algo:
-  title: "How VivaPoints are credited"
+  title: "How {pointsName} are credited"
   intro: "We carefully log every cash flow so a partner always sees transparent statistics."
   cards:
     - icon: 'solar:cart-linear'
@@ -53,7 +53,7 @@ algo:
         - "Bonus redemptions and discounts are already included."
     - icon: 'solar:dollar-bold-duotone'
       title: "Currency conversion"
-      description: "Orders may be paid in CZK, EUR, USD or UAH — the system captures the local payment, calculates your percentage and instantly converts it into VivaPoints."
+      description: "Orders may be paid in CZK, EUR, USD or UAH — the system captures the local payment, calculates your percentage and instantly converts it into {pointsName}."
       bullets:
         - "Points are stored in a single bonus account."
         - "Conversion uses the current rate on the website."
@@ -102,7 +102,7 @@ control:
       text: "We message you when a new partner appears or bonuses are credited for a completed order."
 payout:
   title: "Withdrawals and using points"
-  intro: "VivaPoints are real money that you can spend or withdraw."
+  intro: "{pointsName} are real money that you can spend or withdraw."
   options:
     - icon: 'solar:cart-check-linear'
       title: "Pay for orders"
@@ -112,6 +112,6 @@ payout:
       text: "Transfer points to a bank card or crypto wallet. Detailed rules are described in the '{withdraw}' section."
 cta:
   title: "Start growing your partner network today"
-  text: "Copy the link in your account, send it to a friend or post it on social media — the first VivaPoints arrive right after a completed order."
+  text: "Copy the link in your account, send it to a friend or post it on social media — the first {pointsName} arrive right after a completed order."
   button:
     label: "Open the affiliate dashboard"
