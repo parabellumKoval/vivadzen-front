@@ -14,13 +14,16 @@ const { t } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 
 const containerId = `adulto-verification-${Math.random().toString(36).slice(2, 10)}`
+const containerRef = ref<HTMLElement | null>(null)
 const isLoading = ref(false)
 const widgetError = ref<string | null>(null)
 const scriptId = 'adulto-widget-script'
 const scriptLoadTimeoutMs = 15000
+const isMounted = ref(false)
 
 let adultoScriptPromise: Promise<void> | null = null
 let uidObserver: MutationObserver | null = null
+let initRunId = 0
 
 const getAdultoApi = () => (window as typeof window & { Adulto?: any }).Adulto
 const isAdultoApiReady = () => {
@@ -81,7 +84,16 @@ const logAdultoDebug = (stage: string, error?: unknown, extra: Record<string, un
     ...extra,
   }
 
-  console.error('[ADULTO] Widget debug', payload)
+  const isFailureStage = /(failed|error|timeout)/i.test(stage)
+
+  if (isFailureStage || errorMessage) {
+    console.error('[ADULTO] Widget debug', payload)
+    return
+  }
+
+  if (import.meta.dev || payload.isLocalhost) {
+    console.debug('[ADULTO] Widget debug', payload)
+  }
 }
 
 const cleanupUidObserver = () => {
@@ -246,9 +258,12 @@ const loadScript = async (publicKey: string) => {
 }
 
 const initWidget = async () => {
+  const runId = ++initRunId
+  const isActiveRun = () => isMounted.value && runId === initRunId
+
   widgetError.value = null
 
-  if (!process.client || !props.required) {
+  if (!process.client || !props.required || !isMounted.value) {
     return
   }
 
@@ -263,16 +278,21 @@ const initWidget = async () => {
   try {
     await loadScript(publicKey)
 
+    if (!isActiveRun()) {
+      return
+    }
+
     await nextTick()
 
     const adultoApi = getAdultoApi()
-    const targetElement = document.getElementById(containerId)
+    const targetElement = containerRef.value || document.getElementById(containerId)
     if (targetElement) {
       targetElement.innerHTML = ''
     }
 
     if (!targetElement) {
-      throw new Error('ADULTO target container is unavailable.')
+      logAdultoDebug('container_missing_skip', '', { containerId })
+      return
     }
 
     if (adultoApi && typeof adultoApi.createVerificationWidget === 'function') {
@@ -281,10 +301,16 @@ const initWidget = async () => {
         publicKey,
         siteKey: publicKey,
         onSuccess: (uid: string) => {
+          if (!isActiveRun()) {
+            return
+          }
           emit('update:modelValue', uid)
           widgetError.value = null
         },
         onError: (error: unknown) => {
+          if (!isActiveRun()) {
+            return
+          }
           const message = t('verification_failed')
           widgetError.value = message
           logAdultoDebug('widget_onerror_callback', error)
@@ -295,12 +321,17 @@ const initWidget = async () => {
       await mountDomWidgetFallback(targetElement, publicKey)
     }
   } catch (error) {
+    if (!isActiveRun()) {
+      return
+    }
     widgetError.value = t('widget_load_failed')
     logAdultoDebug('init_widget_failed', error, { containerId })
     const details = error instanceof Error ? error.message : String(error)
     emit('error', `${widgetError.value} (${details})`)
   } finally {
-    isLoading.value = false
+    if (isActiveRun()) {
+      isLoading.value = false
+    }
   }
 }
 
@@ -313,12 +344,24 @@ watch(
       return
     }
 
+    if (!isMounted.value) {
+      return
+    }
+
     initWidget()
-  },
-  { immediate: true }
+  }
 )
 
+onMounted(() => {
+  isMounted.value = true
+  if (props.required) {
+    initWidget()
+  }
+})
+
 onBeforeUnmount(() => {
+  isMounted.value = false
+  initRunId++
   cleanupUidObserver()
 })
 </script>
@@ -392,7 +435,7 @@ en:
     <div class="adulto-verification__title">{{ t('title') }}</div>
     <p class="adulto-verification__description">{{ t('description') }}</p>
 
-    <div :id="containerId"></div>
+    <div :id="containerId" ref="containerRef"></div>
 
     <div v-if="isLoading" class="adulto-verification__status">
       {{ t('loading') }}
