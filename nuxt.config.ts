@@ -31,6 +31,7 @@ export default defineNuxtConfig({
       serverBase: SERVER_URL,
       apiBase: API_SERVER_URL,
       adultoPublicKey: process.env.NUXT_PUBLIC_ADULTO_PUBLIC_KEY || '',
+      adultoWidgetScriptUrl: process.env.NUXT_PUBLIC_ADULTO_WIDGET_SCRIPT_URL || 'https://api.js.m2a.cz/api.js',
       instagramToken: process.env.INSTAGRAM_TOKEN,
       imagesDir: '/server/uploads/images',
       noimage: '/images/noimage.png',

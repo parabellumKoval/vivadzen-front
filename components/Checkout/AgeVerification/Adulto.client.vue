@@ -11,6 +11,7 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const runtimeConfig = useRuntimeConfig()
 
 const containerId = `adulto-verification-${Math.random().toString(36).slice(2, 10)}`
 const isLoading = ref(false)
@@ -19,6 +20,7 @@ const scriptId = 'adulto-widget-script'
 const scriptLoadTimeoutMs = 15000
 
 let adultoScriptPromise: Promise<void> | null = null
+let uidObserver: MutationObserver | null = null
 
 const getAdultoApi = () => (window as typeof window & { Adulto?: any }).Adulto
 const isAdultoApiReady = () => {
@@ -37,6 +39,24 @@ const getKeyPreview = (key: string) => {
   return `${key.slice(0, 4)}...`
 }
 
+const getScriptUrlTemplate = () => {
+  return String(runtimeConfig.public.adultoWidgetScriptUrl || 'https://api.js.m2a.cz/api.js').trim()
+}
+
+const buildScriptSrc = (publicKey: string) => {
+  const urlTemplate = getScriptUrlTemplate()
+
+  if (urlTemplate.includes('{publicKey}')) {
+    return urlTemplate.replaceAll('{publicKey}', encodeURIComponent(publicKey))
+  }
+
+  if (urlTemplate.includes('{key}')) {
+    return urlTemplate.replaceAll('{key}', encodeURIComponent(publicKey))
+  }
+
+  return urlTemplate
+}
+
 const logAdultoDebug = (stage: string, error?: unknown, extra: Record<string, unknown> = {}) => {
   if (!process.client) {
     return
@@ -53,6 +73,7 @@ const logAdultoDebug = (stage: string, error?: unknown, extra: Record<string, un
     isLocalhost: ['localhost', '127.0.0.1'].includes(window.location.hostname),
     publicKeyProvided: key.length > 0,
     publicKeyPreview: getKeyPreview(key),
+    scriptUrlTemplate: getScriptUrlTemplate(),
     scriptSrc: script?.src || null,
     scriptState: script?.dataset?.adultoState || null,
     hasAdultoObject: Boolean(getAdultoApi()),
@@ -61,6 +82,56 @@ const logAdultoDebug = (stage: string, error?: unknown, extra: Record<string, un
   }
 
   console.error('[ADULTO] Widget debug', payload)
+}
+
+const cleanupUidObserver = () => {
+  if (!uidObserver) {
+    return
+  }
+
+  uidObserver.disconnect()
+  uidObserver = null
+}
+
+const syncUidFromDom = () => {
+  const selectors = [
+    'input[name="adultocz-uid"]',
+    'input[name="adultocz_verify_uid"]',
+    'input[name="age_verification_uid"]',
+  ]
+
+  for (const selector of selectors) {
+    const input = document.querySelector(selector) as HTMLInputElement | null
+    const value = String(input?.value || '').trim()
+
+    if (value) {
+      if (value !== String(props.modelValue || '').trim()) {
+        emit('update:modelValue', value)
+      }
+      widgetError.value = null
+      return
+    }
+  }
+}
+
+const mountDomWidgetFallback = async (targetElement: HTMLElement, publicKey: string) => {
+  cleanupUidObserver()
+  targetElement.innerHTML = `<div class="adulto-cz" data-sitekey="${publicKey}"></div>`
+
+  await nextTick()
+  syncUidFromDom()
+
+  uidObserver = new MutationObserver(() => {
+    syncUidFromDom()
+  })
+  uidObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['value'],
+  })
+
+  logAdultoDebug('dom_widget_fallback_mounted')
 }
 
 const loadScript = async (publicKey: string) => {
@@ -77,6 +148,7 @@ const loadScript = async (publicKey: string) => {
   }
 
   adultoScriptPromise = new Promise<void>((resolve, reject) => {
+    const scriptSrc = buildScriptSrc(publicKey)
     const existing = document.getElementById(scriptId) as HTMLScriptElement | null
     let settled = false
 
@@ -90,15 +162,7 @@ const loadScript = async (publicKey: string) => {
     }
 
     const resolveWhenReady = () => {
-      finish(() => {
-        if (isAdultoApiReady()) {
-          resolve()
-          return
-        }
-
-        logAdultoDebug('api_unavailable_after_script_load', 'ADULTO script loaded but API is unavailable.')
-        reject(new Error('ADULTO script loaded but API is unavailable.'))
-      })
+      finish(() => resolve())
     }
 
     const rejectWith = (message: string, stage: string, extra: Record<string, unknown> = {}) => {
@@ -119,44 +183,48 @@ const loadScript = async (publicKey: string) => {
     if (existing) {
       const existingState = existing.dataset.adultoState
 
-      if (existingState === 'loaded') {
-        resolveWhenReady()
-        clearTimeoutIfSettled()
-        return
-      }
-
-      if (existingState === 'error') {
-        rejectWith('Failed to load ADULTO script.', 'existing_script_state_error')
-        clearTimeoutIfSettled()
-        return
-      }
-
-      existing.addEventListener(
-        'load',
-        () => {
-          existing.dataset.adultoState = 'loaded'
+      if (existing.src && existing.src !== scriptSrc) {
+        existing.remove()
+      } else {
+        if (existingState === 'loaded') {
           resolveWhenReady()
           clearTimeoutIfSettled()
-        },
-        { once: true }
-      )
-      existing.addEventListener(
-        'error',
-        () => {
-          existing.dataset.adultoState = 'error'
-          rejectWith('Failed to load ADULTO script.', 'existing_script_onerror')
+          return
+        }
+
+        if (existingState === 'error') {
+          rejectWith('Failed to load ADULTO script.', 'existing_script_state_error')
           clearTimeoutIfSettled()
-        },
-        { once: true }
-      )
-      return
+          return
+        }
+
+        existing.addEventListener(
+          'load',
+          () => {
+            existing.dataset.adultoState = 'loaded'
+            resolveWhenReady()
+            clearTimeoutIfSettled()
+          },
+          { once: true }
+        )
+        existing.addEventListener(
+          'error',
+          () => {
+            existing.dataset.adultoState = 'error'
+            rejectWith('Failed to load ADULTO script.', 'existing_script_onerror')
+            clearTimeoutIfSettled()
+          },
+          { once: true }
+        )
+        return
+      }
     }
 
     const script = document.createElement('script')
     script.id = scriptId
     script.async = true
     script.dataset.adultoState = 'loading'
-    script.src = `https://adulto.cz/embed.js?key=${encodeURIComponent(publicKey)}`
+    script.src = scriptSrc
     script.onload = () => {
       script.dataset.adultoState = 'loaded'
       resolveWhenReady()
@@ -198,28 +266,34 @@ const initWidget = async () => {
     await nextTick()
 
     const adultoApi = getAdultoApi()
-    if (!adultoApi || typeof adultoApi.createVerificationWidget !== 'function') {
-      throw new Error('ADULTO API is unavailable.')
-    }
-
     const targetElement = document.getElementById(containerId)
     if (targetElement) {
       targetElement.innerHTML = ''
     }
 
-    adultoApi.createVerificationWidget({
-      elementId: containerId,
-      onSuccess: (uid: string) => {
-        emit('update:modelValue', uid)
-        widgetError.value = null
-      },
-      onError: (error: unknown) => {
-        const message = t('verification_failed')
-        widgetError.value = message
-        logAdultoDebug('widget_onerror_callback', error)
-        emit('error', message + (error ? ` (${String(error)})` : ''))
-      },
-    })
+    if (!targetElement) {
+      throw new Error('ADULTO target container is unavailable.')
+    }
+
+    if (adultoApi && typeof adultoApi.createVerificationWidget === 'function') {
+      adultoApi.createVerificationWidget({
+        elementId: containerId,
+        publicKey,
+        siteKey: publicKey,
+        onSuccess: (uid: string) => {
+          emit('update:modelValue', uid)
+          widgetError.value = null
+        },
+        onError: (error: unknown) => {
+          const message = t('verification_failed')
+          widgetError.value = message
+          logAdultoDebug('widget_onerror_callback', error)
+          emit('error', message + (error ? ` (${String(error)})` : ''))
+        },
+      })
+    } else {
+      await mountDomWidgetFallback(targetElement, publicKey)
+    }
   } catch (error) {
     widgetError.value = t('widget_load_failed')
     logAdultoDebug('init_widget_failed', error, { containerId })
@@ -235,6 +309,7 @@ watch(
   () => {
     if (!props.required) {
       widgetError.value = null
+      cleanupUidObserver()
       return
     }
 
@@ -242,6 +317,10 @@ watch(
   },
   { immediate: true }
 )
+
+onBeforeUnmount(() => {
+  cleanupUidObserver()
+})
 </script>
 
 <style scoped lang="scss">
