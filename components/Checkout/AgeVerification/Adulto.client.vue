@@ -19,6 +19,7 @@ const isLoading = ref(false)
 const widgetError = ref<string | null>(null)
 const scriptId = 'adulto-widget-script'
 const scriptLoadTimeoutMs = 15000
+const fallbackRenderTimeoutMs = 5000
 const isMounted = ref(false)
 
 let adultoScriptPromise: Promise<void> | null = null
@@ -91,9 +92,7 @@ const logAdultoDebug = (stage: string, error?: unknown, extra: Record<string, un
     return
   }
 
-  if (import.meta.dev || payload.isLocalhost) {
-    console.debug('[ADULTO] Widget debug', payload)
-  }
+  console.info('[ADULTO] Widget debug', payload)
 }
 
 const cleanupUidObserver = () => {
@@ -124,6 +123,51 @@ const syncUidFromDom = () => {
       return
     }
   }
+}
+
+const hasUidInDom = () => {
+  const selectors = [
+    'input[name="adultocz-uid"]',
+    'input[name="adultocz_verify_uid"]',
+    'input[name="age_verification_uid"]',
+  ]
+
+  return selectors.some((selector) => {
+    const input = document.querySelector(selector) as HTMLInputElement | null
+    return String(input?.value || '').trim().length > 0
+  })
+}
+
+const hasRenderedWidgetInContainer = () => {
+  const targetElement = containerRef.value || document.getElementById(containerId)
+  if (!targetElement) {
+    return false
+  }
+
+  if (targetElement.querySelector('iframe')) {
+    return true
+  }
+
+  const widgetRoot = targetElement.querySelector('.adulto-cz') as HTMLElement | null
+  if (!widgetRoot) {
+    return false
+  }
+
+  return widgetRoot.childElementCount > 0
+}
+
+const waitForFallbackRender = async () => {
+  const startedAt = Date.now()
+
+  while (Date.now() - startedAt < fallbackRenderTimeoutMs) {
+    if (hasRenderedWidgetInContainer() || hasUidInDom()) {
+      return true
+    }
+
+    await new Promise((resolve) => window.setTimeout(resolve, 200))
+  }
+
+  return hasRenderedWidgetInContainer() || hasUidInDom()
 }
 
 const mountDomWidgetFallback = async (targetElement: HTMLElement, publicKey: string) => {
@@ -197,8 +241,10 @@ const loadScript = async (publicKey: string) => {
 
       if (existing.src && existing.src !== scriptSrc) {
         existing.remove()
+        logAdultoDebug('existing_script_replaced', '', { previousSrc: existing.src, nextSrc: scriptSrc })
       } else {
         if (existingState === 'loaded') {
+          logAdultoDebug('script_reused_loaded', '', { scriptSrc })
           resolveWhenReady()
           clearTimeoutIfSettled()
           return
@@ -214,6 +260,7 @@ const loadScript = async (publicKey: string) => {
           'load',
           () => {
             existing.dataset.adultoState = 'loaded'
+            logAdultoDebug('existing_script_loaded', '', { scriptSrc })
             resolveWhenReady()
             clearTimeoutIfSettled()
           },
@@ -239,6 +286,7 @@ const loadScript = async (publicKey: string) => {
     script.src = scriptSrc
     script.onload = () => {
       script.dataset.adultoState = 'loaded'
+      logAdultoDebug('script_loaded', '', { scriptSrc })
       resolveWhenReady()
       clearTimeoutIfSettled()
     }
@@ -270,32 +318,40 @@ const initWidget = async () => {
   const publicKey = String(props.publicKey || '').trim()
   if (!publicKey) {
     widgetError.value = t('unavailable')
+    logAdultoDebug('public_key_missing')
     return
   }
 
   isLoading.value = true
 
   try {
-    await loadScript(publicKey)
-
-    if (!isActiveRun()) {
-      return
-    }
-
-    await nextTick()
-
-    const adultoApi = getAdultoApi()
     const targetElement = containerRef.value || document.getElementById(containerId)
-    if (targetElement) {
-      targetElement.innerHTML = ''
-    }
-
     if (!targetElement) {
       logAdultoDebug('container_missing_skip', '', { containerId })
       return
     }
 
+    targetElement.innerHTML = ''
+    await mountDomWidgetFallback(targetElement, publicKey)
+
+    const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null
+    if (existingScript?.dataset?.adultoState === 'loaded' && !isAdultoApiReady()) {
+      existingScript.remove()
+      adultoScriptPromise = null
+      logAdultoDebug('reload_script_for_fallback', '', { containerId })
+    }
+
+    await loadScript(publicKey)
+
+    await nextTick()
+
+    if (!isActiveRun()) {
+      return
+    }
+
+    const adultoApi = getAdultoApi()
     if (adultoApi && typeof adultoApi.createVerificationWidget === 'function') {
+      targetElement.innerHTML = ''
       adultoApi.createVerificationWidget({
         elementId: containerId,
         publicKey,
@@ -318,7 +374,16 @@ const initWidget = async () => {
         },
       })
     } else {
-      await mountDomWidgetFallback(targetElement, publicKey)
+      const hasRendered = await waitForFallbackRender()
+
+      if (!hasRendered && !String(props.modelValue || '').trim()) {
+        const details = 'ADULTO fallback did not render widget in container. Check form placement and domain/key mapping.'
+        widgetError.value = t('widget_load_failed')
+        logAdultoDebug('fallback_widget_not_rendered', details, { containerId })
+        emit('error', `${widgetError.value} (${details})`)
+      } else {
+        logAdultoDebug('fallback_widget_rendered_or_uid_found', '', { containerId })
+      }
     }
   } catch (error) {
     if (!isActiveRun()) {
@@ -382,6 +447,10 @@ onBeforeUnmount(() => {
   color: $color-3;
 }
 
+.adulto-verification__form {
+  margin: 0;
+}
+
 .adulto-verification__status {
   font-size: 13px;
 }
@@ -435,7 +504,9 @@ en:
     <div class="adulto-verification__title">{{ t('title') }}</div>
     <p class="adulto-verification__description">{{ t('description') }}</p>
 
-    <div :id="containerId" ref="containerRef"></div>
+    <form class="adulto-verification__form" @submit.prevent>
+      <div :id="containerId" ref="containerRef"></div>
+    </form>
 
     <div v-if="isLoading" class="adulto-verification__status">
       {{ t('loading') }}
