@@ -170,6 +170,16 @@ age_verification:
   badge: Prodej 18+
   product_banner: Tento produkt lze v České republice zakoupit pouze po ověření věku přes ADULTO.cz při dokončení objednávky.
 
+campaign:
+  campaign_title: Akce
+  view_conditions: Zobrazit podmínky
+  conditions_title: Podmínky akce
+  until_end_days: Akce končí za {days} dnů
+  until_end_hours: Akce končí za {hours} hodin
+  in_catalog: Produkty akce
+  view_all_products: Zobrazit všechny akční produkty
+  discount_line: Sleva z akce
+
 button:
   collapse: Sbalit
   expand: Rozbalit

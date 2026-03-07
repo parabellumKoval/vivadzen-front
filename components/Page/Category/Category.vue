@@ -311,6 +311,7 @@ setMode('INITIAL')
     v-else
     name="catalog"
     :title="title"
+    :title-description="category?.category?.short_text || ''"
     :products-pending="catalogPending"
 
     :products="catalog?.products?.data || []"

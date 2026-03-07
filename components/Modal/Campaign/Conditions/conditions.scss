@@ -1,0 +1,189 @@
+.campaign-modal {
+  display: grid;
+  gap: 16px;
+
+  @include desktop {
+    gap: 20px;
+  }
+
+  &-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: linear-gradient(145deg, #ff8f20 0%, #ff5e44 48%, #73c56f 100%);
+    box-shadow:
+      0 18px 36px rgba(255, 96, 64, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  }
+
+  &-hero-image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(130% 115% at 100% 0%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 44%),
+      linear-gradient(180deg, rgba(24, 10, 4, 0.22) 0%, rgba(24, 10, 4, 0.6) 100%);
+  }
+
+  &-hero-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 14px;
+    padding: 18px 16px;
+    color: #ffffff;
+
+    @include desktop {
+      gap: 16px;
+      padding: 24px;
+    }
+  }
+
+  &-badge {
+    justify-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(38, 17, 5, 0.24);
+    backdrop-filter: blur(6px);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &-badge-icon {
+    font-size: 16px;
+  }
+
+  &-title {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.08;
+    font-weight: 800;
+    text-wrap: balance;
+
+    @include desktop {
+      font-size: 32px;
+    }
+  }
+
+  &-description {
+    margin: 0;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.95);
+    text-wrap: pretty;
+  }
+
+  &-timer-wrap {
+    display: grid;
+    gap: 8px;
+  }
+
+  &-timer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  &-timer-segment {
+    display: grid;
+    gap: 4px;
+    justify-items: center;
+    padding: 10px 8px;
+    border-radius: 14px;
+    background: rgba(26, 13, 6, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+  }
+
+  &-timer-value {
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+
+    @include desktop {
+      font-size: 24px;
+    }
+  }
+
+  &-timer-label {
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    opacity: 0.86;
+  }
+
+  &-timer-text {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    opacity: 0.95;
+  }
+
+  &-catalog-btn {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+
+    @include desktop {
+      font-size: 16px;
+    }
+  }
+
+  &-content {
+    display: grid;
+    gap: 14px;
+    padding: 18px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 132, 0, 0.22);
+    background: linear-gradient(180deg, #ffffff 0%, #fff8f0 100%);
+
+    @include desktop {
+      gap: 16px;
+      padding: 22px 24px;
+    }
+  }
+
+  &-content-title {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #7f3608;
+
+    @include desktop {
+      font-size: 16px;
+    }
+  }
+
+  :deep(.rich-text) {
+    color: $color-1;
+    line-height: 1.5;
+
+    p,
+    li,
+    span,
+    strong,
+    b {
+      color: inherit;
+    }
+
+    ul,
+    ol {
+      padding-left: 18px;
+    }
+  }
+}

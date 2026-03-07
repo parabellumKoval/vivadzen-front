@@ -1,6 +1,9 @@
 <script setup>
 import {useCatalog} from '~/composables/product/useCatalog.ts'
-const {t} = useI18n()
+const { t, locale } = useI18n()
+const { region } = useRegion()
+const { $regionPath } = useNuxtApp()
+const { list: loadCampaigns } = useCampaignApi()
 
 const { scrollToAnchor } = useAnchorScroll({
   toAnchor: {
@@ -19,6 +22,10 @@ const { isVisible } = useHeaderScroll()
 
 const props = defineProps({
   title: {
+    type: String,
+    default: ''
+  },
+  titleDescription: {
     type: String,
     default: ''
   },
@@ -74,7 +81,17 @@ const props = defineProps({
 
 const emit = defineEmits(['update:mode'])
 
-const {setQuery, setMode, loadFilters} = useCatalog()
+const { setMode } = useCatalog()
+
+const { data: catalogCampaignsData } = await useAsyncData(
+  'catalog-campaigns-' + region.value + '-' + locale.value,
+  async () => await loadCampaigns('catalog'),
+  {
+    server: true,
+    lazy: !process.server,
+    default: () => []
+  }
+)
 
 // COMPUTED
 const filtersData = computed(() => {
@@ -84,6 +101,80 @@ const filtersData = computed(() => {
     'productsMeta': props.productsMeta,
   }
 })
+
+const catalogBannerCampaigns = computed(() => {
+  const list = Array.isArray(catalogCampaignsData.value) ? catalogCampaignsData.value : []
+
+  return list.filter((campaign) => {
+    const position = Number(campaign?.catalog_banner_position || 0)
+
+    return Boolean(
+      campaign?.add_banner_to_catalog
+      && campaign?.vertical_banner
+      && campaign?.slug
+      && position > 0
+    )
+  })
+})
+
+const catalogItems = computed(() => {
+  const products = Array.isArray(props.products) ? props.products : []
+  const campaigns = catalogBannerCampaigns.value
+
+  if (!products.length || !campaigns.length) {
+    return products
+  }
+
+  const result = []
+  let productCount = 0
+
+  const trackers = campaigns.map((campaign, index) => {
+    const position = Number(campaign?.catalog_banner_position || 0)
+    const frequency = Number(campaign?.catalog_banner_frequency || 0)
+
+    return {
+      campaign,
+      serial: index,
+      nextTrigger: Math.max(0, position - 1),
+      frequency: frequency > 0 ? frequency : 0
+    }
+  })
+
+  const insertBannersIfNeeded = () => {
+    trackers.forEach((tracker) => {
+      if (tracker.nextTrigger !== productCount) {
+        return
+      }
+
+      result.push({
+        __campaignBanner: true,
+        __key: `campaign-banner-${tracker.campaign.id}-${productCount}-${tracker.serial}`,
+        campaign: tracker.campaign
+      })
+
+      if (tracker.frequency > 0) {
+        tracker.nextTrigger += tracker.frequency
+      } else {
+        tracker.nextTrigger = -1
+      }
+    })
+  }
+
+  insertBannersIfNeeded()
+
+  products.forEach((product) => {
+    productCount += 1
+    result.push(product)
+    insertBannersIfNeeded()
+  })
+
+  return result
+})
+
+const toCampaignCatalogPath = (campaign) => {
+  const slug = campaign?.slug ? encodeURIComponent(String(campaign.slug)) : ''
+  return slug ? `/catalog?campaign=${slug}` : '/catalog'
+}
 
 // METHODS
 const beforeFilterSetToUrl = () => {
@@ -222,6 +313,7 @@ onUnmounted(() => {
         <!-- SLOT TITLE HERE -->
         <slot name="title" />
       </h1>
+      <p v-if="titleDescription" class="title-description">{{ titleDescription }}</p>
     </div>
 
     <transition name="fade-in">
@@ -286,13 +378,39 @@ onUnmounted(() => {
           </template>
           <template v-else>
             <transition-group name="fade-in">
-              <lazy-product-card
-                v-for="(product, index) in products"
-                :key="product.id"
-                :item="product"
-                :index="index"
-                class="content-grid-item"
-              ></lazy-product-card>
+              <template
+                v-for="(item, index) in catalogItems"
+                :key="item?.__campaignBanner ? item.__key : item.id"
+              >
+                <NuxtLink
+                  v-if="item?.__campaignBanner"
+                  :to="$regionPath(toCampaignCatalogPath(item.campaign))"
+                  class="content-grid-item content-grid-banner"
+                >
+                  <nuxt-img
+                    :src="item.campaign.vertical_banner"
+                    :alt="item.campaign.name || t('campaign.in_catalog')"
+                    provider="bunny"
+                    loading="lazy"
+                    width="480"
+                    height="640"
+                    quality="70"
+                    fit="cover"
+                    class="content-grid-banner-image"
+                  />
+                  <!-- <div class="content-grid-banner-overlay">
+                    <div class="content-grid-banner-title">{{ item.campaign.name }}</div>
+                    <div class="content-grid-banner-action">{{ t('campaign.in_catalog') }}</div>
+                  </div> -->
+                </NuxtLink>
+
+                <lazy-product-card
+                  v-else
+                  :item="item"
+                  :index="index"
+                  class="content-grid-item"
+                ></lazy-product-card>
+              </template>
             </transition-group>
           </template>
       </div>

@@ -68,6 +68,7 @@ export default defineNuxtConfig({
     // autoImport: false,
     dirs: [
       'composables',
+      'composables/campaign',
       'composables/product',
       'composables/review',
       'composables/form',

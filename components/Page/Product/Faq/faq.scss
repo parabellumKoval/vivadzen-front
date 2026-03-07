@@ -1,0 +1,145 @@
+.product-faq {
+  margin-top: 24px;
+
+  @include desktop {
+    margin-top: 36px;
+  }
+
+  &__title {
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+
+    @include desktop {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+  }
+
+  &__group {
+    &:not(:last-child) {
+      margin-bottom: 20px;
+
+      @include desktop {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  &__group-title {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: $color-2;
+
+    @include desktop {
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+  }
+
+  &__group-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  &__item {
+    border: 1px solid rgba($color-border, 0.8);
+    border-radius: 16px;
+    background: #fff;
+    overflow: hidden;
+    transition: border-color $speed, box-shadow $speed, background-color $speed;
+
+    &.is-open {
+      border-color: rgba($color-primary, 0.35);
+      box-shadow: 0 14px 30px rgba(#101828, 0.08);
+      background: linear-gradient(180deg, #fff 0%, #f9fafb 100%);
+    }
+  }
+
+  &__item-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    align-items: start;
+    width: 100%;
+    padding: 12px 14px;
+    text-align: left;
+
+    @include desktop {
+      gap: 14px;
+      padding: 14px 16px;
+    }
+  }
+
+  &__item-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+
+    @include desktop {
+      min-width: 32px;
+      height: 32px;
+      font-size: 13px;
+    }
+  }
+
+  &__item-question {
+    padding-top: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.45;
+
+    @include desktop {
+      font-size: 15px;
+    }
+  }
+
+  &__item-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: rgba($color-border, 0.35);
+    color: $color-0;
+
+    @include desktop {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__item-icon {
+    font-size: 18px;
+    transition: transform $speed;
+  }
+
+  &__item-answer {
+    padding: 0 14px 14px 54px;
+    line-height: 1.6;
+    color: $color-2 !important;
+
+    @include desktop {
+      padding: 0 16px 16px 62px;
+    }
+  }
+
+  &__item.is-open &__item-icon {
+    transform: rotate(180deg);
+  }
+}

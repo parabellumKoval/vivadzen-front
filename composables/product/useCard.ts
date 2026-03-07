@@ -1,6 +1,7 @@
 export const useCard = (product: Product) => {
 
   const { t } = useI18n({useScope: 'global'})
+  const { getLabel: getCampaignLabel, getTimerText } = useCampaignPresentation()
 
   const photos = computed(() => {
     if(product.images?.length) {
@@ -55,7 +56,23 @@ export const useCard = (product: Product) => {
     return  Math.ceil(100 - (product.price * 100 / product.oldPrice))
   })
 
+  const campaignLabel = computed(() => {
+    return getCampaignLabel(product?.campaign)
+  })
+
+  const campaignTimer = computed(() => {
+    return getTimerText(product?.campaign, 'card')
+  })
+
   const label = computed(() => {
+    if (campaignLabel.value) {
+      return {
+        class: 'campaign',
+        text: campaignLabel.value,
+        marquee: campaignLabel.value.length > 18
+      }
+    }
+
     if(!product.oldPrice || product.oldPrice <= product.price)
       return null
 
@@ -87,6 +104,7 @@ export const useCard = (product: Product) => {
     photoSize,
     photo,
     stock,
-    label
+    label,
+    campaignTimer
   }
 }

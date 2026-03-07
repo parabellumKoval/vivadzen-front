@@ -170,6 +170,16 @@ age_verification:
   badge: Продаж 18+
   product_banner: Цей товар у Чехії можна придбати лише після підтвердження віку через ADULTO.cz на етапі оформлення замовлення.
 
+campaign:
+  campaign_title: Акція
+  view_conditions: Дивитися умови
+  conditions_title: Умови акції
+  until_end_days: До кінця акції {days} дн.
+  until_end_hours: До кінця акції {hours} год.
+  in_catalog: Товари акції
+  view_all_products: Дивитися всі акційні товари
+  discount_line: Знижка за акцією
+
 button:
   collapse: Згорнути
   expand: Розгорнути

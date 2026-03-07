@@ -3,6 +3,7 @@
 // import {useAuthStore} from '~/store/auth';
 import {useReviewStore} from '~/store/review'
 import { useStoreOnly } from '~/composables/useStoreOnly'
+import ProductCampaignPromo from '~/components/Product/Campaign/Promo/Promo.vue'
 
 // Header scroll logic
 const { isVisible } = useHeaderScroll()
@@ -214,6 +215,14 @@ const shouldShowAgeVerificationNotice = computed(() => {
   return String(region.value || '').toLowerCase() === 'cz' && requiresAgeVerification.value
 })
 
+const campaign = computed(() => {
+  return props.product?.campaign || null
+})
+
+const faqGroups = computed(() => {
+  return Array.isArray(props.product?.faq) ? props.product.faq : []
+})
+
 // HANDLERS
 const reviewHandler = () => {
   reviewsComponentRef.value.reviewHandler()
@@ -367,6 +376,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style src="./product.scss" lang="scss" scoped></style>
+<style src="~/components/Product/box.scss" lang="scss" scoped></style>
 <style src="~/assets/scss/_rich-text.scss" lang="scss" scoped></style>
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
@@ -448,6 +458,11 @@ onBeforeUnmount(() => {
                 <lazy-product-gallery v-else :items="product.images" class="gallery-wrapper"></lazy-product-gallery>
               </Transition>
               <div v-if="$device.isDesktop" class="content-html rich-text" v-html="product.content"></div>
+              <lazy-page-product-faq
+                v-if="$device.isDesktop && faqGroups.length"
+                :groups="faqGroups"
+                class="content-faq"
+              ></lazy-page-product-faq>
             </div>
           </template>
 
@@ -456,6 +471,11 @@ onBeforeUnmount(() => {
             <div class="full-content">
               <div class="tab-title">{{ t('label.desc') }}</div>
               <div class="rich-text" v-html="product.content"></div>
+              <lazy-page-product-faq
+                v-if="faqGroups.length"
+                :groups="faqGroups"
+                class="content-faq"
+              ></lazy-page-product-faq>
             </div>
           </template>
 
@@ -506,6 +526,14 @@ onBeforeUnmount(() => {
 
       <!-- RIGHT SIDE -->
       <div class="content-sale">
+        <transition name="fade-in">
+          <ProductCampaignPromo
+            v-if="campaign"
+            :campaign="campaign"
+            class="content-campaign"
+          />
+        </transition>
+
         <!-- <lazy-product-guarantee
           v-if="$device.isMobile && tab === 1"
           class="content-guarantee"
@@ -545,6 +573,19 @@ onBeforeUnmount(() => {
             @more="changeTabHandler(6)"
             class="content-payment"
           ></lazy-product-payment-box>
+        </transition>
+
+        <transition name="fade-in">
+          <div
+            v-if="tab === 1 && $device.isMobile && faqGroups.length"
+            class="content-faq-mobile product-box"
+          >
+            <div class="mobile-title">{{ t('title.qa') }}</div>
+            <lazy-page-product-faq
+              :groups="faqGroups"
+              class="content-faq content-faq--boxed"
+            ></lazy-page-product-faq>
+          </div>
         </transition>
         
         <transition name="fade-in">

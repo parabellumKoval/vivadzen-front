@@ -175,6 +175,16 @@ age_verification:
   badge: 18+ sale
   product_banner: This product can be purchased in the Czech Republic only after ADULTO.cz age verification during checkout.
 
+campaign:
+  campaign_title: Campaign
+  view_conditions: View conditions
+  conditions_title: Campaign conditions
+  until_end_days: Campaign ends in {days} days
+  until_end_hours: Campaign ends in {hours} hours
+  in_catalog: Campaign products
+  view_all_products: View all campaign products
+  discount_line: Campaign discount
+
 button:
   collapse: Collapse
   expand: Expand

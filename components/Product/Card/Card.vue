@@ -56,6 +56,87 @@ const reviewsPath = computed(() => {
   return $regionPath('/' + props.item.slug + '#reviews')
 })
 
+const dayMs = 24 * 60 * 60 * 1000
+
+const nowTs = ref(Date.now())
+let timerId = null
+
+onMounted(() => {
+  timerId = setInterval(() => {
+    nowTs.value = Date.now()
+  }, 1000)
+})
+
+onBeforeUnmount(() => {
+  if (timerId) {
+    clearInterval(timerId)
+    timerId = null
+  }
+})
+
+const campaignEndAt = computed(() => {
+  const value = props.item?.campaign?.ends_at
+  if (!value) {
+    return null
+  }
+
+  const date = new Date(value)
+  return Number.isNaN(date.getTime()) ? null : date
+})
+
+const isCampaignTimerEnabled = computed(() => {
+  const campaign = props.item?.campaign
+  return Boolean(campaign?.is_timed && campaign?.show_timer_card)
+})
+
+const campaignDiffMs = computed(() => {
+  if (!campaignEndAt.value) {
+    return 0
+  }
+
+  return campaignEndAt.value.getTime() - nowTs.value
+})
+
+const campaignCountdownText = computed(() => {
+  if (!isCampaignTimerEnabled.value || campaignDiffMs.value <= 0) {
+    return null
+  }
+
+  if (campaignDiffMs.value >= dayMs) {
+    const days = Math.max(1, Math.floor(campaignDiffMs.value / dayMs))
+    return `осталось ${days}дн`
+  }
+
+  const totalSeconds = Math.max(0, Math.floor(campaignDiffMs.value / 1000))
+  const hours = Math.floor(totalSeconds / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  const seconds = totalSeconds % 60
+  const pad = (value) => String(value).padStart(2, '0')
+
+  return `осталось ${hours}ч ${pad(minutes)}:${pad(seconds)}`
+})
+
+const cardLabel = computed(() => {
+  if (!label.value) {
+    return null
+  }
+
+  if (label.value.class !== 'campaign') {
+    return label.value
+  }
+
+  if (!campaignCountdownText.value) {
+    return label.value
+  }
+
+  return {
+    ...label.value,
+    marquee: false,
+    text: campaignCountdownText.value,
+    isUrgent: campaignDiffMs.value > 0 && campaignDiffMs.value < dayMs
+  }
+})
+
 // METHODS
 // HANDLERS
 const toReviewsHandler = () => {
@@ -86,8 +167,8 @@ const addToCartHandler = () => {
   <div v-if="item" :class="stock" class="card">
 
     <div class="card-sub">
-      <div v-if="label" :class="label?.class" class="label">
-        {{ label.text }}
+      <div v-if="cardLabel" :class="cardLabel?.class" class="label">
+        <span :class="{'marquee': cardLabel?.marquee, 'countdown': cardLabel?.isUrgent}" class="label-text">{{ cardLabel.text }}</span>
       </div>
       <div v-else></div>
 

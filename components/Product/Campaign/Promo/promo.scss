@@ -1,0 +1,173 @@
+.campaign-promo {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 18px 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background:
+    radial-gradient(110% 120% at 100% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(145deg, #ff8f20 0%, #ff5e44 48%, #73c56f 100%);
+  box-shadow:
+    0 18px 36px rgba(255, 96, 64, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  color: #ffffff;
+  overflow: hidden;
+
+  @include desktop {
+    gap: 16px;
+    padding: 22px;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(2px);
+  }
+
+  &::before {
+    width: 130px;
+    height: 130px;
+    top: -38px;
+    right: -34px;
+    background: rgba(255, 226, 138, 0.36);
+  }
+
+  &::after {
+    width: 120px;
+    height: 120px;
+    bottom: -52px;
+    left: -20px;
+    background: rgba(115, 197, 111, 0.28);
+  }
+
+  &__badge,
+  &__title,
+  &__description,
+  &__timer-wrap,
+  &__actions {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__badge {
+    justify-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(38, 17, 5, 0.24);
+    backdrop-filter: blur(6px);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__badge-icon {
+    font-size: 16px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.12;
+    font-weight: 800;
+    text-wrap: balance;
+
+    @include desktop {
+      font-size: 26px;
+    }
+  }
+
+  &__description {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.45;
+    text-wrap: pretty;
+  }
+
+  &__timer-wrap {
+    display: grid;
+    gap: 8px;
+  }
+
+  &__timer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  &__timer-segment {
+    display: grid;
+    gap: 4px;
+    justify-items: center;
+    padding: 10px 8px;
+    border-radius: 14px;
+    background: rgba(26, 13, 6, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+  }
+
+  &__timer-value {
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+
+    @include desktop {
+      font-size: 24px;
+    }
+  }
+
+  &__timer-label {
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    opacity: 0.86;
+  }
+
+  &__timer-text {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    opacity: 0.95;
+  }
+
+  &__actions {
+    display: grid;
+    gap: 10px;
+
+    @include desktop {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+  }
+
+  &__catalog-btn {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+
+    @include desktop {
+      font-size: 16px;
+    }
+  }
+
+  &__conditions-btn {
+    width: 100%;
+    border-color: rgba(255, 255, 255, 0.78);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.09);
+    font-weight: 700;
+
+    &:hover {
+      border-color: #ffffff;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

@@ -6,6 +6,10 @@ type ProductSmall = {
   slug: string,
   price: number,
   old_price?: number,
+  oldPrice?: number,
+  basePrice?: number,
+  campaignDiscount?: number,
+  campaign?: Record<string, any> | null,
   totalPrice: number
   totalOldPrice: number | null
   image: object,
@@ -100,6 +104,28 @@ export const useCartStore = defineStore('cartStore', {
       }, 0)
     
       return Number(v.toFixed(2))
+    },
+    campaignDiscountTotal: (state) => {
+      const total = state.cartProductsState.reduce((carry, item) => {
+        const amount = Number(item.amount || 1)
+        const explicit = Number(item.campaignDiscount || 0)
+
+        if (explicit > 0) {
+          return carry + explicit * amount
+        }
+
+        if (!item.campaign) {
+          return carry
+        }
+
+        const base = Number(item.basePrice || item.oldPrice || item.old_price || 0)
+        const price = Number(item.price || 0)
+        const diff = Math.max(0, base - price)
+
+        return carry + diff * amount
+      }, 0)
+
+      return Number(total.toFixed(2))
     },
     total: (state) => {
       const v = useCartStore().totalProducts - useCartStore().promocodeSale
@@ -228,9 +254,10 @@ export const useCartStore = defineStore('cartStore', {
 
     addAmountToProducts(products: ProductSmall[]) {
       return products.map((item) => {
+        const oldPrice = item.old_price ?? item.oldPrice ?? null
         item.amount = this.cartIdAmounts[item.id] || 1
         item.totalPrice = item.amount * item.price 
-        item.totalOldPrice = item.old_price? item.amount * item.old_price: null
+        item.totalOldPrice = oldPrice ? item.amount * oldPrice : null
         return item
       })
     },
@@ -269,8 +296,13 @@ export const useCartStore = defineStore('cartStore', {
       const index = this.cartProductsState.findIndex(item => item.id === id);
       if (index !== -1) {
         this.cartProductsState[index].amount = amount;
+        const oldPrice = this.cartProductsState[index].old_price
+          ?? this.cartProductsState[index].oldPrice
+          ?? null
         this.cartProductsState[index].totalPrice = this.cartProductsState[index].amount * this.cartProductsState[index].price 
-        this.cartProductsState[index].totalOldPrice = this.cartProductsState[index].old_price? this.cartProductsState[index].amount * this.cartProductsState[index].old_price: null
+        this.cartProductsState[index].totalOldPrice = oldPrice
+          ? this.cartProductsState[index].amount * oldPrice
+          : null
       }
     },
 

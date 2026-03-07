@@ -283,6 +283,9 @@
       grid-gap: 30px;
     }
   }
+  &-campaign {
+    order: 0;
+  }
   &-buy {
     height: min-content;
     width: 100%;
@@ -306,6 +309,13 @@
     }
   }
   &-main {
+  }
+  &-faq {
+    order: 6;
+    width: 100%;
+  }
+  &-faq-mobile {
+    order: 8;
   }
   &-common {
     display: grid;
@@ -353,5 +363,13 @@
   }
   &-reviews {
     order: 8;
+  }
+
+  :deep(.content-faq--boxed.product-faq) {
+    margin-top: 0;
+  }
+
+  :deep(.content-faq--boxed .product-faq__title) {
+    display: none;
   }
 }

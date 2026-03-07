@@ -163,6 +163,16 @@ age_verification:
   badge: Verkauf 18+
   product_banner: Dieses Produkt kann in Tschechien nur nach ADULTO.cz-Altersverifizierung während des Checkouts gekauft werden.
 
+campaign:
+  campaign_title: Aktion
+  view_conditions: Bedingungen ansehen
+  conditions_title: Aktionsbedingungen
+  until_end_days: Aktion endet in {days} Tagen
+  until_end_hours: Aktion endet in {hours} Stunden
+  in_catalog: Aktionsprodukte
+  view_all_products: Alle Aktionsprodukte ansehen
+  discount_line: Aktionsrabatt
+
 button:
   collapse: Einklappen
   expand: Ausklappen

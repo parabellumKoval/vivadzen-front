@@ -87,7 +87,29 @@ declare global {
     code: string,
     store_only?: boolean,
     storeOnly?: boolean,
-    composition?: string
+    composition?: string,
+    basePrice?: number,
+    campaignDiscount?: number,
+    campaign?: {
+      id: number,
+      name: string,
+      slug: string,
+      short_description?: string | null,
+      conditions_html?: string | null,
+      discount_percent?: number,
+      is_timed?: boolean,
+      starts_at?: string | null,
+      ends_at?: string | null,
+      show_timer_card?: boolean,
+      show_timer_product?: boolean,
+      horizontal_banner?: string | null,
+      vertical_banner?: string | null,
+      add_to_main_banner?: boolean,
+      add_banner_to_catalog?: boolean,
+      catalog_banner_frequency?: number | null,
+      catalog_banner_position?: number | null,
+      catalog_url?: string | null
+    } | null
   }
 
   type Article = {

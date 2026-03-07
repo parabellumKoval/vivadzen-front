@@ -36,6 +36,10 @@ const productsTotal = computed(() => {
   return useCartStore().totalProducts
 })
 
+const campaignDiscountTotal = computed(() => {
+  return useCartStore().campaignDiscountTotal
+})
+
 const finishTotal = computed(() => {
   const v = useCartStore().finishTotal
   return v < 0 ? 0 : v
@@ -202,6 +206,13 @@ const goPayHandler = () => {
         <div class="sale-label">{{ productsLength }} {{ t('messages.products_total') }}</div>
         <div class="sale-value">
           <simple-price :value="productsTotal" class="price price-total"></simple-price>
+        </div>
+      </div>
+
+      <div v-if="campaignDiscountTotal > 0" class="sale-item">
+        <div class="sale-label">{{ t('campaign.discount_line') }}</div>
+        <div class="sale-value">
+          -<simple-price :value="campaignDiscountTotal" class="price price-total"></simple-price>
         </div>
       </div>
 

@@ -55,6 +55,14 @@ const products = computed(() => {
   return order.value?.products || null
 })
 
+const campaignDiscountTotal = computed(() => {
+  return Number(order.value?.campaignDiscountTotal || 0)
+})
+
+const campaigns = computed(() => {
+  return Array.isArray(order.value?.campaigns) ? order.value.campaigns : []
+})
+
 useAsyncData('show-order', async() => await useOrderStore().getOrder(code.value))
   .then(({data, error}) => {
     order.value = data.value
@@ -165,6 +173,14 @@ useCartStore().$reset()
                 <div class="value">
                   <simple-price :value="order.price"></simple-price>
                 </div>
+              </div>
+              <div v-if="campaignDiscountTotal > 0" class="cell">
+                <div class="label">{{ t('campaign.discount_line') }}</div>
+                <div class="value">-<simple-price :value="campaignDiscountTotal"></simple-price></div>
+              </div>
+              <div v-if="campaigns.length" class="cell">
+                <div class="label">{{ t('campaign.campaign_title') }}</div>
+                <div class="value">{{ campaigns.map((item) => item.name).filter(Boolean).join(', ') }}</div>
               </div>
               <div v-if="payment?.method" class="cell">
                 <div class="label">{{ $t('form.method') }}</div>
