@@ -4,11 +4,14 @@ export interface GoogleReview {
   id: number
   review_id: string
   review_name: string
+  is_active?: boolean
+  sort_order?: number
   rating: number
   comment: string
   reviewer: {
     name: string
     photo_url: string | null
+    photo_path?: string | null
     is_anonymous: boolean
   }
   reply: {
@@ -40,6 +43,15 @@ export interface GoogleReviewsState {
   error: string | null
 }
 
+export interface GoogleReviewsQueryParams {
+  per_page?: number
+  location_id?: number
+  location_name?: string
+  rating?: number
+  has_comment?: boolean
+  include_inactive?: boolean
+}
+
 export const useGoogleReviewsStore = defineStore('googleReviewsStore', {
   state: (): GoogleReviewsState => ({
     reviews: [],
@@ -58,7 +70,7 @@ export const useGoogleReviewsStore = defineStore('googleReviewsStore', {
   },
 
   actions: {
-    async fetchReviews(params: { per_page?: number; location_id?: number; location_name?: string } = {}) {
+    async fetchReviews(params: GoogleReviewsQueryParams = {}) {
       this.loading = true
       this.error = null
 
@@ -74,6 +86,15 @@ export const useGoogleReviewsStore = defineStore('googleReviewsStore', {
         }
         if (params.location_name) {
           queryParams.set('location_name', params.location_name)
+        }
+        if (params.rating !== undefined) {
+          queryParams.set('rating', String(params.rating))
+        }
+        if (params.has_comment !== undefined) {
+          queryParams.set('has_comment', params.has_comment ? '1' : '0')
+        }
+        if (params.include_inactive !== undefined) {
+          queryParams.set('include_inactive', params.include_inactive ? '1' : '0')
         }
 
         const queryString = queryParams.toString()
@@ -101,7 +122,7 @@ export const useGoogleReviewsStore = defineStore('googleReviewsStore', {
       }
     },
 
-    async fetchReviewsLazy(params: { per_page?: number; location_id?: number; location_name?: string } = {}) {
+    async fetchReviewsLazy(params: GoogleReviewsQueryParams = {}) {
       const runtimeConfig = useRuntimeConfig()
       const queryParams = new URLSearchParams()
       
@@ -113,6 +134,15 @@ export const useGoogleReviewsStore = defineStore('googleReviewsStore', {
       }
       if (params.location_name) {
         queryParams.set('location_name', params.location_name)
+      }
+      if (params.rating !== undefined) {
+        queryParams.set('rating', String(params.rating))
+      }
+      if (params.has_comment !== undefined) {
+        queryParams.set('has_comment', params.has_comment ? '1' : '0')
+      }
+      if (params.include_inactive !== undefined) {
+        queryParams.set('include_inactive', params.include_inactive ? '1' : '0')
       }
 
       const queryString = queryParams.toString()

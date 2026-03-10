@@ -1,4 +1,5 @@
 <script setup>
+
 const { t } = useI18n()
 const { name: pointsName } = usePoints()
 const tp = (key) => t(key, { pointsName: pointsName.value })
@@ -11,7 +12,8 @@ const itemConfigs = [
     bgColor: 'rgb(34 34 33)',
     color: '#ec6c9a',
     textColor: '#ffffff',
-    symbol: '%'
+    symbol: '%',
+    info: null
   },
   {
     key: 'affiliate',
@@ -19,7 +21,8 @@ const itemConfigs = [
     size: 'tall',
     bgColor: 'rgb(193 231 222)',
     color: '#1b876e',
-    symbol: '★'
+    symbol: '★',
+    info: null
   },
   {
     key: 'promocodes',
@@ -27,7 +30,8 @@ const itemConfigs = [
     size: 'tall',
     bgColor: 'rgb(234 234 234)',
     color: '#b64c49',
-    symbol: '#'
+    symbol: '#',
+    info: null
   },
   {
     key: 'vivapoints',
@@ -35,7 +39,8 @@ const itemConfigs = [
     size: 'mid',
     bgColor: '#faedc5',
     color: '#b1711a',
-    symbol: 'V'
+    symbol: 'V',
+    info: t('vivapoints_info')
   }
 ]
 
@@ -102,6 +107,7 @@ const items = computed(() =>
               </h4>
               <p class="bonus__track-description">
                 {{ item.description }}
+                <simple-info-hint v-if="item.info" :text="item.info" />
               </p>
             </div>
             <div class="bonus__track-item bonus__track-item--large">

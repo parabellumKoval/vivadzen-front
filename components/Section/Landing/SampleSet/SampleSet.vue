@@ -4,11 +4,11 @@ const { t } = useI18n()
 // 5 товаров веером в пределах 90 градусов (от -45 до +45)
 // Центральный товар (id: 3) - 0 градусов, по бокам по 2 товара с шагом ~22.5 градуса
 const products = [
-  { id: 1, img: '/images/landing/product.png', angle: -45, glowColor: '255, 215, 0' },      // Gold - крайний левый
-  { id: 2, img: '/images/landing/product.png', angle: -22.5, glowColor: '220, 53, 69' },    // Red
-  { id: 3, img: '/images/landing/product.png', angle: 0, glowColor: '255, 255, 255' },      // White - центр
-  { id: 4, img: '/images/landing/product.png', angle: 22.5, glowColor: '34, 197, 94' },     // Green
-  { id: 5, img: '/images/landing/product.png', angle: 45, glowColor: '255, 140, 0' },       // Orange - крайний правый
+  { id: 1, img: '/images/landing/product-gold.png', angle: -45, glowColor: '255, 215, 0' },      // Gold - крайний левый
+  { id: 2, img: '/images/landing/product-red.png', angle: -22.5, glowColor: '220, 53, 69' },    // Red
+  { id: 3, img: '/images/landing/product.png', angle: 0, glowColor: '255, 255, 255' },      // Green - центр
+  { id: 4, img: '/images/landing/product-white.png', angle: 22.5, glowColor: '34, 197, 94' },     // White 
+  { id: 5, img: '/images/landing/product-strawberry.png', angle: 45, glowColor: '255, 140, 0' },       // strawberry - крайний правый
 ]
 
 import { ref, onMounted, onBeforeUnmount, type ComponentPublicInstance, defineAsyncComponent } from 'vue'

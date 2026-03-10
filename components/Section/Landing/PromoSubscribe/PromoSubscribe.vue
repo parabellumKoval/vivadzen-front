@@ -7,6 +7,7 @@ const runtimeConfig = useRuntimeConfig()
 const email = ref('')
 const isSubmitting = ref(false)
 const isSuccess = ref(false)
+const successMessage = ref('')
 
 const feedbackType = computed(() =>
   runtimeConfig.public?.landingPromoSubscribe?.feedbackType || 'landing_kratom_local_sale'
@@ -30,6 +31,11 @@ const handleSubmit = async () => {
     }
 
     if (data?.value) {
+      const promoStatus = data.value?.extras?.promo_subscribe?.status
+      successMessage.value = promoStatus === 'existing_customer'
+        ? t('success_existing_customer')
+        : t('success')
+
       isSuccess.value = true
       email.value = ''
     }
@@ -70,6 +76,7 @@ const handleSubmit = async () => {
             </h3>
             <p class="promo-subscribe__description">
               {{ t('description') }}
+              <simple-info-hint :text="t('discount_hint')" />
             </p>
           </div>
 
@@ -96,7 +103,7 @@ const handleSubmit = async () => {
           </form>
           <div v-else class="promo-subscribe__success">
             <IconCSS name="ph:check-circle-fill" />
-            <span>{{ t('success') }}</span>
+            <span>{{ successMessage || t('success') }}</span>
           </div>
         </div>
 

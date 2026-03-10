@@ -15,38 +15,6 @@ useAsyncData(`landing-online-store-categories-${locale.value}-${region.value}`, 
 const categories = computed(() => categoryStore.mainList || [])
 const brandDescription = computed(() => get('site.common.description') || t('description_fallback'))
 
-const mainSiteBaseUrl = computed(() => {
-  const raw =
-    runtimeConfig.public?.site?.url ||
-    runtimeConfig.public?.siteUrl ||
-    'https://vivadzen.com'
-
-  return String(raw || 'https://vivadzen.com').replace(/\/+$/, '')
-})
-
-const isAbsoluteUrl = (value) => /^https?:\/\//i.test(String(value || ''))
-
-const toAbsoluteMainUrl = (path = '/') => {
-  if (isAbsoluteUrl(path)) {
-    return String(path)
-  }
-
-  const normalizedPath = `/${String(path || '/').replace(/^\/+/, '')}`
-  return normalizedPath === '/'
-    ? `${mainSiteBaseUrl.value}/`
-    : `${mainSiteBaseUrl.value}${normalizedPath}`
-}
-
-const homeUrl = computed(() => toAbsoluteMainUrl('/'))
-
-const categoryUrl = (slug) => {
-  const relativePath =
-    typeof $regionPath === 'function'
-      ? $regionPath(`/${slug}`)
-      : `/${slug}`
-
-  return toAbsoluteMainUrl(relativePath)
-}
 </script>
 
 <style src="./online-store.scss" lang="scss" scoped></style>
@@ -58,16 +26,16 @@ const categoryUrl = (slug) => {
       <div class="online-store__intro">
         <h2 class="online-store__title">{{ t('title') }}</h2>
         <div class="online-store__desc rich-text" v-html="brandDescription"></div>
-        <a :href="homeUrl" class="button orange online-store__cta">
+        <NuxtLink :to="$regionPath('/')" class="button orange online-store__cta">
           {{ t('button') }}
-        </a>
+        </NuxtLink>
       </div>
 
       <div class="online-store__grid">
-        <a
+        <NuxtLink
           v-for="category in categories"
           :key="category.id"
-          :href="categoryUrl(category.slug)"
+          :to="$regionPath(`/${category.slug}`)"
           :aria-label="category.name"
           class="online-store__card"
         >
@@ -98,7 +66,7 @@ const categoryUrl = (slug) => {
               {{ category?.extras_trans?.short_description || t('category_description_fallback') }}
             </p>
           </div>
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </section>

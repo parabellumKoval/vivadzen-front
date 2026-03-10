@@ -2,10 +2,8 @@
 const { t, te } = useI18n()
 
 const baseModifications = [
-  { weight: 100, price: 490 },
-  { weight: 300, price: 1190 },
-  { weight: 500, price: 1790 },
-  { weight: 1000, price: 3290 }
+  { weight: 25, price: '120-140' },
+  { weight: 50, price: '180-250' },
 ]
 
 const colorModal = defineAsyncComponent(() => import('~/components/Modal/KratomVariety/KratomVariety.vue'))

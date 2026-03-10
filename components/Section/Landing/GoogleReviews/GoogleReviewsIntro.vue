@@ -63,7 +63,7 @@ const getStarClass = (rating: number, index: number): string => {
         <div class="google-reviews-intro__cta">
           <p class="google-reviews-intro__cta-text">{{ t('cta_text') }}</p>
           <a
-            href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review"
+            href="https://g.page/r/CYrhuRRktnHVEBE/review"
             target="_blank"
             rel="noopener noreferrer"
             class="google-reviews-intro__cta-button"

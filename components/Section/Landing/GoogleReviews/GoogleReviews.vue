@@ -13,7 +13,11 @@ const {
 } = await useAsyncData(
   'google-reviews-landing',
   async () => {
-    return await googleReviewsStore.fetchReviews({ per_page: 20 })
+    return await googleReviewsStore.fetchReviews({
+      per_page: 20,
+      rating: 5,
+      has_comment: true,
+    })
   },
   {
     lazy: !isServer,
