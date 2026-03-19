@@ -27,11 +27,8 @@ const onUnlock = () => {
 }
 
 export const useBodyScrollLock = () => {
-  const device = useDevice()
-  const isMobile = () => device.isMobile
-
   const disableScroll = () => {
-    if (!process.client || !isMobile()) return
+    if (!process.client) return
 
     lockCount += 1
     if (lockCount > 1) return

@@ -38,6 +38,9 @@
   right: 50%;
   transform: translateX(50%);
   width: calc(100% - 20px);
+  overflow-y: auto;
+  border-radius: 10px;
+
   @include desktop {
     max-width: calc(100vw - 90px);
     max-height: calc(100vh - 90px);

@@ -73,6 +73,9 @@ export const useCatalog = () => {
       with_products: true,
       per_page: useScreen().getCatalogPerPage('product'),
       page: Number(route.query.page) || 1,
+      ...(typeof route.query.campaign === 'string' && route.query.campaign
+        ? { campaign: route.query.campaign }
+        : {}),
       ...getQueryParams()
     }
     

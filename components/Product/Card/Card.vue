@@ -16,11 +16,10 @@ const {$regionPath} = useNuxtApp();
 
 const {isComparison, toComparisonHandler} = useComparison(props.item.id)
 const {isFavorite, toFavoriteHandler} = useFavorite(props.item.id)
-const {photos, stock, label} = useCard(props.item)
+const {photos, stock, label, hasSale, hasActiveCampaign} = useCard(props.item)
 const {toCartHandler} = useCart(props.item)
 const {ensureRegionSelected} = useRegionPurchaseGuard()
 const { isStoreOnly, openStoreOnlyModal } = useStoreOnly(props.item)
-
 
 // Inject
 const listData = inject('list', {id: '', name: ''});
@@ -56,87 +55,6 @@ const reviewsPath = computed(() => {
   return $regionPath('/' + props.item.slug + '#reviews')
 })
 
-const dayMs = 24 * 60 * 60 * 1000
-
-const nowTs = ref(Date.now())
-let timerId = null
-
-onMounted(() => {
-  timerId = setInterval(() => {
-    nowTs.value = Date.now()
-  }, 1000)
-})
-
-onBeforeUnmount(() => {
-  if (timerId) {
-    clearInterval(timerId)
-    timerId = null
-  }
-})
-
-const campaignEndAt = computed(() => {
-  const value = props.item?.campaign?.ends_at
-  if (!value) {
-    return null
-  }
-
-  const date = new Date(value)
-  return Number.isNaN(date.getTime()) ? null : date
-})
-
-const isCampaignTimerEnabled = computed(() => {
-  const campaign = props.item?.campaign
-  return Boolean(campaign?.is_timed && campaign?.show_timer_card)
-})
-
-const campaignDiffMs = computed(() => {
-  if (!campaignEndAt.value) {
-    return 0
-  }
-
-  return campaignEndAt.value.getTime() - nowTs.value
-})
-
-const campaignCountdownText = computed(() => {
-  if (!isCampaignTimerEnabled.value || campaignDiffMs.value <= 0) {
-    return null
-  }
-
-  if (campaignDiffMs.value >= dayMs) {
-    const days = Math.max(1, Math.floor(campaignDiffMs.value / dayMs))
-    return `осталось ${days}дн`
-  }
-
-  const totalSeconds = Math.max(0, Math.floor(campaignDiffMs.value / 1000))
-  const hours = Math.floor(totalSeconds / 3600)
-  const minutes = Math.floor((totalSeconds % 3600) / 60)
-  const seconds = totalSeconds % 60
-  const pad = (value) => String(value).padStart(2, '0')
-
-  return `осталось ${hours}ч ${pad(minutes)}:${pad(seconds)}`
-})
-
-const cardLabel = computed(() => {
-  if (!label.value) {
-    return null
-  }
-
-  if (label.value.class !== 'campaign') {
-    return label.value
-  }
-
-  if (!campaignCountdownText.value) {
-    return label.value
-  }
-
-  return {
-    ...label.value,
-    marquee: false,
-    text: campaignCountdownText.value,
-    isUrgent: campaignDiffMs.value > 0 && campaignDiffMs.value < dayMs
-  }
-})
-
 // METHODS
 // HANDLERS
 const toReviewsHandler = () => {
@@ -164,13 +82,14 @@ const addToCartHandler = () => {
 <style src="./card.scss" lang="scss" scoped />
 
 <template>
-  <div v-if="item" :class="stock" class="card">
+  <div
+    v-if="item"
+    :class="[stock, {'card--has-sale': hasSale, 'card--has-campaign': hasActiveCampaign}]"
+    class="card"
+  >
 
     <div class="card-sub">
-      <div v-if="cardLabel" :class="cardLabel?.class" class="label">
-        <span :class="{'marquee': cardLabel?.marquee, 'countdown': cardLabel?.isUrgent}" class="label-text">{{ cardLabel.text }}</span>
-      </div>
-      <div v-else></div>
+      <ProductCardLabelsStack :item="item" :label="label" />
 
       <div :class="{active: isComparison || isFavorite}" class="hover">
         <button

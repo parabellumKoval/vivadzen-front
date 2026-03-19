@@ -3,15 +3,10 @@ const props = defineProps({
   campaign: {
     type: Object,
     default: null
-  },
-  showCatalogAction: {
-    type: Boolean,
-    default: true
   }
 })
 
 const { t } = useI18n()
-const { $regionPath } = useNuxtApp()
 
 const nowTs = ref(Date.now())
 let timerId = null
@@ -38,20 +33,6 @@ const campaignData = computed(() => {
 const hasCampaignConditions = computed(() => {
   const html = campaignData.value?.conditions_html
   return typeof html === 'string' && html.trim().length > 0
-})
-
-const hasAnyAction = computed(() => {
-  return props.showCatalogAction || hasCampaignConditions.value
-})
-
-const isSingleAction = computed(() => {
-  const actionsCount = Number(props.showCatalogAction) + Number(hasCampaignConditions.value)
-  return actionsCount === 1
-})
-
-const campaignCatalogPath = computed(() => {
-  const slug = campaignData.value?.slug ? encodeURIComponent(String(campaignData.value.slug)) : ''
-  return slug ? $regionPath(`/catalog?campaign=${slug}`) : $regionPath('/catalog')
 })
 
 const campaignEndAt = computed(() => {
@@ -134,6 +115,11 @@ const countdownSegments = computed(() => {
   ]
 })
 
+const productsCountText = computed(() => {
+  const count = Number(campaignData.value?.products_count || 0)
+  return t('products_count', { count })
+})
+
 const openCampaignConditionsHandler = () => {
   if (!campaignData.value || !hasCampaignConditions.value) {
     return
@@ -153,75 +139,70 @@ const openCampaignConditionsHandler = () => {
 }
 </script>
 
-<style src="./promo.scss" lang="scss" scoped></style>
+<style src="./hero.scss" lang="scss" scoped></style>
 <i18n src="./lang.yaml" lang="yaml"></i18n>
 
 <template>
-  <div v-if="campaignData" class="campaign-promo">
-    <div class="campaign-promo__pattern" aria-hidden="true">
-      <!-- <nuxt-img
-        src="/images/campain-pattern.png"
-        alt=""
-        loading="lazy"
-        width="1024"
-        height="1024"
-        sizes="(max-width: 767px) 180px, (max-width: 1199px) 240px, 320px"
-        class="campaign-promo__pattern-image"
-      /> -->
-    </div>
+  <section v-if="campaignData" class="campaign-catalog-hero">
+    <div class="campaign-catalog-hero__shell">
+      <div class="campaign-catalog-hero__copy">
+        <div class="campaign-catalog-hero__meta">
+          <div class="campaign-catalog-hero__badge">
+            <IconCSS name="streamline:flash-1-remix" class="campaign-catalog-hero__badge-icon" />
+            <span>{{ t('badge') }}</span>
+          </div>
 
-    <div class="campaign-promo__badge-row">
-      <div class="campaign-promo__badge">
-        <IconCSS name="streamline:flash-1-remix" class="campaign-promo__badge-icon" />
-        <span>{{ t('badge') }}</span>
-      </div>
+          <div v-if="timerStatusText" class="campaign-catalog-hero__deadline">
+            <IconCSS name="ph:timer-bold" class="campaign-catalog-hero__deadline-icon" />
+            <span>{{ timerStatusText }}</span>
+          </div>
 
-      <div v-if="timerStatusText" class="campaign-promo__deadline">
-        <IconCSS name="ph:timer-bold" class="campaign-promo__deadline-icon" />
-        <span>{{ timerStatusText }}</span>
-      </div>
-    </div>
+          <div class="campaign-catalog-hero__count">
+            {{ productsCountText }}
+          </div>
+        </div>
 
-    <div class="campaign-promo__header">
-      <div class="campaign-promo__copy">
-        <h3 class="campaign-promo__title">{{ campaignData.name || t('fallback_title') }}</h3>
+        <h2 class="campaign-catalog-hero__title">
+          {{ campaignData.name }}
+        </h2>
 
-        <p v-if="campaignData.short_description" class="campaign-promo__description">
+        <p v-if="campaignData.short_description" class="campaign-catalog-hero__description">
           {{ campaignData.short_description }}
         </p>
-      </div>
-    </div>
 
-    <div v-if="countdownSegments.length" class="campaign-promo__timer">
-      <div class="campaign-promo__timer-grid">
-        <div v-for="segment in countdownSegments" :key="segment.key" class="campaign-promo__timer-segment">
-          <div class="campaign-promo__timer-value">{{ segment.value }}</div>
-          <div class="campaign-promo__timer-label">{{ segment.title }}</div>
+        <div v-if="countdownSegments.length" class="campaign-catalog-hero__timer">
+          <div class="campaign-catalog-hero__timer-grid">
+            <div v-for="segment in countdownSegments" :key="segment.key" class="campaign-catalog-hero__timer-segment">
+              <div class="campaign-catalog-hero__timer-value">{{ segment.value }}</div>
+              <div class="campaign-catalog-hero__timer-label">{{ segment.title }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="hasCampaignConditions" class="campaign-catalog-hero__actions">
+          <button
+            type="button"
+            class="button campaign-catalog-hero__action"
+            @click="openCampaignConditionsHandler"
+          >
+            {{ t('conditions_button') }}
+          </button>
         </div>
       </div>
-    </div>
 
-    <div
-      v-if="hasAnyAction"
-      class="campaign-promo__actions"
-      :class="{ 'campaign-promo__actions--single': isSingleAction }"
-    >
-      <NuxtLink
-        v-if="showCatalogAction"
-        :to="campaignCatalogPath"
-        class="button campaign-promo__action campaign-promo__action--primary"
-      >
-        {{ t('catalog_button') }}
-      </NuxtLink>
-
-      <button
-        v-if="hasCampaignConditions"
-        type="button"
-        class="button campaign-promo__action campaign-promo__action--secondary"
-        @click="openCampaignConditionsHandler"
-      >
-        {{ t('conditions_button') }}
-      </button>
+      <div v-if="campaignData.horizontal_banner" class="campaign-catalog-hero__media">
+        <nuxt-img
+          :src="campaignData.horizontal_banner"
+          :alt="campaignData.name || t('badge')"
+          provider="bunny"
+          loading="lazy"
+          width="960"
+          height="540"
+          quality="80"
+          fit="cover"
+          class="campaign-catalog-hero__image"
+        />
+      </div>
     </div>
-  </div>
+  </section>
 </template>

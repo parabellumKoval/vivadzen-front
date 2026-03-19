@@ -1,5 +1,6 @@
 <script setup>
 import {useCatalog} from '~/composables/product/useCatalog.ts'
+import ProductCampaignPromo from '~/components/Product/Campaign/Promo/Promo.vue'
 const { t, locale } = useI18n()
 const { region } = useRegion()
 const { $regionPath } = useNuxtApp()
@@ -28,6 +29,10 @@ const props = defineProps({
   titleDescription: {
     type: String,
     default: ''
+  },
+  campaign: {
+    type: Object,
+    default: null
   },
   breadcrumbs: {
     type: Array,
@@ -103,6 +108,10 @@ const filtersData = computed(() => {
 })
 
 const catalogBannerCampaigns = computed(() => {
+  if (props.campaign?.slug) {
+    return []
+  }
+
   const list = Array.isArray(catalogCampaignsData.value) ? catalogCampaignsData.value : []
 
   return list.filter((campaign) => {
@@ -314,6 +323,14 @@ onUnmounted(() => {
         <slot name="title" />
       </h1>
       <p v-if="titleDescription" class="title-description">{{ titleDescription }}</p>
+    </div>
+
+    <div v-if="campaign" class="container">
+      <ProductCampaignPromo
+        :campaign="campaign"
+        :show-catalog-action="false"
+        class="catalog-campaign-promo"
+      />
     </div>
 
     <transition name="fade-in">

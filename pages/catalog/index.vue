@@ -3,25 +3,21 @@ import {useCategoryStore} from '~/store/category'
 
 const {t, locale} = useI18n()
 const {region} = useRegion()
+const route = useRoute()
+const { show: loadCampaignBySlug } = useCampaignApi()
 
-const setCrumbs = () => {
-  breadcrumbs.value = [
-    {
-      name: t('title.home'),
-      item: '/'
-    },{
-      name: t('title.catalog'),
-      item: '/catalog'
-    }
-  ]
-}
 const {loadCatalog, setFiltersAndCount, loadMore, catalogQuery, setMode} = useCatalog()
 
 const categoryStore = useCategoryStore()
 
 // REFS
 const isServer = process.server
-const breadcrumbs = ref([])
+const campaignSlug = computed(() => {
+  return typeof route.query.campaign === 'string' ? route.query.campaign : ''
+})
+const catalogDataKey = computed(() => {
+  return 'product-catalog-' + region.value + '-' + locale.value + '-' + (campaignSlug.value || 'none')
+})
 
 // COMPUTEDS
 const categories = computed(() => {
@@ -38,7 +34,7 @@ const {
   error: catalogError,
   refresh
 } = await useAsyncData(
-  'product-catalog-' + region.value + '-' + locale.value,
+  () => catalogDataKey.value,
   async () => {
     const response = await loadCatalog();
 
@@ -56,6 +52,65 @@ const {
   }
 );
 
+const { data: campaignData } = await useAsyncData(
+  () => 'catalog-campaign-meta-' + region.value + '-' + locale.value + '-' + (campaignSlug.value || 'none'),
+  async () => {
+    if (!campaignSlug.value) {
+      return null
+    }
+
+    return await loadCampaignBySlug(campaignSlug.value)
+  },
+  {
+    lazy: !isServer,
+    server: true
+  }
+)
+
+const campaignLastKnown = ref(null)
+
+watch(campaignSlug, (slug) => {
+  if (!slug) {
+    campaignLastKnown.value = null
+  }
+}, { immediate: true })
+
+watch(() => campaignData.value, (value) => {
+  if (campaignSlug.value && value) {
+    campaignLastKnown.value = value
+  }
+}, { immediate: true })
+
+const campaign = computed(() => {
+  if (!campaignSlug.value) {
+    return null
+  }
+
+  return campaignData.value || campaignLastKnown.value || null
+})
+
+const breadcrumbs = computed(() => {
+  const items = [
+    {
+      name: t('title.home'),
+      item: '/'
+    },
+    {
+      name: t('title.catalog'),
+      item: '/catalog'
+    }
+  ]
+
+  if (campaign.value?.name) {
+    items.push({
+      name: campaign.value.name,
+      item: route.fullPath
+    })
+  }
+
+  return items
+})
+
 const currentPageNumber = computed(() => {
   const metaPage = catalog.value?.products?.meta?.current_page ?? 1;
   const queryPage = catalogQuery.value.page ?? 1;
@@ -64,7 +119,8 @@ const currentPageNumber = computed(() => {
 
 const title = computed(() => {
   const pageSuffix = currentPageNumber.value > 1 ? ', ' + t('label.page', {page: currentPageNumber.value}) : '';
-  return t('title.catalog') + pageSuffix;
+  const baseTitle = campaign.value?.name || t('title.catalog')
+  return baseTitle + pageSuffix;
 });
 
 
@@ -78,9 +134,6 @@ const loadProductsAndMerge = async (page) => {
     console.error('Error loading more products:', error);
   }
 };
-
-setCrumbs()
-
 setMode('INITIAL')
 </script>
 
@@ -94,6 +147,7 @@ setMode('INITIAL')
     v-else
     name="catalog"
     :title="title"
+    :campaign="campaign"
     :products-pending="catalogPending"
     
     :products="catalog?.products?.data || []"

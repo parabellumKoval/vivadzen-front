@@ -1,6 +1,11 @@
 export const useMenu = () => {
   const {t} = useI18n({useScope: 'global'})
   const { name: pointsName } = usePoints()
+  const { region } = useRegion()
+
+  const isCzechRegion = computed(() => {
+    return String(region.value || '').toLowerCase() === 'cz'
+  })
 
   const customer = computed(() => {
     return [
@@ -37,7 +42,7 @@ export const useMenu = () => {
   })
 
   const info = computed(() => {
-    return [
+    const items = [
       {
         id: 1,
         link: '/about',
@@ -77,6 +82,12 @@ export const useMenu = () => {
         title: t('title.contacts')
       }
     ]
+
+    if (isCzechRegion.value) {
+      return items.filter((item) => item.link !== '/vivapoints' && item.link !== '/affiliate')
+    }
+
+    return items
   })
 
   const common = computed(() => {

@@ -1,6 +1,7 @@
 <script setup>
 const route = useRoute()
 const title = 'Vivadzen.com'
+const { get } = useSettings()
 
 const head = useLocaleHead({
   addDirAttribute: true,
@@ -11,6 +12,20 @@ const head = useLocaleHead({
 // COMPUTEDS
 const background = computed(() => {
   return route?.meta?.bg || '#FFF7EC'
+})
+
+const showAffiliateLink = computed(() => {
+  const value = get('site.home.sections.affiliate_link', true)
+
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase()
+    if (['0', 'false', 'off', 'no'].includes(normalized))
+      return false
+    if (['1', 'true', 'on', 'yes'].includes(normalized))
+      return true
+  }
+
+  return Boolean(value)
 })
 
 // HANDLERS
@@ -78,7 +93,7 @@ useSchemaOrg([
 
         <lazy-modal-search-results></lazy-modal-search-results>
         
-        <lazy-affiliate-link v-if="!$device.isMobile"></lazy-affiliate-link>
+        <lazy-affiliate-link v-if="!$device.isMobile && showAffiliateLink"></lazy-affiliate-link>
 
         <lazy-simple-clicker></lazy-simple-clicker>
         

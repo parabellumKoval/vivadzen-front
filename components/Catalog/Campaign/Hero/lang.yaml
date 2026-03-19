@@ -1,0 +1,44 @@
+en:
+  badge: Campaign
+  conditions_button: Campaign conditions
+  products_count: "{count} products in campaign"
+  timer:
+    status_hours: "{count}h left"
+    status_days: "{count}d left"
+    days: Days
+    hours: Hours
+    minutes: Minutes
+    seconds: Seconds
+ru:
+  badge: Акция
+  conditions_button: Условия акции
+  products_count: "{count} товаров в акции"
+  timer:
+    status_hours: "Осталось {count} ч"
+    status_days: "Осталось {count} д"
+    days: Дни
+    hours: Часы
+    minutes: Минуты
+    seconds: Секунды
+uk:
+  badge: Акція
+  conditions_button: Умови акції
+  products_count: "{count} товарів в акції"
+  timer:
+    status_hours: "Залишилось {count} год"
+    status_days: "Залишилось {count} дн"
+    days: Дні
+    hours: Години
+    minutes: Хвилини
+    seconds: Секунди
+cs:
+  badge: Akce
+  conditions_button: Podmínky akce
+  products_count: "{count} produktů v akci"
+  timer:
+    status_hours: "Zbývá {count} h"
+    status_days: "Zbývá {count} d"
+    days: Dny
+    hours: Hodiny
+    minutes: Minuty
+    seconds: Sekundy

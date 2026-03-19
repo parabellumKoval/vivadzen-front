@@ -1,0 +1,77 @@
+ru:
+  badge: "Акция"
+  fallback_title: "Специальное предложение"
+  catalog_button: "Смотреть товары"
+  conditions_button: "Условия акции"
+  timer:
+    days: "дней"
+    hours: "часов"
+    minutes: "мин"
+    seconds: "сек"
+    status_days: "До конца акции {count} дн."
+    status_hours: "До конца акции {count} ч."
+
+en:
+  badge: "Campaign"
+  fallback_title: "Special offer"
+  catalog_button: "View products"
+  conditions_button: "Campaign terms"
+  timer:
+    days: "days"
+    hours: "hours"
+    minutes: "min"
+    seconds: "sec"
+    status_days: "Offer ends in {count} days"
+    status_hours: "Offer ends in {count} hours"
+
+cs:
+  badge: "Akce"
+  fallback_title: "Speciální nabídka"
+  catalog_button: "Zobrazit produkty"
+  conditions_button: "Podmínky akce"
+  timer:
+    days: "dny"
+    hours: "hod"
+    minutes: "min"
+    seconds: "sek"
+    status_days: "Akce končí za {count} dn."
+    status_hours: "Akce končí za {count} hod."
+
+uk:
+  badge: "Акція"
+  fallback_title: "Спеціальна пропозиція"
+  catalog_button: "Переглянути товари"
+  conditions_button: "Умови акції"
+  timer:
+    days: "днів"
+    hours: "год"
+    minutes: "хв"
+    seconds: "сек"
+    status_days: "До кінця акції {count} дн."
+    status_hours: "До кінця акції {count} год."
+
+de:
+  badge: "Aktion"
+  fallback_title: "Sonderangebot"
+  catalog_button: "Produkte ansehen"
+  conditions_button: "Aktionsbedingungen"
+  timer:
+    days: "Tage"
+    hours: "Std"
+    minutes: "Min"
+    seconds: "Sek"
+    status_days: "Angebot endet in {count} Tagen"
+    status_hours: "Angebot endet in {count} Stunden"
+
+es:
+  badge: "Promoción"
+  fallback_title: "Oferta especial"
+  catalog_button: "Ver productos"
+  conditions_button: "Condiciones"
+  timer:
+    days: "días"
+    hours: "horas"
+    minutes: "min"
+    seconds: "seg"
+    status_days: "La oferta termina en {count} días"
+    status_hours: "La oferta termina en {count} horas"

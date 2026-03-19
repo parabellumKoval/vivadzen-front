@@ -108,35 +108,48 @@ const closeModal = () => {
 <template>
   <modal-wrapper no-padding>
     <div class="campaign-modal">
-      <section class="campaign-modal-hero">
-        <nuxt-img
+      <section class="campaign-modal-shell">
+        <div class="campaign-modal-pattern" aria-hidden="true"></div>
+
+        <div
           v-if="campaign?.horizontal_banner"
-          :src="campaign.horizontal_banner"
-          :alt="campaign?.name || t('campaign.conditions_title')"
-          provider="bunny"
-          loading="lazy"
-          width="1200"
-          height="380"
-          quality="75"
-          fit="cover"
-          class="campaign-modal-hero-image"
-        />
+          class="campaign-modal-media"
+        >
+          <nuxt-img
+            :src="campaign.horizontal_banner"
+            :alt="campaign?.name || t('campaign.conditions_title')"
+            provider="bunny"
+            loading="lazy"
+            width="1200"
+            height="380"
+            quality="75"
+            fit="cover"
+            class="campaign-modal-media-image"
+          />
+        </div>
 
-        <div class="campaign-modal-hero-overlay"></div>
+        <div class="campaign-modal-summary">
+          <div class="campaign-modal-topline">
+            <div class="campaign-modal-badge">
+              <IconCSS name="streamline:flash-1-remix" class="campaign-modal-badge-icon" />
+              <span>{{ t('campaign.campaign_title') }}</span>
+            </div>
 
-        <div class="campaign-modal-hero-content">
-          <div class="campaign-modal-badge">
-            <IconCSS name="streamline:flash-1-remix" class="campaign-modal-badge-icon" />
-            <span>{{ t('campaign.campaign_title') }}</span>
+            <div v-if="timerText" class="campaign-modal-deadline">
+              <IconCSS name="ph:timer-bold" class="campaign-modal-deadline-icon" />
+              <span>{{ timerText }}</span>
+            </div>
           </div>
 
-          <h2 class="campaign-modal-title">{{ campaign?.name || t('campaign.conditions_title') }}</h2>
+          <div class="campaign-modal-copy">
+            <h2 class="campaign-modal-title">{{ campaign?.name || t('campaign.conditions_title') }}</h2>
 
-          <p v-if="campaign?.short_description" class="campaign-modal-description">
-            {{ campaign.short_description }}
-          </p>
+            <p v-if="campaign?.short_description" class="campaign-modal-description">
+              {{ campaign.short_description }}
+            </p>
+          </div>
 
-          <div v-if="countdownSegments.length" class="campaign-modal-timer-wrap">
+          <div v-if="countdownSegments.length" class="campaign-modal-timer">
             <div class="campaign-modal-timer-grid">
               <div v-for="segment in countdownSegments" :key="segment.key" class="campaign-modal-timer-segment">
                 <div class="campaign-modal-timer-value">{{ segment.value }}</div>
@@ -148,7 +161,7 @@ const closeModal = () => {
 
           <NuxtLink
             :to="campaignCatalogPath"
-            class="button promo campaign-modal-catalog-btn"
+            class="button campaign-modal-catalog-btn"
             @click="closeModal"
           >
             {{ t('campaign.view_all_products') }}

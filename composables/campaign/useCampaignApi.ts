@@ -15,7 +15,22 @@ export const useCampaignApi = () => {
     return Array.isArray(payload?.data) ? payload.data : []
   }
 
+  const show = async (slug: string): Promise<CampaignApiItem | null> => {
+    if (!slug) {
+      return null
+    }
+
+    const { data, error } = await useApiFetch(`${runtimeConfig.public.apiBase}/campaign/${encodeURIComponent(slug)}`, null, 'GET', { lazy: false })
+
+    if (error?.value) {
+      return null
+    }
+
+    return data?.value || null
+  }
+
   return {
-    list
+    list,
+    show
   }
 }

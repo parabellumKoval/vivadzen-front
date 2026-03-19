@@ -36,7 +36,11 @@ export const useFilter = () => {
   const modelValue = useState<Filter[]>('activeFilters', () => [])
 
   const resetUrl = () => {
-    router.push({ query: {} })
+    const preservedQuery = typeof route.query.campaign === 'string' && route.query.campaign
+      ? { campaign: route.query.campaign }
+      : {}
+
+    router.push({ query: preservedQuery })
   }
 
   const resetFilters = () => {
@@ -54,7 +58,7 @@ export const useFilter = () => {
 
   // Computeds
   const activeAttrs = computed(() => {
-    const excludeKeys = ['order_by', 'order_dir', 'page'];
+    const excludeKeys = ['order_by', 'order_dir', 'page', 'campaign'];
 
     return modelValue.value.filter((item) => {
       if(!excludeKeys.includes(item.id)) return true
@@ -94,6 +98,9 @@ export const useFilter = () => {
       const paramValue = currentQuery[paramName]
       if (!paramValue) continue
 
+      if (paramName === 'campaign') {
+        continue
+      }
 
       if(paramName === 'attrs') {
 
@@ -123,8 +130,7 @@ export const useFilter = () => {
       return
     }
 
-    // In other cases remove all filters from modelValue
-    resetFilters()
+    updateModelValue([])
     return []
   }
 

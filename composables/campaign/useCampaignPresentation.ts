@@ -1,5 +1,8 @@
 type CampaignLike = {
+  is_active?: boolean
+  discount_percent?: number
   is_timed?: boolean
+  starts_at?: string | null
   ends_at?: string | null
   show_timer_card?: boolean
   show_timer_product?: boolean
@@ -30,6 +33,35 @@ export const useCampaignPresentation = () => {
     }
 
     return Boolean(campaign.show_timer_product)
+  }
+
+  const isActive = (
+    campaign: CampaignLike | null | undefined,
+    nowDate: Date = new Date()
+  ): boolean => {
+    if (!campaign) {
+      return false
+    }
+
+    if (campaign.is_active === false) {
+      return false
+    }
+
+    if (typeof campaign.discount_percent === 'number' && campaign.discount_percent <= 0) {
+      return false
+    }
+
+    if (!campaign.is_timed) {
+      return true
+    }
+
+    const startsAt = parseDate(campaign.starts_at)
+    const endsAt = parseDate(campaign.ends_at)
+
+    const startsOk = !startsAt || startsAt.getTime() <= nowDate.getTime()
+    const endsOk = !endsAt || endsAt.getTime() >= nowDate.getTime()
+
+    return startsOk && endsOk
   }
 
   const getTimerText = (
@@ -64,11 +96,16 @@ export const useCampaignPresentation = () => {
   }
 
   const getLabel = (campaign: CampaignLike | null | undefined): string | null => {
+    if (!isActive(campaign)) {
+      return null
+    }
+
     const label = typeof campaign?.name === 'string' ? campaign.name.trim() : ''
     return label || null
   }
 
   return {
+    isActive,
     getTimerText,
     getLabel
   }
