@@ -149,8 +149,6 @@ messages:
   select_region_delivery_notice: To view every available delivery option and read the details, please select your delivery country first
   select_region_payment_notice: To view every available payment option and read the details, please select your delivery country first
   email_verification_required: A confirmation link has been sent to your email. Please verify your email address to activate your account.
-  verify_age_before_order: Complete ADULTO.cz age verification before placing the order.
-  adulto_unavailable: ADULTO.cz is temporarily unavailable. Please try again later.
 
 message:
   email_verification_required: A confirmation link has been sent to your email. Please verify your email address to activate your account.
@@ -170,10 +168,6 @@ age_gate:
   description: Please confirm you are at least 18 years old to continue on Vivadzen.
   confirm: Yes, I'm 18+
   decline: No, take me away
-
-age_verification:
-  badge: 18+ sale
-  product_banner: This product can be purchased in the Czech Republic only after ADULTO.cz age verification during checkout.
 
 campaign:
   campaign_title: Campaign
@@ -263,6 +257,7 @@ form:
     novaposhta_address: Nova Poshta courier delivery
     packeta_warehouse: Zasilkovna branch/parcel locker
     packeta_address: Zasilkovna courier delivery
+    messenger_address: Messenger.cz courier delivery
     default_pickup: Pickup
     default_address: Postal delivery
   payment:
@@ -271,6 +266,7 @@ form:
     default_cash: Pay on delivery
     zasilkovna_cod: Zasilkovna cash on delivery
     novaposhta_cod: Nova Poshta cash on delivery
+    messenger_cod: Messenger.cz cash on delivery
     bank_transfer: Bank transfer
 
 status:
@@ -409,6 +405,7 @@ delivery:
   packeta_address: By Zasilkovna courier
   novaposhta_warehouse: Nova Poshta branch/locker
   novaposhta_address: By Nova Poshta courier
+  messenger_address: By Messenger.cz courier
   default_pickup: Pickup
   from: from
   subtitle: Delivery methods depend on the selected country. Change the delivery country to see options for your region.
@@ -429,6 +426,9 @@ payments:
     desc: Pay by card or cash upon receipt
   novaposhta_cod:
     title: Nova Poshta cash on delivery
+    desc: Pay by card or cash upon receipt
+  messenger_cod:
+    title: Messenger.cz cash on delivery
     desc: Pay by card or cash upon receipt
   bank_transfer:
     title: Bank transfer

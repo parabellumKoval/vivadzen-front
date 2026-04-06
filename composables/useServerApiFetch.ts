@@ -12,11 +12,14 @@ export const useServerApiFetch = async (url: string, body: Object = null, method
 
 
   const locale = useNuxtApp().$i18n.locale
+  const runtimeConfig = useRuntimeConfig()
+  const storefrontCode = String(runtimeConfig.public.storefrontCode || 'main').trim()
 
   const headers: Record<string, any> = {
     'Accept': 'application/json',
     'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value,
     'X-Requested-With': 'XMLHttpRequest',
+    'X-Storefront': storefrontCode,
     'Accept-Language': locale.value
   };
   const { token } = useAuth()

@@ -20,7 +20,6 @@ const props = defineProps({
 })
 
 const { setHreflangRegions, clearHreflangRegions } = useHreflang()
-const { region } = useRegion()
 const {t} = useI18n()
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
@@ -205,14 +204,6 @@ const tabs = computed(() => {
   // }
 
   return list
-})
-
-const requiresAgeVerification = computed(() => {
-  return Boolean(props.product?.requiresAgeVerification ?? props.product?.requires_age_verification)
-})
-
-const shouldShowAgeVerificationNotice = computed(() => {
-  return String(region.value || '').toLowerCase() === 'cz' && requiresAgeVerification.value
 })
 
 const campaign = computed(() => {
@@ -427,13 +418,6 @@ onBeforeUnmount(() => {
         />
       </transition>
 
-      <transition name="fade-in">
-        <product-age-verification-notice
-          v-if="shouldShowAgeVerificationNotice"
-          class="content-age-verification"
-        />
-      </transition>
-      
       <div  :class="{'header-visible': isVisible }"  class="tab-row">
         <div v-if="$device.isMobile" class="tab-back-slot">
           <LazyProductTabBackButton :fallback="tabsBackLink"></LazyProductTabBackButton>

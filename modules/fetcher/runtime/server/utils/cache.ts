@@ -5,11 +5,13 @@ import { useRuntimeConfig, useStorage } from '#imports'
 export interface FetcherContextInput {
   locale?: string | null
   region?: string | null
+  storefront?: string | null
 }
 
 interface FetcherNormalizedContext {
   locale: string | null
   region: string | null
+  storefront: string | null
   key: string
 }
 
@@ -43,6 +45,7 @@ interface FetcherRuntimeConfig {
 interface FetcherContextDescriptor {
   locale: string | null
   region: string | null
+  storefront: string | null
   key: string
 }
 
@@ -66,6 +69,7 @@ export interface FetcherPayloadResult<T = unknown> {
 export interface RefreshFetcherResultContext {
   locale: string | null
   region: string | null
+  storefront: string | null
   fetchedAt: number
 }
 
@@ -121,8 +125,8 @@ function normalizeLookupPath(path: string) {
   return withoutTrailingSlash(withSlash)
 }
 
-function buildContextKey(locale: string | null, region: string | null) {
-  return `${locale ?? ''}::${region ?? ''}`
+function buildContextKey(locale: string | null, region: string | null, storefront: string | null) {
+  return `${locale ?? ''}::${region ?? ''}::${storefront ?? ''}`
 }
 
 function parseLocale(input?: string | null) {
@@ -138,6 +142,13 @@ function parseRegion(input?: string | null) {
   if (!input) return null
   const trimmed = input.trim()
   return trimmed.length ? trimmed : null
+}
+
+function parseStorefront(input?: string | null) {
+  if (!input) return null
+  const trimmed = input.trim().toLowerCase()
+  const normalized = trimmed.replace(/[^a-z0-9_-]/g, '')
+  return normalized.length ? normalized : null
 }
 
 function normalizeValue(value?: string | null) {
@@ -193,22 +204,30 @@ function collectEndpointContexts(
   const regionSource =
     endpoint.dependsOnRegion && config.regions.length > 0 ? config.regions : [null]
 
+  const storefront = defaultStorefront()
+
   const descriptors: FetcherContextDescriptor[] = []
   for (const locale of localeSource) {
     for (const region of regionSource) {
       const effectiveLocale = endpoint.dependsOnLocale ? normalizeValue(locale) : null
       const effectiveRegion = endpoint.dependsOnRegion ? normalizeValue(region) : null
-      const key = buildContextKey(effectiveLocale, effectiveRegion)
+      const key = buildContextKey(effectiveLocale, effectiveRegion, storefront)
       if (!descriptors.find((descriptor) => descriptor.key === key)) {
         descriptors.push({
           locale: effectiveLocale,
           region: effectiveRegion,
+          storefront,
           key
         })
       }
     }
   }
   return descriptors
+}
+
+function defaultStorefront() {
+  const config = useRuntimeConfig()
+  return parseStorefront((config.public?.storefrontCode as string | undefined) ?? null)
 }
 
 function makeContextSignature(contexts: FetcherContextDescriptor[]) {
@@ -229,14 +248,17 @@ function normalizeContextForEndpoint(
 ): FetcherNormalizedContext {
   const rawLocale = parseLocale(context.locale ?? null)
   const rawRegion = parseRegion(context.region ?? null)
+  const rawStorefront = parseStorefront(context.storefront ?? defaultStorefront())
 
   const locale = endpoint.dependsOnLocale ? rawLocale : null
   const region = endpoint.dependsOnRegion ? rawRegion : null
+  const storefront = rawStorefront
 
   return {
     locale,
     region,
-    key: buildContextKey(locale, region)
+    storefront,
+    key: buildContextKey(locale, region, storefront)
   }
 }
 
@@ -285,6 +307,9 @@ async function fetchEndpointPayload(
   }
   if (context.region) {
     headers['X-Region'] = context.region
+  }
+  if (context.storefront) {
+    headers['X-Storefront'] = context.storefront
   }
 
   const requestInit: {
@@ -407,12 +432,13 @@ export async function refreshFetcherEndpoint(
   const entry = await ensureCacheEntry(key, endpoint, contexts)
 
   const targets: FetcherNormalizedContext[] =
-    contextInput && (contextInput.locale || contextInput.region)
+    contextInput && (contextInput.locale || contextInput.region || contextInput.storefront)
       ? [normalizeContextForEndpoint(endpoint, contextInput)]
       : contexts.map((ctx) =>
           normalizeContextForEndpoint(endpoint, {
             locale: ctx.locale,
-            region: ctx.region
+            region: ctx.region,
+            storefront: ctx.storefront
           })
         )
 
@@ -423,6 +449,7 @@ export async function refreshFetcherEndpoint(
     refreshed.push({
       locale: context.locale,
       region: context.region,
+      storefront: context.storefront,
       fetchedAt: updated.fetchedAt
     })
   }
@@ -454,6 +481,7 @@ export function findFetcherEndpointKeyByWebhook(path: string) {
 export function inferContextFromHeaders(headers: Record<string, string | undefined>): FetcherContextInput {
   return {
     locale: parseLocale(headers['accept-language'] ?? headers['Accept-Language'] ?? null),
-    region: parseRegion(headers['x-region'] ?? headers['X-Region'] ?? null)
+    region: parseRegion(headers['x-region'] ?? headers['X-Region'] ?? null),
+    storefront: parseStorefront(headers['x-storefront'] ?? headers['X-Storefront'] ?? null)
   }
 }

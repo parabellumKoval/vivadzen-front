@@ -144,8 +144,6 @@ messages:
   select_region_delivery_notice: Щоб побачити всі доступні способи доставки та детальну інформацію, спочатку оберіть країну доставки
   select_region_payment_notice: Щоб побачити всі доступні способи оплати та детальну інформацію, спочатку оберіть країну доставки
   email_verification_required: На вашу електронну пошту надіслано посилання для підтвердження. Будь ласка, підтвердіть свою адресу електронної пошти, щоб активувати свій обліковий запис.
-  verify_age_before_order: Підтвердіть вік через ADULTO.cz перед оформленням замовлення.
-  adulto_unavailable: Сервіс ADULTO.cz тимчасово недоступний. Спробуйте пізніше.
 
 message:
   email_verification_required: На вашу електронну пошту надіслано посилання для підтвердження. Будь ласка, підтвердіть свою адресу електронної пошти, щоб активувати свій обліковий запис.
@@ -165,10 +163,6 @@ age_gate:
   description: Підтвердіть, що вам виповнилося 18 років, щоб продовжити користуватися Vivadzen.
   confirm: Так, мені 18+
   decline: Ні
-
-age_verification:
-  badge: Продаж 18+
-  product_banner: Цей товар у Чехії можна придбати лише після підтвердження віку через ADULTO.cz на етапі оформлення замовлення.
 
 campaign:
   campaign_title: Акція
@@ -258,6 +252,7 @@ form:
     novaposhta_address: Курʼєром Нової Пошти
     packeta_warehouse: Відділення/поштомат Zasilkovna
     packeta_address: Курʼєром Zasilkovna
+    messenger_address: Доставка курʼєром Messenger.cz
     default_pickup: Самовивіз
     default_address: Доставка поштою
   payment:
@@ -266,6 +261,7 @@ form:
     default_cash: Оплата при отриманні
     zasilkovna_cod: Накладений платіж Zasilkovna
     novaposhta_cod: Накладений платіж Нова Пошта
+    messenger_cod: Накладений платіж Messenger.cz
     bank_transfer: Банківський переказ
 
 status:
@@ -404,6 +400,7 @@ delivery:
   packeta_address: Курʼєром Zasilkovna
   novaposhta_warehouse: Відділення/поштомат Нової Пошти
   novaposhta_address: Курʼєром Нової Пошти
+  messenger_address: Курʼєром Messenger.cz
   default_pickup: Самовивіз
   from: від
   subtitle: Способи доставки залежать від вибраної країни. Змініть країну доставки, щоб побачити варіанти для вашого регіону.
@@ -424,6 +421,9 @@ payments:
     desc: Оплата карткою або готівкою при отриманні
   novaposhta_cod:
     title: Накладений платіж Нова Пошта
+    desc: Оплата карткою або готівкою при отриманні
+  messenger_cod:
+    title: Накладений платіж Messenger.cz
     desc: Оплата карткою або готівкою при отриманні
   bank_transfer:
     title: Банківський переказ

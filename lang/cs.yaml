@@ -144,8 +144,6 @@ messages:
   select_region_delivery_notice: Abyste viděli všechny dostupné způsoby doručení a podrobné informace, nejprve vyberte zemi doručení
   select_region_payment_notice: Abyste viděli všechny dostupné platební metody a podrobné informace, nejprve vyberte zemi doručení
   email_verification_required: Na vaši e-mailovou adresu byl odeslán potvrzovací odkaz. Prosím, ověřte svou e-mailovou adresu, abyste aktivovali svůj účet.
-  verify_age_before_order: Před odesláním objednávky dokončete ověření věku přes ADULTO.cz.
-  adulto_unavailable: Služba ADULTO.cz je dočasně nedostupná. Zkuste to prosím později.
 
 message:
   email_verification_required: Na vaši e-mailovou adresu byl odeslán potvrzovací odkaz. Prosím, ověřte svou e-mailovou adresu, abyste aktivovali svůj účet.
@@ -165,10 +163,6 @@ age_gate:
   description: Potvrďte prosím, že vám je alespoň 18 let, abyste mohli pokračovat na Vivadzen.
   confirm: Ano, je mi 18+
   decline: Ne
-
-age_verification:
-  badge: Prodej 18+
-  product_banner: Tento produkt lze v České republice zakoupit pouze po ověření věku přes ADULTO.cz při dokončení objednávky.
 
 campaign:
   campaign_title: Akce
@@ -258,6 +252,7 @@ form:
     novaposhta_address: Kurýr Nova Poshta
     packeta_warehouse: Pobočka/box Zasilkovna
     packeta_address: Kurýr Zasilkovna
+    messenger_address: Doručení kurýrem Messenger.cz
     default_pickup: Osobní odběr
     default_address: Poštovní doručení
   payment:
@@ -266,6 +261,7 @@ form:
     default_cash: Platba při převzetí
     zasilkovna_cod: Dobírka Zasilkovna
     novaposhta_cod: Dobírka Nova Poshta
+    messenger_cod: Dobírka Messenger.cz
     bank_transfer: Bankovní převod
 
 status:
@@ -404,6 +400,7 @@ delivery:
   packeta_address: Kurýr Zasilkovna
   novaposhta_warehouse: Pobočka/box Nova Poshta
   novaposhta_address: Kurýr Nova Poshta
+  messenger_address: Kurýr Messenger.cz
   default_pickup: Osobní odběr
   from: od
   subtitle: Způsoby doručení závisí na zvolené zemi. Změňte zemi doručení a zobrazte dostupné možnosti pro váš region.
@@ -424,6 +421,9 @@ payments:
     desc: Zaplaťte kartou nebo hotově při převzetí
   novaposhta_cod:
     title: Dobírka Nova Poshta
+    desc: Zaplaťte kartou nebo hotově při převzetí
+  messenger_cod:
+    title: Dobírka Messenger.cz
     desc: Zaplaťte kartou nebo hotově při převzetí
   bank_transfer:
     title: Bankovní převod

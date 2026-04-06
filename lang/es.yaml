@@ -164,10 +164,6 @@ age_gate:
   confirm: Sí, tengo 18+
   decline: No
 
-age_verification:
-  badge: Venta 18+
-  product_banner: Este producto en Chequia solo se puede comprar tras la verificación de edad de ADULTO.cz durante el proceso de compra.
-
 campaign:
   campaign_title: Promoción
   view_conditions: Ver condiciones
@@ -256,6 +252,7 @@ form:
     novaposhta_address: Entrega por mensajero de Nova Poshta
     packeta_warehouse: Sucursal/locker de Zasilkovna
     packeta_address: Entrega por mensajero de Zasilkovna
+    messenger_address: Entrega por mensajería Messenger.cz
     default_pickup: Recogida
     default_address: Envío postal
   payment:
@@ -264,6 +261,7 @@ form:
     default_cash: Pago contra entrega
     zasilkovna_cod: Contra reembolso Zasilkovna
     novaposhta_cod: Contra reembolso Nova Poshta
+    messenger_cod: Contra reembolso Messenger.cz
     bank_transfer: Transferencia bancaria
 
 status:
@@ -402,6 +400,7 @@ delivery:
   packeta_address: Por mensajero de Zasilkovna
   novaposhta_warehouse: Sucursal/locker de Nova Poshta
   novaposhta_address: Por mensajero de Nova Poshta
+  messenger_address: Por mensajería Messenger.cz
   default_pickup: Recogida
   from: desde
   subtitle: Los métodos de entrega dependen del país seleccionado. Cambia el país de entrega para ver las opciones de tu región.
@@ -422,6 +421,9 @@ payments:
     desc: Paga con tarjeta o efectivo al recibir
   novaposhta_cod:
     title: Contra reembolso Nova Poshta
+    desc: Paga con tarjeta o efectivo al recibir
+  messenger_cod:
+    title: Contra reembolso Messenger.cz
     desc: Paga con tarjeta o efectivo al recibir
   bank_transfer:
     title: Transferencia bancaria

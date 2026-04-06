@@ -159,10 +159,6 @@ age_gate:
   confirm: Ja, ich bin 18+
   decline: Nein
 
-age_verification:
-  badge: Verkauf 18+
-  product_banner: Dieses Produkt kann in Tschechien nur nach ADULTO.cz-Altersverifizierung während des Checkouts gekauft werden.
-
 campaign:
   campaign_title: Aktion
   view_conditions: Bedingungen ansehen
@@ -251,6 +247,7 @@ form:
     novaposhta_address: Nova-Poshta-Kurierzustellung
     packeta_warehouse: Zasilkovna-Filiale/Paketautomat
     packeta_address: Zasilkovna-Kurierzustellung
+    messenger_address: Messenger.cz-Kurierzustellung
     default_pickup: Abholung
     default_address: Postzustellung
   payment:
@@ -259,6 +256,7 @@ form:
     default_cash: Nachnahme
     zasilkovna_cod: Zasilkovna-Nachnahme
     novaposhta_cod: Nova-Poshta-Nachnahme
+    messenger_cod: Messenger.cz-Nachnahme
     bank_transfer: Banküberweisung
 
 status:
@@ -397,6 +395,7 @@ delivery:
   packeta_address: Per Zasilkovna-Kurier
   novaposhta_warehouse: Nova-Poshta-Filiale/Paketautomat
   novaposhta_address: Per Nova-Poshta-Kurier
+  messenger_address: Per Messenger.cz-Kurier
   default_pickup: Abholung
   from: ab
   subtitle: Liefermethoden hängen vom gewählten Land ab. Ändern Sie das Lieferland, um verfügbare Optionen zu sehen.
@@ -417,6 +416,9 @@ payments:
     desc: Bei Erhalt per Karte oder bar bezahlen
   novaposhta_cod:
     title: Nova-Poshta-Nachnahme
+    desc: Bei Erhalt per Karte oder bar bezahlen
+  messenger_cod:
+    title: Messenger.cz-Nachnahme
     desc: Bei Erhalt per Karte oder bar bezahlen
   bank_transfer:
     title: Banküberweisung

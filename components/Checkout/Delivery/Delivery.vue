@@ -85,6 +85,10 @@ const deliveryMethod = computed({
       <div v-else-if="order.delivery.method === 'default_pickup'" class="form-grid">
         <checkout-delivery-providers-default-pickup></checkout-delivery-providers-default-pickup>
       </div>
+      <!-- Messenger delivery -->
+      <div v-else-if="order.delivery.method === 'messenger_address'" class="form-grid">
+        <checkout-delivery-providers-default-address></checkout-delivery-providers-default-address>
+      </div>
       <!-- Address delivery -->
       <div v-else-if="order.delivery.method === 'default_address'" class="form-grid">
         <checkout-delivery-providers-default-address></checkout-delivery-providers-default-address>

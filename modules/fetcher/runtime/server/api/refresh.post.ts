@@ -28,14 +28,16 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const headerContext = inferContextFromHeaders({
     'accept-language': getHeader(event, 'accept-language') || undefined,
-    'x-region': getHeader(event, 'x-region') || undefined
+    'x-region': getHeader(event, 'x-region') || undefined,
+    'x-storefront': getHeader(event, 'x-storefront') || undefined
   })
 
   const contextProvided =
-    typeof query.locale === 'string' || typeof query.region === 'string' || headerContext.locale || headerContext.region
+    typeof query.locale === 'string' || typeof query.region === 'string' || typeof query.storefront === 'string' || headerContext.locale || headerContext.region || headerContext.storefront
       ? {
           locale: typeof query.locale === 'string' ? query.locale : headerContext.locale,
-          region: typeof query.region === 'string' ? query.region : headerContext.region
+          region: typeof query.region === 'string' ? query.region : headerContext.region,
+          storefront: typeof query.storefront === 'string' ? query.storefront : headerContext.storefront
         }
       : undefined
 

@@ -17,6 +17,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const locale = i18n?.locale;
   const region = regionStore.regionAlias;  
+  const storefrontCode = String(config.public.storefrontCode || 'main').trim()
 
 
   const $api = $fetch.create({
@@ -29,6 +30,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       const base: Record<string, string> = {
         Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
+        'X-Storefront': storefrontCode,
         ...(locale?.value ? { 'Accept-Language': locale.value } : {}),
         ...(region?.value ? { 'X-Region': region.value } : {}),
       }

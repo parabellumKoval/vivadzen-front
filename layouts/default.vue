@@ -2,6 +2,8 @@
 const route = useRoute()
 const title = 'Vivadzen.com'
 const { get } = useSettings()
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = String(runtimeConfig.public?.site?.url || runtimeConfig.public?.siteUrl || '').replace(/\/+$/, '')
 
 const head = useLocaleHead({
   addDirAttribute: true,
@@ -44,8 +46,8 @@ watch(() => route.fullPath, (v) => {
 // HOOKS
 useSchemaOrg([
   defineWebSite({
-    url: 'https://vivadzen.com',
-    name: 'vivadzen.com',
+    url: siteUrl,
+    name: new URL(siteUrl).hostname,
   }),
   defineWebPage(),
 ])

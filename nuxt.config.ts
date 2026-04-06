@@ -4,7 +4,7 @@ import path from 'path'
 import { REGIONS_MODULE_OPTIONS, buildSitemapsOptions } from './utils/sitemap'
 
 const HOST = process.env.HOST_IP || 'localhost'
-const SITE_URL = process.env.SITE_URL || (process.env.NODE_ENV === 'production' ? `https://${HOST}` : `http://${HOST}:3000`)
+const HOST_URL = process.env.NODE_ENV === 'production' ? `https://${HOST}` : `http://${HOST}:3000`
 const SERVER_URL = process.env.SERVER_URL || `http://${HOST}:8000`
 const API_SERVER_URL = process.env.API_SERVER_URL || `${SERVER_URL}/api`
 const DOMAIN = process.env.DOMAIN || `${HOST}:8000`
@@ -24,14 +24,13 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       site: {
-        url: SITE_URL
+        url: HOST_URL
       },
-      siteUrl: SITE_URL,
-      frontendUrl: SITE_URL,
+      siteUrl: HOST_URL,
+      frontendUrl: HOST_URL,
       serverBase: SERVER_URL,
       apiBase: API_SERVER_URL,
-      adultoPublicKey: process.env.NUXT_PUBLIC_ADULTO_PUBLIC_KEY || '',
-      adultoWidgetScriptUrl: process.env.NUXT_PUBLIC_ADULTO_WIDGET_SCRIPT_URL || 'https://api.js.m2a.cz/api.js',
+      storefrontCode: 'main',
       instagramToken: process.env.INSTAGRAM_TOKEN,
       imagesDir: '/server/uploads/images',
       noimage: '/images/noimage.png',
@@ -443,7 +442,7 @@ export default defineNuxtConfig({
 
   site: {
     indexable: true,
-    url: 'https://vivadzen.com',
+    url: HOST_URL,
     name: 'Vivadzen',
     description: 'Vivadzen desc',
   },
@@ -472,7 +471,7 @@ export default defineNuxtConfig({
   // },
   
   i18n: {
-    baseUrl: 'https://vivadzen.com',
+    baseUrl: HOST_URL,
     defaultLocale: 'uk',
     lazy: true,
     strategy: 'no_prefix',
@@ -534,7 +533,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     enabled: true,
-    siteUrl: SITE_URL,
+    siteUrl: HOST_URL,
     cacheMaxAgeSeconds: 3600,
 
     exclude: [

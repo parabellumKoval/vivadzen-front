@@ -18,6 +18,15 @@ function normalizeLocale(value: any): string | undefined {
   return undefined
 }
 
+function resolveStorefront(value: any): string | undefined {
+  if (!value) return undefined
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    return trimmed || undefined
+  }
+  return undefined
+}
+
 export function useFetcherData<T = unknown>(
   endpointKey: string,
   options: UseFetcherDataOptions<T> = {}
@@ -35,12 +44,14 @@ export function useFetcherData<T = unknown>(
   const locale = normalizeLocale(i18n?.locale)
   const regionStore = useRegion()
   const region = normalizeLocale(regionStore.regionAlias)
+  const storefront = resolveStorefront(runtimeConfig.public?.storefrontCode)
 
   const headers: Record<string, string> = {
     Accept: 'application/json'
   }
   if (locale) headers['Accept-Language'] = locale
   if (region) headers['X-Region'] = region
+  if (storefront) headers['X-Storefront'] = storefront
 
   const query = {
     ...options.query
@@ -55,7 +66,7 @@ export function useFetcherData<T = unknown>(
 
   const asyncKey =
     options.key ??
-    `fetcher:${endpointKey}:${locale ?? ''}:${region ?? ''}:${JSON.stringify(query)}`
+    `fetcher:${endpointKey}:${locale ?? ''}:${region ?? ''}:${storefront ?? ''}:${JSON.stringify(query)}`
 
   // return useAsyncData(
   //   asyncKey,

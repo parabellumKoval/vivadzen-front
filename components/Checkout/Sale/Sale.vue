@@ -5,14 +5,6 @@ const {t} = useI18n()
 const { $regionPath } = useNuxtApp();
 const { orderable, user } = useAuth()
 const {currency, region, fallbackRegion} = useRegion()
-const runtimeConfig = useRuntimeConfig()
-const { get: getSetting } = useSettings()
-
-const props = defineProps({
-  cart: {
-    type: Object
-  }
-})
 
 const emit = defineEmits(['scrollToError'])
 
@@ -53,42 +45,8 @@ const order = computed(() => {
   return useCartStore().order
 })
 
-const errors = computed(() => {
-  return useCartStore().errors
-})
-
 const promocodeSale = computed(() => {
   return useCartStore().promocodeSale
-})
-
-const adultoPublicKey = computed(() => {
-  return String(runtimeConfig.public.adultoPublicKey || '').trim()
-})
-
-const ageVerificationFeatureEnabled = computed(() => {
-  return Boolean(getSetting('store.age_verification.adulto.enabled', false))
-})
-
-const cartRequiresAgeVerification = computed(() => {
-  return useCartStore().cart.some((product) => {
-    return Boolean(product?.requiresAgeVerification || product?.requires_age_verification)
-  })
-})
-
-const isCzechRegion = computed(() => {
-  return String(region.value || '').toLowerCase() === 'cz'
-})
-
-const ageVerificationRequired = computed(() => {
-  return ageVerificationFeatureEnabled.value && isCzechRegion.value && cartRequiresAgeVerification.value
-})
-
-const ageVerificationReady = computed(() => {
-  return String(order.value?.age_verification_uid || '').trim().length > 0
-})
-
-const ageVerificationUnavailable = computed(() => {
-  return ageVerificationRequired.value && adultoPublicKey.value.length === 0
 })
 
 const actionBlocked = computed(() => {
@@ -96,67 +54,12 @@ const actionBlocked = computed(() => {
     return true
   }
 
-  if (ageVerificationUnavailable.value) {
-    return true
-  }
-
-  if (ageVerificationRequired.value && !ageVerificationReady.value) {
-    return true
-  }
-
   return false
-})
-
-const ageVerificationErrorMessage = computed(() => {
-  return errors.value?.age_verification_uid?.[0] || null
 })
 
 
 // METHODS
-const ensureAgeVerificationBeforeSubmit = () => {
-  if (ageVerificationUnavailable.value) {
-    useNoty().setNoty({
-      title: t('error.error'),
-      content: t('messages.adulto_unavailable'),
-      type: 'error'
-    }, 7000)
-    return false
-  }
-
-  if (ageVerificationRequired.value && !ageVerificationReady.value) {
-    useNoty().setNoty({
-      title: t('error.error'),
-      content: t('messages.verify_age_before_order'),
-      type: 'error'
-    }, 7000)
-    return false
-  }
-
-  return true
-}
-
-const ageVerificationSuccessHandler = (uid) => {
-  order.value.age_verification_uid = uid
-
-  if (errors.value?.age_verification_uid) {
-    errors.value.age_verification_uid = null
-  }
-}
-
-const ageVerificationErrorHandler = (message) => {
-  useNoty().setNoty({
-    title: t('error.error'),
-    content: message || t('messages.verify_age_before_order'),
-    type: 'error'
-  }, 7000)
-}
-
-// HANDLERS
 const goCompleteHandler = () => {
-  if (!ensureAgeVerificationBeforeSubmit()) {
-    return
-  }
-
   const payload = { ...orderable.value }
   useCartStore().createOrder(payload).then((response) => {
     if(response?.code) {
@@ -175,10 +78,6 @@ const goCompleteHandler = () => {
 }
 
 const goPayHandler = () => {
-  if (!ensureAgeVerificationBeforeSubmit()) {
-    return
-  }
-
   const payload = { ...orderable.value }
   useCartStore().validate(payload).then((response) => {
     if(response) {
@@ -246,19 +145,6 @@ const goPayHandler = () => {
         <checkout-bonus></checkout-bonus>
 
         <checkout-promocode></checkout-promocode>
-
-        <div v-if="ageVerificationRequired" class="sale-age-verification">
-          <checkout-age-verification-adulto
-            v-model="order.age_verification_uid"
-            :required="ageVerificationRequired"
-            :public-key="adultoPublicKey"
-            @update:modelValue="ageVerificationSuccessHandler"
-            @error="ageVerificationErrorHandler"
-          />
-          <div v-if="ageVerificationErrorMessage" class="sale-age-verification__error">
-            {{ ageVerificationErrorMessage }}
-          </div>
-        </div>
 
         <div class="sale-footer">
           <div class="sale-item">

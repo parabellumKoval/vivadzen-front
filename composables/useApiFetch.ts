@@ -69,8 +69,10 @@ export const useApiFetch = async (
   options: Options = {}
 ) => {
   const { $api } = useNuxtApp()
+  const runtimeConfig = useRuntimeConfig()
   const { regionAlias } = useRegion()
   const locale = useNuxtApp().$i18n?.locale
+  const storefrontCode = String(runtimeConfig.public.storefrontCode || 'main').trim()
   const m = (method || 'GET').toUpperCase() as 'GET'|'POST'|'PUT'|'PATCH'|'DELETE'
 
   // deep-unwrap перед сериализацией
@@ -97,6 +99,7 @@ export const useApiFetch = async (
     b: m === 'GET' ? 0 : (plain ? 1 : 0),
     r: regionAlias?.value || '',
     l: locale?.value || '',
+    s: storefrontCode,
   })}`
 
   const asyncData = useAsyncData(
