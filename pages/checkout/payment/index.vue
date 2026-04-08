@@ -2,7 +2,7 @@
 import {Vue3Lottie} from 'vue3-lottie'
 
 import {useCartStore} from '~/store/cart'
-import {useLiqpayStore} from '~/store/liqpay'
+import {usePaymentStore} from '~/store/payment'
 import {useMonoStore} from '~/store/mono'
 const { orderable } = useAuth()
 const { $regionPath } = useNuxtApp()
@@ -51,6 +51,11 @@ const form = ref({
   signature: null,
 })
 
+const paymentProviders = {
+  liqpay_online: 'liqpay',
+  niftipay_online: 'niftipay',
+}
+
 // COMPUTED
 // WATCH
 watch(formElement, (v) => {
@@ -60,13 +65,18 @@ watch(formElement, (v) => {
 })
 
 // METHODS
-const getLiqpayForm = async() => {
+const getPaymentRedirect = async(provider) => {
   isLoading.value = true
-  await useLiqpayStore().getFormData(order.value)
+  await usePaymentStore().createPayment(provider, order.value)
     .then((res) => {
-      // console.log('Liqpay form data', res)
-      if(res.value) {
+      if(res.value?.type === 'form') {
         form.value = res.value
+        return
+      }
+
+      const paymentUrl = res.value?.url || res.value?.payUrl
+      if(paymentUrl) {
+        window.location.replace(paymentUrl)
       }
     })
     .finally(() => {
@@ -92,12 +102,14 @@ const submitHandler = (v) => {
   isLoading.value = true
   useCartStore().createOrder(orderable.value).then(async (response) => {
     if(response.code) {
+      const provider = paymentProviders[useCartStore().order.payment.method] || 'liqpay'
 
       order.value.amount = response.price
+      order.value.currency = response.currencyCode || response.currency || order.value.currency
       order.value.order = response.code
       order.value.description = `Оплата заказа №${response.code} / Сумма: ${response.price} / Дата: ${response.created_at}`
 
-      await getLiqpayForm()
+      await getPaymentRedirect(provider)
       
       // await getMonoUrl()
     }

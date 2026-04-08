@@ -57,6 +57,9 @@ const actionBlocked = computed(() => {
   return false
 })
 
+const onlinePaymentMethods = ['liqpay_online', 'niftipay_online']
+const isOnlinePayment = computed(() => onlinePaymentMethods.includes(order.value?.payment?.method))
+
 
 // METHODS
 const goCompleteHandler = () => {
@@ -160,7 +163,7 @@ const goPayHandler = () => {
 
       <transition name="fade-in">
         <button
-          v-if="order.payment.method === 'liqpay_online'"
+          v-if="isOnlinePayment"
           @click="goPayHandler"
           :class="{disabled: actionBlocked}"
           :disabled="actionBlocked"
