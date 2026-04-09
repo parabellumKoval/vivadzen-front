@@ -207,8 +207,8 @@ export default defineNuxtConfig({
       wallet: '/profile/wallet/ledger'
     },
     heartbeat: { enabled: true, intervalMs: 300000 },
-  }], './modules/settings', './modules/regions', './modules/converter', './modules/category', './modules/fetcher', './modules/wrapperHtml', // 'nuxt-gtag',
-  '~/modules/snap-carousel', // '@zadigetvoltaire/nuxt-gtm',
+  }], './modules/settings', './modules/regions', './modules/converter', './modules/category', './modules/fetcher', './modules/wrapperHtml', './modules/regional-gtm', // 'nuxt-gtag',
+  '~/modules/snap-carousel',
   '~/modules/packeta', 'nuxt-anchorscroll', [
       'nuxt-icon',
       {
@@ -451,11 +451,24 @@ export default defineNuxtConfig({
     fallbackTitle: false
   },
   
-  // gtm: {
-  //   id: process.env.GTM,
-  //   defer: true,
-  //   compatibility: true, 
-  // },
+  regionalGtm: {
+    fallbackRegion: REGIONS_MODULE_OPTIONS.fallbackRegion,
+    regionAliases: {
+      zz: 'global'
+    },
+    containers: {
+      global: process.env.GTM_GLOBAL || process.env.GTM_ZZ || process.env.GTM,
+      zz: process.env.GTM_ZZ || process.env.GTM_GLOBAL || process.env.GTM,
+      ua: process.env.GTM_UA,
+      cz: process.env.GTM_CZ,
+      de: process.env.GTM_DE,
+      es: process.env.GTM_ES
+    },
+    defaultContainer: process.env.GTM_GLOBAL || process.env.GTM_ZZ || process.env.GTM,
+    defer: true,
+    compatibility: true,
+    reloadOnRegionChange: true
+  },
 
   // gtag: {
   //   id: process.env.GTAG,

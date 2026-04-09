@@ -85,6 +85,11 @@ setSeo()
 
     <!-- <lazy-section-benefits class="home-section-margin"></lazy-section-benefits> -->
     
+
+    <div id="reviews" class="page-reveal-section">
+      <section-landing-google-reviews />
+    </div>
+    
     <div v-if="homeSections.reviewVideo" class="container home-section-margin">
       <lazy-section-review-video></lazy-section-review-video>
     </div>

@@ -100,7 +100,7 @@ const truncateComment = (comment: string, maxLength: number = 200): string => {
       <div v-else-if="reviews.length" class="google-reviews__carousel-wrapper">
         <SnapCarousel
           :items="reviews"
-          :items-per-page="{ mobile: 1, tablet: 2, desktop: 3, ld: 4, xld: 4 }"
+          :items-per-page="{ mobile: 1, tablet: 2, desktop: 3, ld: 3, xld: 3 }"
           :gap="{ mobile: 16, tablet: 20, desktop: 24 }"
           :show-arrows="true"
           :show-dots="true"
