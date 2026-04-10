@@ -5,6 +5,7 @@ const {t} = useI18n()
 const route = useRoute()
 
 const searchInput = ref(null)
+const lastTrackedSearch = ref('')
 
 const isServer = process.server
 
@@ -185,6 +186,27 @@ watch(
       refresh()
     }
   }
+)
+
+watch(
+  () => [search.value, searchPending.value, searchResults.value?.products?.meta?.total],
+  ([term, pending, total]) => {
+    const normalizedTerm = typeof term === 'string' ? term.trim() : ''
+    if (!normalizedTerm || pending) {
+      return
+    }
+
+    if (lastTrackedSearch.value === normalizedTerm) {
+      return
+    }
+
+    useGoogleEvent().setEvent('Search', {
+      searchTerm: normalizedTerm,
+      resultsCount: Number(total || searchResults.value?.products?.data?.length || 0)
+    })
+    lastTrackedSearch.value = normalizedTerm
+  },
+  { immediate: true }
 )
 
 // Clear only active filters state (not URL) when entering search page

@@ -55,13 +55,16 @@ export function useAuth() {
     const { $api } = useNuxtApp() as any
     const headers = withAuthHeaders(init.headers)
     const request = { ...init, headers }
+    const normalizedPath = url.startsWith('/') ? url : `/${url}`
 
     if ($api) {
-      return $api<T>(url, request)
+      return $api<T>(normalizedPath, request)
     }
 
     const base = (runtime.public as any).apiBase || ''
-    return $fetch<T>(base + url, {
+    const requestUrl = `${base}${normalizedPath}`
+
+    return $fetch<T>(requestUrl, {
       credentials: 'include',
       ...request,
     })
@@ -187,7 +190,19 @@ export function useAuth() {
   }
 
   async function forgotPassword(email: string) {
-    return fetcher(endpoints.forgot, { method: 'POST', body: { email } })
+    const storefront = String((runtime.public as any).storefrontCode || '').trim()
+    const frontendUrl = process.client && typeof window !== 'undefined'
+      ? window.location.origin
+      : String((runtime.public as any).frontendUrl || '').trim()
+
+    return fetcher(endpoints.forgot, {
+      method: 'POST',
+      body: {
+        email,
+        ...(storefront ? { storefront } : {}),
+        ...(frontendUrl ? { frontend_url: frontendUrl } : {}),
+      },
+    })
   }
 
   async function resetPassword(tokenStr: string, email: string, password: string, password_confirmation: string) {

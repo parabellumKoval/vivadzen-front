@@ -1,269 +1,459 @@
-type Product = {
-  id: number,
-  name: string,
-  price: number,
-  brand: Brand,
-  categories: Category[],
-  amount?: number,
-  code: string,
-  index?: number,
-  item_list_name?: string,
-  item_list_id?: string,
+type ProductCategory = {
+  name?: string | null
+}
+
+type ProductPayload = {
+  id?: number | string | null
+  code?: string | null
+  name?: string | null
+  price?: number | string | null
+  currency?: string | null
+  brand?: {
+    name?: string | null
+  } | null
+  categories?: ProductCategory[] | null
+  category?: ProductCategory | null
+  amount?: number | null
+  short_name?: string | null
+  shortName?: string | null
+  item_list_name?: string | null
+  item_list_id?: string | null
+  index?: number | null
+}
+
+type CheckoutPayload = {
+  products: ProductPayload[]
+  total?: number | string | null
+  code?: string | null
+  shipping?: string | null
+  payment?: string | null
+  currency?: string | null
+  coupon?: string | null
+  shippingAmount?: number | string | null
+  discount?: number | string | null
+}
+
+type ListPayload = {
+  products: ProductPayload[]
+  id: string
+  name: string
+}
+
+type SelectItemPayload = {
+  product: ProductPayload
+  id: string
+  name: string
+}
+
+type SearchPayload = {
+  searchTerm: string
+  resultsCount?: number | null
+}
+
+type CheckoutErrorPayload = {
+  step: string
+  products?: ProductPayload[]
+  total?: number | string | null
+  shipping?: string | null
+  payment?: string | null
+  sections?: string[]
 }
 
 type ProductEcommerce = {
-  item_id: number | string,
-  item_name: string,
-  price: number,
-  item_brand: string,
-  item_category: string,
-  item_category2?: string,
-  item_category3?: string,
-  item_category4?: string,
-  item_list_name?: string,
-  item_list_id?: string,
-  quantity?: number,
-  item_variant?: string,
-  index?: number,
+  item_id: string
+  item_name: string
+  price: number
+  quantity?: number
+  item_brand?: string
+  item_category?: string
+  item_category2?: string
+  item_category3?: string
+  item_category4?: string
+  item_category5?: string
+  item_list_name?: string
+  item_list_id?: string
+  item_variant?: string
+  index?: number
 }
 
-// interface ItemData {
-//   item_id: string,
-//   item_name: string,
-//   item_brand: string,
-//   price: number,
-//   quantity?: number,
-//   [key: string]: string | number | undefined,
-// }
-
-// Общий интерфейс для всего объекта data
-interface EcommerceData {
-  currency: string;
-  value: number;
-  items: ProductEcommerce[];
+type GoogleEventPayload = {
+  event: string
+  ecommerce?: Record<string, unknown>
+  [key: string]: unknown
 }
 
-// type EventName = 'AddToCart' | 'ViewItem' | 'RemoveFromCart' | 'BeginCheckout' | 'Purchase' | 'Refund'
+type EventPayloadMap = {
+  AddShippingInfo: CheckoutPayload
+  AddPaymentInfo: CheckoutPayload
+  ViewItemList: ListPayload
+  SelectItem: SelectItemPayload
+  AddToCart: ProductPayload
+  RemoveFromCart: ProductPayload
+  ViewItem: ProductPayload
+  ViewCart: CheckoutPayload
+  BeginCheckout: CheckoutPayload
+  Purchase: CheckoutPayload
+  Search: SearchPayload
+  CheckoutError: CheckoutErrorPayload
+}
+
+type EventName = keyof EventPayloadMap
 
 type EventHandlers = {
-  // [E in EventName as `get${E}Data`]: (product: EventPayloadMap[E]) => any;
-  [E in EventName as `get${E}Data`]: (data: EventPayloadMap[E]) => {
-    event: string;
-    ecommerce: object;
-  };
-};
-
-type EventName = keyof EventPayloadMap;
-
-interface EventPayloadMap {
-  АddShippingInfo: Checkout,
-  АddPaymentInfo: Checkout,
-  ViewItemList: ItemsList;
-  SelectItem: ItemUnit;
-  AddToCart: Product;
-  RemoveFromCart: Product;
-  ViewItem: Product;
-  BeginCheckout: Checkout;
-  Purchase: Checkout;
-  Refund: Product;
+  [E in EventName as `get${E}Data`]: (data: EventPayloadMap[E]) => GoogleEventPayload
 }
 
-type ItemUnit = {
-  product: Product,
-  id: string,
-  name: string
-}
-
-type ItemsList = {
-  products: Product[],
-  id: string,
-  name: string
-}
-
-type Checkout = {
-  products: Product[],
-  total: number,
-  code?: string,
-  shipping?: string,
-  payment?: string,
-}
+const PURCHASE_STORAGE_PREFIX = 'ga4:purchase:'
 
 export const useGoogleEvent = () => {
+  const { currency } = useRegion()
+  const nuxtApp = useNuxtApp()
 
-  const getProductUnitData = (product: Product, item_list_id: string | null = null, item_list_name: string | null = null) => {
-    let data: ProductEcommerce = {
-      item_id: product?.id,
-      item_name: product?.name,
-      price: formatPrice(product?.price)
+  const formatPrice = (value: number | string | null | undefined): number => {
+    const normalized = Number.parseFloat(String(value ?? 0).replace(',', '.'))
+    if (!Number.isFinite(normalized)) {
+      return 0
     }
 
+    return Number(normalized.toFixed(2))
+  }
 
-    if(product?.brand?.name) {
-      data['item_brand'] = product?.brand?.name || ''
+  const normalizeString = (value: unknown): string | undefined => {
+    if (value === null || value === undefined) {
+      return undefined
     }
 
-    if(product?.amount) {
-      data['quantity'] = product.amount
+    const normalized = String(value).trim()
+    return normalized || undefined
+  }
+
+  const resolveCurrency = (payload?: { currency?: string | null; products?: ProductPayload[] }): string => {
+    const direct = normalizeString(payload?.currency)
+    if (direct) {
+      return direct
     }
 
-    if(product?.categories) {
-      product.categories.forEach((cat, index) => {
-        data['item_category' + (index + 1)] = cat.name
-      })
+    const productCurrency = payload?.products
+      ?.map((product) => normalizeString(product?.currency))
+      .find(Boolean)
+
+    if (productCurrency) {
+      return productCurrency
     }
 
-    if(product?.index) {
-      data['index'] = product.index
+    return normalizeString(currency.value) || 'USD'
+  }
+
+  const getCategories = (product: ProductPayload): ProductCategory[] => {
+    if (Array.isArray(product?.categories) && product.categories.length) {
+      return product.categories.filter((category) => normalizeString(category?.name))
     }
 
-    if(product?.item_list_name || item_list_name) {
-      data['item_list_name'] = product.item_list_name || item_list_name
+    if (product?.category?.name) {
+      return [product.category]
     }
 
-    if(product?.item_list_id || item_list_id) {
-      data['item_list_id'] = product.item_list_id || item_list_id
+    return []
+  }
+
+  const getProductUnitData = (
+    product: ProductPayload,
+    listContext?: {
+      id?: string | null
+      name?: string | null
+    },
+    fallbackIndex?: number
+  ): ProductEcommerce => {
+    const categories = getCategories(product)
+    const amount = Number(product?.amount || 0)
+    const variant = normalizeString(product?.short_name || product?.shortName)
+    const itemListName = normalizeString(product?.item_list_name || listContext?.name)
+    const itemListId = normalizeString(product?.item_list_id || listContext?.id)
+    const explicitIndex = product?.index
+    const resolvedIndex = explicitIndex !== null
+      && explicitIndex !== undefined
+      && Number.isFinite(Number(explicitIndex))
+      ? Number(explicitIndex)
+      : fallbackIndex
+
+    const data: ProductEcommerce = {
+      item_id: normalizeString(product?.code || product?.id) || 'unknown',
+      item_name: normalizeString(product?.name) || 'unknown',
+      price: formatPrice(product?.price),
+    }
+
+    if (amount > 0) {
+      data.quantity = amount
+    }
+
+    const brand = normalizeString(product?.brand?.name)
+    if (brand) {
+      data.item_brand = brand
+    }
+
+    categories.slice(0, 5).forEach((category, index) => {
+      const categoryName = normalizeString(category?.name)
+      if (!categoryName) {
+        return
+      }
+
+      const key = index === 0 ? 'item_category' : `item_category${index + 1}`
+      ;(data as Record<string, unknown>)[key] = categoryName
+    })
+
+    if (variant) {
+      data.item_variant = variant
+    }
+
+    if (typeof resolvedIndex === 'number' && Number.isFinite(resolvedIndex)) {
+      data.index = resolvedIndex
+    }
+
+    if (itemListName) {
+      data.item_list_name = itemListName
+    }
+
+    if (itemListId) {
+      data.item_list_id = itemListId
     }
 
     return data
   }
 
-
-  const getItemData = (product: Product) => {
-    let data: EcommerceData = {
-        currency: "UAH",
-        value: formatPrice(product?.price),
-        items: [
-          getProductUnitData(product)
-        ]
+  const getItems = (
+    products: ProductPayload[] = [],
+    listContext?: {
+      id?: string | null
+      name?: string | null
     }
-
-    return data
+  ) => {
+    return products
+      .filter(Boolean)
+      .map((product, index) => getProductUnitData(product, listContext, index))
   }
 
+  const buildCheckoutEcommerce = (data: CheckoutPayload) => {
+    return {
+      currency: resolveCurrency(data),
+      value: formatPrice(data.total),
+      items: getItems(data.products),
+    }
+  }
 
-  const formatPrice = (value: number | string): number => {
-    const floatValue = parseFloat(String(value).replace(',', '.'));
+  const getStorageKey = (transactionId: string) => `${PURCHASE_STORAGE_PREFIX}${transactionId}`
 
-    // Округляем до двух знаков после запятой
-    return parseFloat(floatValue.toFixed(2));
+  const isPurchaseDuplicate = (transactionId: string | undefined) => {
+    if (!process.client || !transactionId) {
+      return false
+    }
+
+    try {
+      return window.sessionStorage.getItem(getStorageKey(transactionId)) === '1'
+    } catch {
+      return false
+    }
+  }
+
+  const markPurchaseSent = (transactionId: string | undefined) => {
+    if (!process.client || !transactionId) {
+      return
+    }
+
+    try {
+      window.sessionStorage.setItem(getStorageKey(transactionId), '1')
+    } catch {
+      // ignore storage failures
+    }
+  }
+
+  const pushToDataLayer = (payload: Record<string, unknown>) => {
+    const regionalGtm = nuxtApp.$regionalGtm
+    if (regionalGtm?.push) {
+      regionalGtm.push(payload)
+      return
+    }
+
+    const dataLayerName = regionalGtm?.dataLayerName || 'dataLayer'
+    const win = window as unknown as Record<string, unknown>
+    const current = win[dataLayerName]
+    const dataLayer = Array.isArray(current) ? current : []
+    if (!Array.isArray(current)) {
+      win[dataLayerName] = dataLayer
+    }
+
+    dataLayer.push(payload)
   }
 
   const eventHandlers: EventHandlers = {
     getViewItemListData: (data) => {
-
-      let items = data.products.map((item) => {
-        return getProductUnitData(item, data.id, data.name)
+      const items = getItems(data.products, {
+        id: data.id,
+        name: data.name,
       })
 
       return {
-        event: "view_item_list",
+        event: 'view_item_list',
         ecommerce: {
-          item_list_name: data?.name,
-          item_list_id: data?.id,
-          items: items
-        }
+          item_list_name: data.name,
+          item_list_id: data.id,
+          items,
+        },
       }
     },
     getSelectItemData: (data) => {
       return {
-        event: "select_item",
+        event: 'select_item',
         ecommerce: {
-          item_list_name: data?.name,
-          item_list_id: data?.id,
-          items: [getProductUnitData(data.product, data.id, data.name)]
-        }
+          item_list_name: data.name,
+          item_list_id: data.id,
+          items: [getProductUnitData(data.product, {
+            id: data.id,
+            name: data.name,
+          })],
+        },
       }
     },
     getViewItemData: (product) => {
       return {
-        event: "view_item",
-        ecommerce: getItemData(product)
+        event: 'view_item',
+        ecommerce: {
+          currency: resolveCurrency({ products: [product] }),
+          value: formatPrice(product?.price),
+          items: [getProductUnitData(product)],
+        },
       }
     },
     getAddToCartData: (product) => {
       return {
-        event: "add_to_cart",
-        ecommerce: getItemData(product)
+        event: 'add_to_cart',
+        ecommerce: {
+          currency: resolveCurrency({ products: [product] }),
+          value: formatPrice(product?.price) * Math.max(1, Number(product?.amount || 1)),
+          items: [getProductUnitData(product)],
+        },
       }
     },
     getRemoveFromCartData: (product) => {
       return {
-        event: "remove_from_cart",
-        ecommerce: getItemData(product)
+        event: 'remove_from_cart',
+        ecommerce: {
+          currency: resolveCurrency({ products: [product] }),
+          value: formatPrice(product?.price) * Math.max(1, Number(product?.amount || 1)),
+          items: [getProductUnitData(product)],
+        },
+      }
+    },
+    getViewCartData: (data) => {
+      return {
+        event: 'view_cart',
+        ecommerce: buildCheckoutEcommerce(data),
       }
     },
     getBeginCheckoutData: (data) => {
-      let items = data.products.map((item) => {
-        return getProductUnitData(item)
-      })
-
       return {
-        event: "begin_checkout",
-        ecommerce: {
-          currency: "UAH",
-          value: formatPrice(data.total),
-          items: items
-        }
+        event: 'begin_checkout',
+        ecommerce: buildCheckoutEcommerce(data),
       }
     },
     getPurchaseData: (data) => {
-      let items = data.products.map((item) => {
-        return getProductUnitData(item)
-      })
+      const transactionId = normalizeString(data.code)
+      const coupon = normalizeString(data.coupon)
+      const payment = normalizeString(data.payment)
+      const shippingTier = normalizeString(data.shipping)
+      const shippingAmount = formatPrice(data.shippingAmount)
+      const discount = formatPrice(data.discount)
 
       return {
-        event: "purchase",
+        event: 'purchase',
         ecommerce: {
-          transaction_id: data.code,
+          transaction_id: transactionId,
           value: formatPrice(data.total),
-          currency: "UAH",
-          items: items
-        }
+          currency: resolveCurrency(data),
+          shipping: shippingAmount,
+          items: getItems(data.products),
+          ...(coupon ? { coupon } : {}),
+          ...(payment ? { payment_type: payment } : {}),
+          ...(shippingTier ? { shipping_tier: shippingTier } : {}),
+          ...(discount > 0 ? { discount } : {}),
+        },
       }
     },
-    getАddShippingInfoData: (data) => {
-      let items = data.products.map((item) => {
-        return getProductUnitData(item)
-      })
-
+    getAddShippingInfoData: (data) => {
       return {
-        event: "add_shipping_info",
+        event: 'add_shipping_info',
         ecommerce: {
-          shipping_tier: data.shipping,
-          currency: "UAH",
-          value: formatPrice(data.total),
-          items: items
-        }
+          ...buildCheckoutEcommerce(data),
+          ...(normalizeString(data.shipping) ? { shipping_tier: normalizeString(data.shipping) } : {}),
+        },
       }
     },
-    getАddPaymentInfoData: (data) => {
-      let items = data.products.map((item) => {
-        return getProductUnitData(item)
-      })
-
+    getAddPaymentInfoData: (data) => {
       return {
-        event: "add_payment_info",
+        event: 'add_payment_info',
         ecommerce: {
-          payment_type: data.payment,
-          currency: "UAH",
-          value: formatPrice(data.total),
-          items: items
-        }
+          ...buildCheckoutEcommerce(data),
+          ...(normalizeString(data.payment) ? { payment_type: normalizeString(data.payment) } : {}),
+        },
+      }
+    },
+    getSearchData: (data) => {
+      return {
+        event: 'search',
+        search_term: data.searchTerm,
+        results_count: Number(data.resultsCount || 0),
+      }
+    },
+    getCheckoutErrorData: (data) => {
+      return {
+        event: 'checkout_error',
+        checkout_step: data.step,
+        shipping_method: normalizeString(data.shipping),
+        payment_method: normalizeString(data.payment),
+        item_count: Array.isArray(data.products) ? data.products.length : 0,
+        value: formatPrice(data.total),
+        error_sections: Array.isArray(data.sections) ? data.sections.join(',') : '',
       }
     },
   }
 
   const setEvent = <E extends EventName>(eventName: E, data: EventPayloadMap[E]) => {
-    // const { gtag } = useGtag()
+    if (!process.client) {
+      return
+    }
 
-    // const functionName = `get${eventName}Data` as keyof EventHandlers
-    // const handler = eventHandlers[functionName as keyof EventHandlers];
+    const handlerName = `get${eventName}Data` as keyof EventHandlers
+    const handler = eventHandlers[handlerName] as (payload: EventPayloadMap[E]) => GoogleEventPayload
+    if (typeof handler !== 'function') {
+      return
+    }
 
-    // const gTagData = handler(data)
-    // gtag('event', gTagData.event, gTagData.ecommerce)
+    const payload = handler(data)
+    if (!payload?.event) {
+      return
+    }
+
+    const transactionId = normalizeString(
+      payload?.ecommerce && typeof payload.ecommerce === 'object'
+        ? (payload.ecommerce as Record<string, unknown>).transaction_id
+        : undefined
+    )
+
+    if (payload.event === 'purchase' && isPurchaseDuplicate(transactionId)) {
+      return
+    }
+
+    if (Object.prototype.hasOwnProperty.call(payload, 'ecommerce')) {
+      pushToDataLayer({ ecommerce: null })
+    }
+
+    pushToDataLayer(payload)
+
+    if (payload.event === 'purchase') {
+      markPurchaseSent(transactionId)
+    }
   }
 
   return {
-    setEvent
+    setEvent,
   }
 }

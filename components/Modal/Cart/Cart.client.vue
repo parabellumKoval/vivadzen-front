@@ -25,6 +25,14 @@ const closeHandler = () => {
 }
 
 await useAsyncData('cart-products', async () => await fetchCartProducts())
+
+if (products.value?.length) {
+  useGoogleEvent().setEvent('ViewCart', {
+    products: products.value,
+    total: useCartStore().total,
+    coupon: useCartStore().order.promocode
+  })
+}
 </script>
 
 <style src="./cart.scss" lang="scss" scoped />

@@ -7,6 +7,7 @@ const { orderable, user } = useAuth()
 const {currency, region, fallbackRegion} = useRegion()
 
 const emit = defineEmits(['scrollToError'])
+const cartStore = useCartStore()
 
 
 // COMPUTEDS
@@ -60,16 +61,31 @@ const actionBlocked = computed(() => {
 const onlinePaymentMethods = ['liqpay_online', 'niftipay_online']
 const isOnlinePayment = computed(() => onlinePaymentMethods.includes(order.value?.payment?.method))
 
+const errorSections = computed(() => {
+  return Object.entries(cartStore.errors || {})
+    .filter(([, value]) => value && Object.keys(value).length)
+    .map(([section]) => section)
+})
+
 
 // METHODS
 const goCompleteHandler = () => {
   const payload = { ...orderable.value }
-  useCartStore().createOrder(payload).then((response) => {
+  cartStore.createOrder(payload).then((response) => {
     if(response?.code) {
-      useCartStore().$reset()
+      cartStore.$reset()
       navigateTo($regionPath('/checkout/complete/' + response.code))
     }
   }).catch((e) => {
+    useGoogleEvent().setEvent('CheckoutError', {
+      step: 'create_order',
+      products: cartStore.cart,
+      total: finishTotal.value,
+      shipping: order.value?.delivery?.method,
+      payment: order.value?.payment?.method,
+      sections: errorSections.value
+    })
+
     useNoty().setNoty({
       title: t('error.error'),
       content: t('error.check_fields'),
@@ -82,11 +98,20 @@ const goCompleteHandler = () => {
 
 const goPayHandler = () => {
   const payload = { ...orderable.value }
-  useCartStore().validate(payload).then((response) => {
+  cartStore.validate(payload).then((response) => {
     if(response) {
       navigateTo($regionPath('/checkout/payment'))
     }
   }).catch((e) => {
+    useGoogleEvent().setEvent('CheckoutError', {
+      step: 'validate_before_payment',
+      products: cartStore.cart,
+      total: finishTotal.value,
+      shipping: order.value?.delivery?.method,
+      payment: order.value?.payment?.method,
+      sections: errorSections.value
+    })
+
     useNoty().setNoty({
       title: t('error.error'),
       content: t('error.check_fields'),

@@ -26,7 +26,26 @@ const deleteHandler = () => {
 }
 
 const setAmountHandler = (newAmount) => {
+  const currentAmount = Number(props.item?.amount || 0)
   useCartStore().updateAmount(props.item.id, newAmount)
+
+  if (!Number.isFinite(currentAmount) || currentAmount <= 0 || newAmount === currentAmount) {
+    return
+  }
+
+  const delta = newAmount - currentAmount
+  if (delta > 0) {
+    useGoogleEvent().setEvent('AddToCart', {
+      ...props.item,
+      amount: delta
+    })
+    return
+  }
+
+  useGoogleEvent().setEvent('RemoveFromCart', {
+    ...props.item,
+    amount: Math.abs(delta)
+  })
 }
 
 // watch(() => props.item.amount, (newAmount) => {

@@ -4,6 +4,13 @@ const props = defineProps({
     type: Object,
     required: true
   },
+  list: {
+    type: Object,
+    default: () => ({
+      id: '',
+      name: ''
+    })
+  },
   index: {
     type: Number,
     default: null
@@ -37,6 +44,16 @@ const reviewsCount = computed(() => {
 
 // METHODS
 // HANDLERS
+const setGoogleEventHandler = () => {
+  useGoogleEvent().setEvent('SelectItem', {
+    name: props.list?.name || '',
+    id: props.list?.id || '',
+    product: {
+      ...props.item,
+      index: props.index
+    }
+  })
+}
 
 const openChoseModificationModalHandler = (event) => {
   ensureRegionSelected(() => {

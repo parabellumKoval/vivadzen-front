@@ -66,7 +66,17 @@ const campaigns = computed(() => {
 useAsyncData('show-order', async() => await useOrderStore().getOrder(code.value))
   .then(({data, error}) => {
     order.value = data.value
-    useGoogleEvent().setEvent('Purchase', {products: products.value, total: order.value.price, code: order.value.code})
+    useGoogleEvent().setEvent('Purchase', {
+      products: products.value || [],
+      total: order.value?.price,
+      code: order.value?.code,
+      currency: order.value?.currencyCode || order.value?.currency,
+      coupon: order.value?.promocode,
+      shipping: order.value?.delivery?.method,
+      payment: order.value?.payment?.method,
+      shippingAmount: order.value?.delivery?.price,
+      discount: campaignDiscountTotal.value,
+    })
   })
 
 useCartStore().$reset()

@@ -52,6 +52,38 @@ const dataSource = await useLazyAsyncData(
 
 const lists = computed(() => dataSource.data.value ?? [])
 const pending = computed(() => dataSource.pending.value)
+const trackedListSignatures = new Set()
+
+watch(lists, (value) => {
+  if (!value?.length) {
+    return
+  }
+
+  value.forEach((list, index) => {
+    if (!list?.items?.length) {
+      return
+    }
+
+    const signature = JSON.stringify({
+      id: list.slug || list.id || index,
+      items: list.items.map((item) => item?.id)
+    })
+
+    if (trackedListSignatures.has(signature)) {
+      return
+    }
+
+    trackedListSignatures.add(signature)
+    useGoogleEvent().setEvent('ViewItemList', {
+      id: `${props.page}:${list.slug || list.id || index}`,
+      name: list.title || `List ${index + 1}`,
+      products: list.items,
+    })
+  })
+}, {
+  deep: true,
+  immediate: true,
+})
 
 </script>
 
@@ -74,7 +106,13 @@ const pending = computed(() => dataSource.pending.value)
             :items-per-page="itemsPerPage"
           >
             <template #item="{ item }">
-              <ProductCardCheckoutSmall :item="item" />
+              <ProductCardCheckoutSmall
+                :item="item"
+                :list="{
+                  id: `${props.page}:${list.slug || list.id || 'items'}`,
+                  name: list.title || 'Recommendations'
+                }"
+              />
             </template>
             <template #prev>
               <IconCSS name="mynaui:chevron-left" size="24"></IconCSS>

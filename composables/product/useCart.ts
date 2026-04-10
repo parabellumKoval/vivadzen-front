@@ -46,7 +46,7 @@ export const useCart = (productData?: Product) => {
       amount: count
     }
     
-    useGoogleEvent().setEvent('AddToCart', productOrModification)
+    useGoogleEvent().setEvent('AddToCart', data)
 
     useCartStore().add(data).then(() => {
       useModal().open(ModalCart, null, null, {width: {

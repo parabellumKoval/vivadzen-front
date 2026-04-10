@@ -56,6 +56,12 @@ const paymentProviders = {
   niftipay_online: 'niftipay',
 }
 
+const errorSections = computed(() => {
+  return Object.entries(useCartStore().errors || {})
+    .filter(([, value]) => value && Object.keys(value).length)
+    .map(([section]) => section)
+})
+
 // COMPUTED
 // WATCH
 watch(formElement, (v) => {
@@ -114,6 +120,15 @@ const submitHandler = (v) => {
       // await getMonoUrl()
     }
   }).catch((err) => {
+    useGoogleEvent().setEvent('CheckoutError', {
+      step: 'payment_create_order',
+      products: useCartStore().cart,
+      total: useCartStore().finishTotal,
+      shipping: useCartStore().order.delivery.method,
+      payment: useCartStore().order.payment.method,
+      sections: errorSections.value
+    })
+
     useNoty().setNoty({content: t('noty.order.fail'), type: 'error'})
   }).finally(() => {
       isLoading.value = false

@@ -61,6 +61,10 @@ const total = computed(() => {
   return useCartStore().total
 })
 
+const finishTotal = computed(() => {
+  return useCartStore().finishTotal
+})
+
 const userFirstName = computed(() => {
   if(user.value?.first_name) {
     return user.value.first_name;
@@ -156,37 +160,39 @@ watch(() => order.value.delivery.settlement, (v) => {
 
 // Change delivery method
 watch(() => order.value.delivery.method, (v) => {
-  let shipping = ''
-
-  if(v === 'pickup') {
-    shipping = 'Pickup'
-  }else if(v === 'address') {
-    shipping = 'Novaposhta to address'
-  }else if(v === 'warehouse') {
-    shipping = 'Novaposhta to warehouse'
+  if(!v || !products.value?.length) {
+    errors.value.delivery = {}
+    return
   }
 
-  useGoogleEvent().setEvent('АddShippingInfo', {products: products.value, total: total.value, shipping: shipping })
+  useGoogleEvent().setEvent('AddShippingInfo', {
+    products: products.value,
+    total: finishTotal.value,
+    shipping: v
+  })
 
   errors.value.delivery = {}
 }, {
-  immediate: true
+  immediate: true,
 })
 
 // Change payment method
 watch(() => order.value.payment.method, (v) => {
-  let payment = ''
-
-  if(v === 'online') {
-    payment = 'Monobank online'
-  }else if(v === 'cash') {
-    payment = 'Novaposhta cash'
+  if(!v || !products.value?.length) {
+    errors.value.payment = {}
+    return
   }
-  useGoogleEvent().setEvent('АddPaymentInfo', {products: products.value, total: total.value, payment: payment })
+
+  useGoogleEvent().setEvent('AddPaymentInfo', {
+    products: products.value,
+    total: finishTotal.value,
+    payment: v,
+    shipping: order.value.delivery.method
+  })
   
   errors.value.payment = {}
 }, {
-  immediate: true
+  immediate: true,
 })
 
 watch(() => authType.value, (v) => {
@@ -226,7 +232,13 @@ setUserData()
 
 useAsyncData('get-rules', async() => await useCartStore().rules())
 
-useGoogleEvent().setEvent('BeginCheckout', {products: products.value, total: total.value})
+useGoogleEvent().setEvent('BeginCheckout', {
+  products: products.value,
+  total: finishTotal.value,
+  shipping: order.value.delivery.method,
+  payment: order.value.payment.method,
+  coupon: order.value.promocode
+})
 
 </script>
 
