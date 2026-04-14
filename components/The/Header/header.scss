@@ -43,7 +43,7 @@
 
     &--with-czech-store-link {
       @include desktop {
-        grid-template-columns: 180px min-content min-content minmax(0, 240px) minmax(0, 1fr) minmax(180px, 260px) min-content min-content min-content;
+        grid-template-columns: 180px min-content min-content  minmax(0, 1fr) minmax(180px, 260px) min-content min-content min-content;
         gap: 10px;
       }
     }
