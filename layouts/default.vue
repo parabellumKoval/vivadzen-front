@@ -2,6 +2,8 @@
 const route = useRoute()
 const title = 'Vivadzen.com'
 const { get } = useSettings()
+const { region } = useRegion()
+const device = useDevice()
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public?.site?.url || runtimeConfig.public?.siteUrl || '').replace(/\/+$/, '')
 
@@ -28,6 +30,10 @@ const showAffiliateLink = computed(() => {
   }
 
   return Boolean(value)
+})
+
+const showCzechStoreMobileCta = computed(() => {
+  return device.isMobile && String(region.value || '').toLowerCase() === 'cz'
 })
 
 // HANDLERS
@@ -79,7 +85,11 @@ useSchemaOrg([
         
         <!-- <lazy-the-header-search-sticky v-if="isSearchMobile"></lazy-the-header-search-sticky> -->
 
-        <main class="main" :style="{background: background}">
+        <main
+          class="main"
+          :class="{ 'main--with-mobile-czech-store-link': showCzechStoreMobileCta }"
+          :style="{background: background}"
+        >
           <slot />
         </main>
 
@@ -98,6 +108,8 @@ useSchemaOrg([
         <lazy-affiliate-link v-if="!$device.isMobile && showAffiliateLink"></lazy-affiliate-link>
 
         <lazy-simple-clicker></lazy-simple-clicker>
+
+        <the-header-czech-store-link v-if="showCzechStoreMobileCta" mobile />
         
         <lazy-the-navbar v-if="$device.isMobile"></lazy-the-navbar>
       </Body>

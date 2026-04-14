@@ -1,9 +1,11 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const { t } = useI18n()
+const { region } = useRegion()
 const { isVisible } = useHeaderScroll()
 const isSearchOpen = ref(false)
+const showCzechStoreLink = computed(() => String(region.value || '').toLowerCase() === 'cz')
 const openSearchHandler = () => {
   isSearchOpen.value = true
 }
@@ -16,7 +18,7 @@ const closeSearchHandler = () => {
 
 <template>
   <header class="header" :class="{ 'header--hidden': !isVisible, 'header--search-open': isSearchOpen }">
-    <div class="header-container full-container">
+    <div class="header-container full-container" :class="{ 'header-container--with-czech-store-link': showCzechStoreLink }">
       <ClientOnly>
         <!-- LOGO -->
         <NuxtLink :to="$regionPath('/')" class="logo" clickable>
@@ -37,7 +39,9 @@ const closeSearchHandler = () => {
         <!-- MENU -->
         <the-header-menu class="menu"></the-header-menu>
 
-        <div class="blank"></div>
+        <the-header-czech-store-link v-if="showCzechStoreLink" />
+
+        <!-- <div class="blank"></div> -->
 
         <!-- SEARCH -->
         <the-header-search

@@ -1,18 +1,18 @@
 ru:
-  delivery_country: Доставки
+  delivery_country: Доставка
   interface_language: Язык
+uk:
+  delivery_country: Доставка
+  interface_language: Мова
 en:
   delivery_country: Delivery
   interface_language: Lang
+cs:
+  delivery_country: Doručení
+  interface_language: Jazyk
 es:
   delivery_country: Entrega
   interface_language: Idioma
-fr:
-  delivery_country: Livraison
-  interface_language: Langue
 de:
   delivery_country: Versand
   interface_language: Sprache
-it:
-  delivery_country: Consegna
-  interface_language: Lingua

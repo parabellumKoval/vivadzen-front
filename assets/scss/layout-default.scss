@@ -1,6 +1,11 @@
 .main {
   position: relative;
   width: 100%;
+
+  &--with-mobile-czech-store-link {
+    padding-bottom: 136px;
+  }
+
   @include tablet {
     overflow-x: initial;
   }

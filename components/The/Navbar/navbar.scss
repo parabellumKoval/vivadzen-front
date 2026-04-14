@@ -5,7 +5,7 @@
   height: 60px;
   width: calc(100vw - 30px);
   margin: 0 15px 10px 15px;
-  background: rgba($color-bg, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   border: 1px solid $color-border;
   border-radius: 30px;
   display: grid;
@@ -16,7 +16,7 @@
   z-index: 300;
   backdrop-filter: blur(10px);
   overflow: hidden;
-  // box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.09);
   transition: grid-template-columns 0.3s;
 
   &.searchable {

@@ -28,6 +28,7 @@
 
   &-container {
     display: grid;
+    width: 100%;
     align-items: center;
     transition: grid-template-columns 0.3s ease, gap 0.3s ease;
 
@@ -36,8 +37,15 @@
       gap: 15px;
     }
     @include desktop {
-      grid-template-columns: 200px min-content min-content 1fr 380px min-content min-content min-content;
-      gap: 20px;
+      grid-template-columns: 180px min-content min-content minmax(0, 1fr) minmax(200px, 280px) min-content min-content min-content;
+      gap: 12px;
+    }
+
+    &--with-czech-store-link {
+      @include desktop {
+        grid-template-columns: 180px min-content min-content minmax(0, 240px) minmax(0, 1fr) minmax(180px, 260px) min-content min-content min-content;
+        gap: 10px;
+      }
     }
   }
 }
@@ -53,7 +61,7 @@
       grid-template-columns: 1fr;
     }
     @include desktop {
-      grid-template-columns: 0 0 0 0 1fr 0 0;
+      grid-template-columns: 0 0 0 0 0 1fr 0 0 0;
     }
 
     > :not(.search) {
@@ -77,6 +85,7 @@
   align-items: center;
   justify-content: center;
   justify-self: center;
+  min-width: 0;
   width: 120px;
   &-img {
     width: auto;
@@ -91,6 +100,16 @@
     justify-content: flex-start;
     justify-self: initial;
   }
+}
+
+.catalog,
+.menu,
+.blank,
+.search,
+.profile,
+.notifications,
+.cart {
+  min-width: 0;
 }
 :deep(.header-btn) {
   position: relative;
