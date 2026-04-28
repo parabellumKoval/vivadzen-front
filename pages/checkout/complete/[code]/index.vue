@@ -47,6 +47,51 @@ const delivery = computed(() => {
   return order.value?.delivery || null
 })
 
+const warehouseDeliveryMethods = ['novaposhta_warehouse', 'packeta_warehouse']
+const addressDeliveryMethods = ['novaposhta_address', 'packeta_address', 'messenger_address', 'default_address']
+
+const normalizeDeliveryLine = (value) => {
+  return String(value || '').replace(/\s+/g, ' ').trim()
+}
+
+const deliveryDetails = computed(() => {
+  if (!delivery.value) {
+    return []
+  }
+
+  const method = String(delivery.value.method || '').trim()
+  const streetLine = normalizeDeliveryLine([delivery.value.street, delivery.value.house, delivery.value.room].filter(Boolean).join(' '))
+
+  if (method === 'default_pickup') {
+    const pickupLine = normalizeDeliveryLine(delivery.value.warehouse || streetLine || delivery.value.settlement)
+    return pickupLine
+      ? [{ label: t('label.our_address'), value: pickupLine }]
+      : []
+  }
+
+  if (warehouseDeliveryMethods.includes(method)) {
+    return [
+      { label: t('form.delivery.city'), value: normalizeDeliveryLine(delivery.value.settlement) },
+      { label: t('form.delivery.warehouse'), value: normalizeDeliveryLine(delivery.value.warehouse) },
+    ].filter((item) => item.value)
+  }
+
+  if (addressDeliveryMethods.includes(method)) {
+    return [
+      { label: t('form.delivery.city'), value: normalizeDeliveryLine(delivery.value.settlement) },
+      { label: t('form.delivery.street'), value: streetLine },
+      { label: t('form.delivery.zip'), value: normalizeDeliveryLine(delivery.value.zip) },
+    ].filter((item) => item.value)
+  }
+
+  return [
+    { label: t('form.delivery.city'), value: normalizeDeliveryLine(delivery.value.settlement) },
+    { label: t('form.delivery.warehouse'), value: normalizeDeliveryLine(delivery.value.warehouse) },
+    { label: t('form.delivery.street'), value: streetLine },
+    { label: t('form.delivery.zip'), value: normalizeDeliveryLine(delivery.value.zip) },
+  ].filter((item) => item.value)
+})
+
 const payment = computed(() => {
   return order.value?.payment || null
 })
@@ -87,7 +132,7 @@ useCartStore().$reset()
 
 <template>
   <div class="container">
-    <div class="page-base">
+    <div class="page-base complete-page">
 
       <the-breadcrumbs :crumbs="breadcrumbs"></the-breadcrumbs>
 
@@ -146,29 +191,13 @@ useCartStore().$reset()
                 <div class="label">{{ $t('form.method') }}</div>
                 <div class="value">{{ $t(`form.delivery.${delivery.method}`) }}</div>
               </div>
-              <div v-if="delivery?.settlement" class="cell">
-                <div class="label">{{ $t('form.delivery.city') }}</div>
-                <div class="value">{{ delivery.settlement }}</div>
-              </div>
-              <div v-if="delivery?.warehouse" class="cell">
-                <div class="label">{{ $t('form.delivery.warehouse') }}</div>
-                <div class="value">{{ delivery.warehouse }}</div>
-              </div>
-              <div v-if="delivery?.street" class="cell">
-                <div class="label">{{ $t('form.delivery.street') }}</div>
-                <div class="value">{{ delivery.street }}</div>
-              </div>
-              <div v-if="delivery?.house" class="cell">
-                <div class="label">{{ $t('form.delivery.house') }}</div>
-                <div class="value">{{ delivery.house }}</div>
-              </div>
-              <div v-if="delivery?.room" class="cell">
-                <div class="label">{{ $t('form.delivery.room') }}</div>
-                <div class="value">{{ delivery.room }}</div>
-              </div>
-              <div v-if="delivery?.zip" class="cell">
-                <div class="label">{{ $t('form.delivery.zip') }}</div>
-                <div class="value">{{ delivery.zip }}</div>
+              <div
+                v-for="(item, index) in deliveryDetails"
+                :key="`delivery-detail-${index}`"
+                class="cell"
+              >
+                <div class="label">{{ item.label }}</div>
+                <div class="value">{{ item.value }}</div>
               </div>
             </div>
 

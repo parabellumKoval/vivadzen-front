@@ -36,6 +36,30 @@ const resetErrors = () => {
   errors.value = null
 }
 
+const {
+  phone,
+  email,
+  pickupLocations,
+  mapLocations,
+} = useContacts()
+
+const formatLocationLine = (item) => {
+  const address = String(item?.address || '').trim()
+  const schedule = String(item?.schedule || '').trim()
+
+  if (!address) {
+    return ''
+  }
+
+  return schedule ? `${address}: ${schedule}` : address
+}
+
+const addressWithScheduleLines = computed(() => {
+  return pickupLocations.value
+    .map((item) => formatLocationLine(item))
+    .filter(Boolean)
+})
+
 const createFeedbackHandler = () => {
   useFeedbackStore().create(feedback.value).then(({data, error}) => {
 
@@ -88,9 +112,9 @@ useSeo().setPageSeo(t('title.contacts'))
             <div class="contacts-label">{{ t('phones') }}</div>
             <div class="phone">
               <a
-                :href="useContacts().phone"
+                :href="phone"
                 class="phone-item contacts-value"
-              >{{ useContacts().phone }}</a>
+              >{{ phone }}</a>
               <a
                 :href="useContacts().phone2"
                 class="phone-item contacts-value"
@@ -102,19 +126,20 @@ useSeo().setPageSeo(t('title.contacts'))
             <div class="contacts-label">{{ t('email') }}</div>
             <div class="phone">
               <a
-                :href="useContacts().email"
+                :href="email"
                 class="phone-item contacts-value"
-              >{{ useContacts().email }}</a>
+              >{{ email }}</a>
             </div>
           </div>
 
           <div class="contacts-block">
             <div class="contacts-label">{{ t('label.our_address') }}</div>
             <div class="phone">
-              <a
-                :href="useContacts().phone"
+              <div
+                v-for="(line, index) in addressWithScheduleLines"
+                :key="`contacts-address-${index}`"
                 class="phone-item contacts-value"
-              >{{ useContacts().address }}</a>
+              >{{ line }}</div>
             </div>
           </div>
 
@@ -146,7 +171,18 @@ useSeo().setPageSeo(t('title.contacts'))
 
         </div>
         
-        <div class="map-wrapper" v-html="useContacts().map.value"></div>
+        <div v-if="mapLocations.length" class="map-list">
+          <div
+            v-for="location in mapLocations"
+            :key="location.id"
+            class="map-card"
+          >
+            <div class="contacts-label map-card__title">{{ location.title || location.address }}</div>
+            <div v-if="location.title" class="map-card__subtitle">{{ formatLocationLine(location) }}</div>
+            <div v-else-if="location.schedule" class="map-card__subtitle">{{ formatLocationLine(location) }}</div>
+            <div class="map-wrapper" v-html="location.map"></div>
+          </div>
+        </div>
 
         <div class="form-wrapper">
           <div class="form-label">👩‍💻 {{ t('questions') }}</div>

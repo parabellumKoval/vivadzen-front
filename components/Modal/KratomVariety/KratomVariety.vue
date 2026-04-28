@@ -10,48 +10,20 @@ const modalTitle = computed(() => {
   return color.value?.name ? `${color.value.name} kratom` : 'Kratom'
 })
 
+const storeLocations = computed(() => contacts.pickupLocations.value)
+const mapLocations = computed(() => contacts.mapLocations.value)
+
 const contactItems = computed(() => {
   return [
-    {
-      icon: 'iconoir:map',
-      label: 'Адрес',
-      value: contacts.address.value
-    },
     {
       icon: 'iconoir:phone',
       label: 'Телефон',
       value: contacts.phone.value
-    },
-    {
-      icon: 'iconoir:clock',
-      label: 'Часы работы',
-      value: contacts.schedule.value
     }
   ].filter((item) => item.value)
 })
 
 const { messengers } = useSocial()
-
-const mapRaw = computed(() => {
-  const raw = contacts.map.value
-  if (raw && typeof raw === 'object' && 'value' in raw) {
-    return raw.value
-  }
-  return raw || ''
-})
-
-const mapSrc = computed(() => {
-  if (!mapRaw.value || typeof mapRaw.value !== 'string') {
-    return ''
-  }
-
-  const match = mapRaw.value.match(/src=["']([^"']+)["']/i)
-  if (match && match[1]) {
-    return match[1]
-  }
-
-  return mapRaw.value.trim()
-})
 </script>
 
 <style src="./kratom-variety.scss" lang="scss" scoped />
@@ -112,6 +84,21 @@ const mapSrc = computed(() => {
         <div class="kratom-variety-modal__contact-info">
           <div class="kratom-variety-modal__contact-list">
             <div
+              v-for="location in storeLocations"
+              :key="location.id"
+              class="kratom-variety-modal__contact-item"
+            >
+              <div class="kratom-variety-modal__contact-icon">
+                <IconCSS name="iconoir:map" />
+              </div>
+              <div class="kratom-variety-modal__contact-body">
+                <div class="kratom-variety-modal__contact-label">{{ location.title || 'Адрес' }}</div>
+                <div class="kratom-variety-modal__contact-value">{{ location.address }}</div>
+                <div v-if="location.schedule" class="kratom-variety-modal__contact-meta">{{ location.schedule }}</div>
+              </div>
+            </div>
+
+            <div
               v-for="item in contactItems"
               :key="item.label"
               class="kratom-variety-modal__contact-item"
@@ -144,21 +131,24 @@ const mapSrc = computed(() => {
           </div>
         </div>
 
-        <a
-          v-if="mapSrc"
-          :href="mapSrc"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="kratom-variety-modal__map"
-        >
-          <iframe
-            class="kratom-variety-modal__map-iframe"
-            :src="mapSrc"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-          <span class="kratom-variety-modal__map-overlay">Открыть карту</span>
-        </a>
+        <div v-if="mapLocations.length" class="kratom-variety-modal__maps">
+          <a
+            v-for="location in mapLocations"
+            :key="`map-${location.id}`"
+            :href="location.mapSrc"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="kratom-variety-modal__map"
+          >
+            <iframe
+              class="kratom-variety-modal__map-iframe"
+              :src="location.mapSrc"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <span class="kratom-variety-modal__map-overlay">Открыть карту</span>
+          </a>
+        </div>
       </div>
     </div>
   </modal-wrapper>

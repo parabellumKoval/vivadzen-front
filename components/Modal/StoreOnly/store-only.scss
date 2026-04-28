@@ -56,9 +56,34 @@
     gap: 4px;
   }
 
+  &__locations {
+    display: grid;
+    gap: 12px;
+  }
+
+  &__location {
+    display: grid;
+    gap: 4px;
+  }
+
+  &__location-title {
+    font-weight: 700;
+  }
+
+  &__location-schedule,
+  &__map-caption {
+    color: $color-4;
+    line-height: 1.5;
+  }
+
   &__value {
     font-size: 16px;
     font-weight: 500;
+  }
+
+  &__maps {
+    display: grid;
+    gap: 16px;
   }
 
   &__map {

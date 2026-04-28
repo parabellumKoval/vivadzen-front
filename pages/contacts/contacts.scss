@@ -36,6 +36,26 @@
   grid-gap: 15px;
 }
 .map {
+  &-list {
+    display: grid;
+    gap: 20px;
+  }
+
+  &-card {
+    display: grid;
+    gap: 12px;
+
+    &__title {
+      margin: 0;
+    }
+
+    &__subtitle,
+    &__schedule {
+      color: $color-4;
+      line-height: 1.5;
+    }
+  }
+
   &-wrapper {
     border: 10px solid $color-border;
     border-radius: 30px;

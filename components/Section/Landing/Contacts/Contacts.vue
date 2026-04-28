@@ -1,16 +1,7 @@
 <script setup lang="ts">
 const { t } = useI18n()
-const { get } = useSettings()
-
-const contactInfo = computed(() => {
-  return {
-    address: get('site.contacts.address'),
-    phone: get('site.contacts.phone'),
-    email: get('site.contacts.email'),
-    schedule: get('site.contacts.schedule'),
-    map: get('site.contacts.map')
-  }
-})
+const contactInfo = useContacts()
+const mapLocations = computed(() => contactInfo.mapLocations.value)
 
 const contacts = computed(() => {
   return [
@@ -18,27 +9,29 @@ const contacts = computed(() => {
       icon: 'iconoir:map',
       colorClass: 'contact-item--address',
       label: t('label.address'),
-      value: contactInfo.value.address
+      value: contactInfo.addressSummary.value,
+      lines: contactInfo.addressLines.value
     },
     {
       icon: 'iconoir:phone',
       colorClass: 'contact-item--phone',
       label: t('label.phone'),
-      value: contactInfo.value.phone
+      value: contactInfo.phone.value
     },
     {
       icon: 'iconoir:mail',
       colorClass: 'contact-item--email',
       label: t('label.email'),
-      value: contactInfo.value.email
+      value: contactInfo.email.value
     },
     {
       icon: 'iconoir:clock',
       colorClass: 'contact-item--schedule',
       label: t('label.schedule'),
-      value: contactInfo.value.schedule
+      value: contactInfo.scheduleSummary.value,
+      lines: contactInfo.scheduleLines.value
     }
-  ]
+  ].filter((item) => item.value)
 })
 </script>
 
@@ -70,7 +63,16 @@ const contacts = computed(() => {
             </div>
             <div class="contact-item__content">
               <p class="contact-item__label">{{ contact.label }}</p>
-              <p class="contact-item__value">{{ contact.value }}</p>
+              <p class="contact-item__value">
+                <template v-if="contact.lines?.length">
+                  <template v-for="(line, index) in contact.lines" :key="`${contact.label}-${index}`">
+                    <template v-if="index"><br></template>{{ line }}
+                  </template>
+                </template>
+                <template v-else>
+                  {{ contact.value }}
+                </template>
+              </p>
             </div>
           </div>
         </div>
@@ -97,14 +99,25 @@ const contacts = computed(() => {
         />
       </div>
 
-      <div class="map-wrapper">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2560.1!2d14.4378!3d50.0755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDA0JzMxLjgiTiAxNMKwMjYnMTYuMSJF!5e0!3m2!1sru!2scz!4v1234567890"
-          class="map"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+      <div v-if="mapLocations.length" class="map-list">
+        <div
+          v-for="location in mapLocations"
+          :key="location.id"
+          class="map-card"
+        >
+          <p class="map-card__title">{{ location.title || location.address }}</p>
+          <p v-if="location.title" class="map-card__subtitle">{{ location.address }}</p>
+          <p v-if="location.schedule" class="map-card__schedule">{{ location.schedule }}</p>
+          <div class="map-wrapper">
+            <iframe
+              :src="location.mapSrc"
+              class="map"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
       </div>
       
     </div>

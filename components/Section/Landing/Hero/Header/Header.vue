@@ -258,14 +258,14 @@ const contactItems = computed(() => {
     {
       id: 'address',
       label: t('contacts.address'),
-      value: contacts.address.value,
+      value: contacts.addressSummary.value,
       href: null,
       icon: 'mynaui:location'
     },
     {
       id: 'schedule',
       label: t('contacts.schedule'),
-      value: contacts.schedule.value,
+      value: contacts.scheduleSummary.value,
       href: null,
       icon: 'mynaui:clock-4'
     }

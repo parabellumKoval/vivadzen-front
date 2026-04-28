@@ -1,15 +1,38 @@
 <script setup>
 const {locale, t} = useI18n()
 const {methods} = useDelivery()
-const {address} = useContacts()
+const {pickupLocations} = useContacts()
 const { isInternational } = useRegionPurchaseGuard()
 
 const text = await queryContent('delivery').locale(locale.value).findOne()
 
+const escapeHtml = (value) => String(value || '')
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#39;')
+
+const pickupLocationsHtml = computed(() => {
+  if (!pickupLocations.value.length) {
+    return ''
+  }
+
+  const items = pickupLocations.value.map((location) => {
+    const schedule = location.schedule ? ` (${escapeHtml(location.schedule)})` : ''
+
+    return `<li><b>${escapeHtml(location.title || location.address)}</b>${location.title ? `: ${escapeHtml(location.address)}` : ''}${schedule}</li>`
+  }).join('')
+
+  return `<ul>${items}</ul>`
+})
+
 const m = computed(() => {
   return methods.value.map((method) => {
-    method.desc = text[method.key] + (method.key === 'default_pickup' ? ` <b>${address.value}</b>` : '')
-    return method
+    return {
+      ...method,
+      desc: text[method.key] + (method.key === 'default_pickup' ? ` ${pickupLocationsHtml.value}` : ''),
+    }
   })
 })
 

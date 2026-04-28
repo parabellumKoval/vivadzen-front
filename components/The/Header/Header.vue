@@ -40,8 +40,7 @@ const closeSearchHandler = () => {
         <the-header-menu class="menu"></the-header-menu>
 
         <the-header-czech-store-link v-if="showCzechStoreLink" />
-
-        <!-- <div class="blank"></div> -->
+        <div v-else class="blank" aria-hidden="true"></div>
 
         <!-- SEARCH -->
         <the-header-search

@@ -61,7 +61,7 @@
       grid-template-columns: 1fr;
     }
     @include desktop {
-      grid-template-columns: 0 0 0 0 0 1fr 0 0 0;
+      grid-template-columns: 0 0 0 0 1fr 0 0 0;
     }
 
     > :not(.search) {
@@ -110,6 +110,14 @@
 .notifications,
 .cart {
   min-width: 0;
+}
+
+.blank {
+  display: none;
+
+  @include desktop {
+    display: block;
+  }
 }
 :deep(.header-btn) {
   position: relative;

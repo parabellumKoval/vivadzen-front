@@ -8,6 +8,7 @@ const {vendors} = useDelivery()
 const categoryStore = useCategoryStore()
 const { region } = useRegion()
 const { messengers, networks } = useSocial()
+const { phone, email, addressLines } = useContacts()
 
 const sub = ref({
   type: 'subscription',
@@ -146,7 +147,7 @@ const subHandler = () => {
 
         <div class="phone">
           <div class="footer-label">{{ t('label.contact_phones') }}</div>
-          <a :href="'tel:' + useContacts().phone" class="phone-item">{{ useContacts().phone }}</a>
+          <a :href="'tel:' + phone" class="phone-item">{{ phone }}</a>
         </div>
 
         <div class="social">
@@ -186,13 +187,17 @@ const subHandler = () => {
 
         <div class="address">
           <div class="footer-label">{{ t('label.address') }}</div>
-          <div class="address-item">
+          <div
+            v-for="(line, index) in addressLines"
+            :key="`footer-address-${index}`"
+            class="address-item"
+          >
             <IconCSS name="iconoir:map" class="address-icon"></IconCSS>
-            <a href="/" class="address-link">{{ useContacts().address }}</a>
+            <span class="address-link">{{ line }}</span>
           </div>
           <div class="address-item">
             <IconCSS name="iconoir:mail" class="address-icon"></IconCSS>
-            <a :href="'mailto:' + useContacts().email" class="address-link">{{ useContacts().email }}</a>
+            <a :href="'mailto:' + email" class="address-link">{{ email }}</a>
           </div>
         </div>
       </div>

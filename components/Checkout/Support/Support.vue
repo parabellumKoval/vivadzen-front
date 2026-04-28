@@ -3,6 +3,7 @@
 // import {Vue3Lottie} from 'vue3-lottie'
 
 const {t} = useI18n()
+const { phone } = useContacts()
 const ctaElement = ref(null)
 const lottieElement = ref(null)
 const playedTimes = ref(0)
@@ -67,7 +68,7 @@ onBeforeUnmount(() => {
     <div>
       <div class="title">{{ t('title') }}</div>
       <div class="desc">{{ t('desc') }}</div>
-      <div class="phone">{{ useContacts().all.value.phone }}</div>
+      <div class="phone">{{ phone }}</div>
       <NuxtLink :to="$regionPath('/contacts')" class="link all-contacts">
         <span>{{ t('contacts') }}</span>
         <IconCSS name="fluent:chevron-right-48-filled" size="18px" class="icon"></IconCSS>

@@ -11,7 +11,11 @@ const point = ref<any>(null)
 const {order, setDeliveryFields, isFieldRequired} = useCartStore()
 
 async function choose () {
-  point.value = await pickPudo()
+  try {
+    point.value = await pickPudo()
+  } catch (error) {
+    console.error('Failed to open Packeta widget', error)
+  }
 }
 
 const setDeliveryDataToOrder = (data) => {
@@ -37,7 +41,7 @@ watch(point, (newPoint) => {
 
 <template>
   <div class="warehouse">
-    <button class="button small primary" @click="choose">{{ t('chose') }}</button>
+    <button class="button small primary" type="button" @click="choose">{{ t('chose') }}</button>
 
     <div v-if="point" class="warehouse-point">
       <div class="warehouse-point-name">{{ point.name }}</div>
@@ -45,4 +49,3 @@ watch(point, (newPoint) => {
     </div>
   </div>
 </template>
-

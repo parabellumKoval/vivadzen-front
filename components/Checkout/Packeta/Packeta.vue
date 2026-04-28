@@ -6,7 +6,11 @@
   const point = ref<any>(null)
 
   async function choose () {
-    point.value = await pickPudo()
+    try {
+      point.value = await pickPudo()
+    } catch (error) {
+      console.error('Failed to open Packeta widget', error)
+    }
   }
 </script>
 
@@ -14,7 +18,7 @@
 
 <template>
   <div class="space-y-3">
-    <button class="px-3 py-2 rounded bg-gray-200" @click="choose">{{ t('choose') }}</button>
+    <button class="px-3 py-2 rounded bg-gray-200" type="button" @click="choose">{{ t('choose') }}</button>
 
     <div v-if="point" class="text-sm">
       <div><strong>{{ point.name }}</strong></div>

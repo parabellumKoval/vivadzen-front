@@ -8,14 +8,8 @@ const product = computed(() => {
   return modal.active?.data?.product || null
 })
 
-const address = computed(() => contacts.address.value || '')
-const mapHtml = computed(() => {
-  const raw = contacts.map.value
-  if (raw && typeof raw === 'object' && 'value' in raw) {
-    return raw.value
-  }
-  return raw || ''
-})
+const pickupLocations = computed(() => contacts.pickupLocations.value || [])
+const mapLocations = computed(() => contacts.mapLocations.value || [])
 </script>
 
 <style src="./store-only.scss" lang="scss" scoped />
@@ -37,16 +31,37 @@ const mapHtml = computed(() => {
           <div class="store-only__label">
             {{ t('store_only.address_label') }}
           </div>
-          <div class="store-only__value">
-            {{ address || t('store_only.address_fallback') }}
+          <div class="store-only__value store-only__locations">
+            <template v-if="pickupLocations.length">
+              <div
+                v-for="location in pickupLocations"
+                :key="location.id"
+                class="store-only__location"
+              >
+                <div v-if="location.title" class="store-only__location-title">{{ location.title }}</div>
+                <div>{{ location.address }}</div>
+                <div v-if="location.schedule" class="store-only__location-schedule">{{ location.schedule }}</div>
+              </div>
+            </template>
+            <template v-else>
+              {{ t('store_only.address_fallback') }}
+            </template>
           </div>
         </div>
       </div>
-      <div class="store-only__map" v-if="mapHtml">
-        <div class="store-only__label">
-          {{ t('store_only.map_title') }}
+      <div v-if="mapLocations.length" class="store-only__maps">
+        <div
+          v-for="location in mapLocations"
+          :key="`store-map-${location.id}`"
+          class="store-only__map"
+        >
+          <div class="store-only__label">
+            {{ location.title || location.address }}
+          </div>
+          <div v-if="location.title" class="store-only__map-caption">{{ location.address }}</div>
+          <div v-if="location.schedule" class="store-only__map-caption">{{ location.schedule }}</div>
+          <div class="store-only__map-frame" v-html="location.map"></div>
         </div>
-        <div class="store-only__map-frame" v-html="mapHtml"></div>
       </div>
     </div>
   </modal-wrapper>
