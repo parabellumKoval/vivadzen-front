@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useDeliveryStore } from '~/store/delivery'
 import { useCartStore } from '~/store/cart'
+import { roundDownShippingAmount } from '~/utils/shipping-pricing'
 
 const { t } = useI18n()
 const { currency, region } = useRegion()
@@ -22,7 +23,7 @@ const deliveryPayload = computed(() => {
 
   const methodKey = order.value?.delivery?.method
   const destinationCountry = region.value
-  const isMessengerCod = methodKey === 'messenger_address' && order.value?.payment?.method === 'messenger_cod'
+  const isMessengerCod = (methodKey === 'messenger_address' || methodKey === 'messenger_express') && order.value?.payment?.method === 'messenger_cod'
 
   if (!methodKey || !destinationCountry) {
     return null
@@ -75,7 +76,7 @@ const basePrice = computed(() => {
   }
 
   return {
-    amount,
+    amount: roundDownShippingAmount(amount),
     currency: baseCurrency,
   }
 })
@@ -100,7 +101,7 @@ const convertedPrice = computed(() => {
   }
 
   return {
-    amount: convertedAmount,
+    amount: roundDownShippingAmount(convertedAmount),
     currency: targetCurrency,
   }
 })

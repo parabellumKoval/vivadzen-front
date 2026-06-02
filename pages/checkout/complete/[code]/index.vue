@@ -48,7 +48,7 @@ const delivery = computed(() => {
 })
 
 const warehouseDeliveryMethods = ['novaposhta_warehouse', 'packeta_warehouse']
-const addressDeliveryMethods = ['novaposhta_address', 'packeta_address', 'messenger_address', 'default_address']
+const addressDeliveryMethods = ['novaposhta_address', 'packeta_address', 'messenger_address', 'messenger_express', 'default_address']
 
 const normalizeDeliveryLine = (value) => {
   return String(value || '').replace(/\s+/g, ' ').trim()

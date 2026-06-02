@@ -259,6 +259,7 @@ form:
     packeta_warehouse: Отделение/почтомат Zasilkovna
     packeta_address: Доставка курьером Zasilkovna
     messenger_address: Доставка курьером Messenger.cz
+    messenger_express: Экспресс-доставка Messenger.cz
     default_pickup: Самовывоз
     default_address: Доставка почтой
   payment:
@@ -409,6 +410,7 @@ delivery:
   novaposhta_warehouse: Отделение/почтомат Новой Почты
   novaposhta_address: Курьером Новой Почты
   messenger_address: Курьером Messenger.cz
+  messenger_express: Экспресс-курьером Messenger.cz
   default_pickup: Самовывоз
   from: от
   subtitle: Способы доставки зависят от выбранной страны. Измените страну доставки, чтобы увидеть доступные варианты для вашего региона.

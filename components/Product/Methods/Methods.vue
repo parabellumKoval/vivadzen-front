@@ -4,6 +4,16 @@ const props = defineProps({
     type: Array
   }
 })
+
+const hasMeta = (item) => {
+  const meta = item?.meta
+  return meta !== undefined && meta !== null && meta !== ''
+}
+
+const isMetaPriceObject = (item) => {
+  const meta = item?.meta
+  return Boolean(item?.isMetaPriceObject && meta && typeof meta === 'object' && meta.amount !== undefined)
+}
 </script>
 
 <style src="./methods.scss" lang="scss" scoped />
@@ -13,12 +23,22 @@ const props = defineProps({
     <div class="items">
       <div
         v-for="item in items"
-        :key="item.id"
+        :key="item.id || item.key || item.title"
         class="item"
       >
         <div class="header">
           <IconCSS :name="item.icon" size="24" class="icon"></IconCSS>
           <span class="title">{{ item.title }}</span>
+          <div v-if="hasMeta(item)" class="meta">
+            <simple-price
+              v-if="isMetaPriceObject(item)"
+              :value="item.meta.amount"
+              :currency-code="item.meta.currency"
+            />
+            <template v-else>
+              {{ item.meta }}
+            </template>
+          </div>
           <span class="line"></span>
           <span class="logo">
             <nuxt-img
@@ -38,6 +58,16 @@ const props = defineProps({
         </div>
 
         <div class="content" v-html="item.desc"></div>
+        <div v-if="item.sections?.length" class="sections">
+          <div
+            v-for="(section, index) in item.sections"
+            :key="`${item.id || item.key || item.title}-${index}`"
+            class="section"
+          >
+            <div v-if="section.title" class="section-title">{{ section.title }}</div>
+            <p v-if="section.text" class="section-text">{{ section.text }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

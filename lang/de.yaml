@@ -248,6 +248,7 @@ form:
     packeta_warehouse: Zasilkovna-Filiale/Paketautomat
     packeta_address: Zasilkovna-Kurierzustellung
     messenger_address: Messenger.cz-Kurierzustellung
+    messenger_express: Messenger.cz-Express-Zustellung
     default_pickup: Abholung
     default_address: Postzustellung
   payment:
@@ -397,6 +398,7 @@ delivery:
   novaposhta_warehouse: Nova-Poshta-Filiale/Paketautomat
   novaposhta_address: Per Nova-Poshta-Kurier
   messenger_address: Per Messenger.cz-Kurier
+  messenger_express: Per Messenger.cz-Express-Kurier
   default_pickup: Abholung
   from: ab
   subtitle: Liefermethoden hängen vom gewählten Land ab. Ändern Sie das Lieferland, um verfügbare Optionen zu sehen.

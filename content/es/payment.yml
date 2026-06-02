@@ -5,4 +5,5 @@ liqpay_online: "Pago en línea mediante LiqPay (Visa/MasterCard, Apple Pay, Goog
 niftipay_online: "Pago en línea mediante Niftipay. Tras realizar el pedido pasarás a una página de pago segura y la confirmación se procesará automáticamente."
 card_online: "Pasarela segura para pagos con tarjeta Visa/MasterCard internacionales y de Ucrania. El pago se confirma automáticamente y no tiene comisión extra."
 bank_transfer: "Transferencia bancaria a la cuenta de la empresa. Tras realizar el pedido recibirás los datos bancarios y el símbolo variable. Puedes pagar mediante banca en línea o código QR. Los fondos se acreditan en 1 a 24 horas según tu banco."
+messenger_cod: "Pago contra entrega mediante Messenger.cz. En el momento de la entrega, el mensajero verificará la edad del destinatario, registrará el número del documento y pedirá una firma para confirmar la recepción."
 info: "Elige el método de pago que más te convenga. Si necesitas otra opción, contáctanos. La entrega se paga por separado, independientemente del método elegido. Después de seleccionar el envío, te informaremos el costo."

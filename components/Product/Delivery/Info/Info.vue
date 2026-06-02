@@ -27,11 +27,35 @@ const pickupLocationsHtml = computed(() => {
   return `<ul>${items}</ul>`
 })
 
+const pageIntro = computed(() => {
+  return {
+    title: text?.page_intro_title || '',
+    description: text?.page_intro_text || '',
+  }
+})
+
+const messengerSections = computed(() => {
+  return [
+    {
+      title: text?.messenger_age_title || '',
+      text: text?.messenger_age_text || '',
+    },
+    {
+      title: text?.messenger_delivery_title || '',
+      text: text?.messenger_delivery_text || '',
+    }
+  ].filter((section) => section.title || section.text)
+})
+
 const m = computed(() => {
   return methods.value.map((method) => {
+    const isMessenger = method.key === 'messenger_address' || method.key === 'messenger_express'
+    const description = text?.[method.key] || (method.key === 'messenger_express' ? text?.messenger_address : '') || ''
+
     return {
       ...method,
-      desc: text[method.key] + (method.key === 'default_pickup' ? ` ${pickupLocationsHtml.value}` : ''),
+      desc: description + (method.key === 'default_pickup' ? ` ${pickupLocationsHtml.value}` : ''),
+      sections: isMessenger ? messengerSections.value : [],
     }
   })
 })
@@ -54,6 +78,14 @@ const m = computed(() => {
       </p>
     </template>
     <template v-else>
+      <section
+        v-if="pageIntro.title || pageIntro.description"
+        class="delivery__intro"
+      >
+        <h2 v-if="pageIntro.title" class="delivery__intro-title">{{ pageIntro.title }}</h2>
+        <p v-if="pageIntro.description" class="delivery__intro-text">{{ pageIntro.description }}</p>
+      </section>
+
       <product-methods :items="m" class="deliveries"></product-methods>
 
       <!-- <ContentQuery path="delivery" :locale="locale" find="one">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ProductCartStatic from '~/components/Product/CartStatic/ProductCartStatic.vue'
+import { isProductAvailable } from '~/utils/productAvailability'
 
 const { t } = useI18n()
 const { $regionPath } = useNuxtApp()
@@ -48,7 +49,11 @@ const {
 )
 
 // COMPUTEDS
-const products = computed(() => (catalog.value as any)?.products?.data || [])
+const products = computed(() => {
+  const items = (catalog.value as any)?.products?.data || []
+
+  return Array.isArray(items) ? items.filter(isProductAvailable) : []
+})
 const hasMorePages = computed(() => {
   const meta = (catalog.value as any)?.products?.meta
   return meta && meta.current_page < meta.last_page

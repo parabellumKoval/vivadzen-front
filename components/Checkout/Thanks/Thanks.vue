@@ -1,5 +1,4 @@
 <script setup>
-import {Vue3Lottie} from 'vue3-lottie'
 const {t} = useI18n() 
 
 const ctaElement = ref(null)
@@ -37,7 +36,7 @@ onMounted(() => {
 <template>
   <div @mouseenter="playHandler" ref="ctaElement" class="thx">
     <div class="lottie-wrapper">
-      <Vue3Lottie
+      <ClientLottie
         animationLink="/lottie/shop-abu.json"
         height="auto"
         width="100%"

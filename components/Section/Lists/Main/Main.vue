@@ -1,4 +1,6 @@
 <script setup>
+import { isProductAvailable } from '~/utils/productAvailability'
+
 const props = defineProps({
   query: {
     type: Object
@@ -35,7 +37,16 @@ onMounted(() => {
   void fetchLists()
 })
 
-const lists = computed(() => listsState.value?.data ?? [])
+const lists = computed(() => {
+  const sourceLists = Array.isArray(listsState.value?.data) ? listsState.value.data : []
+
+  return sourceLists
+    .map((list) => ({
+      ...list,
+      items: Array.isArray(list?.items) ? list.items.filter(isProductAvailable) : [],
+    }))
+    .filter((list) => list.items.length)
+})
 
 
 </script>

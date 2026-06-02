@@ -1,5 +1,6 @@
 <script setup>
 import { useProductStore } from '~/store/product'
+import { isProductAvailable } from '~/utils/productAvailability'
 
 const props = defineProps({
   page: {
@@ -21,7 +22,16 @@ const dataSource = await useLazyAsyncData(
       { default: () => [] }
     )
 
-const lists = computed(() => dataSource.data.value ?? [])
+const lists = computed(() => {
+  const sourceLists = Array.isArray(dataSource.data.value) ? dataSource.data.value : []
+
+  return sourceLists
+    .map((list) => ({
+      ...list,
+      items: Array.isArray(list?.items) ? list.items.filter(isProductAvailable) : [],
+    }))
+    .filter((list) => list.items.length)
+})
 const pending = computed(() => dataSource.pending.value)
 
 </script>

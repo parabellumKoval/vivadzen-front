@@ -253,6 +253,7 @@ form:
     packeta_warehouse: Pobočka/box Zasilkovna
     packeta_address: Kurýr Zasilkovna
     messenger_address: Doručení kurýrem Messenger.cz
+    messenger_express: Expresní doručení Messenger.cz
     default_pickup: Osobní odběr
     default_address: Poštovní doručení
   payment:
@@ -402,6 +403,7 @@ delivery:
   novaposhta_warehouse: Pobočka/box Nova Poshta
   novaposhta_address: Kurýr Nova Poshta
   messenger_address: Kurýr Messenger.cz
+  messenger_express: Expresní kurýr Messenger.cz
   default_pickup: Osobní odběr
   from: od
   subtitle: Způsoby doručení závisí na zvolené zemi. Změňte zemi doručení a zobrazte dostupné možnosti pro váš region.

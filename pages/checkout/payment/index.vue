@@ -1,6 +1,4 @@
 <script setup>
-import {Vue3Lottie} from 'vue3-lottie'
-
 import {useCartStore} from '~/store/cart'
 import {usePaymentStore} from '~/store/payment'
 import {useMonoStore} from '~/store/mono'
@@ -178,7 +176,7 @@ const submitHandler = (v) => {
 
           <div class="section section-content">
             <div v-if="!noLottie" class="lottie-wrapper full-width">
-              <Vue3Lottie
+              <ClientLottie
                 animationLink="/lottie/pay-abu.json"
                 width="100%"
                 :height="180"

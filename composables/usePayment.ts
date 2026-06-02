@@ -1,9 +1,16 @@
 import { useCartStore } from "~/store/cart"
+import {
+  buildDisplayPrice,
+  formatCurrencyAmount,
+  formatPercentValue,
+  resolveCurrencyCode,
+  resolveFixedFeeDisplayPrice,
+} from '~/utils/shipping-pricing'
 
 export const usePayment = () => {
   const {t} = useI18n()
   const {get, all} = useSettings()
-  const {region} = useRegion()
+  const {region, currency} = useRegion()
   const {order} = useCartStore()
 
   const orderDeliveryMethod = computed(() => {
@@ -69,7 +76,59 @@ export const usePayment = () => {
     }
   ])
 
-  const methods = ref([
+  const fallbackCurrency = computed(() => resolveCurrencyCode(currency.value, 'USD'))
+
+  const zeroFee = computed(() => {
+    return buildDisplayPrice(0, fallbackCurrency.value)
+  })
+
+  const packetaCodMeta = computed(() => {
+    const fixed = resolveFixedFeeDisplayPrice({
+      amount: get('shipping.zasilkovna.cod.surcharge_fixed'),
+      currency: get('shipping.zasilkovna.currency'),
+      fallbackCurrency: fallbackCurrency.value,
+      vatRate: get('shipping.zasilkovna.vat_rate'),
+      vatIncluded: get('shipping.zasilkovna.vat_included'),
+    })
+    const percent = formatPercentValue(get('shipping.zasilkovna.cod.surcharge_percent'))
+    const fixedLabel = formatCurrencyAmount(fixed)
+
+    if (fixedLabel && percent) {
+      return `${fixedLabel} + ${percent}%`
+    }
+
+    return fixedLabel
+  })
+
+  const novaposhtaCodMeta = computed(() => {
+    const fixed = resolveFixedFeeDisplayPrice({
+      amount: get('shipping.novaposhta.cod.surcharge_fixed'),
+      currency: get('shipping.novaposhta.currency'),
+      fallbackCurrency: fallbackCurrency.value,
+      vatRate: get('shipping.novaposhta.vat_rate'),
+      vatIncluded: get('shipping.novaposhta.vat_included'),
+    })
+    const percent = formatPercentValue(get('shipping.novaposhta.cod.surcharge_percent'))
+    const fixedLabel = formatCurrencyAmount(fixed)
+
+    if (fixedLabel && percent) {
+      return `${fixedLabel} + ${percent}%`
+    }
+
+    return fixedLabel
+  })
+
+  const messengerCodMeta = computed(() => {
+    return resolveFixedFeeDisplayPrice({
+      amount: get('shipping.messenger.cod.cash_fee'),
+      currency: get('shipping.messenger.currency'),
+      fallbackCurrency: fallbackCurrency.value,
+      vatRate: get('shipping.messenger.vat_rate'),
+      vatIncluded: get('shipping.messenger.vat_included'),
+    })
+  })
+
+  const methods = computed(() => ([
     {
       key: 'zasilkovna_cod',
       title: t('payments.zasilkovna_cod.title'),
@@ -78,8 +137,9 @@ export const usePayment = () => {
       image: '/images/logo/zasilkovna.png',
       logo: '/images/logo/z-mini.png',
       payments: ['packeta_warehouse', 'packeta_address'],
-      // countries: ['cz']
-    }, 
+      meta: packetaCodMeta.value,
+      isMetaPriceObject: false,
+    },
     {
       key: 'novaposhta_cod',
       title: t('payments.novaposhta_cod.title'),
@@ -88,8 +148,9 @@ export const usePayment = () => {
       image: '/images/logo/np.png',
       logo: '/images/logo/np-mini.png',
       payments: ['novaposhta_warehouse', 'novaposhta_address'],
-      // countries: ['ua']
-    }, 
+      meta: novaposhtaCodMeta.value,
+      isMetaPriceObject: false,
+    },
     {
       key: 'default_cash',
       title: t('payments.default_cash.title'),
@@ -98,8 +159,9 @@ export const usePayment = () => {
       image: '/images/logo/company.png',
       logo: '/images/logo/z-mini.png',
       payments: ['default_pickup'],
-      // countries: ['ua',]
-    }, 
+      meta: zeroFee.value,
+      isMetaPriceObject: !!zeroFee.value,
+    },
     {
       key: 'liqpay_online',
       title: t('payments.liqpay_online.title'),
@@ -107,15 +169,21 @@ export const usePayment = () => {
       icon: 'iconoir:laptop',
       image: '/images/logo/liqpay.png',
       logo: '/images/logo/np-mini.png',
-      payments: ['packeta_warehouse', 'packeta_address', 'novaposhta_warehouse', 'novaposhta_address', 'default_address', 'default_pickup']
-    }, 
+      payments: ['packeta_warehouse', 'packeta_address', 'novaposhta_warehouse', 'novaposhta_address', 'default_address', 'default_pickup'],
+      meta: zeroFee.value,
+      isMetaPriceObject: !!zeroFee.value,
+    },
     {
       key: 'niftipay_online',
       title: t('payments.niftipay_online.title'),
       label: t('payments.niftipay_online.title'),
       icon: 'iconoir:credit-cards',
-      payments: ['packeta_warehouse', 'packeta_address', 'novaposhta_warehouse', 'novaposhta_address', 'default_address', 'default_pickup']
-    }, 
+      image: '/images/logo/niftipay-logo.svg',
+      logo: '/images/logo/niftipay-logo.svg',
+      payments: ['packeta_warehouse', 'packeta_address', 'novaposhta_warehouse', 'novaposhta_address', 'default_address', 'default_pickup', 'messenger_address', 'messenger_express'],
+      meta: zeroFee.value,
+      isMetaPriceObject: !!zeroFee.value,
+    },
     {
       key: 'card_online',
       title: t('payments.card_online.title'),
@@ -123,8 +191,10 @@ export const usePayment = () => {
       icon: 'iconoir:credit-cards',
       image: '/images/logo/GpayApplepay.png',
       logo: '/images/logo/company-mini.png',
-      payments: ['packeta_warehouse', 'packeta_address', 'novaposhta_warehouse', 'novaposhta_address', 'default_address', 'default_pickup']
-    }, 
+      payments: ['packeta_warehouse', 'packeta_address', 'novaposhta_warehouse', 'novaposhta_address', 'default_address', 'default_pickup'],
+      meta: zeroFee.value,
+      isMetaPriceObject: !!zeroFee.value,
+    },
     {
       key: 'bank_transfer',
       title: t('payments.bank_transfer.title'),
@@ -132,7 +202,9 @@ export const usePayment = () => {
       icon: 'iconoir:bank',
       image: '/images/logo/bank.png',
       logo: '/images/logo/company-mini.png',
-      payments: ['packeta_warehouse', 'packeta_address', 'default_address', 'default_pickup']
+      payments: ['packeta_warehouse', 'packeta_address', 'default_address', 'default_pickup'],
+      meta: zeroFee.value,
+      isMetaPriceObject: !!zeroFee.value,
     },
     {
       key: 'messenger_cod',
@@ -141,9 +213,11 @@ export const usePayment = () => {
       icon: 'iconoir:delivery-truck',
       image: '/images/company.png',
       logo: '/images/logo/company-mini.png',
-      payments: ['messenger_address']
+      payments: ['messenger_address', 'messenger_express'],
+      meta: messengerCodMeta.value,
+      isMetaPriceObject: !!messengerCodMeta.value,
     }
-  ])
+  ]))
 
   const paymentMethods = computed(() => {
     const methodKeys = get('payment.methods') || []

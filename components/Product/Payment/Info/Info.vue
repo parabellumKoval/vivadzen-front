@@ -8,8 +8,10 @@ const text = await queryContent('payment').locale(locale.value).findOne()
 
 const m = computed(() => {
   return methodsInfo.value.map((method) => {
-    method.desc = text[method.key]
-    return method
+    return {
+      ...method,
+      desc: text?.[method.key] || '',
+    }
   })
 })
 

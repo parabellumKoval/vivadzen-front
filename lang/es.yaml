@@ -253,6 +253,7 @@ form:
     packeta_warehouse: Sucursal/locker de Zasilkovna
     packeta_address: Entrega por mensajero de Zasilkovna
     messenger_address: Entrega por mensajería Messenger.cz
+    messenger_express: Entrega exprés por Messenger.cz
     default_pickup: Recogida
     default_address: Envío postal
   payment:
@@ -402,6 +403,7 @@ delivery:
   novaposhta_warehouse: Sucursal/locker de Nova Poshta
   novaposhta_address: Por mensajero de Nova Poshta
   messenger_address: Por mensajería Messenger.cz
+  messenger_express: Por mensajería exprés Messenger.cz
   default_pickup: Recogida
   from: desde
   subtitle: Los métodos de entrega dependen del país seleccionado. Cambia el país de entrega para ver las opciones de tu región.
