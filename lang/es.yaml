@@ -433,8 +433,14 @@ payments:
     desc: Paga con tarjeta o efectivo al recibir
   bank_transfer:
     title: Transferencia bancaria
+    ua_desc: Para pagar el pedido, realiza una transferencia bancaria usando los datos indicados.
     desc: Te enviaremos por correo los datos necesarios de pago, incluido el símbolo variable que debes indicar. También puedes generar la orden escaneando un código QR.
     fill_contacts: Completa los campos necesarios para emitir la factura
+    details_title: Datos de pago
+    recipient: Beneficiario
+    iban_label: IBAN
+    edrpou_label: EDRPOU
+    bank_label: Banco
 
 wallet:
   created_at: Creado el

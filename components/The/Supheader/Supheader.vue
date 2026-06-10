@@ -1,6 +1,7 @@
 <script setup>
 const {t} = useI18n()
 const isShow = ref(true)
+const { region } = useRegion()
 
 const {get} = useSettings()
 
@@ -14,6 +15,14 @@ const openContactsHandler = (event) => {
   useModal().open(component, null, null)
 }
 
+const telegramLink = computed(() => {
+  return String(get('site.contacts.social.telegram') || '').trim()
+})
+
+const showTelegramButton = computed(() => {
+  return String(region.value || '').toLowerCase() === 'ua' && !!telegramLink.value
+})
+
 </script>
 
 <style src="./supheader.scss" lang="scss" scoped />
@@ -25,7 +34,17 @@ const openContactsHandler = (event) => {
       <!-- <div class="container"> -->
         <div class="inner">
           <div class="contacts-block">
-            <a :href="'tel:' + useContacts().phone" class="phone-btn supheader-btn supheader-btn-borders">
+            <a
+              v-if="showTelegramButton"
+              :href="telegramLink"
+              class="phone-btn supheader-btn supheader-btn-borders"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IconCSS name="ph:telegram-logo" size="24" class="icon"></IconCSS>
+              <span>Telegram</span>
+            </a>
+            <a v-else :href="'tel:' + useContacts().phone" class="phone-btn supheader-btn supheader-btn-borders">
               <IconCSS name="mynaui:mobile" size="24" class="icon"></IconCSS>
               <span>{{ useContacts().phone }}</span>
             </a>

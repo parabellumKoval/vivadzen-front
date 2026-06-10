@@ -438,8 +438,14 @@ payments:
     desc: Pay by card or cash upon receipt
   bank_transfer:
     title: Bank transfer
+    ua_desc: To pay for the order, make a bank transfer using the specified details.
     desc: We will email you the payment details you need, including the variable symbol required for the transfer. You can also create the payment order by scanning a QR code.
     fill_contacts: Fill in the fields required to issue an invoice
+    details_title: Payment details
+    recipient: Recipient
+    iban_label: IBAN
+    edrpou_label: EDRPOU
+    bank_label: Bank
 
 wallet:
   created_at: Created at

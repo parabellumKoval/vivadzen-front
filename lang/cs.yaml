@@ -433,8 +433,14 @@ payments:
     desc: Zaplaťte kartou nebo hotově při převzetí
   bank_transfer:
     title: Bankovní převod
+    ua_desc: Pro úhradu objednávky proveďte bankovní převod podle uvedených údajů.
     desc: Zašleme vám e-mailem platební údaje včetně variabilního symbolu. Platbu lze vytvořit také naskenováním QR kódu.
     fill_contacts: Vyplňte pole potřebná k vystavení faktury
+    details_title: Platební údaje
+    recipient: Příjemce
+    iban_label: IBAN
+    edrpou_label: EDRPOU
+    bank_label: Banka
 
 wallet:
   created_at: Vytvořeno

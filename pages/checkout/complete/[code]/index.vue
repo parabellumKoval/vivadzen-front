@@ -7,6 +7,7 @@ definePageMeta({
 });
 
 const {t} = useI18n() 
+const { region } = useRegion()
 
 const order = ref(null)
 
@@ -94,6 +95,14 @@ const deliveryDetails = computed(() => {
 
 const payment = computed(() => {
   return order.value?.payment || null
+})
+
+const showUaBankDetails = computed(() => {
+  return String(region.value || '').toLowerCase() === 'ua' && payment.value?.method === 'bank_transfer'
+})
+
+const showBankTransferInvoiceAssets = computed(() => {
+  return payment.value?.method === 'bank_transfer' && !showUaBankDetails.value
 })
 
 const products = computed(() => {
@@ -230,13 +239,19 @@ useCartStore().$reset()
                 <div class="value success">{{ t('pay_status.' + order.payStatus) }}</div>
               </div>
               <div v-if="payment.method === 'bank_transfer'" class="cell">
+                  <checkout-payment-ua-bank-details
+                    v-if="showUaBankDetails"
+                    class="value-btn"
+                  ></checkout-payment-ua-bank-details>
+              </div>
+              <div v-if="showBankTransferInvoiceAssets" class="cell">
                   <div class="text">{{ t('use_qr_or_invoice') }}</div>
                   <div class="label">{{ t('form.enter.invoice_qr') }}</div>
                   <div class="value">
                     <img :src="order.invoiceQrUrl" />
                   </div>
               </div>
-              <div v-if="payment.method === 'bank_transfer'" class="cell">
+              <div v-if="showBankTransferInvoiceAssets" class="cell">
                   <div class="label">{{ t('form.enter.invoice_pdf') }}</div>
                   <div class="value value-btn">
                     <a :href="order.invoiceDownloadUrl" target="_blank" class="button primary">{{ t('button.download_invoice') }}</a>

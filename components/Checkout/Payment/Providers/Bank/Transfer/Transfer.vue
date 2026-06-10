@@ -4,6 +4,7 @@ import {useCartStore} from '~/store/cart'
 const {t} = useI18n()
 const props = defineProps({})
 const {isFieldRequired} = useCartStore()
+const { region } = useRegion()
 
 // COMPUTEDS
 const order = computed(() => {
@@ -12,6 +13,26 @@ const order = computed(() => {
 
 const errors = computed(() => {
   return useCartStore().errors
+})
+
+const isUaRegion = computed(() => {
+  return String(region.value || '').toLowerCase() === 'ua'
+})
+
+const showUaBankDetails = computed(() => {
+  return isUaRegion.value
+})
+
+const bankTransferDescription = computed(() => {
+  if (isUaRegion.value) {
+    return t('payments.bank_transfer.ua_desc')
+  }
+
+  return t('payments.bank_transfer.desc')
+})
+
+const showPaymentAddressFields = computed(() => {
+  return !isUaRegion.value && !isAddressAlreadyCollected()
 })
 
 const isAddressAlreadyCollected = () => {
@@ -27,10 +48,14 @@ const isAddressAlreadyCollected = () => {
 
 <template>
   <div class="form-row">
-    <div>{{ t('payments.bank_transfer.desc') }}</div>
-    <div v-if="!isAddressAlreadyCollected()" class="title">{{ t('payments.bank_transfer.fill_contacts') }}</div>
+    <div>{{ bankTransferDescription }}</div>
+    <checkout-payment-ua-bank-details
+      v-if="showUaBankDetails"
+      class="bank-details"
+    ></checkout-payment-ua-bank-details>
+    <div v-if="showPaymentAddressFields" class="title">{{ t('payments.bank_transfer.fill_contacts') }}</div>
   </div>
-  <template v-if="!isAddressAlreadyCollected()">
+  <template v-if="showPaymentAddressFields">
     <form-text
       v-model="order.payment.settlement"
       :error="errors?.payment?.settlement"

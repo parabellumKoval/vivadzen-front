@@ -202,7 +202,7 @@ export const usePayment = () => {
       icon: 'iconoir:bank',
       image: '/images/logo/bank.png',
       logo: '/images/logo/company-mini.png',
-      payments: ['packeta_warehouse', 'packeta_address', 'default_address', 'default_pickup'],
+      payments: ['packeta_warehouse', 'packeta_address', 'novaposhta_warehouse', 'novaposhta_address', 'default_address', 'default_pickup'],
       meta: zeroFee.value,
       isMetaPriceObject: !!zeroFee.value,
     },
@@ -220,16 +220,20 @@ export const usePayment = () => {
   ]))
 
   const paymentMethods = computed(() => {
-    const methodKeys = get('payment.methods') || []
+    const rawMethodKeys = get('payment.methods')
+    const methodKeys = new Set((Array.isArray(rawMethodKeys) ? rawMethodKeys : []).map((key: string) => String(key)))
+
     return methods.value.filter((method) => {
-      return methodKeys.includes(method.key) && method.payments.includes(orderDeliveryMethod.value)
+      return methodKeys.has(method.key) && method.payments.includes(orderDeliveryMethod.value)
     })
   })
 
   const paymentMethodsInfo = computed(() => {
-    const methodKeys = get('payment.methods') || []
+    const rawMethodKeys = get('payment.methods')
+    const methodKeys = new Set((Array.isArray(rawMethodKeys) ? rawMethodKeys : []).map((key: string) => String(key)))
+
     return methods.value.filter((method) => {
-      return methodKeys.includes(method.key)
+      return methodKeys.has(method.key)
     })
   })
 

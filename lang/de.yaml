@@ -428,8 +428,14 @@ payments:
     desc: Bei Erhalt per Karte oder bar bezahlen
   bank_transfer:
     title: Banküberweisung
+    ua_desc: Um die Bestellung zu bezahlen, führen Sie bitte eine Banküberweisung anhand der angegebenen Daten durch.
     desc: Wir senden Ihnen per E-Mail die Zahlungsdaten inklusive Variablem Symbol. Sie können den Auftrag auch per QR-Code erstellen.
     fill_contacts: Füllen Sie die Felder für die Rechnungserstellung aus
+    details_title: Zahlungsdaten
+    recipient: Empfänger
+    iban_label: IBAN
+    edrpou_label: EDRPOU
+    bank_label: Bank
 
 wallet:
   created_at: Erstellt am
